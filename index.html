@@ -1048,28 +1048,49 @@
         this.dom.modalSettings.classList.remove("hidden");
       }
 
-      closeSettings() {
+        closeSettings() {
         this.dom.modalSettings.classList.add("hidden");
       }
 
       saveJsonFromModal() {
         try {
           const parsed = JSON.parse(this.dom.jsonEditor.value);
-          if (!parsed.programs || !Array.isArray(parsed.programs)) {
-            alert("Validation failed: Schema must contain a 'programs' array.");
+          
+          // Case 1: Full database was pasted: { "programs": [ ... ] }
+          if (parsed.programs && Array.isArray(parsed.programs)) {
+            this.data = parsed;
+          } 
+          // Case 2: A single program was pasted: { "id": "...", "title": "...", "days": [...] }
+          else if (parsed.id && parsed.days) {
+            if (!this.data || !Array.isArray(this.data.programs)) {
+              this.data = { programs: [] };
+            }
+            const existingIndex = this.data.programs.findIndex(p => p.id === parsed.id);
+            if (existingIndex >= 0) {
+              this.data.programs[existingIndex] = parsed;
+            } else {
+              this.data.programs.push(parsed);
+            }
+          } 
+          // Case 3: An array of programs was pasted: [ { "id": "..." }, ... ]
+          else if (Array.isArray(parsed)) {
+            this.data = { programs: parsed };
+          } else {
+            alert("Validation failed: Must be a full database or a valid program object.");
             return;
           }
-          this.data = parsed;
+
           WorkoutStorage.setData(this.data);
           this.closeSettings();
           this.showView("programs");
-          alert("Data saved successfully.");
+          alert("Program data saved successfully!");
         } catch (e) {
           alert("Invalid JSON format: " + e.message);
         }
       }
 
       copyJsonToClipboard() {
+
         navigator.clipboard.writeText(this.dom.jsonEditor.value).then(() => {
           alert("Program JSON copied to clipboard.");
         }).catch(() => {
