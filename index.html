@@ -92,7 +92,7 @@
     <section id="view-programs" class="view-transition space-y-4">
       <div class="flex items-center justify-between pb-1">
         <h2 class="text-xs uppercase tracking-wider font-semibold text-zinc-400">Available Programs</h2>
-        <span class="text-xs text-zinc-500" id="program-count-label">2 Loaded</span>
+        <span class="text-xs text-zinc-500" id="program-count-label">0 Loaded</span>
       </div>
       <div id="programs-list-container" class="space-y-3"></div>
     </section>
@@ -187,26 +187,37 @@
     </div>
   </div>
 
-  <!-- Data Management Modal (Import / Export JSON) -->
+  <!-- Data Management Modal (Import / Export JSON & Settings) -->
   <div id="modal-settings" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
     <div class="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-t-2xl sm:rounded-2xl p-5 space-y-4 max-h-[90vh] flex flex-col">
       <div class="flex items-center justify-between">
-        <h3 class="text-base font-bold text-white">Program Data Configuration</h3>
+        <h3 class="text-base font-bold text-white">App Settings & Data</h3>
         <button id="btn-close-settings" class="p-1.5 text-zinc-400 hover:text-white tap-active">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
-      <p class="text-xs text-zinc-400 leading-relaxed">
-        Export the current training structure as raw JSON or import a new schema. Changes update application state immediately.
-      </p>
-      <div class="flex-grow flex flex-col space-y-1">
-        <label for="json-schema-editor" class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Raw JSON Database</label>
-        <textarea id="json-schema-editor" class="w-full h-48 bg-zinc-950 border border-zinc-800 rounded-lg p-3 font-mono text-xs text-zinc-300 focus:outline-none focus:border-emerald-500 hide-scrollbar" spellcheck="false"></textarea>
+
+      <!-- Workout Experience Settings -->
+      <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 flex items-center justify-between">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Log Weight & Reps</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Show input fields for weight and reps in sets. Turn off for a minimal checklist.</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" id="setting-toggle-logger" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+        </label>
       </div>
-      <div class="flex flex-col space-y-2 pt-2">
+
+      <div class="flex-grow flex flex-col space-y-1">
+        <label for="json-schema-editor" class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Raw JSON Database / Append Program</label>
+        <textarea id="json-schema-editor" class="w-full h-44 bg-zinc-950 border border-zinc-800 rounded-lg p-3 font-mono text-xs text-zinc-300 focus:outline-none focus:border-emerald-500 hide-scrollbar" spellcheck="false" placeholder="Paste full database or single program JSON here..."></textarea>
+      </div>
+
+      <div class="flex flex-col space-y-2 pt-1">
         <div class="flex space-x-2">
           <button id="btn-save-json" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl tap-active">
-            Save to Storage
+            Save / Append to Storage
           </button>
           <button id="btn-copy-json" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold text-xs rounded-xl tap-active">
             Copy JSON
@@ -222,175 +233,279 @@
   <script>
     /**
      * Isolated Default Dataset Catalog
-     * Features 2 multi-day training routines with Standard, Superset, Tabata, and Drop Set blocks.
      */
     const DEFAULT_WORKOUT_DATA = {
       programs: [
         {
-          id: "ss8",
-          title: "Super Shredded 8",
-          description: "High-intensity fat-loss and lean muscle retention protocol using drop sets and interval blocks.",
-          tags: ["Fat Loss", "High Intensity", "8 Weeks"],
+          id: "kaged_massive_arms_6wk",
+          title: "6-Weeks to Massive Arms",
+          description: "Kaged Muscle 6-week biceps hypertrophy protocol. Emphasizes biceps twice weekly (Monday mass focus and Thursday post-back detail) utilizing varying shoulder angles, unilateral tension, and cable movements.",
+          tags: ["Biceps Mass", "Hypertrophy", "6 Weeks", "Arm Focus"],
           days: [
             {
               dayNumber: 1,
-              title: "Chest & Triceps + Tabata Burnout",
-              estimatedMinutes: 50,
+              title: "Monday: Biceps Primary Blast & Triceps",
+              estimatedMinutes: 55,
               exercises: [
                 {
-                  id: "ss8_d1_e1",
-                  name: "Incline Dumbbell Press",
+                  id: "ma6_d1_e1",
+                  name: "Standing Barbell Curls",
+                  sets: 4,
+                  reps: "10, 8, 6, 4",
+                  restSeconds: 75,
+                  type: "standard",
+                  notes: "Mass Builder (Inner Biceps). Shoulder-width or wider grip. Keep upper arms pinned at sides; lower slowly to emphasize full stretch."
+                },
+                {
+                  id: "ma6_d1_e2",
+                  name: "EZ-Bar Preacher Curls",
+                  sets: 4,
+                  reps: "12, 10, 8, 6",
+                  restSeconds: 60,
+                  type: "standard",
+                  notes: "Shoulder Positioner (Outer Biceps). Upper arms flat against pad. Avoid leveraging shoulders; hard peak squeeze at top."
+                },
+                {
+                  id: "ma6_d1_e3",
+                  name: "Standing Alternating Dumbbell Curls",
+                  sets: 4,
+                  reps: "10, 10, 8, 6",
+                  restSeconds: 60,
+                  type: "standard",
+                  notes: "Unilateral / Mass Builder. Supinate wrist outward at top of rep to recruit inner biceps head; control the negative."
+                },
+                {
+                  id: "ma6_d1_e4",
+                  name: "Low Cable Curls",
+                  sets: 3,
+                  reps: "15, 12, 10",
+                  restSeconds: 45,
+                  type: "standard",
+                  notes: "Cable Tension (Inner Biceps / Detail). Straight or cambered bar. Maintain constant tension; slow negative on every repetition."
+                }
+              ]
+            },
+            {
+              dayNumber: 2,
+              title: "Tuesday: Legs & Calves",
+              estimatedMinutes: 60,
+              exercises: [
+                {
+                  id: "ma6_d2_e1",
+                  name: "Barbell Back Squat",
+                  sets: 4,
+                  reps: "8-10",
+                  restSeconds: 90,
+                  type: "standard",
+                  notes: "Full depth below parallel. Drive through mid-foot."
+                },
+                {
+                  id: "ma6_d2_e2",
+                  name: "Romanian Deadlift",
+                  sets: 3,
+                  reps: "10-12",
+                  restSeconds: 75,
+                  type: "standard",
+                  notes: "Hinge at hips, maintaining slight knee bend for deep hamstring stretch."
+                },
+                {
+                  id: "ma6_d2_e3",
+                  name: "Leg Press",
+                  sets: 3,
+                  reps: "12-15",
+                  restSeconds: 60,
+                  type: "standard",
+                  notes: "Continuous tension without locking out at knees."
+                },
+                {
+                  id: "ma6_d2_e4",
+                  name: "Standing Calf Raise",
+                  sets: 4,
+                  reps: "15-20",
+                  restSeconds: 45,
+                  type: "standard",
+                  notes: "2-second stretch at bottom, hard 1-second contraction at peak."
+                }
+              ]
+            },
+            {
+              dayNumber: 3,
+              title: "Wednesday: Cardio & Abs",
+              estimatedMinutes: 35,
+              exercises: [
+                {
+                  id: "ma6_d3_e1",
+                  name: "Hanging Knee / Leg Raises",
+                  sets: 4,
+                  reps: "15-20",
+                  restSeconds: 45,
+                  type: "standard",
+                  notes: "Tilt pelvis upward to engage lower abs; eliminate swinging."
+                },
+                {
+                  id: "ma6_d3_e2",
+                  name: "Cable Crunches",
+                  sets: 4,
+                  reps: "15-20",
+                  restSeconds: 45,
+                  type: "standard",
+                  notes: "Curl torso down toward knees; focus strictly on abdominal contraction."
+                },
+                {
+                  id: "ma6_d3_e3",
+                  name: "Cardio Interval Conditioning",
+                  sets: 1,
+                  reps: "20-25 mins",
+                  restSeconds: 60,
+                  type: "standard",
+                  notes: "Moderate steady-state or aerobic conditioning."
+                }
+              ]
+            },
+            {
+              dayNumber: 4,
+              title: "Thursday: Back & Biceps Secondary Detail",
+              estimatedMinutes: 65,
+              exercises: [
+                {
+                  id: "ma6_d4_e1",
+                  name: "Chin-Ups (Underhand Grip)",
+                  sets: 4,
+                  reps: "8-10",
+                  restSeconds: 75,
+                  type: "standard",
+                  notes: "Back primer with heavy biceps involvement. Palms facing face; full dead hang to chin over bar."
+                },
+                {
+                  id: "ma6_d4_e2",
+                  name: "Reverse-Grip Bent-Over Barbell Rows",
+                  sets: 4,
+                  reps: "8-10",
+                  restSeconds: 75,
+                  type: "standard",
+                  notes: "Supinated grip engages lats and biceps. Pull into lower abdomen."
+                },
+                {
+                  id: "ma6_d4_e3",
+                  name: "One-Arm Dumbbell Rows",
+                  sets: 4,
+                  reps: "10-12",
+                  restSeconds: 60,
+                  type: "standard",
+                  notes: "Unilateral back work. Emphasize stretch at bottom and lat pull at top."
+                },
+                {
+                  id: "ma6_d4_e4",
+                  name: "Standing EZ-Bar Curls",
+                  sets: 3,
+                  reps: "10, 8, 6",
+                  restSeconds: 60,
+                  type: "standard",
+                  notes: "Mass Builder (Outer Biceps). Narrow grip; roll shoulders back and curl with zero swing."
+                },
+                {
+                  id: "ma6_d4_e5",
+                  name: "Incline Bench Dumbbell Curls",
+                  sets: 3,
+                  reps: "10, 8, 6",
+                  restSeconds: 60,
+                  type: "standard",
+                  notes: "Shoulder Positioner. Elbows remain behind torso for maximum stretch on long head."
+                },
+                {
+                  id: "ma6_d4_e6",
+                  name: "Hammer Curls",
+                  sets: 3,
+                  reps: "10, 10, 10",
+                  restSeconds: 60,
+                  type: "standard",
+                  notes: "Unilateral / Detail. Neutral grip targets brachialis to push up biceps peak."
+                },
+                {
+                  id: "ma6_d4_e7",
+                  name: "Overhead Biceps Cable Curls",
+                  sets: 3,
+                  reps: "12, 10, 10",
+                  restSeconds: 45,
+                  type: "standard",
+                  notes: "Cable Detail Finisher. High cable pulleys. Mimic front double-biceps pose."
+                }
+              ]
+            },
+            {
+              dayNumber: 5,
+              title: "Friday: Chest & Shoulders",
+              estimatedMinutes: 55,
+              exercises: [
+                {
+                  id: "ma6_d5_e1",
+                  name: "Incline Dumbbell Bench Press",
+                  sets: 4,
+                  reps: "8-10",
+                  restSeconds: 75,
+                  type: "standard",
+                  notes: "Clavicular upper-pec focus. 3-second negative descent."
+                },
+                {
+                  id: "ma6_d5_e2",
+                  name: "Flat Barbell Bench Press",
+                  sets: 3,
+                  reps: "8-10",
+                  restSeconds: 75,
+                  type: "standard",
+                  notes: "Drive through heels, maintain tight scapular retraction."
+                },
+                {
+                  id: "ma6_d5_e3",
+                  name: "Seated Dumbbell Shoulder Press",
                   sets: 4,
                   reps: "8-10",
                   restSeconds: 60,
                   type: "standard",
-                  notes: "2-second eccentric pause at the bottom of each repetition."
+                  notes: "Press smoothly to lockout; do not clash weights together."
                 },
                 {
-                  id: "ss8_d1_e2",
-                  name: "Flat Dumbbell Flyes",
-                  sets: 3,
-                  reps: "12",
-                  restSeconds: 45,
-                  type: "dropset",
-                  notes: "Execute a 30% drop set on the final set to absolute failure."
-                },
-                {
-                  id: "ss8_d1_e3",
-                  name: "Cable Overhead Triceps Extension",
+                  id: "ma6_d5_e4",
+                  name: "Dumbbell Lateral Raises",
                   sets: 4,
                   reps: "12-15",
                   restSeconds: 45,
                   type: "standard",
-                  notes: "Keep elbows pinned close to temples; emphasize long-head stretch."
-                },
-                {
-                  id: "ss8_d1_e4",
-                  name: "Push-Up Tabata Burnout",
-                  sets: 8,
-                  type: "tabata",
-                  workSeconds: 20,
-                  restSeconds: 10,
-                  notes: "Max effort intervals. Maintain full lockout on every rep."
+                  notes: "Lead with elbows to isolate side delts."
                 }
               ]
             },
             {
-              dayNumber: 2,
-              title: "Back, Biceps & Core Finisher",
-              estimatedMinutes: 55,
+              dayNumber: 6,
+              title: "Saturday: Cardio & Abs",
+              estimatedMinutes: 35,
               exercises: [
                 {
-                  id: "ss8_d2_e1",
-                  name: "Chest-Supported T-Bar Row",
-                  sets: 4,
-                  reps: "8-10",
-                  restSeconds: 75,
-                  type: "standard",
-                  notes: "Squeeze scapulae firmly for 1 full second at peak contraction."
-                },
-                {
-                  id: "ss8_d2_e2",
-                  name: "Lat Pulldown Superset w/ Face Pulls",
+                  id: "ma6_d6_e1",
+                  name: "Abdominal Planks / Vacuum Holds",
                   sets: 3,
-                  reps: "10-12",
-                  restSeconds: 60,
-                  type: "superset",
-                  notes: "Perform Face Pulls immediately after pulldowns with no rest."
-                },
-                {
-                  id: "ss8_d2_e3",
-                  name: "Incline Dumbbell Curl",
-                  sets: 3,
-                  reps: "10-12",
+                  reps: "45-60s",
                   restSeconds: 45,
-                  type: "dropset",
-                  notes: "Triple drop set on set 3."
-                },
-                {
-                  id: "ss8_d2_e4",
-                  name: "Hollow Body Rock Tabata",
-                  sets: 8,
-                  type: "tabata",
-                  workSeconds: 20,
-                  restSeconds: 10,
-                  notes: "Keep lumbar spine flat against the floor; scale with bent knees."
-                }
-              ]
-            }
-          ]
-        },
-        {
-          id: "hyper5",
-          title: "5-Day Hypertrophy Split",
-          description: "Systematic hypertrophy protocol focusing on progressive overload and high mechanical tension.",
-          tags: ["Hypertrophy", "Volume", "5 Days/Wk"],
-          days: [
-            {
-              dayNumber: 1,
-              title: "Upper Body Power & Mass",
-              estimatedMinutes: 60,
-              exercises: [
-                {
-                  id: "h5_d1_e1",
-                  name: "Barbell Bench Press",
-                  sets: 4,
-                  reps: "5-8",
-                  restSeconds: 90,
                   type: "standard",
-                  notes: "Control the descent. Drive feet aggressively into the floor."
+                  notes: "Maintain neutral spine and tight abdominal brace."
                 },
                 {
-                  id: "h5_d1_e2",
-                  name: "Neutral Grip Weighted Pull-Ups",
-                  sets: 4,
-                  reps: "6-8",
-                  restSeconds: 90,
-                  type: "standard",
-                  notes: "Full dead hang at bottom; clear chin over bar."
-                },
-                {
-                  id: "h5_d1_e3",
-                  name: "Standing Barbell Overhead Press",
+                  id: "ma6_d6_e2",
+                  name: "Russian Twists",
                   sets: 3,
-                  reps: "8-10",
-                  restSeconds: 75,
+                  reps: "20 total",
+                  restSeconds: 45,
                   type: "standard",
-                  notes: "Brace glutes and core; do not hyperextend lumbar spine."
-                }
-              ]
-            },
-            {
-              dayNumber: 2,
-              title: "Lower Body Quad Emphasis",
-              estimatedMinutes: 65,
-              exercises: [
-                {
-                  id: "h5_d2_e1",
-                  name: "Barbell Back Squat",
-                  sets: 4,
-                  reps: "6-8",
-                  restSeconds: 120,
-                  type: "standard",
-                  notes: "Hit full depth below parallel. 3-second negative descent."
+                  notes: "Control rotation through thoracic spine."
                 },
                 {
-                  id: "h5_d2_e2",
-                  name: "Romanian Deadlift",
-                  sets: 3,
-                  reps: "8-10",
-                  restSeconds: 90,
+                  id: "ma6_d6_e3",
+                  name: "Steady-State Aerobic Conditioning",
+                  sets: 1,
+                  reps: "25 mins",
+                  restSeconds: 60,
                   type: "standard",
-                  notes: "Hinge at hips until deep hamstring stretch is felt."
-                },
-                {
-                  id: "h5_d2_e3",
-                  name: "Bodyweight Air Squat Tabata",
-                  sets: 8,
-                  type: "tabata",
-                  workSeconds: 20,
-                  restSeconds: 10,
-                  notes: "Maintain parallel depth on all 8 intervals."
+                  notes: "Zone 2 aerobic recovery."
                 }
               ]
             }
@@ -404,6 +519,7 @@
      */
     const STORAGE_KEY_DATA = "pulsetrack_data_v1";
     const STORAGE_KEY_LOGS = "pulsetrack_logs_v1";
+    const STORAGE_KEY_SETTINGS = "pulsetrack_settings_v1";
 
     class WorkoutStorage {
       static getData() {
@@ -431,6 +547,15 @@
 
       static saveLogs(logs) {
         localStorage.setItem(STORAGE_KEY_LOGS, JSON.stringify(logs));
+      }
+
+      static getSettings() {
+        const settings = localStorage.getItem(STORAGE_KEY_SETTINGS);
+        return settings ? JSON.parse(settings) : { showLogger: true };
+      }
+
+      static saveSettings(settings) {
+        localStorage.setItem(STORAGE_KEY_SETTINGS, JSON.stringify(settings));
       }
 
       static resetDefaults() {
@@ -729,6 +854,7 @@
       constructor() {
         this.data = WorkoutStorage.getData();
         this.logs = WorkoutStorage.getLogs();
+        this.settings = WorkoutStorage.getSettings();
 
         this.activeProgram = null;
         this.activeDay = null;
@@ -749,6 +875,7 @@
           programCountLabel: document.getElementById("program-count-label"),
           modalSettings: document.getElementById("modal-settings"),
           jsonEditor: document.getElementById("json-schema-editor"),
+          toggleLogger: document.getElementById("setting-toggle-logger"),
           daysProgramTitle: document.getElementById("days-view-program-title"),
           daysProgramDesc: document.getElementById("days-view-program-desc"),
           workoutDayBadge: document.getElementById("workout-day-badge"),
@@ -771,6 +898,14 @@
         document.getElementById("btn-copy-json").addEventListener("click", () => this.copyJsonToClipboard());
         document.getElementById("btn-reset-defaults").addEventListener("click", () => this.resetDefaults());
         document.getElementById("btn-reset-day-progress").addEventListener("click", () => this.resetActiveDayLogs());
+
+        this.dom.toggleLogger.addEventListener("change", (e) => {
+          this.settings.showLogger = e.target.checked;
+          WorkoutStorage.saveSettings(this.settings);
+          if (!this.dom.viewWorkout.classList.contains("hidden")) {
+            this.renderWorkoutView();
+          }
+        });
       }
 
       navigateBack() {
@@ -810,9 +945,20 @@
 
       renderProgramsView() {
         this.dom.programsList.innerHTML = "";
-        this.dom.programCountLabel.innerText = `${this.data.programs.length} Available`;
+        const list = this.data.programs || [];
+        this.dom.programCountLabel.innerText = `${list.length} Available`;
 
-        this.data.programs.forEach(program => {
+        if (list.length === 0) {
+          this.dom.programsList.innerHTML = `
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center space-y-2">
+              <p class="text-sm font-semibold text-zinc-300">No workout programs found</p>
+              <p class="text-xs text-zinc-500">Tap the top-right settings icon to paste or import a workout schema.</p>
+            </div>
+          `;
+          return;
+        }
+
+        list.forEach(program => {
           const card = document.createElement("div");
           card.className = "bg-zinc-900 border border-zinc-800/90 rounded-2xl p-4 tap-active cursor-pointer hover:border-zinc-700 transition";
           
@@ -822,27 +968,48 @@
 
           card.innerHTML = `
             <div class="flex items-start justify-between">
-              <div>
+              <div class="pr-2 flex-grow">
                 <h3 class="text-base font-bold text-white">${program.title}</h3>
                 <p class="text-xs text-zinc-400 mt-1 line-clamp-2 leading-relaxed">${program.description}</p>
               </div>
-              <span class="p-2 bg-zinc-800 text-zinc-400 rounded-xl">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-              </span>
+              <div class="flex items-center space-x-1 flex-shrink-0">
+                <button class="btn-delete-prog p-2 bg-zinc-800 hover:bg-rose-950/80 text-zinc-400 hover:text-rose-400 rounded-xl tap-active transition" data-id="${program.id}" aria-label="Delete Program">
+                  <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
+                <span class="p-2 bg-zinc-800 text-zinc-400 rounded-xl">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+                </span>
+              </div>
             </div>
             <div class="flex items-center mt-3 pt-3 border-t border-zinc-800/60">
-              ${tagsHtml}
-              <span class="text-[11px] text-zinc-500 ml-auto font-medium">${program.days.length} Workout Days</span>
+              <div class="flex flex-wrap gap-1">${tagsHtml}</div>
+              <span class="text-[11px] text-zinc-500 ml-auto font-medium">${program.days ? program.days.length : 0} Workout Days</span>
             </div>
           `;
 
+          // Tap to enter days
           card.addEventListener("click", () => {
             this.activeProgram = program;
             this.showView("days");
           });
 
+          // Delete program button handler
+          const deleteBtn = card.querySelector(".btn-delete-prog");
+          deleteBtn.addEventListener("click", (e) => {
+            e.stopPropagation();
+            if (confirm(`Delete "${program.title}"? This cannot be undone.`)) {
+              this.deleteProgram(program.id);
+            }
+          });
+
           this.dom.programsList.appendChild(card);
         });
+      }
+
+      deleteProgram(programId) {
+        this.data.programs = (this.data.programs || []).filter(p => p.id !== programId);
+        WorkoutStorage.setData(this.data);
+        this.renderProgramsView();
       }
 
       renderDaysView() {
@@ -898,6 +1065,8 @@
         this.dom.workoutDayTitle.innerText = this.activeDay.title;
         this.dom.exercisesList.innerHTML = "";
 
+        const showLogger = this.settings.showLogger !== false;
+
         this.activeDay.exercises.forEach((exercise, exIndex) => {
           const card = document.createElement("div");
           card.className = "bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-3.5";
@@ -927,23 +1096,27 @@
             const logEntry = this.logs[key] || { completed: false, weight: "", reps: "" };
             const isCompleted = logEntry.completed;
 
+            const inputsHtml = showLogger ? `
+              <div class="flex items-center space-x-2 flex-grow justify-end pr-3">
+                <div class="flex items-center space-x-1">
+                  <input type="number" inputmode="decimal" placeholder="lbs" value="${logEntry.weight || ''}" 
+                    data-key="${key}" data-field="weight" 
+                    class="input-set-field w-16 bg-zinc-950 border border-zinc-800 rounded px-2 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
+                  <span class="text-zinc-500 text-[10px]">lbs</span>
+                </div>
+                <div class="flex items-center space-x-1">
+                  <input type="number" inputmode="numeric" placeholder="${exercise.reps || 'reps'}" value="${logEntry.reps || ''}" 
+                    data-key="${key}" data-field="reps" 
+                    class="input-set-field w-16 bg-zinc-950 border border-zinc-800 rounded px-2 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
+                  <span class="text-zinc-500 text-[10px]">reps</span>
+                </div>
+              </div>
+            ` : `<div class="flex-grow"></div>`;
+
             setRowsHtml += `
               <div class="flex items-center justify-between py-1.5 border-b border-zinc-800/50 last:border-b-0 text-xs">
-                <span class="w-10 font-bold ${isCompleted ? 'text-emerald-400' : 'text-zinc-500'}">SET ${s + 1}</span>
-                <div class="flex items-center space-x-2 flex-grow justify-end pr-3">
-                  <div class="flex items-center space-x-1">
-                    <input type="number" inputmode="decimal" placeholder="lbs" value="${logEntry.weight || ''}" 
-                      data-key="${key}" data-field="weight" 
-                      class="input-set-field w-16 bg-zinc-950 border border-zinc-800 rounded px-2 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
-                    <span class="text-zinc-500 text-[10px]">lbs</span>
-                  </div>
-                  <div class="flex items-center space-x-1">
-                    <input type="number" inputmode="numeric" placeholder="${exercise.reps || 'reps'}" value="${logEntry.reps || ''}" 
-                      data-key="${key}" data-field="reps" 
-                      class="input-set-field w-16 bg-zinc-950 border border-zinc-800 rounded px-2 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
-                    <span class="text-zinc-500 text-[10px]">reps</span>
-                  </div>
-                </div>
+                <span class="w-12 font-bold ${isCompleted ? 'text-emerald-400' : 'text-zinc-500'}">SET ${s + 1}</span>
+                ${inputsHtml}
                 <button class="btn-check-set w-9 h-9 rounded-xl flex items-center justify-center border transition tap-active ${isCompleted ? 'bg-emerald-600 border-emerald-500 text-white' : 'bg-zinc-800 border-zinc-700 text-zinc-500 hover:text-zinc-300'}" 
                   data-key="${key}" data-rest="${exercise.restSeconds || 60}" data-completed="${isCompleted ? '1' : '0'}">
                   <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
@@ -951,6 +1124,19 @@
               </div>
             `;
           }
+
+          const headerColumns = showLogger ? `
+            <div class="flex items-center justify-between text-[10px] uppercase font-bold text-zinc-500 pb-1 px-1">
+              <span>Set</span>
+              <span class="pr-12">Performance Log</span>
+              <span>Status</span>
+            </div>
+          ` : `
+            <div class="flex items-center justify-between text-[10px] uppercase font-bold text-zinc-500 pb-1 px-1">
+              <span>Set Number</span>
+              <span>Mark Complete</span>
+            </div>
+          `;
 
           card.innerHTML = `
             <div class="flex items-start justify-between">
@@ -966,11 +1152,7 @@
             ${notesCallout}
             ${tabataLaunchBtn}
             <div class="pt-2 border-t border-zinc-800/80">
-              <div class="flex items-center justify-between text-[10px] uppercase font-bold text-zinc-500 pb-1 px-1">
-                <span>Set</span>
-                <span class="pr-12">Performance Log</span>
-                <span>Status</span>
-              </div>
+              ${headerColumns}
               <div class="space-y-0.5">
                 ${setRowsHtml}
               </div>
@@ -1045,10 +1227,11 @@
 
       openSettings() {
         this.dom.jsonEditor.value = JSON.stringify(this.data, null, 2);
+        this.dom.toggleLogger.checked = this.settings.showLogger !== false;
         this.dom.modalSettings.classList.remove("hidden");
       }
 
-        closeSettings() {
+      closeSettings() {
         this.dom.modalSettings.classList.add("hidden");
       }
 
@@ -1090,7 +1273,6 @@
       }
 
       copyJsonToClipboard() {
-
         navigator.clipboard.writeText(this.dom.jsonEditor.value).then(() => {
           alert("Program JSON copied to clipboard.");
         }).catch(() => {
