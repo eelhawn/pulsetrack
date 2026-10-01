@@ -1,0 +1,1094 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#09090b">
+  <title>PulseTrack Mobile Workout PWA</title>
+
+  <!-- Embedded Web App Manifest for Native Installation -->
+  <link rel="manifest" href='data:application/manifest+json;utf-8,{"name":"PulseTrack","short_name":"PulseTrack","start_url":".","display":"standalone","background_color":"%2309090b","theme_color":"%2309090b"}'>
+
+  <!-- Tailwind CSS CDN for Zero-Build Distribution -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            zinc: {
+              950: '#09090b',
+              900: '#121215',
+              850: '#18181b',
+              800: '#27272a',
+              700: '#3f3f46'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      box-sizing: border-box;
+    }
+    input, textarea {
+      user-select: text;
+    }
+    body {
+      background-color: #09090b;
+      color: #f4f4f5;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .view-transition {
+      transition: opacity 0.18s ease-in-out, transform 0.18s ease-in-out;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .tap-active:active {
+      transform: scale(0.97);
+    }
+  </style>
+</head>
+<body class="bg-zinc-950 min-h-screen text-zinc-100 flex flex-col justify-between">
+
+  <!-- Core Global Navigation Header -->
+  <header class="sticky top-0 z-30 bg-zinc-900/90 backdrop-blur-md border-b border-zinc-800/80 px-4 py-3">
+    <div class="max-w-xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2 overflow-hidden">
+        <button id="nav-back-btn" class="hidden p-2 rounded-lg bg-zinc-800 text-zinc-300 tap-active" aria-label="Go Back">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <div class="flex flex-col truncate">
+          <h1 id="header-title" class="text-base font-bold tracking-tight text-white truncate">PulseTrack</h1>
+          <span id="header-breadcrumb" class="text-xs text-zinc-400 truncate">Training Programs</span>
+        </div>
+      </div>
+      <div class="flex items-center space-x-2">
+        <button id="btn-open-settings" class="p-2 rounded-lg bg-zinc-800 text-zinc-300 hover:text-white tap-active" aria-label="Data Settings">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Viewports Router Container -->
+  <main class="max-w-xl mx-auto w-full px-4 pt-4 pb-28 flex-grow">
+    
+    <!-- Screen 1: Programs View -->
+    <section id="view-programs" class="view-transition space-y-4">
+      <div class="flex items-center justify-between pb-1">
+        <h2 class="text-xs uppercase tracking-wider font-semibold text-zinc-400">Available Programs</h2>
+        <span class="text-xs text-zinc-500" id="program-count-label">2 Loaded</span>
+      </div>
+      <div id="programs-list-container" class="space-y-3"></div>
+    </section>
+
+    <!-- Screen 2: Days View -->
+    <section id="view-days" class="view-transition hidden space-y-4">
+      <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
+        <h2 id="days-view-program-title" class="text-lg font-bold text-white">Program Name</h2>
+        <p id="days-view-program-desc" class="text-xs text-zinc-400 mt-1">Detailed split description.</p>
+      </div>
+      <div class="flex items-center justify-between pb-1">
+        <h3 class="text-xs uppercase tracking-wider font-semibold text-zinc-400">Routine Split Calendar</h3>
+      </div>
+      <div id="days-list-container" class="space-y-3"></div>
+    </section>
+
+    <!-- Screen 3: Active Workout View -->
+    <section id="view-workout" class="view-transition hidden space-y-4">
+      <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl flex items-center justify-between">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400" id="workout-day-badge">Day 1</span>
+          <h2 id="workout-day-title" class="text-lg font-bold text-white">Chest & Triceps</h2>
+        </div>
+        <button id="btn-reset-day-progress" class="text-xs px-2.5 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 border border-zinc-700/60 tap-active">
+          Clear Progress
+        </button>
+      </div>
+      <div id="exercises-list-container" class="space-y-4"></div>
+    </section>
+
+  </main>
+
+  <!-- Interactive Floating Rest Countdown Timer -->
+  <aside id="floating-rest-timer" class="fixed bottom-4 left-4 right-4 max-w-xl mx-auto z-40 bg-zinc-900 border border-zinc-700 shadow-2xl rounded-2xl p-3.5 flex items-center justify-between transform translate-y-32 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="flex items-center space-x-3.5">
+      <div class="relative w-11 h-11 flex items-center justify-center">
+        <svg class="w-11 h-11 transform -rotate-90" viewBox="0 0 36 36">
+          <path class="text-zinc-800" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+          <path id="rest-timer-progress-svg" class="text-emerald-500 transition-all duration-200" stroke-dasharray="100, 100" stroke-dashoffset="0" stroke-width="3" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+        </svg>
+        <span id="rest-timer-display" class="absolute text-xs font-bold font-mono text-white">60s</span>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold text-white leading-tight">Rest Interval</h4>
+        <p class="text-[11px] text-zinc-400" id="rest-timer-subtext">Catch your breath</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-1.5">
+      <button id="btn-timer-sub15" class="px-2 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-300 rounded-lg tap-active">-15</button>
+      <button id="btn-timer-add15" class="px-2 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-300 rounded-lg tap-active">+15</button>
+      <button id="btn-timer-toggle" class="p-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg tap-active" aria-label="Toggle Timer">
+        <svg id="timer-toggle-icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+      </button>
+      <button id="btn-timer-dismiss" class="p-2 bg-zinc-800 text-zinc-400 hover:text-white rounded-lg tap-active" aria-label="Close Timer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Full-Screen Interactive Tabata / Interval Engine Overlay -->
+  <div id="overlay-tabata" class="fixed inset-0 z-50 bg-zinc-950 flex flex-col justify-between p-6 transform translate-y-full transition-transform duration-300 ease-out">
+    <div class="flex items-center justify-between">
+      <div class="flex flex-col">
+        <span class="text-xs uppercase tracking-widest text-zinc-400 font-bold" id="tabata-exercise-title">Tabata Burnout</span>
+        <span class="text-sm font-semibold text-zinc-200" id="tabata-phase-subtitle">High Intensity Interval</span>
+      </div>
+      <button id="btn-tabata-close" class="p-3 bg-zinc-900/80 rounded-full text-zinc-400 tap-active">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="flex flex-col items-center justify-center my-auto space-y-6">
+      <div class="px-5 py-2 rounded-full border border-white/20 bg-white/10 text-white font-semibold text-sm tracking-wide" id="tabata-interval-count">
+        Interval 1 of 8
+      </div>
+      <div id="tabata-visual-card" class="w-64 h-64 rounded-full flex flex-col items-center justify-center border-4 border-emerald-400/40 bg-emerald-600/20 shadow-2xl transition-colors duration-300">
+        <span id="tabata-phase-label" class="text-xs font-black tracking-widest text-emerald-300 uppercase">WORK</span>
+        <span id="tabata-seconds-display" class="text-7xl font-black font-mono tracking-tighter text-white mt-1">20</span>
+      </div>
+      <div class="text-center max-w-xs">
+        <p id="tabata-cue-text" class="text-xs text-zinc-400 font-medium italic">Max effort output during work intervals.</p>
+      </div>
+    </div>
+
+    <div class="flex items-center space-x-3">
+      <button id="btn-tabata-toggle-pause" class="flex-1 py-4 bg-white text-zinc-950 font-bold rounded-xl tap-active text-base">
+        Pause
+      </button>
+      <button id="btn-tabata-restart" class="p-4 bg-zinc-800 text-zinc-200 font-bold rounded-xl tap-active">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Data Management Modal (Import / Export JSON) -->
+  <div id="modal-settings" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
+    <div class="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-t-2xl sm:rounded-2xl p-5 space-y-4 max-h-[90vh] flex flex-col">
+      <div class="flex items-center justify-between">
+        <h3 class="text-base font-bold text-white">Program Data Configuration</h3>
+        <button id="btn-close-settings" class="p-1.5 text-zinc-400 hover:text-white tap-active">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <p class="text-xs text-zinc-400 leading-relaxed">
+        Export the current training structure as raw JSON or import a new schema. Changes update application state immediately.
+      </p>
+      <div class="flex-grow flex flex-col space-y-1">
+        <label for="json-schema-editor" class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Raw JSON Database</label>
+        <textarea id="json-schema-editor" class="w-full h-48 bg-zinc-950 border border-zinc-800 rounded-lg p-3 font-mono text-xs text-zinc-300 focus:outline-none focus:border-emerald-500 hide-scrollbar" spellcheck="false"></textarea>
+      </div>
+      <div class="flex flex-col space-y-2 pt-2">
+        <div class="flex space-x-2">
+          <button id="btn-save-json" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl tap-active">
+            Save to Storage
+          </button>
+          <button id="btn-copy-json" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold text-xs rounded-xl tap-active">
+            Copy JSON
+          </button>
+        </div>
+        <button id="btn-reset-defaults" class="w-full py-2.5 bg-rose-950/40 hover:bg-rose-900/50 border border-rose-800/40 text-rose-300 font-medium text-xs rounded-xl tap-active">
+          Reset to Factory Defaults
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /**
+     * Isolated Default Dataset Catalog
+     * Features 2 multi-day training routines with Standard, Superset, Tabata, and Drop Set blocks.
+     */
+    const DEFAULT_WORKOUT_DATA = {
+      programs: [
+        {
+          id: "ss8",
+          title: "Super Shredded 8",
+          description: "High-intensity fat-loss and lean muscle retention protocol using drop sets and interval blocks.",
+          tags: ["Fat Loss", "High Intensity", "8 Weeks"],
+          days: [
+            {
+              dayNumber: 1,
+              title: "Chest & Triceps + Tabata Burnout",
+              estimatedMinutes: 50,
+              exercises: [
+                {
+                  id: "ss8_d1_e1",
+                  name: "Incline Dumbbell Press",
+                  sets: 4,
+                  reps: "8-10",
+                  restSeconds: 60,
+                  type: "standard",
+                  notes: "2-second eccentric pause at the bottom of each repetition."
+                },
+                {
+                  id: "ss8_d1_e2",
+                  name: "Flat Dumbbell Flyes",
+                  sets: 3,
+                  reps: "12",
+                  restSeconds: 45,
+                  type: "dropset",
+                  notes: "Execute a 30% drop set on the final set to absolute failure."
+                },
+                {
+                  id: "ss8_d1_e3",
+                  name: "Cable Overhead Triceps Extension",
+                  sets: 4,
+                  reps: "12-15",
+                  restSeconds: 45,
+                  type: "standard",
+                  notes: "Keep elbows pinned close to temples; emphasize long-head stretch."
+                },
+                {
+                  id: "ss8_d1_e4",
+                  name: "Push-Up Tabata Burnout",
+                  sets: 8,
+                  type: "tabata",
+                  workSeconds: 20,
+                  restSeconds: 10,
+                  notes: "Max effort intervals. Maintain full lockout on every rep."
+                }
+              ]
+            },
+            {
+              dayNumber: 2,
+              title: "Back, Biceps & Core Finisher",
+              estimatedMinutes: 55,
+              exercises: [
+                {
+                  id: "ss8_d2_e1",
+                  name: "Chest-Supported T-Bar Row",
+                  sets: 4,
+                  reps: "8-10",
+                  restSeconds: 75,
+                  type: "standard",
+                  notes: "Squeeze scapulae firmly for 1 full second at peak contraction."
+                },
+                {
+                  id: "ss8_d2_e2",
+                  name: "Lat Pulldown Superset w/ Face Pulls",
+                  sets: 3,
+                  reps: "10-12",
+                  restSeconds: 60,
+                  type: "superset",
+                  notes: "Perform Face Pulls immediately after pulldowns with no rest."
+                },
+                {
+                  id: "ss8_d2_e3",
+                  name: "Incline Dumbbell Curl",
+                  sets: 3,
+                  reps: "10-12",
+                  restSeconds: 45,
+                  type: "dropset",
+                  notes: "Triple drop set on set 3."
+                },
+                {
+                  id: "ss8_d2_e4",
+                  name: "Hollow Body Rock Tabata",
+                  sets: 8,
+                  type: "tabata",
+                  workSeconds: 20,
+                  restSeconds: 10,
+                  notes: "Keep lumbar spine flat against the floor; scale with bent knees."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          id: "hyper5",
+          title: "5-Day Hypertrophy Split",
+          description: "Systematic hypertrophy protocol focusing on progressive overload and high mechanical tension.",
+          tags: ["Hypertrophy", "Volume", "5 Days/Wk"],
+          days: [
+            {
+              dayNumber: 1,
+              title: "Upper Body Power & Mass",
+              estimatedMinutes: 60,
+              exercises: [
+                {
+                  id: "h5_d1_e1",
+                  name: "Barbell Bench Press",
+                  sets: 4,
+                  reps: "5-8",
+                  restSeconds: 90,
+                  type: "standard",
+                  notes: "Control the descent. Drive feet aggressively into the floor."
+                },
+                {
+                  id: "h5_d1_e2",
+                  name: "Neutral Grip Weighted Pull-Ups",
+                  sets: 4,
+                  reps: "6-8",
+                  restSeconds: 90,
+                  type: "standard",
+                  notes: "Full dead hang at bottom; clear chin over bar."
+                },
+                {
+                  id: "h5_d1_e3",
+                  name: "Standing Barbell Overhead Press",
+                  sets: 3,
+                  reps: "8-10",
+                  restSeconds: 75,
+                  type: "standard",
+                  notes: "Brace glutes and core; do not hyperextend lumbar spine."
+                }
+              ]
+            },
+            {
+              dayNumber: 2,
+              title: "Lower Body Quad Emphasis",
+              estimatedMinutes: 65,
+              exercises: [
+                {
+                  id: "h5_d2_e1",
+                  name: "Barbell Back Squat",
+                  sets: 4,
+                  reps: "6-8",
+                  restSeconds: 120,
+                  type: "standard",
+                  notes: "Hit full depth below parallel. 3-second negative descent."
+                },
+                {
+                  id: "h5_d2_e2",
+                  name: "Romanian Deadlift",
+                  sets: 3,
+                  reps: "8-10",
+                  restSeconds: 90,
+                  type: "standard",
+                  notes: "Hinge at hips until deep hamstring stretch is felt."
+                },
+                {
+                  id: "h5_d2_e3",
+                  name: "Bodyweight Air Squat Tabata",
+                  sets: 8,
+                  type: "tabata",
+                  workSeconds: 20,
+                  restSeconds: 10,
+                  notes: "Maintain parallel depth on all 8 intervals."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    };
+
+    /**
+     * Storage and State Registry Manager
+     */
+    const STORAGE_KEY_DATA = "pulsetrack_data_v1";
+    const STORAGE_KEY_LOGS = "pulsetrack_logs_v1";
+
+    class WorkoutStorage {
+      static getData() {
+        const stored = localStorage.getItem(STORAGE_KEY_DATA);
+        if (!stored) {
+          this.setData(DEFAULT_WORKOUT_DATA);
+          return DEFAULT_WORKOUT_DATA;
+        }
+        try {
+          return JSON.parse(stored);
+        } catch (e) {
+          console.error("Storage parsing exception, reverting to defaults", e);
+          return DEFAULT_WORKOUT_DATA;
+        }
+      }
+
+      static setData(data) {
+        localStorage.setItem(STORAGE_KEY_DATA, JSON.stringify(data, null, 2));
+      }
+
+      static getLogs() {
+        const logs = localStorage.getItem(STORAGE_KEY_LOGS);
+        return logs ? JSON.parse(logs) : {};
+      }
+
+      static saveLogs(logs) {
+        localStorage.setItem(STORAGE_KEY_LOGS, JSON.stringify(logs));
+      }
+
+      static resetDefaults() {
+        localStorage.removeItem(STORAGE_KEY_DATA);
+        localStorage.removeItem(STORAGE_KEY_LOGS);
+        return this.getData();
+      }
+    }
+
+    /**
+     * Web Audio API Procedural Sound Synthesizer
+     */
+    class SoundEngine {
+      constructor() {
+        this.ctx = null;
+      }
+
+      init() {
+        if (!this.ctx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          this.ctx = new AudioContextClass();
+        }
+        if (this.ctx.state === "suspended") {
+          this.ctx.resume();
+        }
+      }
+
+      playTone(freq, type, duration, gainLevel = 0.15) {
+        try {
+          this.init();
+          const osc = this.ctx.createOscillator();
+          const gain = this.ctx.createGain();
+
+          osc.type = type;
+          osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+          gain.gain.setValueAtTime(gainLevel, this.ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+
+          osc.connect(gain);
+          gain.connect(this.ctx.destination);
+
+          osc.start();
+          osc.stop(this.ctx.currentTime + duration);
+        } catch (e) {
+          console.warn("Audio Context playback prevented:", e);
+        }
+      }
+
+      shortBeep() {
+        this.playTone(800, "sine", 0.08, 0.2);
+      }
+
+      highBeep() {
+        this.playTone(1300, "triangle", 0.35, 0.25);
+      }
+
+      lowBeep() {
+        this.playTone(400, "sine", 0.45, 0.25);
+      }
+
+      completeChime() {
+        this.playTone(523.25, "sine", 0.15, 0.2);
+        setTimeout(() => this.playTone(1046.5, "sine", 0.4, 0.25), 120);
+      }
+    }
+
+    const sound = new SoundEngine();
+
+    /**
+     * Floating Rest Timer Controller
+     */
+    class RestTimerController {
+      constructor() {
+        this.el = document.getElementById("floating-rest-timer");
+        this.displayEl = document.getElementById("rest-timer-display");
+        this.progressSvg = document.getElementById("rest-timer-progress-svg");
+        this.subtextEl = document.getElementById("rest-timer-subtext");
+        this.toggleBtn = document.getElementById("btn-timer-toggle");
+        
+        this.totalDuration = 60;
+        this.remainingSeconds = 0;
+        this.timerInterval = null;
+        this.isPaused = false;
+
+        this.bindEvents();
+      }
+
+      bindEvents() {
+        document.getElementById("btn-timer-sub15").addEventListener("click", () => this.adjustTime(-15));
+        document.getElementById("btn-timer-add15").addEventListener("click", () => this.adjustTime(15));
+        this.toggleBtn.addEventListener("click", () => this.togglePause());
+        document.getElementById("btn-timer-dismiss").addEventListener("click", () => this.dismiss());
+      }
+
+      start(seconds) {
+        sound.init();
+        clearInterval(this.timerInterval);
+        this.totalDuration = seconds > 0 ? seconds : 60;
+        this.remainingSeconds = this.totalDuration;
+        this.isPaused = false;
+
+        this.el.classList.remove("translate-y-32", "opacity-0", "pointer-events-none");
+        this.el.classList.add("translate-y-0", "opacity-100");
+        this.updateUI();
+
+        this.timerInterval = setInterval(() => {
+          if (!this.isPaused) {
+            this.remainingSeconds--;
+            this.updateUI();
+
+            if (this.remainingSeconds <= 3 && this.remainingSeconds > 0) {
+              sound.shortBeep();
+            }
+
+            if (this.remainingSeconds <= 0) {
+              clearInterval(this.timerInterval);
+              sound.completeChime();
+              this.subtextEl.innerText = "Rest complete! Begin set.";
+              setTimeout(() => this.dismiss(), 3500);
+            }
+          }
+        }, 1000);
+      }
+
+      updateUI() {
+        this.displayEl.innerText = `${this.remainingSeconds}s`;
+        const percentage = Math.max(0, (this.remainingSeconds / this.totalDuration) * 100);
+        this.progressSvg.setAttribute("stroke-dashoffset", 100 - percentage);
+
+        if (this.isPaused) {
+          this.subtextEl.innerText = "Timer paused";
+        } else {
+          this.subtextEl.innerText = "Catch your breath";
+        }
+      }
+
+      adjustTime(amount) {
+        this.remainingSeconds = Math.max(5, this.remainingSeconds + amount);
+        if (this.remainingSeconds > this.totalDuration) {
+          this.totalDuration = this.remainingSeconds;
+        }
+        this.updateUI();
+      }
+
+      togglePause() {
+        this.isPaused = !this.isPaused;
+        this.updateUI();
+      }
+
+      dismiss() {
+        clearInterval(this.timerInterval);
+        this.el.classList.add("translate-y-32", "opacity-0", "pointer-events-none");
+        this.el.classList.remove("translate-y-0", "opacity-100");
+      }
+    }
+
+    /**
+     * Dedicated Tabata Interval Engine
+     */
+    class TabataEngine {
+      constructor() {
+        this.overlayEl = document.getElementById("overlay-tabata");
+        this.titleEl = document.getElementById("tabata-exercise-title");
+        this.counterEl = document.getElementById("tabata-interval-count");
+        this.cardEl = document.getElementById("tabata-visual-card");
+        this.phaseLabelEl = document.getElementById("tabata-phase-label");
+        this.secondsEl = document.getElementById("tabata-seconds-display");
+        this.pauseBtn = document.getElementById("btn-tabata-toggle-pause");
+
+        this.totalSets = 8;
+        this.workDuration = 20;
+        this.restDuration = 10;
+        
+        this.currentSet = 1;
+        this.currentPhase = "PREP";
+        this.remainingSeconds = 3;
+        this.intervalRef = null;
+        this.isPaused = false;
+
+        this.bindEvents();
+      }
+
+      bindEvents() {
+        document.getElementById("btn-tabata-close").addEventListener("click", () => this.stop());
+        this.pauseBtn.addEventListener("click", () => this.togglePause());
+        document.getElementById("btn-tabata-restart").addEventListener("click", () => this.restart());
+      }
+
+      open(exercise) {
+        sound.init();
+        this.exercise = exercise;
+        this.totalSets = exercise.sets || 8;
+        this.workDuration = exercise.workSeconds || 20;
+        this.restDuration = exercise.restSeconds || 10;
+        this.titleEl.innerText = exercise.name;
+
+        this.restart();
+        this.overlayEl.classList.remove("translate-y-full");
+      }
+
+      restart() {
+        clearInterval(this.intervalRef);
+        this.currentSet = 1;
+        this.currentPhase = "PREP";
+        this.remainingSeconds = 3;
+        this.isPaused = false;
+        this.pauseBtn.innerText = "Pause";
+        this.renderState();
+
+        this.intervalRef = setInterval(() => this.tick(), 1000);
+      }
+
+      tick() {
+        if (this.isPaused) return;
+
+        this.remainingSeconds--;
+
+        if (this.remainingSeconds <= 3 && this.remainingSeconds > 0) {
+          sound.shortBeep();
+        }
+
+        if (this.remainingSeconds < 0) {
+          this.advancePhase();
+        } else {
+          this.renderState();
+        }
+      }
+
+      advancePhase() {
+        if (this.currentPhase === "PREP") {
+          this.currentPhase = "WORK";
+          this.remainingSeconds = this.workDuration;
+          sound.highBeep();
+        } else if (this.currentPhase === "WORK") {
+          if (this.currentSet >= this.totalSets) {
+            this.currentPhase = "DONE";
+            this.remainingSeconds = 0;
+            sound.completeChime();
+            clearInterval(this.intervalRef);
+            this.renderState();
+            return;
+          } else {
+            this.currentPhase = "REST";
+            this.remainingSeconds = this.restDuration;
+            sound.lowBeep();
+          }
+        } else if (this.currentPhase === "REST") {
+          this.currentSet++;
+          this.currentPhase = "WORK";
+          this.remainingSeconds = this.workDuration;
+          sound.highBeep();
+        }
+        this.renderState();
+      }
+
+      renderState() {
+        this.counterEl.innerText = `Interval ${this.currentSet} of ${this.totalSets}`;
+        this.secondsEl.innerText = this.remainingSeconds;
+
+        if (this.currentPhase === "WORK") {
+          this.phaseLabelEl.innerText = "WORK";
+          this.phaseLabelEl.className = "text-xs font-black tracking-widest text-emerald-300 uppercase";
+          this.cardEl.className = "w-64 h-64 rounded-full flex flex-col items-center justify-center border-4 border-emerald-400 bg-emerald-600/30 shadow-emerald-950/50 shadow-2xl transition-all duration-300 scale-105";
+        } else if (this.currentPhase === "REST") {
+          this.phaseLabelEl.innerText = "REST";
+          this.phaseLabelEl.className = "text-xs font-black tracking-widest text-rose-300 uppercase";
+          this.cardEl.className = "w-64 h-64 rounded-full flex flex-col items-center justify-center border-4 border-rose-400 bg-rose-600/30 shadow-rose-950/50 shadow-2xl transition-all duration-300 scale-95";
+        } else if (this.currentPhase === "PREP") {
+          this.phaseLabelEl.innerText = "GET READY";
+          this.phaseLabelEl.className = "text-xs font-black tracking-widest text-amber-300 uppercase";
+          this.cardEl.className = "w-64 h-64 rounded-full flex flex-col items-center justify-center border-4 border-amber-400 bg-amber-600/20 shadow-2xl transition-all duration-300";
+        } else if (this.currentPhase === "DONE") {
+          this.phaseLabelEl.innerText = "COMPLETE";
+          this.phaseLabelEl.className = "text-xs font-black tracking-widest text-blue-300 uppercase";
+          this.cardEl.className = "w-64 h-64 rounded-full flex flex-col items-center justify-center border-4 border-blue-400 bg-blue-600/30 shadow-2xl transition-all duration-300";
+          this.secondsEl.innerText = "0";
+        }
+      }
+
+      togglePause() {
+        this.isPaused = !this.isPaused;
+        this.pauseBtn.innerText = this.isPaused ? "Resume" : "Pause";
+      }
+
+      stop() {
+        clearInterval(this.intervalRef);
+        this.overlayEl.classList.add("translate-y-full");
+      }
+    }
+
+    /**
+     * Application User Interface and Navigation Controller
+     */
+    class ApplicationUI {
+      constructor() {
+        this.data = WorkoutStorage.getData();
+        this.logs = WorkoutStorage.getLogs();
+
+        this.activeProgram = null;
+        this.activeDay = null;
+
+        this.restTimer = new RestTimerController();
+        this.tabata = new TabataEngine();
+
+        this.dom = {
+          headerTitle: document.getElementById("header-title"),
+          headerBreadcrumb: document.getElementById("header-breadcrumb"),
+          backBtn: document.getElementById("nav-back-btn"),
+          viewPrograms: document.getElementById("view-programs"),
+          viewDays: document.getElementById("view-days"),
+          viewWorkout: document.getElementById("view-workout"),
+          programsList: document.getElementById("programs-list-container"),
+          daysList: document.getElementById("days-list-container"),
+          exercisesList: document.getElementById("exercises-list-container"),
+          programCountLabel: document.getElementById("program-count-label"),
+          modalSettings: document.getElementById("modal-settings"),
+          jsonEditor: document.getElementById("json-schema-editor"),
+          daysProgramTitle: document.getElementById("days-view-program-title"),
+          daysProgramDesc: document.getElementById("days-view-program-desc"),
+          workoutDayBadge: document.getElementById("workout-day-badge"),
+          workoutDayTitle: document.getElementById("workout-day-title")
+        };
+
+        this.bindEvents();
+        this.renderProgramsView();
+      }
+
+      bindEvents() {
+        window.addEventListener("touchstart", () => sound.init(), { once: true });
+        window.addEventListener("click", () => sound.init(), { once: true });
+
+        this.dom.backBtn.addEventListener("click", () => this.navigateBack());
+
+        document.getElementById("btn-open-settings").addEventListener("click", () => this.openSettings());
+        document.getElementById("btn-close-settings").addEventListener("click", () => this.closeSettings());
+        document.getElementById("btn-save-json").addEventListener("click", () => this.saveJsonFromModal());
+        document.getElementById("btn-copy-json").addEventListener("click", () => this.copyJsonToClipboard());
+        document.getElementById("btn-reset-defaults").addEventListener("click", () => this.resetDefaults());
+        document.getElementById("btn-reset-day-progress").addEventListener("click", () => this.resetActiveDayLogs());
+      }
+
+      navigateBack() {
+        if (!this.dom.viewWorkout.classList.contains("hidden")) {
+          this.showView("days");
+        } else if (!this.dom.viewDays.classList.contains("hidden")) {
+          this.showView("programs");
+        }
+      }
+
+      showView(viewName) {
+        this.dom.viewPrograms.classList.add("hidden");
+        this.dom.viewDays.classList.add("hidden");
+        this.dom.viewWorkout.classList.add("hidden");
+
+        if (viewName === "programs") {
+          this.dom.viewPrograms.classList.remove("hidden");
+          this.dom.backBtn.classList.add("hidden");
+          this.dom.headerTitle.innerText = "PulseTrack";
+          this.dom.headerBreadcrumb.innerText = "Training Programs";
+          this.renderProgramsView();
+        } else if (viewName === "days") {
+          this.dom.viewDays.classList.remove("hidden");
+          this.dom.backBtn.classList.remove("hidden");
+          this.dom.headerTitle.innerText = this.activeProgram.title;
+          this.dom.headerBreadcrumb.innerText = "Select Workout Day";
+          this.renderDaysView();
+        } else if (viewName === "workout") {
+          this.dom.viewWorkout.classList.remove("hidden");
+          this.dom.backBtn.classList.remove("hidden");
+          this.dom.headerTitle.innerText = this.activeDay.title;
+          this.dom.headerBreadcrumb.innerText = `${this.activeProgram.title} • Day ${this.activeDay.dayNumber}`;
+          this.renderWorkoutView();
+        }
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      renderProgramsView() {
+        this.dom.programsList.innerHTML = "";
+        this.dom.programCountLabel.innerText = `${this.data.programs.length} Available`;
+
+        this.data.programs.forEach(program => {
+          const card = document.createElement("div");
+          card.className = "bg-zinc-900 border border-zinc-800/90 rounded-2xl p-4 tap-active cursor-pointer hover:border-zinc-700 transition";
+          
+          const tagsHtml = (program.tags || []).map(t => 
+            `<span class="px-2 py-0.5 rounded-md bg-zinc-800 text-[10px] font-semibold text-zinc-300 mr-1.5">${t}</span>`
+          ).join("");
+
+          card.innerHTML = `
+            <div class="flex items-start justify-between">
+              <div>
+                <h3 class="text-base font-bold text-white">${program.title}</h3>
+                <p class="text-xs text-zinc-400 mt-1 line-clamp-2 leading-relaxed">${program.description}</p>
+              </div>
+              <span class="p-2 bg-zinc-800 text-zinc-400 rounded-xl">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+              </span>
+            </div>
+            <div class="flex items-center mt-3 pt-3 border-t border-zinc-800/60">
+              ${tagsHtml}
+              <span class="text-[11px] text-zinc-500 ml-auto font-medium">${program.days.length} Workout Days</span>
+            </div>
+          `;
+
+          card.addEventListener("click", () => {
+            this.activeProgram = program;
+            this.showView("days");
+          });
+
+          this.dom.programsList.appendChild(card);
+        });
+      }
+
+      renderDaysView() {
+        this.dom.daysProgramTitle.innerText = this.activeProgram.title;
+        this.dom.daysProgramDesc.innerText = this.activeProgram.description;
+        this.dom.daysList.innerHTML = "";
+
+        this.activeProgram.days.forEach(day => {
+          const card = document.createElement("div");
+          card.className = "bg-zinc-900 border border-zinc-800 rounded-xl p-4 tap-active cursor-pointer hover:border-zinc-700 flex items-center justify-between";
+
+          let totalSets = 0;
+          let completedSets = 0;
+
+          day.exercises.forEach(ex => {
+            totalSets += ex.sets;
+            for (let s = 0; s < ex.sets; s++) {
+              const key = this.getLogKey(this.activeProgram.id, day.dayNumber, ex.id, s);
+              if (this.logs[key] && this.logs[key].completed) completedSets++;
+            }
+          });
+
+          const isAllCompleted = totalSets > 0 && completedSets === totalSets;
+          const statusBadge = isAllCompleted 
+            ? `<span class="px-2 py-0.5 rounded-full bg-emerald-950 border border-emerald-800 text-emerald-400 text-[10px] font-bold">COMPLETED</span>`
+            : completedSets > 0 
+              ? `<span class="px-2 py-0.5 rounded-full bg-amber-950 border border-amber-800 text-amber-400 text-[10px] font-bold">${completedSets}/${totalSets} SETS</span>`
+              : `<span class="text-[11px] text-zinc-500 font-medium">${day.estimatedMinutes || 45} mins</span>`;
+
+          card.innerHTML = `
+            <div class="flex flex-col pr-3">
+              <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Day ${day.dayNumber}</span>
+              <h4 class="text-sm font-bold text-white mt-0.5">${day.title}</h4>
+              <span class="text-xs text-zinc-400 mt-1">${day.exercises.length} Exercises</span>
+            </div>
+            <div class="flex items-center space-x-2 flex-shrink-0">
+              ${statusBadge}
+              <svg class="w-4 h-4 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          `;
+
+          card.addEventListener("click", () => {
+            this.activeDay = day;
+            this.showView("workout");
+          });
+
+          this.dom.daysList.appendChild(card);
+        });
+      }
+
+      renderWorkoutView() {
+        this.dom.workoutDayBadge.innerText = `Day ${this.activeDay.dayNumber}`;
+        this.dom.workoutDayTitle.innerText = this.activeDay.title;
+        this.dom.exercisesList.innerHTML = "";
+
+        this.activeDay.exercises.forEach((exercise, exIndex) => {
+          const card = document.createElement("div");
+          card.className = "bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-3.5";
+
+          let badgeColor = "bg-zinc-800 text-zinc-300 border-zinc-700";
+          if (exercise.type === "tabata") badgeColor = "bg-rose-950/80 text-rose-300 border-rose-800/60";
+          if (exercise.type === "superset") badgeColor = "bg-purple-950/80 text-purple-300 border-purple-800/60";
+          if (exercise.type === "dropset") badgeColor = "bg-amber-950/80 text-amber-300 border-amber-800/60";
+
+          const tabataLaunchBtn = exercise.type === "tabata" ? `
+            <button class="btn-launch-tabata w-full py-2.5 px-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-xl flex items-center justify-center space-x-1.5 tap-active mt-2" data-exindex="${exIndex}">
+              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
+              <span>Launch Tabata Timer (${exercise.workSeconds || 20}s / ${exercise.restSeconds || 10}s)</span>
+            </button>
+          ` : "";
+
+          const notesCallout = exercise.notes ? `
+            <div class="bg-zinc-950/80 border border-zinc-800/80 rounded-lg p-2.5 text-xs text-zinc-400 flex items-start space-x-2">
+              <svg class="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              <span>${exercise.notes}</span>
+            </div>
+          ` : "";
+
+          let setRowsHtml = "";
+          for (let s = 0; s < exercise.sets; s++) {
+            const key = this.getLogKey(this.activeProgram.id, this.activeDay.dayNumber, exercise.id, s);
+            const logEntry = this.logs[key] || { completed: false, weight: "", reps: "" };
+            const isCompleted = logEntry.completed;
+
+            setRowsHtml += `
+              <div class="flex items-center justify-between py-1.5 border-b border-zinc-800/50 last:border-b-0 text-xs">
+                <span class="w-10 font-bold ${isCompleted ? 'text-emerald-400' : 'text-zinc-500'}">SET ${s + 1}</span>
+                <div class="flex items-center space-x-2 flex-grow justify-end pr-3">
+                  <div class="flex items-center space-x-1">
+                    <input type="number" inputmode="decimal" placeholder="lbs" value="${logEntry.weight || ''}" 
+                      data-key="${key}" data-field="weight" 
+                      class="input-set-field w-16 bg-zinc-950 border border-zinc-800 rounded px-2 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
+                    <span class="text-zinc-500 text-[10px]">lbs</span>
+                  </div>
+                  <div class="flex items-center space-x-1">
+                    <input type="number" inputmode="numeric" placeholder="${exercise.reps || 'reps'}" value="${logEntry.reps || ''}" 
+                      data-key="${key}" data-field="reps" 
+                      class="input-set-field w-16 bg-zinc-950 border border-zinc-800 rounded px-2 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
+                    <span class="text-zinc-500 text-[10px]">reps</span>
+                  </div>
+                </div>
+                <button class="btn-check-set w-9 h-9 rounded-xl flex items-center justify-center border transition tap-active ${isCompleted ? 'bg-emerald-600 border-emerald-500 text-white' : 'bg-zinc-800 border-zinc-700 text-zinc-500 hover:text-zinc-300'}" 
+                  data-key="${key}" data-rest="${exercise.restSeconds || 60}" data-completed="${isCompleted ? '1' : '0'}">
+                  <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+                </button>
+              </div>
+            `;
+          }
+
+          card.innerHTML = `
+            <div class="flex items-start justify-between">
+              <div>
+                <div class="flex items-center space-x-2">
+                  <span class="px-2 py-0.5 rounded border text-[10px] font-bold uppercase tracking-wide ${badgeColor}">${exercise.type}</span>
+                  <span class="text-[11px] text-zinc-500 font-mono">Rest: ${exercise.restSeconds || 60}s</span>
+                </div>
+                <h4 class="text-base font-bold text-white mt-1">${exercise.name}</h4>
+                <p class="text-xs text-zinc-400 mt-0.5 font-medium">${exercise.sets} Sets × ${exercise.reps || 'Intervals'}</p>
+              </div>
+            </div>
+            ${notesCallout}
+            ${tabataLaunchBtn}
+            <div class="pt-2 border-t border-zinc-800/80">
+              <div class="flex items-center justify-between text-[10px] uppercase font-bold text-zinc-500 pb-1 px-1">
+                <span>Set</span>
+                <span class="pr-12">Performance Log</span>
+                <span>Status</span>
+              </div>
+              <div class="space-y-0.5">
+                ${setRowsHtml}
+              </div>
+            </div>
+          `;
+
+          this.dom.exercisesList.appendChild(card);
+        });
+
+        this.bindWorkoutInteractiveEvents();
+      }
+
+      bindWorkoutInteractiveEvents() {
+        this.dom.exercisesList.querySelectorAll(".btn-check-set").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const key = btn.dataset.key;
+            const rest = parseInt(btn.dataset.rest, 10);
+            const isCurrentlyCompleted = btn.dataset.completed === "1";
+
+            if (!this.logs[key]) {
+              this.logs[key] = { completed: false, weight: "", reps: "" };
+            }
+
+            this.logs[key].completed = !isCurrentlyCompleted;
+            WorkoutStorage.saveLogs(this.logs);
+
+            if (!isCurrentlyCompleted) {
+              sound.shortBeep();
+              this.restTimer.start(rest);
+            }
+
+            this.renderWorkoutView();
+          });
+        });
+
+        this.dom.exercisesList.querySelectorAll(".input-set-field").forEach(input => {
+          input.addEventListener("input", () => {
+            const key = input.dataset.key;
+            const field = input.dataset.field;
+            if (!this.logs[key]) {
+              this.logs[key] = { completed: false, weight: "", reps: "" };
+            }
+            this.logs[key][field] = input.value;
+            WorkoutStorage.saveLogs(this.logs);
+          });
+        });
+
+        this.dom.exercisesList.querySelectorAll(".btn-launch-tabata").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const index = parseInt(btn.dataset.exindex, 10);
+            const exercise = this.activeDay.exercises[index];
+            this.tabata.open(exercise);
+          });
+        });
+      }
+
+      getLogKey(progId, dayNum, exId, setIndex) {
+        return `${progId}_d${dayNum}_${exId}_s${setIndex}`;
+      }
+
+      resetActiveDayLogs() {
+        if (!confirm("Reset all logged set completions for this workout day?")) return;
+        this.activeDay.exercises.forEach(ex => {
+          for (let s = 0; s < ex.sets; s++) {
+            const key = this.getLogKey(this.activeProgram.id, this.activeDay.dayNumber, ex.id, s);
+            delete this.logs[key];
+          }
+        });
+        WorkoutStorage.saveLogs(this.logs);
+        this.renderWorkoutView();
+      }
+
+      openSettings() {
+        this.dom.jsonEditor.value = JSON.stringify(this.data, null, 2);
+        this.dom.modalSettings.classList.remove("hidden");
+      }
+
+      closeSettings() {
+        this.dom.modalSettings.classList.add("hidden");
+      }
+
+      saveJsonFromModal() {
+        try {
+          const parsed = JSON.parse(this.dom.jsonEditor.value);
+          if (!parsed.programs || !Array.isArray(parsed.programs)) {
+            alert("Validation failed: Schema must contain a 'programs' array.");
+            return;
+          }
+          this.data = parsed;
+          WorkoutStorage.setData(this.data);
+          this.closeSettings();
+          this.showView("programs");
+          alert("Data saved successfully.");
+        } catch (e) {
+          alert("Invalid JSON format: " + e.message);
+        }
+      }
+
+      copyJsonToClipboard() {
+        navigator.clipboard.writeText(this.dom.jsonEditor.value).then(() => {
+          alert("Program JSON copied to clipboard.");
+        }).catch(() => {
+          alert("Clipboard access denied. Please select and copy manually.");
+        });
+      }
+
+      resetDefaults() {
+        if (!confirm("Reset all programs and erase logs back to factory defaults?")) return;
+        this.data = WorkoutStorage.resetDefaults();
+        this.logs = {};
+        this.closeSettings();
+        this.showView("programs");
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      window.app = new ApplicationUI();
+    });
+  </script>
+</body>
+</html>
