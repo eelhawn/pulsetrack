@@ -329,6 +329,21 @@
     </div>
   </div>
 
+  <!-- Custom Swap / Rename Exercise Modal -->
+  <div id="modal-swap-ex" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center hidden p-4 opacity-0 transition-opacity duration-200">
+    <div class="bg-zinc-900 border border-zinc-800 w-full max-w-sm rounded-2xl p-5 space-y-4 shadow-2xl transform transition-transform duration-200 scale-95" id="modal-swap-content">
+      <h3 class="text-base font-bold text-white">Swap / Rename Exercise</h3>
+      <div class="space-y-1.5">
+        <label class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Exercise Name</label>
+        <input type="text" id="swap-ex-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:outline-none focus:border-emerald-500" placeholder="e.g., Incline Dumbbell Press">
+      </div>
+      <div class="flex space-x-2 pt-2">
+        <button id="btn-cancel-swap" class="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold text-xs rounded-xl tap-active">Cancel</button>
+        <button id="btn-confirm-swap" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl tap-active">Confirm Swap</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Barbell Plate Calculator Modal -->
   <div id="modal-plate-calc" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
     <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-t-2xl sm:rounded-2xl p-5 space-y-4">
@@ -463,7 +478,6 @@
   <script>
     /**
      * Complete Workout Dataset Catalog
-     * Features the 3 primary programs pre-loaded.
      */
     const DEFAULT_WORKOUT_DATA = {
       programs: [
@@ -1542,7 +1556,7 @@
           const tabataLaunchBtn = exercise.type === "tabata" ? `
             <button class="btn-launch-tabata w-full py-2.5 px-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-xl flex items-center justify-center space-x-1.5 tap-active mt-2" data-exindex="${exIndex}">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
-              <span>Launch Tabata Timer (${exercise.workSeconds || 20}s / ${exercise.restSeconds || 10}s)</span>
+              <span>Launch Tabata Timer (${exercise.workSeconds \vert{}\vert{} 20}s / ${exercise.restSeconds || 10}s)</span>
             </button>
           ` : "";
 
@@ -1770,7 +1784,7 @@
           });
         });
 
-        // Swap Exercise on-the-fly
+        // Swap Exercise on-the-fly (Using browser prompt as requested)
         this.dom.exercisesList.querySelectorAll(".btn-swap-ex").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
@@ -1883,7 +1897,7 @@
             return;
           }
 
-          WorkoutStorage.setData(this.data);
+Storage.setData(this.data);
           this.closeSettings();
           this.showView("programs");
           this.updateDrawerStatus();
