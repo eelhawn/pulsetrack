@@ -8,6 +8,9 @@
   <meta name="theme-color" content="#09090b">
   <title>PulseTrack Mobile Workout PWA</title>
 
+  <!-- Embedded Web App Manifest for Standalone Native Installation -->
+  <link rel="manifest" href='data:application/manifest+json;utf-8,{"name":"PulseTrack","short_name":"PulseTrack","start_url":".","display":"standalone","background_color":"%2309090b","theme_color":"%2309090b"}'>
+
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -32,6 +35,7 @@
   <style>
     * {
       -webkit-tap-highlight-color: transparent;
+      user-select: none;
       box-sizing: border-box;
     }
     input, textarea {
@@ -547,12 +551,83 @@
               ]
             }
           ]
+        },
+        {
+          "id": "kai_greene_beast_beach_6wk",
+          "title": "6 Weeks Shred: The Beast of the Beach",
+          "description": "Kai Greene's 6-week cutting protocol. Features pre-workout cardio and ab primers, followed by high-volume splits. Phase 1 (Weeks 1-3) utilizes strict 45-second rests.",
+          "tags": ["Kai Greene", "Cutting", "Fat Loss", "6 Weeks", "High Volume"],
+          "days": [
+            {
+              "dayNumber": 1,
+              "title": "[W1-3] Day 1: Quad & Hamstring Foundation",
+              "estimatedMinutes": 60,
+              "exercises": [
+                { "id": "kg_w1_d1_e1", "name": "Barbell Squat", "sets": 3, "reps": "8", "restSeconds": 45, "type": "standard", "notes": "Warm up with 30 min cardio + 2 ab movements (3x30). Full squat depth." },
+                { "id": "kg_w1_d1_e2", "name": "Conventional Deadlift", "sets": 3, "reps": "8", "restSeconds": 45, "type": "standard", "notes": "Reset each rep on floor. Maintain neutral spine and brace." },
+                { "id": "kg_w1_d1_e3", "name": "Jefferson Squats", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "Straddle the barbell with feet staggered. Switch foot lead each set." },
+                { "id": "kg_w1_d1_e4", "name": "Leg Extensions", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "Peak contraction pause at the top of every rep." }
+              ]
+            },
+            {
+              "dayNumber": 2,
+              "title": "[W1-3] Day 2: Chest, Delts & Triceps",
+              "estimatedMinutes": 60,
+              "exercises": [
+                { "id": "kg_w1_d2_e1", "name": "Barbell Bench Press", "sets": 3, "reps": "8", "restSeconds": 45, "type": "standard", "notes": "30 min cardio + 2 ab exercises (3x30) pre-lift. Retract scapulae." },
+                { "id": "kg_w1_d2_e2", "name": "Incline Barbell Bench Press", "sets": 3, "reps": "8", "restSeconds": 45, "type": "standard", "notes": "Touch upper chest lightly, drive straight up." },
+                { "id": "kg_w1_d2_e3", "name": "Dumbbell Chest Fly", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "Wide stretch arc; slight elbow bend." },
+                { "id": "kg_w1_d2_e4", "name": "Dumbbell Shoulder Press", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "Seated or standing; press overhead without clashing dumbbells." }
+              ]
+            },
+            {
+              "dayNumber": 3,
+              "title": "[W1-3] Day 3: Back Thickness & Biceps",
+              "estimatedMinutes": 60,
+              "exercises": [
+                { "id": "kg_w1_d3_e1", "name": "Barbell Bent-Over Row", "sets": 3, "reps": "8", "restSeconds": 45, "type": "standard", "notes": "Pre-lift: 30 min cardio + 2 ab exercises (3x30). Pull bar to navel." },
+                { "id": "kg_w1_d3_e2", "name": "Close Grip Lat Pull Down", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "V-bar handle; arch upper back and drive elbows down." },
+                { "id": "kg_w1_d3_e3", "name": "Wide Grip Lat Pull Down", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "Pull to clavicle; focus on lat stretch at top." },
+                { "id": "kg_w1_d3_e4", "name": "Neutral Grip Low Cable Row", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "Squeeze shoulder blades together on full contraction." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "arnold_blueprint_mass_p1",
+          "title": "Arnold Blueprint to Mass: Phase 1",
+          "description": "Arnold Schwarzenegger's classic high-volume mass building blueprint (Weeks 1-4). Utilizes heavy basic building-block movements, weekly descending pyramid periodization, antagonist supersets.",
+          "tags": ["Arnold", "Mass Building", "Hypertrophy", "4 Weeks", "Classic Bodybuilding"],
+          "days": [
+            {
+              "dayNumber": 1,
+              "title": "Monday: Chest, Upper Back & Abs",
+              "estimatedMinutes": 75,
+              "exercises": [
+                { "id": "arn_p1_d1_e1", "name": "Flat Barbell Bench Press", "sets": 5, "reps": "30, 12, 10, 8, 6", "restSeconds": 75, "type": "standard", "notes": "Pyramid up each set. W1: 30, 12, 10, 8, 6 | W2: 30, 8, 6, 4, 2 (+ Stripping Method down to bar) | W3: 30, 5x5 | W4: Max 1RM test." },
+                { "id": "arn_p1_d1_e2", "name": "Incline Barbell Bench Press (Low Angle)", "sets": 5, "reps": "30, 12, 10, 8, 6", "restSeconds": 75, "type": "standard", "notes": "Low bench incline angle. Touch upper clavicles; maintain continuous tension without locking out." },
+                { "id": "arn_p1_d1_e3", "name": "Dumbbell Flyes Superset w/ Dumbbell Pullover", "sets": 5, "reps": "8-12", "restSeconds": 60, "type": "superset", "notes": "Deep chest expansion on flyes. Immediately grab dumbbell and pull across flat bench for ribcage expansion pullover." },
+                { "id": "arn_p1_d1_e4", "name": "Wide-Grip Chin-Ups", "sets": 4, "reps": "Failure", "restSeconds": 75, "type": "standard", "notes": "Overhand wide grip. Full dead hang stretch at bottom to chin cleared over bar." }
+              ]
+            },
+            {
+              "dayNumber": 2,
+              "title": "Tuesday: Heavy Shoulders, Arms & Forearms",
+              "estimatedMinutes": 80,
+              "exercises": [
+                { "id": "arn_p1_d2_e1", "name": "Barbell Clean & Press", "sets": 5, "reps": "5", "restSeconds": 90, "type": "standard", "notes": "Explosive clean from floor to clavicles, then strict overhead military press." },
+                { "id": "arn_p1_d2_e2", "name": "Seated Dumbbell Press Superset w/ Full Frontal Raise", "sets": 5, "reps": "30, 12, 10, 8, 6", "restSeconds": 60, "type": "superset", "notes": "Heavy DB press followed immediately by front dumbbell raises straight overhead." },
+                { "id": "arn_p1_d2_e3", "name": "Dumbbell Lateral Raises Superset w/ Barbell Upright Rows", "sets": 5, "reps": "30, 12, 10, 8, 6", "restSeconds": 60, "type": "superset", "notes": "Side delt isolation superset. Lead with elbows on both movements." },
+                { "id": "arn_p1_d2_e4", "name": "Standing Barbell Curls", "sets": 5, "reps": "30, 12, 10, 8, 6", "restSeconds": 60, "type": "standard", "notes": "Strict curls with zero body sway. W2 & W3: Substitute 1-10 Method on final work sets." }
+              ]
+            }
+          ]
         }
       ]
     };
 
     /**
-     * Storage and State Registry Manager (v1 key restored for seamless state matching)
+     * Storage and State Registry Manager
      */
     const STORAGE_KEY_DATA = "pulsetrack_data_v1";
     const STORAGE_KEY_LOGS = "pulsetrack_logs_v1";
@@ -571,6 +646,7 @@
         try {
           return JSON.parse(stored);
         } catch (e) {
+          console.error("Storage parsing exception, reverting to defaults", e);
           return DEFAULT_WORKOUT_DATA;
         }
       }
@@ -689,7 +765,9 @@
 
           osc.start();
           osc.stop(this.ctx.currentTime + duration);
-        } catch (e) {}
+        } catch (e) {
+          console.warn("Audio playback prevented:", e);
+        }
       }
 
       shortBeep() { 
@@ -760,7 +838,7 @@
             activeCount++;
             p.x += p.vx;
             p.y += p.vy;
-            p.vy += 0.35;
+            p.vy += 0.35; // gravity
             p.rotation += p.vRot;
             p.life -= 0.012;
 
@@ -1239,7 +1317,9 @@
         if ("wakeLock" in navigator) {
           try {
             this.wakeLock = await navigator.wakeLock.request("screen");
-          } catch (e) {}
+          } catch (e) {
+            console.warn("Screen wake lock request failed:", e);
+          }
         }
       }
 
@@ -1436,7 +1516,7 @@
           this.dom.programsList.innerHTML = `
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center space-y-2">
               <p class="text-sm font-semibold text-zinc-300">No workout programs found</p>
-              <p class="text-xs text-zinc-500">Tap the top-right settings icon to reset defaults or import a workout schema.</p>
+              <p class="text-xs text-zinc-500">Tap the top-right settings icon to paste or import a workout schema.</p>
             </div>
           `;
           return;
@@ -1671,6 +1751,7 @@
                 <p class="text-xs text-zinc-400 mt-0.5 font-medium">${exercise.sets} Sets × ${exercise.reps || 'Intervals'}</p>
               </div>
               <div class="flex items-center space-x-1 flex-shrink-0">
+                <!-- Swap Exercise Button -->
                 <button class="btn-swap-ex p-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 rounded-xl tap-active" data-exindex="${exIndex}" title="Swap Exercise">
                   <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
                 </button>
@@ -1788,6 +1869,7 @@
           });
         });
 
+        // Trigger Custom Exercise Swap Modal
         this.dom.exercisesList.querySelectorAll(".btn-swap-ex").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
