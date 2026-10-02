@@ -213,7 +213,7 @@
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack Pro v1.3</span>
+      <span>PulseTrack Pro v1.4</span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -326,6 +326,21 @@
       <button id="btn-tabata-restart" class="p-4 bg-zinc-800 text-zinc-200 font-bold rounded-xl tap-active">
         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
       </button>
+    </div>
+  </div>
+
+  <!-- Custom Swap / Rename Exercise Modal -->
+  <div id="modal-swap-ex" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-sm flex items-center justify-center hidden p-4 opacity-0 transition-opacity duration-200">
+    <div class="bg-zinc-900 border border-zinc-800 w-full max-w-sm rounded-2xl p-5 space-y-4 shadow-2xl transform transition-transform duration-200 scale-95" id="modal-swap-content">
+      <h3 class="text-base font-bold text-white">Swap / Rename Exercise</h3>
+      <div class="space-y-1.5">
+        <label class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Exercise Name</label>
+        <input type="text" id="swap-ex-input" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:outline-none focus:border-emerald-500" placeholder="e.g., Incline Dumbbell Press">
+      </div>
+      <div class="flex space-x-2 pt-2">
+        <button id="btn-cancel-swap" class="flex-1 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-300 font-bold text-xs rounded-xl tap-active">Cancel</button>
+        <button id="btn-confirm-swap" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl tap-active">Confirm Swap</button>
+      </div>
     </div>
   </div>
 
@@ -463,7 +478,6 @@
   <script>
     /**
      * Complete Workout Dataset Catalog
-     * Features the 3 primary programs pre-loaded.
      */
     const DEFAULT_WORKOUT_DATA = {
       programs: [
@@ -534,6 +548,77 @@
               exercises: [
                 { id: "ma6_d6_e1", name: "Abdominal Planks", sets: 3, reps: "45-60s", restSeconds: 45, type: "standard", notes: "Maintain neutral spine brace." },
                 { id: "ma6_d6_e2", name: "Russian Twists", sets: 3, reps: "20 total", restSeconds: 45, type: "standard", notes: "Control rotation through torso." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "kai_greene_beast_beach_6wk",
+          "title": "6 Weeks Shred: The Beast of the Beach",
+          "description": "Kai Greene's 6-week cutting protocol. Features pre-workout cardio and ab primers, followed by high-volume splits. Phase 1 (Weeks 1-3) utilizes strict 45-second rests.",
+          "tags": ["Kai Greene", "Cutting", "Fat Loss", "6 Weeks", "High Volume"],
+          "days": [
+            {
+              "dayNumber": 1,
+              "title": "[W1-3] Day 1: Quad & Hamstring Foundation",
+              "estimatedMinutes": 60,
+              "exercises": [
+                { "id": "kg_w1_d1_e1", "name": "Barbell Squat", "sets": 3, "reps": "8", "restSeconds": 45, "type": "standard", "notes": "Warm up with 30 min cardio + 2 ab movements (3x30). Full squat depth." },
+                { "id": "kg_w1_d1_e2", "name": "Conventional Deadlift", "sets": 3, "reps": "8", "restSeconds": 45, "type": "standard", "notes": "Reset each rep on floor. Maintain neutral spine and brace." },
+                { "id": "kg_w1_d1_e3", "name": "Jefferson Squats", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "Straddle the barbell with feet staggered. Switch foot lead each set." },
+                { "id": "kg_w1_d1_e4", "name": "Leg Extensions", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "Peak contraction pause at the top of every rep." }
+              ]
+            },
+            {
+              "dayNumber": 2,
+              "title": "[W1-3] Day 2: Chest, Delts & Triceps",
+              "estimatedMinutes": 60,
+              "exercises": [
+                { "id": "kg_w1_d2_e1", "name": "Barbell Bench Press", "sets": 3, "reps": "8", "restSeconds": 45, "type": "standard", "notes": "30 min cardio + 2 ab exercises (3x30) pre-lift. Retract scapulae." },
+                { "id": "kg_w1_d2_e2", "name": "Incline Barbell Bench Press", "sets": 3, "reps": "8", "restSeconds": 45, "type": "standard", "notes": "Touch upper chest lightly, drive straight up." },
+                { "id": "kg_w1_d2_e3", "name": "Dumbbell Chest Fly", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "Wide stretch arc; slight elbow bend." },
+                { "id": "kg_w1_d2_e4", "name": "Dumbbell Shoulder Press", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "Seated or standing; press overhead without clashing dumbbells." }
+              ]
+            },
+            {
+              "dayNumber": 3,
+              "title": "[W1-3] Day 3: Back Thickness & Biceps",
+              "estimatedMinutes": 60,
+              "exercises": [
+                { "id": "kg_w1_d3_e1", "name": "Barbell Bent-Over Row", "sets": 3, "reps": "8", "restSeconds": 45, "type": "standard", "notes": "Pre-lift: 30 min cardio + 2 ab exercises (3x30). Pull bar to navel." },
+                { "id": "kg_w1_d3_e2", "name": "Close Grip Lat Pull Down", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "V-bar handle; arch upper back and drive elbows down." },
+                { "id": "kg_w1_d3_e3", "name": "Wide Grip Lat Pull Down", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "Pull to clavicle; focus on lat stretch at top." },
+                { "id": "kg_w1_d3_e4", "name": "Neutral Grip Low Cable Row", "sets": 3, "reps": "12", "restSeconds": 45, "type": "standard", "notes": "Squeeze shoulder blades together on full contraction." }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "arnold_blueprint_mass_p1",
+          "title": "Arnold Blueprint to Mass: Phase 1",
+          "description": "Arnold Schwarzenegger's classic high-volume mass building blueprint (Weeks 1-4). Utilizes heavy basic building-block movements, weekly descending pyramid periodization, antagonist supersets.",
+          "tags": ["Arnold", "Mass Building", "Hypertrophy", "4 Weeks", "Classic Bodybuilding"],
+          "days": [
+            {
+              "dayNumber": 1,
+              "title": "Monday: Chest, Upper Back & Abs",
+              "estimatedMinutes": 75,
+              "exercises": [
+                { "id": "arn_p1_d1_e1", "name": "Flat Barbell Bench Press", "sets": 5, "reps": "30, 12, 10, 8, 6", "restSeconds": 75, "type": "standard", "notes": "Pyramid up each set. W1: 30, 12, 10, 8, 6 | W2: 30, 8, 6, 4, 2 (+ Stripping Method down to bar) | W3: 30, 5x5 | W4: Max 1RM test." },
+                { "id": "arn_p1_d1_e2", "name": "Incline Barbell Bench Press (Low Angle)", "sets": 5, "reps": "30, 12, 10, 8, 6", "restSeconds": 75, "type": "standard", "notes": "Low bench incline angle. Touch upper clavicles; maintain continuous tension without locking out." },
+                { "id": "arn_p1_d1_e3", "name": "Dumbbell Flyes Superset w/ Dumbbell Pullover", "sets": 5, "reps": "8-12", "restSeconds": 60, "type": "superset", "notes": "Deep chest expansion on flyes. Immediately grab dumbbell and pull across flat bench for ribcage expansion pullover." },
+                { "id": "arn_p1_d1_e4", "name": "Wide-Grip Chin-Ups", "sets": 4, "reps": "Failure", "restSeconds": 75, "type": "standard", "notes": "Overhand wide grip. Full dead hang stretch at bottom to chin cleared over bar." }
+              ]
+            },
+            {
+              "dayNumber": 2,
+              "title": "Tuesday: Heavy Shoulders, Arms & Forearms",
+              "estimatedMinutes": 80,
+              "exercises": [
+                { "id": "arn_p1_d2_e1", "name": "Barbell Clean & Press", "sets": 5, "reps": "5", "restSeconds": 90, "type": "standard", "notes": "Explosive clean from floor to clavicles, then strict overhead military press." },
+                { "id": "arn_p1_d2_e2", "name": "Seated Dumbbell Press Superset w/ Full Frontal Raise", "sets": 5, "reps": "30, 12, 10, 8, 6", "restSeconds": 60, "type": "superset", "notes": "Heavy DB press followed immediately by front dumbbell raises straight overhead." },
+                { "id": "arn_p1_d2_e3", "name": "Dumbbell Lateral Raises Superset w/ Barbell Upright Rows", "sets": 5, "reps": "30, 12, 10, 8, 6", "restSeconds": 60, "type": "superset", "notes": "Side delt isolation superset. Lead with elbows on both movements." },
+                { "id": "arn_p1_d2_e4", "name": "Standing Barbell Curls", "sets": 5, "reps": "30, 12, 10, 8, 6", "restSeconds": 60, "type": "standard", "notes": "Strict curls with zero body sway. W2 & W3: Substitute 1-10 Method on final work sets." }
               ]
             }
           ]
@@ -1026,6 +1111,7 @@
         this.restTimer = new RestTimerController();
         this.tabata = new TabataEngine();
         this.confetti = new ConfettiEngine("canvas-confetti");
+        this.swapActiveIndex = null;
 
         this.dom = {
           headerTitle: document.getElementById("header-title"),
@@ -1073,6 +1159,12 @@
           summaryVolume: document.getElementById("summary-volume"),
           summarySets: document.getElementById("summary-sets"),
           summaryPRs: document.getElementById("summary-prs"),
+
+          // Swap Modal
+          modalSwap: document.getElementById("modal-swap-ex"),
+          swapInput: document.getElementById("swap-ex-input"),
+          btnCancelSwap: document.getElementById("btn-cancel-swap"),
+          btnConfirmSwap: document.getElementById("btn-confirm-swap"),
 
           // Plate Calculator
           modalPlateCalc: document.getElementById("modal-plate-calc"),
@@ -1191,6 +1283,26 @@
             this.selectedBarWeight = parseFloat(btn.dataset.bar);
             this.calculatePlates();
           });
+        });
+
+        // Swap Modal Listeners
+        this.dom.btnCancelSwap.addEventListener("click", () => {
+          this.dom.modalSwap.classList.add("hidden");
+          this.dom.modalSwap.classList.remove("opacity-100");
+          this.swapActiveIndex = null;
+        });
+
+        this.dom.btnConfirmSwap.addEventListener("click", () => {
+          if (this.swapActiveIndex !== null) {
+            const replacement = this.dom.swapInput.value.trim();
+            if (replacement && replacement !== this.activeDay.exercises[this.swapActiveIndex].name) {
+              this.activeDay.exercises[this.swapActiveIndex].name = replacement;
+              this.renderWorkoutView();
+            }
+            this.dom.modalSwap.classList.add("hidden");
+            this.dom.modalSwap.classList.remove("opacity-100");
+            this.swapActiveIndex = null;
+          }
         });
 
         // Workout Completion & Summary
@@ -1542,7 +1654,7 @@
           const tabataLaunchBtn = exercise.type === "tabata" ? `
             <button class="btn-launch-tabata w-full py-2.5 px-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-xl flex items-center justify-center space-x-1.5 tap-active mt-2" data-exindex="${exIndex}">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
-              <span>Launch Tabata Timer (${exercise.workSeconds || 20}s / ${exercise.restSeconds || 10}s)</span>
+              <span>Launch Tabata Timer (${exercise.workSeconds \vert{}\vert{} 20}s / ${exercise.restSeconds || 10}s)</span>
             </button>
           ` : "";
 
@@ -1553,7 +1665,6 @@
             </div>
           ` : "";
 
-          // Look up previous session history for this exercise
           const prevHistory = this.lastPerf[exercise.name] || [];
 
           let setRowsHtml = "";
@@ -1563,18 +1674,15 @@
             const isCompleted = logEntry.completed;
             const currentTag = logEntry.tag || "R";
 
-            // Determine tag styling
             let tagBadge = "bg-zinc-800 text-zinc-300 border-zinc-700";
             if (currentTag === "W") tagBadge = "bg-amber-950/90 text-amber-300 border-amber-800/60";
             if (currentTag === "D") tagBadge = "bg-purple-950/90 text-purple-300 border-purple-800/60";
             if (currentTag === "F") tagBadge = "bg-rose-950/90 text-rose-300 border-rose-800/60";
 
-            // PR Detection
             const calculated1RM = this.calculate1RM(logEntry.weight, logEntry.reps);
             const prevBest1RM = this.prs[exercise.name] || 0;
             const isPR = isCompleted && calculated1RM > 0 && calculated1RM >= prevBest1RM;
 
-            // Ghost values placeholder
             const prevSet = prevHistory[s] || null;
             const prevHint = prevSet ? `${prevSet.weight}×${prevSet.reps}` : ``;
 
@@ -1656,7 +1764,6 @@
               <div class="space-y-0.5">
                 ${setRowsHtml}
               </div>
-              <!-- Dynamic Add / Remove Set Row Buttons -->
               <div class="flex items-center justify-end space-x-2 pt-2.5 border-t border-zinc-800/50 text-xs">
                 <button class="btn-remove-set px-2 py-1 bg-zinc-800/70 hover:bg-zinc-800 text-zinc-400 hover:text-rose-400 rounded-lg tap-active" data-exindex="${exIndex}">
                   − Remove Set
@@ -1675,7 +1782,6 @@
       }
 
       bindWorkoutInteractiveEvents() {
-        // Set Checkoff
         this.dom.exercisesList.querySelectorAll(".btn-check-set").forEach(btn => {
           btn.addEventListener("click", () => {
             const key = btn.dataset.key;
@@ -1690,7 +1796,6 @@
             this.logs[key].completed = !isCurrentlyCompleted;
             WorkoutStorage.saveLogs(this.logs);
 
-            // Log activity to calendar history
             const today = new Date();
             const todayStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
             this.history = WorkoutStorage.logDayActivity(todayStr, !isCurrentlyCompleted);
@@ -1701,7 +1806,6 @@
               sound.shortBeep();
               this.restTimer.start(rest);
 
-              // Check and update PR for this exercise
               const calculated1RM = this.calculate1RM(this.logs[key].weight, this.logs[key].reps);
               if (calculated1RM > (this.prs[exName] || 0)) {
                 this.prs[exName] = calculated1RM;
@@ -1713,7 +1817,6 @@
           });
         });
 
-        // Set Tag Toggle (R -> W -> D -> F)
         this.dom.exercisesList.querySelectorAll(".btn-cycle-tag").forEach(btn => {
           btn.addEventListener("click", () => {
             const key = btn.dataset.key;
@@ -1728,7 +1831,6 @@
           });
         });
 
-        // Input Fields
         this.dom.exercisesList.querySelectorAll(".input-set-field").forEach(input => {
           input.addEventListener("input", () => {
             const key = input.dataset.key;
@@ -1741,7 +1843,6 @@
           });
         });
 
-        // Tabata Launch
         this.dom.exercisesList.querySelectorAll(".btn-launch-tabata").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
@@ -1750,7 +1851,6 @@
           });
         });
 
-        // Add Set
         this.dom.exercisesList.querySelectorAll(".btn-add-set").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
@@ -1759,7 +1859,6 @@
           });
         });
 
-        // Remove Set
         this.dom.exercisesList.querySelectorAll(".btn-remove-set").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
@@ -1770,16 +1869,18 @@
           });
         });
 
-        // Swap Exercise on-the-fly
+        // Trigger Custom Exercise Swap Modal
         this.dom.exercisesList.querySelectorAll(".btn-swap-ex").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
-            const current = this.activeDay.exercises[index];
-            const replacement = prompt(`Replace "${current.name}" with:`, current.name);
-            if (replacement && replacement.trim() !== "" && replacement !== current.name) {
-              current.name = replacement.trim();
-              this.renderWorkoutView();
-            }
+            this.swapActiveIndex = index;
+            this.dom.swapInput.value = this.activeDay.exercises[index].name;
+            this.dom.modalSwap.classList.remove("hidden");
+            // brief timeout to allow display:block to render before transitioning opacity
+            setTimeout(() => {
+              this.dom.modalSwap.classList.add("opacity-100");
+              this.dom.swapInput.focus();
+            }, 10);
           });
         });
       }
@@ -1798,7 +1899,6 @@
               completedSetsCount++;
               const w = parseFloat(entry.weight) || 0;
               const r = parseFloat(entry.reps) || 0;
-              // Warm-ups excluded from working volume
               if (entry.tag !== "W") {
                 totalVolume += (w * r);
               }
