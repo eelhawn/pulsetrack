@@ -8,9 +8,6 @@
   <meta name="theme-color" content="#09090b">
   <title>PulseTrack Mobile Workout PWA</title>
 
-  <!-- Embedded Web App Manifest for Standalone Native Installation -->
-  <link rel="manifest" href='data:application/manifest+json;utf-8,{"name":"PulseTrack","short_name":"PulseTrack","start_url":".","display":"standalone","background_color":"%2309090b","theme_color":"%2309090b"}'>
-
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -35,7 +32,6 @@
   <style>
     * {
       -webkit-tap-highlight-color: transparent;
-      user-select: none;
       box-sizing: border-box;
     }
     input, textarea {
@@ -611,7 +607,7 @@
               ]
             },
             {
-              "dayNumber": 2,
+              "dayNumber: 2",
               "title": "Tuesday: Heavy Shoulders, Arms & Forearms",
               "estimatedMinutes": 80,
               "exercises": [
@@ -627,14 +623,14 @@
     };
 
     /**
-     * Storage and State Registry Manager
+     * Auto-Healing Storage Manager (Prevents mobile storage corruption)
      */
-    const STORAGE_KEY_DATA = "pulsetrack_data_v1";
-    const STORAGE_KEY_LOGS = "pulsetrack_logs_v1";
-    const STORAGE_KEY_SETTINGS = "pulsetrack_settings_v1";
-    const STORAGE_KEY_HISTORY = "pulsetrack_history_v1";
-    const STORAGE_KEY_PRS = "pulsetrack_prs_v1";
-    const STORAGE_KEY_LASTPERF = "pulsetrack_lastperf_v1";
+    const STORAGE_KEY_DATA = "pulsetrack_data_v2";
+    const STORAGE_KEY_LOGS = "pulsetrack_logs_v2";
+    const STORAGE_KEY_SETTINGS = "pulsetrack_settings_v2";
+    const STORAGE_KEY_HISTORY = "pulsetrack_history_v2";
+    const STORAGE_KEY_PRS = "pulsetrack_prs_v2";
+    const STORAGE_KEY_LASTPERF = "pulsetrack_lastperf_v2";
 
     class WorkoutStorage {
       static getData() {
@@ -644,9 +640,15 @@
           return DEFAULT_WORKOUT_DATA;
         }
         try {
-          return JSON.parse(stored);
+          const parsed = JSON.parse(stored);
+          if (!parsed.programs || !Array.isArray(parsed.programs) || parsed.programs.length === 0) {
+            this.setData(DEFAULT_WORKOUT_DATA);
+            return DEFAULT_WORKOUT_DATA;
+          }
+          return parsed;
         } catch (e) {
-          console.error("Storage parsing exception, reverting to defaults", e);
+          console.warn("Storage recovery triggered:", e);
+          this.setData(DEFAULT_WORKOUT_DATA);
           return DEFAULT_WORKOUT_DATA;
         }
       }
@@ -656,8 +658,10 @@
       }
 
       static getLogs() {
-        const logs = localStorage.getItem(STORAGE_KEY_LOGS);
-        return logs ? JSON.parse(logs) : {};
+        try {
+          const logs = localStorage.getItem(STORAGE_KEY_LOGS);
+          return logs ? JSON.parse(logs) : {};
+        } catch (e) { return {}; }
       }
 
       static saveLogs(logs) {
@@ -665,8 +669,10 @@
       }
 
       static getSettings() {
-        const settings = localStorage.getItem(STORAGE_KEY_SETTINGS);
-        return settings ? JSON.parse(settings) : { showLogger: true };
+        try {
+          const settings = localStorage.getItem(STORAGE_KEY_SETTINGS);
+          return settings ? JSON.parse(settings) : { showLogger: true };
+        } catch (e) { return { showLogger: true }; }
       }
 
       static saveSettings(settings) {
@@ -674,8 +680,10 @@
       }
 
       static getHistory() {
-        const hist = localStorage.getItem(STORAGE_KEY_HISTORY);
-        return hist ? JSON.parse(hist) : {};
+        try {
+          const hist = localStorage.getItem(STORAGE_KEY_HISTORY);
+          return hist ? JSON.parse(hist) : {};
+        } catch (e) { return {}; }
       }
 
       static saveHistory(hist) {
@@ -683,8 +691,10 @@
       }
 
       static getPRs() {
-        const prs = localStorage.getItem(STORAGE_KEY_PRS);
-        return prs ? JSON.parse(prs) : {};
+        try {
+          const prs = localStorage.getItem(STORAGE_KEY_PRS);
+          return prs ? JSON.parse(prs) : {};
+        } catch (e) { return {}; }
       }
 
       static savePRs(prs) {
@@ -692,8 +702,10 @@
       }
 
       static getLastPerf() {
-        const lp = localStorage.getItem(STORAGE_KEY_LASTPERF);
-        return lp ? JSON.parse(lp) : {};
+        try {
+          const lp = localStorage.getItem(STORAGE_KEY_LASTPERF);
+          return lp ? JSON.parse(lp) : {};
+        } catch (e) { return {}; }
       }
 
       static saveLastPerf(lp) {
@@ -765,9 +777,7 @@
 
           osc.start();
           osc.stop(this.ctx.currentTime + duration);
-        } catch (e) {
-          console.warn("Audio playback prevented:", e);
-        }
+        } catch (e) {}
       }
 
       shortBeep() { 
@@ -838,7 +848,7 @@
             activeCount++;
             p.x += p.vx;
             p.y += p.vy;
-            p.vy += 0.35; // gravity
+            p.vy += 0.35;
             p.rotation += p.vRot;
             p.life -= 0.012;
 
@@ -1317,9 +1327,7 @@
         if ("wakeLock" in navigator) {
           try {
             this.wakeLock = await navigator.wakeLock.request("screen");
-          } catch (e) {
-            console.warn("Screen wake lock request failed:", e);
-          }
+          } catch (e) {}
         }
       }
 
@@ -1516,7 +1524,7 @@
           this.dom.programsList.innerHTML = `
             <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-6 text-center space-y-2">
               <p class="text-sm font-semibold text-zinc-300">No workout programs found</p>
-              <p class="text-xs text-zinc-500">Tap the top-right settings icon to paste or import a workout schema.</p>
+              <p class="text-xs text-zinc-500">Tap the top-right settings icon to reset defaults or import a workout schema.</p>
             </div>
           `;
           return;
@@ -1751,7 +1759,6 @@
                 <p class="text-xs text-zinc-400 mt-0.5 font-medium">${exercise.sets} Sets × ${exercise.reps || 'Intervals'}</p>
               </div>
               <div class="flex items-center space-x-1 flex-shrink-0">
-                <!-- Swap Exercise Button -->
                 <button class="btn-swap-ex p-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 rounded-xl tap-active" data-exindex="${exIndex}" title="Swap Exercise">
                   <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
                 </button>
@@ -1869,7 +1876,6 @@
           });
         });
 
-        // Trigger Custom Exercise Swap Modal
         this.dom.exercisesList.querySelectorAll(".btn-swap-ex").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
