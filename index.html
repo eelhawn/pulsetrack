@@ -1876,7 +1876,6 @@
             this.swapActiveIndex = index;
             this.dom.swapInput.value = this.activeDay.exercises[index].name;
             this.dom.modalSwap.classList.remove("hidden");
-            // brief timeout to allow display:block to render before transitioning opacity
             setTimeout(() => {
               this.dom.modalSwap.classList.add("opacity-100");
               this.dom.swapInput.focus();
