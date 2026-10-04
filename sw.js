@@ -1,28 +1,17 @@
-const CACHE_NAME = 'pulsetrack-cache-v2';
+const CACHE_NAME = 'pulsetrack-cache-v3';
 
-const urlsToCache = [
+// Only cache LOCAL files during install to prevent CORS security crashes
+const localUrlsToCache = [
   './',
   './index.html',
-  './manifest.json',
-  './icon-512.png',
-  'https://cdn.tailwindcss.com'
+  './manifest.json'
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then(cache => {
-        return cache.addAll(urlsToCache);
-      })
-  );
-});
-
-self.addEventListener('fetch', event => {
-  event.respondWith(
-    caches.match(event.request)
-      .then(response => {
-        return response || fetch(event.request);
-      })
+      .then(cache => cache.addAll(localUrlsToCache))
+      .then(() => self.skipWaiting()) // Forces immediate activation
   );
 });
 
@@ -36,6 +25,13 @@ self.addEventListener('activate', event => {
           }
         })
       );
-    })
+    }).then(() => self.clients.claim()) // Takes control of the page immediately
+  );
+});
+
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.match(event.request)
+      .then(response => response || fetch(event.request))
   );
 });
