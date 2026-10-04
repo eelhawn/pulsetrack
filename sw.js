@@ -1,37 +1,30 @@
-const CACHE_NAME = 'pulsetrack-cache-v3';
-
-// Only cache LOCAL files during install to prevent CORS security crashes
-const localUrlsToCache = [
-  './',
-  './index.html',
-  './manifest.json'
-];
+const CACHE_NAME = 'pulsetrack-offline-v5';
 
 self.addEventListener('install', event => {
-  event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(localUrlsToCache))
-      .then(() => self.skipWaiting()) // Forces immediate activation
-  );
+  self.skipWaiting(); // Instantly turns on
 });
 
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.map(cacheName => {
-          if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName);
-          }
-        })
-      );
-    }).then(() => self.clients.claim()) // Takes control of the page immediately
-  );
+  event.waitUntil(self.clients.claim()); // Instantly takes control
 });
 
+// Dynamic Network-First Caching
 self.addEventListener('fetch', event => {
+  if (event.request.method !== 'GET') return;
+  
   event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
+    fetch(event.request)
+      .then(response => {
+        // App is online: copy the data and save it
+        const responseClone = response.clone();
+        caches.open(CACHE_NAME).then(cache => {
+          cache.put(event.request, responseClone);
+        });
+        return response;
+      })
+      .catch(() => {
+        // App is offline: load it from the phone's memory
+        return caches.match(event.request);
+      })
   );
 });
