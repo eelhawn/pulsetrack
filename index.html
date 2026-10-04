@@ -69,6 +69,26 @@
       animation: prGlow 2s ease-in-out infinite;
     }
   </style>
+<!-- Link to the Manifest -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icon-192.png">
+
+  <!-- Register the Service Worker -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js')
+          .then(registration => {
+            console.log('Offline Engine Active:', registration.scope);
+          })
+          .catch(error => {
+            console.log('ServiceWorker registration failed:', error);
+          });
+      });
+    }
+  </script>
+</head>
+<body class="bg-zinc-950 min-h-screen text-zinc-100 flex flex-col justify-between">
 </head>
 <body class="bg-zinc-950 min-h-screen text-zinc-100 flex flex-col justify-between">
 
