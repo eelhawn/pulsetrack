@@ -67,21 +67,21 @@
     }
   </style>
 
-<!-- Link to the Manifest & Icon -->
+<!-- Link to the Manifest & Auto-Generated Icon -->
   <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="icon-512.png">
+  <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=PT&background=09090b&color=10b981&size=192&bold=true">
 
-  <!-- Register the Service Worker -->
+  <!-- Register the Service Worker (Forced Update) -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js')
-          .then(registration => {
-            console.log('Offline Engine Active:', registration.scope);
+        // The timestamp forces Chrome to grab the newest Service Worker immediately
+        navigator.serviceWorker.register('./sw.js?v=' + new Date().getTime())
+          .then(reg => {
+            console.log('Offline Engine Active!');
+            reg.update(); // Double tap to ensure the cache clears
           })
-          .catch(error => {
-            console.log('ServiceWorker registration failed:', error);
-          });
+          .catch(err => console.log('SW failed:', err));
       });
     }
   </script>
