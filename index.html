@@ -67,21 +67,19 @@
     }
   </style>
 
-<!-- Link to the Manifest & Auto-Generated Icon -->
-  <link rel="manifest" href="manifest.json">
-  <link rel="apple-touch-icon" href="https://ui-avatars.com/api/?name=PT&background=09090b&color=10b981&size=192&bold=true">
+<!-- Direct Embedded Manifest & Icon -->
+  <link rel="manifest" href="manifest.json?v=5">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIGZpbGw9IiMxMGI5ODEiLz48dGV4dCB4PSIyNTYiIHk9IjMwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAwIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzA5MDkwYiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UFQ8L3RleHQ+PC9zdmc+">
 
   <!-- Register the Service Worker (Forced Update) -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        // The timestamp forces Chrome to grab the newest Service Worker immediately
         navigator.serviceWorker.register('./sw.js?v=' + new Date().getTime())
           .then(reg => {
-            console.log('Offline Engine Active!');
-            reg.update(); // Double tap to ensure the cache clears
-          })
-          .catch(err => console.log('SW failed:', err));
+            reg.update();
+            console.log('Engine Active');
+          });
       });
     }
   </script>
