@@ -1,13 +1,11 @@
-const CACHE_NAME = 'pulsetrack-cache-v1';
+const CACHE_NAME = 'pulsetrack-cache-v2';
 
-// The files we want to save for offline use
 const urlsToCache = [
   './',
   './index.html',
   './manifest.json',
-  'https://cdn.tailwindcss.com',
-  'https://ui-avatars.com/api/?name=PT&background=09090b&color=10b981&size=192&bold=true',
-  'https://ui-avatars.com/api/?name=PT&background=09090b&color=10b981&size=512&bold=true'
+  './icon-512.png',
+  'https://cdn.tailwindcss.com'
 ];
 
 self.addEventListener('install', event => {
