@@ -1482,37 +1482,61 @@
       }
 
       renderExerciseList(query) {
-        this.dom.exListContainer.innerHTML = '';
-        const lowerQuery = query.toLowerCase();
-        
-        let filtered = [];
-        if (typeof EXERCISE_DATABASE !== 'undefined') {
-          filtered = EXERCISE_DATABASE.filter(ex => 
-            ex.name.toLowerCase().includes(lowerQuery) || 
-            ex.category.toLowerCase().includes(lowerQuery)
-          );
-        }
+        const container = this.dom.exListContainer;
+        container.innerHTML = '';
+        container.scrollTop = 0;
+        const lowerQuery = (query || '').trim().toLowerCase();
+
+        const db = (typeof EXERCISE_DATABASE !== 'undefined' && Array.isArray(EXERCISE_DATABASE)) ? EXERCISE_DATABASE : [];
+        const filtered = lowerQuery
+          ? db.filter(ex =>
+              ex.name.toLowerCase().includes(lowerQuery) ||
+              (ex.category || '').toLowerCase().includes(lowerQuery))
+          : db;
 
         if (filtered.length === 0) {
-          this.dom.exListContainer.innerHTML = `<p class="text-zinc-500 text-sm text-center pt-4">No exercises found.</p>`;
+          container.innerHTML = `<p class="text-zinc-500 text-sm text-center pt-4">No exercises found.</p>`;
           return;
         }
 
+        // Group by category
+        const groups = {};
         filtered.forEach(ex => {
-          const btn = document.createElement("button");
-          btn.className = "w-full flex items-center justify-between p-3 bg-zinc-950 border border-zinc-800 rounded-xl hover:border-emerald-500 tap-active transition text-left";
-          btn.innerHTML = `
-            <div>
-              <span class="block text-sm font-bold text-white">${ex.name}</span>
-              <span class="block text-[10px] text-zinc-500 uppercase mt-0.5">${ex.category}</span>
-            </div>
-            <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-          `;
-          btn.addEventListener("click", () => {
-            this.handleExerciseSelection(ex.name);
-          });
-          this.dom.exListContainer.appendChild(btn);
+          const cat = ex.category || 'Other';
+          (groups[cat] = groups[cat] || []).push(ex);
         });
+
+        const frag = document.createDocumentFragment();
+
+        Object.keys(groups).sort((a, b) => a.localeCompare(b)).forEach(cat => {
+          const items = groups[cat].sort((a, b) => a.name.localeCompare(b.name));
+
+          const section = document.createElement('div');
+          section.className = 'space-y-2';
+
+          const header = document.createElement('div');
+          header.className = 'sticky top-0 z-10 -mx-4 px-4 py-2 bg-zinc-900/95 backdrop-blur border-y border-zinc-800 flex items-center justify-between';
+          header.innerHTML = `
+            <span class="text-xs font-black uppercase tracking-widest text-emerald-400">${this.esc(cat)}</span>
+            <span class="text-[10px] font-bold text-zinc-500">${items.length}</span>
+          `;
+          section.appendChild(header);
+
+          items.forEach(ex => {
+            const btn = document.createElement('button');
+            btn.className = 'w-full flex items-center justify-between p-3 bg-zinc-950 border border-zinc-800 rounded-xl hover:border-emerald-500 tap-active transition text-left';
+            btn.innerHTML = `
+              <span class="block text-sm font-bold text-white">${this.esc(ex.name)}</span>
+              <svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+            `;
+            btn.addEventListener('click', () => this.handleExerciseSelection(ex.name));
+            section.appendChild(btn);
+          });
+
+          frag.appendChild(section);
+        });
+
+        container.appendChild(frag);
       }
 
       handleExerciseSelection(selectedName) {
