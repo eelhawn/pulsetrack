@@ -1851,7 +1851,8 @@
 
       renderProgramsView() {
         this.dom.programsList.innerHTML = "";
-        const list = this.data.programs || [];
+        const list = (this.data.programs || []).slice().sort((x, y) =>
+          String(x.title || "").localeCompare(String(y.title || ""), undefined, { sensitivity: "base", numeric: true }));
         this.dom.programCountLabel.innerText = `${list.length} Available`;
 
         if (list.length === 0) {
