@@ -85,8 +85,6 @@
   </script>
 </head>
 <body class="bg-zinc-950 min-h-screen text-zinc-100 flex flex-col justify-between">
-</head>
-<body class="bg-zinc-950 min-h-screen text-zinc-100 flex flex-col justify-between">
 
   <!-- Core Global Navigation Header -->
   <header class="sticky top-0 z-30 bg-zinc-900/90 backdrop-blur-md border-b border-zinc-800/80 px-4 py-3">
@@ -607,6 +605,17 @@
     const STORAGE_KEY_HISTORY = "pulsetrack_history_v1";
     const STORAGE_KEY_PRS = "pulsetrack_prs_v1";
     const STORAGE_KEY_LASTPERF = "pulsetrack_lastperf_v1";
+    const STORAGE_KEY_ACTIVE_STATE = "pulsetrack_active_state_v1";
+
+    class AppStateMemory {
+      static getActive() {
+        const state = localStorage.getItem(STORAGE_KEY_ACTIVE_STATE);
+        return state ? JSON.parse(state) : null;
+      }
+      static saveActive(progId, dayNum) {
+        localStorage.setItem(STORAGE_KEY_ACTIVE_STATE, JSON.stringify({ progId, dayNum }));
+      }
+    }
 
     class WorkoutStorage {
       static getData() {
@@ -1066,8 +1075,14 @@
         this.prs = WorkoutStorage.getPRs();
         this.lastPerf = WorkoutStorage.getLastPerf();
 
-        this.activeProgram = this.data.programs && this.data.programs[0] ? this.data.programs[0] : null;
-        this.activeDay = this.activeProgram && this.activeProgram.days ? this.activeProgram.days[0] : null;
+        const savedState = AppStateMemory.getActive();
+        if (savedState && this.data.programs) {
+          this.activeProgram = this.data.programs.find(p => p.id === savedState.progId) || this.data.programs[0];
+          this.activeDay = this.activeProgram.days ? (this.activeProgram.days.find(d => d.dayNumber === savedState.dayNum) || this.activeProgram.days[0]) : null;
+        } else {
+          this.activeProgram = this.data.programs && this.data.programs[0] ? this.data.programs[0] : null;
+          this.activeDay = this.activeProgram && this.activeProgram.days ? this.activeProgram.days[0] : null;
+        }
 
         // Calendar state
         const now = new Date();
@@ -1544,6 +1559,8 @@
 
           card.addEventListener("click", () => {
             this.activeProgram = program;
+            this.activeDay = program.days ? program.days[0] : null; // Default to Day 1
+            AppStateMemory.saveActive(this.activeProgram.id, this.activeDay ? this.activeDay.dayNumber : null);
             this.showView("days");
           });
 
@@ -1609,11 +1626,11 @@
             </div>
           `;
 
-          card.addEventListener("click", () => {
+card.addEventListener("click", () => {
             this.activeDay = day;
+            AppStateMemory.saveActive(this.activeProgram.id, this.activeDay.dayNumber);
             this.showView("workout");
           });
-
           this.dom.daysList.appendChild(card);
         });
       }
