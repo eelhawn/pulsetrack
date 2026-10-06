@@ -29,6 +29,9 @@
     }
   </script>
 
+  <!-- External Exercise Database -->
+  <script src="./exercises.js"></script>
+
   <style>
     * {
       -webkit-tap-highlight-color: transparent;
@@ -67,8 +70,8 @@
     }
   </style>
 
-<!-- Direct Embedded Manifest & Icon -->
-  <link rel="manifest" href="manifest.json?v=5">
+  <!-- Direct Embedded Manifest & Icon -->
+  <link rel="manifest" href="manifest.json?v=9">
   <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIGZpbGw9IiMxMGI5ODEiLz48dGV4dCB4PSIyNTYiIHk9IjMwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAwIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzA5MDkwYiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UFQ8L3RleHQ+PC9zdmc+">
 
   <!-- Register the Service Worker (Forced Update) -->
@@ -227,7 +230,7 @@
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack Pro v1.3</span>
+      <span>PulseTrack Pro v1.4</span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -429,6 +432,30 @@
           <span id="plate-weight-per-side" class="font-bold text-white font-mono text-sm">90 lbs</span>
         </div>
         <div id="plate-badges-container" class="flex flex-wrap gap-1.5 pt-1 min-h-[38px] items-center"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise Database Selector Modal -->
+  <div id="modal-ex-selector" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
+    <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-t-2xl sm:rounded-2xl flex flex-col h-[85vh] sm:h-[600px] overflow-hidden">
+      <!-- Header -->
+      <div class="p-4 border-b border-zinc-800 flex items-center justify-between shrink-0 bg-zinc-900">
+        <h3 class="text-base font-bold text-white" id="ex-selector-title">Select Exercise</h3>
+        <button id="btn-close-ex-selector" class="p-1.5 text-zinc-400 hover:text-white tap-active">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <!-- Search Bar -->
+      <div class="p-4 shrink-0 bg-zinc-900 border-b border-zinc-800/60 shadow-md z-10">
+        <div class="relative">
+          <svg class="w-5 h-5 absolute left-3 top-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="text" id="ex-search-input" placeholder="Search exercises..." autocomplete="off" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-sm font-semibold text-white focus:outline-none focus:border-emerald-500 placeholder-zinc-500">
+        </div>
+      </div>
+      <!-- List -->
+      <div id="ex-list-container" class="flex-grow overflow-y-auto p-4 space-y-2 hide-scrollbar bg-zinc-950/50">
+        <!-- Populated by JS -->
       </div>
     </div>
   </div>
@@ -1164,10 +1191,18 @@
           plateTargetInput: document.getElementById("plate-target-input"),
           plateWeightPerSide: document.getElementById("plate-weight-per-side"),
           plateBadgesContainer: document.getElementById("plate-badges-container"),
-          plateBarSelector: document.getElementById("plate-bar-selector")
+          plateBarSelector: document.getElementById("plate-bar-selector"),
+
+          // Exercise Selector
+          modalExSelector: document.getElementById("modal-ex-selector"),
+          btnCloseExSelector: document.getElementById("btn-close-ex-selector"),
+          exSearchInput: document.getElementById("ex-search-input"),
+          exListContainer: document.getElementById("ex-list-container"),
+          exSelectorTitle: document.getElementById("ex-selector-title")
         };
 
         this.selectedBarWeight = 45;
+        this.exerciseModalTarget = null; 
 
         this.bindEvents();
         this.showView("home");
@@ -1288,12 +1323,80 @@
           });
         });
 
+        // Exercise Selector
+        this.dom.btnCloseExSelector.addEventListener("click", () => {
+          this.dom.modalExSelector.classList.add("hidden");
+        });
+        this.dom.exSearchInput.addEventListener("input", (e) => {
+          this.renderExerciseList(e.target.value);
+        });
+
         // Workout Completion & Summary
         this.dom.btnFinishWorkout.addEventListener("click", () => this.finishWorkout());
         this.dom.btnCloseSummary.addEventListener("click", () => {
           this.dom.modalSummary.classList.add("hidden");
           this.showView("home");
         });
+      }
+
+      openExerciseSelector(action, index = -1) {
+        this.exerciseModalTarget = { action, index };
+        this.dom.exSelectorTitle.innerText = action === 'add' ? 'Add New Exercise' : 'Swap Exercise';
+        this.dom.exSearchInput.value = '';
+        this.renderExerciseList('');
+        this.dom.modalExSelector.classList.remove("hidden");
+      }
+
+      renderExerciseList(query) {
+        this.dom.exListContainer.innerHTML = '';
+        const lowerQuery = query.toLowerCase();
+        
+        let filtered = [];
+        if (typeof EXERCISE_DATABASE !== 'undefined') {
+          filtered = EXERCISE_DATABASE.filter(ex => 
+            ex.name.toLowerCase().includes(lowerQuery) || 
+            ex.category.toLowerCase().includes(lowerQuery)
+          );
+        }
+
+        if (filtered.length === 0) {
+          this.dom.exListContainer.innerHTML = `<p class="text-zinc-500 text-sm text-center pt-4">No exercises found.</p>`;
+          return;
+        }
+
+        filtered.forEach(ex => {
+          const btn = document.createElement("button");
+          btn.className = "w-full flex items-center justify-between p-3 bg-zinc-950 border border-zinc-800 rounded-xl hover:border-emerald-500 tap-active transition text-left";
+          btn.innerHTML = `
+            <div>
+              <span class="block text-sm font-bold text-white">${ex.name}</span>
+              <span class="block text-[10px] text-zinc-500 uppercase mt-0.5">${ex.category}</span>
+            </div>
+            <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          `;
+          btn.addEventListener("click", () => {
+            this.handleExerciseSelection(ex.name);
+          });
+          this.dom.exListContainer.appendChild(btn);
+        });
+      }
+
+      handleExerciseSelection(selectedName) {
+        if (this.exerciseModalTarget.action === 'swap') {
+          this.activeDay.exercises[this.exerciseModalTarget.index].name = selectedName;
+        } else if (this.exerciseModalTarget.action === 'add') {
+          this.activeDay.exercises.push({
+            id: "custom_" + Date.now(),
+            name: selectedName,
+            sets: 3,
+            reps: "10",
+            restSeconds: 60,
+            type: "standard"
+          });
+        }
+        WorkoutStorage.setData(this.data);
+        this.dom.modalExSelector.classList.add("hidden");
+        this.renderWorkoutView();
       }
 
       async acquireWakeLock() {
@@ -1626,11 +1729,12 @@
             </div>
           `;
 
-card.addEventListener("click", () => {
+          card.addEventListener("click", () => {
             this.activeDay = day;
             AppStateMemory.saveActive(this.activeProgram.id, this.activeDay.dayNumber);
             this.showView("workout");
           });
+
           this.dom.daysList.appendChild(card);
         });
       }
@@ -1662,7 +1766,7 @@ card.addEventListener("click", () => {
           const tabataLaunchBtn = exercise.type === "tabata" ? `
             <button class="btn-launch-tabata w-full py-2.5 px-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-xl flex items-center justify-center space-x-1.5 tap-active mt-2" data-exindex="${exIndex}">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
-              <span>Launch Tabata Timer (${exercise.workSeconds || 20}s / ${exercise.restSeconds || 10}s)</span>
+              <span>Launch Tabata Timer (${exercise.workSeconds \vert{}\vert{} 20}s / ${exercise.restSeconds || 10}s)</span>
             </button>
           ` : "";
 
@@ -1767,6 +1871,10 @@ card.addEventListener("click", () => {
                 <button class="btn-swap-ex p-2 bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200 rounded-xl tap-active" data-exindex="${exIndex}" title="Swap Exercise">
                   <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"/></svg>
                 </button>
+                <!-- Delete Exercise Button -->
+                <button class="btn-delete-ex p-2 bg-zinc-800 hover:bg-rose-900/80 text-zinc-400 hover:text-rose-400 rounded-xl tap-active" data-exindex="${exIndex}" title="Delete Exercise">
+                  <svg class="w-4 h-4 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                </button>
               </div>
             </div>
             ${notesCallout}
@@ -1790,6 +1898,17 @@ card.addEventListener("click", () => {
 
           this.dom.exercisesList.appendChild(card);
         });
+
+        // Add "Add Exercise" Card at the bottom
+        const addCard = document.createElement("div");
+        addCard.className = "pt-1 pb-2";
+        addCard.innerHTML = `
+          <button id="btn-add-exercise" class="w-full py-4 border-2 border-dashed border-zinc-700/80 hover:border-emerald-500 hover:bg-emerald-950/20 text-zinc-400 hover:text-emerald-400 font-bold rounded-2xl flex items-center justify-center space-x-2 tap-active transition">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+            <span>Add Exercise to Day ${this.activeDay.dayNumber}</span>
+          </button>
+        `;
+        this.dom.exercisesList.appendChild(addCard);
 
         this.bindWorkoutInteractiveEvents();
       }
@@ -1870,12 +1989,12 @@ card.addEventListener("click", () => {
           });
         });
 
-       // Add Set
+        // Add Set
         this.dom.exercisesList.querySelectorAll(".btn-add-set").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
             this.activeDay.exercises[index].sets++;
-            WorkoutStorage.setData(this.data); // <-- SAVES TO MEMORY
+            WorkoutStorage.setData(this.data);
             this.renderWorkoutView();
           });
         });
@@ -1886,25 +2005,40 @@ card.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
             if (this.activeDay.exercises[index].sets > 1) {
               this.activeDay.exercises[index].sets--;
-              WorkoutStorage.setData(this.data); // <-- SAVES TO MEMORY
+              WorkoutStorage.setData(this.data);
               this.renderWorkoutView();
             }
           });
         });
 
-        // Swap Exercise on-the-fly
+        // Swap Exercise from Database
         this.dom.exercisesList.querySelectorAll(".btn-swap-ex").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
+            this.openExerciseSelector('swap', index);
+          });
+        });
+
+        // Delete Exercise
+        this.dom.exercisesList.querySelectorAll(".btn-delete-ex").forEach(btn => {
+          btn.addEventListener("click", () => {
+            const index = parseInt(btn.dataset.exindex, 10);
             const current = this.activeDay.exercises[index];
-            const replacement = prompt(`Replace "${current.name}" with:`, current.name);
-            if (replacement && replacement.trim() !== "" && replacement !== current.name) {
-              current.name = replacement.trim();
-              WorkoutStorage.setData(this.data); // <-- SAVES TO MEMORY
+            if (confirm(`Remove "${current.name}" from this workout?`)) {
+              this.activeDay.exercises.splice(index, 1);
+              WorkoutStorage.setData(this.data);
               this.renderWorkoutView();
             }
           });
         });
+
+        // Add New Exercise
+        const btnAddEx = document.getElementById("btn-add-exercise");
+        if (btnAddEx) {
+          btnAddEx.addEventListener("click", () => {
+            this.openExerciseSelector('add');
+          });
+        }
       }
 
       finishWorkout() {
