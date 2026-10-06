@@ -39,6 +39,8 @@
 
   <!-- External Exercise Database -->
   <script src="./exercises.js"></script>
+  <!-- Built-in programs shipped to everyone -->
+  <script src="./programs.js"></script>
 
   <style>
     :root { --a300:110 231 183; --a400:52 211 153; --a500:16 185 129; --a600:5 150 105; --a800:6 95 70; --a950:2 44 34; }
@@ -737,6 +739,7 @@
     const STORAGE_KEY_PRS = "pulsetrack_prs_v1";
     const STORAGE_KEY_LASTPERF = "pulsetrack_lastperf_v1";
     const STORAGE_KEY_ACTIVE_STATE = "pulsetrack_active_state_v1";
+    const STORAGE_KEY_SEEDED = "pulsetrack_seeded_v1";
 
     const THEMES = {
       emerald:  { 300:"110 231 183", 400:"52 211 153",  500:"16 185 129", 600:"5 150 105",  800:"6 95 70",    950:"2 44 34" },
@@ -777,8 +780,29 @@
         }
       }
 
+      // Adds every program from programs.js that this device has not received yet.
+      // Programs a user deleted stay deleted; programs you add to programs.js later arrive automatically.
+      static seedBuiltins(data) {
+        if (typeof BUILTIN_PROGRAMS === "undefined" || !Array.isArray(BUILTIN_PROGRAMS)) return data;
+        if (!data || !Array.isArray(data.programs)) data = { programs: [] };
+        let seeded = [];
+        try { seeded = JSON.parse(localStorage.getItem(STORAGE_KEY_SEEDED) || "[]"); } catch (e) { seeded = []; }
+        let changed = false;
+        BUILTIN_PROGRAMS.forEach(p => {
+          if (!p || !p.id || !Array.isArray(p.days) || seeded.includes(p.id)) return;
+          if (!data.programs.some(x => x.id === p.id)) data.programs.push(JSON.parse(JSON.stringify(p)));
+          seeded.push(p.id);
+          changed = true;
+        });
+        if (changed) {
+          this.setData(data);
+          localStorage.setItem(STORAGE_KEY_SEEDED, JSON.stringify(seeded));
+        }
+        return data;
+      }
+
       static setData(data) {
-        localStorage.setItem(STORAGE_KEY_DATA, JSON.stringify(data, null, 2));
+        localStorage.setItem(STORAGE_KEY_DATA, JSON.stringify(data));
       }
 
       static getLogs() {
@@ -847,7 +871,8 @@
         localStorage.removeItem(STORAGE_KEY_PRS);
         localStorage.removeItem(STORAGE_KEY_LASTPERF);
         localStorage.removeItem(STORAGE_KEY_ACTIVE_STATE);
-        return this.getData();
+        localStorage.removeItem(STORAGE_KEY_SEEDED);
+        return this.seedBuiltins(this.getData());
       }
     }
 
@@ -1216,7 +1241,7 @@
      */
     class ApplicationUI {
       constructor() {
-        this.data = WorkoutStorage.getData();
+        this.data = WorkoutStorage.seedBuiltins(WorkoutStorage.getData());
         this.logs = WorkoutStorage.getLogs();
         this.settings = WorkoutStorage.getSettings();
         this.history = WorkoutStorage.getHistory();
@@ -2269,6 +2294,7 @@
           let badgeColor = "bg-zinc-800 text-zinc-300 border-zinc-700";
           if (exercise.type === "tabata") badgeColor = "bg-rose-950/80 text-rose-300 border-rose-800/60";
           if (exercise.type === "superset") badgeColor = "bg-purple-950/80 text-purple-300 border-purple-800/60";
+          if (exercise.type === "dtp") badgeColor = "bg-sky-950/80 text-sky-300 border-sky-800/60";
           if (exercise.type === "dropset") badgeColor = "bg-amber-950/80 text-amber-300 border-amber-800/60";
 
           const tabataLaunchBtn = exercise.type === "tabata" ? `
