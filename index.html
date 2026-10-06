@@ -74,11 +74,11 @@
   <link rel="manifest" href="manifest.json?v=9">
   <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIGZpbGw9IiMxMGI5ODEiLz48dGV4dCB4PSIyNTYiIHk9IjMwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAwIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzA5MDkwYiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UFQ8L3RleHQ+PC9zdmc+">
 
-  <!-- Register the Service Worker (Forced Update) -->
+  <!-- Register the Service Worker -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=' + new Date().getTime())
+        navigator.serviceWorker.register('./sw.js')
           .then(reg => {
             reg.update();
             console.log('Engine Active');
@@ -1021,7 +1021,7 @@
           sound.shortBeep();
         }
 
-        if (this.remainingSeconds < 0) {
+        if (this.remainingSeconds <= 0) {
           this.advancePhase();
         } else {
           this.renderState();
@@ -1056,7 +1056,7 @@
       }
 
       renderState() {
-        this.counterEl.innerText = `Interval ${this.currentSet} of${this.totalSets}`;
+        this.counterEl.innerText = `Interval ${this.currentSet} of ${this.totalSets}`;
         this.secondsEl.innerText = this.remainingSeconds;
 
         if (this.currentPhase === "WORK") {
@@ -1527,7 +1527,7 @@
 
       renderCalendar() {
         const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
-        this.dom.calMonthYearLabel.innerText = `${months[this.calMonth]}${this.calYear}`;
+        this.dom.calMonthYearLabel.innerText = `${months[this.calMonth]} ${this.calYear}`;
         this.dom.calDaysGrid.innerHTML = "";
 
         const firstDayIndex = new Date(this.calYear, this.calMonth, 1).getDay();
@@ -1784,7 +1784,7 @@
           const tabataLaunchBtn = exercise.type === "tabata" ? `
             <button class="btn-launch-tabata w-full py-2.5 px-3 bg-rose-600 hover:bg-rose-500 text-white font-bold text-xs rounded-xl flex items-center justify-center space-x-1.5 tap-active mt-2" data-exindex="${exIndex}">
               <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd"/></svg>
-              <span>Launch Tabata Timer (${exercise.workSeconds \vert{}\vert{} 20}s / ${exercise.restSeconds || 10}s)</span>
+              <span>Launch Tabata Timer (${exercise.workSeconds || 20}s / ${exercise.restSeconds || 10}s)</span>
             </button>
           ` : "";
 
