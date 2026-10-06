@@ -68,6 +68,23 @@
     .pr-glow-badge {
       animation: prGlow 2s ease-in-out infinite;
     }
+    /* Row / card animations */
+    @keyframes rowIn {
+      from { opacity: 0; max-height: 0; transform: translateY(-6px); }
+      to   { opacity: 1; max-height: 80px; transform: translateY(0); }
+    }
+    .anim-enter { animation: rowIn 0.25s ease-out; overflow: hidden; }
+    .anim-exit {
+      opacity: 0;
+      max-height: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      border-width: 0 !important;
+      overflow: hidden;
+      transition: max-height 0.22s ease, opacity 0.18s ease, padding 0.22s ease, margin 0.22s ease, border-width 0.22s ease;
+    }
   </style>
 
   <!-- Direct Embedded Manifest & Icon -->
@@ -316,15 +333,18 @@
       <!-- Exercise Cards Container -->
       <div id="exercises-list-container" class="space-y-4"></div>
 
-      <!-- Finish Workout Action -->
-      <div class="pt-4 pb-6">
-        <button id="btn-finish-workout" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold rounded-2xl tap-active text-sm shadow-xl shadow-emerald-950/60 flex items-center justify-center space-x-2">
-          <span>🏆 Finish Workout</span>
-        </button>
-      </div>
-    </section>
+      </section>
 
   </main>
+
+  <!-- Sticky Finish Workout Bar -->
+  <div id="finish-bar" class="hidden fixed left-0 right-0 z-40 px-4 py-3 bg-zinc-900/80 backdrop-blur-md border-t border-zinc-800/80" style="bottom: env(safe-area-inset-bottom, 0px);">
+    <div class="max-w-xl mx-auto">
+      <button id="btn-finish-workout" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold rounded-2xl tap-active text-sm shadow-xl shadow-emerald-950/60 flex items-center justify-center space-x-2">
+        <span>🏆 Finish Workout</span>
+      </button>
+    </div>
+  </div>
 
   <!-- Interactive Floating Rest Countdown Timer -->
   <aside id="floating-rest-timer" class="fixed bottom-4 left-4 right-4 max-w-xl mx-auto z-40 bg-zinc-900 border border-zinc-700 shadow-2xl rounded-2xl p-3.5 flex items-center justify-between transform translate-y-32 opacity-0 transition-all duration-300 pointer-events-none">
@@ -728,6 +748,7 @@
         localStorage.removeItem(STORAGE_KEY_HISTORY);
         localStorage.removeItem(STORAGE_KEY_PRS);
         localStorage.removeItem(STORAGE_KEY_LASTPERF);
+        localStorage.removeItem(STORAGE_KEY_ACTIVE_STATE);
         return this.getData();
       }
     }
@@ -1188,6 +1209,8 @@
           stopwatchBadge: document.getElementById("session-stopwatch-badge"),
           stopwatchDisplay: document.getElementById("session-stopwatch-display"),
           btnFinishWorkout: document.getElementById("btn-finish-workout"),
+          finishBar: document.getElementById("finish-bar"),
+          restTimerEl: document.getElementById("floating-rest-timer"),
           modalSummary: document.getElementById("modal-workout-summary"),
           btnCloseSummary: document.getElementById("btn-close-summary"),
           summaryWorkoutName: document.getElementById("summary-workout-name"),
@@ -1583,6 +1606,10 @@
         this.dom.viewDays.classList.add("hidden");
         this.dom.viewWorkout.classList.add("hidden");
 
+        const inWorkout = viewName === "workout";
+        this.dom.finishBar.classList.toggle("hidden", !inWorkout);
+        this.dom.restTimerEl.style.bottom = inWorkout ? "calc(5.5rem + env(safe-area-inset-bottom, 0px))" : "";
+
         if (viewName === "home") {
           this.releaseWakeLock();
           this.dom.viewHome.classList.remove("hidden");
@@ -1755,6 +1782,15 @@
         });
       }
 
+      animateOut(el, done) {
+        if (!el) { done(); return; }
+        el.style.maxHeight = el.offsetHeight + "px";
+        el.style.overflow = "hidden";
+        void el.offsetHeight; // force reflow so the transition starts from the real height
+        el.classList.add("anim-exit");
+        setTimeout(done, 240);
+      }
+
       calculate1RM(weight, reps) {
         const w = parseFloat(weight);
         const r = parseFloat(reps);
@@ -1775,6 +1811,7 @@
         exercisesList.forEach((exercise, exIndex) => {
           const card = document.createElement("div");
           card.className = "bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-3.5";
+          card.setAttribute("data-ex-card", exIndex);
 
           let badgeColor = "bg-zinc-800 text-zinc-300 border-zinc-700";
           if (exercise.type === "tabata") badgeColor = "bg-rose-950/80 text-rose-300 border-rose-800/60";
@@ -1815,22 +1852,27 @@
             const isPR = isCompleted && calculated1RM > 0 && calculated1RM >= prevBest1RM;
 
             const prevSet = prevHistory[s] || null;
-            const prevHint = prevSet ? `${prevSet.weight}×${prevSet.reps}` : ``;
+            const prevHint = prevSet ? `${prevSet.weight}×${prevSet.reps}${prevSet.rpe ? " @" + prevSet.rpe : ""}` : ``;
 
             const inputsHtml = showLogger ? `
-              <div class="flex items-center space-x-2 flex-grow justify-end pr-2.5">
+              <div class="flex items-center space-x-1.5 flex-grow justify-end pr-2">
                 ${prevHint ? `<span class="text-[10px] text-zinc-500 font-mono hidden sm:inline">Prev: ${prevHint}</span>` : ''}
                 <div class="flex items-center space-x-1">
                   <input type="number" inputmode="decimal" placeholder="${prevSet ? prevSet.weight : 'lbs'}" value="${logEntry.weight || ''}" 
                     data-key="${key}" data-field="weight" 
-                    class="input-set-field w-16 bg-zinc-950 border border-zinc-800 rounded px-2 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
+                    class="input-set-field w-14 bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
                   <span class="text-zinc-500 text-[10px]">lbs</span>
                 </div>
                 <div class="flex items-center space-x-1">
                   <input type="number" inputmode="numeric" placeholder="${prevSet ? prevSet.reps : (exercise.reps || 'reps')}" value="${logEntry.reps || ''}" 
                     data-key="${key}" data-field="reps" 
-                    class="input-set-field w-16 bg-zinc-950 border border-zinc-800 rounded px-2 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
+                    class="input-set-field w-11 bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
                   <span class="text-zinc-500 text-[10px]">reps</span>
+                </div>
+                <div class="flex items-center">
+                  <input type="number" inputmode="decimal" min="1" max="10" step="0.5" placeholder="${prevSet && prevSet.rpe ? prevSet.rpe : 'RPE'}" value="${logEntry.rpe || ''}"
+                    data-key="${key}" data-field="rpe"
+                    class="input-set-field w-11 bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
                 </div>
               </div>
             ` : `
@@ -1840,7 +1882,7 @@
             `;
 
             setRowsHtml += `
-              <div class="flex items-center justify-between py-1.5 border-b border-zinc-800/50 last:border-b-0 text-xs">
+              <div class="set-row flex items-center justify-between py-1.5 border-b border-zinc-800/50 last:border-b-0 text-xs" data-set-index="${s}">
                 <div class="flex items-center space-x-1.5 flex-shrink-0">
                   <button class="btn-cycle-tag px-1.5 py-0.5 rounded border text-[10px] font-bold tap-active ${tagBadge}" 
                     data-key="${key}" title="Tap to toggle Warm-up/Drop/Failure">
@@ -1861,7 +1903,7 @@
           const headerColumns = showLogger ? `
             <div class="flex items-center justify-between text-[10px] uppercase font-bold text-zinc-500 pb-1 px-1">
               <span>Set (Tag)</span>
-              <span class="pr-10">Weight & Reps</span>
+              <span class="pr-10">Weight · Reps · RPE</span>
               <span>Status</span>
             </div>
           ` : `
@@ -1925,6 +1967,14 @@
         `;
         this.dom.exercisesList.appendChild(addCard);
 
+        if (this.pendingEnter) {
+          const { exIndex, setIndex } = this.pendingEnter;
+          this.pendingEnter = null;
+          const row = this.dom.exercisesList.querySelector(`[data-ex-card="${exIndex}"] .set-row[data-set-index="${setIndex}"]`);
+          if (row) row.classList.add("anim-enter");
+        }
+
+
         this.bindWorkoutInteractiveEvents();
       }
 
@@ -1984,6 +2034,16 @@
 
         // Input Fields
         this.dom.exercisesList.querySelectorAll(".input-set-field").forEach(input => {
+          input.addEventListener("change", () => {
+            if (input.dataset.field === "rpe" && input.value !== "") {
+              const v = Math.min(10, Math.max(1, parseFloat(input.value) || 1));
+              input.value = v;
+              if (this.logs[input.dataset.key]) {
+                this.logs[input.dataset.key].rpe = String(v);
+                WorkoutStorage.saveLogs(this.logs);
+              }
+            }
+          });
           input.addEventListener("input", () => {
             const key = input.dataset.key;
             const field = input.dataset.field;
@@ -2008,7 +2068,8 @@
         this.dom.exercisesList.querySelectorAll(".btn-add-set").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
-            this.activeDay.exercises[index].sets++;
+            const newSets = ++this.activeDay.exercises[index].sets;
+            this.pendingEnter = { exIndex: index, setIndex: newSets - 1 };
             WorkoutStorage.setData(this.data);
             this.renderWorkoutView();
           });
@@ -2018,10 +2079,16 @@
         this.dom.exercisesList.querySelectorAll(".btn-remove-set").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
+            if (this.animating) return;
             if (this.activeDay.exercises[index].sets > 1) {
-              this.activeDay.exercises[index].sets--;
-              WorkoutStorage.setData(this.data);
-              this.renderWorkoutView();
+              const rows = this.dom.exercisesList.querySelectorAll(`[data-ex-card="${index}"] .set-row`);
+              this.animating = true;
+              this.animateOut(rows[rows.length - 1], () => {
+                this.activeDay.exercises[index].sets--;
+                WorkoutStorage.setData(this.data);
+                this.animating = false;
+                this.renderWorkoutView();
+              });
             }
           });
         });
@@ -2039,10 +2106,16 @@
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
             const current = this.activeDay.exercises[index];
+            if (this.animating) return;
             if (confirm(`Remove "${current.name}" from this workout?`)) {
-              this.activeDay.exercises.splice(index, 1);
-              WorkoutStorage.setData(this.data);
-              this.renderWorkoutView();
+              this.animating = true;
+              const cardEl = this.dom.exercisesList.querySelector(`[data-ex-card="${index}"]`);
+              this.animateOut(cardEl, () => {
+                this.activeDay.exercises.splice(index, 1);
+                WorkoutStorage.setData(this.data);
+                this.animating = false;
+                this.renderWorkoutView();
+              });
             }
           });
         });
@@ -2076,10 +2149,10 @@
                 totalVolume += (w * r);
               }
               const calc1RM = this.calculate1RM(w, r);
-              if (calc1RM > 0 && calc1RM >= (this.prs[ex.name] || 0)) {
+              if (calc1RM > 0 && calc1RM > (this.prs[ex.name] || 0)) {
                 prCount++;
               }
-              setsArr.push({ weight: w, reps: r, tag: entry.tag || "R" });
+              setsArr.push({ weight: w, reps: r, rpe: parseFloat(entry.rpe) || "", tag: entry.tag || "R" });
             }
           }
           if (setsArr.length > 0) {
