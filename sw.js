@@ -1,17 +1,17 @@
-const CACHE_NAME = 'pulsetrack-offline-v9';
+const CACHE_NAME = 'pulsetrack-offline-v10';
 
-// Force the offline engine to download the NEWEST html and exercise database immediately
 const coreFiles = [
   './',
   './index.html',
-  './exercises.js'
+  './exercises.js',
+  './manifest.json'
 ];
 
 self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME)
       .then(cache => cache.addAll(coreFiles))
-      .then(() => self.skipWaiting()) 
+      .then(() => self.skipWaiting())
   );
 });
 
@@ -21,7 +21,7 @@ self.addEventListener('activate', event => {
       return Promise.all(
         cacheNames.map(cacheName => {
           if (cacheName !== CACHE_NAME) {
-            return caches.delete(cacheName); 
+            return caches.delete(cacheName);
           }
         })
       );
@@ -29,21 +29,23 @@ self.addEventListener('activate', event => {
   );
 });
 
-// Dynamic Network-First Caching
+// Network-first, bypassing the browser's own HTTP cache, with offline fallback
 self.addEventListener('fetch', event => {
   if (event.request.method !== 'GET') return;
-  
+
   event.respondWith(
-    fetch(event.request)
+    fetch(event.request, { cache: 'no-cache' })
       .then(response => {
-        const responseClone = response.clone();
-        caches.open(CACHE_NAME).then(cache => {
-          cache.put(event.request, responseClone);
-        });
+        if (response && (response.ok || response.type === 'opaque')) {
+          const responseClone = response.clone();
+          caches.open(CACHE_NAME).then(cache => {
+            cache.put(event.request, responseClone);
+          });
+        }
         return response;
       })
       .catch(() => {
-        return caches.match(event.request).then(cachedResponse => {
+        return caches.match(event.request, { ignoreSearch: true }).then(cachedResponse => {
           if (!cachedResponse && event.request.mode === 'navigate') {
             return caches.match('./index.html');
           }
