@@ -330,6 +330,9 @@
         <h2 class="text-xs uppercase tracking-wider font-semibold text-zinc-400">Available Programs</h2>
         <span class="text-xs text-zinc-500" id="program-count-label">0 Loaded</span>
       </div>
+      <button id="btn-create-program" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl tap-active flex items-center justify-center space-x-2 shadow-lg shadow-emerald-950/60">
+        <span>＋ Create Custom Program</span>
+      </button>
       <div id="programs-list-container" class="space-y-3"></div>
     </section>
 
@@ -494,6 +497,22 @@
           <span id="plate-weight-per-side" class="font-bold text-white font-mono text-sm">90 lbs</span>
         </div>
         <div id="plate-badges-container" class="flex flex-wrap gap-1.5 pt-1 min-h-[38px] items-center"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Routine Builder Modal -->
+  <div id="modal-builder" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
+    <div class="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-t-2xl sm:rounded-2xl flex flex-col h-[92vh] sm:h-[700px] overflow-hidden">
+      <div class="p-4 border-b border-zinc-800 flex items-center justify-between shrink-0">
+        <h3 class="text-base font-bold text-white">Create Custom Program</h3>
+        <button id="btn-close-builder" class="p-1.5 text-zinc-400 hover:text-white tap-active" aria-label="Close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="builder-body" class="flex-grow overflow-y-auto p-4 space-y-4 hide-scrollbar"></div>
+      <div class="p-4 border-t border-zinc-800 shrink-0">
+        <button id="btn-save-builder" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-xl tap-active text-sm">Save Program</button>
       </div>
     </div>
   </div>
@@ -1354,6 +1373,8 @@
         document.getElementById("btn-reset-defaults").addEventListener("click", () => this.resetDefaults());
         document.getElementById("btn-reset-day-progress").addEventListener("click", () => this.resetActiveDayLogs());
 
+        this.bindBuilder();
+
         // Theme / voice / library
         document.querySelectorAll(".btn-theme").forEach(btn => {
           btn.addEventListener("click", () => {
@@ -1475,7 +1496,9 @@
 
       openExerciseSelector(action, index = -1) {
         this.exerciseModalTarget = { action, index };
-        this.dom.exSelectorTitle.innerText = action === 'add' ? 'Add New Exercise' : 'Swap Exercise';
+        this.dom.exSelectorTitle.innerText = action === 'swap' ? 'Swap Exercise' : (action === 'builder' ? 'Add to Program' : 'Add New Exercise');
+        const dbCount = (typeof EXERCISE_DATABASE !== 'undefined' && Array.isArray(EXERCISE_DATABASE)) ? EXERCISE_DATABASE.length : 0;
+        this.dom.exSelectorTitle.innerText += ` (${dbCount})`;
         this.dom.exSearchInput.value = '';
         this.renderExerciseList('');
         this.dom.modalExSelector.classList.remove("hidden");
@@ -1495,7 +1518,9 @@
           : db;
 
         if (filtered.length === 0) {
-          container.innerHTML = `<p class="text-zinc-500 text-sm text-center pt-4">No exercises found.</p>`;
+          container.innerHTML = db.length === 0
+          ? `<p class="text-rose-400 text-sm text-center pt-4 px-4">exercises.js did not load (or has a syntax error). Check the browser console.</p>`
+          : `<p class="text-zinc-500 text-sm text-center pt-4">No exercises found.</p>`;
           return;
         }
 
@@ -1529,7 +1554,7 @@
               <span class="block text-sm font-bold text-white">${this.esc(ex.name)}</span>
               <svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
             `;
-            btn.addEventListener('click', () => this.handleExerciseSelection(ex.name));
+            btn.addEventListener('click', () => this.handleExerciseSelection(ex.name, btn));
             section.appendChild(btn);
           });
 
@@ -1539,7 +1564,18 @@
         container.appendChild(frag);
       }
 
-      handleExerciseSelection(selectedName) {
+      handleExerciseSelection(selectedName, btn) {
+        if (this.exerciseModalTarget.action === 'builder') {
+          const di = this.exerciseModalTarget.index;
+          const day = this.builder.days[di];
+          if (!day.exercises.some(e => e.name === selectedName)) {
+            day.exercises.push({ name: selectedName, sets: 3, reps: "10" });
+            this.renderBuilder();
+            if (btn) btn.classList.add('border-emerald-500', 'bg-emerald-950/40');
+          }
+          this.dom.exSelectorTitle.innerText = `Day ${di + 1} · ${day.exercises.length} added`;
+          return; // keep the picker open so you can tap several exercises
+        }
         if (this.exerciseModalTarget.action === 'swap') {
           this.activeDay.exercises[this.exerciseModalTarget.index].name = selectedName;
         } else if (this.exerciseModalTarget.action === 'add') {
@@ -1914,6 +1950,126 @@
         });
       }
 
+      bindBuilder() {
+        document.getElementById("btn-create-program").addEventListener("click", () => this.openBuilder());
+        document.getElementById("btn-close-builder").addEventListener("click", () => this.closeBuilder());
+        document.getElementById("btn-save-builder").addEventListener("click", () => this.saveBuilder());
+        const body = document.getElementById("builder-body");
+        body.addEventListener("input", (e) => {
+          const t = e.target, f = t.dataset.f;
+          if (!f || !this.builder) return;
+          const d = parseInt(t.dataset.d, 10), x = parseInt(t.dataset.e, 10);
+          if (f === "title") this.builder.title = t.value;
+          else if (f === "desc") this.builder.description = t.value;
+          else if (f === "dayTitle") this.builder.days[d].title = t.value;
+          else if (f === "sets") this.builder.days[d].exercises[x].sets = t.value;
+          else if (f === "reps") this.builder.days[d].exercises[x].reps = t.value;
+        });
+        body.addEventListener("click", (e) => {
+          const el = e.target.closest("[data-act]");
+          if (!el || !this.builder) return;
+          const d = parseInt(el.dataset.d, 10), x = parseInt(el.dataset.e, 10), act = el.dataset.act;
+          if (act === "addEx") this.openExerciseSelector("builder", d);
+          else if (act === "rmEx") { this.builder.days[d].exercises.splice(x, 1); this.renderBuilder(); }
+          else if (act === "addDay") { this.builder.days.push({ title: "Day " + (this.builder.days.length + 1), exercises: [] }); this.renderBuilder(); }
+          else if (act === "rmDay") { this.builder.days.splice(d, 1); this.renderBuilder(); }
+        });
+      }
+
+      openBuilder() {
+        this.builder = { title: "", description: "", days: [{ title: "Day 1", exercises: [] }] };
+        this.renderBuilder();
+        document.getElementById("modal-builder").classList.remove("hidden");
+      }
+
+      closeBuilder() {
+        if (this.builder && this.builder.days.some(d => d.exercises.length) && !confirm("Discard this program?")) return;
+        document.getElementById("modal-builder").classList.add("hidden");
+        this.builder = null;
+      }
+
+      renderBuilder() {
+        const b = this.builder, body = document.getElementById("builder-body");
+        const scroll = body.scrollTop;
+        const field = "w-full bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-500 placeholder-zinc-500";
+        const mini = "bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1 text-right font-mono text-zinc-200 focus:outline-none focus:border-emerald-500";
+        let html = `
+          <div class="space-y-2">
+            <input data-f="title" value="${this.esc(b.title)}" placeholder="Program name (e.g. Dad's Friday Upper Body)" class="${field} text-sm font-bold">
+            <input data-f="desc" value="${this.esc(b.description)}" placeholder="Short description (optional)" class="${field} text-xs">
+          </div>`;
+        b.days.forEach((day, di) => {
+          html += `<div class="bg-zinc-950 border border-zinc-800 rounded-2xl p-3 space-y-2.5">
+            <div class="flex items-center space-x-2">
+              <input data-f="dayTitle" data-d="${di}" value="${this.esc(day.title)}" class="flex-grow bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 text-sm font-bold text-white focus:outline-none focus:border-emerald-500">
+              ${b.days.length > 1 ? `<button data-act="rmDay" data-d="${di}" class="px-2.5 py-2 bg-zinc-800 text-rose-400 rounded-lg text-xs font-bold tap-active">Remove</button>` : ""}
+            </div>`;
+          day.exercises.forEach((ex, ei) => {
+            html += `<div class="flex items-center space-x-1.5 bg-zinc-900 border border-zinc-800 rounded-lg p-2">
+              <span class="flex-grow text-xs font-bold text-white min-w-0 break-words">${this.esc(ex.name)}</span>
+              <input data-f="sets" data-d="${di}" data-e="${ei}" type="number" inputmode="numeric" value="${this.esc(ex.sets)}" class="w-10 ${mini}">
+              <span class="text-[10px] text-zinc-500">sets</span>
+              <input data-f="reps" data-d="${di}" data-e="${ei}" type="text" value="${this.esc(ex.reps)}" class="w-14 ${mini}">
+              <span class="text-[10px] text-zinc-500">reps</span>
+              <button data-act="rmEx" data-d="${di}" data-e="${ei}" class="p-1.5 text-zinc-500 hover:text-rose-400 tap-active" aria-label="Remove exercise">✕</button>
+            </div>`;
+          });
+          html += `<button data-act="addEx" data-d="${di}" class="w-full py-2.5 border-2 border-dashed border-zinc-700 text-zinc-400 hover:border-emerald-500 hover:text-emerald-400 rounded-xl text-xs font-bold tap-active">＋ Add Exercises</button>
+          </div>`;
+        });
+        html += `<button data-act="addDay" class="w-full py-2.5 bg-zinc-800 text-zinc-300 rounded-xl text-xs font-bold tap-active">＋ Add Another Day</button>`;
+        body.innerHTML = html;
+        body.scrollTop = scroll;
+      }
+
+      saveBuilder() {
+        const b = this.builder, clean = (t) => String(t || "").replace(/[<>]/g, "").trim();
+        const title = clean(b.title);
+        if (!title) { alert("Give your program a name."); return; }
+        const days = b.days.filter(d => d.exercises.length);
+        if (!days.length) { alert("Add at least one exercise."); return; }
+        const id = "custom_" + Date.now();
+        const prog = {
+          id, title,
+          description: clean(b.description) || "Custom program",
+          tags: ["Custom"],
+          days: days.map((d, di) => ({
+            dayNumber: di + 1,
+            title: clean(d.title) || ("Day " + (di + 1)),
+            estimatedMinutes: Math.max(20, d.exercises.length * 9),
+            exercises: d.exercises.map((ex, ei) => ({
+              id: `${id}_d${di + 1}_e${ei + 1}`,
+              name: ex.name,
+              sets: Math.max(1, parseInt(ex.sets, 10) || 3),
+              reps: clean(ex.reps) || "10",
+              restSeconds: /squat|deadlift|bench press|overhead|military/i.test(ex.name) ? 90 : 60,
+              type: "standard"
+            }))
+          }))
+        };
+        if (!this.data || !Array.isArray(this.data.programs)) this.data = { programs: [] };
+        this.data.programs.push(prog);
+        WorkoutStorage.setData(this.data);
+        this.builder = null;
+        document.getElementById("modal-builder").classList.add("hidden");
+        this.renderProgramsView();
+        this.updateDrawerStatus();
+      }
+
+      plateRowHtml(weight) {
+        const w = parseFloat(weight), bar = this.selectedBarWeight;
+        if (!w || w <= bar) return "";
+        let rem = (w - bar) / 2;
+        const colors = { 45: "bg-blue-950 text-blue-300 border-blue-800", 35: "bg-amber-950 text-amber-300 border-amber-800", 25: "bg-emerald-950 text-emerald-300 border-emerald-800", 10: "bg-purple-950 text-purple-300 border-purple-800" };
+        let html = "";
+        [45, 35, 25, 10, 5, 2.5].forEach(p => {
+          const c = Math.floor(rem / p + 1e-9);
+          for (let i = 0; i < c; i++) html += `<span class="px-1.5 py-0.5 rounded border text-[10px] font-bold ${colors[p] || "bg-zinc-800 text-zinc-200 border-zinc-700"}">${p}</span>`;
+          rem = Math.round((rem - c * p) * 100) / 100;
+        });
+        return `<span class="text-[10px] text-zinc-500 mr-0.5">Per side:</span>` + html + (rem > 0 ? `<span class="text-[10px] text-rose-400">+${rem} left</span>` : "");
+      }
+
       applyTheme() {
         const name = this.settings.accent || "emerald";
         const t = THEMES[name] || THEMES.emerald;
@@ -2016,6 +2172,7 @@
           });
           const goal = goals[l.key] || l.goal;
           const pct = Math.min(100, Math.round((best / goal) * 100));
+          const next = [135, 225, 315, 405, 495, 585, 675].find(m => m > best);
           const row = document.createElement("button");
           row.className = "w-full text-left space-y-1 tap-active";
           row.innerHTML = `
@@ -2024,7 +2181,7 @@
               <span class="font-mono ${best ? "text-emerald-400" : "text-zinc-500"}">${best ? best + " lb" : "—"} <span class="text-zinc-500">/ ${goal}</span></span>
             </div>
             <div class="h-2 rounded-full bg-zinc-800 overflow-hidden"><div class="h-2 rounded-full bg-emerald-500" style="width:${pct}%"></div></div>
-            <div class="text-[10px] text-zinc-500">${holder ? this.esc(holder) + " · est. 1RM · " + pct + "% of goal" : "No PR logged yet"}</div>`;
+            <div class="text-[10px] text-zinc-500">${holder ? this.esc(holder) + " · est. 1RM · " + pct + "% of goal" : "No PR logged yet"}<br>Next milestone: ${next ? next + " lb (" + ((next - 45) / 90) + "-plate)" : "—"}</div>`;
           row.addEventListener("click", () => {
             const v = parseFloat(prompt("Goal 1RM for " + l.key + " (lbs)?", goal));
             if (v > 0) {
@@ -2128,6 +2285,8 @@
             </div>
           ` : "";
 
+          const isBar = /barbell|squat|deadlift|bench press|rack pull|hip thrust|military|good morning|pendlay|yates|ez-bar/i.test(exercise.name)
+            && !/dumbbell|machine|cable|smith|goblet|kettlebell|leg press|hack|sissy|split/i.test(exercise.name);
           // Look up previous session history for this exercise
           const prevHistory = this.lastPerf[exercise.name] || [];
 
@@ -2178,7 +2337,8 @@
             `;
 
             setRowsHtml += `
-              <div class="set-row flex items-center justify-between py-1.5 border-b border-zinc-800/50 last:border-b-0 text-xs" data-set-index="${s}">
+              <div class="set-row border-b border-zinc-800/50 last:border-b-0 text-xs" data-set-index="${s}">
+                <div class="flex items-center justify-between py-1.5">
                 <div class="flex items-center space-x-1.5 flex-shrink-0">
                   <button class="btn-cycle-tag px-1.5 py-0.5 rounded border text-[10px] font-bold tap-active ${tagBadge}" 
                     data-key="${key}" title="Tap to toggle Warm-up/Drop/Failure">
@@ -2192,6 +2352,8 @@
                   data-key="${key}" data-rest="${exercise.restSeconds || 60}" data-completed="${isCompleted ? '1' : '0'}" data-exname="${exercise.name}">
                   <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                 </button>
+              </div>
+                <div class="plate-viz flex flex-wrap items-center gap-1 pb-1.5 pl-1" data-plates-for="${key}" data-bar="${isBar ? 1 : 0}">${isBar ? this.plateRowHtml(logEntry.weight) : ''}</div>
               </div>
             `;
           }
@@ -2348,6 +2510,10 @@
               this.logs[key] = { completed: false, weight: "", reps: "", tag: "R" };
             }
             this.logs[key][field] = input.value;
+            if (field === "weight") {
+              const viz = this.dom.exercisesList.querySelector(`[data-plates-for="${key}"]`);
+              if (viz && viz.dataset.bar === "1") viz.innerHTML = this.plateRowHtml(input.value);
+            }
             WorkoutStorage.saveLogs(this.logs);
           });
         });
