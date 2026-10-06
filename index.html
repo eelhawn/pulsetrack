@@ -2246,7 +2246,7 @@
           const pr = this.prs[e.name];
           const sets = (this.lastPerf[e.name] || []).filter(x => x.tag !== "W");
           const top = sets.sort((a, b) => b.weight - a.weight)[0];
-          const topTxt = top ? "Last: " + top.weight + "×" + top.reps + (top.rpe ? " @" + top.rpe : "") : "No sessions logged";
+          const topTxt = top ? "Last: " + top.weight + "×" + top.reps : "No sessions logged";
           const card = document.createElement("div");
           card.className = "bg-zinc-900 border border-zinc-800 rounded-xl p-3 flex items-center justify-between";
           card.innerHTML = `
@@ -2334,7 +2334,7 @@
             const isPR = isCompleted && currentTag !== "W" && calculated1RM > 0 && calculated1RM >= prevBest1RM;
 
             const prevSet = prevHistory[s] || null;
-            const prevHint = prevSet ? `${prevSet.weight}×${prevSet.reps}${prevSet.rpe ? " @" + prevSet.rpe : ""}` : ``;
+            const prevHint = prevSet ? `${prevSet.weight}×${prevSet.reps}` : ``;
 
             const inputsHtml = showLogger ? `
               <div class="flex items-center space-x-1.5 flex-grow justify-end pr-2">
@@ -2350,11 +2350,6 @@
                     data-key="${key}" data-field="reps" 
                     class="input-set-field w-11 bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
                   <span class="text-zinc-500 text-[10px]">reps</span>
-                </div>
-                <div class="flex items-center">
-                  <input type="number" inputmode="decimal" min="1" max="10" step="0.5" placeholder="${prevSet && prevSet.rpe ? prevSet.rpe : 'RPE'}" value="${logEntry.rpe || ''}"
-                    data-key="${key}" data-field="rpe"
-                    class="input-set-field w-11 bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
                 </div>
               </div>
             ` : `
@@ -2388,7 +2383,7 @@
           const headerColumns = showLogger ? `
             <div class="flex items-center justify-between text-[10px] uppercase font-bold text-zinc-500 pb-1 px-1">
               <span>Set (Tag)</span>
-              <span class="pr-10">Weight · Reps · RPE</span>
+              <span class="pr-10">Weight · Reps</span>
               <span>Status</span>
             </div>
           ` : `
