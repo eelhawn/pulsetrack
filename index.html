@@ -230,7 +230,7 @@
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack Pro v1.4</span>
+      <span>PulseTrack Pro v1.5</span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -1102,13 +1102,26 @@
         this.prs = WorkoutStorage.getPRs();
         this.lastPerf = WorkoutStorage.getLastPerf();
 
-        const savedState = AppStateMemory.getActive();
-        if (savedState && this.data.programs) {
-          this.activeProgram = this.data.programs.find(p => p.id === savedState.progId) || this.data.programs[0];
-          this.activeDay = this.activeProgram.days ? (this.activeProgram.days.find(d => d.dayNumber === savedState.dayNum) || this.activeProgram.days[0]) : null;
-        } else {
-          this.activeProgram = this.data.programs && this.data.programs[0] ? this.data.programs[0] : null;
-          this.activeDay = this.activeProgram && this.activeProgram.days ? this.activeProgram.days[0] : null;
+        // --- SAFELY LOAD ACTIVE PROGRAM & DAY ---
+        this.activeProgram = null;
+        this.activeDay = null;
+
+        if (this.data && Array.isArray(this.data.programs) && this.data.programs.length > 0) {
+          const savedState = AppStateMemory.getActive();
+          
+          if (savedState && savedState.progId) {
+            this.activeProgram = this.data.programs.find(p => p.id === savedState.progId) || this.data.programs[0];
+          } else {
+            this.activeProgram = this.data.programs[0];
+          }
+
+          if (this.activeProgram && Array.isArray(this.activeProgram.days) && this.activeProgram.days.length > 0) {
+            if (savedState && savedState.dayNum !== undefined) {
+              this.activeDay = this.activeProgram.days.find(d => d.dayNumber === savedState.dayNum) || this.activeProgram.days[0];
+            } else {
+              this.activeDay = this.activeProgram.days[0];
+            }
+          }
         }
 
         // Calendar state
@@ -1588,7 +1601,7 @@
           this.releaseWakeLock();
           this.dom.viewDays.classList.remove("hidden");
           this.dom.backBtn.classList.remove("hidden");
-          this.dom.headerTitle.innerText = this.activeProgram.title;
+          this.dom.headerTitle.innerText = this.activeProgram ? this.activeProgram.title : "";
           this.dom.headerBreadcrumb.innerText = "Select Workout Day";
           this.renderDaysView();
         } else if (viewName === "workout") {
@@ -1596,7 +1609,7 @@
           this.startStopwatch();
           this.dom.viewWorkout.classList.remove("hidden");
           this.dom.backBtn.classList.remove("hidden");
-          this.dom.headerTitle.innerText = this.activeDay.title;
+          this.dom.headerTitle.innerText = this.activeDay ? this.activeDay.title : "";
           this.dom.headerBreadcrumb.innerText = `${this.activeProgram.title} • Day ${this.activeDay.dayNumber}`;
           this.renderWorkoutView();
         }
@@ -1662,7 +1675,7 @@
 
           card.addEventListener("click", () => {
             this.activeProgram = program;
-            this.activeDay = program.days ? program.days[0] : null; // Default to Day 1
+            this.activeDay = program.days ? program.days[0] : null; 
             AppStateMemory.saveActive(this.activeProgram.id, this.activeDay ? this.activeDay.dayNumber : null);
             this.showView("days");
           });
@@ -1683,28 +1696,31 @@
         this.data.programs = (this.data.programs || []).filter(p => p.id !== programId);
         WorkoutStorage.setData(this.data);
         if (this.activeProgram && this.activeProgram.id === programId) {
-          this.activeProgram = this.data.programs[0] || null;
-          this.activeDay = this.activeProgram && this.activeProgram.days ? this.activeProgram.days[0] : null;
+          this.activeProgram = (this.data.programs && this.data.programs.length > 0) ? this.data.programs[0] : null;
+          this.activeDay = (this.activeProgram && this.activeProgram.days) ? this.activeProgram.days[0] : null;
         }
         this.renderProgramsView();
         this.updateDrawerStatus();
       }
 
       renderDaysView() {
+        if (!this.activeProgram) return;
         this.dom.daysProgramTitle.innerText = this.activeProgram.title;
         this.dom.daysProgramDesc.innerText = this.activeProgram.description;
         this.dom.daysList.innerHTML = "";
 
-        this.activeProgram.days.forEach(day => {
+        const daysList = this.activeProgram.days || [];
+        daysList.forEach(day => {
           const card = document.createElement("div");
           card.className = "bg-zinc-900 border border-zinc-800 rounded-xl p-4 tap-active cursor-pointer hover:border-zinc-700 flex items-center justify-between";
 
           let totalSets = 0;
           let completedSets = 0;
 
-          day.exercises.forEach(ex => {
-            totalSets += ex.sets;
-            for (let s = 0; s < ex.sets; s++) {
+          const exList = day.exercises || [];
+          exList.forEach(ex => {
+            totalSets += (ex.sets || 0);
+            for (let s = 0; s < (ex.sets || 0); s++) {
               const key = this.getLogKey(this.activeProgram.id, day.dayNumber, ex.id, s);
               if (this.logs[key] && this.logs[key].completed) completedSets++;
             }
@@ -1721,7 +1737,7 @@
             <div class="flex flex-col pr-3">
               <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Day ${day.dayNumber}</span>
               <h4 class="text-sm font-bold text-white mt-0.5">${day.title}</h4>
-              <span class="text-xs text-zinc-400 mt-1">${day.exercises.length} Exercises</span>
+              <span class="text-xs text-zinc-400 mt-1">${exList.length} Exercises</span>
             </div>
             <div class="flex items-center space-x-2 flex-shrink-0">
               ${statusBadge}
@@ -1748,13 +1764,15 @@
       }
 
       renderWorkoutView() {
-        this.dom.workoutDayBadge.innerText = `Day ${this.activeDay.dayNumber}`;
-        this.dom.workoutDayTitle.innerText = this.activeDay.title;
+        if (!this.activeDay) return;
+        this.dom.workoutDayBadge.innerText = `Day ${this.activeDay.dayNumber || '?'}`;
+        this.dom.workoutDayTitle.innerText = this.activeDay.title || 'Workout';
         this.dom.exercisesList.innerHTML = "";
 
         const showLogger = this.settings.showLogger !== false;
+        const exercisesList = this.activeDay.exercises || [];
 
-        this.activeDay.exercises.forEach((exercise, exIndex) => {
+        exercisesList.forEach((exercise, exIndex) => {
           const card = document.createElement("div");
           card.className = "bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-3.5";
 
@@ -1781,24 +1799,21 @@
           const prevHistory = this.lastPerf[exercise.name] || [];
 
           let setRowsHtml = "";
-          for (let s = 0; s < exercise.sets; s++) {
+          for (let s = 0; s < (exercise.sets || 0); s++) {
             const key = this.getLogKey(this.activeProgram.id, this.activeDay.dayNumber, exercise.id, s);
             const logEntry = this.logs[key] || { completed: false, weight: "", reps: "", tag: "R" };
             const isCompleted = logEntry.completed;
             const currentTag = logEntry.tag || "R";
 
-            // Determine tag styling
             let tagBadge = "bg-zinc-800 text-zinc-300 border-zinc-700";
             if (currentTag === "W") tagBadge = "bg-amber-950/90 text-amber-300 border-amber-800/60";
             if (currentTag === "D") tagBadge = "bg-purple-950/90 text-purple-300 border-purple-800/60";
             if (currentTag === "F") tagBadge = "bg-rose-950/90 text-rose-300 border-rose-800/60";
 
-            // PR Detection
             const calculated1RM = this.calculate1RM(logEntry.weight, logEntry.reps);
             const prevBest1RM = this.prs[exercise.name] || 0;
             const isPR = isCompleted && calculated1RM > 0 && calculated1RM >= prevBest1RM;
 
-            // Ghost values placeholder
             const prevSet = prevHistory[s] || null;
             const prevHint = prevSet ? `${prevSet.weight}×${prevSet.reps}` : ``;
 
@@ -1860,7 +1875,7 @@
             <div class="flex items-start justify-between">
               <div>
                 <div class="flex items-center space-x-2">
-                  <span class="px-2 py-0.5 rounded border text-[10px] font-bold uppercase tracking-wide ${badgeColor}">${exercise.type}</span>
+                  <span class="px-2 py-0.5 rounded border text-[10px] font-bold uppercase tracking-wide ${badgeColor}">${exercise.type || 'standard'}</span>
                   <span class="text-[11px] text-zinc-500 font-mono">Rest: ${exercise.restSeconds || 60}s</span>
                 </div>
                 <h4 class="text-base font-bold text-white mt-1">${exercise.name}</h4>
@@ -1905,7 +1920,7 @@
         addCard.innerHTML = `
           <button id="btn-add-exercise" class="w-full py-4 border-2 border-dashed border-zinc-700/80 hover:border-emerald-500 hover:bg-emerald-950/20 text-zinc-400 hover:text-emerald-400 font-bold rounded-2xl flex items-center justify-center space-x-2 tap-active transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-            <span>Add Exercise to Day ${this.activeDay.dayNumber}</span>
+            <span>Add Exercise to Day ${this.activeDay.dayNumber || ''}</span>
           </button>
         `;
         this.dom.exercisesList.appendChild(addCard);
@@ -2046,9 +2061,10 @@
         let completedSetsCount = 0;
         let prCount = 0;
 
-        this.activeDay.exercises.forEach(ex => {
+        const exercisesList = this.activeDay.exercises || [];
+        exercisesList.forEach(ex => {
           const setsArr = [];
-          for (let s = 0; s < ex.sets; s++) {
+          for (let s = 0; s < (ex.sets || 0); s++) {
             const key = this.getLogKey(this.activeProgram.id, this.activeDay.dayNumber, ex.id, s);
             const entry = this.logs[key];
             if (entry && entry.completed) {
@@ -2095,8 +2111,9 @@
 
       resetActiveDayLogs() {
         if (!confirm("Reset all logged set completions for this workout day?")) return;
-        this.activeDay.exercises.forEach(ex => {
-          for (let s = 0; s < ex.sets; s++) {
+        const exercisesList = this.activeDay.exercises || [];
+        exercisesList.forEach(ex => {
+          for (let s = 0; s < (ex.sets || 0); s++) {
             const key = this.getLogKey(this.activeProgram.id, this.activeDay.dayNumber, ex.id, s);
             delete this.logs[key];
           }
