@@ -1870,11 +1870,12 @@ card.addEventListener("click", () => {
           });
         });
 
-        // Add Set
+       // Add Set
         this.dom.exercisesList.querySelectorAll(".btn-add-set").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
             this.activeDay.exercises[index].sets++;
+            WorkoutStorage.setData(this.data); // <-- SAVES TO MEMORY
             this.renderWorkoutView();
           });
         });
@@ -1885,6 +1886,7 @@ card.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
             if (this.activeDay.exercises[index].sets > 1) {
               this.activeDay.exercises[index].sets--;
+              WorkoutStorage.setData(this.data); // <-- SAVES TO MEMORY
               this.renderWorkoutView();
             }
           });
@@ -1898,6 +1900,7 @@ card.addEventListener("click", () => {
             const replacement = prompt(`Replace "${current.name}" with:`, current.name);
             if (replacement && replacement.trim() !== "" && replacement !== current.name) {
               current.name = replacement.trim();
+              WorkoutStorage.setData(this.data); // <-- SAVES TO MEMORY
               this.renderWorkoutView();
             }
           });
