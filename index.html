@@ -175,6 +175,17 @@
         </button>
       </div>
 
+      <!-- Navigation -->
+      <div class="space-y-1.5">
+        <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Navigate</span>
+        <div class="grid grid-cols-2 gap-2">
+          <button data-nav="home" class="drawer-nav py-2.5 px-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-bold text-white text-left tap-active">🏠 Home</button>
+          <button data-nav="programs" class="drawer-nav py-2.5 px-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-bold text-white text-left tap-active">📂 Programs</button>
+          <button data-nav="library" class="drawer-nav py-2.5 px-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-bold text-white text-left tap-active">📚 Library</button>
+          <button data-nav="settings" class="drawer-nav py-2.5 px-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-bold text-white text-left tap-active">⚙️ Settings</button>
+        </div>
+      </div>
+
       <!-- Active Program Card -->
       <div class="space-y-2">
         <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Current Routine</span>
@@ -188,36 +199,9 @@
         </div>
       </div>
 
-      <!-- Workout History & Consistency Calendar -->
-      <div class="space-y-2.5">
-        <div class="flex items-center justify-between">
-          <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Workout Calendar</span>
-          <div class="flex items-center space-x-1">
-            <button id="btn-cal-prev" class="p-1 rounded bg-zinc-800 text-zinc-400 hover:text-white tap-active" aria-label="Previous Month">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
-            </button>
-            <span id="cal-month-year-label" class="text-xs font-bold text-zinc-200 px-1">October 2026</span>
-            <button id="btn-cal-next" class="p-1 rounded bg-zinc-800 text-zinc-400 hover:text-white tap-active" aria-label="Next Month">
-              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
-            </button>
-          </div>
-        </div>
-
-        <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3 space-y-2">
-          <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-zinc-500">
-            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
-          </div>
-          <div id="calendar-days-grid" class="grid grid-cols-7 gap-1 text-center text-xs font-mono"></div>
-          <div class="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[11px]">
-            <span class="text-zinc-400">This Month:</span>
-            <span id="cal-month-active-count" class="font-bold text-emerald-400">0 Days Active</span>
-          </div>
-        </div>
-      </div>
-
       <!-- Quick Gym Utility Tools -->
       <div class="space-y-2.5">
-        <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Gym Utilities</span>
+        <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Gym Tools</span>
         
         <!-- Standalone Plate Calc Trigger -->
         <button id="btn-drawer-plate-calc" class="w-full py-2.5 px-3 bg-zinc-950 hover:bg-zinc-850 border border-zinc-800 rounded-xl text-left flex items-center justify-between tap-active transition">
@@ -255,6 +239,33 @@
 
       </div>
 
+      <!-- Workout History & Consistency Calendar -->
+      <div class="space-y-2.5">
+        <div class="flex items-center justify-between">
+          <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Workout Calendar</span>
+          <div class="flex items-center space-x-1">
+            <button id="btn-cal-prev" class="p-1 rounded bg-zinc-800 text-zinc-400 hover:text-white tap-active" aria-label="Previous Month">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <span id="cal-month-year-label" class="text-xs font-bold text-zinc-200 px-1">October 2026</span>
+            <button id="btn-cal-next" class="p-1 rounded bg-zinc-800 text-zinc-400 hover:text-white tap-active" aria-label="Next Month">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3 space-y-2">
+          <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-zinc-500">
+            <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+          </div>
+          <div id="calendar-days-grid" class="grid grid-cols-7 gap-1 text-center text-xs font-mono"></div>
+          <div class="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[11px]">
+            <span class="text-zinc-400">This Month:</span>
+            <span id="cal-month-active-count" class="font-bold text-emerald-400">0 Days Active</span>
+          </div>
+        </div>
+      </div>
+
     </div>
 
     <!-- Drawer Footer -->
@@ -283,24 +294,25 @@
         </button>
       </div>
 
-      <!-- 1RM Trophy Room -->
-      <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-3">
-        <div class="flex items-center justify-between">
-          <h4 class="text-xs font-bold text-white">🏆 1RM Trophy Room</h4>
-          <span class="text-[10px] text-zinc-500">Tap a lift to set a goal</span>
-        </div>
-        <div id="trophy-room" class="space-y-3"></div>
+      <!-- Quick navigation tiles -->
+      <div class="grid grid-cols-2 gap-3">
+        <button id="btn-home-view-programs" class="bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-2xl p-4 text-left tap-active transition space-y-2">
+          <span class="w-9 h-9 rounded-xl bg-blue-950 text-blue-400 border border-blue-800/60 flex items-center justify-center text-base">📂</span>
+          <div>
+            <span class="block text-sm font-bold text-white">Programs</span>
+            <span class="block text-[11px] text-zinc-400 mt-0.5">Browse &amp; build routines</span>
+          </div>
+        </button>
+        <button id="btn-home-library" class="bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-2xl p-4 text-left tap-active transition space-y-2">
+          <span class="w-9 h-9 rounded-xl bg-emerald-950 text-emerald-400 border border-emerald-800/60 flex items-center justify-center text-base">📚</span>
+          <div>
+            <span class="block text-sm font-bold text-white">Exercise Library</span>
+            <span class="block text-[11px] text-zinc-400 mt-0.5">All exercises &amp; PRs</span>
+          </div>
+        </button>
       </div>
 
-      <button id="btn-home-library" class="w-full py-4 bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-2xl text-zinc-100 font-bold text-xs flex items-center justify-between px-5 tap-active transition shadow-lg">
-        <div class="flex items-center space-x-2.5">
-          <span class="w-7 h-7 rounded-lg bg-emerald-950 text-emerald-400 border border-emerald-800/60 flex items-center justify-center text-xs">📚</span>
-          <span>Exercise Library &amp; PRs</span>
-        </div>
-        <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-      </button>
-
-      <!-- Quick Stats Card -->
+      <!-- Consistency -->
       <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 flex items-center justify-between">
         <div class="flex items-center space-x-3">
           <div class="w-10 h-10 rounded-xl bg-zinc-800 flex items-center justify-center text-emerald-400 font-bold text-base">🔥</div>
@@ -314,15 +326,13 @@
         </button>
       </div>
 
-      <!-- View More Programs Button -->
-      <div class="pt-2">
-        <button id="btn-home-view-programs" class="w-full py-4 bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-2xl text-zinc-100 font-bold text-xs flex items-center justify-between px-5 tap-active transition shadow-lg">
-          <div class="flex items-center space-x-2.5">
-            <span class="w-7 h-7 rounded-lg bg-blue-950 text-blue-400 border border-blue-800/60 flex items-center justify-center font-bold text-xs">📂</span>
-            <span>View More Programs</span>
-          </div>
-          <svg class="w-4 h-4 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
-        </button>
+      <!-- 1RM Trophy Room -->
+      <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-3">
+        <div class="flex items-center justify-between">
+          <h4 class="text-xs font-bold text-white">🏆 1RM Trophy Room</h4>
+          <span class="text-[10px] text-zinc-500">Tap a lift to set a goal</span>
+        </div>
+        <div id="trophy-room" class="space-y-3"></div>
       </div>
     </section>
 
@@ -597,25 +607,51 @@
   <div id="modal-settings" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
     <div class="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-t-2xl sm:rounded-2xl p-5 space-y-4 max-h-[90vh] overflow-y-auto flex flex-col">
       <div class="flex items-center justify-between">
-        <h3 class="text-base font-bold text-white">App Settings & Data</h3>
+        <h3 class="text-base font-bold text-white">Settings</h3>
         <button id="btn-close-settings" class="p-1.5 text-zinc-400 hover:text-white tap-active">
           <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
 
-      <!-- Feature Toggle: Set & Reps Logger -->
-      <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 flex items-center justify-between">
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Workout</span>
+      <div class="bg-zinc-950 border border-zinc-800 rounded-xl divide-y divide-zinc-800 overflow-hidden">
+      <div class="flex items-center justify-between p-3.5">
         <div class="pr-3">
           <span class="text-xs font-bold text-white block">Log Weight & Reps</span>
-          <span class="text-[11px] text-zinc-400 block mt-0.5">Show input fields for weight and reps in sets. Turn off for a minimal checklist.</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Show weight and reps fields on each set. Turn off for a simple checklist.</span>
         </div>
         <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
           <input type="checkbox" id="setting-toggle-logger" class="sr-only peer" checked>
           <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
         </label>
       </div>
+      </div>
 
-      <!-- Accent Theme -->
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Sound & Voice</span>
+      <div class="bg-zinc-950 border border-zinc-800 rounded-xl divide-y divide-zinc-800 overflow-hidden">
+      <div class="flex items-center justify-between p-3.5">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Sound Effects</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Beeps and chimes for sets, rest timer and Tabata. Vibration is not affected.</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" id="setting-toggle-sound" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+        </label>
+      </div>
+      <div class="flex items-center justify-between p-3.5">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Voice Coaching</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Speak "Rest complete. Next set..." when the rest timer ends.</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" id="setting-toggle-voice" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+        </label>
+      </div>
+      </div>
+
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Appearance</span>
       <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-2.5">
         <span class="text-xs font-bold text-white block">Accent Theme</span>
         <div class="flex space-x-3">
@@ -626,35 +662,10 @@
         </div>
       </div>
 
-      <!-- Voice Coaching -->
-      <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 flex items-center justify-between">
-        <div class="pr-3">
-          <span class="text-xs font-bold text-white block">Voice Coaching</span>
-          <span class="text-[11px] text-zinc-400 block mt-0.5">Speak "Rest complete. Next set..." when the rest timer ends.</span>
-        </div>
-        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
-          <input type="checkbox" id="setting-toggle-voice" class="sr-only peer" checked>
-          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
-        </label>
-      </div>
-
-      <!-- Sound Effects -->
-      <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 flex items-center justify-between">
-        <div class="pr-3">
-          <span class="text-xs font-bold text-white block">Sound Effects</span>
-          <span class="text-[11px] text-zinc-400 block mt-0.5">Beeps and chimes for set completion, rest timer and Tabata. Vibration is not affected.</span>
-        </div>
-        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
-          <input type="checkbox" id="setting-toggle-sound" class="sr-only peer" checked>
-          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
-        </label>
-      </div>
-
-      <div class="flex flex-col space-y-2 pt-1">
-        <button id="btn-reset-defaults" class="w-full py-2.5 bg-rose-950/40 hover:bg-rose-900/50 border border-rose-800/40 text-rose-300 font-medium text-xs rounded-xl tap-active">
-          Reset to Factory Defaults
-        </button>
-      </div>
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Danger Zone</span>
+      <button id="btn-reset-defaults" class="w-full py-2.5 bg-rose-950/40 hover:bg-rose-900/50 border border-rose-800/40 text-rose-300 font-medium text-xs rounded-xl tap-active">
+        Reset to Factory Defaults
+      </button>
     </div>
   </div>
 
@@ -1393,6 +1404,11 @@
 
         // Home View Actions
         this.dom.btnHomeViewPrograms.addEventListener("click", () => this.showView("programs"));
+        document.querySelectorAll(".drawer-nav").forEach(b => b.addEventListener("click", () => {
+          this.closeDrawer();
+          const t = b.dataset.nav;
+          if (t === "settings") this.openSettings(); else this.showView(t);
+        }));
         this.dom.btnHomeResume.addEventListener("click", () => {
           if (this.activeProgram && this.activeDay) {
             this.showView("workout");
@@ -2475,7 +2491,10 @@
               </div>
               <!-- Dynamic Add / Remove Set Row Buttons -->
               <div class="flex items-center justify-end space-x-2 pt-2.5 border-t border-zinc-800/50 text-xs">
-                ${/squat|bench press|deadlift/i.test(exercise.name) && exercise.type !== "tabata" ? `<button class="btn-warmup mr-auto px-2 py-1 bg-amber-950/60 border border-amber-800/60 text-amber-300 font-semibold rounded-lg tap-active" data-exindex="${exIndex}">🔥 Warmups</button>` : ''}
+                <div class="mr-auto flex items-center space-x-2">
+                  <button class="btn-rest-ex px-2.5 py-1 bg-emerald-950/60 border border-emerald-800/60 text-emerald-300 font-semibold rounded-lg tap-active" data-rest="${exercise.restSeconds || 60}">⏱ Rest ${exercise.restSeconds || 60}s</button>
+                  ${/squat|bench press|deadlift/i.test(exercise.name) && exercise.type !== "tabata" ? `<button class="btn-warmup px-2 py-1 bg-amber-950/60 border border-amber-800/60 text-amber-300 font-semibold rounded-lg tap-active" data-exindex="${exIndex}">🔥 Warmups</button>` : ''}
+                </div>
                 <button class="btn-remove-set px-2 py-1 bg-zinc-800/70 hover:bg-zinc-800 text-zinc-400 hover:text-rose-400 rounded-lg tap-active" data-exindex="${exIndex}">
                   − Remove Set
                 </button>
@@ -2536,7 +2555,6 @@
 
             if (!isCurrentlyCompleted) {
               sound.shortBeep();
-              this.restTimer.start(rest);
 
               // Check and update PR for this exercise
               const calculated1RM = this.calculate1RM(this.logs[key].weight, this.logs[key].reps);
@@ -2658,6 +2676,10 @@
               });
             }
           });
+        });
+        // Manual rest timer button
+        this.dom.exercisesList.querySelectorAll(".btn-rest-ex").forEach(btn => {
+          btn.addEventListener("click", () => this.restTimer.start(parseInt(btn.dataset.rest, 10) || 60));
         });
         // Warm-up generator
         this.dom.exercisesList.querySelectorAll(".btn-warmup").forEach(btn => {
