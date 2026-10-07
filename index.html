@@ -1566,7 +1566,11 @@
         // Category chips (with counts for what the search matched)
         const counts = {};
         matches.forEach(ex => { const c = ex.category || 'Other'; counts[c] = (counts[c] || 0) + 1; });
-        const cats = Object.keys(counts).sort((a, b) => a.localeCompare(b));
+        // Category order = order they first appear in exercises.js (so you control it from that file)
+        const catOrder = []; db.forEach(e => { const c = e.category || 'Other'; if (!catOrder.includes(c)) catOrder.push(c); });
+        const catRank = c => { const i = catOrder.indexOf(c); return i === -1 ? 999 : i; };
+        const byCat = (a, b) => catRank(a) - catRank(b) || a.localeCompare(b);
+        const cats = Object.keys(counts).sort(byCat);
         const activeCat = (q || !counts[this.exCat]) ? 'All' : this.exCat;
         const chip = (label, count, on) => `
           <button data-cat="${this.esc(label)}" class="ex-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold border tap-active transition whitespace-nowrap ${on
@@ -1595,7 +1599,7 @@
         shown.forEach(ex => { const c = ex.category || 'Other'; (groups[c] = groups[c] || []).push(ex); });
 
         const frag = document.createDocumentFragment();
-        Object.keys(groups).sort((a, b) => a.localeCompare(b)).forEach(cat => {
+        Object.keys(groups).sort(byCat).forEach(cat => {
           const items = groups[cat].slice().sort((a, b) => a.name.localeCompare(b.name));
           const section = document.createElement('div');
 
