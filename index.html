@@ -521,25 +521,28 @@
 
   <!-- Exercise Database Selector Modal -->
   <div id="modal-ex-selector" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
-    <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-t-2xl sm:rounded-2xl flex flex-col h-[85vh] sm:h-[600px] overflow-hidden">
+    <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-t-3xl sm:rounded-2xl flex flex-col h-[88vh] sm:h-[640px] overflow-hidden">
       <!-- Header -->
-      <div class="p-4 border-b border-zinc-800 flex items-center justify-between shrink-0 bg-zinc-900">
-        <h3 class="text-base font-bold text-white" id="ex-selector-title">Select Exercise</h3>
-        <button id="btn-close-ex-selector" class="p-1.5 text-zinc-400 hover:text-white tap-active">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      <div class="px-4 pt-4 pb-3 flex items-start justify-between shrink-0 bg-zinc-900">
+        <div class="min-w-0 pr-3">
+          <h3 class="text-lg font-extrabold text-white leading-tight" id="ex-selector-title">Select Exercise</h3>
+          <p class="text-xs text-zinc-400 mt-0.5 truncate" id="ex-selector-sub"></p>
+        </div>
+        <button id="btn-close-ex-selector" class="p-2 -mr-1 bg-zinc-800 text-zinc-300 hover:text-white rounded-full tap-active" aria-label="Close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
         </button>
       </div>
-      <!-- Search Bar -->
-      <div class="p-4 shrink-0 bg-zinc-900 border-b border-zinc-800/60 shadow-md z-10">
+      <!-- Search -->
+      <div class="px-4 pb-3 shrink-0 bg-zinc-900">
         <div class="relative">
-          <svg class="w-5 h-5 absolute left-3 top-3.5 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
           <input type="text" id="ex-search-input" placeholder="Search exercises..." autocomplete="off" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-sm font-semibold text-white focus:outline-none focus:border-emerald-500 placeholder-zinc-500">
         </div>
       </div>
+      <!-- Category chips -->
+      <div id="ex-chips" class="flex gap-2 overflow-x-auto hide-scrollbar px-4 pb-3 shrink-0 bg-zinc-900 border-b border-zinc-800"></div>
       <!-- List -->
-      <div id="ex-list-container" class="flex-grow overflow-y-auto p-4 space-y-2 hide-scrollbar bg-zinc-950/50">
-        <!-- Populated by JS -->
-      </div>
+      <div id="ex-list-container" class="flex-grow overflow-y-auto hide-scrollbar bg-zinc-950/60" style="padding-bottom: env(safe-area-inset-bottom);"></div>
     </div>
   </div>
 
@@ -1359,7 +1362,9 @@
           btnCloseExSelector: document.getElementById("btn-close-ex-selector"),
           exSearchInput: document.getElementById("ex-search-input"),
           exListContainer: document.getElementById("ex-list-container"),
-          exSelectorTitle: document.getElementById("ex-selector-title")
+          exSelectorTitle: document.getElementById("ex-selector-title"),
+          exSelectorSub: document.getElementById("ex-selector-sub"),
+          exChips: document.getElementById("ex-chips")
         };
 
         this.selectedBarWeight = 45;
@@ -1521,9 +1526,20 @@
 
       openExerciseSelector(action, index = -1) {
         this.exerciseModalTarget = { action, index };
-        this.dom.exSelectorTitle.innerText = action === 'swap' ? 'Swap Exercise' : (action === 'builder' ? 'Add to Program' : 'Add New Exercise');
-        const dbCount = (typeof EXERCISE_DATABASE !== 'undefined' && Array.isArray(EXERCISE_DATABASE)) ? EXERCISE_DATABASE.length : 0;
-        this.dom.exSelectorTitle.innerText += ` (${dbCount})`;
+        const db = (typeof EXERCISE_DATABASE !== 'undefined' && Array.isArray(EXERCISE_DATABASE)) ? EXERCISE_DATABASE : [];
+        this.exCat = 'All';
+        this.exCurrent = '';
+        if (action === 'swap') {
+          const cur = this.activeDay && this.activeDay.exercises[index];
+          this.exCurrent = cur ? cur.name : '';
+          const hit = db.find(e => e.name === this.exCurrent);
+          if (hit && hit.category) this.exCat = hit.category;   // start on the same muscle group
+        }
+        this.dom.exSelectorTitle.innerText = action === 'swap' ? 'Swap Exercise' : (action === 'builder' ? 'Add to Program' : 'Add Exercise');
+        this.dom.exSelectorSub.innerHTML = action === 'swap'
+          ? `Replacing <span class="font-bold text-emerald-400">${this.esc(this.exCurrent)}</span>`
+          : (action === 'builder' ? 'Tap to add. The list stays open.' : 'Pick an exercise to add to this day');
+        this.dom.exSearchInput.placeholder = `Search ${db.length} exercises...`;
         this.dom.exSearchInput.value = '';
         this.renderExerciseList('');
         this.dom.modalExSelector.classList.remove("hidden");
@@ -1533,59 +1549,76 @@
         const container = this.dom.exListContainer;
         container.innerHTML = '';
         container.scrollTop = 0;
-        const lowerQuery = (query || '').trim().toLowerCase();
-
+        const q = (query || '').trim().toLowerCase();
         const db = (typeof EXERCISE_DATABASE !== 'undefined' && Array.isArray(EXERCISE_DATABASE)) ? EXERCISE_DATABASE : [];
-        const filtered = lowerQuery
-          ? db.filter(ex =>
-              ex.name.toLowerCase().includes(lowerQuery) ||
-              (ex.category || '').toLowerCase().includes(lowerQuery))
-          : db;
 
-        if (filtered.length === 0) {
-          container.innerHTML = db.length === 0
-          ? `<p class="text-rose-400 text-sm text-center pt-4 px-4">exercises.js did not load (or has a syntax error). Check the browser console.</p>`
-          : `<p class="text-zinc-500 text-sm text-center pt-4">No exercises found.</p>`;
+        if (db.length === 0) {
+          this.dom.exChips.innerHTML = '';
+          container.innerHTML = `<p class="text-rose-400 text-sm text-center pt-6 px-4">exercises.js did not load (or has a syntax error). Check the browser console.</p>`;
           return;
         }
 
-        // Group by category
+        // Searching looks across every category
+        const matches = q
+          ? db.filter(ex => ex.name.toLowerCase().includes(q) || (ex.category || '').toLowerCase().includes(q))
+          : db;
+
+        // Category chips (with counts for what the search matched)
+        const counts = {};
+        matches.forEach(ex => { const c = ex.category || 'Other'; counts[c] = (counts[c] || 0) + 1; });
+        const cats = Object.keys(counts).sort((a, b) => a.localeCompare(b));
+        const activeCat = (q || !counts[this.exCat]) ? 'All' : this.exCat;
+        const chip = (label, count, on) => `
+          <button data-cat="${this.esc(label)}" class="ex-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold border tap-active transition whitespace-nowrap ${on
+            ? 'bg-emerald-500 border-emerald-500 text-zinc-950'
+            : 'bg-zinc-950 border-zinc-800 text-zinc-300'}">${this.esc(label)} <span class="${on ? 'text-zinc-800' : 'text-zinc-500'} font-semibold">${count}</span></button>`;
+        this.dom.exChips.innerHTML = chip('All', matches.length, activeCat === 'All') + cats.map(c => chip(c, counts[c], activeCat === c)).join('');
+        this.dom.exChips.querySelectorAll('.ex-chip').forEach(b => b.addEventListener('click', () => {
+          this.exCat = b.dataset.cat;
+          this.renderExerciseList(this.dom.exSearchInput.value);
+        }));
+        const activeChip = this.dom.exChips.querySelector('.bg-emerald-500');
+        if (activeChip && activeChip.scrollIntoView) activeChip.scrollIntoView({ inline: 'center', block: 'nearest' });
+
+        const shown = activeCat === 'All' ? matches : matches.filter(ex => (ex.category || 'Other') === activeCat);
+        if (shown.length === 0) {
+          container.innerHTML = `<p class="text-zinc-500 text-sm text-center pt-8">No exercises found.</p>`;
+          return;
+        }
+
+        const isSwap = this.exerciseModalTarget && this.exerciseModalTarget.action === 'swap';
+        const icon = isSwap
+          ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4M16 17H4m0 0l4-4m-4 4l4 4"/>'
+          : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 5v14m7-7H5"/>';
+
         const groups = {};
-        filtered.forEach(ex => {
-          const cat = ex.category || 'Other';
-          (groups[cat] = groups[cat] || []).push(ex);
-        });
+        shown.forEach(ex => { const c = ex.category || 'Other'; (groups[c] = groups[c] || []).push(ex); });
 
         const frag = document.createDocumentFragment();
-
         Object.keys(groups).sort((a, b) => a.localeCompare(b)).forEach(cat => {
-          const items = groups[cat].sort((a, b) => a.name.localeCompare(b.name));
-
+          const items = groups[cat].slice().sort((a, b) => a.name.localeCompare(b.name));
           const section = document.createElement('div');
-          section.className = 'space-y-2';
 
-          const header = document.createElement('div');
-          header.className = 'sticky top-0 z-10 -mx-4 px-4 py-2 bg-zinc-900/95 backdrop-blur border-y border-zinc-800 flex items-center justify-between';
-          header.innerHTML = `
-            <span class="text-xs font-black uppercase tracking-widest text-emerald-400">${this.esc(cat)}</span>
-            <span class="text-[10px] font-bold text-zinc-500">${items.length}</span>
-          `;
-          section.appendChild(header);
+          if (activeCat === 'All') {
+            const header = document.createElement('div');
+            header.className = 'sticky top-0 z-10 px-4 py-1.5 bg-zinc-900/95 backdrop-blur border-b border-zinc-800 flex items-center justify-between';
+            header.innerHTML = `<span class="text-[11px] font-black uppercase tracking-widest text-emerald-400">${this.esc(cat)}</span><span class="text-[10px] font-bold text-zinc-500">${items.length}</span>`;
+            section.appendChild(header);
+          }
 
           items.forEach(ex => {
+            const isCur = isSwap && ex.name === this.exCurrent;
             const btn = document.createElement('button');
-            btn.className = 'w-full flex items-center justify-between p-3 bg-zinc-950 border border-zinc-800 rounded-xl hover:border-emerald-500 tap-active transition text-left';
+            btn.className = `w-full flex items-center gap-3 px-4 min-h-[52px] py-2 border-b border-zinc-800/60 border-l-2 text-left tap-active transition ${isCur ? 'border-l-emerald-500 bg-emerald-950/30' : 'border-l-transparent hover:bg-zinc-900'}`;
             btn.innerHTML = `
-              <span class="block text-sm font-bold text-white">${this.esc(ex.name)}</span>
-              <svg class="w-4 h-4 text-emerald-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-            `;
+              <span class="flex-grow min-w-0 text-sm font-semibold ${isCur ? 'text-emerald-300' : 'text-zinc-100'} leading-snug">${this.esc(ex.name)}</span>
+              ${isCur ? '<span class="shrink-0 text-[10px] font-bold uppercase tracking-wide text-emerald-400">Current</span>' : ''}
+              <svg class="w-4 h-4 shrink-0 ${isCur ? 'text-emerald-400' : 'text-zinc-600'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">${icon}</svg>`;
             btn.addEventListener('click', () => this.handleExerciseSelection(ex.name, btn));
             section.appendChild(btn);
           });
-
           frag.appendChild(section);
         });
-
         container.appendChild(frag);
       }
 
@@ -1596,7 +1629,7 @@
           if (!day.exercises.some(e => e.name === selectedName)) {
             day.exercises.push({ name: selectedName, sets: 3, reps: "10" });
             this.renderBuilder();
-            if (btn) btn.classList.add('border-emerald-500', 'bg-emerald-950/40');
+            if (btn) btn.classList.add('border-l-emerald-500', 'bg-emerald-950/40');
           }
           this.dom.exSelectorTitle.innerText = `Day ${di + 1} · ${day.exercises.length} added`;
           return; // keep the picker open so you can tap several exercises
