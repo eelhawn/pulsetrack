@@ -1,6 +1,6 @@
 // Bump this number every time you change index.html, exercises.js or programs.js
-const CACHE = 'pulsetrack-offline-v12';
-const CORE = ['./', './index.html', './exercises.js', './programs.js', './manifest.json'];
+const CACHE = 'pulsetrack-offline-v18';
+const CORE = ['./', './index.html', './exercises.js', './programs.js', './manifest.json', './icon-512.png'];
 const CDN = 'https://cdn.tailwindcss.com';
 
 self.addEventListener('install', (e) => {
