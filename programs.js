@@ -19783,5 +19783,597 @@ const BUILTIN_PROGRAMS = [
     ]
    }
   ]
+ },
+ {
+  "id": "upper_lower_6day_high_volume",
+  "title": "6-Day Upper/Lower Split (High Volume)",
+  "description": "3 upper + 3 lower days plus a rest day, using barbells, dumbbells and cables (lat pulldown / pushdown). Every upper day hits 3 chest, 4 back, 2 shoulder, 2 biceps and 2 triceps exercises.",
+  "tags": [
+   "Custom",
+   "6 Days",
+   "Upper/Lower",
+   "High Volume"
+  ],
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Upper A: Heavy Compound Focus",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "ulhv_d1_e1",
+      "name": "Barbell Bench Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Chest 1/3"
+     },
+     {
+      "id": "ulhv_d1_e2",
+      "name": "Incline Dumbbell Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Chest 2/3"
+     },
+     {
+      "id": "ulhv_d1_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Chest 3/3 · flat bench"
+     },
+     {
+      "id": "ulhv_d1_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Back 1/4 · cable"
+     },
+     {
+      "id": "ulhv_d1_e5",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Back 2/4"
+     },
+     {
+      "id": "ulhv_d1_e6",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Back 3/4 · one arm at a time"
+     },
+     {
+      "id": "ulhv_d1_e7",
+      "name": "Barbell Shrugs",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Back 4/4 · upper traps"
+     },
+     {
+      "id": "ulhv_d1_e8",
+      "name": "Overhead Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Shoulders 1/2 · barbell"
+     },
+     {
+      "id": "ulhv_d1_e9",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Shoulders 2/2"
+     },
+     {
+      "id": "ulhv_d1_e10",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Biceps 1/2"
+     },
+     {
+      "id": "ulhv_d1_e11",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Biceps 2/2"
+     },
+     {
+      "id": "ulhv_d1_e12",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Triceps 1/2 · barbell"
+     },
+     {
+      "id": "ulhv_d1_e13",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Triceps 2/2 · cable"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Lower A: Quad Bias",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "ulhv_d2_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Quads / glutes"
+     },
+     {
+      "id": "ulhv_d2_e2",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Hamstrings / glutes · barbell"
+     },
+     {
+      "id": "ulhv_d2_e3",
+      "name": "Dumbbell Walking Lunges",
+      "sets": 4,
+      "reps": "10-12 / leg",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Quads / glutes"
+     },
+     {
+      "id": "ulhv_d2_e4",
+      "name": "Barbell Front Squat",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Quads"
+     },
+     {
+      "id": "ulhv_d2_e5",
+      "name": "Dumbbell Goblet Squats",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Quads"
+     },
+     {
+      "id": "ulhv_d2_e6",
+      "name": "Standing Barbell Calf Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Calves"
+     },
+     {
+      "id": "ulhv_d2_e7",
+      "name": "Seated Dumbbell Calf Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Calves (soleus)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Upper B: Hypertrophy & Width",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "ulhv_d3_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Chest 1/3 · flat bench"
+     },
+     {
+      "id": "ulhv_d3_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Chest 2/3"
+     },
+     {
+      "id": "ulhv_d3_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Chest 3/3"
+     },
+     {
+      "id": "ulhv_d3_e4",
+      "name": "Reverse-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Back 1/4 · cable, underhand grip"
+     },
+     {
+      "id": "ulhv_d3_e5",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Back 2/4 · overhand grip"
+     },
+     {
+      "id": "ulhv_d3_e6",
+      "name": "Reverse-Grip Barbell Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Back 3/4 · underhand grip"
+     },
+     {
+      "id": "ulhv_d3_e7",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Back 4/4 · upper traps"
+     },
+     {
+      "id": "ulhv_d3_e8",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Shoulders 1/2"
+     },
+     {
+      "id": "ulhv_d3_e9",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Shoulders 2/2"
+     },
+     {
+      "id": "ulhv_d3_e10",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 4,
+      "reps": "10-12 / arm",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Biceps 1/2 · one arm at a time"
+     },
+     {
+      "id": "ulhv_d3_e11",
+      "name": "Barbell Hammer Curl",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Biceps 2/2 · neutral grip (hammer/Swiss bar)"
+     },
+     {
+      "id": "ulhv_d3_e12",
+      "name": "Dumbbell Overhead Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Triceps 1/2 · long head"
+     },
+     {
+      "id": "ulhv_d3_e13",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Triceps 2/2 · cable"
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Lower B: Posterior Chain Bias",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "ulhv_d4_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "5-8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Posterior chain"
+     },
+     {
+      "id": "ulhv_d4_e2",
+      "name": "Bulgarian Split Squats (Dumbbell)",
+      "sets": 4,
+      "reps": "10-12 / leg",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Quads / glutes"
+     },
+     {
+      "id": "ulhv_d4_e3",
+      "name": "Barbell Hip Thrusts",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Glutes"
+     },
+     {
+      "id": "ulhv_d4_e4",
+      "name": "Dumbbell Stiff-Leg Deadlift",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Hamstrings"
+     },
+     {
+      "id": "ulhv_d4_e5",
+      "name": "Barbell Hack Squat",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Quads · bar held behind your legs"
+     },
+     {
+      "id": "ulhv_d4_e6",
+      "name": "Dumbbell Step-Ups",
+      "sets": 3,
+      "reps": "10-12 / leg",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Glutes / quads"
+     },
+     {
+      "id": "ulhv_d4_e7",
+      "name": "Single-Leg Calf Raises",
+      "sets": 4,
+      "reps": "15-20 / leg",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Calves · hold a dumbbell"
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Upper C: Pump & Isolation",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "ulhv_d5_e1",
+      "name": "Wide-Grip Barbell Bench Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Chest 1/3"
+     },
+     {
+      "id": "ulhv_d5_e2",
+      "name": "Incline Dumbbell Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Chest 2/3"
+     },
+     {
+      "id": "ulhv_d5_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Chest 3/3"
+     },
+     {
+      "id": "ulhv_d5_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Back 1/4 · cable"
+     },
+     {
+      "id": "ulhv_d5_e5",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Back 2/4"
+     },
+     {
+      "id": "ulhv_d5_e6",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12 / arm",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Back 3/4 · one arm at a time"
+     },
+     {
+      "id": "ulhv_d5_e7",
+      "name": "Barbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Back 4/4 · upper traps"
+     },
+     {
+      "id": "ulhv_d5_e8",
+      "name": "Dumbbell Shoulder Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Shoulders 1/2"
+     },
+     {
+      "id": "ulhv_d5_e9",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Shoulders 2/2"
+     },
+     {
+      "id": "ulhv_d5_e10",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Biceps 1/2"
+     },
+     {
+      "id": "ulhv_d5_e11",
+      "name": "Dumbbell Concentration Curls",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Biceps 2/2"
+     },
+     {
+      "id": "ulhv_d5_e12",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Triceps 1/2 · barbell"
+     },
+     {
+      "id": "ulhv_d5_e13",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Triceps 2/2 · cable"
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Lower C: Volume & Endurance",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "ulhv_d6_e1",
+      "name": "Barbell Front Squat",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Quads"
+     },
+     {
+      "id": "ulhv_d6_e2",
+      "name": "Good Mornings",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Hamstrings / lower back · barbell"
+     },
+     {
+      "id": "ulhv_d6_e3",
+      "name": "Dumbbell Reverse Lunges",
+      "sets": 4,
+      "reps": "10-12 / leg",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Glutes / quads"
+     },
+     {
+      "id": "ulhv_d6_e4",
+      "name": "Dumbbell Sumo Squat",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Adductors / quads"
+     },
+     {
+      "id": "ulhv_d6_e5",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Hamstrings · barbell"
+     },
+     {
+      "id": "ulhv_d6_e6",
+      "name": "Standing Barbell Calf Raises",
+      "sets": 5,
+      "reps": "20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Calves"
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest / Recovery",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
  }
 ];
