@@ -1922,6 +1922,7 @@
             reps: "10",
             restSeconds: this.smartRest(selectedName),
             restAuto: true,
+            added: true,
             type: "standard"
           });
         }
@@ -2423,6 +2424,7 @@
           }))
         };
         if (!this.data || !Array.isArray(this.data.programs)) this.data = { programs: [] };
+        prog.days.forEach(d => { d.orig = JSON.parse(JSON.stringify(d.exercises)); });
         this.data.programs.push(prog);
         WorkoutStorage.setData(this.data);
         this.builder = null;
@@ -2494,7 +2496,7 @@
         out.forEach((st, i) => {
           this.logs[this.getLogKey(pid, dn, ex.id, i)] = { completed: false, weight: String(st.w), reps: String(st.r), tag: "W" };
         });
-        ex.sets += n;
+        this.changeSets(ex, n);
         WorkoutStorage.setData(this.data);
         WorkoutStorage.saveLogs(this.logs);
         this.renderWorkoutView();
@@ -2923,7 +2925,7 @@
         this.dom.exercisesList.querySelectorAll(".btn-add-set").forEach(btn => {
           btn.addEventListener("click", () => {
             const index = parseInt(btn.dataset.exindex, 10);
-            const newSets = ++this.activeDay.exercises[index].sets;
+            const newSets = this.changeSets(this.activeDay.exercises[index], 1);
             this.pendingEnter = { exIndex: index, setIndex: newSets - 1 };
             WorkoutStorage.setData(this.data);
             this.renderWorkoutView();
@@ -2939,7 +2941,7 @@
               const rows = this.dom.exercisesList.querySelectorAll(`[data-ex-card="${index}"] .set-row`);
               this.animating = true;
               this.animateOut(rows[rows.length - 1], () => {
-                this.activeDay.exercises[index].sets--;
+                this.changeSets(this.activeDay.exercises[index], -1);
                 WorkoutStorage.setData(this.data);
                 this.animating = false;
                 this.renderWorkoutView();
@@ -3009,48 +3011,95 @@
         return `${progId}_d${dayNum}_${exId}_s${setIndex}`;
       }
 
-      // Put a day back to how it started: un-swap names, bring back deleted exercises.
-      // Returns true if anything changed. Custom exercises you added yourself are kept.
-      restoreDay(prog, day) {
-        let changed = false;
-        day.exercises = day.exercises || [];
+      // ----- Reset a day to exactly how the program has it -----
+      // The "original" of a day is: the version in programs.js (built-in programs), the copy saved
+      // when the program was imported / built / saved from a workout (day.orig), or for older data
+      // a best guess from the change markers (origName, origSets, added, day.removed).
+      builtinDay(prog, day) {
         const bp = (typeof BUILTIN_PROGRAMS !== "undefined" && Array.isArray(BUILTIN_PROGRAMS)) ? BUILTIN_PROGRAMS.find(x => x.id === prog.id) : null;
         const bd = bp && (bp.days || []).find(d => d.dayNumber === day.dayNumber);
-        const clone = o => JSON.parse(JSON.stringify(o));
+        return bd && Array.isArray(bd.exercises) && bd.exercises.length ? bd : null;
+      }
 
-        // 1) Built-in programs: re-add any original exercise that is missing (also covers older deletions)
-        if (bd) {
-          const have = new Map(day.exercises.map(e => [e.id, e]));
-          const missing = (bd.exercises || []).filter(be => !have.has(be.id));
-          if (missing.length) {
-            const extras = day.exercises.filter(e => !(bd.exercises || []).some(be => be.id === e.id));
-            day.exercises = (bd.exercises || []).map(be => have.get(be.id) || clone(be)).concat(extras);
-            changed = true;
+      isAddedExercise(ex) {
+        return !!ex && (ex.added === true || /^custom_\d+$/.test(String(ex.id || "")));
+      }
+
+      cleanExercise(ex) {
+        const c = JSON.parse(JSON.stringify(ex));
+        if (c.origName) c.name = c.origName;
+        if (c.origSets) c.sets = c.origSets;
+        delete c.origName; delete c.origSets; delete c.added;
+        return c;
+      }
+
+      guessOriginal(day) {
+        const list = (day.exercises || []).filter(e => !this.isAddedExercise(e)).map(e => this.cleanExercise(e));
+        (Array.isArray(day.removed) ? day.removed : []).slice().sort((a, b) => a.idx - b.idx).forEach(r => {
+          if (r && r.ex && !this.isAddedExercise(r.ex) && !list.some(e => e.id === r.ex.id)) {
+            list.splice(Math.min(r.idx, list.length), 0, this.cleanExercise(r.ex));
           }
-        }
-        // 2) Anything else you deleted (imported / custom programs) comes back at its old position
-        if (Array.isArray(day.removed) && day.removed.length) {
-          day.removed.slice().sort((a, b) => a.idx - b.idx).forEach(r => {
-            if (r && r.ex && !day.exercises.some(e => e.id === r.ex.id)) {
-              day.exercises.splice(Math.min(r.idx, day.exercises.length), 0, clone(r.ex));
-              changed = true;
-            }
+        });
+        return list;
+      }
+
+      originalExercises(prog, day) {
+        const bd = this.builtinDay(prog, day);
+        if (bd) return bd.exercises;
+        if (Array.isArray(day.orig) && day.orig.length) return day.orig;
+        return this.guessOriginal(day);
+      }
+
+      // Change how many sets an exercise has, remembering the program's number the first time.
+      changeSets(ex, delta) {
+        const cur = parseInt(ex.sets, 10) || 0;
+        if (ex.origSets === undefined) ex.origSets = cur;
+        ex.sets = Math.max(1, cur + delta);
+        if (ex.sets === ex.origSets) delete ex.origSets;
+        return ex.sets;
+      }
+
+      // One-time for programs saved before 2.1.1: remember each day's original now,
+      // so later changes (extra sets, added exercises) can always be undone.
+      snapshotOriginals() {
+        let changed = false;
+        ((this.data && this.data.programs) || []).forEach(p => {
+          if (!p || p.id === FREESTYLE_ID) return;
+          (p.days || []).forEach(d => {
+            if (!d || (Array.isArray(d.orig) && d.orig.length) || this.builtinDay(p, d)) return;
+            const g = this.guessOriginal(d);
+            if (g.length) { d.orig = g; changed = true; }
           });
+        });
+        if (changed) WorkoutStorage.setData(this.data);
+      }
+
+      // Put the day back exactly as the program has it. Returns true if anything changed.
+      // Freestyle workouts have no original, so their exercises are left alone.
+      restoreDay(prog, day) {
+        day.exercises = day.exercises || [];
+        if (prog.id === FREESTYLE_ID) return false;
+        const before = JSON.stringify(day.exercises);
+        let orig = JSON.parse(JSON.stringify(this.originalExercises(prog, day)));
+        let changed = false;
+        if (orig.length) {
+          if (!this.builtinDay(prog, day) && !(Array.isArray(day.orig) && day.orig.length)) day.orig = JSON.parse(JSON.stringify(orig));
+          day.exercises = orig;
+          changed = JSON.stringify(day.exercises) !== before;
         }
         if (day.removed) { delete day.removed; changed = true; }
-        // 3) Swapped exercises go back to the original name
-        day.exercises.forEach(ex => {
-          let orig = ex.origName;
-          if (!orig && bd) { const be = (bd.exercises || []).find(e => e.id === ex.id); if (be) orig = be.name; }
-          if (orig && ex.name !== orig) { ex.name = orig; changed = true; }
-          if (ex.origName) { delete ex.origName; changed = true; }
-        });
         return changed;
       }
 
+      // Removes every logged set for the day's exercises (and any deleted ones), whatever the set number.
       clearDayLogs(prog, day) {
-        (day.exercises || []).forEach(ex => {
-          for (let s = 0; s < (ex.sets || 0); s++) delete this.logs[this.getLogKey(prog.id, day.dayNumber, ex.id, s)];
+        const ids = new Set((day.exercises || []).map(ex => String(ex.id)));
+        (Array.isArray(day.removed) ? day.removed : []).forEach(r => { if (r && r.ex) ids.add(String(r.ex.id)); });
+        const pre = `${prog.id}_d${day.dayNumber}_`;
+        Object.keys(this.logs || {}).forEach(k => {
+          if (!k.startsWith(pre)) return;
+          const m = k.slice(pre.length).match(/^(.*)_s\d+$/);
+          if (m && ids.has(m[1])) delete this.logs[k];
         });
         if (this.dayNotes && this.dayNotes[`${prog.id}_d${day.dayNumber}`] !== undefined) {
           delete this.dayNotes[`${prog.id}_d${day.dayNumber}`];
@@ -3059,9 +3108,15 @@
       }
 
       resetActiveDayLogs() {
-        if (!confirm("Clear logged sets and restore this day's exercises (swapped or deleted ones) to the originals?")) return;
-        const changed = this.restoreDay(this.activeProgram, this.activeDay);
-        this.clearDayLogs(this.activeProgram, this.activeDay);
+        const prog = this.activeProgram, day = this.activeDay;
+        if (!prog || !day) return;
+        const msg = prog.id === FREESTYLE_ID
+          ? "Clear all logged sets in this workout? Saved workouts in History and your PRs are kept."
+          : "Clear logged sets and put this day back exactly as the program has it?\n\n• Swapped or deleted exercises come back\n• Exercises and sets you added are removed\n\nSaved workouts in History and your PRs are kept.";
+        if (!confirm(msg)) return;
+        this.clearDayLogs(prog, day);             // logs of what's on screen now (incl. added exercises/sets)
+        const changed = this.restoreDay(prog, day);
+        this.clearDayLogs(prog, day);             // and of the restored originals
         WorkoutStorage.saveLogs(this.logs);
         if (changed) WorkoutStorage.setData(this.data);
         this.renderWorkoutView();
@@ -3069,9 +3124,10 @@
 
       resetWholeProgram() {
         if (!this.activeProgram) return;
-        if (!confirm(`Reset ALL days in "${this.activeProgram.title}"? This clears every logged set, restores swapped or deleted exercises, and marks this week's days as not done. Saved workouts in History, PRs and the calendar are kept.`)) return;
+        if (!confirm(`Reset ALL days in "${this.activeProgram.title}"? This clears every logged set, puts every day back exactly as the program has it (swapped or deleted exercises come back, exercises and sets you added are removed), and marks this week's days as not done. Saved workouts in History, PRs and the calendar are kept.`)) return;
         let changed = false;
         (this.activeProgram.days || []).forEach(day => {
+          this.clearDayLogs(this.activeProgram, day);
           if (this.restoreDay(this.activeProgram, day)) changed = true;
           this.clearDayLogs(this.activeProgram, day);
         });
@@ -3113,7 +3169,7 @@
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.1.0";
+    const APP_VERSION = "2.1.1";
     const BACKUP_SCHEMA = 2;
     const STORAGE_KEY_SESSIONS = "pulsetrack_sessions_v1";
     const STORAGE_KEY_BODY = "pulsetrack_body_v1";
@@ -3353,6 +3409,7 @@
         this.applyUnitLabels();
         this.bindExtras();
         this.initV3();
+        this.snapshotOriginals();
         this.setupPWA();
         this.checkImportHash();
       },
@@ -4190,7 +4247,7 @@
         (s.ex || []).forEach(e => {
           const ex = (day.exercises || []).find(x => x.id === e.id) || (day.exercises || []).find(x => x.name === e.name);
           if (!ex) { missing++; return; }
-          if ((e.sets || []).length > (ex.sets || 0)) ex.sets = e.sets.length;
+          if ((e.sets || []).length > (ex.sets || 0)) this.changeSets(ex, e.sets.length - (parseInt(ex.sets, 10) || 0));
           for (let i = 0; i < (ex.sets || 0); i++) delete this.logs[this.getLogKey(prog.id, day.dayNumber, ex.id, i)];
           e.sets.forEach((st, i) => {
             this.logs[this.getLogKey(prog.id, day.dayNumber, ex.id, i)] = { completed: false, weight: String(st.w), reps: String(st.r), tag: st.t || "R" };
@@ -4817,8 +4874,8 @@
       cleanProgramForShare(p) {
         const c = JSON.parse(JSON.stringify(p));
         (c.days || []).forEach(d => {
-          delete d.removed;
-          (d.exercises || []).forEach(e => { delete e.origName; });
+          delete d.removed; delete d.orig;
+          (d.exercises || []).forEach(e => { delete e.origName; delete e.origSets; delete e.added; });
         });
         return c;
       },
@@ -4875,6 +4932,7 @@
         const seenDays = new Set();
         days.forEach((d, i) => { if (seenDays.has(d.dayNumber)) d.dayNumber = Math.max(...days.map(x => x.dayNumber)) + 1 + i; seenDays.add(d.dayNumber); });
         days.forEach(d => { const seen = new Set(); d.exercises.forEach((e, i) => { if (seen.has(e.id)) e.id = e.id + "_" + i; seen.add(e.id); }); });
+        days.forEach(d => { d.orig = JSON.parse(JSON.stringify(d.exercises)); });
         if (!days.some(d => d.exercises.length)) { alert("That program has no exercises."); return false; }
         const title = clean(p.title) || "Shared Program";
         if (!confirm(`Add the program "${title}" (${days.length} days) to PulseTrack?`)) return false;
@@ -5378,6 +5436,7 @@
             restSeconds: this.smartRest(e.name), restAuto: true, type: "standard"
           }))
         });
+        days[days.length - 1].orig = JSON.parse(JSON.stringify(days[days.length - 1].exercises));
         if (!WorkoutStorage.setData(this.data)) { days.pop(); return; }
         this.closeSheet();
         this.renderProgramsView();
