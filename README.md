@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Current version: 2.3.0*
+*Current version: 2.3.1*
 
 ---
 
@@ -137,7 +137,7 @@ When new files are uploaded to GitHub:
 - **Personal records (PRs):** the app spots new records for weight, estimated 1-rep max and volume, and shows them in the **Trophy Room**.
 - **Per-exercise charts:** see weight, estimated max and rep records over time.
 - **Weekly muscle volume:** how many hard sets each muscle got this week. A **½ Helpers** option counts helper muscles as half a set.
-- **Muscle map:** front and back body picture that lights up trained muscles. Tap a muscle to see its sets.
+- **Muscle map:** a detailed front and back body (40+ muscles, like an anatomy chart) that lights up what you trained. Tap any muscle to see its sets.
 - **Strength level:** Beginner → Novice → Intermediate → Advanced → Elite for bench, squat, deadlift and overhead press, based on StrengthLevel.com standards (men and women). Includes the **1,000 lb club** total.
 - **Streaks and weekly goal:** set how many days a week you want to train and keep your streak alive.
 - **Calendar and History:** see every past workout. You can open one, edit it, **Do Again**, or **Save as Routine**.
