@@ -2683,7 +2683,16 @@
         const exercisesList = this.activeDay.exercises || [];
         let restored = false;
         exercisesList.forEach(ex => {
-          if (ex.origName) { ex.name = ex.origName; delete ex.origName; restored = true; }
+          // original name: remembered at swap time, or looked up from the built-in program (covers older swaps)
+          let orig = ex.origName;
+          if (!orig && typeof BUILTIN_PROGRAMS !== "undefined") {
+            const bp = BUILTIN_PROGRAMS.find(x => x.id === this.activeProgram.id);
+            const bd = bp && (bp.days || []).find(d => d.dayNumber === this.activeDay.dayNumber);
+            const be = bd && (bd.exercises || []).find(e => e.id === ex.id);
+            if (be) orig = be.name;
+          }
+          if (orig && ex.name !== orig) { ex.name = orig; restored = true; }
+          delete ex.origName;
           for (let s = 0; s < (ex.sets || 0); s++) {
             const key = this.getLogKey(this.activeProgram.id, this.activeDay.dayNumber, ex.id, s);
             delete this.logs[key];
