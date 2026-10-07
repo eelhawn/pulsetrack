@@ -1602,7 +1602,10 @@
           return; // keep the picker open so you can tap several exercises
         }
         if (this.exerciseModalTarget.action === 'swap') {
-          this.activeDay.exercises[this.exerciseModalTarget.index].name = selectedName;
+          const swEx = this.activeDay.exercises[this.exerciseModalTarget.index];
+          if (!swEx.origName) swEx.origName = swEx.name;      // remember the original once
+          swEx.name = selectedName;
+          if (swEx.name === swEx.origName) delete swEx.origName;
         } else if (this.exerciseModalTarget.action === 'add') {
           this.activeDay.exercises.push({
             id: "custom_" + Date.now(),
@@ -2676,15 +2679,18 @@
       }
 
       resetActiveDayLogs() {
-        if (!confirm("Reset all logged set completions for this workout day?")) return;
+        if (!confirm("Clear logged sets and restore any swapped exercises to the originals for this day?")) return;
         const exercisesList = this.activeDay.exercises || [];
+        let restored = false;
         exercisesList.forEach(ex => {
+          if (ex.origName) { ex.name = ex.origName; delete ex.origName; restored = true; }
           for (let s = 0; s < (ex.sets || 0); s++) {
             const key = this.getLogKey(this.activeProgram.id, this.activeDay.dayNumber, ex.id, s);
             delete this.logs[key];
           }
         });
         WorkoutStorage.saveLogs(this.logs);
+        if (restored) WorkoutStorage.setData(this.data);
         this.renderWorkoutView();
       }
 
