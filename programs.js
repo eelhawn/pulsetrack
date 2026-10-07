@@ -20375,5 +20375,35791 @@ const BUILTIN_PROGRAMS = [
     "exercises": []
    }
   ]
+ },
+ {
+  "id": "phil_heath_12wk_plan",
+  "title": "Phil Heath 12-Week Workout Plan",
+  "description": "Phil Heath's 12-week mass program (Thefitnessphantom.com). High volume, progressive overload, FST-7 finishers (7 sets, 30–45 s rest) and a dedicated cardio day. 5–6 sessions a week, 90–120 min. Advanced. Weeks 1–4 (Phase 1): lower body, push, pull, delts & traps, cardio & abs. Weeks 5–8 (Phase 2): legs & glutes, chest/delts/triceps, back & biceps, delts & abs, cardio. Weeks 9–12 (Phase 3): lower body, chest, cardio & core, back, arms, shoulders.",
+  "tags": [
+   "Phil Heath",
+   "12 Weeks",
+   "3 Phases",
+   "Bodybuilding"
+  ],
+  "weeks": 12,
+  "days": [
+   {
+    "dayNumber": 1,
+    "week": 1,
+    "title": "Week 1 · Mon: Lower Body",
+    "estimatedMinutes": 85,
+    "exercises": [
+     {
+      "id": "ph12_w1mon_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w1mon_e2",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w1mon_e3",
+      "name": "Smith Machine Squats",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w1mon_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w1mon_e5",
+      "name": "Vertical Leg Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w1mon_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w1mon_e7",
+      "name": "Barbell Lunges",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w1mon_e8",
+      "name": "Hack Squat",
+      "sets": 7,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w1mon_e9",
+      "name": "Calf Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "week": 1,
+    "title": "Week 1 · Tue: Push (Chest & Triceps)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w1tue_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1tue_e2",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1tue_e3",
+      "name": "Hammer Strength Flat Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1tue_e4",
+      "name": "Pec Deck",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w1tue_e5",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Rope or straight bar"
+     },
+     {
+      "id": "ph12_w1tue_e6",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1tue_e7",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1tue_e8",
+      "name": "Lying French Press",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "week": 1,
+    "title": "Week 1 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 4,
+    "week": 1,
+    "title": "Week 1 · Thu: Pull (Back & Biceps)",
+    "estimatedMinutes": 85,
+    "exercises": [
+     {
+      "id": "ph12_w1thu_e1",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1thu_e2",
+      "name": "Chin-Ups",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1thu_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1thu_e4",
+      "name": "Reverse-Grip Barbell Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1thu_e5",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1thu_e6",
+      "name": "Straight-Arm Pulldown",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "7 sets, FST-7 style (30–45 s rest)"
+     },
+     {
+      "id": "ph12_w1thu_e7",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1thu_e8",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1thu_e9",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1thu_e10",
+      "name": "Preacher Curls",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "7 sets, FST-7 style (30–45 s rest)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "week": 1,
+    "title": "Week 1 · Fri: Delts & Traps",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "ph12_w1fri_e1",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1fri_e2",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1fri_e3",
+      "name": "Upright Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1fri_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w1fri_e6",
+      "name": "Barbell Shrugs",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "7 sets, FST-7 style (30–45 s rest)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "week": 1,
+    "title": "Week 1 · Sat: Low-Impact Cardio & Abs",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w1sat_e1",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w1sat_e2",
+      "name": "Elliptical",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w1sat_e3",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w1sat_e4",
+      "name": "Battle Ropes",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w1sat_e5",
+      "name": "Stairmaster",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w1sat_e6",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w1sat_e7",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w1sat_e8",
+      "name": "Plank",
+      "sets": 3,
+      "reps": "Max hold",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w1sat_e9",
+      "name": "Ab Wheel Rollouts",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "week": 1,
+    "title": "Week 1 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 8,
+    "week": 2,
+    "title": "Week 2 · Mon: Lower Body",
+    "estimatedMinutes": 85,
+    "exercises": [
+     {
+      "id": "ph12_w2mon_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w2mon_e2",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w2mon_e3",
+      "name": "Smith Machine Squats",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w2mon_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w2mon_e5",
+      "name": "Vertical Leg Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w2mon_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w2mon_e7",
+      "name": "Barbell Lunges",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w2mon_e8",
+      "name": "Hack Squat",
+      "sets": 7,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w2mon_e9",
+      "name": "Calf Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 9,
+    "week": 2,
+    "title": "Week 2 · Tue: Push (Chest & Triceps)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w2tue_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2tue_e2",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2tue_e3",
+      "name": "Hammer Strength Flat Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2tue_e4",
+      "name": "Pec Deck",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w2tue_e5",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Rope or straight bar"
+     },
+     {
+      "id": "ph12_w2tue_e6",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2tue_e7",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2tue_e8",
+      "name": "Lying French Press",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     }
+    ]
+   },
+   {
+    "dayNumber": 10,
+    "week": 2,
+    "title": "Week 2 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 11,
+    "week": 2,
+    "title": "Week 2 · Thu: Pull (Back & Biceps)",
+    "estimatedMinutes": 85,
+    "exercises": [
+     {
+      "id": "ph12_w2thu_e1",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2thu_e2",
+      "name": "Chin-Ups",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2thu_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2thu_e4",
+      "name": "Reverse-Grip Barbell Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2thu_e5",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2thu_e6",
+      "name": "Straight-Arm Pulldown",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "7 sets, FST-7 style (30–45 s rest)"
+     },
+     {
+      "id": "ph12_w2thu_e7",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2thu_e8",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2thu_e9",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2thu_e10",
+      "name": "Preacher Curls",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "7 sets, FST-7 style (30–45 s rest)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 12,
+    "week": 2,
+    "title": "Week 2 · Fri: Delts & Traps",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "ph12_w2fri_e1",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2fri_e2",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2fri_e3",
+      "name": "Upright Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2fri_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w2fri_e6",
+      "name": "Barbell Shrugs",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "7 sets, FST-7 style (30–45 s rest)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 13,
+    "week": 2,
+    "title": "Week 2 · Sat: Low-Impact Cardio & Abs",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w2sat_e1",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w2sat_e2",
+      "name": "Elliptical",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w2sat_e3",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w2sat_e4",
+      "name": "Battle Ropes",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w2sat_e5",
+      "name": "Stairmaster",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w2sat_e6",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w2sat_e7",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w2sat_e8",
+      "name": "Plank",
+      "sets": 3,
+      "reps": "Max hold",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w2sat_e9",
+      "name": "Ab Wheel Rollouts",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     }
+    ]
+   },
+   {
+    "dayNumber": 14,
+    "week": 2,
+    "title": "Week 2 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 15,
+    "week": 3,
+    "title": "Week 3 · Mon: Lower Body",
+    "estimatedMinutes": 85,
+    "exercises": [
+     {
+      "id": "ph12_w3mon_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w3mon_e2",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w3mon_e3",
+      "name": "Smith Machine Squats",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w3mon_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w3mon_e5",
+      "name": "Vertical Leg Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w3mon_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w3mon_e7",
+      "name": "Barbell Lunges",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w3mon_e8",
+      "name": "Hack Squat",
+      "sets": 7,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w3mon_e9",
+      "name": "Calf Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 16,
+    "week": 3,
+    "title": "Week 3 · Tue: Push (Chest & Triceps)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w3tue_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3tue_e2",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3tue_e3",
+      "name": "Hammer Strength Flat Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3tue_e4",
+      "name": "Pec Deck",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w3tue_e5",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Rope or straight bar"
+     },
+     {
+      "id": "ph12_w3tue_e6",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3tue_e7",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3tue_e8",
+      "name": "Lying French Press",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     }
+    ]
+   },
+   {
+    "dayNumber": 17,
+    "week": 3,
+    "title": "Week 3 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 18,
+    "week": 3,
+    "title": "Week 3 · Thu: Pull (Back & Biceps)",
+    "estimatedMinutes": 85,
+    "exercises": [
+     {
+      "id": "ph12_w3thu_e1",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3thu_e2",
+      "name": "Chin-Ups",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3thu_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3thu_e4",
+      "name": "Reverse-Grip Barbell Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3thu_e5",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3thu_e6",
+      "name": "Straight-Arm Pulldown",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "7 sets, FST-7 style (30–45 s rest)"
+     },
+     {
+      "id": "ph12_w3thu_e7",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3thu_e8",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3thu_e9",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3thu_e10",
+      "name": "Preacher Curls",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "7 sets, FST-7 style (30–45 s rest)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 19,
+    "week": 3,
+    "title": "Week 3 · Fri: Delts & Traps",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "ph12_w3fri_e1",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3fri_e2",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3fri_e3",
+      "name": "Upright Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3fri_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w3fri_e6",
+      "name": "Barbell Shrugs",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "7 sets, FST-7 style (30–45 s rest)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 20,
+    "week": 3,
+    "title": "Week 3 · Sat: Low-Impact Cardio & Abs",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w3sat_e1",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w3sat_e2",
+      "name": "Elliptical",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w3sat_e3",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w3sat_e4",
+      "name": "Battle Ropes",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w3sat_e5",
+      "name": "Stairmaster",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w3sat_e6",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w3sat_e7",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w3sat_e8",
+      "name": "Plank",
+      "sets": 3,
+      "reps": "Max hold",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w3sat_e9",
+      "name": "Ab Wheel Rollouts",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     }
+    ]
+   },
+   {
+    "dayNumber": 21,
+    "week": 3,
+    "title": "Week 3 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 22,
+    "week": 4,
+    "title": "Week 4 · Mon: Lower Body",
+    "estimatedMinutes": 85,
+    "exercises": [
+     {
+      "id": "ph12_w4mon_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w4mon_e2",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w4mon_e3",
+      "name": "Smith Machine Squats",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w4mon_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w4mon_e5",
+      "name": "Vertical Leg Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w4mon_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w4mon_e7",
+      "name": "Barbell Lunges",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w4mon_e8",
+      "name": "Hack Squat",
+      "sets": 7,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w4mon_e9",
+      "name": "Calf Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 23,
+    "week": 4,
+    "title": "Week 4 · Tue: Push (Chest & Triceps)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w4tue_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4tue_e2",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4tue_e3",
+      "name": "Hammer Strength Flat Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4tue_e4",
+      "name": "Pec Deck",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w4tue_e5",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Rope or straight bar"
+     },
+     {
+      "id": "ph12_w4tue_e6",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4tue_e7",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4tue_e8",
+      "name": "Lying French Press",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     }
+    ]
+   },
+   {
+    "dayNumber": 24,
+    "week": 4,
+    "title": "Week 4 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 25,
+    "week": 4,
+    "title": "Week 4 · Thu: Pull (Back & Biceps)",
+    "estimatedMinutes": 85,
+    "exercises": [
+     {
+      "id": "ph12_w4thu_e1",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4thu_e2",
+      "name": "Chin-Ups",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4thu_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4thu_e4",
+      "name": "Reverse-Grip Barbell Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4thu_e5",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4thu_e6",
+      "name": "Straight-Arm Pulldown",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "7 sets, FST-7 style (30–45 s rest)"
+     },
+     {
+      "id": "ph12_w4thu_e7",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4thu_e8",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4thu_e9",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4thu_e10",
+      "name": "Preacher Curls",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "7 sets, FST-7 style (30–45 s rest)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 26,
+    "week": 4,
+    "title": "Week 4 · Fri: Delts & Traps",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "ph12_w4fri_e1",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4fri_e2",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4fri_e3",
+      "name": "Upright Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4fri_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w4fri_e6",
+      "name": "Barbell Shrugs",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "7 sets, FST-7 style (30–45 s rest)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 27,
+    "week": 4,
+    "title": "Week 4 · Sat: Low-Impact Cardio & Abs",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w4sat_e1",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w4sat_e2",
+      "name": "Elliptical",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w4sat_e3",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w4sat_e4",
+      "name": "Battle Ropes",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w4sat_e5",
+      "name": "Stairmaster",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w4sat_e6",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w4sat_e7",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w4sat_e8",
+      "name": "Plank",
+      "sets": 3,
+      "reps": "Max hold",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w4sat_e9",
+      "name": "Ab Wheel Rollouts",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     }
+    ]
+   },
+   {
+    "dayNumber": 28,
+    "week": 4,
+    "title": "Week 4 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 29,
+    "week": 5,
+    "title": "Week 5 · Mon: Legs & Glutes",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w5mon_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5mon_e2",
+      "name": "Smith Machine Squats",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5mon_e3",
+      "name": "Walking Lunges",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5mon_e4",
+      "name": "Hack Squat",
+      "sets": 7,
+      "reps": "20",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w5mon_e5",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5mon_e6",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5mon_e7",
+      "name": "Seated Leg Curls",
+      "sets": 7,
+      "reps": "10-12",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     }
+    ]
+   },
+   {
+    "dayNumber": 30,
+    "week": 5,
+    "title": "Week 5 · Tue: Chest, Delts & Triceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "ph12_w5tue_e1",
+      "name": "Machine Chest Flye",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Seated Machine Press",
+      "link": true
+     },
+     {
+      "id": "ph12_w5tue_e2",
+      "name": "Machine Chest Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "ph12_w5tue_e3",
+      "name": "Machine Incline Chest Press",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w5tue_e4",
+      "name": "Flat Cable Flyes (Bench)",
+      "sets": 2,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5tue_e5",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Front Raises",
+      "link": true
+     },
+     {
+      "id": "ph12_w5tue_e6",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "ph12_w5tue_e7",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "V-bar or rope"
+     }
+    ]
+   },
+   {
+    "dayNumber": 31,
+    "week": 5,
+    "title": "Week 5 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 32,
+    "week": 5,
+    "title": "Week 5 · Thu: Back & Biceps",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "ph12_w5thu_e1",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Medium grip"
+     },
+     {
+      "id": "ph12_w5thu_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5thu_e3",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10/arm",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5thu_e4",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5thu_e5",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5thu_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5thu_e7",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5thu_e8",
+      "name": "Reverse Wrist Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 33,
+    "week": 5,
+    "title": "Week 5 · Fri: Delts & Abs",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "ph12_w5fri_e1",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5fri_e2",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5fri_e3",
+      "name": "Upright Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5fri_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5fri_e6",
+      "name": "Supported Knee Raises",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5fri_e7",
+      "name": "Tuck-Up Crunches",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w5fri_e8",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 34,
+    "week": 5,
+    "title": "Week 5 · Sat: Low-Impact Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "ph12_w5sat_e1",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w5sat_e2",
+      "name": "Elliptical",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w5sat_e3",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w5sat_e4",
+      "name": "Battle Ropes",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w5sat_e5",
+      "name": "Stairmaster",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     }
+    ]
+   },
+   {
+    "dayNumber": 35,
+    "week": 5,
+    "title": "Week 5 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 36,
+    "week": 6,
+    "title": "Week 6 · Mon: Legs & Glutes",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w6mon_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6mon_e2",
+      "name": "Smith Machine Squats",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6mon_e3",
+      "name": "Walking Lunges",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6mon_e4",
+      "name": "Hack Squat",
+      "sets": 7,
+      "reps": "20",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w6mon_e5",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6mon_e6",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6mon_e7",
+      "name": "Seated Leg Curls",
+      "sets": 7,
+      "reps": "10-12",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     }
+    ]
+   },
+   {
+    "dayNumber": 37,
+    "week": 6,
+    "title": "Week 6 · Tue: Chest, Delts & Triceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "ph12_w6tue_e1",
+      "name": "Machine Chest Flye",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Seated Machine Press",
+      "link": true
+     },
+     {
+      "id": "ph12_w6tue_e2",
+      "name": "Machine Chest Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "ph12_w6tue_e3",
+      "name": "Machine Incline Chest Press",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w6tue_e4",
+      "name": "Flat Cable Flyes (Bench)",
+      "sets": 2,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6tue_e5",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Front Raises",
+      "link": true
+     },
+     {
+      "id": "ph12_w6tue_e6",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "ph12_w6tue_e7",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "V-bar or rope"
+     }
+    ]
+   },
+   {
+    "dayNumber": 38,
+    "week": 6,
+    "title": "Week 6 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 39,
+    "week": 6,
+    "title": "Week 6 · Thu: Back & Biceps",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "ph12_w6thu_e1",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Medium grip"
+     },
+     {
+      "id": "ph12_w6thu_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6thu_e3",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10/arm",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6thu_e4",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6thu_e5",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6thu_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6thu_e7",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6thu_e8",
+      "name": "Reverse Wrist Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 40,
+    "week": 6,
+    "title": "Week 6 · Fri: Delts & Abs",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "ph12_w6fri_e1",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6fri_e2",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6fri_e3",
+      "name": "Upright Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6fri_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6fri_e6",
+      "name": "Supported Knee Raises",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6fri_e7",
+      "name": "Tuck-Up Crunches",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w6fri_e8",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 41,
+    "week": 6,
+    "title": "Week 6 · Sat: Low-Impact Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "ph12_w6sat_e1",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w6sat_e2",
+      "name": "Elliptical",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w6sat_e3",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w6sat_e4",
+      "name": "Battle Ropes",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w6sat_e5",
+      "name": "Stairmaster",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     }
+    ]
+   },
+   {
+    "dayNumber": 42,
+    "week": 6,
+    "title": "Week 6 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 43,
+    "week": 7,
+    "title": "Week 7 · Mon: Legs & Glutes",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w7mon_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7mon_e2",
+      "name": "Smith Machine Squats",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7mon_e3",
+      "name": "Walking Lunges",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7mon_e4",
+      "name": "Hack Squat",
+      "sets": 7,
+      "reps": "20",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w7mon_e5",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7mon_e6",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7mon_e7",
+      "name": "Seated Leg Curls",
+      "sets": 7,
+      "reps": "10-12",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     }
+    ]
+   },
+   {
+    "dayNumber": 44,
+    "week": 7,
+    "title": "Week 7 · Tue: Chest, Delts & Triceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "ph12_w7tue_e1",
+      "name": "Machine Chest Flye",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Seated Machine Press",
+      "link": true
+     },
+     {
+      "id": "ph12_w7tue_e2",
+      "name": "Machine Chest Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "ph12_w7tue_e3",
+      "name": "Machine Incline Chest Press",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w7tue_e4",
+      "name": "Flat Cable Flyes (Bench)",
+      "sets": 2,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7tue_e5",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Front Raises",
+      "link": true
+     },
+     {
+      "id": "ph12_w7tue_e6",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "ph12_w7tue_e7",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "V-bar or rope"
+     }
+    ]
+   },
+   {
+    "dayNumber": 45,
+    "week": 7,
+    "title": "Week 7 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 46,
+    "week": 7,
+    "title": "Week 7 · Thu: Back & Biceps",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "ph12_w7thu_e1",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Medium grip"
+     },
+     {
+      "id": "ph12_w7thu_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7thu_e3",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10/arm",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7thu_e4",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7thu_e5",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7thu_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7thu_e7",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7thu_e8",
+      "name": "Reverse Wrist Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 47,
+    "week": 7,
+    "title": "Week 7 · Fri: Delts & Abs",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "ph12_w7fri_e1",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7fri_e2",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7fri_e3",
+      "name": "Upright Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7fri_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7fri_e6",
+      "name": "Supported Knee Raises",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7fri_e7",
+      "name": "Tuck-Up Crunches",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w7fri_e8",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 48,
+    "week": 7,
+    "title": "Week 7 · Sat: Low-Impact Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "ph12_w7sat_e1",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w7sat_e2",
+      "name": "Elliptical",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w7sat_e3",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w7sat_e4",
+      "name": "Battle Ropes",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w7sat_e5",
+      "name": "Stairmaster",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     }
+    ]
+   },
+   {
+    "dayNumber": 49,
+    "week": 7,
+    "title": "Week 7 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 50,
+    "week": 8,
+    "title": "Week 8 · Mon: Legs & Glutes",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w8mon_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8mon_e2",
+      "name": "Smith Machine Squats",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8mon_e3",
+      "name": "Walking Lunges",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8mon_e4",
+      "name": "Hack Squat",
+      "sets": 7,
+      "reps": "20",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w8mon_e5",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8mon_e6",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8mon_e7",
+      "name": "Seated Leg Curls",
+      "sets": 7,
+      "reps": "10-12",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     }
+    ]
+   },
+   {
+    "dayNumber": 51,
+    "week": 8,
+    "title": "Week 8 · Tue: Chest, Delts & Triceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "ph12_w8tue_e1",
+      "name": "Machine Chest Flye",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Seated Machine Press",
+      "link": true
+     },
+     {
+      "id": "ph12_w8tue_e2",
+      "name": "Machine Chest Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "ph12_w8tue_e3",
+      "name": "Machine Incline Chest Press",
+      "sets": 7,
+      "reps": "8-10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest between them"
+     },
+     {
+      "id": "ph12_w8tue_e4",
+      "name": "Flat Cable Flyes (Bench)",
+      "sets": 2,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8tue_e5",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Front Raises",
+      "link": true
+     },
+     {
+      "id": "ph12_w8tue_e6",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "ph12_w8tue_e7",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "V-bar or rope"
+     }
+    ]
+   },
+   {
+    "dayNumber": 52,
+    "week": 8,
+    "title": "Week 8 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 53,
+    "week": 8,
+    "title": "Week 8 · Thu: Back & Biceps",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "ph12_w8thu_e1",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Medium grip"
+     },
+     {
+      "id": "ph12_w8thu_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8thu_e3",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10/arm",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8thu_e4",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8thu_e5",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8thu_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8thu_e7",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8thu_e8",
+      "name": "Reverse Wrist Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 54,
+    "week": 8,
+    "title": "Week 8 · Fri: Delts & Abs",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "ph12_w8fri_e1",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8fri_e2",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8fri_e3",
+      "name": "Upright Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8fri_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8fri_e6",
+      "name": "Supported Knee Raises",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8fri_e7",
+      "name": "Tuck-Up Crunches",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w8fri_e8",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 55,
+    "week": 8,
+    "title": "Week 8 · Sat: Low-Impact Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "ph12_w8sat_e1",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w8sat_e2",
+      "name": "Elliptical",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w8sat_e3",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w8sat_e4",
+      "name": "Battle Ropes",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     },
+     {
+      "id": "ph12_w8sat_e5",
+      "name": "Stairmaster",
+      "sets": 1,
+      "reps": "30-45 min",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+     }
+    ]
+   },
+   {
+    "dayNumber": 56,
+    "week": 8,
+    "title": "Week 8 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 57,
+    "week": 9,
+    "title": "Week 9 · Mon: Lower Body",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "ph12_w9mon_e1",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Hamstrings before quads, the way Phil trains them"
+     },
+     {
+      "id": "ph12_w9mon_e2",
+      "name": "Seated Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w9mon_e3",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w9mon_e4",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w9mon_e5",
+      "name": "Vertical Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w9mon_e6",
+      "name": "Linear Leg Press (45-Degree)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w9mon_e7",
+      "name": "Single-Leg Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w9mon_e8",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w9mon_e9",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w9mon_e10",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 58,
+    "week": 9,
+    "title": "Week 9 · Tue: Chest",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w9tue_e1",
+      "name": "Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "4–5 sets"
+     },
+     {
+      "id": "ph12_w9tue_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "4–5 sets"
+     },
+     {
+      "id": "ph12_w9tue_e3",
+      "name": "Machine Chest Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w9tue_e4",
+      "name": "Hammer Strength Incline Press",
+      "sets": 4,
+      "reps": "8/arm",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets · One arm at a time"
+     },
+     {
+      "id": "ph12_w9tue_e5",
+      "name": "Pec Deck",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "4–5 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 59,
+    "week": 9,
+    "title": "Week 9 · Wed: Cardio & Core",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "ph12_w9wed_e1",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w9wed_e2",
+      "name": "Elliptical",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w9wed_e3",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w9wed_e4",
+      "name": "Battle Ropes",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w9wed_e5",
+      "name": "Stairmaster",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w9wed_e6",
+      "name": "Oblique Crunches",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w9wed_e7",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w9wed_e8",
+      "name": "Side Knee Raises",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w9wed_e9",
+      "name": "Plank",
+      "sets": 3,
+      "reps": "Max hold",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w9wed_e10",
+      "name": "Ab Wheel Rollouts",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     }
+    ]
+   },
+   {
+    "dayNumber": 60,
+    "week": 9,
+    "title": "Week 9 · Thu: Back",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "ph12_w9thu_e1",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w9thu_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w9thu_e3",
+      "name": "Reverse-Grip Barbell Rows",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1 is a warm-up (tap R to tag it W), then 2 working sets"
+     },
+     {
+      "id": "ph12_w9thu_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w9thu_e5",
+      "name": "Lat Pulldown",
+      "sets": 7,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest"
+     }
+    ]
+   },
+   {
+    "dayNumber": 61,
+    "week": 9,
+    "title": "Week 9 · Fri: Arms",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "ph12_w9fri_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w9fri_e2",
+      "name": "Incline Two-Dumbbell Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w9fri_e3",
+      "name": "Single-Arm Overhead Cable Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w9fri_e4",
+      "name": "Bench Dips",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 45,
+      "notes": "Dip machine or bench dips"
+     },
+     {
+      "id": "ph12_w9fri_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "5/arm",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w9fri_e6",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w9fri_e7",
+      "name": "Dumbbell Spider Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w9fri_e8",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 62,
+    "week": 9,
+    "title": "Week 9 · Sat: Shoulders",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "ph12_w9sat_e1",
+      "name": "Machine Shoulder Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w9sat_e2",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w9sat_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "20, 25, 12, 10",
+      "restSeconds": 120,
+      "type": "dropset",
+      "notes": "Drop set: 20, 25, 12, 10 reps, going lighter each drop (as written in the PDF)"
+     },
+     {
+      "id": "ph12_w9sat_e4",
+      "name": "Machine Lying Rear-Delt Raise",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w9sat_e5",
+      "name": "Cable Face Pulls",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w9sat_e6",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     }
+    ]
+   },
+   {
+    "dayNumber": 63,
+    "week": 9,
+    "title": "Week 9 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 64,
+    "week": 10,
+    "title": "Week 10 · Mon: Lower Body",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "ph12_w10mon_e1",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Hamstrings before quads, the way Phil trains them"
+     },
+     {
+      "id": "ph12_w10mon_e2",
+      "name": "Seated Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w10mon_e3",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w10mon_e4",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w10mon_e5",
+      "name": "Vertical Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w10mon_e6",
+      "name": "Linear Leg Press (45-Degree)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w10mon_e7",
+      "name": "Single-Leg Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w10mon_e8",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w10mon_e9",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w10mon_e10",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 65,
+    "week": 10,
+    "title": "Week 10 · Tue: Chest",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w10tue_e1",
+      "name": "Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "4–5 sets"
+     },
+     {
+      "id": "ph12_w10tue_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "4–5 sets"
+     },
+     {
+      "id": "ph12_w10tue_e3",
+      "name": "Machine Chest Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w10tue_e4",
+      "name": "Hammer Strength Incline Press",
+      "sets": 4,
+      "reps": "8/arm",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets · One arm at a time"
+     },
+     {
+      "id": "ph12_w10tue_e5",
+      "name": "Pec Deck",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "4–5 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 66,
+    "week": 10,
+    "title": "Week 10 · Wed: Cardio & Core",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "ph12_w10wed_e1",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w10wed_e2",
+      "name": "Elliptical",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w10wed_e3",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w10wed_e4",
+      "name": "Battle Ropes",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w10wed_e5",
+      "name": "Stairmaster",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w10wed_e6",
+      "name": "Oblique Crunches",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w10wed_e7",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w10wed_e8",
+      "name": "Side Knee Raises",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w10wed_e9",
+      "name": "Plank",
+      "sets": 3,
+      "reps": "Max hold",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w10wed_e10",
+      "name": "Ab Wheel Rollouts",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     }
+    ]
+   },
+   {
+    "dayNumber": 67,
+    "week": 10,
+    "title": "Week 10 · Thu: Back",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "ph12_w10thu_e1",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w10thu_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w10thu_e3",
+      "name": "Reverse-Grip Barbell Rows",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1 is a warm-up (tap R to tag it W), then 2 working sets"
+     },
+     {
+      "id": "ph12_w10thu_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w10thu_e5",
+      "name": "Lat Pulldown",
+      "sets": 7,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest"
+     }
+    ]
+   },
+   {
+    "dayNumber": 68,
+    "week": 10,
+    "title": "Week 10 · Fri: Arms",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "ph12_w10fri_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w10fri_e2",
+      "name": "Incline Two-Dumbbell Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w10fri_e3",
+      "name": "Single-Arm Overhead Cable Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w10fri_e4",
+      "name": "Bench Dips",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 45,
+      "notes": "Dip machine or bench dips"
+     },
+     {
+      "id": "ph12_w10fri_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "5/arm",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w10fri_e6",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w10fri_e7",
+      "name": "Dumbbell Spider Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w10fri_e8",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 69,
+    "week": 10,
+    "title": "Week 10 · Sat: Shoulders",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "ph12_w10sat_e1",
+      "name": "Machine Shoulder Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w10sat_e2",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w10sat_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "20, 25, 12, 10",
+      "restSeconds": 120,
+      "type": "dropset",
+      "notes": "Drop set: 20, 25, 12, 10 reps, going lighter each drop (as written in the PDF)"
+     },
+     {
+      "id": "ph12_w10sat_e4",
+      "name": "Machine Lying Rear-Delt Raise",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w10sat_e5",
+      "name": "Cable Face Pulls",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w10sat_e6",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     }
+    ]
+   },
+   {
+    "dayNumber": 70,
+    "week": 10,
+    "title": "Week 10 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 71,
+    "week": 11,
+    "title": "Week 11 · Mon: Lower Body",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "ph12_w11mon_e1",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Hamstrings before quads, the way Phil trains them"
+     },
+     {
+      "id": "ph12_w11mon_e2",
+      "name": "Seated Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w11mon_e3",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w11mon_e4",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w11mon_e5",
+      "name": "Vertical Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w11mon_e6",
+      "name": "Linear Leg Press (45-Degree)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w11mon_e7",
+      "name": "Single-Leg Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w11mon_e8",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w11mon_e9",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w11mon_e10",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 72,
+    "week": 11,
+    "title": "Week 11 · Tue: Chest",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w11tue_e1",
+      "name": "Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "4–5 sets"
+     },
+     {
+      "id": "ph12_w11tue_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "4–5 sets"
+     },
+     {
+      "id": "ph12_w11tue_e3",
+      "name": "Machine Chest Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w11tue_e4",
+      "name": "Hammer Strength Incline Press",
+      "sets": 4,
+      "reps": "8/arm",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets · One arm at a time"
+     },
+     {
+      "id": "ph12_w11tue_e5",
+      "name": "Pec Deck",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "4–5 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 73,
+    "week": 11,
+    "title": "Week 11 · Wed: Cardio & Core",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "ph12_w11wed_e1",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w11wed_e2",
+      "name": "Elliptical",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w11wed_e3",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w11wed_e4",
+      "name": "Battle Ropes",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w11wed_e5",
+      "name": "Stairmaster",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w11wed_e6",
+      "name": "Oblique Crunches",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w11wed_e7",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w11wed_e8",
+      "name": "Side Knee Raises",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w11wed_e9",
+      "name": "Plank",
+      "sets": 3,
+      "reps": "Max hold",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w11wed_e10",
+      "name": "Ab Wheel Rollouts",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     }
+    ]
+   },
+   {
+    "dayNumber": 74,
+    "week": 11,
+    "title": "Week 11 · Thu: Back",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "ph12_w11thu_e1",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w11thu_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w11thu_e3",
+      "name": "Reverse-Grip Barbell Rows",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1 is a warm-up (tap R to tag it W), then 2 working sets"
+     },
+     {
+      "id": "ph12_w11thu_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w11thu_e5",
+      "name": "Lat Pulldown",
+      "sets": 7,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest"
+     }
+    ]
+   },
+   {
+    "dayNumber": 75,
+    "week": 11,
+    "title": "Week 11 · Fri: Arms",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "ph12_w11fri_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w11fri_e2",
+      "name": "Incline Two-Dumbbell Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w11fri_e3",
+      "name": "Single-Arm Overhead Cable Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w11fri_e4",
+      "name": "Bench Dips",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 45,
+      "notes": "Dip machine or bench dips"
+     },
+     {
+      "id": "ph12_w11fri_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "5/arm",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w11fri_e6",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w11fri_e7",
+      "name": "Dumbbell Spider Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w11fri_e8",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 76,
+    "week": 11,
+    "title": "Week 11 · Sat: Shoulders",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "ph12_w11sat_e1",
+      "name": "Machine Shoulder Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w11sat_e2",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w11sat_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "20, 25, 12, 10",
+      "restSeconds": 120,
+      "type": "dropset",
+      "notes": "Drop set: 20, 25, 12, 10 reps, going lighter each drop (as written in the PDF)"
+     },
+     {
+      "id": "ph12_w11sat_e4",
+      "name": "Machine Lying Rear-Delt Raise",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w11sat_e5",
+      "name": "Cable Face Pulls",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w11sat_e6",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     }
+    ]
+   },
+   {
+    "dayNumber": 77,
+    "week": 11,
+    "title": "Week 11 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 78,
+    "week": 12,
+    "title": "Week 12 · Mon: Lower Body",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "ph12_w12mon_e1",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Hamstrings before quads, the way Phil trains them"
+     },
+     {
+      "id": "ph12_w12mon_e2",
+      "name": "Seated Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w12mon_e3",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w12mon_e4",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w12mon_e5",
+      "name": "Vertical Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w12mon_e6",
+      "name": "Linear Leg Press (45-Degree)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w12mon_e7",
+      "name": "Single-Leg Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w12mon_e8",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w12mon_e9",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w12mon_e10",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 79,
+    "week": 12,
+    "title": "Week 12 · Tue: Chest",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ph12_w12tue_e1",
+      "name": "Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "4–5 sets"
+     },
+     {
+      "id": "ph12_w12tue_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "4–5 sets"
+     },
+     {
+      "id": "ph12_w12tue_e3",
+      "name": "Machine Chest Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "ph12_w12tue_e4",
+      "name": "Hammer Strength Incline Press",
+      "sets": 4,
+      "reps": "8/arm",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets · One arm at a time"
+     },
+     {
+      "id": "ph12_w12tue_e5",
+      "name": "Pec Deck",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "4–5 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 80,
+    "week": 12,
+    "title": "Week 12 · Wed: Cardio & Core",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "ph12_w12wed_e1",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w12wed_e2",
+      "name": "Elliptical",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w12wed_e3",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w12wed_e4",
+      "name": "Battle Ropes",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w12wed_e5",
+      "name": "Stairmaster",
+      "sets": 1,
+      "reps": "Your choice",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "cardio",
+      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+     },
+     {
+      "id": "ph12_w12wed_e6",
+      "name": "Oblique Crunches",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w12wed_e7",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w12wed_e8",
+      "name": "Side Knee Raises",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w12wed_e9",
+      "name": "Plank",
+      "sets": 3,
+      "reps": "Max hold",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     },
+     {
+      "id": "ph12_w12wed_e10",
+      "name": "Ab Wheel Rollouts",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "As many sets and reps as possible"
+     }
+    ]
+   },
+   {
+    "dayNumber": 81,
+    "week": 12,
+    "title": "Week 12 · Thu: Back",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "ph12_w12thu_e1",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w12thu_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w12thu_e3",
+      "name": "Reverse-Grip Barbell Rows",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1 is a warm-up (tap R to tag it W), then 2 working sets"
+     },
+     {
+      "id": "ph12_w12thu_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "ph12_w12thu_e5",
+      "name": "Lat Pulldown",
+      "sets": 7,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "fst-7",
+      "notes": "FST-7: 7 sets with only 30–45 s rest"
+     }
+    ]
+   },
+   {
+    "dayNumber": 82,
+    "week": 12,
+    "title": "Week 12 · Fri: Arms",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "ph12_w12fri_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w12fri_e2",
+      "name": "Incline Two-Dumbbell Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w12fri_e3",
+      "name": "Single-Arm Overhead Cable Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w12fri_e4",
+      "name": "Bench Dips",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 45,
+      "notes": "Dip machine or bench dips"
+     },
+     {
+      "id": "ph12_w12fri_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "5/arm",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w12fri_e6",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w12fri_e7",
+      "name": "Dumbbell Spider Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "ph12_w12fri_e8",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 83,
+    "week": 12,
+    "title": "Week 12 · Sat: Shoulders",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "ph12_w12sat_e1",
+      "name": "Machine Shoulder Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w12sat_e2",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w12sat_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "20, 25, 12, 10",
+      "restSeconds": 120,
+      "type": "dropset",
+      "notes": "Drop set: 20, 25, 12, 10 reps, going lighter each drop (as written in the PDF)"
+     },
+     {
+      "id": "ph12_w12sat_e4",
+      "name": "Machine Lying Rear-Delt Raise",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w12sat_e5",
+      "name": "Cable Face Pulls",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 120
+     },
+     {
+      "id": "ph12_w12sat_e6",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     }
+    ]
+   },
+   {
+    "dayNumber": 84,
+    "week": 12,
+    "title": "Week 12 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "lou_ferrigno_12wk_plan",
+  "title": "Lou Ferrigno 12-Week Workout Program",
+  "description": "Lou Ferrigno's 12-week strength & mass program (Thefitnessphantom.com). Warm up 10–15 min first. Rest 2–3 min on compound lifts, 1–2 min on isolation. Use forced reps at the end of each exercise; avoid failure on the first sets. 6 days a week, 60–90 min. Weeks 1–6: one muscle group per day (chest, back, legs, shoulders, arms, abs). Weeks 7–12: every muscle twice a week (chest & back, delts & arms, quads & hamstrings, repeated).",
+  "tags": [
+   "Lou Ferrigno",
+   "12 Weeks",
+   "6 Days",
+   "Bodybuilding"
+  ],
+  "weeks": 12,
+  "days": [
+   {
+    "dayNumber": 1,
+    "week": 1,
+    "title": "Week 1 · Mon: Chest",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "lf12_w1mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w1mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w1mon_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w1mon_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "notes": "Flat or incline bench"
+     },
+     {
+      "id": "lf12_w1mon_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w1mon_e6",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "week": 1,
+    "title": "Week 1 · Tue: Back",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "lf12_w1tue_e1",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "notes": "Chin-ups or pull-ups"
+     },
+     {
+      "id": "lf12_w1tue_e2",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w1tue_e3",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w1tue_e4",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w1tue_e5",
+      "name": "Lat Pulldown",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "week": 1,
+    "title": "Week 1 · Wed: Legs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lf12_w1wed_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w1wed_e2",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w1wed_e3",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w1wed_e4",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w1wed_e5",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w1wed_e6",
+      "name": "Calf Raises",
+      "sets": 10,
+      "reps": "6-10",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "week": 1,
+    "title": "Week 1 · Thu: Shoulders",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "lf12_w1thu_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w1thu_e2",
+      "name": "Overhead Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w1thu_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w1thu_e4",
+      "name": "Dumbbell Front Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w1thu_e5",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w1thu_e6",
+      "name": "Cable Upright Rows",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "week": 1,
+    "title": "Week 1 · Fri: Arms",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "lf12_w1fri_e1",
+      "name": "Barbell Curls",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w1fri_e2",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w1fri_e3",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w1fri_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w1fri_e5",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w1fri_e6",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w1fri_e7",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "week": 1,
+    "title": "Week 1 · Sat: Abs",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "lf12_w1sat_e1",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w1sat_e2",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 4,
+      "reps": "50",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w1sat_e3",
+      "name": "Bench Leg Raises",
+      "sets": 4,
+      "reps": "30-40",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w1sat_e4",
+      "name": "Side Bend Crunches",
+      "sets": 4,
+      "reps": "30-40",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "week": 1,
+    "title": "Week 1 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 8,
+    "week": 2,
+    "title": "Week 2 · Mon: Chest",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "lf12_w2mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w2mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w2mon_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w2mon_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "notes": "Flat or incline bench"
+     },
+     {
+      "id": "lf12_w2mon_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w2mon_e6",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 9,
+    "week": 2,
+    "title": "Week 2 · Tue: Back",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "lf12_w2tue_e1",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "notes": "Chin-ups or pull-ups"
+     },
+     {
+      "id": "lf12_w2tue_e2",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w2tue_e3",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w2tue_e4",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w2tue_e5",
+      "name": "Lat Pulldown",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 10,
+    "week": 2,
+    "title": "Week 2 · Wed: Legs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lf12_w2wed_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w2wed_e2",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w2wed_e3",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w2wed_e4",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w2wed_e5",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w2wed_e6",
+      "name": "Calf Raises",
+      "sets": 10,
+      "reps": "6-10",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 11,
+    "week": 2,
+    "title": "Week 2 · Thu: Shoulders",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "lf12_w2thu_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w2thu_e2",
+      "name": "Overhead Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w2thu_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w2thu_e4",
+      "name": "Dumbbell Front Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w2thu_e5",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w2thu_e6",
+      "name": "Cable Upright Rows",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 12,
+    "week": 2,
+    "title": "Week 2 · Fri: Arms",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "lf12_w2fri_e1",
+      "name": "Barbell Curls",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w2fri_e2",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w2fri_e3",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w2fri_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w2fri_e5",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w2fri_e6",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w2fri_e7",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 13,
+    "week": 2,
+    "title": "Week 2 · Sat: Abs",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "lf12_w2sat_e1",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w2sat_e2",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 4,
+      "reps": "50",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w2sat_e3",
+      "name": "Bench Leg Raises",
+      "sets": 4,
+      "reps": "30-40",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w2sat_e4",
+      "name": "Side Bend Crunches",
+      "sets": 4,
+      "reps": "30-40",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 14,
+    "week": 2,
+    "title": "Week 2 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 15,
+    "week": 3,
+    "title": "Week 3 · Mon: Chest",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "lf12_w3mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w3mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w3mon_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w3mon_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "notes": "Flat or incline bench"
+     },
+     {
+      "id": "lf12_w3mon_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w3mon_e6",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 16,
+    "week": 3,
+    "title": "Week 3 · Tue: Back",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "lf12_w3tue_e1",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "notes": "Chin-ups or pull-ups"
+     },
+     {
+      "id": "lf12_w3tue_e2",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w3tue_e3",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w3tue_e4",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w3tue_e5",
+      "name": "Lat Pulldown",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 17,
+    "week": 3,
+    "title": "Week 3 · Wed: Legs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lf12_w3wed_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w3wed_e2",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w3wed_e3",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w3wed_e4",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w3wed_e5",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w3wed_e6",
+      "name": "Calf Raises",
+      "sets": 10,
+      "reps": "6-10",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 18,
+    "week": 3,
+    "title": "Week 3 · Thu: Shoulders",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "lf12_w3thu_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w3thu_e2",
+      "name": "Overhead Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w3thu_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w3thu_e4",
+      "name": "Dumbbell Front Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w3thu_e5",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w3thu_e6",
+      "name": "Cable Upright Rows",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 19,
+    "week": 3,
+    "title": "Week 3 · Fri: Arms",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "lf12_w3fri_e1",
+      "name": "Barbell Curls",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w3fri_e2",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w3fri_e3",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w3fri_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w3fri_e5",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w3fri_e6",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w3fri_e7",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 20,
+    "week": 3,
+    "title": "Week 3 · Sat: Abs",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "lf12_w3sat_e1",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w3sat_e2",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 4,
+      "reps": "50",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w3sat_e3",
+      "name": "Bench Leg Raises",
+      "sets": 4,
+      "reps": "30-40",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w3sat_e4",
+      "name": "Side Bend Crunches",
+      "sets": 4,
+      "reps": "30-40",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 21,
+    "week": 3,
+    "title": "Week 3 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 22,
+    "week": 4,
+    "title": "Week 4 · Mon: Chest",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "lf12_w4mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w4mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w4mon_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w4mon_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "notes": "Flat or incline bench"
+     },
+     {
+      "id": "lf12_w4mon_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w4mon_e6",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 23,
+    "week": 4,
+    "title": "Week 4 · Tue: Back",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "lf12_w4tue_e1",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "notes": "Chin-ups or pull-ups"
+     },
+     {
+      "id": "lf12_w4tue_e2",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w4tue_e3",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w4tue_e4",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w4tue_e5",
+      "name": "Lat Pulldown",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 24,
+    "week": 4,
+    "title": "Week 4 · Wed: Legs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lf12_w4wed_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w4wed_e2",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w4wed_e3",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w4wed_e4",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w4wed_e5",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w4wed_e6",
+      "name": "Calf Raises",
+      "sets": 10,
+      "reps": "6-10",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 25,
+    "week": 4,
+    "title": "Week 4 · Thu: Shoulders",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "lf12_w4thu_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w4thu_e2",
+      "name": "Overhead Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w4thu_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w4thu_e4",
+      "name": "Dumbbell Front Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w4thu_e5",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w4thu_e6",
+      "name": "Cable Upright Rows",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 26,
+    "week": 4,
+    "title": "Week 4 · Fri: Arms",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "lf12_w4fri_e1",
+      "name": "Barbell Curls",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w4fri_e2",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w4fri_e3",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w4fri_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w4fri_e5",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w4fri_e6",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w4fri_e7",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 27,
+    "week": 4,
+    "title": "Week 4 · Sat: Abs",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "lf12_w4sat_e1",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w4sat_e2",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 4,
+      "reps": "50",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w4sat_e3",
+      "name": "Bench Leg Raises",
+      "sets": 4,
+      "reps": "30-40",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w4sat_e4",
+      "name": "Side Bend Crunches",
+      "sets": 4,
+      "reps": "30-40",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 28,
+    "week": 4,
+    "title": "Week 4 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 29,
+    "week": 5,
+    "title": "Week 5 · Mon: Chest",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "lf12_w5mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w5mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w5mon_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w5mon_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "notes": "Flat or incline bench"
+     },
+     {
+      "id": "lf12_w5mon_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w5mon_e6",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 30,
+    "week": 5,
+    "title": "Week 5 · Tue: Back",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "lf12_w5tue_e1",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "notes": "Chin-ups or pull-ups"
+     },
+     {
+      "id": "lf12_w5tue_e2",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w5tue_e3",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w5tue_e4",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w5tue_e5",
+      "name": "Lat Pulldown",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 31,
+    "week": 5,
+    "title": "Week 5 · Wed: Legs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lf12_w5wed_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w5wed_e2",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w5wed_e3",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w5wed_e4",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w5wed_e5",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w5wed_e6",
+      "name": "Calf Raises",
+      "sets": 10,
+      "reps": "6-10",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 32,
+    "week": 5,
+    "title": "Week 5 · Thu: Shoulders",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "lf12_w5thu_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w5thu_e2",
+      "name": "Overhead Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w5thu_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w5thu_e4",
+      "name": "Dumbbell Front Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w5thu_e5",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w5thu_e6",
+      "name": "Cable Upright Rows",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 33,
+    "week": 5,
+    "title": "Week 5 · Fri: Arms",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "lf12_w5fri_e1",
+      "name": "Barbell Curls",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w5fri_e2",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w5fri_e3",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w5fri_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w5fri_e5",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w5fri_e6",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w5fri_e7",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 34,
+    "week": 5,
+    "title": "Week 5 · Sat: Abs",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "lf12_w5sat_e1",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w5sat_e2",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 4,
+      "reps": "50",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w5sat_e3",
+      "name": "Bench Leg Raises",
+      "sets": 4,
+      "reps": "30-40",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w5sat_e4",
+      "name": "Side Bend Crunches",
+      "sets": 4,
+      "reps": "30-40",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 35,
+    "week": 5,
+    "title": "Week 5 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 36,
+    "week": 6,
+    "title": "Week 6 · Mon: Chest",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "lf12_w6mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w6mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w6mon_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w6mon_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "notes": "Flat or incline bench"
+     },
+     {
+      "id": "lf12_w6mon_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w6mon_e6",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 37,
+    "week": 6,
+    "title": "Week 6 · Tue: Back",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "lf12_w6tue_e1",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "notes": "Chin-ups or pull-ups"
+     },
+     {
+      "id": "lf12_w6tue_e2",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w6tue_e3",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w6tue_e4",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w6tue_e5",
+      "name": "Lat Pulldown",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 38,
+    "week": 6,
+    "title": "Week 6 · Wed: Legs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lf12_w6wed_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w6wed_e2",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w6wed_e3",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w6wed_e4",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w6wed_e5",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w6wed_e6",
+      "name": "Calf Raises",
+      "sets": 10,
+      "reps": "6-10",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 39,
+    "week": 6,
+    "title": "Week 6 · Thu: Shoulders",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "lf12_w6thu_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w6thu_e2",
+      "name": "Overhead Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w6thu_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w6thu_e4",
+      "name": "Dumbbell Front Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w6thu_e5",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w6thu_e6",
+      "name": "Cable Upright Rows",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 40,
+    "week": 6,
+    "title": "Week 6 · Fri: Arms",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "lf12_w6fri_e1",
+      "name": "Barbell Curls",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w6fri_e2",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w6fri_e3",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w6fri_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w6fri_e5",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w6fri_e6",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w6fri_e7",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 41,
+    "week": 6,
+    "title": "Week 6 · Sat: Abs",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "lf12_w6sat_e1",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w6sat_e2",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 4,
+      "reps": "50",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w6sat_e3",
+      "name": "Bench Leg Raises",
+      "sets": 4,
+      "reps": "30-40",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "lf12_w6sat_e4",
+      "name": "Side Bend Crunches",
+      "sets": 4,
+      "reps": "30-40",
+      "restSeconds": 90,
+      "notes": "3–4 sets"
+     }
+    ]
+   },
+   {
+    "dayNumber": 42,
+    "week": 6,
+    "title": "Week 6 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 43,
+    "week": 7,
+    "title": "Week 7 · Mon: Chest & Back",
+    "estimatedMinutes": 150,
+    "exercises": [
+     {
+      "id": "lf12_w7mon_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7mon_e3",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "notes": "Chest & lats"
+     },
+     {
+      "id": "lf12_w7mon_e4",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7mon_e5",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7mon_e6",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "notes": "Chest & triceps"
+     },
+     {
+      "id": "lf12_w7mon_e7",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7mon_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7mon_e9",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7mon_e10",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 44,
+    "week": 7,
+    "title": "Week 7 · Tue: Delts, Triceps & Biceps",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "lf12_w7tue_e1",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7tue_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7tue_e3",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7tue_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7tue_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7tue_e6",
+      "name": "Scott Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7tue_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7tue_e8",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7tue_e9",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7tue_e10",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7tue_e11",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7tue_e12",
+      "name": "Lying French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7tue_e13",
+      "name": "Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-25",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 45,
+    "week": 7,
+    "title": "Week 7 · Wed: Quads & Hamstrings",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w7wed_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7wed_e2",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7wed_e3",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7wed_e4",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7wed_e5",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 46,
+    "week": 7,
+    "title": "Week 7 · Thu: Chest & Back",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lf12_w7thu_e1",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7thu_e2",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7thu_e3",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7thu_e4",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7thu_e5",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7thu_e6",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 47,
+    "week": 7,
+    "title": "Week 7 · Fri: Delts, Triceps & Biceps",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w7fri_e1",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7fri_e2",
+      "name": "Scott Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7fri_e3",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7fri_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7fri_e5",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7fri_e6",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7fri_e7",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7fri_e8",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-25",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 48,
+    "week": 7,
+    "title": "Week 7 · Sat: Quads & Hamstrings",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w7sat_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7sat_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7sat_e3",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w7sat_e4",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w7sat_e5",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 49,
+    "week": 7,
+    "title": "Week 7 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 50,
+    "week": 8,
+    "title": "Week 8 · Mon: Chest & Back",
+    "estimatedMinutes": 150,
+    "exercises": [
+     {
+      "id": "lf12_w8mon_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8mon_e3",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "notes": "Chest & lats"
+     },
+     {
+      "id": "lf12_w8mon_e4",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8mon_e5",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8mon_e6",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "notes": "Chest & triceps"
+     },
+     {
+      "id": "lf12_w8mon_e7",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8mon_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8mon_e9",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8mon_e10",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 51,
+    "week": 8,
+    "title": "Week 8 · Tue: Delts, Triceps & Biceps",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "lf12_w8tue_e1",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8tue_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8tue_e3",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8tue_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8tue_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8tue_e6",
+      "name": "Scott Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8tue_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8tue_e8",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8tue_e9",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8tue_e10",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8tue_e11",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8tue_e12",
+      "name": "Lying French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8tue_e13",
+      "name": "Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-25",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 52,
+    "week": 8,
+    "title": "Week 8 · Wed: Quads & Hamstrings",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w8wed_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8wed_e2",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8wed_e3",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8wed_e4",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8wed_e5",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 53,
+    "week": 8,
+    "title": "Week 8 · Thu: Chest & Back",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lf12_w8thu_e1",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8thu_e2",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8thu_e3",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8thu_e4",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8thu_e5",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8thu_e6",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 54,
+    "week": 8,
+    "title": "Week 8 · Fri: Delts, Triceps & Biceps",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w8fri_e1",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8fri_e2",
+      "name": "Scott Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8fri_e3",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8fri_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8fri_e5",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8fri_e6",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8fri_e7",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8fri_e8",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-25",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 55,
+    "week": 8,
+    "title": "Week 8 · Sat: Quads & Hamstrings",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w8sat_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8sat_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8sat_e3",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w8sat_e4",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w8sat_e5",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 56,
+    "week": 8,
+    "title": "Week 8 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 57,
+    "week": 9,
+    "title": "Week 9 · Mon: Chest & Back",
+    "estimatedMinutes": 150,
+    "exercises": [
+     {
+      "id": "lf12_w9mon_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9mon_e3",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "notes": "Chest & lats"
+     },
+     {
+      "id": "lf12_w9mon_e4",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9mon_e5",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9mon_e6",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "notes": "Chest & triceps"
+     },
+     {
+      "id": "lf12_w9mon_e7",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9mon_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9mon_e9",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9mon_e10",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 58,
+    "week": 9,
+    "title": "Week 9 · Tue: Delts, Triceps & Biceps",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "lf12_w9tue_e1",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9tue_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9tue_e3",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9tue_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9tue_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9tue_e6",
+      "name": "Scott Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9tue_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9tue_e8",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9tue_e9",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9tue_e10",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9tue_e11",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9tue_e12",
+      "name": "Lying French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9tue_e13",
+      "name": "Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-25",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 59,
+    "week": 9,
+    "title": "Week 9 · Wed: Quads & Hamstrings",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w9wed_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9wed_e2",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9wed_e3",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9wed_e4",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9wed_e5",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 60,
+    "week": 9,
+    "title": "Week 9 · Thu: Chest & Back",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lf12_w9thu_e1",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9thu_e2",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9thu_e3",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9thu_e4",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9thu_e5",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9thu_e6",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 61,
+    "week": 9,
+    "title": "Week 9 · Fri: Delts, Triceps & Biceps",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w9fri_e1",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9fri_e2",
+      "name": "Scott Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9fri_e3",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9fri_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9fri_e5",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9fri_e6",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9fri_e7",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9fri_e8",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-25",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 62,
+    "week": 9,
+    "title": "Week 9 · Sat: Quads & Hamstrings",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w9sat_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9sat_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9sat_e3",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w9sat_e4",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w9sat_e5",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 63,
+    "week": 9,
+    "title": "Week 9 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 64,
+    "week": 10,
+    "title": "Week 10 · Mon: Chest & Back",
+    "estimatedMinutes": 150,
+    "exercises": [
+     {
+      "id": "lf12_w10mon_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10mon_e3",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "notes": "Chest & lats"
+     },
+     {
+      "id": "lf12_w10mon_e4",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10mon_e5",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10mon_e6",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "notes": "Chest & triceps"
+     },
+     {
+      "id": "lf12_w10mon_e7",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10mon_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10mon_e9",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10mon_e10",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 65,
+    "week": 10,
+    "title": "Week 10 · Tue: Delts, Triceps & Biceps",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "lf12_w10tue_e1",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10tue_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10tue_e3",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10tue_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10tue_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10tue_e6",
+      "name": "Scott Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10tue_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10tue_e8",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10tue_e9",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10tue_e10",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10tue_e11",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10tue_e12",
+      "name": "Lying French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10tue_e13",
+      "name": "Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-25",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 66,
+    "week": 10,
+    "title": "Week 10 · Wed: Quads & Hamstrings",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w10wed_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10wed_e2",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10wed_e3",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10wed_e4",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10wed_e5",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 67,
+    "week": 10,
+    "title": "Week 10 · Thu: Chest & Back",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lf12_w10thu_e1",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10thu_e2",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10thu_e3",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10thu_e4",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10thu_e5",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10thu_e6",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 68,
+    "week": 10,
+    "title": "Week 10 · Fri: Delts, Triceps & Biceps",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w10fri_e1",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10fri_e2",
+      "name": "Scott Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10fri_e3",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10fri_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10fri_e5",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10fri_e6",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10fri_e7",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10fri_e8",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-25",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 69,
+    "week": 10,
+    "title": "Week 10 · Sat: Quads & Hamstrings",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w10sat_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10sat_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10sat_e3",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w10sat_e4",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w10sat_e5",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 70,
+    "week": 10,
+    "title": "Week 10 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 71,
+    "week": 11,
+    "title": "Week 11 · Mon: Chest & Back",
+    "estimatedMinutes": 150,
+    "exercises": [
+     {
+      "id": "lf12_w11mon_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11mon_e3",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "notes": "Chest & lats"
+     },
+     {
+      "id": "lf12_w11mon_e4",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11mon_e5",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11mon_e6",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "notes": "Chest & triceps"
+     },
+     {
+      "id": "lf12_w11mon_e7",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11mon_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11mon_e9",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11mon_e10",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 72,
+    "week": 11,
+    "title": "Week 11 · Tue: Delts, Triceps & Biceps",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "lf12_w11tue_e1",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11tue_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11tue_e3",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11tue_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11tue_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11tue_e6",
+      "name": "Scott Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11tue_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11tue_e8",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11tue_e9",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11tue_e10",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11tue_e11",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11tue_e12",
+      "name": "Lying French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11tue_e13",
+      "name": "Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-25",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 73,
+    "week": 11,
+    "title": "Week 11 · Wed: Quads & Hamstrings",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w11wed_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11wed_e2",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11wed_e3",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11wed_e4",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11wed_e5",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 74,
+    "week": 11,
+    "title": "Week 11 · Thu: Chest & Back",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lf12_w11thu_e1",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11thu_e2",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11thu_e3",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11thu_e4",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11thu_e5",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11thu_e6",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 75,
+    "week": 11,
+    "title": "Week 11 · Fri: Delts, Triceps & Biceps",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w11fri_e1",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11fri_e2",
+      "name": "Scott Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11fri_e3",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11fri_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11fri_e5",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11fri_e6",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11fri_e7",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11fri_e8",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-25",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 76,
+    "week": 11,
+    "title": "Week 11 · Sat: Quads & Hamstrings",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w11sat_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11sat_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11sat_e3",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w11sat_e4",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w11sat_e5",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 77,
+    "week": 11,
+    "title": "Week 11 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 78,
+    "week": 12,
+    "title": "Week 12 · Mon: Chest & Back",
+    "estimatedMinutes": 150,
+    "exercises": [
+     {
+      "id": "lf12_w12mon_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12mon_e3",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "notes": "Chest & lats"
+     },
+     {
+      "id": "lf12_w12mon_e4",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12mon_e5",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12mon_e6",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "notes": "Chest & triceps"
+     },
+     {
+      "id": "lf12_w12mon_e7",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12mon_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12mon_e9",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12mon_e10",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 79,
+    "week": 12,
+    "title": "Week 12 · Tue: Delts, Triceps & Biceps",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "lf12_w12tue_e1",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12tue_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12tue_e3",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12tue_e4",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12tue_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12tue_e6",
+      "name": "Scott Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12tue_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12tue_e8",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12tue_e9",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12tue_e10",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12tue_e11",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12tue_e12",
+      "name": "Lying French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12tue_e13",
+      "name": "Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-25",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 80,
+    "week": 12,
+    "title": "Week 12 · Wed: Quads & Hamstrings",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w12wed_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12wed_e2",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12wed_e3",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12wed_e4",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12wed_e5",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 81,
+    "week": 12,
+    "title": "Week 12 · Thu: Chest & Back",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lf12_w12thu_e1",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12thu_e2",
+      "name": "T-Bar Row",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12thu_e3",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12thu_e4",
+      "name": "Barbell Deadlift",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12thu_e5",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12thu_e6",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "6-8",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 82,
+    "week": 12,
+    "title": "Week 12 · Fri: Delts, Triceps & Biceps",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w12fri_e1",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12fri_e2",
+      "name": "Scott Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12fri_e3",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12fri_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12fri_e5",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12fri_e6",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12fri_e7",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12fri_e8",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-25",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 83,
+    "week": 12,
+    "title": "Week 12 · Sat: Quads & Hamstrings",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "lf12_w12sat_e1",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12sat_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12sat_e3",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90
+     },
+     {
+      "id": "lf12_w12sat_e4",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     },
+     {
+      "id": "lf12_w12sat_e5",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150
+     }
+    ]
+   },
+   {
+    "dayNumber": 84,
+    "week": 12,
+    "title": "Week 12 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "arnold_12wk_plan",
+  "title": "Arnold Schwarzenegger 12-Week Workout Plan",
+  "description": "Arnold Schwarzenegger's training (The New Encyclopedia of Modern Bodybuilding, via Thefitnessphantom.com) as a 12-week progression through his four routines, from simplest to hardest. Warm up with dynamic moves and do one light set before each exercise. Weeks 1–3: muscle group split (one muscle a day). Weeks 4–6: each muscle twice a week. Weeks 7–9: hybrid split, each muscle three times a week. Weeks 10–12: twice-a-day training (morning + evening on Mon/Wed/Fri). The PDF doesn't give a length for each routine, so they run 3 weeks each.",
+  "tags": [
+   "Arnold",
+   "12 Weeks",
+   "4 Phases",
+   "Bodybuilding"
+  ],
+  "weeks": 12,
+  "days": [
+   {
+    "dayNumber": 1,
+    "week": 1,
+    "title": "Week 1 · Mon: Chest",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "as12_w1mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "12, 10, 8, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "12, 10, 8, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1mon_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1mon_e4",
+      "name": "High-to-Low Cable Flyes",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1mon_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1mon_e6",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "week": 1,
+    "title": "Week 1 · Tue: Legs",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "as12_w1tue_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "12, 10, 8, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1tue_e2",
+      "name": "Lunges",
+      "sets": 4,
+      "reps": "12, 10, 8, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1tue_e3",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1tue_e4",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1tue_e5",
+      "name": "Leg Curls",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1tue_e6",
+      "name": "Calf Raises",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "week": 1,
+    "title": "Week 1 · Wed: Back",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "as12_w1wed_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1wed_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1wed_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1wed_e4",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1wed_e5",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1wed_e6",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "week": 1,
+    "title": "Week 1 · Thu: Abs",
+    "estimatedMinutes": 30,
+    "exercises": [
+     {
+      "id": "as12_w1thu_e1",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "10-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1thu_e2",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "10-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1thu_e3",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 3,
+      "reps": "20-30",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1thu_e4",
+      "name": "Cable Crunches",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1thu_e5",
+      "name": "Broomstick Twists",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "week": 1,
+    "title": "Week 1 · Fri: Shoulders",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "as12_w1fri_e1",
+      "name": "Smith Machine Overhead Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1fri_e2",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1fri_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 4 sets but 5 rep targets (15, 12, 10, 8, 6) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "as12_w1fri_e4",
+      "name": "Arnold Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w1fri_e5",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Cable or barbell"
+     },
+     {
+      "id": "as12_w1fri_e6",
+      "name": "Cable Face Pulls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "week": 1,
+    "title": "Week 1 · Sat: Arms (Supersets)",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "as12_w1sat_e1",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Triceps Pushdown",
+      "link": true
+     },
+     {
+      "id": "as12_w1sat_e2",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "as12_w1sat_e3",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with One-arm Overhead Extension",
+      "link": true
+     },
+     {
+      "id": "as12_w1sat_e4",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "as12_w1sat_e5",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Lying French Press",
+      "link": true
+     },
+     {
+      "id": "as12_w1sat_e6",
+      "name": "Lying French Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "as12_w1sat_e7",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Reverse Triceps Pressdown",
+      "link": true
+     },
+     {
+      "id": "as12_w1sat_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "as12_w1sat_e9",
+      "name": "Reverse Preacher Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Barbell Wrist Curl",
+      "link": true
+     },
+     {
+      "id": "as12_w1sat_e10",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "week": 1,
+    "title": "Week 1 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 8,
+    "week": 2,
+    "title": "Week 2 · Mon: Chest",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "as12_w2mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "12, 10, 8, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "12, 10, 8, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2mon_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2mon_e4",
+      "name": "High-to-Low Cable Flyes",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2mon_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2mon_e6",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 9,
+    "week": 2,
+    "title": "Week 2 · Tue: Legs",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "as12_w2tue_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "12, 10, 8, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2tue_e2",
+      "name": "Lunges",
+      "sets": 4,
+      "reps": "12, 10, 8, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2tue_e3",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2tue_e4",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2tue_e5",
+      "name": "Leg Curls",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2tue_e6",
+      "name": "Calf Raises",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 10,
+    "week": 2,
+    "title": "Week 2 · Wed: Back",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "as12_w2wed_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2wed_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2wed_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2wed_e4",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2wed_e5",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2wed_e6",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 11,
+    "week": 2,
+    "title": "Week 2 · Thu: Abs",
+    "estimatedMinutes": 30,
+    "exercises": [
+     {
+      "id": "as12_w2thu_e1",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "10-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2thu_e2",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "10-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2thu_e3",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 3,
+      "reps": "20-30",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2thu_e4",
+      "name": "Cable Crunches",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2thu_e5",
+      "name": "Broomstick Twists",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 12,
+    "week": 2,
+    "title": "Week 2 · Fri: Shoulders",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "as12_w2fri_e1",
+      "name": "Smith Machine Overhead Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2fri_e2",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2fri_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 4 sets but 5 rep targets (15, 12, 10, 8, 6) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "as12_w2fri_e4",
+      "name": "Arnold Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w2fri_e5",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Cable or barbell"
+     },
+     {
+      "id": "as12_w2fri_e6",
+      "name": "Cable Face Pulls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 13,
+    "week": 2,
+    "title": "Week 2 · Sat: Arms (Supersets)",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "as12_w2sat_e1",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Triceps Pushdown",
+      "link": true
+     },
+     {
+      "id": "as12_w2sat_e2",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "as12_w2sat_e3",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with One-arm Overhead Extension",
+      "link": true
+     },
+     {
+      "id": "as12_w2sat_e4",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "as12_w2sat_e5",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Lying French Press",
+      "link": true
+     },
+     {
+      "id": "as12_w2sat_e6",
+      "name": "Lying French Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "as12_w2sat_e7",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Reverse Triceps Pressdown",
+      "link": true
+     },
+     {
+      "id": "as12_w2sat_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "as12_w2sat_e9",
+      "name": "Reverse Preacher Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Barbell Wrist Curl",
+      "link": true
+     },
+     {
+      "id": "as12_w2sat_e10",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     }
+    ]
+   },
+   {
+    "dayNumber": 14,
+    "week": 2,
+    "title": "Week 2 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 15,
+    "week": 3,
+    "title": "Week 3 · Mon: Chest",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "as12_w3mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "12, 10, 8, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "12, 10, 8, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3mon_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3mon_e4",
+      "name": "High-to-Low Cable Flyes",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3mon_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3mon_e6",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 16,
+    "week": 3,
+    "title": "Week 3 · Tue: Legs",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "as12_w3tue_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "12, 10, 8, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3tue_e2",
+      "name": "Lunges",
+      "sets": 4,
+      "reps": "12, 10, 8, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3tue_e3",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3tue_e4",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3tue_e5",
+      "name": "Leg Curls",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3tue_e6",
+      "name": "Calf Raises",
+      "sets": 3,
+      "reps": "Till failure",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 17,
+    "week": 3,
+    "title": "Week 3 · Wed: Back",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "as12_w3wed_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3wed_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3wed_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3wed_e4",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3wed_e5",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3wed_e6",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 18,
+    "week": 3,
+    "title": "Week 3 · Thu: Abs",
+    "estimatedMinutes": 30,
+    "exercises": [
+     {
+      "id": "as12_w3thu_e1",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "10-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3thu_e2",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "10-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3thu_e3",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 3,
+      "reps": "20-30",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3thu_e4",
+      "name": "Cable Crunches",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3thu_e5",
+      "name": "Broomstick Twists",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 19,
+    "week": 3,
+    "title": "Week 3 · Fri: Shoulders",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "as12_w3fri_e1",
+      "name": "Smith Machine Overhead Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3fri_e2",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3fri_e3",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 4 sets but 5 rep targets (15, 12, 10, 8, 6) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "as12_w3fri_e4",
+      "name": "Arnold Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w3fri_e5",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Cable or barbell"
+     },
+     {
+      "id": "as12_w3fri_e6",
+      "name": "Cable Face Pulls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 20,
+    "week": 3,
+    "title": "Week 3 · Sat: Arms (Supersets)",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "as12_w3sat_e1",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Triceps Pushdown",
+      "link": true
+     },
+     {
+      "id": "as12_w3sat_e2",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "as12_w3sat_e3",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with One-arm Overhead Extension",
+      "link": true
+     },
+     {
+      "id": "as12_w3sat_e4",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "as12_w3sat_e5",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Lying French Press",
+      "link": true
+     },
+     {
+      "id": "as12_w3sat_e6",
+      "name": "Lying French Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 105,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "as12_w3sat_e7",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Reverse Triceps Pressdown",
+      "link": true
+     },
+     {
+      "id": "as12_w3sat_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     },
+     {
+      "id": "as12_w3sat_e9",
+      "name": "Reverse Preacher Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset with Barbell Wrist Curl",
+      "link": true
+     },
+     {
+      "id": "as12_w3sat_e10",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "superset"
+     }
+    ]
+   },
+   {
+    "dayNumber": 21,
+    "week": 3,
+    "title": "Week 3 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 22,
+    "week": 4,
+    "title": "Week 4 · Mon: Chest & Back",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "as12_w4mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4mon_e3",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4mon_e4",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "50 total",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Do as many sets as it takes to reach 50 total reps"
+     },
+     {
+      "id": "as12_w4mon_e5",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w4mon_e6",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w4mon_e7",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 23,
+    "week": 4,
+    "title": "Week 4 · Tue: Shoulders & Arms",
+    "estimatedMinutes": 95,
+    "exercises": [
+     {
+      "id": "as12_w4tue_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4tue_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4tue_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Heavy, to failure · barbell or cable"
+     },
+     {
+      "id": "as12_w4tue_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w4tue_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w4tue_e6",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w4tue_e7",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w4tue_e8",
+      "name": "Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w4tue_e9",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w4tue_e10",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w4tue_e11",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 24,
+    "week": 4,
+    "title": "Week 4 · Wed: Thighs, Calves & Lower Back",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "as12_w4wed_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4wed_e2",
+      "name": "Forward Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4wed_e3",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4wed_e4",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w4wed_e5",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w4wed_e6",
+      "name": "Standing Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4wed_e7",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 25,
+    "week": 4,
+    "title": "Week 4 · Thu: Chest & Back",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "as12_w4thu_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4thu_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4thu_e3",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4thu_e4",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "50 total",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Do as many sets as it takes to reach 50 total reps"
+     },
+     {
+      "id": "as12_w4thu_e5",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w4thu_e6",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w4thu_e7",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 26,
+    "week": 4,
+    "title": "Week 4 · Fri: Shoulders & Arms",
+    "estimatedMinutes": 95,
+    "exercises": [
+     {
+      "id": "as12_w4fri_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4fri_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4fri_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Heavy, to failure · barbell or cable"
+     },
+     {
+      "id": "as12_w4fri_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w4fri_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w4fri_e6",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w4fri_e7",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w4fri_e8",
+      "name": "Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w4fri_e9",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w4fri_e10",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w4fri_e11",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 27,
+    "week": 4,
+    "title": "Week 4 · Sat: Thighs, Calves & Lower Back",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "as12_w4sat_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4sat_e2",
+      "name": "Forward Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4sat_e3",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4sat_e4",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w4sat_e5",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w4sat_e6",
+      "name": "Standing Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w4sat_e7",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 28,
+    "week": 4,
+    "title": "Week 4 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 29,
+    "week": 5,
+    "title": "Week 5 · Mon: Chest & Back",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "as12_w5mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5mon_e3",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5mon_e4",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "50 total",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Do as many sets as it takes to reach 50 total reps"
+     },
+     {
+      "id": "as12_w5mon_e5",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w5mon_e6",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w5mon_e7",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 30,
+    "week": 5,
+    "title": "Week 5 · Tue: Shoulders & Arms",
+    "estimatedMinutes": 95,
+    "exercises": [
+     {
+      "id": "as12_w5tue_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5tue_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5tue_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Heavy, to failure · barbell or cable"
+     },
+     {
+      "id": "as12_w5tue_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w5tue_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w5tue_e6",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w5tue_e7",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w5tue_e8",
+      "name": "Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w5tue_e9",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w5tue_e10",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w5tue_e11",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 31,
+    "week": 5,
+    "title": "Week 5 · Wed: Thighs, Calves & Lower Back",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "as12_w5wed_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5wed_e2",
+      "name": "Forward Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5wed_e3",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5wed_e4",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w5wed_e5",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w5wed_e6",
+      "name": "Standing Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5wed_e7",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 32,
+    "week": 5,
+    "title": "Week 5 · Thu: Chest & Back",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "as12_w5thu_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5thu_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5thu_e3",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5thu_e4",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "50 total",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Do as many sets as it takes to reach 50 total reps"
+     },
+     {
+      "id": "as12_w5thu_e5",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w5thu_e6",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w5thu_e7",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 33,
+    "week": 5,
+    "title": "Week 5 · Fri: Shoulders & Arms",
+    "estimatedMinutes": 95,
+    "exercises": [
+     {
+      "id": "as12_w5fri_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5fri_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5fri_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Heavy, to failure · barbell or cable"
+     },
+     {
+      "id": "as12_w5fri_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w5fri_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w5fri_e6",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w5fri_e7",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w5fri_e8",
+      "name": "Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w5fri_e9",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w5fri_e10",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w5fri_e11",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 34,
+    "week": 5,
+    "title": "Week 5 · Sat: Thighs, Calves & Lower Back",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "as12_w5sat_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5sat_e2",
+      "name": "Forward Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5sat_e3",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5sat_e4",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w5sat_e5",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w5sat_e6",
+      "name": "Standing Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w5sat_e7",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 35,
+    "week": 5,
+    "title": "Week 5 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 36,
+    "week": 6,
+    "title": "Week 6 · Mon: Chest & Back",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "as12_w6mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6mon_e3",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6mon_e4",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "50 total",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Do as many sets as it takes to reach 50 total reps"
+     },
+     {
+      "id": "as12_w6mon_e5",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w6mon_e6",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w6mon_e7",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 37,
+    "week": 6,
+    "title": "Week 6 · Tue: Shoulders & Arms",
+    "estimatedMinutes": 95,
+    "exercises": [
+     {
+      "id": "as12_w6tue_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6tue_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6tue_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Heavy, to failure · barbell or cable"
+     },
+     {
+      "id": "as12_w6tue_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w6tue_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w6tue_e6",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w6tue_e7",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w6tue_e8",
+      "name": "Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w6tue_e9",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w6tue_e10",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w6tue_e11",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 38,
+    "week": 6,
+    "title": "Week 6 · Wed: Thighs, Calves & Lower Back",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "as12_w6wed_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6wed_e2",
+      "name": "Forward Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6wed_e3",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6wed_e4",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w6wed_e5",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w6wed_e6",
+      "name": "Standing Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6wed_e7",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 39,
+    "week": 6,
+    "title": "Week 6 · Thu: Chest & Back",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "as12_w6thu_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6thu_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6thu_e3",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6thu_e4",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "50 total",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Do as many sets as it takes to reach 50 total reps"
+     },
+     {
+      "id": "as12_w6thu_e5",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w6thu_e6",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w6thu_e7",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 40,
+    "week": 6,
+    "title": "Week 6 · Fri: Shoulders & Arms",
+    "estimatedMinutes": 95,
+    "exercises": [
+     {
+      "id": "as12_w6fri_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6fri_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6fri_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Heavy, to failure · barbell or cable"
+     },
+     {
+      "id": "as12_w6fri_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w6fri_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w6fri_e6",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w6fri_e7",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w6fri_e8",
+      "name": "Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w6fri_e9",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w6fri_e10",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w6fri_e11",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 41,
+    "week": 6,
+    "title": "Week 6 · Sat: Thighs, Calves & Lower Back",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "as12_w6sat_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6sat_e2",
+      "name": "Forward Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6sat_e3",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6sat_e4",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w6sat_e5",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Heavy, to failure"
+     },
+     {
+      "id": "as12_w6sat_e6",
+      "name": "Standing Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w6sat_e7",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 42,
+    "week": 6,
+    "title": "Week 6 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 43,
+    "week": 7,
+    "title": "Week 7 · Mon: Chest, Back & Legs",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "as12_w7mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7mon_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7mon_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "15, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7mon_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7mon_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7mon_e7",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7mon_e8",
+      "name": "Close-Grip Chin-Ups",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7mon_e9",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7mon_e10",
+      "name": "Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7mon_e11",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7mon_e12",
+      "name": "Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7mon_e13",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 44,
+    "week": 7,
+    "title": "Week 7 · Tue: Shoulders, Arms & Lower Back",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "as12_w7tue_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7tue_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7tue_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Barbell or cable"
+     },
+     {
+      "id": "as12_w7tue_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7tue_e5",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7tue_e6",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7tue_e7",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7tue_e8",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w7tue_e9",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w7tue_e10",
+      "name": "Barbell Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7tue_e11",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7tue_e12",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7tue_e13",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 45,
+    "week": 7,
+    "title": "Week 7 · Wed: Chest, Back & Legs",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "as12_w7wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7wed_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7wed_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "15, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7wed_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7wed_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7wed_e7",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7wed_e8",
+      "name": "Close-Grip Chin-Ups",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7wed_e9",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7wed_e10",
+      "name": "Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7wed_e11",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7wed_e12",
+      "name": "Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7wed_e13",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 46,
+    "week": 7,
+    "title": "Week 7 · Thu: Shoulders, Arms & Lower Back",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "as12_w7thu_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7thu_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7thu_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Barbell or cable"
+     },
+     {
+      "id": "as12_w7thu_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7thu_e5",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7thu_e6",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7thu_e7",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7thu_e8",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w7thu_e9",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w7thu_e10",
+      "name": "Barbell Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7thu_e11",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7thu_e12",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7thu_e13",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 47,
+    "week": 7,
+    "title": "Week 7 · Fri: Chest, Back & Legs",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "as12_w7fri_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7fri_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7fri_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7fri_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "15, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7fri_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7fri_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7fri_e7",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7fri_e8",
+      "name": "Close-Grip Chin-Ups",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7fri_e9",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7fri_e10",
+      "name": "Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7fri_e11",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7fri_e12",
+      "name": "Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7fri_e13",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 48,
+    "week": 7,
+    "title": "Week 7 · Sat: Shoulders, Arms & Lower Back",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "as12_w7sat_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7sat_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7sat_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Barbell or cable"
+     },
+     {
+      "id": "as12_w7sat_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7sat_e5",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7sat_e6",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w7sat_e7",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7sat_e8",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w7sat_e9",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w7sat_e10",
+      "name": "Barbell Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7sat_e11",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7sat_e12",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w7sat_e13",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 49,
+    "week": 7,
+    "title": "Week 7 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 50,
+    "week": 8,
+    "title": "Week 8 · Mon: Chest, Back & Legs",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "as12_w8mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8mon_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8mon_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "15, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8mon_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8mon_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8mon_e7",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8mon_e8",
+      "name": "Close-Grip Chin-Ups",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8mon_e9",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8mon_e10",
+      "name": "Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8mon_e11",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8mon_e12",
+      "name": "Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8mon_e13",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 51,
+    "week": 8,
+    "title": "Week 8 · Tue: Shoulders, Arms & Lower Back",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "as12_w8tue_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8tue_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8tue_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Barbell or cable"
+     },
+     {
+      "id": "as12_w8tue_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8tue_e5",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8tue_e6",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8tue_e7",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8tue_e8",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w8tue_e9",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w8tue_e10",
+      "name": "Barbell Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8tue_e11",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8tue_e12",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8tue_e13",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 52,
+    "week": 8,
+    "title": "Week 8 · Wed: Chest, Back & Legs",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "as12_w8wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8wed_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8wed_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "15, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8wed_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8wed_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8wed_e7",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8wed_e8",
+      "name": "Close-Grip Chin-Ups",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8wed_e9",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8wed_e10",
+      "name": "Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8wed_e11",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8wed_e12",
+      "name": "Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8wed_e13",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 53,
+    "week": 8,
+    "title": "Week 8 · Thu: Shoulders, Arms & Lower Back",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "as12_w8thu_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8thu_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8thu_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Barbell or cable"
+     },
+     {
+      "id": "as12_w8thu_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8thu_e5",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8thu_e6",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8thu_e7",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8thu_e8",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w8thu_e9",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w8thu_e10",
+      "name": "Barbell Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8thu_e11",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8thu_e12",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8thu_e13",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 54,
+    "week": 8,
+    "title": "Week 8 · Fri: Chest, Back & Legs",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "as12_w8fri_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8fri_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8fri_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8fri_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "15, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8fri_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8fri_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8fri_e7",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8fri_e8",
+      "name": "Close-Grip Chin-Ups",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8fri_e9",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8fri_e10",
+      "name": "Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8fri_e11",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8fri_e12",
+      "name": "Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8fri_e13",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 55,
+    "week": 8,
+    "title": "Week 8 · Sat: Shoulders, Arms & Lower Back",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "as12_w8sat_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8sat_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8sat_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Barbell or cable"
+     },
+     {
+      "id": "as12_w8sat_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8sat_e5",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8sat_e6",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w8sat_e7",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8sat_e8",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w8sat_e9",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w8sat_e10",
+      "name": "Barbell Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8sat_e11",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8sat_e12",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w8sat_e13",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 56,
+    "week": 8,
+    "title": "Week 8 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 57,
+    "week": 9,
+    "title": "Week 9 · Mon: Chest, Back & Legs",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "as12_w9mon_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9mon_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9mon_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9mon_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "15, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9mon_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9mon_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9mon_e7",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9mon_e8",
+      "name": "Close-Grip Chin-Ups",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9mon_e9",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9mon_e10",
+      "name": "Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9mon_e11",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9mon_e12",
+      "name": "Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9mon_e13",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 58,
+    "week": 9,
+    "title": "Week 9 · Tue: Shoulders, Arms & Lower Back",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "as12_w9tue_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9tue_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9tue_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Barbell or cable"
+     },
+     {
+      "id": "as12_w9tue_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9tue_e5",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9tue_e6",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9tue_e7",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9tue_e8",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w9tue_e9",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w9tue_e10",
+      "name": "Barbell Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9tue_e11",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9tue_e12",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9tue_e13",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 59,
+    "week": 9,
+    "title": "Week 9 · Wed: Chest, Back & Legs",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "as12_w9wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9wed_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9wed_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "15, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9wed_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9wed_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9wed_e7",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9wed_e8",
+      "name": "Close-Grip Chin-Ups",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9wed_e9",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9wed_e10",
+      "name": "Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9wed_e11",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9wed_e12",
+      "name": "Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9wed_e13",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 60,
+    "week": 9,
+    "title": "Week 9 · Thu: Shoulders, Arms & Lower Back",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "as12_w9thu_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9thu_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9thu_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Barbell or cable"
+     },
+     {
+      "id": "as12_w9thu_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9thu_e5",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9thu_e6",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9thu_e7",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9thu_e8",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w9thu_e9",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w9thu_e10",
+      "name": "Barbell Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9thu_e11",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9thu_e12",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9thu_e13",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 61,
+    "week": 9,
+    "title": "Week 9 · Fri: Chest, Back & Legs",
+    "estimatedMinutes": 125,
+    "exercises": [
+     {
+      "id": "as12_w9fri_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9fri_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9fri_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9fri_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "15, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9fri_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9fri_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9fri_e7",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9fri_e8",
+      "name": "Close-Grip Chin-Ups",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9fri_e9",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "16, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9fri_e10",
+      "name": "Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9fri_e11",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "20, 16, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9fri_e12",
+      "name": "Calf Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9fri_e13",
+      "name": "Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 62,
+    "week": 9,
+    "title": "Week 9 · Sat: Shoulders, Arms & Lower Back",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "as12_w9sat_e1",
+      "name": "Barbell Clean and Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9sat_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9sat_e3",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Barbell or cable"
+     },
+     {
+      "id": "as12_w9sat_e4",
+      "name": "Push Press",
+      "sets": 3,
+      "reps": "6, 4, 2",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9sat_e5",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9sat_e6",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "10, 6, 4",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w9sat_e7",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9sat_e8",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets · Seated"
+     },
+     {
+      "id": "as12_w9sat_e9",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "3–4 sets · Close-grip bench press for triceps"
+     },
+     {
+      "id": "as12_w9sat_e10",
+      "name": "Barbell Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9sat_e11",
+      "name": "Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9sat_e12",
+      "name": "Reverse Wrist Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "3–4 sets"
+     },
+     {
+      "id": "as12_w9sat_e13",
+      "name": "Reverse Crunches",
+      "sets": 5,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 63,
+    "week": 9,
+    "title": "Week 9 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 64,
+    "week": 10,
+    "title": "Week 10 · Mon AM: Chest & Back",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "as12_w10monam_e1",
+      "name": "Barbell Bench Press",
+      "sets": 6,
+      "reps": "30-45, then 20 → 6",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1: light warm-up for 30–45 reps (tag it W). Then 5 pyramid sets going from 20 reps down to 6 as the weight goes up"
+     },
+     {
+      "id": "as12_w10monam_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monam_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monam_e4",
+      "name": "Weighted Chest Dips",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monam_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monam_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monam_e7",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monam_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 65,
+    "week": 10,
+    "title": "Week 10 · Mon PM: Thighs, Calves & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "as12_w10monpm_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monpm_e2",
+      "name": "Barbell Front Squat",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monpm_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monpm_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monpm_e5",
+      "name": "Standing Leg Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monpm_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monpm_e7",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monpm_e8",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "15, 10, 8, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monpm_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monpm_e10",
+      "name": "Bent-Over Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monpm_e11",
+      "name": "Machine Ab Crunches (Selectorized)",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10monpm_e12",
+      "name": "Crunches (Finisher)",
+      "sets": 1,
+      "reps": "50",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Second round of crunches: 50 reps"
+     }
+    ]
+   },
+   {
+    "dayNumber": 66,
+    "week": 10,
+    "title": "Week 10 · Tue AM: Shoulders, Arms & Calves",
+    "estimatedMinutes": 115,
+    "exercises": [
+     {
+      "id": "as12_w10tueam_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e3",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e4",
+      "name": "Shrugs",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e5",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15, 10, 8, 6, 4",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e7",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e8",
+      "name": "Barbell French Press",
+      "sets": 4,
+      "reps": "15, 10, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e9",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e10",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e11",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e12",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e13",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e14",
+      "name": "Reverse Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e15",
+      "name": "Seated Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10tueam_e16",
+      "name": "Vertical Bench Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 67,
+    "week": 10,
+    "title": "Week 10 · Wed AM: Chest & Back",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "as12_w10wedam_e1",
+      "name": "Barbell Bench Press",
+      "sets": 6,
+      "reps": "30-45, then 20 → 6",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1: light warm-up for 30–45 reps (tag it W). Then 5 pyramid sets going from 20 reps down to 6 as the weight goes up"
+     },
+     {
+      "id": "as12_w10wedam_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedam_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedam_e4",
+      "name": "Weighted Chest Dips",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedam_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedam_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedam_e7",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedam_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 68,
+    "week": 10,
+    "title": "Week 10 · Wed PM: Thighs, Calves & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "as12_w10wedpm_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedpm_e2",
+      "name": "Barbell Front Squat",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedpm_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedpm_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedpm_e5",
+      "name": "Standing Leg Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedpm_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedpm_e7",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedpm_e8",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "15, 10, 8, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedpm_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedpm_e10",
+      "name": "Bent-Over Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedpm_e11",
+      "name": "Machine Ab Crunches (Selectorized)",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10wedpm_e12",
+      "name": "Crunches (Finisher)",
+      "sets": 1,
+      "reps": "50",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Second round of crunches: 50 reps"
+     }
+    ]
+   },
+   {
+    "dayNumber": 69,
+    "week": 10,
+    "title": "Week 10 · Thu AM: Shoulders, Arms & Calves",
+    "estimatedMinutes": 115,
+    "exercises": [
+     {
+      "id": "as12_w10thuam_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e3",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e4",
+      "name": "Shrugs",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e5",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15, 10, 8, 6, 4",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e7",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e8",
+      "name": "Barbell French Press",
+      "sets": 4,
+      "reps": "15, 10, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e9",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e10",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e11",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e12",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e13",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e14",
+      "name": "Reverse Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e15",
+      "name": "Seated Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10thuam_e16",
+      "name": "Vertical Bench Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 70,
+    "week": 10,
+    "title": "Week 10 · Fri AM: Chest & Back",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "as12_w10friam_e1",
+      "name": "Barbell Bench Press",
+      "sets": 6,
+      "reps": "30-45, then 20 → 6",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1: light warm-up for 30–45 reps (tag it W). Then 5 pyramid sets going from 20 reps down to 6 as the weight goes up"
+     },
+     {
+      "id": "as12_w10friam_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10friam_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10friam_e4",
+      "name": "Weighted Chest Dips",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10friam_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10friam_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10friam_e7",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10friam_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 71,
+    "week": 10,
+    "title": "Week 10 · Fri PM: Thighs, Calves & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "as12_w10fripm_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10fripm_e2",
+      "name": "Barbell Front Squat",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10fripm_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10fripm_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10fripm_e5",
+      "name": "Standing Leg Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10fripm_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10fripm_e7",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10fripm_e8",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "15, 10, 8, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10fripm_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10fripm_e10",
+      "name": "Bent-Over Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10fripm_e11",
+      "name": "Machine Ab Crunches (Selectorized)",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10fripm_e12",
+      "name": "Crunches (Finisher)",
+      "sets": 1,
+      "reps": "50",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Second round of crunches: 50 reps"
+     }
+    ]
+   },
+   {
+    "dayNumber": 72,
+    "week": 10,
+    "title": "Week 10 · Sat AM: Shoulders, Arms & Calves",
+    "estimatedMinutes": 115,
+    "exercises": [
+     {
+      "id": "as12_w10satam_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e3",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e4",
+      "name": "Shrugs",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e5",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15, 10, 8, 6, 4",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e7",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e8",
+      "name": "Barbell French Press",
+      "sets": 4,
+      "reps": "15, 10, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e9",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e10",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e11",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e12",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e13",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e14",
+      "name": "Reverse Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e15",
+      "name": "Seated Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w10satam_e16",
+      "name": "Vertical Bench Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 73,
+    "week": 10,
+    "title": "Week 10 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 74,
+    "week": 11,
+    "title": "Week 11 · Mon AM: Chest & Back",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "as12_w11monam_e1",
+      "name": "Barbell Bench Press",
+      "sets": 6,
+      "reps": "30-45, then 20 → 6",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1: light warm-up for 30–45 reps (tag it W). Then 5 pyramid sets going from 20 reps down to 6 as the weight goes up"
+     },
+     {
+      "id": "as12_w11monam_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monam_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monam_e4",
+      "name": "Weighted Chest Dips",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monam_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monam_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monam_e7",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monam_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 75,
+    "week": 11,
+    "title": "Week 11 · Mon PM: Thighs, Calves & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "as12_w11monpm_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monpm_e2",
+      "name": "Barbell Front Squat",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monpm_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monpm_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monpm_e5",
+      "name": "Standing Leg Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monpm_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monpm_e7",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monpm_e8",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "15, 10, 8, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monpm_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monpm_e10",
+      "name": "Bent-Over Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monpm_e11",
+      "name": "Machine Ab Crunches (Selectorized)",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11monpm_e12",
+      "name": "Crunches (Finisher)",
+      "sets": 1,
+      "reps": "50",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Second round of crunches: 50 reps"
+     }
+    ]
+   },
+   {
+    "dayNumber": 76,
+    "week": 11,
+    "title": "Week 11 · Tue AM: Shoulders, Arms & Calves",
+    "estimatedMinutes": 115,
+    "exercises": [
+     {
+      "id": "as12_w11tueam_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e3",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e4",
+      "name": "Shrugs",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e5",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15, 10, 8, 6, 4",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e7",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e8",
+      "name": "Barbell French Press",
+      "sets": 4,
+      "reps": "15, 10, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e9",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e10",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e11",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e12",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e13",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e14",
+      "name": "Reverse Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e15",
+      "name": "Seated Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11tueam_e16",
+      "name": "Vertical Bench Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 77,
+    "week": 11,
+    "title": "Week 11 · Wed AM: Chest & Back",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "as12_w11wedam_e1",
+      "name": "Barbell Bench Press",
+      "sets": 6,
+      "reps": "30-45, then 20 → 6",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1: light warm-up for 30–45 reps (tag it W). Then 5 pyramid sets going from 20 reps down to 6 as the weight goes up"
+     },
+     {
+      "id": "as12_w11wedam_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedam_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedam_e4",
+      "name": "Weighted Chest Dips",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedam_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedam_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedam_e7",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedam_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 78,
+    "week": 11,
+    "title": "Week 11 · Wed PM: Thighs, Calves & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "as12_w11wedpm_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedpm_e2",
+      "name": "Barbell Front Squat",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedpm_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedpm_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedpm_e5",
+      "name": "Standing Leg Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedpm_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedpm_e7",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedpm_e8",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "15, 10, 8, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedpm_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedpm_e10",
+      "name": "Bent-Over Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedpm_e11",
+      "name": "Machine Ab Crunches (Selectorized)",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11wedpm_e12",
+      "name": "Crunches (Finisher)",
+      "sets": 1,
+      "reps": "50",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Second round of crunches: 50 reps"
+     }
+    ]
+   },
+   {
+    "dayNumber": 79,
+    "week": 11,
+    "title": "Week 11 · Thu AM: Shoulders, Arms & Calves",
+    "estimatedMinutes": 115,
+    "exercises": [
+     {
+      "id": "as12_w11thuam_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e3",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e4",
+      "name": "Shrugs",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e5",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15, 10, 8, 6, 4",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e7",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e8",
+      "name": "Barbell French Press",
+      "sets": 4,
+      "reps": "15, 10, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e9",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e10",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e11",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e12",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e13",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e14",
+      "name": "Reverse Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e15",
+      "name": "Seated Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11thuam_e16",
+      "name": "Vertical Bench Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 80,
+    "week": 11,
+    "title": "Week 11 · Fri AM: Chest & Back",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "as12_w11friam_e1",
+      "name": "Barbell Bench Press",
+      "sets": 6,
+      "reps": "30-45, then 20 → 6",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1: light warm-up for 30–45 reps (tag it W). Then 5 pyramid sets going from 20 reps down to 6 as the weight goes up"
+     },
+     {
+      "id": "as12_w11friam_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11friam_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11friam_e4",
+      "name": "Weighted Chest Dips",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11friam_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11friam_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11friam_e7",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11friam_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 81,
+    "week": 11,
+    "title": "Week 11 · Fri PM: Thighs, Calves & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "as12_w11fripm_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11fripm_e2",
+      "name": "Barbell Front Squat",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11fripm_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11fripm_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11fripm_e5",
+      "name": "Standing Leg Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11fripm_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11fripm_e7",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11fripm_e8",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "15, 10, 8, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11fripm_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11fripm_e10",
+      "name": "Bent-Over Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11fripm_e11",
+      "name": "Machine Ab Crunches (Selectorized)",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11fripm_e12",
+      "name": "Crunches (Finisher)",
+      "sets": 1,
+      "reps": "50",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Second round of crunches: 50 reps"
+     }
+    ]
+   },
+   {
+    "dayNumber": 82,
+    "week": 11,
+    "title": "Week 11 · Sat AM: Shoulders, Arms & Calves",
+    "estimatedMinutes": 115,
+    "exercises": [
+     {
+      "id": "as12_w11satam_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e3",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e4",
+      "name": "Shrugs",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e5",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15, 10, 8, 6, 4",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e7",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e8",
+      "name": "Barbell French Press",
+      "sets": 4,
+      "reps": "15, 10, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e9",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e10",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e11",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e12",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e13",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e14",
+      "name": "Reverse Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e15",
+      "name": "Seated Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w11satam_e16",
+      "name": "Vertical Bench Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 83,
+    "week": 11,
+    "title": "Week 11 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 84,
+    "week": 12,
+    "title": "Week 12 · Mon AM: Chest & Back",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "as12_w12monam_e1",
+      "name": "Barbell Bench Press",
+      "sets": 6,
+      "reps": "30-45, then 20 → 6",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1: light warm-up for 30–45 reps (tag it W). Then 5 pyramid sets going from 20 reps down to 6 as the weight goes up"
+     },
+     {
+      "id": "as12_w12monam_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monam_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monam_e4",
+      "name": "Weighted Chest Dips",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monam_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monam_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monam_e7",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monam_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 85,
+    "week": 12,
+    "title": "Week 12 · Mon PM: Thighs, Calves & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "as12_w12monpm_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monpm_e2",
+      "name": "Barbell Front Squat",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monpm_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monpm_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monpm_e5",
+      "name": "Standing Leg Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monpm_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monpm_e7",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monpm_e8",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "15, 10, 8, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monpm_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monpm_e10",
+      "name": "Bent-Over Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monpm_e11",
+      "name": "Machine Ab Crunches (Selectorized)",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12monpm_e12",
+      "name": "Crunches (Finisher)",
+      "sets": 1,
+      "reps": "50",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Second round of crunches: 50 reps"
+     }
+    ]
+   },
+   {
+    "dayNumber": 86,
+    "week": 12,
+    "title": "Week 12 · Tue AM: Shoulders, Arms & Calves",
+    "estimatedMinutes": 115,
+    "exercises": [
+     {
+      "id": "as12_w12tueam_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e3",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e4",
+      "name": "Shrugs",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e5",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15, 10, 8, 6, 4",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e7",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e8",
+      "name": "Barbell French Press",
+      "sets": 4,
+      "reps": "15, 10, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e9",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e10",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e11",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e12",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e13",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e14",
+      "name": "Reverse Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e15",
+      "name": "Seated Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12tueam_e16",
+      "name": "Vertical Bench Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 87,
+    "week": 12,
+    "title": "Week 12 · Wed AM: Chest & Back",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "as12_w12wedam_e1",
+      "name": "Barbell Bench Press",
+      "sets": 6,
+      "reps": "30-45, then 20 → 6",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1: light warm-up for 30–45 reps (tag it W). Then 5 pyramid sets going from 20 reps down to 6 as the weight goes up"
+     },
+     {
+      "id": "as12_w12wedam_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedam_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedam_e4",
+      "name": "Weighted Chest Dips",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedam_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedam_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedam_e7",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedam_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 88,
+    "week": 12,
+    "title": "Week 12 · Wed PM: Thighs, Calves & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "as12_w12wedpm_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedpm_e2",
+      "name": "Barbell Front Squat",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedpm_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedpm_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedpm_e5",
+      "name": "Standing Leg Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedpm_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedpm_e7",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedpm_e8",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "15, 10, 8, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedpm_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedpm_e10",
+      "name": "Bent-Over Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedpm_e11",
+      "name": "Machine Ab Crunches (Selectorized)",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12wedpm_e12",
+      "name": "Crunches (Finisher)",
+      "sets": 1,
+      "reps": "50",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Second round of crunches: 50 reps"
+     }
+    ]
+   },
+   {
+    "dayNumber": 89,
+    "week": 12,
+    "title": "Week 12 · Thu AM: Shoulders, Arms & Calves",
+    "estimatedMinutes": 115,
+    "exercises": [
+     {
+      "id": "as12_w12thuam_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e3",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e4",
+      "name": "Shrugs",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e5",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15, 10, 8, 6, 4",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e7",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e8",
+      "name": "Barbell French Press",
+      "sets": 4,
+      "reps": "15, 10, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e9",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e10",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e11",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e12",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e13",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e14",
+      "name": "Reverse Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e15",
+      "name": "Seated Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12thuam_e16",
+      "name": "Vertical Bench Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 90,
+    "week": 12,
+    "title": "Week 12 · Fri AM: Chest & Back",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "as12_w12friam_e1",
+      "name": "Barbell Bench Press",
+      "sets": 6,
+      "reps": "30-45, then 20 → 6",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Set 1: light warm-up for 30–45 reps (tag it W). Then 5 pyramid sets going from 20 reps down to 6 as the weight goes up"
+     },
+     {
+      "id": "as12_w12friam_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12friam_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12friam_e4",
+      "name": "Weighted Chest Dips",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12friam_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12friam_e6",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12friam_e7",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12friam_e8",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 91,
+    "week": 12,
+    "title": "Week 12 · Fri PM: Thighs, Calves & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "as12_w12fripm_e1",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "10, 8, 6, 4",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12fripm_e2",
+      "name": "Barbell Front Squat",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12fripm_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12fripm_e4",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 10, 8, 6",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12fripm_e5",
+      "name": "Standing Leg Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12fripm_e6",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12fripm_e7",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12fripm_e8",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "15, 10, 8, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12fripm_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12fripm_e10",
+      "name": "Bent-Over Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12fripm_e11",
+      "name": "Machine Ab Crunches (Selectorized)",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12fripm_e12",
+      "name": "Crunches (Finisher)",
+      "sets": 1,
+      "reps": "50",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Second round of crunches: 50 reps"
+     }
+    ]
+   },
+   {
+    "dayNumber": 92,
+    "week": 12,
+    "title": "Week 12 · Sat AM: Shoulders, Arms & Calves",
+    "estimatedMinutes": 115,
+    "exercises": [
+     {
+      "id": "as12_w12satam_e1",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10, 8, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e3",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e4",
+      "name": "Shrugs",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e5",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15, 10, 8, 6, 4",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e7",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e8",
+      "name": "Barbell French Press",
+      "sets": 4,
+      "reps": "15, 10, 8, 6",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e9",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e10",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e11",
+      "name": "Barbell Wrist Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e12",
+      "name": "Reverse Barbell Wrist Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e13",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e14",
+      "name": "Reverse Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e15",
+      "name": "Seated Twists",
+      "sets": 1,
+      "reps": "100/side",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "as12_w12satam_e16",
+      "name": "Vertical Bench Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 93,
+    "week": 12,
+    "title": "Week 12 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "dorian_yates_12wk_plan",
+  "title": "Dorian Yates Blood & Guts 12-Week Program",
+  "description": "Dorian Yates' Blood & Guts high-intensity training (Thefitnessphantom.com): each day starts with its own warm-up, then 1–2 warm-up sets and ONE all-out set near failure per exercise, with focused negatives and partial reps. Rest 1–2 min between sets. 4 days a week (Mon delts/traps/triceps/abs, Tue back & rear delts, Thu chest & biceps, Fri legs), 60–90 min, for 12 weeks. Intermediate to advanced.",
+  "tags": [
+   "Dorian Yates",
+   "12 Weeks",
+   "4 Days",
+   "HIT"
+  ],
+  "weeks": 12,
+  "days": [
+   {
+    "dayNumber": 1,
+    "week": 1,
+    "title": "Week 1 · Mon: Delts, Traps, Triceps & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "dy12_w1mon_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w1mon_e2",
+      "name": "Prone IYT Raises",
+      "sets": 2,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1mon_e3",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1mon_e4",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1mon_e5",
+      "name": "Prone Around The World",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1mon_e6",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1mon_e7",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1mon_e8",
+      "name": "Cable Lateral Raises",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1mon_e9",
+      "name": "Dumbbell Shrugs",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1mon_e10",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1mon_e11",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1mon_e12",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1mon_e13",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w1mon_e14",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w1mon_e15",
+      "name": "Reverse Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "week": 1,
+    "title": "Week 1 · Tue: Back & Rear Delts",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w1tue_e1",
+      "name": "Upper Body Foam Rolling",
+      "sets": 1,
+      "reps": "2-3 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1tue_e2",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w1tue_e3",
+      "name": "Bodyweight Warm-Up Exercises",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1tue_e4",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No pullover machine? Use a dumbbell pullover"
+     },
+     {
+      "id": "dy12_w1tue_e5",
+      "name": "Iso-Lateral Plate-Loaded Front Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No Hammer pulldown? Use a neutral-grip lat pulldown"
+     },
+     {
+      "id": "dy12_w1tue_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1tue_e7",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     },
+     {
+      "id": "dy12_w1tue_e8",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1tue_e9",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1tue_e10",
+      "name": "Hyperextensions",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1tue_e11",
+      "name": "Dorian Deadlift",
+      "sets": 2,
+      "reps": "8-10, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "week": 1,
+    "title": "Week 1 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 4,
+    "week": 1,
+    "title": "Week 1 · Thu: Chest & Biceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "dy12_w1thu_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w1thu_e2",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1thu_e3",
+      "name": "One-Arm Dumbbell Lateral External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1thu_e4",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1thu_e5",
+      "name": "Inverted Rows",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1thu_e6",
+      "name": "Dive Bomber Push-Ups",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1thu_e7",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1thu_e8",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1thu_e9",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1thu_e10",
+      "name": "Decline Cable Flyes",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1thu_e11",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1thu_e12",
+      "name": "EZ-Bar Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1thu_e13",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "week": 1,
+    "title": "Week 1 · Fri: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w1fri_e1",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w1fri_e2",
+      "name": "Lying Hip Twist",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1fri_e3",
+      "name": "Low Lunge Hold",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w1fri_e4",
+      "name": "Isometric Lateral Lunges",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w1fri_e5",
+      "name": "Front and Lateral Leg Swings",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1fri_e6",
+      "name": "Seated Forward Toe Reach",
+      "sets": 1,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w1fri_e7",
+      "name": "Lying Crossover Stretch",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w1fri_e8",
+      "name": "Inchworms",
+      "sets": 1,
+      "reps": "30 sec",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w1fri_e9",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1fri_e10",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1fri_e11",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1fri_e12",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1fri_e13",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1fri_e14",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w1fri_e15",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "week": 1,
+    "title": "Week 1 · Sat: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 7,
+    "week": 1,
+    "title": "Week 1 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 8,
+    "week": 2,
+    "title": "Week 2 · Mon: Delts, Traps, Triceps & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "dy12_w2mon_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w2mon_e2",
+      "name": "Prone IYT Raises",
+      "sets": 2,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2mon_e3",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2mon_e4",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2mon_e5",
+      "name": "Prone Around The World",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2mon_e6",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2mon_e7",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2mon_e8",
+      "name": "Cable Lateral Raises",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2mon_e9",
+      "name": "Dumbbell Shrugs",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2mon_e10",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2mon_e11",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2mon_e12",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2mon_e13",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w2mon_e14",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w2mon_e15",
+      "name": "Reverse Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 9,
+    "week": 2,
+    "title": "Week 2 · Tue: Back & Rear Delts",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w2tue_e1",
+      "name": "Upper Body Foam Rolling",
+      "sets": 1,
+      "reps": "2-3 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2tue_e2",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w2tue_e3",
+      "name": "Bodyweight Warm-Up Exercises",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2tue_e4",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No pullover machine? Use a dumbbell pullover"
+     },
+     {
+      "id": "dy12_w2tue_e5",
+      "name": "Iso-Lateral Plate-Loaded Front Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No Hammer pulldown? Use a neutral-grip lat pulldown"
+     },
+     {
+      "id": "dy12_w2tue_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2tue_e7",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     },
+     {
+      "id": "dy12_w2tue_e8",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2tue_e9",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2tue_e10",
+      "name": "Hyperextensions",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2tue_e11",
+      "name": "Dorian Deadlift",
+      "sets": 2,
+      "reps": "8-10, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 10,
+    "week": 2,
+    "title": "Week 2 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 11,
+    "week": 2,
+    "title": "Week 2 · Thu: Chest & Biceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "dy12_w2thu_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w2thu_e2",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2thu_e3",
+      "name": "One-Arm Dumbbell Lateral External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2thu_e4",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2thu_e5",
+      "name": "Inverted Rows",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2thu_e6",
+      "name": "Dive Bomber Push-Ups",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2thu_e7",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2thu_e8",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2thu_e9",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2thu_e10",
+      "name": "Decline Cable Flyes",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2thu_e11",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2thu_e12",
+      "name": "EZ-Bar Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2thu_e13",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     }
+    ]
+   },
+   {
+    "dayNumber": 12,
+    "week": 2,
+    "title": "Week 2 · Fri: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w2fri_e1",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w2fri_e2",
+      "name": "Lying Hip Twist",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2fri_e3",
+      "name": "Low Lunge Hold",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w2fri_e4",
+      "name": "Isometric Lateral Lunges",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w2fri_e5",
+      "name": "Front and Lateral Leg Swings",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2fri_e6",
+      "name": "Seated Forward Toe Reach",
+      "sets": 1,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w2fri_e7",
+      "name": "Lying Crossover Stretch",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w2fri_e8",
+      "name": "Inchworms",
+      "sets": 1,
+      "reps": "30 sec",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w2fri_e9",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2fri_e10",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2fri_e11",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2fri_e12",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2fri_e13",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2fri_e14",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w2fri_e15",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 13,
+    "week": 2,
+    "title": "Week 2 · Sat: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 14,
+    "week": 2,
+    "title": "Week 2 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 15,
+    "week": 3,
+    "title": "Week 3 · Mon: Delts, Traps, Triceps & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "dy12_w3mon_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w3mon_e2",
+      "name": "Prone IYT Raises",
+      "sets": 2,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3mon_e3",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3mon_e4",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3mon_e5",
+      "name": "Prone Around The World",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3mon_e6",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3mon_e7",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3mon_e8",
+      "name": "Cable Lateral Raises",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3mon_e9",
+      "name": "Dumbbell Shrugs",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3mon_e10",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3mon_e11",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3mon_e12",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3mon_e13",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w3mon_e14",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w3mon_e15",
+      "name": "Reverse Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 16,
+    "week": 3,
+    "title": "Week 3 · Tue: Back & Rear Delts",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w3tue_e1",
+      "name": "Upper Body Foam Rolling",
+      "sets": 1,
+      "reps": "2-3 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3tue_e2",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w3tue_e3",
+      "name": "Bodyweight Warm-Up Exercises",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3tue_e4",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No pullover machine? Use a dumbbell pullover"
+     },
+     {
+      "id": "dy12_w3tue_e5",
+      "name": "Iso-Lateral Plate-Loaded Front Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No Hammer pulldown? Use a neutral-grip lat pulldown"
+     },
+     {
+      "id": "dy12_w3tue_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3tue_e7",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     },
+     {
+      "id": "dy12_w3tue_e8",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3tue_e9",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3tue_e10",
+      "name": "Hyperextensions",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3tue_e11",
+      "name": "Dorian Deadlift",
+      "sets": 2,
+      "reps": "8-10, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 17,
+    "week": 3,
+    "title": "Week 3 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 18,
+    "week": 3,
+    "title": "Week 3 · Thu: Chest & Biceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "dy12_w3thu_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w3thu_e2",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3thu_e3",
+      "name": "One-Arm Dumbbell Lateral External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3thu_e4",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3thu_e5",
+      "name": "Inverted Rows",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3thu_e6",
+      "name": "Dive Bomber Push-Ups",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3thu_e7",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3thu_e8",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3thu_e9",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3thu_e10",
+      "name": "Decline Cable Flyes",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3thu_e11",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3thu_e12",
+      "name": "EZ-Bar Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3thu_e13",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     }
+    ]
+   },
+   {
+    "dayNumber": 19,
+    "week": 3,
+    "title": "Week 3 · Fri: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w3fri_e1",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w3fri_e2",
+      "name": "Lying Hip Twist",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3fri_e3",
+      "name": "Low Lunge Hold",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w3fri_e4",
+      "name": "Isometric Lateral Lunges",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w3fri_e5",
+      "name": "Front and Lateral Leg Swings",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3fri_e6",
+      "name": "Seated Forward Toe Reach",
+      "sets": 1,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w3fri_e7",
+      "name": "Lying Crossover Stretch",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w3fri_e8",
+      "name": "Inchworms",
+      "sets": 1,
+      "reps": "30 sec",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w3fri_e9",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3fri_e10",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3fri_e11",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3fri_e12",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3fri_e13",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3fri_e14",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w3fri_e15",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 20,
+    "week": 3,
+    "title": "Week 3 · Sat: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 21,
+    "week": 3,
+    "title": "Week 3 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 22,
+    "week": 4,
+    "title": "Week 4 · Mon: Delts, Traps, Triceps & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "dy12_w4mon_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w4mon_e2",
+      "name": "Prone IYT Raises",
+      "sets": 2,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4mon_e3",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4mon_e4",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4mon_e5",
+      "name": "Prone Around The World",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4mon_e6",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4mon_e7",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4mon_e8",
+      "name": "Cable Lateral Raises",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4mon_e9",
+      "name": "Dumbbell Shrugs",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4mon_e10",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4mon_e11",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4mon_e12",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4mon_e13",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w4mon_e14",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w4mon_e15",
+      "name": "Reverse Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 23,
+    "week": 4,
+    "title": "Week 4 · Tue: Back & Rear Delts",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w4tue_e1",
+      "name": "Upper Body Foam Rolling",
+      "sets": 1,
+      "reps": "2-3 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4tue_e2",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w4tue_e3",
+      "name": "Bodyweight Warm-Up Exercises",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4tue_e4",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No pullover machine? Use a dumbbell pullover"
+     },
+     {
+      "id": "dy12_w4tue_e5",
+      "name": "Iso-Lateral Plate-Loaded Front Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No Hammer pulldown? Use a neutral-grip lat pulldown"
+     },
+     {
+      "id": "dy12_w4tue_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4tue_e7",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     },
+     {
+      "id": "dy12_w4tue_e8",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4tue_e9",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4tue_e10",
+      "name": "Hyperextensions",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4tue_e11",
+      "name": "Dorian Deadlift",
+      "sets": 2,
+      "reps": "8-10, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 24,
+    "week": 4,
+    "title": "Week 4 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 25,
+    "week": 4,
+    "title": "Week 4 · Thu: Chest & Biceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "dy12_w4thu_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w4thu_e2",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4thu_e3",
+      "name": "One-Arm Dumbbell Lateral External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4thu_e4",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4thu_e5",
+      "name": "Inverted Rows",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4thu_e6",
+      "name": "Dive Bomber Push-Ups",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4thu_e7",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4thu_e8",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4thu_e9",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4thu_e10",
+      "name": "Decline Cable Flyes",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4thu_e11",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4thu_e12",
+      "name": "EZ-Bar Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4thu_e13",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     }
+    ]
+   },
+   {
+    "dayNumber": 26,
+    "week": 4,
+    "title": "Week 4 · Fri: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w4fri_e1",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w4fri_e2",
+      "name": "Lying Hip Twist",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4fri_e3",
+      "name": "Low Lunge Hold",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w4fri_e4",
+      "name": "Isometric Lateral Lunges",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w4fri_e5",
+      "name": "Front and Lateral Leg Swings",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4fri_e6",
+      "name": "Seated Forward Toe Reach",
+      "sets": 1,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w4fri_e7",
+      "name": "Lying Crossover Stretch",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w4fri_e8",
+      "name": "Inchworms",
+      "sets": 1,
+      "reps": "30 sec",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w4fri_e9",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4fri_e10",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4fri_e11",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4fri_e12",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4fri_e13",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4fri_e14",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w4fri_e15",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 27,
+    "week": 4,
+    "title": "Week 4 · Sat: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 28,
+    "week": 4,
+    "title": "Week 4 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 29,
+    "week": 5,
+    "title": "Week 5 · Mon: Delts, Traps, Triceps & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "dy12_w5mon_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w5mon_e2",
+      "name": "Prone IYT Raises",
+      "sets": 2,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5mon_e3",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5mon_e4",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5mon_e5",
+      "name": "Prone Around The World",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5mon_e6",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5mon_e7",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5mon_e8",
+      "name": "Cable Lateral Raises",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5mon_e9",
+      "name": "Dumbbell Shrugs",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5mon_e10",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5mon_e11",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5mon_e12",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5mon_e13",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w5mon_e14",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w5mon_e15",
+      "name": "Reverse Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 30,
+    "week": 5,
+    "title": "Week 5 · Tue: Back & Rear Delts",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w5tue_e1",
+      "name": "Upper Body Foam Rolling",
+      "sets": 1,
+      "reps": "2-3 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5tue_e2",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w5tue_e3",
+      "name": "Bodyweight Warm-Up Exercises",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5tue_e4",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No pullover machine? Use a dumbbell pullover"
+     },
+     {
+      "id": "dy12_w5tue_e5",
+      "name": "Iso-Lateral Plate-Loaded Front Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No Hammer pulldown? Use a neutral-grip lat pulldown"
+     },
+     {
+      "id": "dy12_w5tue_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5tue_e7",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     },
+     {
+      "id": "dy12_w5tue_e8",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5tue_e9",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5tue_e10",
+      "name": "Hyperextensions",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5tue_e11",
+      "name": "Dorian Deadlift",
+      "sets": 2,
+      "reps": "8-10, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 31,
+    "week": 5,
+    "title": "Week 5 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 32,
+    "week": 5,
+    "title": "Week 5 · Thu: Chest & Biceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "dy12_w5thu_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w5thu_e2",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5thu_e3",
+      "name": "One-Arm Dumbbell Lateral External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5thu_e4",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5thu_e5",
+      "name": "Inverted Rows",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5thu_e6",
+      "name": "Dive Bomber Push-Ups",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5thu_e7",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5thu_e8",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5thu_e9",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5thu_e10",
+      "name": "Decline Cable Flyes",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5thu_e11",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5thu_e12",
+      "name": "EZ-Bar Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5thu_e13",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     }
+    ]
+   },
+   {
+    "dayNumber": 33,
+    "week": 5,
+    "title": "Week 5 · Fri: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w5fri_e1",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w5fri_e2",
+      "name": "Lying Hip Twist",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5fri_e3",
+      "name": "Low Lunge Hold",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w5fri_e4",
+      "name": "Isometric Lateral Lunges",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w5fri_e5",
+      "name": "Front and Lateral Leg Swings",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5fri_e6",
+      "name": "Seated Forward Toe Reach",
+      "sets": 1,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w5fri_e7",
+      "name": "Lying Crossover Stretch",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w5fri_e8",
+      "name": "Inchworms",
+      "sets": 1,
+      "reps": "30 sec",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w5fri_e9",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5fri_e10",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5fri_e11",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5fri_e12",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5fri_e13",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5fri_e14",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w5fri_e15",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 34,
+    "week": 5,
+    "title": "Week 5 · Sat: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 35,
+    "week": 5,
+    "title": "Week 5 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 36,
+    "week": 6,
+    "title": "Week 6 · Mon: Delts, Traps, Triceps & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "dy12_w6mon_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w6mon_e2",
+      "name": "Prone IYT Raises",
+      "sets": 2,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6mon_e3",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6mon_e4",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6mon_e5",
+      "name": "Prone Around The World",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6mon_e6",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6mon_e7",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6mon_e8",
+      "name": "Cable Lateral Raises",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6mon_e9",
+      "name": "Dumbbell Shrugs",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6mon_e10",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6mon_e11",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6mon_e12",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6mon_e13",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w6mon_e14",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w6mon_e15",
+      "name": "Reverse Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 37,
+    "week": 6,
+    "title": "Week 6 · Tue: Back & Rear Delts",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w6tue_e1",
+      "name": "Upper Body Foam Rolling",
+      "sets": 1,
+      "reps": "2-3 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6tue_e2",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w6tue_e3",
+      "name": "Bodyweight Warm-Up Exercises",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6tue_e4",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No pullover machine? Use a dumbbell pullover"
+     },
+     {
+      "id": "dy12_w6tue_e5",
+      "name": "Iso-Lateral Plate-Loaded Front Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No Hammer pulldown? Use a neutral-grip lat pulldown"
+     },
+     {
+      "id": "dy12_w6tue_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6tue_e7",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     },
+     {
+      "id": "dy12_w6tue_e8",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6tue_e9",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6tue_e10",
+      "name": "Hyperextensions",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6tue_e11",
+      "name": "Dorian Deadlift",
+      "sets": 2,
+      "reps": "8-10, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 38,
+    "week": 6,
+    "title": "Week 6 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 39,
+    "week": 6,
+    "title": "Week 6 · Thu: Chest & Biceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "dy12_w6thu_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w6thu_e2",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6thu_e3",
+      "name": "One-Arm Dumbbell Lateral External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6thu_e4",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6thu_e5",
+      "name": "Inverted Rows",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6thu_e6",
+      "name": "Dive Bomber Push-Ups",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6thu_e7",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6thu_e8",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6thu_e9",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6thu_e10",
+      "name": "Decline Cable Flyes",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6thu_e11",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6thu_e12",
+      "name": "EZ-Bar Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6thu_e13",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     }
+    ]
+   },
+   {
+    "dayNumber": 40,
+    "week": 6,
+    "title": "Week 6 · Fri: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w6fri_e1",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w6fri_e2",
+      "name": "Lying Hip Twist",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6fri_e3",
+      "name": "Low Lunge Hold",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w6fri_e4",
+      "name": "Isometric Lateral Lunges",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w6fri_e5",
+      "name": "Front and Lateral Leg Swings",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6fri_e6",
+      "name": "Seated Forward Toe Reach",
+      "sets": 1,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w6fri_e7",
+      "name": "Lying Crossover Stretch",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w6fri_e8",
+      "name": "Inchworms",
+      "sets": 1,
+      "reps": "30 sec",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w6fri_e9",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6fri_e10",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6fri_e11",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6fri_e12",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6fri_e13",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6fri_e14",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w6fri_e15",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 41,
+    "week": 6,
+    "title": "Week 6 · Sat: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 42,
+    "week": 6,
+    "title": "Week 6 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 43,
+    "week": 7,
+    "title": "Week 7 · Mon: Delts, Traps, Triceps & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "dy12_w7mon_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w7mon_e2",
+      "name": "Prone IYT Raises",
+      "sets": 2,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7mon_e3",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7mon_e4",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7mon_e5",
+      "name": "Prone Around The World",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7mon_e6",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7mon_e7",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7mon_e8",
+      "name": "Cable Lateral Raises",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7mon_e9",
+      "name": "Dumbbell Shrugs",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7mon_e10",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7mon_e11",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7mon_e12",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7mon_e13",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w7mon_e14",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w7mon_e15",
+      "name": "Reverse Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 44,
+    "week": 7,
+    "title": "Week 7 · Tue: Back & Rear Delts",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w7tue_e1",
+      "name": "Upper Body Foam Rolling",
+      "sets": 1,
+      "reps": "2-3 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7tue_e2",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w7tue_e3",
+      "name": "Bodyweight Warm-Up Exercises",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7tue_e4",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No pullover machine? Use a dumbbell pullover"
+     },
+     {
+      "id": "dy12_w7tue_e5",
+      "name": "Iso-Lateral Plate-Loaded Front Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No Hammer pulldown? Use a neutral-grip lat pulldown"
+     },
+     {
+      "id": "dy12_w7tue_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7tue_e7",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     },
+     {
+      "id": "dy12_w7tue_e8",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7tue_e9",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7tue_e10",
+      "name": "Hyperextensions",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7tue_e11",
+      "name": "Dorian Deadlift",
+      "sets": 2,
+      "reps": "8-10, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 45,
+    "week": 7,
+    "title": "Week 7 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 46,
+    "week": 7,
+    "title": "Week 7 · Thu: Chest & Biceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "dy12_w7thu_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w7thu_e2",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7thu_e3",
+      "name": "One-Arm Dumbbell Lateral External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7thu_e4",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7thu_e5",
+      "name": "Inverted Rows",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7thu_e6",
+      "name": "Dive Bomber Push-Ups",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7thu_e7",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7thu_e8",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7thu_e9",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7thu_e10",
+      "name": "Decline Cable Flyes",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7thu_e11",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7thu_e12",
+      "name": "EZ-Bar Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7thu_e13",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     }
+    ]
+   },
+   {
+    "dayNumber": 47,
+    "week": 7,
+    "title": "Week 7 · Fri: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w7fri_e1",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w7fri_e2",
+      "name": "Lying Hip Twist",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7fri_e3",
+      "name": "Low Lunge Hold",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w7fri_e4",
+      "name": "Isometric Lateral Lunges",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w7fri_e5",
+      "name": "Front and Lateral Leg Swings",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7fri_e6",
+      "name": "Seated Forward Toe Reach",
+      "sets": 1,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w7fri_e7",
+      "name": "Lying Crossover Stretch",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w7fri_e8",
+      "name": "Inchworms",
+      "sets": 1,
+      "reps": "30 sec",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w7fri_e9",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7fri_e10",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7fri_e11",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7fri_e12",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7fri_e13",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7fri_e14",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w7fri_e15",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 48,
+    "week": 7,
+    "title": "Week 7 · Sat: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 49,
+    "week": 7,
+    "title": "Week 7 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 50,
+    "week": 8,
+    "title": "Week 8 · Mon: Delts, Traps, Triceps & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "dy12_w8mon_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w8mon_e2",
+      "name": "Prone IYT Raises",
+      "sets": 2,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8mon_e3",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8mon_e4",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8mon_e5",
+      "name": "Prone Around The World",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8mon_e6",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8mon_e7",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8mon_e8",
+      "name": "Cable Lateral Raises",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8mon_e9",
+      "name": "Dumbbell Shrugs",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8mon_e10",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8mon_e11",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8mon_e12",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8mon_e13",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w8mon_e14",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w8mon_e15",
+      "name": "Reverse Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 51,
+    "week": 8,
+    "title": "Week 8 · Tue: Back & Rear Delts",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w8tue_e1",
+      "name": "Upper Body Foam Rolling",
+      "sets": 1,
+      "reps": "2-3 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8tue_e2",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w8tue_e3",
+      "name": "Bodyweight Warm-Up Exercises",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8tue_e4",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No pullover machine? Use a dumbbell pullover"
+     },
+     {
+      "id": "dy12_w8tue_e5",
+      "name": "Iso-Lateral Plate-Loaded Front Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No Hammer pulldown? Use a neutral-grip lat pulldown"
+     },
+     {
+      "id": "dy12_w8tue_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8tue_e7",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     },
+     {
+      "id": "dy12_w8tue_e8",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8tue_e9",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8tue_e10",
+      "name": "Hyperextensions",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8tue_e11",
+      "name": "Dorian Deadlift",
+      "sets": 2,
+      "reps": "8-10, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 52,
+    "week": 8,
+    "title": "Week 8 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 53,
+    "week": 8,
+    "title": "Week 8 · Thu: Chest & Biceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "dy12_w8thu_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w8thu_e2",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8thu_e3",
+      "name": "One-Arm Dumbbell Lateral External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8thu_e4",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8thu_e5",
+      "name": "Inverted Rows",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8thu_e6",
+      "name": "Dive Bomber Push-Ups",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8thu_e7",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8thu_e8",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8thu_e9",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8thu_e10",
+      "name": "Decline Cable Flyes",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8thu_e11",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8thu_e12",
+      "name": "EZ-Bar Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8thu_e13",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     }
+    ]
+   },
+   {
+    "dayNumber": 54,
+    "week": 8,
+    "title": "Week 8 · Fri: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w8fri_e1",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w8fri_e2",
+      "name": "Lying Hip Twist",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8fri_e3",
+      "name": "Low Lunge Hold",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w8fri_e4",
+      "name": "Isometric Lateral Lunges",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w8fri_e5",
+      "name": "Front and Lateral Leg Swings",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8fri_e6",
+      "name": "Seated Forward Toe Reach",
+      "sets": 1,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w8fri_e7",
+      "name": "Lying Crossover Stretch",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w8fri_e8",
+      "name": "Inchworms",
+      "sets": 1,
+      "reps": "30 sec",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w8fri_e9",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8fri_e10",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8fri_e11",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8fri_e12",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8fri_e13",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8fri_e14",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w8fri_e15",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 55,
+    "week": 8,
+    "title": "Week 8 · Sat: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 56,
+    "week": 8,
+    "title": "Week 8 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 57,
+    "week": 9,
+    "title": "Week 9 · Mon: Delts, Traps, Triceps & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "dy12_w9mon_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w9mon_e2",
+      "name": "Prone IYT Raises",
+      "sets": 2,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9mon_e3",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9mon_e4",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9mon_e5",
+      "name": "Prone Around The World",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9mon_e6",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9mon_e7",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9mon_e8",
+      "name": "Cable Lateral Raises",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9mon_e9",
+      "name": "Dumbbell Shrugs",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9mon_e10",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9mon_e11",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9mon_e12",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9mon_e13",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w9mon_e14",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w9mon_e15",
+      "name": "Reverse Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 58,
+    "week": 9,
+    "title": "Week 9 · Tue: Back & Rear Delts",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w9tue_e1",
+      "name": "Upper Body Foam Rolling",
+      "sets": 1,
+      "reps": "2-3 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9tue_e2",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w9tue_e3",
+      "name": "Bodyweight Warm-Up Exercises",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9tue_e4",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No pullover machine? Use a dumbbell pullover"
+     },
+     {
+      "id": "dy12_w9tue_e5",
+      "name": "Iso-Lateral Plate-Loaded Front Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No Hammer pulldown? Use a neutral-grip lat pulldown"
+     },
+     {
+      "id": "dy12_w9tue_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9tue_e7",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     },
+     {
+      "id": "dy12_w9tue_e8",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9tue_e9",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9tue_e10",
+      "name": "Hyperextensions",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9tue_e11",
+      "name": "Dorian Deadlift",
+      "sets": 2,
+      "reps": "8-10, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 59,
+    "week": 9,
+    "title": "Week 9 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 60,
+    "week": 9,
+    "title": "Week 9 · Thu: Chest & Biceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "dy12_w9thu_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w9thu_e2",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9thu_e3",
+      "name": "One-Arm Dumbbell Lateral External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9thu_e4",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9thu_e5",
+      "name": "Inverted Rows",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9thu_e6",
+      "name": "Dive Bomber Push-Ups",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9thu_e7",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9thu_e8",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9thu_e9",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9thu_e10",
+      "name": "Decline Cable Flyes",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9thu_e11",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9thu_e12",
+      "name": "EZ-Bar Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9thu_e13",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     }
+    ]
+   },
+   {
+    "dayNumber": 61,
+    "week": 9,
+    "title": "Week 9 · Fri: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w9fri_e1",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w9fri_e2",
+      "name": "Lying Hip Twist",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9fri_e3",
+      "name": "Low Lunge Hold",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w9fri_e4",
+      "name": "Isometric Lateral Lunges",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w9fri_e5",
+      "name": "Front and Lateral Leg Swings",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9fri_e6",
+      "name": "Seated Forward Toe Reach",
+      "sets": 1,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w9fri_e7",
+      "name": "Lying Crossover Stretch",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w9fri_e8",
+      "name": "Inchworms",
+      "sets": 1,
+      "reps": "30 sec",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w9fri_e9",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9fri_e10",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9fri_e11",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9fri_e12",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9fri_e13",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9fri_e14",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w9fri_e15",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 62,
+    "week": 9,
+    "title": "Week 9 · Sat: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 63,
+    "week": 9,
+    "title": "Week 9 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 64,
+    "week": 10,
+    "title": "Week 10 · Mon: Delts, Traps, Triceps & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "dy12_w10mon_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w10mon_e2",
+      "name": "Prone IYT Raises",
+      "sets": 2,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10mon_e3",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10mon_e4",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10mon_e5",
+      "name": "Prone Around The World",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10mon_e6",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10mon_e7",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10mon_e8",
+      "name": "Cable Lateral Raises",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10mon_e9",
+      "name": "Dumbbell Shrugs",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10mon_e10",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10mon_e11",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10mon_e12",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10mon_e13",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w10mon_e14",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w10mon_e15",
+      "name": "Reverse Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 65,
+    "week": 10,
+    "title": "Week 10 · Tue: Back & Rear Delts",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w10tue_e1",
+      "name": "Upper Body Foam Rolling",
+      "sets": 1,
+      "reps": "2-3 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10tue_e2",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w10tue_e3",
+      "name": "Bodyweight Warm-Up Exercises",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10tue_e4",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No pullover machine? Use a dumbbell pullover"
+     },
+     {
+      "id": "dy12_w10tue_e5",
+      "name": "Iso-Lateral Plate-Loaded Front Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No Hammer pulldown? Use a neutral-grip lat pulldown"
+     },
+     {
+      "id": "dy12_w10tue_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10tue_e7",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     },
+     {
+      "id": "dy12_w10tue_e8",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10tue_e9",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10tue_e10",
+      "name": "Hyperextensions",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10tue_e11",
+      "name": "Dorian Deadlift",
+      "sets": 2,
+      "reps": "8-10, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 66,
+    "week": 10,
+    "title": "Week 10 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 67,
+    "week": 10,
+    "title": "Week 10 · Thu: Chest & Biceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "dy12_w10thu_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w10thu_e2",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10thu_e3",
+      "name": "One-Arm Dumbbell Lateral External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10thu_e4",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10thu_e5",
+      "name": "Inverted Rows",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10thu_e6",
+      "name": "Dive Bomber Push-Ups",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10thu_e7",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10thu_e8",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10thu_e9",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10thu_e10",
+      "name": "Decline Cable Flyes",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10thu_e11",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10thu_e12",
+      "name": "EZ-Bar Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10thu_e13",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     }
+    ]
+   },
+   {
+    "dayNumber": 68,
+    "week": 10,
+    "title": "Week 10 · Fri: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w10fri_e1",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w10fri_e2",
+      "name": "Lying Hip Twist",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10fri_e3",
+      "name": "Low Lunge Hold",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w10fri_e4",
+      "name": "Isometric Lateral Lunges",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w10fri_e5",
+      "name": "Front and Lateral Leg Swings",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10fri_e6",
+      "name": "Seated Forward Toe Reach",
+      "sets": 1,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w10fri_e7",
+      "name": "Lying Crossover Stretch",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w10fri_e8",
+      "name": "Inchworms",
+      "sets": 1,
+      "reps": "30 sec",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w10fri_e9",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10fri_e10",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10fri_e11",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10fri_e12",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10fri_e13",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10fri_e14",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w10fri_e15",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 69,
+    "week": 10,
+    "title": "Week 10 · Sat: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 70,
+    "week": 10,
+    "title": "Week 10 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 71,
+    "week": 11,
+    "title": "Week 11 · Mon: Delts, Traps, Triceps & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "dy12_w11mon_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w11mon_e2",
+      "name": "Prone IYT Raises",
+      "sets": 2,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11mon_e3",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11mon_e4",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11mon_e5",
+      "name": "Prone Around The World",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11mon_e6",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11mon_e7",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11mon_e8",
+      "name": "Cable Lateral Raises",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11mon_e9",
+      "name": "Dumbbell Shrugs",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11mon_e10",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11mon_e11",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11mon_e12",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11mon_e13",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w11mon_e14",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w11mon_e15",
+      "name": "Reverse Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 72,
+    "week": 11,
+    "title": "Week 11 · Tue: Back & Rear Delts",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w11tue_e1",
+      "name": "Upper Body Foam Rolling",
+      "sets": 1,
+      "reps": "2-3 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11tue_e2",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w11tue_e3",
+      "name": "Bodyweight Warm-Up Exercises",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11tue_e4",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No pullover machine? Use a dumbbell pullover"
+     },
+     {
+      "id": "dy12_w11tue_e5",
+      "name": "Iso-Lateral Plate-Loaded Front Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No Hammer pulldown? Use a neutral-grip lat pulldown"
+     },
+     {
+      "id": "dy12_w11tue_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11tue_e7",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     },
+     {
+      "id": "dy12_w11tue_e8",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11tue_e9",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11tue_e10",
+      "name": "Hyperextensions",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11tue_e11",
+      "name": "Dorian Deadlift",
+      "sets": 2,
+      "reps": "8-10, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 73,
+    "week": 11,
+    "title": "Week 11 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 74,
+    "week": 11,
+    "title": "Week 11 · Thu: Chest & Biceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "dy12_w11thu_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w11thu_e2",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11thu_e3",
+      "name": "One-Arm Dumbbell Lateral External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11thu_e4",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11thu_e5",
+      "name": "Inverted Rows",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11thu_e6",
+      "name": "Dive Bomber Push-Ups",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11thu_e7",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11thu_e8",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11thu_e9",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11thu_e10",
+      "name": "Decline Cable Flyes",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11thu_e11",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11thu_e12",
+      "name": "EZ-Bar Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11thu_e13",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     }
+    ]
+   },
+   {
+    "dayNumber": 75,
+    "week": 11,
+    "title": "Week 11 · Fri: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w11fri_e1",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w11fri_e2",
+      "name": "Lying Hip Twist",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11fri_e3",
+      "name": "Low Lunge Hold",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w11fri_e4",
+      "name": "Isometric Lateral Lunges",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w11fri_e5",
+      "name": "Front and Lateral Leg Swings",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11fri_e6",
+      "name": "Seated Forward Toe Reach",
+      "sets": 1,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w11fri_e7",
+      "name": "Lying Crossover Stretch",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w11fri_e8",
+      "name": "Inchworms",
+      "sets": 1,
+      "reps": "30 sec",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w11fri_e9",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11fri_e10",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11fri_e11",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11fri_e12",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11fri_e13",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11fri_e14",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w11fri_e15",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 76,
+    "week": 11,
+    "title": "Week 11 · Sat: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 77,
+    "week": 11,
+    "title": "Week 11 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 78,
+    "week": 12,
+    "title": "Week 12 · Mon: Delts, Traps, Triceps & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "dy12_w12mon_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w12mon_e2",
+      "name": "Prone IYT Raises",
+      "sets": 2,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12mon_e3",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12mon_e4",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12mon_e5",
+      "name": "Prone Around The World",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12mon_e6",
+      "name": "Smith Machine Overhead Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12mon_e7",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12mon_e8",
+      "name": "Cable Lateral Raises",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12mon_e9",
+      "name": "Dumbbell Shrugs",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12mon_e10",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12mon_e11",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12mon_e12",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12mon_e13",
+      "name": "Roman Chair Sit-Ups",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w12mon_e14",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     },
+     {
+      "id": "dy12_w12mon_e15",
+      "name": "Reverse Crunches",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 90
+     }
+    ]
+   },
+   {
+    "dayNumber": 79,
+    "week": 12,
+    "title": "Week 12 · Tue: Back & Rear Delts",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w12tue_e1",
+      "name": "Upper Body Foam Rolling",
+      "sets": 1,
+      "reps": "2-3 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12tue_e2",
+      "name": "Treadmill",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w12tue_e3",
+      "name": "Bodyweight Warm-Up Exercises",
+      "sets": 1,
+      "reps": "3-5 min",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12tue_e4",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No pullover machine? Use a dumbbell pullover"
+     },
+     {
+      "id": "dy12_w12tue_e5",
+      "name": "Iso-Lateral Plate-Loaded Front Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure · No Hammer pulldown? Use a neutral-grip lat pulldown"
+     },
+     {
+      "id": "dy12_w12tue_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12tue_e7",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     },
+     {
+      "id": "dy12_w12tue_e8",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12tue_e9",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12tue_e10",
+      "name": "Hyperextensions",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12tue_e11",
+      "name": "Dorian Deadlift",
+      "sets": 2,
+      "reps": "8-10, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 80,
+    "week": 12,
+    "title": "Week 12 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 81,
+    "week": 12,
+    "title": "Week 12 · Thu: Chest & Biceps",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "dy12_w12thu_e1",
+      "name": "Treadmill or Bike (Warm-Up)",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w12thu_e2",
+      "name": "One-Arm Dumbbell Upright External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12thu_e3",
+      "name": "One-Arm Dumbbell Lateral External Rotation",
+      "sets": 1,
+      "reps": "12/arm",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12thu_e4",
+      "name": "Banded Pull-Aparts",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12thu_e5",
+      "name": "Inverted Rows",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12thu_e6",
+      "name": "Dive Bomber Push-Ups",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12thu_e7",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12thu_e8",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12thu_e9",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12thu_e10",
+      "name": "Decline Cable Flyes",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12thu_e11",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12thu_e12",
+      "name": "EZ-Bar Curls",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12thu_e13",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure · One arm at a time"
+     }
+    ]
+   },
+   {
+    "dayNumber": 82,
+    "week": 12,
+    "title": "Week 12 · Fri: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "dy12_w12fri_e1",
+      "name": "Stationary Bike",
+      "sets": 1,
+      "reps": "5 min",
+      "restSeconds": 30,
+      "type": "cardio",
+      "notes": "Warm-up"
+     },
+     {
+      "id": "dy12_w12fri_e2",
+      "name": "Lying Hip Twist",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12fri_e3",
+      "name": "Low Lunge Hold",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w12fri_e4",
+      "name": "Isometric Lateral Lunges",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w12fri_e5",
+      "name": "Front and Lateral Leg Swings",
+      "sets": 1,
+      "reps": "10/side",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12fri_e6",
+      "name": "Seated Forward Toe Reach",
+      "sets": 1,
+      "reps": "5",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w12fri_e7",
+      "name": "Lying Crossover Stretch",
+      "sets": 1,
+      "reps": "5/side",
+      "restSeconds": 30,
+      "type": "warm-up",
+      "notes": "Hold each rep 5 s"
+     },
+     {
+      "id": "dy12_w12fri_e8",
+      "name": "Inchworms",
+      "sets": 1,
+      "reps": "30 sec",
+      "restSeconds": 30,
+      "type": "warm-up"
+     },
+     {
+      "id": "dy12_w12fri_e9",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15, 12-15, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12fri_e10",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12, 10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "2 warm-up sets (tap R to tag them W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12fri_e11",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12fri_e12",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "10-12, 8-10",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12fri_e13",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12fri_e14",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     },
+     {
+      "id": "dy12_w12fri_e15",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "10-12, 6-8",
+      "restSeconds": 90,
+      "notes": "1 warm-up set (tag it W), then 1 all-out working set near failure"
+     }
+    ]
+   },
+   {
+    "dayNumber": 83,
+    "week": 12,
+    "title": "Week 12 · Sat: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 84,
+    "week": 12,
+    "title": "Week 12 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "mountain_dog_12wk_plan",
+  "title": "Mountain Dog 200-Rep 12-Week Program (John Meadows)",
+  "description": "John Meadows' Mountain Dog 200-rep workout (Thefitnessphantom.com): four exercises a day, 2 sets of 25 reps each = 200 reps. Mon back, Tue legs, Wed chest, Thu biceps, Fri shoulders, Sat triceps, Sun off. The PDF gives one week; it repeats here for 12 weeks.",
+  "tags": [
+   "John Meadows",
+   "12 Weeks",
+   "6 Days",
+   "High Reps"
+  ],
+  "weeks": 12,
+  "days": [
+   {
+    "dayNumber": 1,
+    "week": 1,
+    "title": "Week 1 · Mon: Back",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w1mon_e1",
+      "name": "Chest-Supported Dumbbell Rows",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench, neutral grip"
+     },
+     {
+      "id": "md12_w1mon_e2",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1mon_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     },
+     {
+      "id": "md12_w1mon_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "week": 1,
+    "title": "Week 1 · Tue: Legs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w1tue_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1tue_e2",
+      "name": "Horizontal Leg Press (Selectorized)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1tue_e3",
+      "name": "Smith Machine Front Lunges",
+      "sets": 2,
+      "reps": "25/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1tue_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "week": 1,
+    "title": "Week 1 · Wed: Chest",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w1wed_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1wed_e3",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "The PDF says 25/leg — 25 reps"
+     },
+     {
+      "id": "md12_w1wed_e4",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "week": 1,
+    "title": "Week 1 · Thu: Biceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w1thu_e1",
+      "name": "Bilateral Dumbbell Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1thu_e2",
+      "name": "Dumbbell Spider Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1thu_e3",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Seated"
+     },
+     {
+      "id": "md12_w1thu_e4",
+      "name": "Drag Curls (Barbell/Dumbbell)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "EZ bar"
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "week": 1,
+    "title": "Week 1 · Fri: Shoulders",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w1fri_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1fri_e2",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1fri_e3",
+      "name": "Prone Dumbbell Y-Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench"
+     },
+     {
+      "id": "md12_w1fri_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "week": 1,
+    "title": "Week 1 · Sat: Triceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w1sat_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1sat_e2",
+      "name": "Crucifix Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1sat_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w1sat_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "week": 1,
+    "title": "Week 1 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 8,
+    "week": 2,
+    "title": "Week 2 · Mon: Back",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w2mon_e1",
+      "name": "Chest-Supported Dumbbell Rows",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench, neutral grip"
+     },
+     {
+      "id": "md12_w2mon_e2",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2mon_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     },
+     {
+      "id": "md12_w2mon_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 9,
+    "week": 2,
+    "title": "Week 2 · Tue: Legs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w2tue_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2tue_e2",
+      "name": "Horizontal Leg Press (Selectorized)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2tue_e3",
+      "name": "Smith Machine Front Lunges",
+      "sets": 2,
+      "reps": "25/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2tue_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 10,
+    "week": 2,
+    "title": "Week 2 · Wed: Chest",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w2wed_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2wed_e3",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "The PDF says 25/leg — 25 reps"
+     },
+     {
+      "id": "md12_w2wed_e4",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 11,
+    "week": 2,
+    "title": "Week 2 · Thu: Biceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w2thu_e1",
+      "name": "Bilateral Dumbbell Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2thu_e2",
+      "name": "Dumbbell Spider Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2thu_e3",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Seated"
+     },
+     {
+      "id": "md12_w2thu_e4",
+      "name": "Drag Curls (Barbell/Dumbbell)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "EZ bar"
+     }
+    ]
+   },
+   {
+    "dayNumber": 12,
+    "week": 2,
+    "title": "Week 2 · Fri: Shoulders",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w2fri_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2fri_e2",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2fri_e3",
+      "name": "Prone Dumbbell Y-Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench"
+     },
+     {
+      "id": "md12_w2fri_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 13,
+    "week": 2,
+    "title": "Week 2 · Sat: Triceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w2sat_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2sat_e2",
+      "name": "Crucifix Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2sat_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w2sat_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 14,
+    "week": 2,
+    "title": "Week 2 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 15,
+    "week": 3,
+    "title": "Week 3 · Mon: Back",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w3mon_e1",
+      "name": "Chest-Supported Dumbbell Rows",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench, neutral grip"
+     },
+     {
+      "id": "md12_w3mon_e2",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3mon_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     },
+     {
+      "id": "md12_w3mon_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 16,
+    "week": 3,
+    "title": "Week 3 · Tue: Legs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w3tue_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3tue_e2",
+      "name": "Horizontal Leg Press (Selectorized)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3tue_e3",
+      "name": "Smith Machine Front Lunges",
+      "sets": 2,
+      "reps": "25/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3tue_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 17,
+    "week": 3,
+    "title": "Week 3 · Wed: Chest",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w3wed_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3wed_e3",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "The PDF says 25/leg — 25 reps"
+     },
+     {
+      "id": "md12_w3wed_e4",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 18,
+    "week": 3,
+    "title": "Week 3 · Thu: Biceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w3thu_e1",
+      "name": "Bilateral Dumbbell Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3thu_e2",
+      "name": "Dumbbell Spider Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3thu_e3",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Seated"
+     },
+     {
+      "id": "md12_w3thu_e4",
+      "name": "Drag Curls (Barbell/Dumbbell)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "EZ bar"
+     }
+    ]
+   },
+   {
+    "dayNumber": 19,
+    "week": 3,
+    "title": "Week 3 · Fri: Shoulders",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w3fri_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3fri_e2",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3fri_e3",
+      "name": "Prone Dumbbell Y-Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench"
+     },
+     {
+      "id": "md12_w3fri_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 20,
+    "week": 3,
+    "title": "Week 3 · Sat: Triceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w3sat_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3sat_e2",
+      "name": "Crucifix Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3sat_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w3sat_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 21,
+    "week": 3,
+    "title": "Week 3 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 22,
+    "week": 4,
+    "title": "Week 4 · Mon: Back",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w4mon_e1",
+      "name": "Chest-Supported Dumbbell Rows",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench, neutral grip"
+     },
+     {
+      "id": "md12_w4mon_e2",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4mon_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     },
+     {
+      "id": "md12_w4mon_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 23,
+    "week": 4,
+    "title": "Week 4 · Tue: Legs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w4tue_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4tue_e2",
+      "name": "Horizontal Leg Press (Selectorized)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4tue_e3",
+      "name": "Smith Machine Front Lunges",
+      "sets": 2,
+      "reps": "25/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4tue_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 24,
+    "week": 4,
+    "title": "Week 4 · Wed: Chest",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w4wed_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4wed_e3",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "The PDF says 25/leg — 25 reps"
+     },
+     {
+      "id": "md12_w4wed_e4",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 25,
+    "week": 4,
+    "title": "Week 4 · Thu: Biceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w4thu_e1",
+      "name": "Bilateral Dumbbell Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4thu_e2",
+      "name": "Dumbbell Spider Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4thu_e3",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Seated"
+     },
+     {
+      "id": "md12_w4thu_e4",
+      "name": "Drag Curls (Barbell/Dumbbell)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "EZ bar"
+     }
+    ]
+   },
+   {
+    "dayNumber": 26,
+    "week": 4,
+    "title": "Week 4 · Fri: Shoulders",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w4fri_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4fri_e2",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4fri_e3",
+      "name": "Prone Dumbbell Y-Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench"
+     },
+     {
+      "id": "md12_w4fri_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 27,
+    "week": 4,
+    "title": "Week 4 · Sat: Triceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w4sat_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4sat_e2",
+      "name": "Crucifix Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4sat_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w4sat_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 28,
+    "week": 4,
+    "title": "Week 4 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 29,
+    "week": 5,
+    "title": "Week 5 · Mon: Back",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w5mon_e1",
+      "name": "Chest-Supported Dumbbell Rows",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench, neutral grip"
+     },
+     {
+      "id": "md12_w5mon_e2",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5mon_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     },
+     {
+      "id": "md12_w5mon_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 30,
+    "week": 5,
+    "title": "Week 5 · Tue: Legs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w5tue_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5tue_e2",
+      "name": "Horizontal Leg Press (Selectorized)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5tue_e3",
+      "name": "Smith Machine Front Lunges",
+      "sets": 2,
+      "reps": "25/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5tue_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 31,
+    "week": 5,
+    "title": "Week 5 · Wed: Chest",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w5wed_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5wed_e3",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "The PDF says 25/leg — 25 reps"
+     },
+     {
+      "id": "md12_w5wed_e4",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 32,
+    "week": 5,
+    "title": "Week 5 · Thu: Biceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w5thu_e1",
+      "name": "Bilateral Dumbbell Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5thu_e2",
+      "name": "Dumbbell Spider Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5thu_e3",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Seated"
+     },
+     {
+      "id": "md12_w5thu_e4",
+      "name": "Drag Curls (Barbell/Dumbbell)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "EZ bar"
+     }
+    ]
+   },
+   {
+    "dayNumber": 33,
+    "week": 5,
+    "title": "Week 5 · Fri: Shoulders",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w5fri_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5fri_e2",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5fri_e3",
+      "name": "Prone Dumbbell Y-Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench"
+     },
+     {
+      "id": "md12_w5fri_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 34,
+    "week": 5,
+    "title": "Week 5 · Sat: Triceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w5sat_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5sat_e2",
+      "name": "Crucifix Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5sat_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w5sat_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 35,
+    "week": 5,
+    "title": "Week 5 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 36,
+    "week": 6,
+    "title": "Week 6 · Mon: Back",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w6mon_e1",
+      "name": "Chest-Supported Dumbbell Rows",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench, neutral grip"
+     },
+     {
+      "id": "md12_w6mon_e2",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6mon_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     },
+     {
+      "id": "md12_w6mon_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 37,
+    "week": 6,
+    "title": "Week 6 · Tue: Legs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w6tue_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6tue_e2",
+      "name": "Horizontal Leg Press (Selectorized)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6tue_e3",
+      "name": "Smith Machine Front Lunges",
+      "sets": 2,
+      "reps": "25/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6tue_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 38,
+    "week": 6,
+    "title": "Week 6 · Wed: Chest",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w6wed_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6wed_e3",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "The PDF says 25/leg — 25 reps"
+     },
+     {
+      "id": "md12_w6wed_e4",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 39,
+    "week": 6,
+    "title": "Week 6 · Thu: Biceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w6thu_e1",
+      "name": "Bilateral Dumbbell Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6thu_e2",
+      "name": "Dumbbell Spider Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6thu_e3",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Seated"
+     },
+     {
+      "id": "md12_w6thu_e4",
+      "name": "Drag Curls (Barbell/Dumbbell)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "EZ bar"
+     }
+    ]
+   },
+   {
+    "dayNumber": 40,
+    "week": 6,
+    "title": "Week 6 · Fri: Shoulders",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w6fri_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6fri_e2",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6fri_e3",
+      "name": "Prone Dumbbell Y-Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench"
+     },
+     {
+      "id": "md12_w6fri_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 41,
+    "week": 6,
+    "title": "Week 6 · Sat: Triceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w6sat_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6sat_e2",
+      "name": "Crucifix Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6sat_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w6sat_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 42,
+    "week": 6,
+    "title": "Week 6 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 43,
+    "week": 7,
+    "title": "Week 7 · Mon: Back",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w7mon_e1",
+      "name": "Chest-Supported Dumbbell Rows",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench, neutral grip"
+     },
+     {
+      "id": "md12_w7mon_e2",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7mon_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     },
+     {
+      "id": "md12_w7mon_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 44,
+    "week": 7,
+    "title": "Week 7 · Tue: Legs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w7tue_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7tue_e2",
+      "name": "Horizontal Leg Press (Selectorized)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7tue_e3",
+      "name": "Smith Machine Front Lunges",
+      "sets": 2,
+      "reps": "25/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7tue_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 45,
+    "week": 7,
+    "title": "Week 7 · Wed: Chest",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w7wed_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7wed_e3",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "The PDF says 25/leg — 25 reps"
+     },
+     {
+      "id": "md12_w7wed_e4",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 46,
+    "week": 7,
+    "title": "Week 7 · Thu: Biceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w7thu_e1",
+      "name": "Bilateral Dumbbell Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7thu_e2",
+      "name": "Dumbbell Spider Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7thu_e3",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Seated"
+     },
+     {
+      "id": "md12_w7thu_e4",
+      "name": "Drag Curls (Barbell/Dumbbell)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "EZ bar"
+     }
+    ]
+   },
+   {
+    "dayNumber": 47,
+    "week": 7,
+    "title": "Week 7 · Fri: Shoulders",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w7fri_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7fri_e2",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7fri_e3",
+      "name": "Prone Dumbbell Y-Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench"
+     },
+     {
+      "id": "md12_w7fri_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 48,
+    "week": 7,
+    "title": "Week 7 · Sat: Triceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w7sat_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7sat_e2",
+      "name": "Crucifix Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7sat_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w7sat_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 49,
+    "week": 7,
+    "title": "Week 7 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 50,
+    "week": 8,
+    "title": "Week 8 · Mon: Back",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w8mon_e1",
+      "name": "Chest-Supported Dumbbell Rows",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench, neutral grip"
+     },
+     {
+      "id": "md12_w8mon_e2",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8mon_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     },
+     {
+      "id": "md12_w8mon_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 51,
+    "week": 8,
+    "title": "Week 8 · Tue: Legs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w8tue_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8tue_e2",
+      "name": "Horizontal Leg Press (Selectorized)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8tue_e3",
+      "name": "Smith Machine Front Lunges",
+      "sets": 2,
+      "reps": "25/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8tue_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 52,
+    "week": 8,
+    "title": "Week 8 · Wed: Chest",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w8wed_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8wed_e3",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "The PDF says 25/leg — 25 reps"
+     },
+     {
+      "id": "md12_w8wed_e4",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 53,
+    "week": 8,
+    "title": "Week 8 · Thu: Biceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w8thu_e1",
+      "name": "Bilateral Dumbbell Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8thu_e2",
+      "name": "Dumbbell Spider Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8thu_e3",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Seated"
+     },
+     {
+      "id": "md12_w8thu_e4",
+      "name": "Drag Curls (Barbell/Dumbbell)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "EZ bar"
+     }
+    ]
+   },
+   {
+    "dayNumber": 54,
+    "week": 8,
+    "title": "Week 8 · Fri: Shoulders",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w8fri_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8fri_e2",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8fri_e3",
+      "name": "Prone Dumbbell Y-Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench"
+     },
+     {
+      "id": "md12_w8fri_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 55,
+    "week": 8,
+    "title": "Week 8 · Sat: Triceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w8sat_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8sat_e2",
+      "name": "Crucifix Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8sat_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w8sat_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 56,
+    "week": 8,
+    "title": "Week 8 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 57,
+    "week": 9,
+    "title": "Week 9 · Mon: Back",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w9mon_e1",
+      "name": "Chest-Supported Dumbbell Rows",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench, neutral grip"
+     },
+     {
+      "id": "md12_w9mon_e2",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9mon_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     },
+     {
+      "id": "md12_w9mon_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 58,
+    "week": 9,
+    "title": "Week 9 · Tue: Legs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w9tue_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9tue_e2",
+      "name": "Horizontal Leg Press (Selectorized)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9tue_e3",
+      "name": "Smith Machine Front Lunges",
+      "sets": 2,
+      "reps": "25/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9tue_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 59,
+    "week": 9,
+    "title": "Week 9 · Wed: Chest",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w9wed_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9wed_e3",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "The PDF says 25/leg — 25 reps"
+     },
+     {
+      "id": "md12_w9wed_e4",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 60,
+    "week": 9,
+    "title": "Week 9 · Thu: Biceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w9thu_e1",
+      "name": "Bilateral Dumbbell Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9thu_e2",
+      "name": "Dumbbell Spider Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9thu_e3",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Seated"
+     },
+     {
+      "id": "md12_w9thu_e4",
+      "name": "Drag Curls (Barbell/Dumbbell)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "EZ bar"
+     }
+    ]
+   },
+   {
+    "dayNumber": 61,
+    "week": 9,
+    "title": "Week 9 · Fri: Shoulders",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w9fri_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9fri_e2",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9fri_e3",
+      "name": "Prone Dumbbell Y-Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench"
+     },
+     {
+      "id": "md12_w9fri_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 62,
+    "week": 9,
+    "title": "Week 9 · Sat: Triceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w9sat_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9sat_e2",
+      "name": "Crucifix Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9sat_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w9sat_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 63,
+    "week": 9,
+    "title": "Week 9 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 64,
+    "week": 10,
+    "title": "Week 10 · Mon: Back",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w10mon_e1",
+      "name": "Chest-Supported Dumbbell Rows",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench, neutral grip"
+     },
+     {
+      "id": "md12_w10mon_e2",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10mon_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     },
+     {
+      "id": "md12_w10mon_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 65,
+    "week": 10,
+    "title": "Week 10 · Tue: Legs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w10tue_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10tue_e2",
+      "name": "Horizontal Leg Press (Selectorized)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10tue_e3",
+      "name": "Smith Machine Front Lunges",
+      "sets": 2,
+      "reps": "25/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10tue_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 66,
+    "week": 10,
+    "title": "Week 10 · Wed: Chest",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w10wed_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10wed_e3",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "The PDF says 25/leg — 25 reps"
+     },
+     {
+      "id": "md12_w10wed_e4",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 67,
+    "week": 10,
+    "title": "Week 10 · Thu: Biceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w10thu_e1",
+      "name": "Bilateral Dumbbell Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10thu_e2",
+      "name": "Dumbbell Spider Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10thu_e3",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Seated"
+     },
+     {
+      "id": "md12_w10thu_e4",
+      "name": "Drag Curls (Barbell/Dumbbell)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "EZ bar"
+     }
+    ]
+   },
+   {
+    "dayNumber": 68,
+    "week": 10,
+    "title": "Week 10 · Fri: Shoulders",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w10fri_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10fri_e2",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10fri_e3",
+      "name": "Prone Dumbbell Y-Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench"
+     },
+     {
+      "id": "md12_w10fri_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 69,
+    "week": 10,
+    "title": "Week 10 · Sat: Triceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w10sat_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10sat_e2",
+      "name": "Crucifix Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10sat_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w10sat_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 70,
+    "week": 10,
+    "title": "Week 10 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 71,
+    "week": 11,
+    "title": "Week 11 · Mon: Back",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w11mon_e1",
+      "name": "Chest-Supported Dumbbell Rows",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench, neutral grip"
+     },
+     {
+      "id": "md12_w11mon_e2",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11mon_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     },
+     {
+      "id": "md12_w11mon_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 72,
+    "week": 11,
+    "title": "Week 11 · Tue: Legs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w11tue_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11tue_e2",
+      "name": "Horizontal Leg Press (Selectorized)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11tue_e3",
+      "name": "Smith Machine Front Lunges",
+      "sets": 2,
+      "reps": "25/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11tue_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 73,
+    "week": 11,
+    "title": "Week 11 · Wed: Chest",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w11wed_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11wed_e3",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "The PDF says 25/leg — 25 reps"
+     },
+     {
+      "id": "md12_w11wed_e4",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 74,
+    "week": 11,
+    "title": "Week 11 · Thu: Biceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w11thu_e1",
+      "name": "Bilateral Dumbbell Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11thu_e2",
+      "name": "Dumbbell Spider Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11thu_e3",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Seated"
+     },
+     {
+      "id": "md12_w11thu_e4",
+      "name": "Drag Curls (Barbell/Dumbbell)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "EZ bar"
+     }
+    ]
+   },
+   {
+    "dayNumber": 75,
+    "week": 11,
+    "title": "Week 11 · Fri: Shoulders",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w11fri_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11fri_e2",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11fri_e3",
+      "name": "Prone Dumbbell Y-Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench"
+     },
+     {
+      "id": "md12_w11fri_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 76,
+    "week": 11,
+    "title": "Week 11 · Sat: Triceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w11sat_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11sat_e2",
+      "name": "Crucifix Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11sat_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w11sat_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 77,
+    "week": 11,
+    "title": "Week 11 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 78,
+    "week": 12,
+    "title": "Week 12 · Mon: Back",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w12mon_e1",
+      "name": "Chest-Supported Dumbbell Rows",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench, neutral grip"
+     },
+     {
+      "id": "md12_w12mon_e2",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12mon_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     },
+     {
+      "id": "md12_w12mon_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 79,
+    "week": 12,
+    "title": "Week 12 · Tue: Legs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w12tue_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12tue_e2",
+      "name": "Horizontal Leg Press (Selectorized)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12tue_e3",
+      "name": "Smith Machine Front Lunges",
+      "sets": 2,
+      "reps": "25/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12tue_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 80,
+    "week": 12,
+    "title": "Week 12 · Wed: Chest",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "md12_w12wed_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12wed_e3",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "The PDF says 25/leg — 25 reps"
+     },
+     {
+      "id": "md12_w12wed_e4",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 81,
+    "week": 12,
+    "title": "Week 12 · Thu: Biceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w12thu_e1",
+      "name": "Bilateral Dumbbell Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12thu_e2",
+      "name": "Dumbbell Spider Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12thu_e3",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Seated"
+     },
+     {
+      "id": "md12_w12thu_e4",
+      "name": "Drag Curls (Barbell/Dumbbell)",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "EZ bar"
+     }
+    ]
+   },
+   {
+    "dayNumber": 82,
+    "week": 12,
+    "title": "Week 12 · Fri: Shoulders",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w12fri_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12fri_e2",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12fri_e3",
+      "name": "Prone Dumbbell Y-Raises",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Chest on a 45° incline bench"
+     },
+     {
+      "id": "md12_w12fri_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 83,
+    "week": 12,
+    "title": "Week 12 · Sat: Triceps",
+    "estimatedMinutes": 15,
+    "exercises": [
+     {
+      "id": "md12_w12sat_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12sat_e2",
+      "name": "Crucifix Extension",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12sat_e3",
+      "name": "Dumbbell Kick Outs",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "md12_w12sat_e4",
+      "name": "Diamond Push-Ups",
+      "sets": 2,
+      "reps": "25",
+      "restSeconds": 105,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 84,
+    "week": 12,
+    "title": "Week 12 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "jay_cutler_12wk_plan",
+  "title": "Jay Cutler 12-Week Training Program",
+  "description": "Inspired by Jay Cutler's training (Thefitnessphantom.com), with his three routines as three 4-week phases, as the PDF suggests. Warm up up to 10 min (3–5 min light jog) and do one light set before each exercise. Rest about 60 s on moderate/isolation work and 2–4 min on heavy strength lifts. Weeks 1–4: muscle group split. Weeks 5–8: Cut Like Cutler — heavy weeks (5, 7) alternate with moderate weeks (6, 8). Weeks 9–12: his 2008 Olympia split.",
+  "tags": [
+   "Jay Cutler",
+   "12 Weeks",
+   "3 Phases",
+   "Bodybuilding"
+  ],
+  "weeks": 12,
+  "days": [
+   {
+    "dayNumber": 1,
+    "week": 1,
+    "title": "Week 1 · Mon: Chest & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "jc12_w1mon_e1",
+      "name": "Hammer Strength Incline Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1mon_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1mon_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1mon_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1mon_e5",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w1mon_e6",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1mon_e7",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "week": 1,
+    "title": "Week 1 · Tue: Triceps & Biceps",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "jc12_w1tue_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1tue_e2",
+      "name": "Triceps Straight Bar Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1tue_e3",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1tue_e4",
+      "name": "Plate-Loaded Triceps Dip Machine",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1tue_e5",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1tue_e6",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60,
+      "notes": "One arm at a time"
+     },
+     {
+      "id": "jc12_w1tue_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60,
+      "notes": "Seated"
+     },
+     {
+      "id": "jc12_w1tue_e8",
+      "name": "Machine Incline Curl",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1tue_e9",
+      "name": "Preacher Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60,
+      "notes": "Barbell"
+     },
+     {
+      "id": "jc12_w1tue_e10",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1tue_e11",
+      "name": "High Cable Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "week": 1,
+    "title": "Week 1 · Wed: Back",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "jc12_w1wed_e1",
+      "name": "Reverse-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1wed_e2",
+      "name": "Neutral-Grip (V-Bar) Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1wed_e3",
+      "name": "Barbell Deadlift",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w1wed_e4",
+      "name": "T-Bar Row",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1wed_e5",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1wed_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1wed_e7",
+      "name": "Seated Cable Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "week": 1,
+    "title": "Week 1 · Thu: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 5,
+    "week": 1,
+    "title": "Week 1 · Fri: Delts & Traps",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "jc12_w1fri_e1",
+      "name": "Seated Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1fri_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1fri_e3",
+      "name": "Machine Shoulder Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1fri_e4",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1fri_e6",
+      "name": "Barbell Upright Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "week": 1,
+    "title": "Week 1 · Sat: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "jc12_w1sat_e1",
+      "name": "Leg Extension (Warm-Up)",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "notes": "Warm-up for the knees"
+     },
+     {
+      "id": "jc12_w1sat_e2",
+      "name": "Barbell Back Squat",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w1sat_e3",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1sat_e4",
+      "name": "Dumbbell Lunges",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w1sat_e5",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w1sat_e6",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1sat_e7",
+      "name": "Seated Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1sat_e8",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1sat_e9",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w1sat_e10",
+      "name": "Standing Single-Leg Curl Machine",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1sat_e11",
+      "name": "Hip Abductor Machine",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w1sat_e12",
+      "name": "Hip Adductor Machine",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "week": 1,
+    "title": "Week 1 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 8,
+    "week": 2,
+    "title": "Week 2 · Mon: Chest & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "jc12_w2mon_e1",
+      "name": "Hammer Strength Incline Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2mon_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2mon_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2mon_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2mon_e5",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w2mon_e6",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2mon_e7",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 9,
+    "week": 2,
+    "title": "Week 2 · Tue: Triceps & Biceps",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "jc12_w2tue_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2tue_e2",
+      "name": "Triceps Straight Bar Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2tue_e3",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2tue_e4",
+      "name": "Plate-Loaded Triceps Dip Machine",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2tue_e5",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2tue_e6",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60,
+      "notes": "One arm at a time"
+     },
+     {
+      "id": "jc12_w2tue_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60,
+      "notes": "Seated"
+     },
+     {
+      "id": "jc12_w2tue_e8",
+      "name": "Machine Incline Curl",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2tue_e9",
+      "name": "Preacher Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60,
+      "notes": "Barbell"
+     },
+     {
+      "id": "jc12_w2tue_e10",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2tue_e11",
+      "name": "High Cable Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 10,
+    "week": 2,
+    "title": "Week 2 · Wed: Back",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "jc12_w2wed_e1",
+      "name": "Reverse-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2wed_e2",
+      "name": "Neutral-Grip (V-Bar) Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2wed_e3",
+      "name": "Barbell Deadlift",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w2wed_e4",
+      "name": "T-Bar Row",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2wed_e5",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2wed_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2wed_e7",
+      "name": "Seated Cable Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     }
+    ]
+   },
+   {
+    "dayNumber": 11,
+    "week": 2,
+    "title": "Week 2 · Thu: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 12,
+    "week": 2,
+    "title": "Week 2 · Fri: Delts & Traps",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "jc12_w2fri_e1",
+      "name": "Seated Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2fri_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2fri_e3",
+      "name": "Machine Shoulder Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2fri_e4",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2fri_e6",
+      "name": "Barbell Upright Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 13,
+    "week": 2,
+    "title": "Week 2 · Sat: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "jc12_w2sat_e1",
+      "name": "Leg Extension (Warm-Up)",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "notes": "Warm-up for the knees"
+     },
+     {
+      "id": "jc12_w2sat_e2",
+      "name": "Barbell Back Squat",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w2sat_e3",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2sat_e4",
+      "name": "Dumbbell Lunges",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w2sat_e5",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w2sat_e6",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2sat_e7",
+      "name": "Seated Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2sat_e8",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2sat_e9",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w2sat_e10",
+      "name": "Standing Single-Leg Curl Machine",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2sat_e11",
+      "name": "Hip Abductor Machine",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w2sat_e12",
+      "name": "Hip Adductor Machine",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 14,
+    "week": 2,
+    "title": "Week 2 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 15,
+    "week": 3,
+    "title": "Week 3 · Mon: Chest & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "jc12_w3mon_e1",
+      "name": "Hammer Strength Incline Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3mon_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3mon_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3mon_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3mon_e5",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w3mon_e6",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3mon_e7",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 16,
+    "week": 3,
+    "title": "Week 3 · Tue: Triceps & Biceps",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "jc12_w3tue_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3tue_e2",
+      "name": "Triceps Straight Bar Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3tue_e3",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3tue_e4",
+      "name": "Plate-Loaded Triceps Dip Machine",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3tue_e5",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3tue_e6",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60,
+      "notes": "One arm at a time"
+     },
+     {
+      "id": "jc12_w3tue_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60,
+      "notes": "Seated"
+     },
+     {
+      "id": "jc12_w3tue_e8",
+      "name": "Machine Incline Curl",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3tue_e9",
+      "name": "Preacher Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60,
+      "notes": "Barbell"
+     },
+     {
+      "id": "jc12_w3tue_e10",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3tue_e11",
+      "name": "High Cable Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 17,
+    "week": 3,
+    "title": "Week 3 · Wed: Back",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "jc12_w3wed_e1",
+      "name": "Reverse-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3wed_e2",
+      "name": "Neutral-Grip (V-Bar) Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3wed_e3",
+      "name": "Barbell Deadlift",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w3wed_e4",
+      "name": "T-Bar Row",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3wed_e5",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3wed_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3wed_e7",
+      "name": "Seated Cable Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     }
+    ]
+   },
+   {
+    "dayNumber": 18,
+    "week": 3,
+    "title": "Week 3 · Thu: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 19,
+    "week": 3,
+    "title": "Week 3 · Fri: Delts & Traps",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "jc12_w3fri_e1",
+      "name": "Seated Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3fri_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3fri_e3",
+      "name": "Machine Shoulder Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3fri_e4",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3fri_e6",
+      "name": "Barbell Upright Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 20,
+    "week": 3,
+    "title": "Week 3 · Sat: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "jc12_w3sat_e1",
+      "name": "Leg Extension (Warm-Up)",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "notes": "Warm-up for the knees"
+     },
+     {
+      "id": "jc12_w3sat_e2",
+      "name": "Barbell Back Squat",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w3sat_e3",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3sat_e4",
+      "name": "Dumbbell Lunges",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w3sat_e5",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w3sat_e6",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3sat_e7",
+      "name": "Seated Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3sat_e8",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3sat_e9",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w3sat_e10",
+      "name": "Standing Single-Leg Curl Machine",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3sat_e11",
+      "name": "Hip Abductor Machine",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w3sat_e12",
+      "name": "Hip Adductor Machine",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 21,
+    "week": 3,
+    "title": "Week 3 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 22,
+    "week": 4,
+    "title": "Week 4 · Mon: Chest & Calves",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "jc12_w4mon_e1",
+      "name": "Hammer Strength Incline Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4mon_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4mon_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4mon_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4mon_e5",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w4mon_e6",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4mon_e7",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 23,
+    "week": 4,
+    "title": "Week 4 · Tue: Triceps & Biceps",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "jc12_w4tue_e1",
+      "name": "Triceps Rope Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4tue_e2",
+      "name": "Triceps Straight Bar Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4tue_e3",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4tue_e4",
+      "name": "Plate-Loaded Triceps Dip Machine",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4tue_e5",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4tue_e6",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60,
+      "notes": "One arm at a time"
+     },
+     {
+      "id": "jc12_w4tue_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60,
+      "notes": "Seated"
+     },
+     {
+      "id": "jc12_w4tue_e8",
+      "name": "Machine Incline Curl",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4tue_e9",
+      "name": "Preacher Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 60,
+      "notes": "Barbell"
+     },
+     {
+      "id": "jc12_w4tue_e10",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4tue_e11",
+      "name": "High Cable Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 24,
+    "week": 4,
+    "title": "Week 4 · Wed: Back",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "jc12_w4wed_e1",
+      "name": "Reverse-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4wed_e2",
+      "name": "Neutral-Grip (V-Bar) Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4wed_e3",
+      "name": "Barbell Deadlift",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w4wed_e4",
+      "name": "T-Bar Row",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4wed_e5",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4wed_e6",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4wed_e7",
+      "name": "Seated Cable Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     }
+    ]
+   },
+   {
+    "dayNumber": 25,
+    "week": 4,
+    "title": "Week 4 · Thu: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 26,
+    "week": 4,
+    "title": "Week 4 · Fri: Delts & Traps",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "jc12_w4fri_e1",
+      "name": "Seated Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4fri_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4fri_e3",
+      "name": "Machine Shoulder Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4fri_e4",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4fri_e6",
+      "name": "Barbell Upright Rows",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 27,
+    "week": 4,
+    "title": "Week 4 · Sat: Quads, Hamstrings & Calves",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "jc12_w4sat_e1",
+      "name": "Leg Extension (Warm-Up)",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "notes": "Warm-up for the knees"
+     },
+     {
+      "id": "jc12_w4sat_e2",
+      "name": "Barbell Back Squat",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w4sat_e3",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4sat_e4",
+      "name": "Dumbbell Lunges",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w4sat_e5",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w4sat_e6",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4sat_e7",
+      "name": "Seated Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4sat_e8",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4sat_e9",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w4sat_e10",
+      "name": "Standing Single-Leg Curl Machine",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4sat_e11",
+      "name": "Hip Abductor Machine",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w4sat_e12",
+      "name": "Hip Adductor Machine",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 28,
+    "week": 4,
+    "title": "Week 4 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 29,
+    "week": 5,
+    "title": "Week 5 · Mon: Thighs & Calves (Heavy)",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "jc12_w5mon_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w5mon_e2",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w5mon_e3",
+      "name": "Barbell Back Squat",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w5mon_e4",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w5mon_e5",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 30,
+    "week": 5,
+    "title": "Week 5 · Tue: Chest & Abs (Heavy)",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "jc12_w5tue_e1",
+      "name": "Barbell Bench Press",
+      "sets": 3,
+      "reps": "5-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w5tue_e2",
+      "name": "Incline Dumbbell Press",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w5tue_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w5tue_e4",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w5tue_e5",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset: kneeling cable crunches + sit-ups",
+      "link": true
+     },
+     {
+      "id": "jc12_w5tue_e6",
+      "name": "Sit-Ups",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "superset"
+     }
+    ]
+   },
+   {
+    "dayNumber": 31,
+    "week": 5,
+    "title": "Week 5 · Wed: Back & Calves (Heavy)",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "jc12_w5wed_e1",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w5wed_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w5wed_e3",
+      "name": "Barbell Deadlift",
+      "sets": 3,
+      "reps": "4-8",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w5wed_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w5wed_e5",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 32,
+    "week": 5,
+    "title": "Week 5 · Thu: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 33,
+    "week": 5,
+    "title": "Week 5 · Fri: Delts & Traps (Heavy)",
+    "estimatedMinutes": 30,
+    "exercises": [
+     {
+      "id": "jc12_w5fri_e1",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w5fri_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset: lateral + front raises",
+      "link": true
+     },
+     {
+      "id": "jc12_w5fri_e3",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 60,
+      "type": "superset"
+     },
+     {
+      "id": "jc12_w5fri_e4",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w5fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 34,
+    "week": 5,
+    "title": "Week 5 · Sat: Arms & Abs (Heavy)",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "jc12_w5sat_e1",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w5sat_e2",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset: triceps pushdown + kickback",
+      "link": true
+     },
+     {
+      "id": "jc12_w5sat_e3",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60,
+      "type": "superset"
+     },
+     {
+      "id": "jc12_w5sat_e4",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w5sat_e5",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w5sat_e6",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w5sat_e7",
+      "name": "Woodchoppers",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 35,
+    "week": 5,
+    "title": "Week 5 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 36,
+    "week": 6,
+    "title": "Week 6 · Mon: Thighs & Calves (Moderate)",
+    "estimatedMinutes": 30,
+    "exercises": [
+     {
+      "id": "jc12_w6mon_e1",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6mon_e2",
+      "name": "Walking Lunges",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6mon_e3",
+      "name": "Single-Leg Extension Machine",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6mon_e4",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6mon_e5",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 37,
+    "week": 6,
+    "title": "Week 6 · Tue: Chest & Abs (Moderate)",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "jc12_w6tue_e1",
+      "name": "Decline Dumbbell Press",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6tue_e2",
+      "name": "Cable Crossovers",
+      "sets": 4,
+      "reps": "12-18",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6tue_e3",
+      "name": "Wide-Grip Barbell Bench Press",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6tue_e4",
+      "name": "Chest Dips",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6tue_e5",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset: kneeling cable crunches + sit-ups",
+      "link": true
+     },
+     {
+      "id": "jc12_w6tue_e6",
+      "name": "Sit-Ups",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "superset"
+     }
+    ]
+   },
+   {
+    "dayNumber": 38,
+    "week": 6,
+    "title": "Week 6 · Wed: Back & Calves (Moderate)",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "jc12_w6wed_e1",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6wed_e2",
+      "name": "Reverse-Grip Lat Pulldown",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6wed_e3",
+      "name": "Straight-Arm Cable Pullover",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6wed_e4",
+      "name": "Rack Pulls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6wed_e5",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6wed_e6",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 39,
+    "week": 6,
+    "title": "Week 6 · Thu: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 40,
+    "week": 6,
+    "title": "Week 6 · Fri: Delts & Traps (Moderate)",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "jc12_w6fri_e1",
+      "name": "Arnold Press",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6fri_e2",
+      "name": "Reverse Pec Deck",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6fri_e3",
+      "name": "Barbell Front Raises",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6fri_e4",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6fri_e5",
+      "name": "Cable Lateral Raises",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6fri_e6",
+      "name": "Barbell Shrugs",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 41,
+    "week": 6,
+    "title": "Week 6 · Sat: Arms & Abs (Moderate)",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "jc12_w6sat_e1",
+      "name": "Triceps Dips",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6sat_e2",
+      "name": "Dumbbell Overhead Extension",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6sat_e3",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6sat_e4",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6sat_e5",
+      "name": "Barbell Reverse Curls",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w6sat_e6",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 4,
+      "reps": "15-25",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 42,
+    "week": 6,
+    "title": "Week 6 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 43,
+    "week": 7,
+    "title": "Week 7 · Mon: Thighs & Calves (Heavy)",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "jc12_w7mon_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w7mon_e2",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w7mon_e3",
+      "name": "Barbell Back Squat",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w7mon_e4",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w7mon_e5",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 44,
+    "week": 7,
+    "title": "Week 7 · Tue: Chest & Abs (Heavy)",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "jc12_w7tue_e1",
+      "name": "Barbell Bench Press",
+      "sets": 3,
+      "reps": "5-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w7tue_e2",
+      "name": "Incline Dumbbell Press",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w7tue_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w7tue_e4",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w7tue_e5",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset: kneeling cable crunches + sit-ups",
+      "link": true
+     },
+     {
+      "id": "jc12_w7tue_e6",
+      "name": "Sit-Ups",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "superset"
+     }
+    ]
+   },
+   {
+    "dayNumber": 45,
+    "week": 7,
+    "title": "Week 7 · Wed: Back & Calves (Heavy)",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "jc12_w7wed_e1",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w7wed_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w7wed_e3",
+      "name": "Barbell Deadlift",
+      "sets": 3,
+      "reps": "4-8",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w7wed_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w7wed_e5",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 46,
+    "week": 7,
+    "title": "Week 7 · Thu: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 47,
+    "week": 7,
+    "title": "Week 7 · Fri: Delts & Traps (Heavy)",
+    "estimatedMinutes": 30,
+    "exercises": [
+     {
+      "id": "jc12_w7fri_e1",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w7fri_e2",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset: lateral + front raises",
+      "link": true
+     },
+     {
+      "id": "jc12_w7fri_e3",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 60,
+      "type": "superset"
+     },
+     {
+      "id": "jc12_w7fri_e4",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w7fri_e5",
+      "name": "Dumbbell Shrugs",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 48,
+    "week": 7,
+    "title": "Week 7 · Sat: Arms & Abs (Heavy)",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "jc12_w7sat_e1",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w7sat_e2",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset: triceps pushdown + kickback",
+      "link": true
+     },
+     {
+      "id": "jc12_w7sat_e3",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60,
+      "type": "superset"
+     },
+     {
+      "id": "jc12_w7sat_e4",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w7sat_e5",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w7sat_e6",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w7sat_e7",
+      "name": "Woodchoppers",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 49,
+    "week": 7,
+    "title": "Week 7 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 50,
+    "week": 8,
+    "title": "Week 8 · Mon: Thighs & Calves (Moderate)",
+    "estimatedMinutes": 30,
+    "exercises": [
+     {
+      "id": "jc12_w8mon_e1",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8mon_e2",
+      "name": "Walking Lunges",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8mon_e3",
+      "name": "Single-Leg Extension Machine",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8mon_e4",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8mon_e5",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 51,
+    "week": 8,
+    "title": "Week 8 · Tue: Chest & Abs (Moderate)",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "jc12_w8tue_e1",
+      "name": "Decline Dumbbell Press",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8tue_e2",
+      "name": "Cable Crossovers",
+      "sets": 4,
+      "reps": "12-18",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8tue_e3",
+      "name": "Wide-Grip Barbell Bench Press",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8tue_e4",
+      "name": "Chest Dips",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8tue_e5",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 15,
+      "type": "superset",
+      "notes": "Superset: kneeling cable crunches + sit-ups",
+      "link": true
+     },
+     {
+      "id": "jc12_w8tue_e6",
+      "name": "Sit-Ups",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "superset"
+     }
+    ]
+   },
+   {
+    "dayNumber": 52,
+    "week": 8,
+    "title": "Week 8 · Wed: Back & Calves (Moderate)",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "jc12_w8wed_e1",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8wed_e2",
+      "name": "Reverse-Grip Lat Pulldown",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8wed_e3",
+      "name": "Straight-Arm Cable Pullover",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8wed_e4",
+      "name": "Rack Pulls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8wed_e5",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8wed_e6",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 53,
+    "week": 8,
+    "title": "Week 8 · Thu: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 54,
+    "week": 8,
+    "title": "Week 8 · Fri: Delts & Traps (Moderate)",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "jc12_w8fri_e1",
+      "name": "Arnold Press",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8fri_e2",
+      "name": "Reverse Pec Deck",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8fri_e3",
+      "name": "Barbell Front Raises",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8fri_e4",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8fri_e5",
+      "name": "Cable Lateral Raises",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8fri_e6",
+      "name": "Barbell Shrugs",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 55,
+    "week": 8,
+    "title": "Week 8 · Sat: Arms & Abs (Moderate)",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "jc12_w8sat_e1",
+      "name": "Triceps Dips",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8sat_e2",
+      "name": "Dumbbell Overhead Extension",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8sat_e3",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8sat_e4",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8sat_e5",
+      "name": "Barbell Reverse Curls",
+      "sets": 4,
+      "reps": "12-20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w8sat_e6",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 4,
+      "reps": "15-25",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 56,
+    "week": 8,
+    "title": "Week 8 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 57,
+    "week": 9,
+    "title": "Week 9 · Mon: Shoulders, Triceps & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "jc12_w9mon_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9mon_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w9mon_e3",
+      "name": "Cable Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9mon_e4",
+      "name": "Barbell Front Raises",
+      "sets": 2,
+      "reps": "8-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9mon_e5",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9mon_e6",
+      "name": "Overhead Cable Rope Extension",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9mon_e7",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9mon_e8",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w9mon_e9",
+      "name": "Standing French Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9mon_e10",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9mon_e11",
+      "name": "Triceps Dips",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w9mon_e12",
+      "name": "Shrugs",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9mon_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9mon_e14",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9mon_e15",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9mon_e16",
+      "name": "Lying Leg Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 58,
+    "week": 9,
+    "title": "Week 9 · Tue: Back",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "jc12_w9tue_e1",
+      "name": "Wide-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w9tue_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w9tue_e3",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w9tue_e4",
+      "name": "Barbell Deadlift",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w9tue_e5",
+      "name": "T-Bar Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120,
+      "notes": "Close grip"
+     },
+     {
+      "id": "jc12_w9tue_e6",
+      "name": "Behind-the-Neck Pulldown",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w9tue_e7",
+      "name": "Seated Cable Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w9tue_e8",
+      "name": "Hyperextensions",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 59,
+    "week": 9,
+    "title": "Week 9 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 60,
+    "week": 9,
+    "title": "Week 9 · Thu: Chest, Biceps, Forearms & Abs",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "jc12_w9thu_e1",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w9thu_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w9thu_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9thu_e4",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9thu_e5",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w9thu_e6",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9thu_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9thu_e8",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60,
+      "notes": "One arm at a time"
+     },
+     {
+      "id": "jc12_w9thu_e9",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9thu_e10",
+      "name": "Reverse Curls",
+      "sets": 6,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9thu_e11",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9thu_e12",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9thu_e13",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9thu_e14",
+      "name": "Lying Leg Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 61,
+    "week": 9,
+    "title": "Week 9 · Fri: Quads",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "jc12_w9fri_e1",
+      "name": "Leg Extensions (Light)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9fri_e2",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w9fri_e3",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w9fri_e4",
+      "name": "Forward Lunges",
+      "sets": 3,
+      "reps": "8/leg",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w9fri_e5",
+      "name": "Leg Extensions (Heavy)",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 62,
+    "week": 9,
+    "title": "Week 9 · Sat: Hamstrings, Calves & Abs",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "jc12_w9sat_e1",
+      "name": "Lying Leg Curls",
+      "sets": 6,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9sat_e2",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w9sat_e3",
+      "name": "Standing Single-Leg Curl Machine",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9sat_e4",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 120,
+      "notes": "Feet high and wide on the platform"
+     },
+     {
+      "id": "jc12_w9sat_e5",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9sat_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9sat_e7",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9sat_e9",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9sat_e10",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w9sat_e11",
+      "name": "Lying Leg Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 63,
+    "week": 9,
+    "title": "Week 9 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 64,
+    "week": 10,
+    "title": "Week 10 · Mon: Shoulders, Triceps & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "jc12_w10mon_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10mon_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w10mon_e3",
+      "name": "Cable Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10mon_e4",
+      "name": "Barbell Front Raises",
+      "sets": 2,
+      "reps": "8-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10mon_e5",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10mon_e6",
+      "name": "Overhead Cable Rope Extension",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10mon_e7",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10mon_e8",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w10mon_e9",
+      "name": "Standing French Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10mon_e10",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10mon_e11",
+      "name": "Triceps Dips",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w10mon_e12",
+      "name": "Shrugs",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10mon_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10mon_e14",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10mon_e15",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10mon_e16",
+      "name": "Lying Leg Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 65,
+    "week": 10,
+    "title": "Week 10 · Tue: Back",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "jc12_w10tue_e1",
+      "name": "Wide-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w10tue_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w10tue_e3",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w10tue_e4",
+      "name": "Barbell Deadlift",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w10tue_e5",
+      "name": "T-Bar Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120,
+      "notes": "Close grip"
+     },
+     {
+      "id": "jc12_w10tue_e6",
+      "name": "Behind-the-Neck Pulldown",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w10tue_e7",
+      "name": "Seated Cable Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w10tue_e8",
+      "name": "Hyperextensions",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 66,
+    "week": 10,
+    "title": "Week 10 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 67,
+    "week": 10,
+    "title": "Week 10 · Thu: Chest, Biceps, Forearms & Abs",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "jc12_w10thu_e1",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w10thu_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w10thu_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10thu_e4",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10thu_e5",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w10thu_e6",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10thu_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10thu_e8",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60,
+      "notes": "One arm at a time"
+     },
+     {
+      "id": "jc12_w10thu_e9",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10thu_e10",
+      "name": "Reverse Curls",
+      "sets": 6,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10thu_e11",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10thu_e12",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10thu_e13",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10thu_e14",
+      "name": "Lying Leg Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 68,
+    "week": 10,
+    "title": "Week 10 · Fri: Quads",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "jc12_w10fri_e1",
+      "name": "Leg Extensions (Light)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10fri_e2",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w10fri_e3",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w10fri_e4",
+      "name": "Forward Lunges",
+      "sets": 3,
+      "reps": "8/leg",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w10fri_e5",
+      "name": "Leg Extensions (Heavy)",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 69,
+    "week": 10,
+    "title": "Week 10 · Sat: Hamstrings, Calves & Abs",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "jc12_w10sat_e1",
+      "name": "Lying Leg Curls",
+      "sets": 6,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10sat_e2",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w10sat_e3",
+      "name": "Standing Single-Leg Curl Machine",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10sat_e4",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 120,
+      "notes": "Feet high and wide on the platform"
+     },
+     {
+      "id": "jc12_w10sat_e5",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10sat_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10sat_e7",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10sat_e9",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10sat_e10",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w10sat_e11",
+      "name": "Lying Leg Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 70,
+    "week": 10,
+    "title": "Week 10 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 71,
+    "week": 11,
+    "title": "Week 11 · Mon: Shoulders, Triceps & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "jc12_w11mon_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11mon_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w11mon_e3",
+      "name": "Cable Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11mon_e4",
+      "name": "Barbell Front Raises",
+      "sets": 2,
+      "reps": "8-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11mon_e5",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11mon_e6",
+      "name": "Overhead Cable Rope Extension",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11mon_e7",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11mon_e8",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w11mon_e9",
+      "name": "Standing French Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11mon_e10",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11mon_e11",
+      "name": "Triceps Dips",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w11mon_e12",
+      "name": "Shrugs",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11mon_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11mon_e14",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11mon_e15",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11mon_e16",
+      "name": "Lying Leg Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 72,
+    "week": 11,
+    "title": "Week 11 · Tue: Back",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "jc12_w11tue_e1",
+      "name": "Wide-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w11tue_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w11tue_e3",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w11tue_e4",
+      "name": "Barbell Deadlift",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w11tue_e5",
+      "name": "T-Bar Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120,
+      "notes": "Close grip"
+     },
+     {
+      "id": "jc12_w11tue_e6",
+      "name": "Behind-the-Neck Pulldown",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w11tue_e7",
+      "name": "Seated Cable Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w11tue_e8",
+      "name": "Hyperextensions",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 73,
+    "week": 11,
+    "title": "Week 11 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 74,
+    "week": 11,
+    "title": "Week 11 · Thu: Chest, Biceps, Forearms & Abs",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "jc12_w11thu_e1",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w11thu_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w11thu_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11thu_e4",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11thu_e5",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w11thu_e6",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11thu_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11thu_e8",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60,
+      "notes": "One arm at a time"
+     },
+     {
+      "id": "jc12_w11thu_e9",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11thu_e10",
+      "name": "Reverse Curls",
+      "sets": 6,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11thu_e11",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11thu_e12",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11thu_e13",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11thu_e14",
+      "name": "Lying Leg Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 75,
+    "week": 11,
+    "title": "Week 11 · Fri: Quads",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "jc12_w11fri_e1",
+      "name": "Leg Extensions (Light)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11fri_e2",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w11fri_e3",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w11fri_e4",
+      "name": "Forward Lunges",
+      "sets": 3,
+      "reps": "8/leg",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w11fri_e5",
+      "name": "Leg Extensions (Heavy)",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 76,
+    "week": 11,
+    "title": "Week 11 · Sat: Hamstrings, Calves & Abs",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "jc12_w11sat_e1",
+      "name": "Lying Leg Curls",
+      "sets": 6,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11sat_e2",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w11sat_e3",
+      "name": "Standing Single-Leg Curl Machine",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11sat_e4",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 120,
+      "notes": "Feet high and wide on the platform"
+     },
+     {
+      "id": "jc12_w11sat_e5",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11sat_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11sat_e7",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11sat_e9",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11sat_e10",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w11sat_e11",
+      "name": "Lying Leg Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 77,
+    "week": 11,
+    "title": "Week 11 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 78,
+    "week": 12,
+    "title": "Week 12 · Mon: Shoulders, Triceps & Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "jc12_w12mon_e1",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12mon_e2",
+      "name": "Seated Dumbbell Shoulder Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w12mon_e3",
+      "name": "Cable Lateral Raises",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12mon_e4",
+      "name": "Barbell Front Raises",
+      "sets": 2,
+      "reps": "8-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12mon_e5",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12mon_e6",
+      "name": "Overhead Cable Rope Extension",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12mon_e7",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12mon_e8",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w12mon_e9",
+      "name": "Standing French Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12mon_e10",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12mon_e11",
+      "name": "Triceps Dips",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w12mon_e12",
+      "name": "Shrugs",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12mon_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12mon_e14",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12mon_e15",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12mon_e16",
+      "name": "Lying Leg Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 79,
+    "week": 12,
+    "title": "Week 12 · Tue: Back",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "jc12_w12tue_e1",
+      "name": "Wide-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w12tue_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w12tue_e3",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w12tue_e4",
+      "name": "Barbell Deadlift",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w12tue_e5",
+      "name": "T-Bar Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120,
+      "notes": "Close grip"
+     },
+     {
+      "id": "jc12_w12tue_e6",
+      "name": "Behind-the-Neck Pulldown",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w12tue_e7",
+      "name": "Seated Cable Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w12tue_e8",
+      "name": "Hyperextensions",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 80,
+    "week": 12,
+    "title": "Week 12 · Wed: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 81,
+    "week": 12,
+    "title": "Week 12 · Thu: Chest, Biceps, Forearms & Abs",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "jc12_w12thu_e1",
+      "name": "Incline Barbell Bench Press",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w12thu_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w12thu_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12thu_e4",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12thu_e5",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w12thu_e6",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12thu_e7",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12thu_e8",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60,
+      "notes": "One arm at a time"
+     },
+     {
+      "id": "jc12_w12thu_e9",
+      "name": "Dumbbell Hammer Curls",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12thu_e10",
+      "name": "Reverse Curls",
+      "sets": 6,
+      "reps": "15",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12thu_e11",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12thu_e12",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12thu_e13",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12thu_e14",
+      "name": "Lying Leg Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 82,
+    "week": 12,
+    "title": "Week 12 · Fri: Quads",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "jc12_w12fri_e1",
+      "name": "Leg Extensions (Light)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12fri_e2",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w12fri_e3",
+      "name": "Barbell Back Squat",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w12fri_e4",
+      "name": "Forward Lunges",
+      "sets": 3,
+      "reps": "8/leg",
+      "restSeconds": 120
+     },
+     {
+      "id": "jc12_w12fri_e5",
+      "name": "Leg Extensions (Heavy)",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 83,
+    "week": 12,
+    "title": "Week 12 · Sat: Hamstrings, Calves & Abs",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "jc12_w12sat_e1",
+      "name": "Lying Leg Curls",
+      "sets": 6,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12sat_e2",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 180
+     },
+     {
+      "id": "jc12_w12sat_e3",
+      "name": "Standing Single-Leg Curl Machine",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12sat_e4",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 120,
+      "notes": "Feet high and wide on the platform"
+     },
+     {
+      "id": "jc12_w12sat_e5",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12sat_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12sat_e7",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12sat_e9",
+      "name": "Cable Crunches (Kneeling)",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12sat_e10",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 60
+     },
+     {
+      "id": "jc12_w12sat_e11",
+      "name": "Lying Leg Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60
+     }
+    ]
+   },
+   {
+    "dayNumber": 84,
+    "week": 12,
+    "title": "Week 12 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "ronnie_coleman_12wk_plan",
+  "title": "Ronnie Coleman 12-Week Training Program",
+  "description": "Ronnie Coleman's 12-week upper/lower program (Thefitnessphantom.com): every muscle twice a week, 6 days on, Sunday off, 75–120 min sessions. Lift heavy, mostly free weights, train to fatigue (not failure). Warm up with a light jog/bike and one light set before each exercise. Ronnie finished 4 workouts a week with crunches.",
+  "tags": [
+   "Ronnie Coleman",
+   "12 Weeks",
+   "6 Days",
+   "Upper/Lower"
+  ],
+  "weeks": 12,
+  "days": [
+   {
+    "dayNumber": 1,
+    "week": 1,
+    "title": "Week 1 · Mon: Back, Biceps & Shoulders (A)",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "rc12_w1mon_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1mon_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1mon_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1mon_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "10/side",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1mon_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1mon_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1mon_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1mon_e8",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1mon_e9",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1mon_e10",
+      "name": "Incline Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1mon_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1mon_e12",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "week": 1,
+    "title": "Week 1 · Tue: Legs & Glutes (A)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "rc12_w1tue_e1",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "20, 15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1tue_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1tue_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Hack squat or leg press"
+     },
+     {
+      "id": "rc12_w1tue_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1tue_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1tue_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "week": 1,
+    "title": "Week 1 · Wed: Chest & Triceps (A)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "rc12_w1wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w1wed_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w1wed_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1wed_e5",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1wed_e6",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1wed_e7",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1wed_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1wed_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "week": 1,
+    "title": "Week 1 · Thu: Back, Biceps & Shoulders (B)",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "rc12_w1thu_e1",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1thu_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1thu_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w1thu_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "10/side",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Front lat pulldown or seated cable row"
+     },
+     {
+      "id": "rc12_w1thu_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1thu_e6",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1thu_e7",
+      "name": "Single-Arm Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1thu_e8",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w1thu_e9",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1thu_e10",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "20, 15, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "dropset",
+      "notes": "Each set = 4 drops of 20, 15, 10 and 8 reps, lowering the weight after each"
+     },
+     {
+      "id": "rc12_w1thu_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1thu_e12",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1thu_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "week": 1,
+    "title": "Week 1 · Fri: Legs & Glutes (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w1fri_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1fri_e2",
+      "name": "Barbell Front Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1fri_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1fri_e4",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1fri_e5",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10/leg",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1fri_e6",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1fri_e7",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "week": 1,
+    "title": "Week 1 · Sat: Chest & Triceps (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w1sat_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1sat_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1sat_e3",
+      "name": "Decline Dumbbell Press",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1sat_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1sat_e5",
+      "name": "Close Grip French Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1sat_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Lying French press / skull crusher"
+     },
+     {
+      "id": "rc12_w1sat_e7",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w1sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "week": 1,
+    "title": "Week 1 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 8,
+    "week": 2,
+    "title": "Week 2 · Mon: Back, Biceps & Shoulders (A)",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "rc12_w2mon_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2mon_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2mon_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2mon_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "10/side",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2mon_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2mon_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2mon_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2mon_e8",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2mon_e9",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2mon_e10",
+      "name": "Incline Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2mon_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2mon_e12",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 9,
+    "week": 2,
+    "title": "Week 2 · Tue: Legs & Glutes (A)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "rc12_w2tue_e1",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "20, 15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2tue_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2tue_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Hack squat or leg press"
+     },
+     {
+      "id": "rc12_w2tue_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2tue_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2tue_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 10,
+    "week": 2,
+    "title": "Week 2 · Wed: Chest & Triceps (A)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "rc12_w2wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w2wed_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w2wed_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2wed_e5",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2wed_e6",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2wed_e7",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2wed_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2wed_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 11,
+    "week": 2,
+    "title": "Week 2 · Thu: Back, Biceps & Shoulders (B)",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "rc12_w2thu_e1",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2thu_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2thu_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w2thu_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "10/side",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Front lat pulldown or seated cable row"
+     },
+     {
+      "id": "rc12_w2thu_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2thu_e6",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2thu_e7",
+      "name": "Single-Arm Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2thu_e8",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w2thu_e9",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2thu_e10",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "20, 15, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "dropset",
+      "notes": "Each set = 4 drops of 20, 15, 10 and 8 reps, lowering the weight after each"
+     },
+     {
+      "id": "rc12_w2thu_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2thu_e12",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2thu_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 12,
+    "week": 2,
+    "title": "Week 2 · Fri: Legs & Glutes (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w2fri_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2fri_e2",
+      "name": "Barbell Front Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2fri_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2fri_e4",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2fri_e5",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10/leg",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2fri_e6",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2fri_e7",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 13,
+    "week": 2,
+    "title": "Week 2 · Sat: Chest & Triceps (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w2sat_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2sat_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2sat_e3",
+      "name": "Decline Dumbbell Press",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2sat_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2sat_e5",
+      "name": "Close Grip French Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2sat_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Lying French press / skull crusher"
+     },
+     {
+      "id": "rc12_w2sat_e7",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w2sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 14,
+    "week": 2,
+    "title": "Week 2 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 15,
+    "week": 3,
+    "title": "Week 3 · Mon: Back, Biceps & Shoulders (A)",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "rc12_w3mon_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3mon_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3mon_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3mon_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "10/side",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3mon_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3mon_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3mon_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3mon_e8",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3mon_e9",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3mon_e10",
+      "name": "Incline Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3mon_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3mon_e12",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 16,
+    "week": 3,
+    "title": "Week 3 · Tue: Legs & Glutes (A)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "rc12_w3tue_e1",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "20, 15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3tue_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3tue_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Hack squat or leg press"
+     },
+     {
+      "id": "rc12_w3tue_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3tue_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3tue_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 17,
+    "week": 3,
+    "title": "Week 3 · Wed: Chest & Triceps (A)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "rc12_w3wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w3wed_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w3wed_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3wed_e5",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3wed_e6",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3wed_e7",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3wed_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3wed_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 18,
+    "week": 3,
+    "title": "Week 3 · Thu: Back, Biceps & Shoulders (B)",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "rc12_w3thu_e1",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3thu_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3thu_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w3thu_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "10/side",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Front lat pulldown or seated cable row"
+     },
+     {
+      "id": "rc12_w3thu_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3thu_e6",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3thu_e7",
+      "name": "Single-Arm Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3thu_e8",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w3thu_e9",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3thu_e10",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "20, 15, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "dropset",
+      "notes": "Each set = 4 drops of 20, 15, 10 and 8 reps, lowering the weight after each"
+     },
+     {
+      "id": "rc12_w3thu_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3thu_e12",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3thu_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 19,
+    "week": 3,
+    "title": "Week 3 · Fri: Legs & Glutes (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w3fri_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3fri_e2",
+      "name": "Barbell Front Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3fri_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3fri_e4",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3fri_e5",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10/leg",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3fri_e6",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3fri_e7",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 20,
+    "week": 3,
+    "title": "Week 3 · Sat: Chest & Triceps (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w3sat_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3sat_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3sat_e3",
+      "name": "Decline Dumbbell Press",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3sat_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3sat_e5",
+      "name": "Close Grip French Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3sat_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Lying French press / skull crusher"
+     },
+     {
+      "id": "rc12_w3sat_e7",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w3sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 21,
+    "week": 3,
+    "title": "Week 3 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 22,
+    "week": 4,
+    "title": "Week 4 · Mon: Back, Biceps & Shoulders (A)",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "rc12_w4mon_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4mon_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4mon_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4mon_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "10/side",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4mon_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4mon_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4mon_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4mon_e8",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4mon_e9",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4mon_e10",
+      "name": "Incline Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4mon_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4mon_e12",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 23,
+    "week": 4,
+    "title": "Week 4 · Tue: Legs & Glutes (A)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "rc12_w4tue_e1",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "20, 15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4tue_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4tue_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Hack squat or leg press"
+     },
+     {
+      "id": "rc12_w4tue_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4tue_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4tue_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 24,
+    "week": 4,
+    "title": "Week 4 · Wed: Chest & Triceps (A)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "rc12_w4wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w4wed_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w4wed_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4wed_e5",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4wed_e6",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4wed_e7",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4wed_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4wed_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 25,
+    "week": 4,
+    "title": "Week 4 · Thu: Back, Biceps & Shoulders (B)",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "rc12_w4thu_e1",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4thu_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4thu_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w4thu_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "10/side",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Front lat pulldown or seated cable row"
+     },
+     {
+      "id": "rc12_w4thu_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4thu_e6",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4thu_e7",
+      "name": "Single-Arm Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4thu_e8",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w4thu_e9",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4thu_e10",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "20, 15, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "dropset",
+      "notes": "Each set = 4 drops of 20, 15, 10 and 8 reps, lowering the weight after each"
+     },
+     {
+      "id": "rc12_w4thu_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4thu_e12",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4thu_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 26,
+    "week": 4,
+    "title": "Week 4 · Fri: Legs & Glutes (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w4fri_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4fri_e2",
+      "name": "Barbell Front Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4fri_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4fri_e4",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4fri_e5",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10/leg",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4fri_e6",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4fri_e7",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 27,
+    "week": 4,
+    "title": "Week 4 · Sat: Chest & Triceps (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w4sat_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4sat_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4sat_e3",
+      "name": "Decline Dumbbell Press",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4sat_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4sat_e5",
+      "name": "Close Grip French Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4sat_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Lying French press / skull crusher"
+     },
+     {
+      "id": "rc12_w4sat_e7",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w4sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 28,
+    "week": 4,
+    "title": "Week 4 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 29,
+    "week": 5,
+    "title": "Week 5 · Mon: Back, Biceps & Shoulders (A)",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "rc12_w5mon_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5mon_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5mon_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5mon_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "10/side",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5mon_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5mon_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5mon_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5mon_e8",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5mon_e9",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5mon_e10",
+      "name": "Incline Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5mon_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5mon_e12",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 30,
+    "week": 5,
+    "title": "Week 5 · Tue: Legs & Glutes (A)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "rc12_w5tue_e1",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "20, 15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5tue_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5tue_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Hack squat or leg press"
+     },
+     {
+      "id": "rc12_w5tue_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5tue_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5tue_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 31,
+    "week": 5,
+    "title": "Week 5 · Wed: Chest & Triceps (A)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "rc12_w5wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w5wed_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w5wed_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5wed_e5",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5wed_e6",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5wed_e7",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5wed_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5wed_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 32,
+    "week": 5,
+    "title": "Week 5 · Thu: Back, Biceps & Shoulders (B)",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "rc12_w5thu_e1",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5thu_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5thu_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w5thu_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "10/side",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Front lat pulldown or seated cable row"
+     },
+     {
+      "id": "rc12_w5thu_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5thu_e6",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5thu_e7",
+      "name": "Single-Arm Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5thu_e8",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w5thu_e9",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5thu_e10",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "20, 15, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "dropset",
+      "notes": "Each set = 4 drops of 20, 15, 10 and 8 reps, lowering the weight after each"
+     },
+     {
+      "id": "rc12_w5thu_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5thu_e12",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5thu_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 33,
+    "week": 5,
+    "title": "Week 5 · Fri: Legs & Glutes (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w5fri_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5fri_e2",
+      "name": "Barbell Front Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5fri_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5fri_e4",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5fri_e5",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10/leg",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5fri_e6",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5fri_e7",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 34,
+    "week": 5,
+    "title": "Week 5 · Sat: Chest & Triceps (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w5sat_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5sat_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5sat_e3",
+      "name": "Decline Dumbbell Press",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5sat_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5sat_e5",
+      "name": "Close Grip French Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5sat_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Lying French press / skull crusher"
+     },
+     {
+      "id": "rc12_w5sat_e7",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w5sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 35,
+    "week": 5,
+    "title": "Week 5 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 36,
+    "week": 6,
+    "title": "Week 6 · Mon: Back, Biceps & Shoulders (A)",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "rc12_w6mon_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6mon_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6mon_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6mon_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "10/side",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6mon_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6mon_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6mon_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6mon_e8",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6mon_e9",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6mon_e10",
+      "name": "Incline Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6mon_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6mon_e12",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 37,
+    "week": 6,
+    "title": "Week 6 · Tue: Legs & Glutes (A)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "rc12_w6tue_e1",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "20, 15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6tue_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6tue_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Hack squat or leg press"
+     },
+     {
+      "id": "rc12_w6tue_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6tue_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6tue_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 38,
+    "week": 6,
+    "title": "Week 6 · Wed: Chest & Triceps (A)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "rc12_w6wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w6wed_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w6wed_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6wed_e5",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6wed_e6",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6wed_e7",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6wed_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6wed_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 39,
+    "week": 6,
+    "title": "Week 6 · Thu: Back, Biceps & Shoulders (B)",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "rc12_w6thu_e1",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6thu_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6thu_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w6thu_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "10/side",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Front lat pulldown or seated cable row"
+     },
+     {
+      "id": "rc12_w6thu_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6thu_e6",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6thu_e7",
+      "name": "Single-Arm Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6thu_e8",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w6thu_e9",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6thu_e10",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "20, 15, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "dropset",
+      "notes": "Each set = 4 drops of 20, 15, 10 and 8 reps, lowering the weight after each"
+     },
+     {
+      "id": "rc12_w6thu_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6thu_e12",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6thu_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 40,
+    "week": 6,
+    "title": "Week 6 · Fri: Legs & Glutes (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w6fri_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6fri_e2",
+      "name": "Barbell Front Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6fri_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6fri_e4",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6fri_e5",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10/leg",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6fri_e6",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6fri_e7",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 41,
+    "week": 6,
+    "title": "Week 6 · Sat: Chest & Triceps (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w6sat_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6sat_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6sat_e3",
+      "name": "Decline Dumbbell Press",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6sat_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6sat_e5",
+      "name": "Close Grip French Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6sat_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Lying French press / skull crusher"
+     },
+     {
+      "id": "rc12_w6sat_e7",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w6sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 42,
+    "week": 6,
+    "title": "Week 6 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 43,
+    "week": 7,
+    "title": "Week 7 · Mon: Back, Biceps & Shoulders (A)",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "rc12_w7mon_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7mon_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7mon_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7mon_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "10/side",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7mon_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7mon_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7mon_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7mon_e8",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7mon_e9",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7mon_e10",
+      "name": "Incline Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7mon_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7mon_e12",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 44,
+    "week": 7,
+    "title": "Week 7 · Tue: Legs & Glutes (A)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "rc12_w7tue_e1",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "20, 15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7tue_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7tue_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Hack squat or leg press"
+     },
+     {
+      "id": "rc12_w7tue_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7tue_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7tue_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 45,
+    "week": 7,
+    "title": "Week 7 · Wed: Chest & Triceps (A)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "rc12_w7wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w7wed_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w7wed_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7wed_e5",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7wed_e6",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7wed_e7",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7wed_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7wed_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 46,
+    "week": 7,
+    "title": "Week 7 · Thu: Back, Biceps & Shoulders (B)",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "rc12_w7thu_e1",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7thu_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7thu_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w7thu_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "10/side",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Front lat pulldown or seated cable row"
+     },
+     {
+      "id": "rc12_w7thu_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7thu_e6",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7thu_e7",
+      "name": "Single-Arm Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7thu_e8",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w7thu_e9",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7thu_e10",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "20, 15, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "dropset",
+      "notes": "Each set = 4 drops of 20, 15, 10 and 8 reps, lowering the weight after each"
+     },
+     {
+      "id": "rc12_w7thu_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7thu_e12",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7thu_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 47,
+    "week": 7,
+    "title": "Week 7 · Fri: Legs & Glutes (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w7fri_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7fri_e2",
+      "name": "Barbell Front Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7fri_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7fri_e4",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7fri_e5",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10/leg",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7fri_e6",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7fri_e7",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 48,
+    "week": 7,
+    "title": "Week 7 · Sat: Chest & Triceps (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w7sat_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7sat_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7sat_e3",
+      "name": "Decline Dumbbell Press",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7sat_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7sat_e5",
+      "name": "Close Grip French Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7sat_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Lying French press / skull crusher"
+     },
+     {
+      "id": "rc12_w7sat_e7",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w7sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 49,
+    "week": 7,
+    "title": "Week 7 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 50,
+    "week": 8,
+    "title": "Week 8 · Mon: Back, Biceps & Shoulders (A)",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "rc12_w8mon_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8mon_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8mon_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8mon_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "10/side",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8mon_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8mon_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8mon_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8mon_e8",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8mon_e9",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8mon_e10",
+      "name": "Incline Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8mon_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8mon_e12",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 51,
+    "week": 8,
+    "title": "Week 8 · Tue: Legs & Glutes (A)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "rc12_w8tue_e1",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "20, 15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8tue_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8tue_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Hack squat or leg press"
+     },
+     {
+      "id": "rc12_w8tue_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8tue_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8tue_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 52,
+    "week": 8,
+    "title": "Week 8 · Wed: Chest & Triceps (A)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "rc12_w8wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w8wed_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w8wed_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8wed_e5",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8wed_e6",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8wed_e7",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8wed_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8wed_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 53,
+    "week": 8,
+    "title": "Week 8 · Thu: Back, Biceps & Shoulders (B)",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "rc12_w8thu_e1",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8thu_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8thu_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w8thu_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "10/side",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Front lat pulldown or seated cable row"
+     },
+     {
+      "id": "rc12_w8thu_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8thu_e6",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8thu_e7",
+      "name": "Single-Arm Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8thu_e8",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w8thu_e9",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8thu_e10",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "20, 15, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "dropset",
+      "notes": "Each set = 4 drops of 20, 15, 10 and 8 reps, lowering the weight after each"
+     },
+     {
+      "id": "rc12_w8thu_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8thu_e12",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8thu_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 54,
+    "week": 8,
+    "title": "Week 8 · Fri: Legs & Glutes (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w8fri_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8fri_e2",
+      "name": "Barbell Front Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8fri_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8fri_e4",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8fri_e5",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10/leg",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8fri_e6",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8fri_e7",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 55,
+    "week": 8,
+    "title": "Week 8 · Sat: Chest & Triceps (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w8sat_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8sat_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8sat_e3",
+      "name": "Decline Dumbbell Press",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8sat_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8sat_e5",
+      "name": "Close Grip French Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8sat_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Lying French press / skull crusher"
+     },
+     {
+      "id": "rc12_w8sat_e7",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w8sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 56,
+    "week": 8,
+    "title": "Week 8 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 57,
+    "week": 9,
+    "title": "Week 9 · Mon: Back, Biceps & Shoulders (A)",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "rc12_w9mon_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9mon_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9mon_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9mon_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "10/side",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9mon_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9mon_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9mon_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9mon_e8",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9mon_e9",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9mon_e10",
+      "name": "Incline Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9mon_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9mon_e12",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 58,
+    "week": 9,
+    "title": "Week 9 · Tue: Legs & Glutes (A)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "rc12_w9tue_e1",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "20, 15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9tue_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9tue_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Hack squat or leg press"
+     },
+     {
+      "id": "rc12_w9tue_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9tue_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9tue_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 59,
+    "week": 9,
+    "title": "Week 9 · Wed: Chest & Triceps (A)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "rc12_w9wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w9wed_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w9wed_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9wed_e5",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9wed_e6",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9wed_e7",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9wed_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9wed_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 60,
+    "week": 9,
+    "title": "Week 9 · Thu: Back, Biceps & Shoulders (B)",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "rc12_w9thu_e1",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9thu_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9thu_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w9thu_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "10/side",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Front lat pulldown or seated cable row"
+     },
+     {
+      "id": "rc12_w9thu_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9thu_e6",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9thu_e7",
+      "name": "Single-Arm Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9thu_e8",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w9thu_e9",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9thu_e10",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "20, 15, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "dropset",
+      "notes": "Each set = 4 drops of 20, 15, 10 and 8 reps, lowering the weight after each"
+     },
+     {
+      "id": "rc12_w9thu_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9thu_e12",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9thu_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 61,
+    "week": 9,
+    "title": "Week 9 · Fri: Legs & Glutes (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w9fri_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9fri_e2",
+      "name": "Barbell Front Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9fri_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9fri_e4",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9fri_e5",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10/leg",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9fri_e6",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9fri_e7",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 62,
+    "week": 9,
+    "title": "Week 9 · Sat: Chest & Triceps (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w9sat_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9sat_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9sat_e3",
+      "name": "Decline Dumbbell Press",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9sat_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9sat_e5",
+      "name": "Close Grip French Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9sat_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Lying French press / skull crusher"
+     },
+     {
+      "id": "rc12_w9sat_e7",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w9sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 63,
+    "week": 9,
+    "title": "Week 9 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 64,
+    "week": 10,
+    "title": "Week 10 · Mon: Back, Biceps & Shoulders (A)",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "rc12_w10mon_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10mon_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10mon_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10mon_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "10/side",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10mon_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10mon_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10mon_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10mon_e8",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10mon_e9",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10mon_e10",
+      "name": "Incline Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10mon_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10mon_e12",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 65,
+    "week": 10,
+    "title": "Week 10 · Tue: Legs & Glutes (A)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "rc12_w10tue_e1",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "20, 15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10tue_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10tue_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Hack squat or leg press"
+     },
+     {
+      "id": "rc12_w10tue_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10tue_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10tue_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 66,
+    "week": 10,
+    "title": "Week 10 · Wed: Chest & Triceps (A)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "rc12_w10wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w10wed_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w10wed_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10wed_e5",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10wed_e6",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10wed_e7",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10wed_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10wed_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 67,
+    "week": 10,
+    "title": "Week 10 · Thu: Back, Biceps & Shoulders (B)",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "rc12_w10thu_e1",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10thu_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10thu_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w10thu_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "10/side",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Front lat pulldown or seated cable row"
+     },
+     {
+      "id": "rc12_w10thu_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10thu_e6",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10thu_e7",
+      "name": "Single-Arm Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10thu_e8",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w10thu_e9",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10thu_e10",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "20, 15, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "dropset",
+      "notes": "Each set = 4 drops of 20, 15, 10 and 8 reps, lowering the weight after each"
+     },
+     {
+      "id": "rc12_w10thu_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10thu_e12",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10thu_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 68,
+    "week": 10,
+    "title": "Week 10 · Fri: Legs & Glutes (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w10fri_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10fri_e2",
+      "name": "Barbell Front Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10fri_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10fri_e4",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10fri_e5",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10/leg",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10fri_e6",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10fri_e7",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 69,
+    "week": 10,
+    "title": "Week 10 · Sat: Chest & Triceps (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w10sat_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10sat_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10sat_e3",
+      "name": "Decline Dumbbell Press",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10sat_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10sat_e5",
+      "name": "Close Grip French Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10sat_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Lying French press / skull crusher"
+     },
+     {
+      "id": "rc12_w10sat_e7",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w10sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 70,
+    "week": 10,
+    "title": "Week 10 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 71,
+    "week": 11,
+    "title": "Week 11 · Mon: Back, Biceps & Shoulders (A)",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "rc12_w11mon_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11mon_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11mon_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11mon_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "10/side",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11mon_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11mon_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11mon_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11mon_e8",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11mon_e9",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11mon_e10",
+      "name": "Incline Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11mon_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11mon_e12",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 72,
+    "week": 11,
+    "title": "Week 11 · Tue: Legs & Glutes (A)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "rc12_w11tue_e1",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "20, 15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11tue_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11tue_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Hack squat or leg press"
+     },
+     {
+      "id": "rc12_w11tue_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11tue_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11tue_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 73,
+    "week": 11,
+    "title": "Week 11 · Wed: Chest & Triceps (A)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "rc12_w11wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w11wed_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w11wed_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11wed_e5",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11wed_e6",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11wed_e7",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11wed_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11wed_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 74,
+    "week": 11,
+    "title": "Week 11 · Thu: Back, Biceps & Shoulders (B)",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "rc12_w11thu_e1",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11thu_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11thu_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w11thu_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "10/side",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Front lat pulldown or seated cable row"
+     },
+     {
+      "id": "rc12_w11thu_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11thu_e6",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11thu_e7",
+      "name": "Single-Arm Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11thu_e8",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w11thu_e9",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11thu_e10",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "20, 15, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "dropset",
+      "notes": "Each set = 4 drops of 20, 15, 10 and 8 reps, lowering the weight after each"
+     },
+     {
+      "id": "rc12_w11thu_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11thu_e12",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11thu_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 75,
+    "week": 11,
+    "title": "Week 11 · Fri: Legs & Glutes (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w11fri_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11fri_e2",
+      "name": "Barbell Front Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11fri_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11fri_e4",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11fri_e5",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10/leg",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11fri_e6",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11fri_e7",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 76,
+    "week": 11,
+    "title": "Week 11 · Sat: Chest & Triceps (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w11sat_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11sat_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11sat_e3",
+      "name": "Decline Dumbbell Press",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11sat_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11sat_e5",
+      "name": "Close Grip French Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11sat_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Lying French press / skull crusher"
+     },
+     {
+      "id": "rc12_w11sat_e7",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w11sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 77,
+    "week": 11,
+    "title": "Week 11 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 78,
+    "week": 12,
+    "title": "Week 12 · Mon: Back, Biceps & Shoulders (A)",
+    "estimatedMinutes": 110,
+    "exercises": [
+     {
+      "id": "rc12_w12mon_e1",
+      "name": "Barbell Deadlift",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12mon_e2",
+      "name": "Barbell Bent-Over Rows",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12mon_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12mon_e4",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "10/side",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12mon_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12mon_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12mon_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12mon_e8",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12mon_e9",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12mon_e10",
+      "name": "Incline Lateral Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12mon_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12mon_e12",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 79,
+    "week": 12,
+    "title": "Week 12 · Tue: Legs & Glutes (A)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "rc12_w12tue_e1",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "20, 15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12tue_e2",
+      "name": "Barbell Back Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12tue_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "Hack squat or leg press"
+     },
+     {
+      "id": "rc12_w12tue_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12tue_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "10/leg",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12tue_e6",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 80,
+    "week": 12,
+    "title": "Week 12 · Wed: Chest & Triceps (A)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "rc12_w12wed_e1",
+      "name": "Barbell Bench Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12wed_e2",
+      "name": "Incline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w12wed_e3",
+      "name": "Decline Barbell Bench Press",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w12wed_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12wed_e5",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12wed_e6",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12wed_e7",
+      "name": "Triceps Dips (Parallel Bars)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12wed_e8",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12wed_e9",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 81,
+    "week": 12,
+    "title": "Week 12 · Thu: Back, Biceps & Shoulders (B)",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "rc12_w12thu_e1",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12thu_e2",
+      "name": "Single-Arm Dumbbell Row",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12thu_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w12thu_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "10/side",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Front lat pulldown or seated cable row"
+     },
+     {
+      "id": "rc12_w12thu_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12thu_e6",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12thu_e7",
+      "name": "Single-Arm Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12thu_e8",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+     },
+     {
+      "id": "rc12_w12thu_e9",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12thu_e10",
+      "name": "Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "20, 15, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true,
+      "type": "dropset",
+      "notes": "Each set = 4 drops of 20, 15, 10 and 8 reps, lowering the weight after each"
+     },
+     {
+      "id": "rc12_w12thu_e11",
+      "name": "Dumbbell Front Raises",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12thu_e12",
+      "name": "Dumbbell Reverse Flyes (Rear Delts)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12thu_e13",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 82,
+    "week": 12,
+    "title": "Week 12 · Fri: Legs & Glutes (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w12fri_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12fri_e2",
+      "name": "Barbell Front Squat",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12fri_e3",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12fri_e4",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12fri_e5",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "10/leg",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12fri_e6",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12fri_e7",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "restAuto": true
+     }
+    ]
+   },
+   {
+    "dayNumber": 83,
+    "week": 12,
+    "title": "Week 12 · Sat: Chest & Triceps (B)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "rc12_w12sat_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12sat_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 10, 8, 6",
+      "restSeconds": 150,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12sat_e3",
+      "name": "Decline Dumbbell Press",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12sat_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12sat_e5",
+      "name": "Close Grip French Press",
+      "sets": 4,
+      "reps": "15, 12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12sat_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 105,
+      "restAuto": true,
+      "notes": "Lying French press / skull crusher"
+     },
+     {
+      "id": "rc12_w12sat_e7",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "15, 12, 10",
+      "restSeconds": 75,
+      "restAuto": true
+     },
+     {
+      "id": "rc12_w12sat_e8",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "To fatigue",
+      "restSeconds": 75,
+      "restAuto": true,
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+     }
+    ]
+   },
+   {
+    "dayNumber": 84,
+    "week": 12,
+    "title": "Week 12 · Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
  }
 ];
