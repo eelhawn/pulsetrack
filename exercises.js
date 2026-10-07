@@ -441,5 +441,66 @@ const EXERCISE_DATABASE = [
   { name: "Stairmaster", category: "Cardio" },
   { name: "Elliptical", category: "Cardio" },
   { name: "Stationary Bike", category: "Cardio" },
-  { name: "Rowing Machine", category: "Cardio" }
+  { name: "Rowing Machine", category: "Cardio" },
+
+  // --- ADDED FROM THE PHIL HEATH, LOU FERRIGNO, ARNOLD, DORIAN YATES, MOUNTAIN DOG, JAY CUTLER & RONNIE COLEMAN PROGRAMS ---
+  // Chest
+  { name: "Decline Cable Flyes", category: "Chest" },
+  // Back
+  { name: "Behind-the-Neck Pulldown", category: "Back" },
+  { name: "Close-Grip Chin-Ups", category: "Back" },
+  { name: "Dorian Deadlift", category: "Back" },
+  { name: "Inverted Rows", category: "Back" },
+  // Legs
+  { name: "Barbell Lunges", category: "Legs" },
+  { name: "Smith Machine Front Lunges", category: "Legs" },
+  { name: "Vertical Leg Press", category: "Legs" },
+  // Shoulders
+  { name: "Barbell Clean and Press", category: "Shoulders" },
+  { name: "Incline Lateral Raises", category: "Shoulders" },
+  { name: "Machine Lying Rear-Delt Raise", category: "Shoulders" },
+  { name: "Prone Dumbbell Y-Raises", category: "Shoulders" },
+  { name: "Scott Press", category: "Shoulders" },
+  // Biceps
+  { name: "Machine Incline Curl", category: "Biceps" },
+  // Triceps
+  { name: "Barbell French Press", category: "Triceps" },
+  { name: "Barbell Overhead Triceps Extension", category: "Triceps" },
+  { name: "Close Grip French Press", category: "Triceps" },
+  { name: "Crucifix Extension", category: "Triceps" },
+  { name: "Dumbbell Kick Outs", category: "Triceps" },
+  { name: "Incline Two-Dumbbell Extension", category: "Triceps" },
+  { name: "Lying French Press", category: "Triceps" },
+  { name: "Standing French Press", category: "Triceps" },
+  // Forearms
+  { name: "Reverse Preacher Curls", category: "Forearms" },
+  // Core
+  { name: "Bench Leg Raises", category: "Core" },
+  { name: "Bent-Over Twists", category: "Core" },
+  { name: "Broomstick Twists", category: "Core" },
+  { name: "Oblique Crunches", category: "Core" },
+  { name: "Reverse Crunches", category: "Core" },
+  { name: "Roman Chair Sit-Ups", category: "Core" },
+  { name: "Seated Twists", category: "Core" },
+  { name: "Side Bend Crunches", category: "Core" },
+  { name: "Side Knee Raises", category: "Core" },
+  { name: "Supported Knee Raises", category: "Core" },
+  { name: "Tuck-Up Crunches", category: "Core" },
+  { name: "Vertical Bench Crunches", category: "Core" },
+  // Warm-Up & Mobility
+  { name: "Banded Pull-Aparts", category: "Warm-Up & Mobility" },
+  { name: "Bodyweight Warm-Up Exercises", category: "Warm-Up & Mobility" },
+  { name: "Dive Bomber Push-Ups", category: "Warm-Up & Mobility" },
+  { name: "Front and Lateral Leg Swings", category: "Warm-Up & Mobility" },
+  { name: "Inchworms", category: "Warm-Up & Mobility" },
+  { name: "Isometric Lateral Lunges", category: "Warm-Up & Mobility" },
+  { name: "Low Lunge Hold", category: "Warm-Up & Mobility" },
+  { name: "Lying Crossover Stretch", category: "Warm-Up & Mobility" },
+  { name: "Lying Hip Twist", category: "Warm-Up & Mobility" },
+  { name: "One-Arm Dumbbell Lateral External Rotation", category: "Warm-Up & Mobility" },
+  { name: "One-Arm Dumbbell Upright External Rotation", category: "Warm-Up & Mobility" },
+  { name: "Prone Around The World", category: "Warm-Up & Mobility" },
+  { name: "Prone IYT Raises", category: "Warm-Up & Mobility" },
+  { name: "Seated Forward Toe Reach", category: "Warm-Up & Mobility" },
+  { name: "Upper Body Foam Rolling", category: "Warm-Up & Mobility" }
 ];
