@@ -341,8 +341,15 @@
     <!-- Screen 2: Days View -->
     <section id="view-days" class="view-transition hidden space-y-4">
       <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
-        <h2 id="days-view-program-title" class="text-lg font-bold text-white">Program Name</h2>
-        <p id="days-view-program-desc" class="text-xs text-zinc-400 mt-1 leading-relaxed">Detailed split description.</p>
+        <div class="flex items-start justify-between gap-3">
+          <div class="min-w-0">
+            <h2 id="days-view-program-title" class="text-lg font-bold text-white">Program Name</h2>
+            <p id="days-view-program-desc" class="text-xs text-zinc-400 mt-1 leading-relaxed">Detailed split description.</p>
+          </div>
+          <button id="btn-reset-program" class="shrink-0 text-xs px-2.5 py-1.5 rounded-lg bg-zinc-800 text-zinc-300 border border-zinc-700/60 tap-active whitespace-nowrap">
+            Reset All Days
+          </button>
+        </div>
       </div>
       <div class="flex items-center justify-between pb-1">
         <h3 class="text-xs uppercase tracking-wider font-semibold text-zinc-400">Routine Split Calendar</h3>
@@ -586,7 +593,7 @@
     </div>
   </div>
 
-  <!-- Data Management Modal (Import / Export JSON & Settings) -->
+  <!-- Settings Modal -->
   <div id="modal-settings" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
     <div class="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-t-2xl sm:rounded-2xl p-5 space-y-4 max-h-[90vh] overflow-y-auto flex flex-col">
       <div class="flex items-center justify-between">
@@ -631,20 +638,19 @@
         </label>
       </div>
 
-      <div class="flex-grow flex flex-col space-y-1">
-        <label for="json-schema-editor" class="text-[11px] font-semibold text-zinc-400 uppercase tracking-wider">Raw JSON Database / Append Program</label>
-        <textarea id="json-schema-editor" class="w-full h-44 bg-zinc-950 border border-zinc-800 rounded-lg p-3 font-mono text-xs text-zinc-300 focus:outline-none focus:border-emerald-500 hide-scrollbar" spellcheck="false" placeholder="Paste full database or single program JSON here..."></textarea>
+      <!-- Sound Effects -->
+      <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 flex items-center justify-between">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Sound Effects</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Beeps and chimes for set completion, rest timer and Tabata. Vibration is not affected.</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" id="setting-toggle-sound" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+        </label>
       </div>
 
       <div class="flex flex-col space-y-2 pt-1">
-        <div class="flex space-x-2">
-          <button id="btn-save-json" class="flex-1 py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl tap-active">
-            Save / Append to Storage
-          </button>
-          <button id="btn-copy-json" class="px-4 py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-200 font-semibold text-xs rounded-xl tap-active">
-            Copy JSON
-          </button>
-        </div>
         <button id="btn-reset-defaults" class="w-full py-2.5 bg-rose-950/40 hover:bg-rose-900/50 border border-rose-800/40 text-rose-300 font-medium text-xs rounded-xl tap-active">
           Reset to Factory Defaults
         </button>
@@ -885,6 +891,7 @@
     class SoundEngine {
       constructor() {
         this.ctx = null;
+        this.enabled = true;
       }
 
       init() {
@@ -904,6 +911,7 @@
       }
 
       playTone(freq, type, duration, gainLevel = 0.15) {
+        if (!this.enabled) return;
         try {
           this.init();
           const osc = this.ctx.createOscillator();
@@ -1247,6 +1255,7 @@
         this.data = WorkoutStorage.seedBuiltins(WorkoutStorage.getData());
         this.logs = WorkoutStorage.getLogs();
         this.settings = WorkoutStorage.getSettings();
+        sound.enabled = this.settings.sound !== false;
         this.history = WorkoutStorage.getHistory();
         this.prs = WorkoutStorage.getPRs();
         this.lastPerf = WorkoutStorage.getLastPerf();
@@ -1301,7 +1310,6 @@
           exercisesList: document.getElementById("exercises-list-container"),
           programCountLabel: document.getElementById("program-count-label"),
           modalSettings: document.getElementById("modal-settings"),
-          jsonEditor: document.getElementById("json-schema-editor"),
           toggleLogger: document.getElementById("setting-toggle-logger"),
           daysProgramTitle: document.getElementById("days-view-program-title"),
           daysProgramDesc: document.getElementById("days-view-program-desc"),
@@ -1398,10 +1406,9 @@
 
         document.getElementById("btn-open-settings").addEventListener("click", () => this.openSettings());
         document.getElementById("btn-close-settings").addEventListener("click", () => this.closeSettings());
-        document.getElementById("btn-save-json").addEventListener("click", () => this.saveJsonFromModal());
-        document.getElementById("btn-copy-json").addEventListener("click", () => this.copyJsonToClipboard());
         document.getElementById("btn-reset-defaults").addEventListener("click", () => this.resetDefaults());
         document.getElementById("btn-reset-day-progress").addEventListener("click", () => this.resetActiveDayLogs());
+        document.getElementById("btn-reset-program").addEventListener("click", () => this.resetWholeProgram());
 
         this.bindBuilder();
 
@@ -1412,6 +1419,11 @@
             WorkoutStorage.saveSettings(this.settings);
             this.applyTheme();
           });
+        });
+        document.getElementById("setting-toggle-sound").addEventListener("change", (e) => {
+          this.settings.sound = e.target.checked;
+          sound.enabled = e.target.checked;
+          WorkoutStorage.saveSettings(this.settings);
         });
         document.getElementById("setting-toggle-voice").addEventListener("change", (e) => {
           this.settings.voice = e.target.checked;
@@ -2636,7 +2648,10 @@
               this.animating = true;
               const cardEl = this.dom.exercisesList.querySelector(`[data-ex-card="${index}"]`);
               this.animateOut(cardEl, () => {
-                this.activeDay.exercises.splice(index, 1);
+                const removed = this.activeDay.exercises.splice(index, 1)[0];
+                if (removed) {
+                  (this.activeDay.removed = this.activeDay.removed || []).push({ ex: JSON.parse(JSON.stringify(removed)), idx: index });
+                }
                 WorkoutStorage.setData(this.data);
                 this.animating = false;
                 this.renderWorkoutView();
@@ -2715,84 +2730,83 @@
         return `${progId}_d${dayNum}_${exId}_s${setIndex}`;
       }
 
-      resetActiveDayLogs() {
-        if (!confirm("Clear logged sets and restore any swapped exercises to the originals for this day?")) return;
-        const exercisesList = this.activeDay.exercises || [];
-        let restored = false;
-        exercisesList.forEach(ex => {
-          // original name: remembered at swap time, or looked up from the built-in program (covers older swaps)
+      // Put a day back to how it started: un-swap names, bring back deleted exercises.
+      // Returns true if anything changed. Custom exercises you added yourself are kept.
+      restoreDay(prog, day) {
+        let changed = false;
+        day.exercises = day.exercises || [];
+        const bp = (typeof BUILTIN_PROGRAMS !== "undefined" && Array.isArray(BUILTIN_PROGRAMS)) ? BUILTIN_PROGRAMS.find(x => x.id === prog.id) : null;
+        const bd = bp && (bp.days || []).find(d => d.dayNumber === day.dayNumber);
+        const clone = o => JSON.parse(JSON.stringify(o));
+
+        // 1) Built-in programs: re-add any original exercise that is missing (also covers older deletions)
+        if (bd) {
+          const have = new Map(day.exercises.map(e => [e.id, e]));
+          const missing = (bd.exercises || []).filter(be => !have.has(be.id));
+          if (missing.length) {
+            const extras = day.exercises.filter(e => !(bd.exercises || []).some(be => be.id === e.id));
+            day.exercises = (bd.exercises || []).map(be => have.get(be.id) || clone(be)).concat(extras);
+            changed = true;
+          }
+        }
+        // 2) Anything else you deleted (imported / custom programs) comes back at its old position
+        if (Array.isArray(day.removed) && day.removed.length) {
+          day.removed.slice().sort((a, b) => a.idx - b.idx).forEach(r => {
+            if (r && r.ex && !day.exercises.some(e => e.id === r.ex.id)) {
+              day.exercises.splice(Math.min(r.idx, day.exercises.length), 0, clone(r.ex));
+              changed = true;
+            }
+          });
+        }
+        if (day.removed) { delete day.removed; changed = true; }
+        // 3) Swapped exercises go back to the original name
+        day.exercises.forEach(ex => {
           let orig = ex.origName;
-          if (!orig && typeof BUILTIN_PROGRAMS !== "undefined") {
-            const bp = BUILTIN_PROGRAMS.find(x => x.id === this.activeProgram.id);
-            const bd = bp && (bp.days || []).find(d => d.dayNumber === this.activeDay.dayNumber);
-            const be = bd && (bd.exercises || []).find(e => e.id === ex.id);
-            if (be) orig = be.name;
-          }
-          if (orig && ex.name !== orig) { ex.name = orig; restored = true; }
-          delete ex.origName;
-          for (let s = 0; s < (ex.sets || 0); s++) {
-            const key = this.getLogKey(this.activeProgram.id, this.activeDay.dayNumber, ex.id, s);
-            delete this.logs[key];
-          }
+          if (!orig && bd) { const be = (bd.exercises || []).find(e => e.id === ex.id); if (be) orig = be.name; }
+          if (orig && ex.name !== orig) { ex.name = orig; changed = true; }
+          if (ex.origName) { delete ex.origName; changed = true; }
         });
+        return changed;
+      }
+
+      clearDayLogs(prog, day) {
+        (day.exercises || []).forEach(ex => {
+          for (let s = 0; s < (ex.sets || 0); s++) delete this.logs[this.getLogKey(prog.id, day.dayNumber, ex.id, s)];
+        });
+      }
+
+      resetActiveDayLogs() {
+        if (!confirm("Clear logged sets and restore this day's exercises (swapped or deleted ones) to the originals?")) return;
+        const changed = this.restoreDay(this.activeProgram, this.activeDay);
+        this.clearDayLogs(this.activeProgram, this.activeDay);
         WorkoutStorage.saveLogs(this.logs);
-        if (restored) WorkoutStorage.setData(this.data);
+        if (changed) WorkoutStorage.setData(this.data);
         this.renderWorkoutView();
       }
 
+      resetWholeProgram() {
+        if (!this.activeProgram) return;
+        if (!confirm(`Reset ALL days in "${this.activeProgram.title}"? This clears every logged set and restores swapped or deleted exercises. PRs and your calendar history are kept.`)) return;
+        let changed = false;
+        (this.activeProgram.days || []).forEach(day => {
+          if (this.restoreDay(this.activeProgram, day)) changed = true;
+          this.clearDayLogs(this.activeProgram, day);
+        });
+        WorkoutStorage.saveLogs(this.logs);
+        if (changed) WorkoutStorage.setData(this.data);
+        this.renderDaysView();
+      }
+
       openSettings() {
-        this.dom.jsonEditor.value = JSON.stringify(this.data, null, 2);
         this.dom.toggleLogger.checked = this.settings.showLogger !== false;
         document.getElementById("setting-toggle-voice").checked = this.settings.voice !== false;
+        document.getElementById("setting-toggle-sound").checked = this.settings.sound !== false;
         this.applyTheme();
         this.dom.modalSettings.classList.remove("hidden");
       }
 
       closeSettings() {
         this.dom.modalSettings.classList.add("hidden");
-      }
-
-      saveJsonFromModal() {
-        try {
-          const parsed = JSON.parse(this.dom.jsonEditor.value);
-          
-          if (parsed.programs && Array.isArray(parsed.programs)) {
-            this.data = parsed;
-          } 
-          else if (parsed.id && parsed.days) {
-            if (!this.data || !Array.isArray(this.data.programs)) {
-              this.data = { programs: [] };
-            }
-            const existingIndex = this.data.programs.findIndex(p => p.id === parsed.id);
-            if (existingIndex >= 0) {
-              this.data.programs[existingIndex] = parsed;
-            } else {
-              this.data.programs.push(parsed);
-            }
-          } 
-          else if (Array.isArray(parsed)) {
-            this.data = { programs: parsed };
-          } else {
-            alert("Validation failed: Must be a full database or a valid program object.");
-            return;
-          }
-
-          WorkoutStorage.setData(this.data);
-          this.closeSettings();
-          this.showView("home");
-          this.updateDrawerStatus();
-          alert("Program data saved successfully!");
-        } catch (e) {
-          alert("Invalid JSON format: " + e.message);
-        }
-      }
-
-      copyJsonToClipboard() {
-        navigator.clipboard.writeText(this.dom.jsonEditor.value).then(() => {
-          alert("Program JSON copied to clipboard.");
-        }).catch(() => {
-          alert("Clipboard access denied. Please select and copy manually.");
-        });
       }
 
       resetDefaults() {
