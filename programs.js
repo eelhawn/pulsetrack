@@ -6803,7 +6803,7 @@ const BUILTIN_PROGRAMS = [
  },
  {
   "id": "hiit_100s_jim_stoppani_36_workouts_exact",
-  "title": "HIIT 100's: 6-Week Fat Loss Transformation (Exact 36 Workouts)",
+  "title": "HIIT 100's: 6-Week Fat Loss Transformation",
   "description": "Jim Stoppani's complete 6-week, 6-day per week fat loss training program featuring individual exercise listings for all 36 workouts, 10x10 HIIT 100's blocks, drop sets, and progressive rest reduction from 60s down to 0s.",
   "tags": [
    "Jim Stoppani",
@@ -20379,7 +20379,7 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "phil_heath_12wk_plan",
   "title": "Phil Heath 12-Week Workout Plan",
-  "description": "Phil Heath's 12-week mass program (Thefitnessphantom.com). High volume, progressive overload, FST-7 finishers (7 sets, 30–45 s rest) and a dedicated cardio day. 5–6 sessions a week, 90–120 min. Advanced. Weeks 1–4 (Phase 1): lower body, push, pull, delts & traps, cardio & abs. Weeks 5–8 (Phase 2): legs & glutes, chest/delts/triceps, back & biceps, delts & abs, cardio. Weeks 9–12 (Phase 3): lower body, chest, cardio & core, back, arms, shoulders.",
+  "description": "Phil Heath's 12-week mass program. High volume, progressive overload, FST-7 finishers (7 sets, 30–45 s rest) and a dedicated cardio day. 5–6 sessions a week, 90–120 min. Advanced. Weeks 1–4 (Phase 1): lower body, push, pull, delts & traps, cardio & abs. Weeks 5–8 (Phase 2): legs & glutes, chest/delts/triceps, back & biceps, delts & abs, cardio. Weeks 9–12 (Phase 3): lower body, chest, cardio & core, back, arms, shoulders.",
   "tags": [
    "Phil Heath",
    "12 Weeks",
@@ -23640,7 +23640,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w9wed_e2",
@@ -23650,7 +23650,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w9wed_e3",
@@ -23660,7 +23660,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w9wed_e4",
@@ -23670,7 +23670,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w9wed_e5",
@@ -23680,7 +23680,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w9wed_e6",
@@ -23871,7 +23871,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "20, 25, 12, 10",
       "restSeconds": 120,
       "type": "dropset",
-      "notes": "Drop set: 20, 25, 12, 10 reps, going lighter each drop (as written in the PDF)"
+      "notes": "Drop set: 20, 25, 12, 10 reps, going lighter each drop"
      },
      {
       "id": "ph12_w9sat_e4",
@@ -24059,7 +24059,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w10wed_e2",
@@ -24069,7 +24069,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w10wed_e3",
@@ -24079,7 +24079,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w10wed_e4",
@@ -24089,7 +24089,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w10wed_e5",
@@ -24099,7 +24099,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w10wed_e6",
@@ -24290,7 +24290,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "20, 25, 12, 10",
       "restSeconds": 120,
       "type": "dropset",
-      "notes": "Drop set: 20, 25, 12, 10 reps, going lighter each drop (as written in the PDF)"
+      "notes": "Drop set: 20, 25, 12, 10 reps, going lighter each drop"
      },
      {
       "id": "ph12_w10sat_e4",
@@ -24478,7 +24478,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w11wed_e2",
@@ -24488,7 +24488,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w11wed_e3",
@@ -24498,7 +24498,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w11wed_e4",
@@ -24508,7 +24508,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w11wed_e5",
@@ -24518,7 +24518,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w11wed_e6",
@@ -24709,7 +24709,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "20, 25, 12, 10",
       "restSeconds": 120,
       "type": "dropset",
-      "notes": "Drop set: 20, 25, 12, 10 reps, going lighter each drop (as written in the PDF)"
+      "notes": "Drop set: 20, 25, 12, 10 reps, going lighter each drop"
      },
      {
       "id": "ph12_w11sat_e4",
@@ -24897,7 +24897,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w12wed_e2",
@@ -24907,7 +24907,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w12wed_e3",
@@ -24917,7 +24917,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w12wed_e4",
@@ -24927,7 +24927,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w12wed_e5",
@@ -24937,7 +24937,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more (the PDF gives no time for this phase; phases 1–2 used 30–45 min)"
+      "notes": "Pick one or more. No set time for this phase (phases 1–2 used 30–45 min)"
      },
      {
       "id": "ph12_w12wed_e6",
@@ -25128,7 +25128,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "20, 25, 12, 10",
       "restSeconds": 120,
       "type": "dropset",
-      "notes": "Drop set: 20, 25, 12, 10 reps, going lighter each drop (as written in the PDF)"
+      "notes": "Drop set: 20, 25, 12, 10 reps, going lighter each drop"
      },
      {
       "id": "ph12_w12sat_e4",
@@ -25165,7 +25165,7 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "lou_ferrigno_12wk_plan",
   "title": "Lou Ferrigno 12-Week Workout Program",
-  "description": "Lou Ferrigno's 12-week strength & mass program (Thefitnessphantom.com). Warm up 10–15 min first. Rest 2–3 min on compound lifts, 1–2 min on isolation. Use forced reps at the end of each exercise; avoid failure on the first sets. 6 days a week, 60–90 min. Weeks 1–6: one muscle group per day (chest, back, legs, shoulders, arms, abs). Weeks 7–12: every muscle twice a week (chest & back, delts & arms, quads & hamstrings, repeated).",
+  "description": "Lou Ferrigno's 12-week strength & mass program. Warm up 10–15 min first. Rest 2–3 min on compound lifts, 1–2 min on isolation. Use forced reps at the end of each exercise; avoid failure on the first sets. 6 days a week, 60–90 min. Weeks 1–6: one muscle group per day (chest, back, legs, shoulders, arms, abs). Weeks 7–12: every muscle twice a week (chest & back, delts & arms, quads & hamstrings, repeated).",
   "tags": [
    "Lou Ferrigno",
    "12 Weeks",
@@ -29289,7 +29289,7 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "arnold_12wk_plan",
   "title": "Arnold Schwarzenegger 12-Week Workout Plan",
-  "description": "Arnold Schwarzenegger's training (The New Encyclopedia of Modern Bodybuilding, via Thefitnessphantom.com) as a 12-week progression through his four routines, from simplest to hardest. Warm up with dynamic moves and do one light set before each exercise. Weeks 1–3: muscle group split (one muscle a day). Weeks 4–6: each muscle twice a week. Weeks 7–9: hybrid split, each muscle three times a week. Weeks 10–12: twice-a-day training (morning + evening on Mon/Wed/Fri). The PDF doesn't give a length for each routine, so they run 3 weeks each.",
+  "description": "Arnold Schwarzenegger's training as a 12-week progression through his four routines, from simplest to hardest. Warm up with dynamic moves and do one light set before each exercise. Weeks 1–3: muscle group split (one muscle a day). Weeks 4–6: each muscle twice a week. Weeks 7–9: hybrid split, each muscle three times a week. Weeks 10–12: twice-a-day training (morning + evening on Mon/Wed/Fri). Each routine runs 3 weeks.",
   "tags": [
    "Arnold",
    "12 Weeks",
@@ -29543,7 +29543,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8, 6",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 4 sets but 5 rep targets (15, 12, 10, 8, 6) — add a set with “+ Set” if you want them all"
+      "notes": "4 sets, 5 rep targets (15, 12, 10, 8, 6): add a set with “+ Set” to do them all"
      },
      {
       "id": "as12_w1fri_e4",
@@ -29927,7 +29927,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8, 6",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 4 sets but 5 rep targets (15, 12, 10, 8, 6) — add a set with “+ Set” if you want them all"
+      "notes": "4 sets, 5 rep targets (15, 12, 10, 8, 6): add a set with “+ Set” to do them all"
      },
      {
       "id": "as12_w2fri_e4",
@@ -30311,7 +30311,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8, 6",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 4 sets but 5 rep targets (15, 12, 10, 8, 6) — add a set with “+ Set” if you want them all"
+      "notes": "4 sets, 5 rep targets (15, 12, 10, 8, 6): add a set with “+ Set” to do them all"
      },
      {
       "id": "as12_w3fri_e4",
@@ -36863,7 +36863,7 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "dorian_yates_12wk_plan",
   "title": "Dorian Yates Blood & Guts 12-Week Program",
-  "description": "Dorian Yates' Blood & Guts high-intensity training (Thefitnessphantom.com): each day starts with its own warm-up, then 1–2 warm-up sets and ONE all-out set near failure per exercise, with focused negatives and partial reps. Rest 1–2 min between sets. 4 days a week (Mon delts/traps/triceps/abs, Tue back & rear delts, Thu chest & biceps, Fri legs), 60–90 min, for 12 weeks. Intermediate to advanced.",
+  "description": "Dorian Yates' Blood & Guts high-intensity training: each day starts with its own warm-up, then 1–2 warm-up sets and ONE all-out set near failure per exercise, with focused negatives and partial reps. Rest 1–2 min between sets. 4 days a week (Mon delts/traps/triceps/abs, Tue back & rear delts, Thu chest & biceps, Fri legs), 60–90 min, for 12 weeks. Intermediate to advanced.",
   "tags": [
    "Dorian Yates",
    "12 Weeks",
@@ -42757,7 +42757,7 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "mountain_dog_12wk_plan",
   "title": "Mountain Dog 200-Rep 12-Week Program (John Meadows)",
-  "description": "John Meadows' Mountain Dog 200-rep workout (Thefitnessphantom.com): four exercises a day, 2 sets of 25 reps each = 200 reps. Mon back, Tue legs, Wed chest, Thu biceps, Fri shoulders, Sat triceps, Sun off. The PDF gives one week; it repeats here for 12 weeks.",
+  "description": "John Meadows' Mountain Dog 200-rep workout: four exercises a day, 2 sets of 25 reps each = 200 reps. Mon back, Tue legs, Wed chest, Thu biceps, Fri shoulders, Sat triceps, Sun off. It's one week of training that repeats for 12 weeks.",
   "tags": [
    "John Meadows",
    "12 Weeks",
@@ -42796,7 +42796,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      },
      {
       "id": "md12_w1mon_e4",
@@ -42805,7 +42805,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      }
     ]
    },
@@ -42877,8 +42877,7 @@ const BUILTIN_PROGRAMS = [
       "sets": 2,
       "reps": "25",
       "restSeconds": 105,
-      "restAuto": true,
-      "notes": "The PDF says 25/leg — 25 reps"
+      "restAuto": true
      },
      {
       "id": "md12_w1wed_e4",
@@ -43050,7 +43049,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      },
      {
       "id": "md12_w2mon_e4",
@@ -43059,7 +43058,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      }
     ]
    },
@@ -43131,8 +43130,7 @@ const BUILTIN_PROGRAMS = [
       "sets": 2,
       "reps": "25",
       "restSeconds": 105,
-      "restAuto": true,
-      "notes": "The PDF says 25/leg — 25 reps"
+      "restAuto": true
      },
      {
       "id": "md12_w2wed_e4",
@@ -43304,7 +43302,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      },
      {
       "id": "md12_w3mon_e4",
@@ -43313,7 +43311,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      }
     ]
    },
@@ -43385,8 +43383,7 @@ const BUILTIN_PROGRAMS = [
       "sets": 2,
       "reps": "25",
       "restSeconds": 105,
-      "restAuto": true,
-      "notes": "The PDF says 25/leg — 25 reps"
+      "restAuto": true
      },
      {
       "id": "md12_w3wed_e4",
@@ -43558,7 +43555,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      },
      {
       "id": "md12_w4mon_e4",
@@ -43567,7 +43564,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      }
     ]
    },
@@ -43639,8 +43636,7 @@ const BUILTIN_PROGRAMS = [
       "sets": 2,
       "reps": "25",
       "restSeconds": 105,
-      "restAuto": true,
-      "notes": "The PDF says 25/leg — 25 reps"
+      "restAuto": true
      },
      {
       "id": "md12_w4wed_e4",
@@ -43812,7 +43808,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      },
      {
       "id": "md12_w5mon_e4",
@@ -43821,7 +43817,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      }
     ]
    },
@@ -43893,8 +43889,7 @@ const BUILTIN_PROGRAMS = [
       "sets": 2,
       "reps": "25",
       "restSeconds": 105,
-      "restAuto": true,
-      "notes": "The PDF says 25/leg — 25 reps"
+      "restAuto": true
      },
      {
       "id": "md12_w5wed_e4",
@@ -44066,7 +44061,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      },
      {
       "id": "md12_w6mon_e4",
@@ -44075,7 +44070,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      }
     ]
    },
@@ -44147,8 +44142,7 @@ const BUILTIN_PROGRAMS = [
       "sets": 2,
       "reps": "25",
       "restSeconds": 105,
-      "restAuto": true,
-      "notes": "The PDF says 25/leg — 25 reps"
+      "restAuto": true
      },
      {
       "id": "md12_w6wed_e4",
@@ -44320,7 +44314,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      },
      {
       "id": "md12_w7mon_e4",
@@ -44329,7 +44323,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      }
     ]
    },
@@ -44401,8 +44395,7 @@ const BUILTIN_PROGRAMS = [
       "sets": 2,
       "reps": "25",
       "restSeconds": 105,
-      "restAuto": true,
-      "notes": "The PDF says 25/leg — 25 reps"
+      "restAuto": true
      },
      {
       "id": "md12_w7wed_e4",
@@ -44574,7 +44567,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      },
      {
       "id": "md12_w8mon_e4",
@@ -44583,7 +44576,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      }
     ]
    },
@@ -44655,8 +44648,7 @@ const BUILTIN_PROGRAMS = [
       "sets": 2,
       "reps": "25",
       "restSeconds": 105,
-      "restAuto": true,
-      "notes": "The PDF says 25/leg — 25 reps"
+      "restAuto": true
      },
      {
       "id": "md12_w8wed_e4",
@@ -44828,7 +44820,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      },
      {
       "id": "md12_w9mon_e4",
@@ -44837,7 +44829,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      }
     ]
    },
@@ -44909,8 +44901,7 @@ const BUILTIN_PROGRAMS = [
       "sets": 2,
       "reps": "25",
       "restSeconds": 105,
-      "restAuto": true,
-      "notes": "The PDF says 25/leg — 25 reps"
+      "restAuto": true
      },
      {
       "id": "md12_w9wed_e4",
@@ -45082,7 +45073,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      },
      {
       "id": "md12_w10mon_e4",
@@ -45091,7 +45082,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      }
     ]
    },
@@ -45163,8 +45154,7 @@ const BUILTIN_PROGRAMS = [
       "sets": 2,
       "reps": "25",
       "restSeconds": 105,
-      "restAuto": true,
-      "notes": "The PDF says 25/leg — 25 reps"
+      "restAuto": true
      },
      {
       "id": "md12_w10wed_e4",
@@ -45336,7 +45326,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      },
      {
       "id": "md12_w11mon_e4",
@@ -45345,7 +45335,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      }
     ]
    },
@@ -45417,8 +45407,7 @@ const BUILTIN_PROGRAMS = [
       "sets": 2,
       "reps": "25",
       "restSeconds": 105,
-      "restAuto": true,
-      "notes": "The PDF says 25/leg — 25 reps"
+      "restAuto": true
      },
      {
       "id": "md12_w11wed_e4",
@@ -45590,7 +45579,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      },
      {
       "id": "md12_w12mon_e4",
@@ -45599,7 +45588,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "25",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Listed on back day in the PDF (it's also on triceps day)"
+      "notes": "Also done on triceps day"
      }
     ]
    },
@@ -45671,8 +45660,7 @@ const BUILTIN_PROGRAMS = [
       "sets": 2,
       "reps": "25",
       "restSeconds": 105,
-      "restAuto": true,
-      "notes": "The PDF says 25/leg — 25 reps"
+      "restAuto": true
      },
      {
       "id": "md12_w12wed_e4",
@@ -45819,7 +45807,7 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "jay_cutler_12wk_plan",
   "title": "Jay Cutler 12-Week Training Program",
-  "description": "Inspired by Jay Cutler's training (Thefitnessphantom.com), with his three routines as three 4-week phases, as the PDF suggests. Warm up up to 10 min (3–5 min light jog) and do one light set before each exercise. Rest about 60 s on moderate/isolation work and 2–4 min on heavy strength lifts. Weeks 1–4: muscle group split. Weeks 5–8: Cut Like Cutler — heavy weeks (5, 7) alternate with moderate weeks (6, 8). Weeks 9–12: his 2008 Olympia split.",
+  "description": "Inspired by Jay Cutler's training, with his three routines as three 4-week phases. Warm up up to 10 min (3–5 min light jog) and do one light set before each exercise. Rest about 60 s on moderate/isolation work and 2–4 min on heavy strength lifts. Weeks 1–4: muscle group split. Weeks 5–8: Cut Like Cutler — heavy weeks (5, 7) alternate with moderate weeks (6, 8). Weeks 9–12: his 2008 Olympia split.",
   "tags": [
    "Jay Cutler",
    "12 Weeks",
@@ -50055,7 +50043,7 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "ronnie_coleman_12wk_plan",
   "title": "Ronnie Coleman 12-Week Training Program",
-  "description": "Ronnie Coleman's 12-week upper/lower program (Thefitnessphantom.com): every muscle twice a week, 6 days on, Sunday off, 75–120 min sessions. Lift heavy, mostly free weights, train to fatigue (not failure). Warm up with a light jog/bike and one light set before each exercise. Ronnie finished 4 workouts a week with crunches.",
+  "description": "Ronnie Coleman's 12-week upper/lower program: every muscle twice a week, 6 days on, Sunday off, 75–120 min sessions. Lift heavy, mostly free weights, train to fatigue (not failure). Warm up with a light jog/bike and one light set before each exercise. Ronnie finished 4 workouts a week with crunches.",
   "tags": [
    "Ronnie Coleman",
    "12 Weeks",
@@ -50165,7 +50153,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -50247,7 +50235,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w1wed_e3",
@@ -50256,7 +50244,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w1wed_e4",
@@ -50305,7 +50293,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -50338,7 +50326,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "Wide grip · 3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w1thu_e4",
@@ -50380,7 +50368,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w1thu_e9",
@@ -50423,7 +50411,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -50561,7 +50549,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -50673,7 +50661,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -50755,7 +50743,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w2wed_e3",
@@ -50764,7 +50752,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w2wed_e4",
@@ -50813,7 +50801,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -50846,7 +50834,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "Wide grip · 3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w2thu_e4",
@@ -50888,7 +50876,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w2thu_e9",
@@ -50931,7 +50919,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -51069,7 +51057,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -51181,7 +51169,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -51263,7 +51251,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w3wed_e3",
@@ -51272,7 +51260,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w3wed_e4",
@@ -51321,7 +51309,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -51354,7 +51342,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "Wide grip · 3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w3thu_e4",
@@ -51396,7 +51384,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w3thu_e9",
@@ -51439,7 +51427,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -51577,7 +51565,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -51689,7 +51677,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -51771,7 +51759,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w4wed_e3",
@@ -51780,7 +51768,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w4wed_e4",
@@ -51829,7 +51817,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -51862,7 +51850,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "Wide grip · 3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w4thu_e4",
@@ -51904,7 +51892,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w4thu_e9",
@@ -51947,7 +51935,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -52085,7 +52073,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -52197,7 +52185,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -52279,7 +52267,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w5wed_e3",
@@ -52288,7 +52276,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w5wed_e4",
@@ -52337,7 +52325,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -52370,7 +52358,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "Wide grip · 3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w5thu_e4",
@@ -52412,7 +52400,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w5thu_e9",
@@ -52455,7 +52443,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -52593,7 +52581,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -52705,7 +52693,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -52787,7 +52775,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w6wed_e3",
@@ -52796,7 +52784,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w6wed_e4",
@@ -52845,7 +52833,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -52878,7 +52866,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "Wide grip · 3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w6thu_e4",
@@ -52920,7 +52908,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w6thu_e9",
@@ -52963,7 +52951,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -53101,7 +53089,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -53213,7 +53201,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -53295,7 +53283,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w7wed_e3",
@@ -53304,7 +53292,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w7wed_e4",
@@ -53353,7 +53341,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -53386,7 +53374,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "Wide grip · 3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w7thu_e4",
@@ -53428,7 +53416,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w7thu_e9",
@@ -53471,7 +53459,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -53609,7 +53597,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -53721,7 +53709,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -53803,7 +53791,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w8wed_e3",
@@ -53812,7 +53800,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w8wed_e4",
@@ -53861,7 +53849,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -53894,7 +53882,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "Wide grip · 3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w8thu_e4",
@@ -53936,7 +53924,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w8thu_e9",
@@ -53979,7 +53967,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -54117,7 +54105,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -54229,7 +54217,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -54311,7 +54299,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w9wed_e3",
@@ -54320,7 +54308,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w9wed_e4",
@@ -54369,7 +54357,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -54402,7 +54390,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "Wide grip · 3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w9thu_e4",
@@ -54444,7 +54432,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w9thu_e9",
@@ -54487,7 +54475,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -54625,7 +54613,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -54737,7 +54725,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -54819,7 +54807,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w10wed_e3",
@@ -54828,7 +54816,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w10wed_e4",
@@ -54877,7 +54865,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -54910,7 +54898,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "Wide grip · 3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w10thu_e4",
@@ -54952,7 +54940,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w10thu_e9",
@@ -54995,7 +54983,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -55133,7 +55121,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -55245,7 +55233,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -55327,7 +55315,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w11wed_e3",
@@ -55336,7 +55324,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w11wed_e4",
@@ -55385,7 +55373,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -55418,7 +55406,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "Wide grip · 3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w11thu_e4",
@@ -55460,7 +55448,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w11thu_e9",
@@ -55503,7 +55491,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -55641,7 +55629,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -55753,7 +55741,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -55835,7 +55823,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w12wed_e3",
@@ -55844,7 +55832,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 150,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w12wed_e4",
@@ -55893,7 +55881,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -55926,7 +55914,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 105,
       "restAuto": true,
-      "notes": "Wide grip · The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "Wide grip · 3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w12thu_e4",
@@ -55968,7 +55956,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "15, 12, 10, 8",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "The PDF lists 3 sets but 4 rep targets (15, 12, 10, 8) — add a set with “+ Set” if you want them all"
+      "notes": "3 sets, 4 rep targets (15, 12, 10, 8): add a set with “+ Set” to do them all"
      },
      {
       "id": "rc12_w12thu_e9",
@@ -56011,7 +55999,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
@@ -56149,7 +56137,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "To fatigue",
       "restSeconds": 75,
       "restAuto": true,
-      "notes": "Ronnie did crunches at the end of 4 workouts a week (the PDF gives no sets/reps)"
+      "notes": "Ronnie did crunches at the end of 4 workouts a week (no sets or reps were given, so go to fatigue)"
      }
     ]
    },
