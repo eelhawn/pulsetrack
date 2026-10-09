@@ -3,13 +3,13 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Current version: 2.3.1*
+*Current version: 2.5.0*
 
 ---
 
 ## In one line
 
-PulseTrack is a gym log app you install on your home screen. It has 21 ready-made programs (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath and more), 474 exercises, rest timers, charts, and records, and it works in the gym with zero signal.
+PulseTrack is a gym log app you install on your home screen. It has 21 ready-made programs (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath and more), 474 exercises (plus any you add yourself), rest timers, charts, records, and a 1-rep-max calculator. You can make it look however you like (light or dark, 13 themes, any colour or background, 8 fonts), and it works in the gym with zero signal.
 
 ---
 
@@ -23,7 +23,7 @@ PulseTrack is a gym log app you install on your home screen. It has 21 ready-mad
 6. [Progress and records](#6-progress-and-records)
 7. [Body tracking](#7-body-tracking)
 8. [Backup and sharing](#8-backup-and-sharing)
-9. [Settings](#9-settings)
+9. [Settings and making it yours](#9-settings-and-making-it-yours)
 10. [Works offline](#10-works-offline)
 11. [Good to know](#11-good-to-know)
 12. [Files in this project](#12-files-in-this-project)
@@ -56,11 +56,11 @@ When new files are uploaded to GitHub:
 
 ## 3. Your first workout
 
-1. Open the app. You land on **Home**.
-2. Tap **Programs** and choose one (or start **Freestyle** for a free workout).
+1. Open the app. You land on **Home**. Nothing is picked for you.
+2. Tap **Choose a Program** and pick one (or start **Freestyle** for a free workout). The app remembers your choice until you pick another.
 3. Tap a day. You see every exercise with its sets, reps and rest.
 4. For each set, type your **weight** and **reps**, then tap the check mark.
-5. A rest timer starts by itself.
+5. The rest timer starts by itself the moment you check off a set (you can turn this off in Settings).
 6. Tap **Finish Workout** at the end. You get a summary and the next day lines up as **Up next**.
 
 ---
@@ -116,9 +116,12 @@ When new files are uploaded to GitHub:
 ## 5. While you train
 
 - **Set tags:** mark a set as **R** (regular), **W** (warm-up), **D** (drop set) or **F** (failure).
-- **Smart rest timer:** rest time adapts to the exercise (heavy lifts get longer, small lifts shorter). You can set your own time for any exercise. Sound, vibration and optional voice tell you when rest is over.
+- **Auto rest timer:** check off a set and the countdown starts by itself. It waits during a superset (it only starts after the last exercise of the round), doesn't start after your final set, and uses a short rest after warm-up sets. Turn it off any time in Settings.
+- **Smart rest times:** rest adapts to the exercise (heavy lifts get longer, small lifts shorter). You can set your own time for any exercise. Sound, vibration and optional voice tell you when rest is over.
 - **Previous numbers:** each set shows what you did last time so you know what to beat.
-- **Plate calculator:** tells you which plates to load on each side (includes gym plates).
+- **Plate calculator:** tells you which plates to load on each side (includes gym plates). It is also a tile on Home.
+- **1RM calculator:** see below.
+- **Your own exercises:** see below.
 - **Warm-up generator:** builds warm-up sets for your first lift.
 - **Bodyweight exercises:** pull-ups and dips use your body weight, with a **Weighted / Assisted** switch.
 - **Dumbbells:** enter the weight of **one** dumbbell. The app counts both hands in your volume.
@@ -129,6 +132,22 @@ When new files are uploaded to GitHub:
 - **Notes:** add a note to any exercise or any day.
 - **Screen stays awake** during a workout (if your phone allows it).
 - **Resume:** if you leave the app mid-workout, it picks up where you stopped.
+
+### 1-rep-max (1RM) calculator
+Home → **1RM Calculator**. Type a hard set (for example 225 × 5) and it estimates your one-rep max (262.5). Below that is a **percentage chart from 100% down to 50%**: the weight to lift at each percent and about how many reps that is.
+- **Round to the plates I have** (on by default) rounds every weight to what your bar and plates can really load, using the plates from Settings. Turn it off to see the exact numbers.
+- **Tap any row** to open the plate calculator at that weight.
+- **Or start from one of my records…** fills in a lift you already have a record for.
+- It uses the same Epley formula as your records, so the numbers match everywhere. It also shows two other formulas (Brzycki and Lombardi) for comparison, and warns you that estimates get less accurate above about 12 reps.
+- It remembers your last numbers and follows your kg / lb setting.
+
+### Your own exercises
+Missing a lift? Add it. You can start from three places: the **Create your own exercise** button at the top of the exercise picker (if you search for something that doesn't exist it offers to create it with that name), the **＋ Create your own exercise** button in the Exercise Library, or **My Exercises** on Home.
+- **Pick the main muscle** (14 choices). It then counts toward your weekly muscle volume and lights up on the muscle map like any built-in exercise.
+- **Pick how you log it:** Weight × reps (barbell, machine, cable), Dumbbells (one dumbbell, volume counts both hands), Bodyweight ± weight (pull-ups, dips), Cardio with distance, or Timed (no distance).
+- Your exercise works **everywhere**: workouts, programs, charts, records, history and swaps.
+- **Home → My Exercises** lists them so you can edit or delete one. The name is locked after you create it so your history keeps matching. Deleting asks first.
+- They are saved in your settings, so they are included in backups.
 
 ---
 
@@ -148,13 +167,14 @@ When new files are uploaded to GitHub:
 ## 7. Body tracking
 
 - **Body weight and measurements:** chest, waist, arms, legs and more, with charts.
-- **Progress photos:** stored privately on your phone (not uploaded anywhere).
+- **Progress photos:** stored privately on your phone (not uploaded anywhere). There is no limit on how many you keep.
 
 ---
 
 ## 8. Backup and sharing
 
 - **Backup:** save all your data to a file. **Restore** loads it back on this phone or a new one.
+- **No storage cap:** PulseTrack used to stop at about 5 MB. Now, when the normal space fills up, it keeps going in your phone's large storage, so it keeps saving as long as your phone has room. Settings shows **No size limit**.
 - **CSV export:** download your workout history to open in Excel or Google Sheets.
 - **Share a program** as a link, or **import** one.
 
@@ -162,14 +182,36 @@ When new files are uploaded to GitHub:
 
 ---
 
-## 9. Settings
+## 9. Settings and making it yours
 
-- **Units:** kg or lb. Switching converts your numbers.
-- **Theme:** several colour themes.
+- **Units:** kg or lb. When you switch, a pop-up lets you choose **Convert my saved numbers**, **Only change the labels**, or **Cancel**.
+- **Appearance:** make the app look the way you want (details below).
+- **Home screen:** choose which cards you see on Home and in what order.
 - **Text size:** make everything bigger or smaller.
-- **Rest timer:** auto, smart or your own times; sounds and voice on or off.
+- **Auto-start Rest Timer:** on or off.
+- **Rest timer:** your own rest times, sounds and voice on or off.
 - **Strength level:** men / women standards.
 - **Weekly goal:** days per week.
+
+### Appearance (Settings → Appearance)
+- **Themes:** 13 one-tap looks. Nine dark (Classic, Midnight, Crimson, Neon, Sunset, Royal, Ocean, Forest, Iron) and four light (Paper, Daylight, Sandy, Bloom). A theme sets the mode, colour, background, effect and font together. Change any one thing afterwards and the rest stays.
+- **Mode:** **Dark**, **Light**, or **Auto**. Auto follows your phone and switches live when your phone goes dark at night.
+- **Accent colour:** 18 ready-made colours, or tap the rainbow circle to build your own. Type any **hex code** (like `#FF3366`) or drag the three sliders (colour, vividness, brightness). Colours are adjusted for the mode so text always stays readable.
+- **Background:** the colour of the page and cards.
+  - Dark: 8 choices (Classic, True black, Midnight, Slate, Forest, Plum, Ember, Wine).
+  - Light: 8 choices (Paper, Snow, Cloud, Sand, Mint, Blush, Lavender, Stone).
+  - Or your own **custom hex** for either. A dark hex typed in Light mode is lightened (and the reverse) so text stays easy to read. Dark and light remember their own background.
+- **Background effect:** **Solid**, **Glow** (a soft light from the top), **Fade** (a gentle gradient), **Aurora** (soft blobs of colour in your accent), or **Gradient** (two colours of your own: pick a quick colour or type a hex).
+- **Fonts:** 8 choices: System, Poppins, Outfit, Work Sans, Big Shoulders, Tektur, Lora and JetBrains Mono. The fonts are built into the app, so they work offline.
+- **Corners:** **Sharp**, **Normal** or **Round** cards and buttons.
+- **Row size:** **Compact**, **Normal** or **Roomy** set rows and check buttons in the workout screen. Roomy is easier with sweaty hands; Compact fits more on screen.
+- **Reset look** puts the colours, background, effect, font and corners back to the original. It does **not** touch your Home layout, your own exercises or your data.
+
+### Home screen layout (Settings → Appearance → Home screen)
+Use ▲ ▼ to move a card up or down and the **Shown / Hidden** button to hide it. The cards are: monthly recap banner, today's workout, shortcut tiles, consistency, and the 1RM Trophy Room. **Put the cards back the way they were** resets it. Your layout is saved and survives closing and reopening.
+
+### Pop-ups and menus
+Everything that used to open the grey browser pop-up (confirmations, text boxes, drop-down lists) uses PulseTrack's own pop-ups that match your theme, light or dark. Buttons say what they do, like **Remove** or **Convert my saved numbers**, instead of a plain OK.
 
 ---
 
@@ -194,6 +236,17 @@ After the first load, PulseTrack needs **no internet**. Everything (programs, ex
 - A program that **already existed** and was edited is *not* replaced on phones. To get the changed version: delete the program in the app, then use **Add Back a Built-in Program**.
 - The old split versions of the 12-week programs were removed automatically.
 
+**Version 2.5 changes**
+- New: light mode and Auto, 13 themes, light and custom backgrounds, background effects, corners, row size, a Home layout editor, your own exercises, and the 1RM calculator.
+- Your look is applied before the app draws, so a light theme doesn't flash dark when you open it.
+- Your saved data, photos and settings are untouched by the update. A phone that never changed its look stays exactly as it was (dark Classic).
+- In Light mode the muscle map keeps its dark body figure so the muscles stay easy to see.
+- `index.html` is about 730 KB. It still loads fast and works offline.
+
+**Version 2.4 changes**
+- The app no longer picks a program for you. If you used an earlier version, your own choice is kept. A program you delete is not replaced by another one.
+- Fonts are built into the app.
+
 **Numbers changed once in version 2.2**
 - Volume was recalculated one time (dumbbells count ×2, pull-ups and dips use body weight). Old totals may look different. This is expected.
 
@@ -212,7 +265,7 @@ Upload these to your GitHub repo (they go in the same folder):
 
 | File | What it does |
 |---|---|
-| `index.html` | The whole app |
+| `index.html` | The whole app (including the fonts and themes) |
 | `programs.js` | The 21 built-in programs |
 | `exercises.js` | The 474 exercises |
 | `sw.js` | Makes it work offline and update |
@@ -228,7 +281,7 @@ Upload these to your GitHub repo (they go in the same folder):
 
 - **Easiest:** build a program inside the app, or import a `.json` file using the Import button.
 - **Permanent for everyone:** add it to `programs.js` (one object per program: `id`, `title`, `description`, `tags`, `days`). Each day has `dayNumber`, `title`, `estimatedMinutes` and `exercises` (each with `id`, `name`, `sets`, `reps`, `restSeconds`, `type`, `notes`). For a 12-week program, add `week: 1…12` to every day. An empty `exercises` list is a rest day.
-- **New exercises:** add them to `exercises.js`.
+- **New exercises:** the easiest way is **My Exercises** inside the app (see section 5). To add one for everyone permanently, add it to `exercises.js`.
 
 Keep every `id` unique. New programs reach phones on the next update.
 
