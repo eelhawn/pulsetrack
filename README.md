@@ -3,13 +3,13 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Current version: 2.5.0*
+*Current version: 2.6.0*
 
 ---
 
 ## In one line
 
-PulseTrack is a gym log app you install on your home screen. It has 21 ready-made programs (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath and more), 474 exercises (plus any you add yourself), rest timers, charts, records, and a 1-rep-max calculator. You can make it look however you like (light or dark, 13 themes, any colour or background, 8 fonts), and it works in the gym with zero signal.
+PulseTrack is a gym log app you install on your home screen. It has 21 ready-made programs (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath and more), 474 exercises (plus any you add yourself), rest timers, charts, records, and a 1-rep-max calculator. It also tells you which muscles are recovered, whether you are hitting enough sets for each muscle, which lifts have stalled and what to try, and shows form tips for your lifts. You can make it look however you like (light or dark, 13 themes, any colour or background, 8 fonts), and it works in the gym with zero signal.
 
 ---
 
@@ -128,7 +128,7 @@ When new files are uploaded to GitHub:
 - **Cardio:** log **minutes and distance**, and see your pace over time.
 - **Tabata timer:** built-in interval timer for HIIT.
 - **Swap an exercise:** tap swap and pick a similar one. **★ Best swaps** shows the closest matches first.
-- **How to do it:** opens a YouTube search for that exercise's form.
+- **Form tips:** every exercise card has a small **Form tips ›** link. It opens a short checklist (set-up, the movement, common mistakes to avoid) for that lift, with a button to watch a video on YouTube. The same tips are in the exercise's chart screen. There are tips for more than 99% of the exercises in the library.
 - **Notes:** add a note to any exercise or any day.
 - **Screen stays awake** during a workout (if your phone allows it).
 - **Resume:** if you leave the app mid-workout, it picks up where you stopped.
@@ -153,20 +153,51 @@ Missing a lift? Add it. You can start from three places: the **Create your own e
 
 ## 6. Progress and records
 
-- **Personal records (PRs):** the app spots new records for weight, estimated 1-rep max and volume, and shows them in the **Trophy Room**.
-- **Per-exercise charts:** see weight, estimated max and rep records over time.
-- **Weekly muscle volume:** how many hard sets each muscle got this week. A **½ Helpers** option counts helper muscles as half a set.
-- **Muscle map:** a detailed front and back body (40+ muscles, like an anatomy chart) that lights up what you trained. Tap any muscle to see its sets.
-- **Strength level:** Beginner → Novice → Intermediate → Advanced → Elite for bench, squat, deadlift and overhead press, based on StrengthLevel.com standards (men and women). Includes the **1,000 lb club** total.
-- **Streaks and weekly goal:** set how many days a week you want to train and keep your streak alive.
-- **Calendar and History:** see every past workout. You can open one, edit it, **Do Again**, or **Save as Routine**.
+The **Progress** screen has three tabs so it isn't one long scroll: **Overview**, **Muscles** and **Strength**.
+
+### Overview
+- **Streak, this week and total workouts** at a glance.
+- **Plateau check:** lifts that haven't improved in your last 3 sessions, with a tip for each (see below).
 - **Monthly recap:** a summary card of your month (workouts, volume, top muscles, PRs). Share it as an image. A banner shows on Home in the first 10 days of each month.
+- **Lifetime totals:** total volume, total sets, and the month you started.
+
+### Muscles
+- **Weekly sets per muscle:** how many hard sets each muscle got (warm-ups left out). Switch between **This week**, **Last week** and **4-wk avg**. A **½ Helpers** option counts assisting muscles as half a set.
+- **Targets:** each muscle has a **target range** (the grey zone on its bar). The bar is green when you are inside it, orange when you are below it, and red when you are above it. The map colours match. The starting ranges are typical numbers from common training-volume guidelines (for example chest 8–20 sets a week, quads 6–18). They are a starting point, not a rule. **Tap any muscle to set your own range**, or tap **Default** to put it back. Your ranges are saved and included in backups.
+- **Recovery map:** tap **Recovery** at the top of the card. The map turns red (just trained), amber (recovering) or green (ready), and the list shows how long each muscle still needs. It is an **estimate**: it looks at how many hard sets each muscle got and how long ago, and gives bigger muscles and harder sessions more time (about 1 to 3.5 days). Everyone recovers differently, so use it as a guide.
+- **Muscle map:** a detailed front and back body (40+ muscles, like an anatomy chart). Tap any muscle to see its sets (or how recovered it is).
+- **Balance check:** compares your last 4 weeks of training: **push vs pull**, **quads vs hamstrings + glutes**, and **upper vs lower body**. If one side is far ahead it tells you, with a simple fix (for example "add rows or pulldowns"). It needs about 12 sets of data before it says anything. A mismatch isn't automatically bad; it's worth knowing about.
+
+### Strength
+- **Strength level:** Beginner → Novice → Intermediate → Advanced → Elite for bench, squat, deadlift and overhead press, based on StrengthLevel.com standards (men and women). Includes the **1,000 lb club** total.
+- **Recent PRs:** your 5 latest records, with **Show all** for the rest.
+
+### Plateau tips
+A lift counts as **stalled** when its estimated max hasn't beaten your best in your last 3 sessions. The app then works out *why* and suggests something that fits:
+- **Same weight 3 sessions in a row:** add a rep to every set before adding weight, or take a smaller jump (2.5 lb / 1 kg).
+- **Reps are climbing at the same weight:** keep going, and add weight when you hit the top of your rep range.
+- **You added weight but lost reps:** stay at that weight until the reps come back.
+- **Down 5% or more from your best:** check sleep and food, and consider a lighter week.
+- **Anything else:** try a small weight drop, a different rep range, or a similar exercise for a few weeks.
+
+The tip shows on the Overview tab, on the exercise card in your workout, and on the exercise's chart screen.
+
+### On Home
+- **Up next** shows a short line about the muscles in today's workout: for example "Chest, Shoulders still recovering (ready in about 3 days)", or "✓ Muscles are rested for this day".
+
+### Also in Progress
+- **Personal records (PRs):** the app spots new records for weight, estimated 1-rep max and volume, and shows them in the **Trophy Room** on Home.
+- **Per-exercise charts:** weight, estimated max and rep records over time.
+- **Streaks and weekly goal:** set how many days a week you want to train and keep your streak alive.
+- **Calendar and History:** see every past workout. You can open one, edit it, **Do Again**, **Share** it, or **Save as Routine**.
 
 ---
 
 ## 7. Body tracking
 
-- **Body weight and measurements:** chest, waist, arms, legs and more, with charts.
+- **Body weight with a smoothed trend:** the chart shows each weigh-in as a dot and a smooth **7-day average** line, so water and food swings don't fool you.
+- **Trend, Pace and Goal:** under the chart you see your current **trend** weight, your **pace** (how many lb or kg per week you are changing, from the last 4 weeks), and your **goal**. Tap **Goal** to set a goal weight. The app then draws it as a dashed line and tells you how far you have left and about how many weeks it will take at your current pace. Pace needs weigh-ins that span about a week.
+- **Measurements:** chest, waist, arms, legs and more, with charts. The log form shows bodyweight and body fat first; the rest is under **More: measurements & nutrition** so the screen isn't crowded.
 - **Progress photos:** stored privately on your phone (not uploaded anywhere). There is no limit on how many you keep.
 
 ---
@@ -177,12 +208,15 @@ Missing a lift? Add it. You can start from three places: the **Create your own e
 - **No storage cap:** PulseTrack used to stop at about 5 MB. Now, when the normal space fills up, it keeps going in your phone's large storage, so it keeps saving as long as your phone has room. Settings shows **No size limit**.
 - **CSV export:** download your workout history to open in Excel or Google Sheets.
 - **Share a program** as a link, or **import** one.
+- **Share a workout:** after you finish a workout, or from **History → a workout → Share**, you get a preview of a picture card (date, time, volume, sets, PRs, the muscles you worked and your best set for each lift, with a gold PR badge and how your estimated max changed since last time). The card uses your theme colours and font. Tap **Share image** to send it to Messages, Instagram and so on, **Copy as text** to paste it into any chat, or **Save image to this phone**.
 
 > 💡 **Back up now and then.** Everything lives on your phone. If you clear browser data or get a new phone, a backup file is how you keep it all.
 
 ---
 
 ## 9. Settings and making it yours
+
+Settings is now a short list of **six groups** (Workout, Sound Voice & Feel, Appearance, Data & Backup, App, and Danger Zone). Tap a group to open it. Each one has a small summary under its name (for example "Dark · Emerald" or "Version 2.6.0"), and the app remembers which ones you had open until you close it. Inside **Appearance**, the colour, background, font and other pickers are collapsed rows too: each shows your current choice on the right, and tapping one opens it.
 
 - **Units:** kg or lb. When you switch, a pop-up lets you choose **Convert my saved numbers**, **Only change the labels**, or **Cancel**.
 - **Appearance:** make the app look the way you want (details below).
@@ -236,12 +270,19 @@ After the first load, PulseTrack needs **no internet**. Everything (programs, ex
 - A program that **already existed** and was edited is *not* replaced on phones. To get the changed version: delete the program in the app, then use **Add Back a Built-in Program**.
 - The old split versions of the 12-week programs were removed automatically.
 
+**Version 2.6 changes**
+- New: **recovery map**, **weekly target ranges** you can edit for every muscle, **plateau tips**, a **balance check**, **body-weight trend, pace and goal**, **form tips** for the exercises, and a new **workout share card** with copy-as-text.
+- Tidier: Progress is split into three tabs; Settings is six collapsible groups; Home shows one banner at a time and smaller shortcut tiles; workout cards are quieter (one line of notes, small icon buttons, no STANDARD badge); the Body log form is shorter; lifts with no record yet take one line in the Trophy Room; a long Recent PRs list is cut to 5.
+- Already there before (and now improved, not new): sharing a finished workout as an image, the stalled-lifts list, the 7-day body-weight average, and a fixed 10–20 set band for weekly sets. Now the share card is richer, stalled lifts come with advice, the body trend has pace and a goal, and each muscle has its own range.
+- Honest limits: recovery times and target ranges are **estimates and typical guidelines**, not medical or coaching advice. Form tips are **general guidance**: if something hurts, stop and ask a coach or doctor.
+- Your saved data, photos and settings are untouched by the update. New settings (your target ranges and goal weight) are saved with your other settings and included in backups.
+- `index.html` is about 860 KB (it now carries the form-tip text). It still loads fast and works offline.
+
 **Version 2.5 changes**
 - New: light mode and Auto, 13 themes, light and custom backgrounds, background effects, corners, row size, a Home layout editor, your own exercises, and the 1RM calculator.
 - Your look is applied before the app draws, so a light theme doesn't flash dark when you open it.
 - Your saved data, photos and settings are untouched by the update. A phone that never changed its look stays exactly as it was (dark Classic).
 - In Light mode the muscle map keeps its dark body figure so the muscles stay easy to see.
-- `index.html` is about 730 KB. It still loads fast and works offline.
 
 **Version 2.4 changes**
 - The app no longer picks a program for you. If you used an earlier version, your own choice is kept. A program you delete is not replaced by another one.
@@ -265,7 +306,7 @@ Upload these to your GitHub repo (they go in the same folder):
 
 | File | What it does |
 |---|---|
-| `index.html` | The whole app (including the fonts and themes) |
+| `index.html` | The whole app (including the fonts, themes and form tips) |
 | `programs.js` | The 21 built-in programs |
 | `exercises.js` | The 474 exercises |
 | `sw.js` | Makes it work offline and update |
