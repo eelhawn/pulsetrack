@@ -1280,9 +1280,45 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
           seeded.push(p.id);
           changed = true;
         });
+        // 2.6.4: tidy the wording of built-in programs that were added before
+        try { if (this.tidyBuiltinText(data)) changed = true; } catch (e) { console.warn("PulseTrack: text tidy skipped", e); }
         // Only remember programs as added once they're really saved, so a full phone retries next time
         if (changed && this.setData(data)) safeSetItem(STORAGE_KEY_SEEDED, JSON.stringify(seeded));
         return data;
+      }
+
+      /**
+       * Older copies of a built-in program carried notes like "the PDF says..." and website names.
+       * Swap in the cleaned wording, but ONLY for text that still has one of those old mentions,
+       * so anything you wrote or edited yourself is never touched. Exercises, sets, reps and logs are not changed.
+       */
+      static tidyBuiltinText(data) {
+        if (typeof BUILTIN_PROGRAMS === "undefined" || !data || !Array.isArray(data.programs)) return false;
+        const OLD = /PDF|Thefitnessphantom|Encyclopedia of Modern|\(Exact 36 Workouts\)/;
+        let changed = false;
+        data.programs.forEach(p => {
+          if (!p) return;
+          const b = BUILTIN_PROGRAMS.find(x => x && x.id === p.id);
+          if (!b) return;
+          if (typeof p.title === "string" && OLD.test(p.title) && b.title) { p.title = b.title; changed = true; }
+          if (typeof p.description === "string" && OLD.test(p.description) && b.description) { p.description = b.description; changed = true; }
+          if (!Array.isArray(p.days)) return;
+          let bex = null;
+          p.days.forEach(d => {
+            (d && d.exercises || []).forEach(e => {
+              if (!e || typeof e.notes !== "string" || !OLD.test(e.notes)) return;
+              if (!bex) {
+                bex = {};
+                (b.days || []).forEach(bd => (bd.exercises || []).forEach(be => { bex[bd.dayNumber + "|" + be.id] = be; }));
+              }
+              const be = bex[d.dayNumber + "|" + e.id];
+              if (!be) return;
+              if (be.notes) e.notes = be.notes; else delete e.notes;
+              changed = true;
+            });
+          });
+        });
+        return changed;
       }
 
       static setData(data) {
@@ -3670,7 +3706,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.6.3";
+    const APP_VERSION = "2.6.4";
     const BACKUP_SCHEMA = 2;
     const STORAGE_KEY_SESSIONS = "pulsetrack_sessions_v1";
     const STORAGE_KEY_BODY = "pulsetrack_body_v1";
