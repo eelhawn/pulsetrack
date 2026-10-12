@@ -196,7 +196,7 @@ The **Progress** screen has three tabs: **Overview**, **Muscles** and **Strength
 
 ### Muscles
 
-- **Weekly sets per muscle:** how many hard sets each muscle got (warm-ups left out). Switch between **This week**, **Last week** and **4-wk avg**. **½ Helpers** counts assisting muscles as half a set.
+- **Weekly sets per muscle:** how many hard sets each muscle got (warm-ups left out). Switch between **This week**, **Last week** and **4-wk avg**. A line under the buttons shows the exact dates each one covers. **½ Helpers** counts assisting muscles as half a set.
 - **Targets:** each muscle has a target range, the grey zone on its bar. The bar is green inside the range, orange below it and red above it, and the map colours match. Starting ranges come from common training-volume guidelines (for example chest 8–20 sets a week). Tap any muscle to set your own, or **Default** to reset it.
 - **Recovery map:** tap **Recovery** at the top of the card. The map turns red (just trained), amber (recovering) or green (ready), and the list shows how long each muscle still needs. It is an estimate based on how many hard sets each muscle got and how long ago, giving bigger muscles and harder sessions more time (about 1 to 3.5 days).
 - **Muscle map:** a detailed front and back body with 40+ muscles. Tap one to see its sets, or how recovered it is.
@@ -254,13 +254,14 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 
 ## Settings and looks
 
-Settings has six groups: **Workout**, **Sound, Voice & Feel**, **Appearance**, **Data & Backup**, **App** and **Danger Zone**. Tap one to open it; each shows a short summary of your choices, and the app remembers which were open until you close it.
+Settings is a short list of six groups: **Workout**; **Sound, Voice & Feel**; **Appearance**; **Data & Backup**; **App**; and **Danger Zone**. Tap one to open it. Each shows a short summary of your choices, and the app remembers which were open until you close it.
 
 - **Units:** kg or lb. Switching asks whether to **Convert my saved numbers**, **Only change the labels**, or **Cancel**.
 - **Text size:** make everything bigger or smaller.
 - **Auto-start Rest Timer:** on or off. The rest timer also has your own times, sounds and voice.
 - **Strength level:** men's or women's standards.
 - **Weekly goal:** days per week.
+- **Week starts on:** Auto, Sunday or Monday. This decides what "This week" and "Last week" mean in Progress, plus the weekly goal and streak. Auto follows your phone's region (Sunday in the US and Canada, Monday in most of Europe). Before 2.6.4 the week always started on Monday, so on a Sunday your Monday–Saturday workouts still showed as "this week".
 - **Home screen:** pick which cards show on Home and in what order.
 
 ### Appearance
@@ -275,6 +276,8 @@ Settings has six groups: **Workout**, **Sound, Voice & Feel**, **Appearance**, *
 | **Font** | System, Poppins, Outfit, Work Sans, Big Shoulders, Tektur, Lora, JetBrains Mono. They are built in, so they work offline. |
 | **Corners** | **Sharp**, **Normal** or **Round**. |
 | **Row size** | **Compact**, **Normal** or **Roomy** for set rows and check buttons. Roomy is easier with sweaty hands. |
+
+In Light mode the muscle map keeps its dark body figure so the muscles stay easy to see.
 
 **Reset look** puts colours, background, effect, font and corners back to the original. It does not touch your Home layout, your own exercises or your data.
 
@@ -314,7 +317,7 @@ Upload these to your GitHub repo, all in the same folder:
 
 | File | What it does |
 |---|---|
-| `index.html` | The whole app (about 905 KB, including fonts, themes and form tips) |
+| `index.html` | The whole app (about 909 KB, including fonts, themes and form tips) |
 | `programs.js` | The 21 built-in programs |
 | `exercises.js` | The 474 exercises |
 | `sw.js` | Makes it work offline and update |
@@ -343,6 +346,7 @@ Keep every `id` unique. New programs reach phones on the next update.
 ## Version history
 
 **2.6.4**
+- **Week starts on** setting (see Settings). The week used to always start on Monday, so a Sunday-start user saw last week's sets under "This week". Now it follows your phone's region by default, and you can pick Sunday or Monday. Progress also shows the dates covered.
 - Cleaned the built-in programs' text: website names and "the PDF says…" notes are gone from 7 descriptions and 159 exercise notes, and the HIIT 100's title no longer ends in "(Exact 36 Workouts)". No exercise was removed or changed (all 5,916 are there with the same sets, reps and rest). Phones that already have the programs are tidied automatically. Upload `programs.js` along with `index.html`.
 
 **2.6.3**
