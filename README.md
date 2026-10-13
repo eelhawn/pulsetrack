@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.6.4*
+*Version 2.7.0*
 
-PulseTrack installs to your home screen like a normal app. It comes with **21 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath and more) and **474 exercises**, and you can add your own of both. It has rest and interval timers, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **21 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath and more) and **498 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -15,6 +15,7 @@ PulseTrack installs to your home screen like a normal app. It comes with **21 re
 - [While you train](#while-you-train)
 - [Progress and records](#progress-and-records)
 - [Body tracking](#body-tracking)
+- [Cardio and sports](#cardio-and-sports)
 - [Backup and sharing](#backup-and-sharing)
 - [Settings and looks](#settings-and-looks)
 - [Good to know](#good-to-know)
@@ -118,7 +119,8 @@ Your **current program** is the one that Home, the side menu and **Start Workout
 - **Bodyweight moves:** pull-ups and dips use your body weight, with a **Weighted / Assisted** switch.
 - **Cardio:** log minutes and distance, and see your pace over time.
 - **Notes:** add a note to any exercise or day.
-- **Swap an exercise:** tap swap and pick a similar one. **★ Best swaps** lists the closest matches first.
+- **Swap an exercise:** tap swap and **★ Similar exercises** lists the closest matches first, each with a short reason ("Same movement · Cable · Reverse grip"). It looks at the movement, the equipment and the grip or angle, so Rope Pushdown suggests other pushdowns before it suggests a triceps machine, and a bench press suggests other flat presses before incline ones. Exercises you have done before are marked with your last weight and reps. Below the list, every exercise in that muscle group is still there.
+- **Search by any name:** the exercise picker and the Library also search an exercise's other names. Type "barbell bench press" or "triceps rope pushdown" and you get Bench Press or Rope Pushdown, with "also called …" under it.
 - **Form tips:** each exercise card has a **Form tips ›** link with a short checklist (set-up, the movement, common mistakes) and a button to watch a video on YouTube. Nearly every exercise in the library has one.
 - **Warm-up generator:** builds warm-up sets for your first lift.
 - **Screen stays awake** during a workout, on phones that allow it.
@@ -178,6 +180,7 @@ Missing a lift? Add it from the **Create your own exercise** button in the exerc
 - **Pick the main muscle** (14 choices). It counts toward your weekly muscle volume and lights up on the muscle map like any built-in exercise.
 - **Pick how you log it:** weight × reps, dumbbells, bodyweight ± weight, cardio with distance, or timed.
 - Your exercise works everywhere: workouts, programs, charts, records, history and swaps.
+- You can't give it a name the list already has, including an exercise's other names (a custom "Barbell Bench Press" is refused because that is Bench Press).
 - **Home → My Exercises** lists them. The name is locked after you create it so your history keeps matching. Deleting asks first.
 - They are saved in your settings, so backups include them.
 
@@ -240,11 +243,31 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 
 ---
 
+## Cardio and sports
+
+A separate place to log runs, rides, swims, classes and every sport. Find it on **Home → Cardio & Sports**.
+
+**It is kept apart from your lifting on purpose.** Cardio and sports sessions do not count toward your sets, volume, records, muscle map, recovery, "Consistency" or the weekly workout goal. They have their own history, stats and weekly goal. Cardio you log inside a lifting workout (for example a treadmill finisher on a program day) still works as before and stays part of that workout.
+
+- **Log a session:** tap **＋ Log one**, pick the activity, then enter the time (hours, minutes, seconds), the distance if it has one, how hard it was (Easy, Moderate or Hard), and optionally a heart rate, calories and a note. Sports also have a **Result** (Win, Loss or Draw). You can log past days too.
+- **Live timer:** tap **▶ Start timer**, pick the activity and go. Pause, resume or finish whenever. Finish opens the save form with the time already filled in. The timer is based on the clock, so it keeps counting if your phone locks or you close the app. If you cancel the save form, the timer stays paused instead of being lost.
+- **50 activities:** Running, Treadmill, Walking, Hiking, Cycling, Stationary Bike, Swimming, Rowing Machine, Elliptical, Stair Climber, HIIT, Jump Rope, Cardio Class, Dance, Yoga, Pilates, and sports from Basketball, Soccer and Football to Tennis, Pickleball, Badminton, Boxing, Martial Arts, Rock Climbing, Skiing, Surfing, Golf and more. Missing one? Use **＋ Add your own activity** in the picker, and choose whether it is cardio or a sport, how hard it usually is, and whether to track distance.
+- **Pace and speed:** runs, walks and hikes show pace (min per mile or km), rides and kayaking show speed, swims show time per 100 yd or m, and the rowing machine shows time per 500 m.
+- **This week:** sessions, total time, distance and calories, a progress bar toward your weekly goal (150 minutes to start, and you can change it), the week's active days, and last week for comparison. A chart shows the last 8 weeks of minutes.
+- **History:** grouped by day, with filters for All, Cardio and Sports. Tap a session to edit or delete it (delete has Undo).
+- **Totals & records:** for each activity, how many sessions and how much time and distance, plus your longest session, farthest distance, best pace or fastest speed (only counted over a meaningful distance), and your win-loss record in sports.
+- **Calories are an estimate.** They come from the activity, how hard it was, your weight and the time. Your weight is taken from your latest **Body & Photos** entry, or you can type it in Cardio settings. If you have a watch or machine reading, type that number instead.
+- **Units:** distance follows your lb / kg setting (miles or kilometres), or you can pick Miles or Kilometres in Cardio settings. Sessions are saved in metres, so changing units never changes what you logged.
+- **Backup and export:** cardio and sports are in your backup file, and **Cardio settings → Export** gives a CSV for Excel or Google Sheets.
+- **Home card:** a Cardio & Sports card on Home shows this week and has Start and Log buttons. It can be moved or hidden in Settings → Appearance → Home screen.
+
+---
+
 ## Backup and sharing
 
 > 💡 **Back up now and then.** Everything lives on your phone. If you clear browser data or get a new phone, a backup file is how you keep it all.
 
-- **Backup and Restore:** save all your data to a file, and load it back on this phone or a new one.
+- **Backup and Restore:** save all your data to a file (workouts, programs, body entries and your cardio and sports log), and load it back on this phone or a new one.
 - **No storage cap:** when the normal space fills up, PulseTrack keeps saving in your phone's large storage, for as long as your phone has room. Settings shows **No size limit**.
 - **CSV export:** download your workout history for Excel or Google Sheets.
 - **Share a program** as a link, or **import** one.
@@ -281,7 +304,7 @@ In Light mode the muscle map keeps its dark body figure so the muscles stay easy
 
 **Reset look** puts colours, background, effect, font and corners back to the original. It does not touch your Home layout, your own exercises or your data.
 
-**Home layout** (Settings → Appearance → Home screen): use ▲ ▼ to move a card and **Shown / Hidden** to hide it. The cards are the monthly recap banner, today's workout, shortcut tiles, consistency, and the 1RM Trophy Room. **Put the cards back the way they were** resets it.
+**Home layout** (Settings → Appearance → Home screen): use ▲ ▼ to move a card and **Shown / Hidden** to hide it. The cards are the monthly recap banner, today's workout, shortcut tiles, consistency, Cardio & Sports, and the 1RM Trophy Room. **Put the cards back the way they were** resets it.
 
 App pop-ups (confirmations, text boxes, lists) match your theme in light or dark, and their buttons say what they do, like **Remove**.
 
@@ -317,9 +340,9 @@ Upload these to your GitHub repo, all in the same folder:
 
 | File | What it does |
 |---|---|
-| `index.html` | The whole app (about 909 KB, including fonts, themes and form tips) |
+| `index.html` | The whole app (about 1 MB, including fonts, themes and form tips) |
 | `programs.js` | The 21 built-in programs |
-| `exercises.js` | The 474 exercises |
+| `exercises.js` | The 498 exercises |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `icon-512.png` | The app icon |
@@ -337,13 +360,26 @@ Upload these to your GitHub repo, all in the same folder:
 
 - **Easiest:** build a program inside the app, or import a `.json` file with the Import button.
 - **Permanent for everyone:** add it to `programs.js`, one object per program with `id`, `title`, `description`, `tags` and `days`. Each day has `dayNumber`, `title`, `estimatedMinutes` and `exercises` (each with `id`, `name`, `sets`, `reps`, `restSeconds`, `type`, `notes`). For a 12-week program, add `week: 1…12` to every day. An empty `exercises` list is a rest day.
-- **New exercises:** use **My Exercises** in the app, or add them to `exercises.js` for everyone.
+- **New exercises:** use **My Exercises** in the app, or add them to `exercises.js` for everyone. One line each: `{ name: "Machine Triceps Dips", category: "Triceps" }`. If the exercise is also known by other names, list them in `aka`: `{ name: "Rope Pushdown", category: "Triceps", aka: ["Triceps Rope Pushdown"] }`. Those names are searchable and count as the same exercise (same muscle group, never suggested as a swap for itself). Only give it its own entry if it really is a different exercise (a straight-bar pushdown is not a rope pushdown).
 
 Keep every `id` unique. New programs reach phones on the next update.
 
 ---
 
 ## Version history
+
+**2.7.0**
+- **Cardio & Sports**, a separate log for runs, rides, swims, classes and sports (see Cardio and sports). It has a live timer, 50 activities plus your own, pace and speed, a weekly minutes goal with an 8-week chart, history with filters, totals and records, win-loss records for sports, and calorie estimates. It is completely separate from lifting: your sets, volume, records, muscle map and Consistency are not affected. A Cardio & Sports card on Home can be moved or hidden. It is included in backups.
+- Upload `index.html` and `sw.js`. `exercises.js` and `programs.js` are unchanged since 2.6.5.
+
+**2.6.5**
+- **Duplicate exercises are merged.** Names that were the same exercise are now one entry, and the shorter name is kept: "Triceps Rope Pushdown" and "Rope Pushdown" became **Rope Pushdown**, "Barbell Bench Press" became **Bench Press**, and so on (111 merged). Real variants stay separate (Straight Bar Pushdown, Reverse-Grip Cable Pushdown, Incline Bench Press, Dumbbell Bench Press and so on). The old names are not lost: they are kept as other names in `exercises.js`, so searching for them still finds the exercise.
+- **135 new exercises**, including **Machine Triceps Dips**, more machine and cable moves, specialty bars, unilateral and tempo variations, cardio, and warm-up and mobility drills. The list is now 498.
+- **Swap suggestions now really suggest similar exercises.** The old version only matched by muscle group. The new one compares the movement (a pushdown, a row, a fly, a press), the equipment, and the grip, angle or one-sided versions, and shows why each one was picked. It also works for exercise names that a program uses but that are not in the exercise list.
+- A **Similar exercises** list is on every exercise page, and tapping one opens it.
+- Searching in the picker and the Library also looks at an exercise's other names, and the best match comes first.
+- **Your history is safe.** Nothing in your programs or logged workouts was renamed. If you logged an exercise under its old name, picking it from the list keeps using that name so your records and "last time" numbers stay together. The Library shows an old name with its own history as "same as …", and old names with no history of their own are no longer listed as extra exercises. To combine them yourself, open the old name and tap **Merge history into another exercise** at the bottom of its page.
+- Upload `index.html`, `exercises.js` and `sw.js`.
 
 **2.6.4**
 - **Week starts on** setting (see Settings). The week used to always start on Monday, so a Sunday-start user saw last week's sets under "This week". Now it follows your phone's region by default, and you can pick Sunday or Monday. Progress also shows the dates covered.
