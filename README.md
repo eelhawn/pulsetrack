@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.8.0*
+*Version 2.8.2*
 
-PulseTrack installs to your home screen like a normal app. It comes with **21 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath and more) and **498 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **21 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath and more) and **503 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -248,10 +248,10 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 
 ### Records and history
 
-- **Personal records:** new records for weight, estimated 1-rep max and volume appear in the **Trophy Room** on Home.
+- **Personal records:** new records for weight, estimated 1-rep max and volume are listed under **PRs this month** on Home (tap it for the full list), and your best lifts are in the **1RM Trophy Room**: one quiet line per lift with a thin bar toward your goal. Tap a lift to see its details and to set a goal.
 - **Per-exercise charts:** weight, estimated max and rep records over time.
 - **Streaks and weekly goal:** set how many days a week you want to train and keep your streak alive. **Settings → Streaks & Time Off** lets you mark **sick days** and **trips**: those days don't break your streak (each one lowers that week's goal by one, and a week fully off is skipped). Cardio counts toward the goal only if you switch on **Count cardio toward my weekly goal** (off by default).
-- **Home cards (new in 2.8.0):** **This week** (a row of seven days with a dot for lifting and a dot for cardio, and sick or trip days marked), **Last workout** (a short recap you can tap to open it) and **PRs this month**.
+- **Home cards:** **This week** (a row of seven days with a dot for lifting, plus a cardio dot once you have logged cardio, and sick or trip days marked), **Last workout** (one short row you can tap to open it) and **PRs this month** (one row, shown only when you have new records). Home is kept calm on purpose: small quiet headings, one soft colour for the shortcut icons, and no long text.
 - **Up next on Home** includes a line about today's muscles, like "Chest, Shoulders still recovering (ready in about 3 days)" or "✓ Muscles are rested for this day".
 - **Calendar and History:** see every past workout. Open one to edit it, **Do Again**, **Share** it, or **Save as Routine**. Tap the **Time** box on a past workout to fix its length.
 
@@ -274,7 +274,7 @@ A separate place to log runs, rides, swims, classes and every sport. Open it fro
 
 - **Log a session:** tap **＋ Log one**, pick the activity, then enter the time (hours, minutes, seconds), the distance if it has one, how hard it was (Easy, Moderate or Hard), and optionally a heart rate, calories and a note. Sports also have a **Result** (Win, Loss or Draw). You can log past days too.
 - **Live timer:** tap **▶ Start timer**, pick the activity and go. Pause, resume or finish whenever. Finish opens the save form with the time already filled in. The timer is based on the clock, so it keeps counting if your phone locks or you close the app. If you cancel the save form, the timer stays paused instead of being lost.
-- **50 activities:** Running, Treadmill, Walking, Hiking, Cycling, Stationary Bike, Swimming, Rowing Machine, Elliptical, Stair Climber, HIIT, Jump Rope, Cardio Class, Dance, Yoga, Pilates, and sports from Basketball, Soccer and Football to Tennis, Pickleball, Badminton, Boxing, Martial Arts, Rock Climbing, Skiing, Surfing, Golf and more. Missing one? Use **＋ Add your own activity** in the picker, and choose whether it is cardio or a sport, how hard it usually is, and whether to track distance.
+- **71 activities:** outdoor cardio (Running, Trail Running, Walking, Hiking, Cycling, Mountain Biking, Swimming, Stair Running); **Gym machines** (Treadmill, Incline Treadmill Walk, StairMaster / Stair Climber, Elliptical, Arc Trainer, Stationary Bike, Recumbent Bike, Air Bike, Rowing Machine, SkiErg, VersaClimber, Jacob's Ladder, Mini Stepper, Arm Bike); **Classes & workouts** (HIIT, Jump Rope, Spin Class, Circuit Training, Boot Camp, Battle Ropes, Sled Push / Pull, Kickboxing, Zumba, Water Aerobics, Dance, Barre, Yoga, Pilates and more); and sports from Basketball, Soccer and Football to Tennis, Pickleball, Badminton, Boxing, Martial Arts, Rock Climbing, Skiing, Surfing, Golf and more. The picker also knows other names, so searching "stairmaster", "stepmill", "assault bike" or "cross trainer" finds the right one. Missing one? Use **＋ Add your own activity** in the picker, and choose whether it is cardio or a sport, how hard it usually is, and whether to track distance.
 - **Pace and speed:** runs, walks and hikes show pace (min per mile or km), rides and kayaking show speed, swims show time per 100 yd or m, and the rowing machine shows time per 500 m.
 - **This week:** sessions, total time, distance and calories, a progress bar toward your weekly goal (150 minutes to start, and you can change it), the week's active days, and last week for comparison. A chart shows the last 8 weeks of minutes.
 - **History:** grouped by day, with filters for All, Cardio and Sports. Tap a session to edit or delete it (delete has Undo).
@@ -393,7 +393,7 @@ Upload these to your GitHub repo, all in the same folder:
 |---|---|
 | `index.html` | The whole app (about 1 MB, including fonts, themes and form tips) |
 | `programs.js` | The 21 built-in programs |
-| `exercises.js` | The 498 exercises |
+| `exercises.js` | The 503 exercises |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `icon-512.png` | The app icon |
@@ -418,6 +418,21 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.8.2**
+- **A calmer Home screen.** It was too busy, so the cards are now quiet:
+  - **Last workout** is one row: the day, how long, sets, volume and any PRs. The list of exercises is gone (tap the row to open the workout).
+  - **PRs this month** is one row with the count and the first two names. Tap it for the full list; tap a record to open that exercise, and **Back to PRs** brings you back. It is hidden completely when you have no new records.
+  - **1RM Trophy Room** is one line per lift (name, thin bar, best / goal). The extra lines ("est. 1RM", "Next milestone") moved into the goal screen you get when you tap a lift. Lifts with no record yet are dimmed.
+  - **This week** shows only the lifting dot until you have logged cardio, and the Lifting / Cardio key appears then too.
+  - Softer look: small grey headings instead of bold titles, one colour for the shortcut icons, no glow on the routine card, no description under the program name, and a slimmer Consistency card.
+- The exercise screen's **Back** button now says where it goes ("Back to search", "Back to PRs").
+- Upload `index.html` and `sw.js`. `exercises.js` and `programs.js` are unchanged.
+
+**2.8.1**
+- **More cardio machines.** Cardio & Sports now has a **Gym machines** group: Treadmill, Incline Treadmill Walk, **StairMaster / Stair Climber**, Elliptical, Arc Trainer, Stationary and Recumbent Bike, Air Bike (Assault / Echo), Rowing Machine, SkiErg, VersaClimber, Jacob's Ladder, Mini Stepper and Arm Bike. There are also Trail Running, Mountain Biking, Stair Running, Spin Class, Circuit Training, Boot Camp, Battle Ropes, Sled Push / Pull, Kickboxing, Zumba, Water Aerobics and Barre (71 activities in all). The picker search understands other names ("stairmaster", "stepmill", "assault bike") and several words at once. Distance goals and shoe tracking include the new running, walking and cycling kinds.
+- The exercise list has 5 more cardio machines (Arc Trainer, Recumbent Bike, VersaClimber, Jacob's Ladder, Arm Bike) and Stairmaster also answers to StepMill and Stair Climber (503 exercises).
+- Upload `index.html`, `exercises.js` and `sw.js`. `programs.js` is unchanged.
 
 **2.8.0**
 - **In the gym:** suggested weight for next time with one-tap fill, the next set fills itself in, the workout timer waits for your first set, a look-over screen before saving (time, volume vs last time, new records), and favorites and recent exercises at the top of the picker.
