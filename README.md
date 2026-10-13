@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.7.0*
+*Version 2.8.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **21 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath and more) and **498 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -16,6 +16,7 @@ PulseTrack installs to your home screen like a normal app. It comes with **21 re
 - [Progress and records](#progress-and-records)
 - [Body tracking](#body-tracking)
 - [Cardio and sports](#cardio-and-sports)
+- [Search and name clean-up](#search-and-name-clean-up)
 - [Backup and sharing](#backup-and-sharing)
 - [Settings and looks](#settings-and-looks)
 - [Good to know](#good-to-know)
@@ -126,6 +127,27 @@ Your **current program** is the one that Home, the side menu and **Start Workout
 - **Screen stays awake** during a workout, on phones that allow it.
 - **Resume:** if you leave the app mid-workout, it picks up where you stopped.
 
+### In the gym (new in 2.8.0)
+
+Each of these can be switched off in **Settings → Workout Screen**.
+
+- **Suggested weight.** Under an exercise that has a rep range (like 8-12) and a last time, a small card shows what you did and what to try today, with a **Fill in** button (and an Undo). The rule is the usual one: hit the top of the range on every working set and it suggests a heavier weight; miss the bottom of the range on a set and it keeps the weight; otherwise it asks for one more rep. "Heavier" means the next weight you can really load. A barbell uses the plates from your gym profile, and dumbbells use that gym's dumbbell range, so at the heaviest dumbbell it says to add reps instead. It stays quiet when there is nothing to compare (first time, AMRAP, pyramids, timed sets).
+- **Fill in the next set.** Check off a set and the next empty set gets the same weight and reps. Warm-up sets are skipped.
+- **Timer starts on your first set.** The workout timer shows **Ready** until you check off a set, so opening a day and getting a coffee doesn't count. Tap the pill to start it early.
+- **Look over before saving.** **Finish Workout** shows a short summary first: time, sets, volume compared with the last time you did that day, any new records, and a note if some sets aren't checked off. **Keep going** or **Save workout**.
+- **Favorites and Recent.** In the exercise picker, tap the ☆ next to any exercise to pin it. **★ Favorites** and **Recent** sit at the top of the picker, and the ☆ is also on the exercise's page.
+- **Set row options.** Choose what shows on every set: **Last time**, the **warm-up / drop tag**, and **Est. 1RM**. Weight, reps and the check button always show.
+- **Left-hand mode** moves the check button and the **+ Set / − Set** buttons to the left side.
+
+### Gyms and equipment (new in 2.8.0)
+
+**Settings → Gyms & Equipment.** Add a profile for each place you train: your home garage, a commercial gym, a hotel gym or bodyweight only. Each one has its own **bar weight, plates and dumbbell range** (smallest, heaviest and step), and a list of **equipment it has** (barbell, EZ-bar, dumbbells, machines, cables, Smith machine, kettlebells, bands, bodyweight).
+
+- The **exercise picker** and the **swap ideas** leave out what the active gym can't do. The picker says what it left out and has **Show all**. Your own exercises are never hidden.
+- If a workout has an exercise the active gym can't do, its card says so with **Find a swap**.
+- Once you have two gyms, a small **📍 gym chip** at the top of the workout switches between them.
+- The plate calculator and the suggested weights follow the active gym. Until you edit anything there is one implicit gym ("My gym") and nothing is hidden.
+
 ### Rest timer
 
 - Starts by itself when you check off a set (you can turn this off in Settings).
@@ -228,7 +250,8 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 
 - **Personal records:** new records for weight, estimated 1-rep max and volume appear in the **Trophy Room** on Home.
 - **Per-exercise charts:** weight, estimated max and rep records over time.
-- **Streaks and weekly goal:** set how many days a week you want to train and keep your streak alive.
+- **Streaks and weekly goal:** set how many days a week you want to train and keep your streak alive. **Settings → Streaks & Time Off** lets you mark **sick days** and **trips**: those days don't break your streak (each one lowers that week's goal by one, and a week fully off is skipped). Cardio counts toward the goal only if you switch on **Count cardio toward my weekly goal** (off by default).
+- **Home cards (new in 2.8.0):** **This week** (a row of seven days with a dot for lifting and a dot for cardio, and sick or trip days marked), **Last workout** (a short recap you can tap to open it) and **PRs this month**.
 - **Up next on Home** includes a line about today's muscles, like "Chest, Shoulders still recovering (ready in about 3 days)" or "✓ Muscles are rested for this day".
 - **Calendar and History:** see every past workout. Open one to edit it, **Do Again**, **Share** it, or **Save as Routine**. Tap the **Time** box on a past workout to fix its length.
 
@@ -259,7 +282,35 @@ A separate place to log runs, rides, swims, classes and every sport. Open it fro
 - **Calories are an estimate.** They come from the activity, how hard it was, your weight and the time. Your weight is taken from your latest **Body & Photos** entry, or you can type it in Cardio settings. If you have a watch or machine reading, type that number instead.
 - **Units:** distance follows your lb / kg setting (miles or kilometres), or you can pick Miles or Kilometres in Cardio settings. Sessions are saved in metres, so changing units never changes what you logged.
 - **Backup and export:** cardio and sports are in your backup file, and **Cardio settings → Export** gives a CSV for Excel or Google Sheets.
+- **Goals, records & shoes (new in 2.8.0):** a monthly **distance goal** (all cardio, or just runs, walks or rides), your **best 5K and 10K** (from runs and treadmill runs close to those distances, with the time scaled to the exact distance), and **shoe mileage**: add your shoes, pick one on each run, and see miles or kilometres per pair with a warning near the limit (400 mi / 650 km by default; you can set your own and retire a pair).
 - **Timer strip:** while a cardio timer is running or paused, a slim strip appears at the top of Home with the time and an **Open** button, so you don't forget it. It disappears when the timer is done.
+
+---
+
+## Search and name clean-up
+
+### Search (new in 2.8.0)
+
+Tap the **Search** bar on Home or **☰ → Search**. Type one or more words (every word has to match) and results come in groups:
+
+- **Exercises**, including their other names ("DB press" finds Dumbbell Press), with how many workouts you have for each.
+- **Programs**, by title, day names or an exercise inside.
+- **Workouts**, by day name, program, an exercise, or a date: "march 2026", "monday".
+- **Notes**: exercise notes, workout notes, the notes you wrote on a finished workout, and cardio notes.
+- **Cardio & Sports** sessions.
+
+Matches are highlighted. Each group shows 5 results with **Show all**. Tap a result to open it. From an exercise, **Back** returns to your search. The Search bar is one of the Home cards, so you can hide or move it.
+
+### Clean up exercise names (new in 2.8.0)
+
+Some of the built-in programs spell exercises differently from the standard list ("Barbell Bench Press" instead of **Bench Press**, "Dumbbell Lateral Raises" instead of **Lateral Raises**). The app already understands those names, but the same lift could still show up in two places. **Settings → Data & Backup → Clean Up Exercise Names** fixes that:
+
+- It lists every name that differs, with the standard name below it and how many programs and saved workouts use it. All are ticked. **Tap one to leave it out**.
+- **Rename** changes them in your programs, your saved workouts, your PRs, your notes, last-time weights, favorites and per-exercise rest times. Where two spellings were separate, the history is **merged**: nothing is lost, and the best record wins.
+- Built-in programs keep the new names when you use **Clear Progress** on a day.
+- Dumbbell lifts keep counting the same number of dumbbells they did before, so volume stays right ("Dumbbell Lunges" counts both hands and so does the renamed "Lunges").
+- It makes a safety copy first. **Undo** is offered right after, and again in the same screen, **until you save your next workout** (after that it can't go back without losing that workout). Undoing also drops anything else you changed in between, so it asks first. **Export a backup first** is one tap away.
+- It is safe to run again whenever you add a program that spells things differently. The button shows how many names can be tidied.
 
 ---
 
@@ -277,7 +328,7 @@ A separate place to log runs, rides, swims, classes and every sport. Open it fro
 
 ## Settings and looks
 
-Settings is a short list of six groups: **Workout**; **Sound, Voice & Feel**; **Appearance**; **Data & Backup**; **App**; and **Danger Zone**. Tap one to open it. Each shows a short summary of your choices, and the app remembers which were open until you close it.
+Settings is a short list of nine groups: **Workout**; **Workout Screen**; **Gyms & Equipment**; **Streaks & Time Off**; **Sound, Voice & Feel**; **Appearance**; **Data & Backup**; **App**; and **Danger Zone**. Tap one to open it. Each shows a short summary of your choices, and the app remembers which were open until you close it.
 
 - **Units:** kg or lb. Switching asks whether to **Convert my saved numbers**, **Only change the labels**, or **Cancel**.
 - **Text size:** make everything bigger or smaller.
@@ -304,7 +355,7 @@ In Light mode the muscle map keeps its dark body figure so the muscles stay easy
 
 **Reset look** puts colours, background, effect, font and corners back to the original. It does not touch your Home layout, your own exercises or your data.
 
-**Home layout** (Settings → Appearance → Home screen): use ▲ ▼ to move a card and **Shown / Hidden** to hide it. The cards are the monthly recap banner, today's workout, shortcut tiles, consistency, and the 1RM Trophy Room. **Put the cards back the way they were** resets it.
+**Home layout** (Settings → Appearance → Home screen): use ▲ ▼ to move a card and **Shown / Hidden** to hide it. The cards are the monthly recap banner, today's workout, the Search bar, This week, shortcut tiles, consistency, Last workout, PRs this month, and the 1RM Trophy Room. The new cards are shown by default. **Put the cards back the way they were** resets it.
 
 App pop-ups (confirmations, text boxes, lists) match your theme in light or dark, and their buttons say what they do, like **Remove**.
 
@@ -367,6 +418,18 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.8.0**
+- **In the gym:** suggested weight for next time with one-tap fill, the next set fills itself in, the workout timer waits for your first set, a look-over screen before saving (time, volume vs last time, new records), and favorites and recent exercises at the top of the picker.
+- **Gym profiles:** bar, plates, dumbbell range and equipment for each place you train. The picker and swap ideas hide what the gym can't do.
+- **Home:** a Search bar, **This week**, **Last workout** and **PRs this month** cards, all of which you can hide or reorder.
+- **Set rows:** choose what shows (last time, tag, est. 1RM) and a left-hand mode. There is no RPE column, because RPE tracking wasn't added.
+- **Streaks:** sick days and trips don't break your streak, and an optional switch counts cardio toward the weekly goal (off by default).
+- **Cardio:** monthly distance goal, best 5K and 10K, and shoe mileage.
+- **Clean Up Exercise Names:** one tap renames the built-in programs' alternate spellings (about 220) to the standard names and merges history and PRs, with Undo.
+- **Search** across exercises, programs, workouts, notes and cardio.
+- A small fix: Bodyweight Squats no longer get the long rest meant for heavy barbell squats.
+- Upload `index.html` and `sw.js`. `exercises.js` and `programs.js` are unchanged since 2.6.5.
 
 **2.7.0**
 - **Cardio & Sports**, a separate log for runs, rides, swims, classes and sports (see Cardio and sports). It has a live timer, 50 activities plus your own, pace and speed, a weekly minutes goal with an 8-week chart, history with filters, totals and records, win-loss records for sports, and calorie estimates. It is completely separate from lifting: your sets, volume, records, muscle map and Consistency are not affected. It has a tile on Home and an entry in the menu, and a slim strip on Home while a timer is running. It is included in backups.
