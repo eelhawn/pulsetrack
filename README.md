@@ -245,7 +245,7 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 
 ## Cardio and sports
 
-A separate place to log runs, rides, swims, classes and every sport. Find it on **Home → Cardio & Sports**.
+A separate place to log runs, rides, swims, classes and every sport. Open it from the **Cardio & Sports** tile on Home (next to 1RM Calculator and Plate Calculator), or from the menu (☰) → **Cardio & Sports**.
 
 **It is kept apart from your lifting on purpose.** Cardio and sports sessions do not count toward your sets, volume, records, muscle map, recovery, "Consistency" or the weekly workout goal. They have their own history, stats and weekly goal. Cardio you log inside a lifting workout (for example a treadmill finisher on a program day) still works as before and stays part of that workout.
 
@@ -259,7 +259,7 @@ A separate place to log runs, rides, swims, classes and every sport. Find it on 
 - **Calories are an estimate.** They come from the activity, how hard it was, your weight and the time. Your weight is taken from your latest **Body & Photos** entry, or you can type it in Cardio settings. If you have a watch or machine reading, type that number instead.
 - **Units:** distance follows your lb / kg setting (miles or kilometres), or you can pick Miles or Kilometres in Cardio settings. Sessions are saved in metres, so changing units never changes what you logged.
 - **Backup and export:** cardio and sports are in your backup file, and **Cardio settings → Export** gives a CSV for Excel or Google Sheets.
-- **Home card:** a Cardio & Sports card on Home shows this week and has Start and Log buttons. It can be moved or hidden in Settings → Appearance → Home screen.
+- **Timer strip:** while a cardio timer is running or paused, a slim strip appears at the top of Home with the time and an **Open** button, so you don't forget it. It disappears when the timer is done.
 
 ---
 
@@ -304,7 +304,7 @@ In Light mode the muscle map keeps its dark body figure so the muscles stay easy
 
 **Reset look** puts colours, background, effect, font and corners back to the original. It does not touch your Home layout, your own exercises or your data.
 
-**Home layout** (Settings → Appearance → Home screen): use ▲ ▼ to move a card and **Shown / Hidden** to hide it. The cards are the monthly recap banner, today's workout, shortcut tiles, consistency, Cardio & Sports, and the 1RM Trophy Room. **Put the cards back the way they were** resets it.
+**Home layout** (Settings → Appearance → Home screen): use ▲ ▼ to move a card and **Shown / Hidden** to hide it. The cards are the monthly recap banner, today's workout, shortcut tiles, consistency, and the 1RM Trophy Room. **Put the cards back the way they were** resets it.
 
 App pop-ups (confirmations, text boxes, lists) match your theme in light or dark, and their buttons say what they do, like **Remove**.
 
@@ -369,7 +369,7 @@ Keep every `id` unique. New programs reach phones on the next update.
 ## Version history
 
 **2.7.0**
-- **Cardio & Sports**, a separate log for runs, rides, swims, classes and sports (see Cardio and sports). It has a live timer, 50 activities plus your own, pace and speed, a weekly minutes goal with an 8-week chart, history with filters, totals and records, win-loss records for sports, and calorie estimates. It is completely separate from lifting: your sets, volume, records, muscle map and Consistency are not affected. A Cardio & Sports card on Home can be moved or hidden. It is included in backups.
+- **Cardio & Sports**, a separate log for runs, rides, swims, classes and sports (see Cardio and sports). It has a live timer, 50 activities plus your own, pace and speed, a weekly minutes goal with an 8-week chart, history with filters, totals and records, win-loss records for sports, and calorie estimates. It is completely separate from lifting: your sets, volume, records, muscle map and Consistency are not affected. It has a tile on Home and an entry in the menu, and a slim strip on Home while a timer is running. It is included in backups.
 - Upload `index.html` and `sw.js`. `exercises.js` and `programs.js` are unchanged since 2.6.5.
 
 **2.6.5**
