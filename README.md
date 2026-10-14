@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.8.2*
+*Version 2.9.1*
 
-PulseTrack installs to your home screen like a normal app. It comes with **21 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath and more) and **503 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **529 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -58,11 +58,12 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 
 ## Programs
 
-### Built in (21)
+### Built in (22)
 
-**12-week plans, week by week:** Phil Heath, Lou Ferrigno, Arnold Schwarzenegger, Dorian Yates (Blood & Guts), Mountain Dog 200-Rep (John Meadows), Jay Cutler, Ronnie Coleman, Kris Gethin Legacy Fat Loss Trainer.
+**12-week plans, week by week:** Phil Heath, Lou Ferrigno, Arnold Schwarzenegger, Dorian Yates (Blood & Guts), Mountain Dog 200-Rep (John Meadows), Jay Cutler, Ronnie Coleman, Kris Gethin Legacy Fat Loss Trainer, Kris Gethin 12 Weeks to Muscle.
 
 **Other programs:**
+- Kris Gethin: 12 Weeks to Muscle (84 days, hypertrophy first, then drop sets, supersets and giant sets)
 - FST-7: Big and Ripped (8 weeks)
 - FST-7 Hard Body Blueprint: Level 1
 - Jim Stoppani: Shortcut to Shred (6 weeks)
@@ -82,17 +83,19 @@ Your **current program** is the one that Home, the side menu and **Start Workout
 - Every program on the **Programs** list has a **Select** button. The one you picked shows a green **✓ Current** tag.
 - Open a program you haven't selected and a bar says **Just looking** with a **Select** button. Inside one of its workouts, a small bar says **Not your current program** with **Select it**, which also makes that day your next one.
 - While you look around, Home and the side menu keep showing your own program.
-- **Jump to week** counts as choosing the program, because you are starting it there.
+- **Switch week** counts as choosing the program, because you are starting it there.
 - **Empty Workout**, **Do Again**, **Freestyle**, and the **Open** buttons after you add or create a program do not change it.
 - If nothing is selected and you finish a program's workout, a note offers **Make "…" your current program?**. Nothing happens unless you tap it.
 - Deleting a program you were only looking at leaves your current one alone.
 
-### 12-week plans
+### Programs that run for several weeks
 
-- Every day is labelled like **Week 4 of 12 · Day 2**.
-- The days list has week headers and scrolls to **Up next** for you.
-- **Jump to week** lets you start in the middle. Earlier weeks are marked done.
-- Rest days are skipped automatically.
+- A **week bar** is pinned right under the header of the Days screen (**Week 4 of 12 · 3/64 done**, with a **Switch week** button). It stays there while you scroll the list of days.
+- **Switch week** opens a grid of the weeks. Tap the one you are on: earlier weeks are marked done and **Up next** jumps there. Going back to an earlier week works the same way. Your saved workouts and PRs are never changed.
+- This works for every program that is laid out week by week: the 12-week plans, Kris Gethin 12 Weeks to Muscle and Legacy 12-Week, FST-7 Big and Ripped, both Jim Stoppani 6-week programs, and the programs that repeat a few days over several weeks (Kai Greene 6 weeks: days 1-6 for weeks 1-3, days 7-12 for weeks 4-6; FST-7 Level 1: weeks 1 and 3 use days 1-5, weeks 2 and 4 use days 6-10). For those two, the plan stays on the first set of days until you finish them, then moves to the next week.
+- Programs that are a single week repeated (Bulk with Buendia, USN 5 Day Mass Plan and so on) have the same bar with a plain week counter. **Switch week** asks for the week number. Shred with Buendia is in this group too, because its plan says "Phase 1 and Phase 2" without saying how many weeks each lasts.
+- Every day is labelled like **Week 4 of 12 · Day 2**, the days list has week headers and scrolls to **Up next**, and rest days are skipped automatically.
+- **Switch week** counts as choosing the program, because you are starting it there.
 - History remembers which week each workout was in.
 
 ### Make your own
@@ -134,7 +137,7 @@ Each of these can be switched off in **Settings → Workout Screen**.
 - **Suggested weight.** Under an exercise that has a rep range (like 8-12) and a last time, a small card shows what you did and what to try today, with a **Fill in** button (and an Undo). The rule is the usual one: hit the top of the range on every working set and it suggests a heavier weight; miss the bottom of the range on a set and it keeps the weight; otherwise it asks for one more rep. "Heavier" means the next weight you can really load. A barbell uses the plates from your gym profile, and dumbbells use that gym's dumbbell range, so at the heaviest dumbbell it says to add reps instead. It stays quiet when there is nothing to compare (first time, AMRAP, pyramids, timed sets).
 - **Fill in the next set.** Check off a set and the next empty set gets the same weight and reps. Warm-up sets are skipped.
 - **Timer starts on your first set.** The workout timer shows **Ready** until you check off a set, so opening a day and getting a coffee doesn't count. Tap the pill to start it early.
-- **Look over before saving.** **Finish Workout** shows a short summary first: time, sets, volume compared with the last time you did that day, any new records, and a note if some sets aren't checked off. **Keep going** or **Save workout**.
+- **Look over before saving.** **Finish Workout** shows a short summary first: time, sets, volume compared with the last time you did that day, any new records, and a note if some sets aren't checked off. **Keep going** or **Save workout**. This screen is also the "are you sure?" step: Finish Workout never saves straight away, and **Save workout** ignores taps for the first moment so an accidental double-tap can't save it. Turn the look-over off and Finish Workout asks a plain **Finish workout?** question instead.
 - **Favorites and Recent.** In the exercise picker, tap the ☆ next to any exercise to pin it. **★ Favorites** and **Recent** sit at the top of the picker, and the ☆ is also on the exercise's page.
 - **Set row options.** Choose what shows on every set: **Last time**, the **warm-up / drop tag**, and **Est. 1RM**. Weight, reps and the check button always show.
 - **Left-hand mode** moves the check button and the **+ Set / − Set** buttons to the left side.
@@ -374,6 +377,8 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 
 **What a web app can't do.** Apple Health or Strava sync, a watch app, home-screen widgets, a lock-screen timer, or reminder notifications. Those need a native app or a server.
 
+**About Kris Gethin 12 Weeks to Muscle.** The sets, reps and rest were copied from the plan day by day, with a few gaps filled in: where no rest time was given, 90 seconds is used (60 seconds for 15+ reps); "Seated Calf Raise" on day 19 has no set count, so it uses 3; day 58 is missing the name of one exercise, so it shows as **Exercise of Your Choice**; and a few exercises where the sets and the listed rep targets disagree. Each of these is noted on the exercise, including which number was used. Exercise names were matched to the PulseTrack list, and 26 new exercises were added for moves that did not exist yet.
+
 **About the 12-week programs.** The source plans had a few gaps, handled like this:
 - Ferrigno: the heading says weeks 5–8, but the schedule says weeks 7–12.
 - Arnold: no phase lengths were given, so each phase is 3 weeks.
@@ -392,8 +397,8 @@ Upload these to your GitHub repo, all in the same folder:
 | File | What it does |
 |---|---|
 | `index.html` | The whole app (about 1 MB, including fonts, themes and form tips) |
-| `programs.js` | The 21 built-in programs |
-| `exercises.js` | The 503 exercises |
+| `programs.js` | The 22 built-in programs |
+| `exercises.js` | The 529 exercises |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `icon-512.png` | The app icon |
@@ -405,12 +410,12 @@ Upload these to your GitHub repo, all in the same folder:
 
 - A program that is **new** in `programs.js` shows up on phones automatically.
 - A program that **already existed** and was edited is *not* replaced on phones, so your progress is safe. To get the changed version, delete the program in the app and use **Add Back a Built-in Program**.
-- The one exception is wording: if a built-in program still carries an old source note, the app swaps in the cleaned text by itself. It only touches text containing an old note, so anything you wrote or edited is never changed, and no exercise, set, rep or logged workout changes.
+- Two exceptions. **Week info:** if a built-in program is still the same as when you got it but did not yet have week numbers (FST-7 Big and Ripped, Jim Stoppani Shortcut to Shred) or a week plan (Kai Greene, FST-7 Level 1), the app fills that in by itself the next time it opens. Only the missing week numbers are added; exercises, edits and history are never touched, and a program you rebuilt yourself is left alone. A "Week 3" you had typed in before becomes week 3 of the program, once. **Wording:** if a built-in program still carries an old source note, the app swaps in the cleaned text by itself. It only touches text containing an old note, so anything you wrote or edited is never changed, and no exercise, set, rep or logged workout changes.
 
 ### Adding programs and exercises
 
 - **Easiest:** build a program inside the app, or import a `.json` file with the Import button.
-- **Permanent for everyone:** add it to `programs.js`, one object per program with `id`, `title`, `description`, `tags` and `days`. Each day has `dayNumber`, `title`, `estimatedMinutes` and `exercises` (each with `id`, `name`, `sets`, `reps`, `restSeconds`, `type`, `notes`). For a 12-week program, add `week: 1…12` to every day. An empty `exercises` list is a rest day.
+- **Permanent for everyone:** add it to `programs.js`, one object per program with `id`, `title`, `description`, `tags` and `days`. Each day has `dayNumber`, `title`, `estimatedMinutes` and `exercises` (each with `id`, `name`, `sets`, `reps`, `restSeconds`, `type`, `notes`). For a program that lists every week, add `week: 1…12` to every day. For a program whose few days repeat over several weeks, add `weekPlan: [{ weeks: [1, 2, 3], days: [1, 2, 3, 4, 5, 6] }, { weeks: [4, 5, 6], days: [7, 8, 9, 10, 11, 12] }]` to the program itself. Both give it the pinned **Switch week** bar. An empty `exercises` list is a rest day.
 - **New exercises:** use **My Exercises** in the app, or add them to `exercises.js` for everyone. One line each: `{ name: "Machine Triceps Dips", category: "Triceps" }`. If the exercise is also known by other names, list them in `aka`: `{ name: "Rope Pushdown", category: "Triceps", aka: ["Triceps Rope Pushdown"] }`. Those names are searchable and count as the same exercise (same muscle group, never suggested as a swap for itself). Only give it its own entry if it really is a different exercise (a straight-bar pushdown is not a rope pushdown).
 
 Keep every `id` unique. New programs reach phones on the next update.
@@ -418,6 +423,18 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.9.1**
+- **Finish Workout always asks first.** With the look-over turned on (the default) you get the "Ready to save?" screen, and its **Save workout** button ignores taps for the first moment after the screen opens, so a second tap meant for Finish (or lifting straps brushing the screen) can't save the workout. With the look-over turned off (Settings → Workout Screen) you now get a **Finish workout?** question with **Not yet** and **Finish workout**. A workout with nothing checked off already asked "Finish anyway?".
+- Upload `index.html`, `sw.js` and `README.md`. `programs.js` and `exercises.js` are unchanged since 2.9.0.
+
+**2.9.0**
+- **Kris Gethin: 12 Weeks to Muscle** is now a built-in program (84 days, 450 exercises). It arrives on phones by itself on the next update.
+- **Switch week at the very top.** A week bar is pinned under the header of the Days screen, so you no longer scroll to find it. **Switch week** opens a grid of weeks and one tap puts you there. It works for every multi-week program, including FST-7 Big and Ripped and Jim Stoppani's Shortcut to Shred, which only had a plain counter before.
+- **Kai Greene 6 weeks** and **FST-7 Hard Body Blueprint Level 1** now know which days belong to which weeks. Before, finishing days 1-6 sent you straight to the Weeks 4-6 days; now the plan stays on its first days for the weeks they are meant for. Their day titles lose the repeated "[W1-3]" and "W1 & W3 -" prefixes, because the headers say it.
+- **Works on phones that already have the app.** Nothing is reset. The next time the app opens it adds the new program, fills in the missing week info on your existing copies of the built-in programs (only if they are unchanged), and converts a week counter you had typed in, once. Your progress, history, PRs and your own programs are not touched, and programs you deleted stay deleted.
+- 26 new exercises (529 in all) and 70 more alternate names for existing ones, so the 12-week program's moves match your list: Cuban Press, Dumbbell Squats, Seated Cable Shoulder Press, Bent-Over Dumbbell Rows, Jackknife Sit-Ups, Cable Reverse Crunches and more.
+- Upload `index.html`, `programs.js`, `exercises.js`, `sw.js` and `README.md`.
 
 **2.8.2**
 - **A calmer Home screen.** It was too busy, so the cards are now quiet:
