@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.9.1*
+*Version 2.10.0*
 
-PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **529 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **537 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -103,7 +103,7 @@ Your **current program** is the one that Home, the side menu and **Start Workout
 - **Program builder:** create a program, add days and exercises, set sets, reps and rest.
 - **Edit any program:** add, remove, swap or reorder exercises, and change sets and reps.
 - **Save a finished workout as a routine** to repeat it.
-- **Supersets** show as A1/A2, B1/B2.
+- **Supersets:** two exercises done back to back. They show as A1/A2, B1/B2 and each has its own weight and reps. To make one, tap **+ Superset with next** in the gap between two exercises; tap **Superset with next · Unlink** to separate them. The rest timer waits until the last exercise of the pair.
 - **Share** a program as a link, or **import** one from a link or a `.json` file.
 
 ### Reset and restore
@@ -398,7 +398,7 @@ Upload these to your GitHub repo, all in the same folder:
 |---|---|
 | `index.html` | The whole app (about 1 MB, including fonts, themes and form tips) |
 | `programs.js` | The 22 built-in programs |
-| `exercises.js` | The 529 exercises |
+| `exercises.js` | The 537 exercises |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `icon-512.png` | The app icon |
@@ -423,6 +423,12 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.10.0**
+- **Super Shredded 8 supersets, one exercise at a time.** Each superset used to be one card ("Bench Press / Dumbbell Flye") with a single weight box. Now every half is its own exercise with its own sets, reps and weight, linked as A1/A2. The rest comes after the second one. The Tabata blocks are unchanged. On phones that already have the program it updates itself the next time the app opens: only cards you haven't changed are replaced (if you changed the sets, both halves follow). Your progress, history, and anything you swapped stay as they are.
+- **Simpler superset button.** The chain icon in the corner of each exercise is gone. Between two exercises there is now a clearly labelled button: **+ Superset with next** to link them, **Superset with next · Unlink** to separate them.
+- 8 more exercises (537 in all) and 9 more alternate names: Seated Barbell Curls, Low and High Cable Crossovers, Smith Machine Behind-The-Neck Press, Lying Cable Rear Delt Raises, Oblique Cable Crunches, Standing Lat Pulldown, Smith Machine Behind-The-Back Shrugs.
+- Upload `index.html`, `programs.js`, `exercises.js`, `sw.js` and `README.md`.
 
 **2.9.1**
 - **Finish Workout always asks first.** With the look-over turned on (the default) you get the "Ready to save?" screen, and its **Save workout** button ignores taps for the first moment after the screen opens, so a second tap meant for Finish (or lifting straps brushing the screen) can't save the workout. With the look-over turned off (Settings → Workout Screen) you now get a **Finish workout?** question with **Not yet** and **Finish workout**. A workout with nothing checked off already asked "Finish anyway?".

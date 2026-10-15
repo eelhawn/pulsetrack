@@ -3746,7 +3746,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.9.1";
+    const APP_VERSION = "2.10.0";
     const BACKUP_SCHEMA = 2;
     const STORAGE_KEY_SESSIONS = "pulsetrack_sessions_v1";
     const STORAGE_KEY_BODY = "pulsetrack_body_v1";
@@ -12594,6 +12594,114 @@ const PTSIM = (function () {
   };
 
   PT.weeks = { planOf, stampWeeks, weeksOf, openWeekSheet: () => openWeekSheet(window.app, window.app.activeProgram) };
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.10.0: supersets that are simple to use.
+ *  - Super Shredded 8: every superset used to be ONE card ("Bench Press / Dumbbell Flye") with a single weight box.
+ *    Now each half is its own exercise with its own sets, reps and weight, linked as a superset
+ *    (A1 / A2). Phones that already have the program are updated the next time the app opens: only the
+ *    untouched "A / B" cards are replaced; everything else you changed stays as it is.
+ *  - The little chain icon is gone. Between two exercises there is now a plain button:
+ *    "+ Superset with next" to link them, "Superset with next · Unlink" to separate them.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  const proto = ApplicationUI.prototype;
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const clone = o => JSON.parse(JSON.stringify(o));
+
+  /* ------------------------------------------- split the old combined supersets on phones that have them */
+  const SPLIT_PROGRAM = "jim_stoppani_ss8_base_6days";
+  // id of the old combined card -> [its old name, its sets, its rest seconds]. A card is only replaced while it still looks like this.
+  const OLD = {"ss8_d1_e1":["Bench Press / Dumbbell Flye",3,60],"ss8_d1_e2":["Incline Dumbbell Flye / Incline Dumbbell Press",3,60],"ss8_d1_e4":["Seated Dumbbell Shoulder Press / Dumbbell Lateral Raise",3,60],"ss8_d1_e5":["Bent-Over Lateral Raise / Dumbbell Upright Row",3,60],"ss8_d1_e7":["Close-Grip Bench Press / Lying Triceps Extension",3,60],"ss8_d1_e8":["Triceps Pressdown / Overhead Cable Triceps Extension (Low Pulley)",2,60],"ss8_d2_e1":["Jump Squat / Leg Extension",3,60],"ss8_d2_e2":["Front Squat / Squat",3,60],"ss8_d2_e3":["Lying Leg Curl / Dumbbell Romanian Deadlift",3,60],"ss8_d2_e5":["Leg Press Calf Raise / One-Leg Standing Calf Raise (Body Weight)",3,60],"ss8_d2_e7":["Hanging Leg Raise / Oblique Crunch",3,60],"ss8_d3_e1":["Bent-Over Barbell Row / Reverse-Grip Barbell Row",3,60],"ss8_d3_e2":["Straight-Arm Pulldown / Wide-Grip Lat Pulldowns",3,60],"ss8_d3_e4":["Barbell Shrug / Behind-The-Back Barbell Shrug",3,60],"ss8_d3_e6":["Seated Barbell Curl / Standing Barbell Curl",2,60],"ss8_d3_e7":["Prone Incline Dumbbell Curl / Incline Dumbbell Curl",2,60],"ss8_d3_e8":["Barbell Wrist Curl / Barbell Reverse Wrist Curl",2,60],"ss8_d4_e1":["Incline Bench Press / Incline Dumbbell Flye",3,60],"ss8_d4_e2":["Cable Crossover (Low Pulley) / Cable Crossover (High Pulley)",3,60],"ss8_d4_e4":["Smith-Machine Seated Behind-The-Neck Shoulder Press / Smith Machine Upright Row",3,60],"ss8_d4_e5":["Lying Cable Rear Delt Raise / Cable Lateral Raise",3,60],"ss8_d4_e7":["Lying Triceps Extension / Bench Dip",2,60],"ss8_d4_e8":["Reverse-Grip Triceps Pressdown / Triceps Pressdown",2,60],"ss8_d5_e1":["Squat / Barbell Lunge",3,60],"ss8_d5_e2":["One-Leg Leg Press (Alt. Legs) / Leg Press",3,60],"ss8_d5_e3":["Deadlift / Romanian Deadlift",3,60],"ss8_d5_e5":["Seated Calf Raise / One-Leg Standing Calf Raise (Body Weight)",3,60],"ss8_d5_e7":["Cable Crunch / Oblique Cable Crunch",3,60],"ss8_d6_e1":["Wide-Grip Lat Pulldowns / Reverse-Grip Lat Pulldown",3,60],"ss8_d6_e2":["Straight-Arm Pulldown / Standing Lat Pulldown",3,60],"ss8_d6_e4":["Smith Machine Behind-The-Back Barbell Shrug / Smith Machine Shrug",3,60],"ss8_d6_e6":["Standing Barbell Curl (EZ-Bar) / Preacher Curl (Also Can Use EZ-Bar)",2,60],"ss8_d6_e7":["Incline Dumbbell Curl / Alternating Dumbbell Curl",2,60],"ss8_d6_e8":["Dumbbell Reverse Wrist Curl / Dumbbell Wrist Curl",2,60]};
+  function splitStored(data) {
+    if (typeof BUILTIN_PROGRAMS === "undefined" || !Array.isArray(BUILTIN_PROGRAMS) || !data || !Array.isArray(data.programs)) return false;
+    const bp = BUILTIN_PROGRAMS.find(x => x && x.id === SPLIT_PROGRAM);
+    const p = data.programs.find(x => x && x.id === SPLIT_PROGRAM);
+    if (!bp || !p || !Array.isArray(p.days)) return false;
+    let changed = false;
+    p.days.forEach(d => {
+      if (!d || !Array.isArray(d.exercises)) return;
+      const bd = (bp.days || []).find(x => x.dayNumber === d.dayNumber);
+      if (!bd || !Array.isArray(bd.exercises)) return;
+      const out = [];
+      d.exercises.forEach(e => {
+        const o = e && OLD[e.id];
+        if (o && e.name === o[0] && !d.exercises.some(x => x && x.id === e.id + "b")) {
+          const A = bd.exercises.find(x => x.id === e.id), B = bd.exercises.find(x => x.id === e.id + "b");
+          if (A && B) {
+            const a = clone(A), b = clone(B);
+            if (e.sets !== o[1] && e.sets > 0) { a.sets = e.sets; b.sets = e.sets; }                  // you changed the number of sets: both halves follow
+            if (e.restSeconds !== undefined && e.restSeconds !== o[2]) b.restSeconds = e.restSeconds;   // you changed the rest time: it applies after the pair
+            if (e.link) b.link = true;                                                                 // it was linked to the exercise below: still is
+            out.push(a, b); changed = true;
+            return;
+          }
+        }
+        out.push(e);
+      });
+      d.exercises = out;
+    });
+    return changed;
+  }
+  PT.splitSupersets = { splitStored, OLD };
+  const oSeed = WorkoutStorage.seedBuiltins;
+  WorkoutStorage.seedBuiltins = function (data) {
+    const out = oSeed.apply(this, arguments);
+    try { if (splitStored(out)) this.setData(out); } catch (e) { console.warn("PulseTrack: superset split skipped", e); }
+    return out;
+  };
+
+  /* ------------------------------------------------------------- the superset button between two exercises */
+  const css = document.createElement("style");
+  css.id = "pt-m30a-css";
+  css.textContent = `
+    .pt-ssj { display: flex; justify-content: center; margin: -.55rem 0 !important; position: relative; z-index: 2; pointer-events: none; }
+    .pt-ssj button { pointer-events: auto; display: inline-flex; align-items: center; gap: .4rem; min-height: 2.25rem; padding: .35rem .95rem; border-radius: 999px; font-size: .75rem; font-weight: 800; line-height: 1.1;
+      background: rgb(var(--z950)); border: 1px dashed rgb(var(--z700)); color: rgb(var(--z300)); }
+    .pt-ssj button:active { transform: scale(.97); }
+    .pt-ssj.on button { background: rgb(147 51 234); border: 1px solid rgb(192 132 252); color: #fff; box-shadow: 0 2px 10px rgb(147 51 234 / .35); }
+    .pt-ssj button svg { width: .9rem; height: .9rem; flex: none; }
+  `;
+  document.head.appendChild(css);
+  const LINK_SVG = '<svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>';
+
+  function drawJoins(app) {
+    const list = app.dom && app.dom.exercisesList; if (!list) return;
+    const exs = (app.activeDay && app.activeDay.exercises) || [];
+    list.querySelectorAll(".pt-ssj").forEach(x => x.remove());
+    list.querySelectorAll("[data-ex-card] .btn-link-ex").forEach(b => b.remove());      // the old icon-only button
+    list.querySelectorAll(":scope > [data-ex-card]").forEach(card => {
+      const i = parseInt(card.getAttribute("data-ex-card"), 10);
+      if (!(i >= 0 && i < exs.length - 1)) return;
+      const on = !!exs[i].link;
+      const j = document.createElement("div");
+      j.className = "pt-ssj" + (on ? " on" : "");
+      j.innerHTML = `<button type="button" class="btn-link-ex" data-exindex="${i}" aria-pressed="${on}">${LINK_SVG}<span>${on ? "Superset with next · Unlink" : "+ Superset with next"}</span></button>`;
+      card.after(j);
+    });
+    if (!list.__ptSsj) {
+      list.__ptSsj = true;
+      list.addEventListener("click", e => {
+        const b = e.target.closest && e.target.closest(".pt-ssj .btn-link-ex"); if (!b) return;
+        const a = window.app; if (!a || !a.activeDay) return;
+        const xs = a.activeDay.exercises || [], i = parseInt(b.dataset.exindex, 10), ex = xs[i], nx = xs[i + 1];
+        if (!ex || !nx) return;
+        if (ex.link) delete ex.link; else ex.link = true;
+        WorkoutStorage.setData(a.data);
+        a.renderWorkoutView();
+        a.toast(ex.link ? `Superset: ${ex.name}, then straight into ${nx.name}. Rest comes after.` : "Superset removed. They are separate exercises again.");
+      });
+    }
+  }
+  const oRender = proto.renderWorkoutView;
+  proto.renderWorkoutView = function () {
+    const r = oRender.apply(this, arguments);
+    try { drawJoins(this); } catch (e) { console.error("PulseTrack 2.10.0 superset joins", e); }
+    return r;
+  };
 })();
   </script>
 </body>

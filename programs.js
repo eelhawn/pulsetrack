@@ -18999,21 +18999,39 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "ss8_d1_e1",
-      "name": "Bench Press / Dumbbell Flye",
+      "name": "Bench Press",
       "sets": 3,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Chest Superset"
+      "link": true,
+      "notes": "Chest superset: do Dumbbell Flyes right after this, then rest."
+     },
+     {
+      "id": "ss8_d1_e1b",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d1_e2",
-      "name": "Incline Dumbbell Flye / Incline Dumbbell Press",
+      "name": "Incline Dumbbell Flyes",
       "sets": 3,
-      "reps": "16-20 / 7-8",
-      "restSeconds": 60,
+      "reps": "16-20",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Chest Superset"
+      "link": true,
+      "notes": "Chest superset: do Incline Dumbbell Press right after this, then rest."
+     },
+     {
+      "id": "ss8_d1_e2b",
+      "name": "Incline Dumbbell Press",
+      "sets": 3,
+      "reps": "7-8",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d1_e3",
@@ -19026,21 +19044,39 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "ss8_d1_e4",
-      "name": "Seated Dumbbell Shoulder Press / Dumbbell Lateral Raise",
+      "name": "Seated Dumbbell Press",
       "sets": 3,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Shoulder Superset"
+      "link": true,
+      "notes": "Shoulder superset: do Lateral Raises right after this, then rest."
+     },
+     {
+      "id": "ss8_d1_e4b",
+      "name": "Lateral Raises",
+      "sets": 3,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d1_e5",
-      "name": "Bent-Over Lateral Raise / Dumbbell Upright Row",
+      "name": "Dumbbell Reverse Flyes",
       "sets": 3,
-      "reps": "16-20 / 7-8",
-      "restSeconds": 60,
+      "reps": "16-20",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Shoulder Superset"
+      "link": true,
+      "notes": "Shoulder superset: do Dumbbell Upright Rows right after this, then rest."
+     },
+     {
+      "id": "ss8_d1_e5b",
+      "name": "Dumbbell Upright Rows",
+      "sets": 3,
+      "reps": "7-8",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d1_e6",
@@ -19053,21 +19089,40 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "ss8_d1_e7",
-      "name": "Close-Grip Bench Press / Lying Triceps Extension",
+      "name": "Close-Grip Bench Press",
       "sets": 3,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Triceps Superset (Note: Perform 3 sets of Close-Grip, 2 sets of Extensions)"
+      "link": true,
+      "notes": "Triceps superset: do Skull Crushers right after this, then rest. 3 sets of this, 2 sets of the second one."
+     },
+     {
+      "id": "ss8_d1_e7b",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d1_e8",
-      "name": "Triceps Pressdown / Overhead Cable Triceps Extension (Low Pulley)",
+      "name": "Triceps Pushdown",
       "sets": 2,
-      "reps": "16-20 / 7-8",
+      "reps": "16-20",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Triceps superset: do Cable Overhead Extension right after this, then rest."
+     },
+     {
+      "id": "ss8_d1_e8b",
+      "name": "Cable Overhead Extension",
+      "sets": 2,
+      "reps": "7-8",
       "restSeconds": 60,
       "type": "superset",
-      "notes": "Triceps Superset"
+      "notes": "Use the low pulley."
      },
      {
       "id": "ss8_d1_e9",
@@ -19087,30 +19142,57 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "ss8_d2_e1",
-      "name": "Jump Squat / Leg Extension",
+      "name": "Jump Squats",
       "sets": 3,
-      "reps": "5-6 / 16-20",
-      "restSeconds": 60,
+      "reps": "5-6",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Legs Superset"
+      "link": true,
+      "notes": "Legs superset: do Leg Extension right after this, then rest."
+     },
+     {
+      "id": "ss8_d2_e1b",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d2_e2",
-      "name": "Front Squat / Squat",
+      "name": "Front Squat",
       "sets": 3,
-      "reps": "16-20 / 7-8",
-      "restSeconds": 60,
+      "reps": "16-20",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Legs Superset"
+      "link": true,
+      "notes": "Legs superset: do Squat right after this, then rest."
+     },
+     {
+      "id": "ss8_d2_e2b",
+      "name": "Squat",
+      "sets": 3,
+      "reps": "7-8",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d2_e3",
-      "name": "Lying Leg Curl / Dumbbell Romanian Deadlift",
+      "name": "Lying Leg Curls",
       "sets": 3,
-      "reps": "16-20 / 7-8",
-      "restSeconds": 60,
+      "reps": "16-20",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Legs Superset"
+      "link": true,
+      "notes": "Legs superset: do Dumbbell Romanian Deadlift right after this, then rest."
+     },
+     {
+      "id": "ss8_d2_e3b",
+      "name": "Dumbbell Romanian Deadlift",
+      "sets": 3,
+      "reps": "7-8",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d2_e4",
@@ -19123,12 +19205,22 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "ss8_d2_e5",
-      "name": "Leg Press Calf Raise / One-Leg Standing Calf Raise (Body Weight)",
+      "name": "Leg Press Calf Raises",
       "sets": 3,
-      "reps": "15 / To Failure",
+      "reps": "15",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Calves superset: do Single-Leg Calf Raises right after this, then rest."
+     },
+     {
+      "id": "ss8_d2_e5b",
+      "name": "Single-Leg Calf Raises",
+      "sets": 3,
+      "reps": "To Failure",
       "restSeconds": 60,
       "type": "superset",
-      "notes": "Calves Superset"
+      "notes": "Body weight."
      },
      {
       "id": "ss8_d2_e6",
@@ -19141,12 +19233,21 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "ss8_d2_e7",
-      "name": "Hanging Leg Raise / Oblique Crunch",
+      "name": "Hanging Leg Raises",
       "sets": 3,
-      "reps": "To Failure / To Failure",
-      "restSeconds": 60,
+      "reps": "To Failure",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Abs Superset"
+      "link": true,
+      "notes": "Abs superset: do Oblique Crunches right after this, then rest."
+     },
+     {
+      "id": "ss8_d2_e7b",
+      "name": "Oblique Crunches",
+      "sets": 3,
+      "reps": "To Failure",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d2_e8",
@@ -19166,21 +19267,39 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "ss8_d3_e1",
-      "name": "Bent-Over Barbell Row / Reverse-Grip Barbell Row",
+      "name": "Barbell Row",
       "sets": 3,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Back Superset"
+      "link": true,
+      "notes": "Back superset: do Reverse-Grip Barbell Rows right after this, then rest."
+     },
+     {
+      "id": "ss8_d3_e1b",
+      "name": "Reverse-Grip Barbell Rows",
+      "sets": 3,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d3_e2",
-      "name": "Straight-Arm Pulldown / Wide-Grip Lat Pulldowns",
+      "name": "Straight-Arm Pulldown",
       "sets": 3,
-      "reps": "16-20 / 7-8",
-      "restSeconds": 60,
+      "reps": "16-20",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Back Superset"
+      "link": true,
+      "notes": "Back superset: do Wide-Grip Lat Pulldown right after this, then rest."
+     },
+     {
+      "id": "ss8_d3_e2b",
+      "name": "Wide-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "7-8",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d3_e3",
@@ -19193,12 +19312,21 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "ss8_d3_e4",
-      "name": "Barbell Shrug / Behind-The-Back Barbell Shrug",
+      "name": "Barbell Shrugs",
       "sets": 3,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Traps Superset"
+      "link": true,
+      "notes": "Traps superset: do Behind-The-Back Barbell Shrugs right after this, then rest."
+     },
+     {
+      "id": "ss8_d3_e4b",
+      "name": "Behind-The-Back Barbell Shrugs",
+      "sets": 3,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d3_e5",
@@ -19211,30 +19339,57 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "ss8_d3_e6",
-      "name": "Seated Barbell Curl / Standing Barbell Curl",
+      "name": "Seated Barbell Curls",
       "sets": 2,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Arms Superset"
+      "link": true,
+      "notes": "Arms superset: do Barbell Curls right after this, then rest."
+     },
+     {
+      "id": "ss8_d3_e6b",
+      "name": "Barbell Curls",
+      "sets": 2,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d3_e7",
-      "name": "Prone Incline Dumbbell Curl / Incline Dumbbell Curl",
+      "name": "Spider Curls",
       "sets": 2,
-      "reps": "16-20 / 7-8",
-      "restSeconds": 60,
+      "reps": "16-20",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Arms Superset"
+      "link": true,
+      "notes": "Arms superset: do Incline Dumbbell Curls right after this, then rest."
+     },
+     {
+      "id": "ss8_d3_e7b",
+      "name": "Incline Dumbbell Curls",
+      "sets": 2,
+      "reps": "7-8",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d3_e8",
-      "name": "Barbell Wrist Curl / Barbell Reverse Wrist Curl",
+      "name": "Barbell Wrist Curls",
       "sets": 2,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Forearms Superset"
+      "link": true,
+      "notes": "Forearms superset: do Reverse Wrist Curls right after this, then rest."
+     },
+     {
+      "id": "ss8_d3_e8b",
+      "name": "Reverse Wrist Curls",
+      "sets": 2,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d3_e9",
@@ -19254,21 +19409,39 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "ss8_d4_e1",
-      "name": "Incline Bench Press / Incline Dumbbell Flye",
+      "name": "Incline Bench Press",
       "sets": 3,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Chest Superset"
+      "link": true,
+      "notes": "Chest superset: do Incline Dumbbell Flyes right after this, then rest."
+     },
+     {
+      "id": "ss8_d4_e1b",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d4_e2",
-      "name": "Cable Crossover (Low Pulley) / Cable Crossover (High Pulley)",
+      "name": "Low Cable Crossovers",
       "sets": 3,
-      "reps": "16-20 / 7-8",
-      "restSeconds": 60,
+      "reps": "16-20",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Chest Superset"
+      "link": true,
+      "notes": "Chest superset: do High Cable Crossovers right after this, then rest."
+     },
+     {
+      "id": "ss8_d4_e2b",
+      "name": "High Cable Crossovers",
+      "sets": 3,
+      "reps": "7-8",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d4_e3",
@@ -19281,21 +19454,39 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "ss8_d4_e4",
-      "name": "Smith-Machine Seated Behind-The-Neck Shoulder Press / Smith Machine Upright Row",
+      "name": "Smith Machine Behind-The-Neck Press",
       "sets": 3,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Shoulders Superset"
+      "link": true,
+      "notes": "Shoulders superset: do Smith Machine Upright Rows right after this, then rest."
+     },
+     {
+      "id": "ss8_d4_e4b",
+      "name": "Smith Machine Upright Rows",
+      "sets": 3,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d4_e5",
-      "name": "Lying Cable Rear Delt Raise / Cable Lateral Raise",
+      "name": "Lying Cable Rear Delt Raises",
       "sets": 3,
-      "reps": "16-20 / 7-8",
-      "restSeconds": 60,
+      "reps": "16-20",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Shoulders Superset"
+      "link": true,
+      "notes": "Shoulders superset: do Cable Lateral Raises right after this, then rest."
+     },
+     {
+      "id": "ss8_d4_e5b",
+      "name": "Cable Lateral Raises",
+      "sets": 3,
+      "reps": "7-8",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d4_e6",
@@ -19308,21 +19499,39 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "ss8_d4_e7",
-      "name": "Lying Triceps Extension / Bench Dip",
+      "name": "Skull Crushers",
       "sets": 2,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Triceps Superset"
+      "link": true,
+      "notes": "Triceps superset: do Bench Dips right after this, then rest."
+     },
+     {
+      "id": "ss8_d4_e7b",
+      "name": "Bench Dips",
+      "sets": 2,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d4_e8",
-      "name": "Reverse-Grip Triceps Pressdown / Triceps Pressdown",
+      "name": "Reverse-Grip Cable Pushdown",
       "sets": 2,
-      "reps": "16-20 / 7-8",
-      "restSeconds": 60,
+      "reps": "16-20",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Triceps Superset"
+      "link": true,
+      "notes": "Triceps superset: do Triceps Pushdown right after this, then rest."
+     },
+     {
+      "id": "ss8_d4_e8b",
+      "name": "Triceps Pushdown",
+      "sets": 2,
+      "reps": "7-8",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d4_e9",
@@ -19342,30 +19551,57 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "ss8_d5_e1",
-      "name": "Squat / Barbell Lunge",
+      "name": "Squat",
       "sets": 3,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Legs Superset"
+      "link": true,
+      "notes": "Legs superset: do Barbell Lunges right after this, then rest."
+     },
+     {
+      "id": "ss8_d5_e1b",
+      "name": "Barbell Lunges",
+      "sets": 3,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d5_e2",
-      "name": "One-Leg Leg Press (Alt. Legs) / Leg Press",
+      "name": "Single-Leg Leg Press",
       "sets": 3,
-      "reps": "16-20 / 7-8",
-      "restSeconds": 60,
+      "reps": "16-20",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Legs Superset"
+      "link": true,
+      "notes": "Legs superset: do Leg Press right after this, then rest. Alternate legs."
+     },
+     {
+      "id": "ss8_d5_e2b",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "7-8",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d5_e3",
-      "name": "Deadlift / Romanian Deadlift",
+      "name": "Deadlift",
       "sets": 3,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Legs Superset"
+      "link": true,
+      "notes": "Legs superset: do Romanian Deadlift (RDL) right after this, then rest."
+     },
+     {
+      "id": "ss8_d5_e3b",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d5_e4",
@@ -19378,12 +19614,22 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "ss8_d5_e5",
-      "name": "Seated Calf Raise / One-Leg Standing Calf Raise (Body Weight)",
+      "name": "Seated Calf Raises",
       "sets": 3,
-      "reps": "15 / To Failure",
+      "reps": "15",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Calves superset: do Single-Leg Calf Raises right after this, then rest."
+     },
+     {
+      "id": "ss8_d5_e5b",
+      "name": "Single-Leg Calf Raises",
+      "sets": 3,
+      "reps": "To Failure",
       "restSeconds": 60,
       "type": "superset",
-      "notes": "Calves Superset"
+      "notes": "Body weight."
      },
      {
       "id": "ss8_d5_e6",
@@ -19396,12 +19642,21 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "ss8_d5_e7",
-      "name": "Cable Crunch / Oblique Cable Crunch",
+      "name": "Cable Crunches",
       "sets": 3,
-      "reps": "10 / 15",
-      "restSeconds": 60,
+      "reps": "10",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Abs Superset"
+      "link": true,
+      "notes": "Abs superset: do Oblique Cable Crunches right after this, then rest."
+     },
+     {
+      "id": "ss8_d5_e7b",
+      "name": "Oblique Cable Crunches",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d5_e8",
@@ -19421,21 +19676,39 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "ss8_d6_e1",
-      "name": "Wide-Grip Lat Pulldowns / Reverse-Grip Lat Pulldown",
+      "name": "Wide-Grip Lat Pulldown",
       "sets": 3,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Back Superset"
+      "link": true,
+      "notes": "Back superset: do Reverse-Grip Lat Pulldown right after this, then rest."
+     },
+     {
+      "id": "ss8_d6_e1b",
+      "name": "Reverse-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d6_e2",
-      "name": "Straight-Arm Pulldown / Standing Lat Pulldown",
+      "name": "Straight-Arm Pulldown",
       "sets": 3,
-      "reps": "16-20 / 7-8",
-      "restSeconds": 60,
+      "reps": "16-20",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Back Superset"
+      "link": true,
+      "notes": "Back superset: do Standing Lat Pulldown right after this, then rest."
+     },
+     {
+      "id": "ss8_d6_e2b",
+      "name": "Standing Lat Pulldown",
+      "sets": 3,
+      "reps": "7-8",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d6_e3",
@@ -19448,12 +19721,21 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "ss8_d6_e4",
-      "name": "Smith Machine Behind-The-Back Barbell Shrug / Smith Machine Shrug",
+      "name": "Smith Machine Behind-The-Back Shrugs",
       "sets": 3,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Traps Superset"
+      "link": true,
+      "notes": "Traps superset: do Smith Machine Shrugs right after this, then rest."
+     },
+     {
+      "id": "ss8_d6_e4b",
+      "name": "Smith Machine Shrugs",
+      "sets": 3,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d6_e5",
@@ -19466,30 +19748,58 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "ss8_d6_e6",
-      "name": "Standing Barbell Curl (EZ-Bar) / Preacher Curl (Also Can Use EZ-Bar)",
+      "name": "EZ-Bar Curls",
       "sets": 2,
-      "reps": "7-8 / 16-20",
+      "reps": "7-8",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Arms superset: do Preacher Curls right after this, then rest."
+     },
+     {
+      "id": "ss8_d6_e6b",
+      "name": "Preacher Curls",
+      "sets": 2,
+      "reps": "16-20",
       "restSeconds": 60,
       "type": "superset",
-      "notes": "Arms Superset"
+      "notes": "An EZ-bar works too."
      },
      {
       "id": "ss8_d6_e7",
-      "name": "Incline Dumbbell Curl / Alternating Dumbbell Curl",
+      "name": "Incline Dumbbell Curls",
       "sets": 2,
-      "reps": "16-20 / 7-8",
-      "restSeconds": 60,
+      "reps": "16-20",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Arms Superset"
+      "link": true,
+      "notes": "Arms superset: do Alternating Dumbbell Curls right after this, then rest."
+     },
+     {
+      "id": "ss8_d6_e7b",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 2,
+      "reps": "7-8",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d6_e8",
-      "name": "Dumbbell Reverse Wrist Curl / Dumbbell Wrist Curl",
+      "name": "Reverse Dumbbell Wrist Curls",
       "sets": 2,
-      "reps": "7-8 / 16-20",
-      "restSeconds": 60,
+      "reps": "7-8",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Forearms Superset"
+      "link": true,
+      "notes": "Forearms superset: do Dumbbell Wrist Curls right after this, then rest."
+     },
+     {
+      "id": "ss8_d6_e8b",
+      "name": "Dumbbell Wrist Curls",
+      "sets": 2,
+      "reps": "16-20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "ss8_d6_e9",
