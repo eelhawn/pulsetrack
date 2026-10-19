@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.12.1*
+*Version 2.13.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **545 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -114,6 +114,7 @@ Can't train today (a long day of work, an injury, a trip)? You don't need to del
 
 - **Program builder:** create a program, add days and exercises, set sets, reps and rest.
 - **Edit any program:** add, remove, swap or reorder exercises, and change sets and reps.
+- **Move exercises up and down:** every exercise card on the workout screen has an up arrow and a down arrow (top right, above Swap and Delete). Tap one and the exercise changes places with the one above or below it. The card stays under your thumb, so you can keep tapping to carry it further. The arrows are greyed out at the top and bottom of the list. Sets you already typed or checked off move with their exercise. A superset (A1/A2) moves as one block, so it never gets split up; to change the order inside a superset, unlink it, move the exercise, then link it again. It works in every program, including Freestyle, and the new order is remembered. **Clear Progress** puts the program's original order back.
 - **Save a finished workout as a routine** to repeat it.
 - **Supersets:** two exercises done back to back. They show as A1/A2, B1/B2 and each has its own weight and reps. To make one, tap **+ Superset with next** in the gap between two exercises; tap **Superset with next · Unlink** to separate them. The rest timer waits until the last exercise of the pair.
 - **Share** a program as a link, or **import** one from a link or a `.json` file.
@@ -435,6 +436,10 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.13.0**
+- **Move exercises up and down.** Each exercise card now has an up and a down arrow. Tap one to swap the exercise with the one above or below it, for when a machine is busy or you just want a different order. The card stays under your thumb so you can keep tapping. Supersets move as one block. Typed and checked-off sets go with their exercise, the order is saved, and **Clear Progress** restores the original order. Works in every program and in Freestyle.
+- Upload `index.html`, `sw.js` and `README.md`. `programs.js` and `exercises.js` are unchanged since 2.11.0.
 
 **2.12.1**
 - **Stray `[cite: 197]` tags are gone.** Program text that was copied in with source markers (`[cite: 197]`, `[cite: 12, 13]`, `[cite_start]`, or a bare `cite: 197`) showed them at the end of exercise descriptions. Phones keep their own saved copy of each program, so replacing `programs.js` never removed them. Now, the next time the app opens, the markers (and the space before them) are removed from everything saved on the phone: programs, day titles, exercise descriptions, your exercise notes, history and custom exercises. The rest of the text is left exactly as it was. Programs you import later (from a file or link) are cleaned the same way, and so is a restored backup.
