@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.12.0*
+*Version 2.12.1*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **545 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -435,6 +435,10 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.12.1**
+- **Stray `[cite: 197]` tags are gone.** Program text that was copied in with source markers (`[cite: 197]`, `[cite: 12, 13]`, `[cite_start]`, or a bare `cite: 197`) showed them at the end of exercise descriptions. Phones keep their own saved copy of each program, so replacing `programs.js` never removed them. Now, the next time the app opens, the markers (and the space before them) are removed from everything saved on the phone: programs, day titles, exercise descriptions, your exercise notes, history and custom exercises. The rest of the text is left exactly as it was. Programs you import later (from a file or link) are cleaned the same way, and so is a restored backup.
+- Upload `index.html`, `sw.js` and `README.md`. `programs.js` and `exercises.js` are unchanged since 2.11.0.
 
 **2.12.0**
 - **Skip a workout.** **Skip this workout** on the Home card and **Skip day** on the workout screen move you on to the next day without deleting any exercises or making a rest day. The day counts as done (so the week still advances), nothing is saved to History or your streak, the sets you'd checked off for that day are cleared, and the days list shows it as **SKIPPED**. **Undo** is offered right after, and a skipped day can still be opened and done later.
