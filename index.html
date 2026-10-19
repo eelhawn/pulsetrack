@@ -3746,7 +3746,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.10.0";
+    const APP_VERSION = "2.12.0";
     const BACKUP_SCHEMA = 2;
     const STORAGE_KEY_SESSIONS = "pulsetrack_sessions_v1";
     const STORAGE_KEY_BODY = "pulsetrack_body_v1";
@@ -12598,11 +12598,14 @@ const PTSIM = (function () {
   </script>
   <script>
 /* =====================================================================
- * PulseTrack 2.10.0: supersets that are simple to use.
- *  - Super Shredded 8: every superset used to be ONE card ("Bench Press / Dumbbell Flye") with a single weight box.
- *    Now each half is its own exercise with its own sets, reps and weight, linked as a superset
- *    (A1 / A2). Phones that already have the program are updated the next time the app opens: only the
- *    untouched "A / B" cards are replaced; everything else you changed stays as it is.
+ * PulseTrack 2.11.0: supersets that are simple to use, in every program.
+ *  - Every superset, tri-set and circuit that used to be ONE card ("Bench Press / Dumbbell Flye") with a single weight box is now
+ *    separate exercises, each with its own sets, reps and weight, linked as A1 / A2 (Super Shredded 8, Arnold Blueprint,
+ *    Bulk and Shred with Buendia, Kris Gethin Legacy, FST-7). Supersets that were already separate exercises but not linked
+ *    (Kris Gethin DTP, Legacy, FST-7: Big and Ripped) are now linked.
+ *  - Phones that already have these programs are updated the next time the app opens: only the untouched combined cards are replaced
+ *    (if you changed the sets, every part follows); exercises you swapped, your progress and your history stay as they are.
+ *    Programs whose existing pairs get linked are linked once; unlink one and it stays unlinked.
  *  - The little chain icon is gone. Between two exercises there is now a plain button:
  *    "+ Superset with next" to link them, "Superset with next · Unlink" to separate them.
  * ===================================================================== */
@@ -12612,45 +12615,77 @@ const PTSIM = (function () {
   const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   const clone = o => JSON.parse(JSON.stringify(o));
 
-  /* ------------------------------------------- split the old combined supersets on phones that have them */
-  const SPLIT_PROGRAM = "jim_stoppani_ss8_base_6days";
-  // id of the old combined card -> [its old name, its sets, its rest seconds]. A card is only replaced while it still looks like this.
-  const OLD = {"ss8_d1_e1":["Bench Press / Dumbbell Flye",3,60],"ss8_d1_e2":["Incline Dumbbell Flye / Incline Dumbbell Press",3,60],"ss8_d1_e4":["Seated Dumbbell Shoulder Press / Dumbbell Lateral Raise",3,60],"ss8_d1_e5":["Bent-Over Lateral Raise / Dumbbell Upright Row",3,60],"ss8_d1_e7":["Close-Grip Bench Press / Lying Triceps Extension",3,60],"ss8_d1_e8":["Triceps Pressdown / Overhead Cable Triceps Extension (Low Pulley)",2,60],"ss8_d2_e1":["Jump Squat / Leg Extension",3,60],"ss8_d2_e2":["Front Squat / Squat",3,60],"ss8_d2_e3":["Lying Leg Curl / Dumbbell Romanian Deadlift",3,60],"ss8_d2_e5":["Leg Press Calf Raise / One-Leg Standing Calf Raise (Body Weight)",3,60],"ss8_d2_e7":["Hanging Leg Raise / Oblique Crunch",3,60],"ss8_d3_e1":["Bent-Over Barbell Row / Reverse-Grip Barbell Row",3,60],"ss8_d3_e2":["Straight-Arm Pulldown / Wide-Grip Lat Pulldowns",3,60],"ss8_d3_e4":["Barbell Shrug / Behind-The-Back Barbell Shrug",3,60],"ss8_d3_e6":["Seated Barbell Curl / Standing Barbell Curl",2,60],"ss8_d3_e7":["Prone Incline Dumbbell Curl / Incline Dumbbell Curl",2,60],"ss8_d3_e8":["Barbell Wrist Curl / Barbell Reverse Wrist Curl",2,60],"ss8_d4_e1":["Incline Bench Press / Incline Dumbbell Flye",3,60],"ss8_d4_e2":["Cable Crossover (Low Pulley) / Cable Crossover (High Pulley)",3,60],"ss8_d4_e4":["Smith-Machine Seated Behind-The-Neck Shoulder Press / Smith Machine Upright Row",3,60],"ss8_d4_e5":["Lying Cable Rear Delt Raise / Cable Lateral Raise",3,60],"ss8_d4_e7":["Lying Triceps Extension / Bench Dip",2,60],"ss8_d4_e8":["Reverse-Grip Triceps Pressdown / Triceps Pressdown",2,60],"ss8_d5_e1":["Squat / Barbell Lunge",3,60],"ss8_d5_e2":["One-Leg Leg Press (Alt. Legs) / Leg Press",3,60],"ss8_d5_e3":["Deadlift / Romanian Deadlift",3,60],"ss8_d5_e5":["Seated Calf Raise / One-Leg Standing Calf Raise (Body Weight)",3,60],"ss8_d5_e7":["Cable Crunch / Oblique Cable Crunch",3,60],"ss8_d6_e1":["Wide-Grip Lat Pulldowns / Reverse-Grip Lat Pulldown",3,60],"ss8_d6_e2":["Straight-Arm Pulldown / Standing Lat Pulldown",3,60],"ss8_d6_e4":["Smith Machine Behind-The-Back Barbell Shrug / Smith Machine Shrug",3,60],"ss8_d6_e6":["Standing Barbell Curl (EZ-Bar) / Preacher Curl (Also Can Use EZ-Bar)",2,60],"ss8_d6_e7":["Incline Dumbbell Curl / Alternating Dumbbell Curl",2,60],"ss8_d6_e8":["Dumbbell Reverse Wrist Curl / Dumbbell Wrist Curl",2,60]};
+  /* ------------------------------------------- split the old combined cards, link the separate pairs */
+  // OLD[programId][id of the old combined card] = [its old name, its sets, its rest seconds]. A card is only replaced while it still looks like this.
+  // LINKS = programs whose already-separate supersets are linked (once).
+  const TABLE = {"old":{"jim_stoppani_ss8_base_6days":{"ss8_d1_e1":["Bench Press / Dumbbell Flye",3,60],"ss8_d1_e2":["Incline Dumbbell Flye / Incline Dumbbell Press",3,60],"ss8_d1_e4":["Seated Dumbbell Shoulder Press / Dumbbell Lateral Raise",3,60],"ss8_d1_e5":["Bent-Over Lateral Raise / Dumbbell Upright Row",3,60],"ss8_d1_e7":["Close-Grip Bench Press / Lying Triceps Extension",3,60],"ss8_d1_e8":["Triceps Pressdown / Overhead Cable Triceps Extension (Low Pulley)",2,60],"ss8_d2_e1":["Jump Squat / Leg Extension",3,60],"ss8_d2_e2":["Front Squat / Squat",3,60],"ss8_d2_e3":["Lying Leg Curl / Dumbbell Romanian Deadlift",3,60],"ss8_d2_e5":["Leg Press Calf Raise / One-Leg Standing Calf Raise (Body Weight)",3,60],"ss8_d2_e7":["Hanging Leg Raise / Oblique Crunch",3,60],"ss8_d3_e1":["Bent-Over Barbell Row / Reverse-Grip Barbell Row",3,60],"ss8_d3_e2":["Straight-Arm Pulldown / Wide-Grip Lat Pulldowns",3,60],"ss8_d3_e4":["Barbell Shrug / Behind-The-Back Barbell Shrug",3,60],"ss8_d3_e6":["Seated Barbell Curl / Standing Barbell Curl",2,60],"ss8_d3_e7":["Prone Incline Dumbbell Curl / Incline Dumbbell Curl",2,60],"ss8_d3_e8":["Barbell Wrist Curl / Barbell Reverse Wrist Curl",2,60],"ss8_d4_e1":["Incline Bench Press / Incline Dumbbell Flye",3,60],"ss8_d4_e2":["Cable Crossover (Low Pulley) / Cable Crossover (High Pulley)",3,60],"ss8_d4_e4":["Smith-Machine Seated Behind-The-Neck Shoulder Press / Smith Machine Upright Row",3,60],"ss8_d4_e5":["Lying Cable Rear Delt Raise / Cable Lateral Raise",3,60],"ss8_d4_e7":["Lying Triceps Extension / Bench Dip",2,60],"ss8_d4_e8":["Reverse-Grip Triceps Pressdown / Triceps Pressdown",2,60],"ss8_d5_e1":["Squat / Barbell Lunge",3,60],"ss8_d5_e2":["One-Leg Leg Press (Alt. Legs) / Leg Press",3,60],"ss8_d5_e3":["Deadlift / Romanian Deadlift",3,60],"ss8_d5_e5":["Seated Calf Raise / One-Leg Standing Calf Raise (Body Weight)",3,60],"ss8_d5_e7":["Cable Crunch / Oblique Cable Crunch",3,60],"ss8_d6_e1":["Wide-Grip Lat Pulldowns / Reverse-Grip Lat Pulldown",3,60],"ss8_d6_e2":["Straight-Arm Pulldown / Standing Lat Pulldown",3,60],"ss8_d6_e4":["Smith Machine Behind-The-Back Barbell Shrug / Smith Machine Shrug",3,60],"ss8_d6_e6":["Standing Barbell Curl (EZ-Bar) / Preacher Curl (Also Can Use EZ-Bar)",2,60],"ss8_d6_e7":["Incline Dumbbell Curl / Alternating Dumbbell Curl",2,60],"ss8_d6_e8":["Dumbbell Reverse Wrist Curl / Dumbbell Wrist Curl",2,60]},"arnold_blueprint_mass_p1":{"arn_p1_d1_e3":["Dumbbell Flyes Superset w/ Dumbbell Pullover",5,60],"arn_p1_d1_e5":["Bent-Over Barbell Rows Superset w/ T-Bar Rows",5,75],"arn_p1_d2_e2":["Seated Dumbbell Press Superset w/ Full Frontal Raise",5,60],"arn_p1_d2_e3":["Dumbbell Lateral Raises Superset w/ Barbell Upright Rows",5,60],"arn_p1_d2_e5":["Incline DB Curls Superset w/ Concentration Curls",5,60],"arn_p1_d2_e7":["Skull-Crushers Superset w/ Overhead DB Extension",5,60],"arn_p1_d2_e8":["Barbell Wrist Curls Superset w/ Reverse Wrist Curls",5,45],"arn_p1_d3_e5":["Leg Extension Superset w/ Lying Leg Curls",5,60],"arn_p1_d3_e6":["Standing Calf Raise Superset w/ Seated Calf Raise",5,45],"arn_p1_d4_e3":["Dumbbell Flyes Superset w/ Dumbbell Pullover",5,60],"arn_p1_d4_e5":["One-Arm Dumbbell Rows Superset w/ T-Bar Rows",5,75],"arn_p1_d5_e2":["Behind-the-Neck Barbell Press Superset w/ Full Frontal Raise",5,60],"arn_p1_d5_e3":["Incline Rear Delt Flyes Superset w/ Barbell Upright Rows",5,60],"arn_p1_d5_e5":["Incline DB Curls Superset w/ Concentration Curls",5,60],"arn_p1_d5_e7":["Cable Tricep Pushdown Superset w/ Overhead DB Extension",5,60],"arn_p1_d5_e8":["Barbell Wrist Curls Superset w/ Reverse Wrist Curls",5,45],"arn_p1_d6_e4":["Leg Extension Superset w/ Lying Leg Curls",5,60],"arn_p1_d6_e5":["Standing Calf Raise Superset w/ Seated Calf Raise",5,45]},"arnold_blueprint_cuts_phase2":{"arn_p2_d1_e3":["Weighted Chin-Ups w/ Incline Barbell Bench Press",5,45],"arn_p2_d1_e4":["Bench Press w/ Chin-Ups",4,45],"arn_p2_d1_e5":["Dumbbell Flyes w/ Bent Over Rows",4,45],"arn_p2_d1_e6":["Dumbbell Pullovers, Dips & Cable Crossovers",5,45],"arn_p2_d1_e7":["Giant Abs Set (No Rest)",1,45],"arn_p2_d2_e7":["Giant Abs Set (No Rest)",1,45],"arn_p2_d2_e2":["Leg Extensions w/ Squats",5,45],"arn_p2_d2_e3":["Front Squats w/ Leg Curls",4,45],"arn_p2_d2_e4":["Leg Press w/ Leg Curls",3,45],"arn_p2_d2_e6":["Calves Tri-Set (Donkey, Standing, Seated)",3,45],"arn_p2_d3_e2":["Barbell Press, Cable Side & Lying Side Laterals",4,45],"arn_p2_d3_e3":["Front Dumbbell Raises w/ Rear Delt Raises",4,45],"arn_p2_d3_e4":["Barbell Curls w/ Close Grip Push-Downs",4,45],"arn_p2_d3_e5":["Preacher Curls, Skullcrushers & Reverse Preacher Curls",4,45],"arn_p2_d3_e6":["Concentration Curls w/ Standing One-Arm Rope Push-downs",4,45],"arn_p2_d3_e7":["Reverse Wrist Curls w/ Regular Wrist Curls",3,45]},"bulk_with_buendia":{"bwb_d4_e1":["Barbell Curl w/ Close Grip Bench Press",5,90],"bwb_d4_e2":["Single Arm DB Spider Curl w/ Overhead DB Tricep Extension",4,75],"bwb_d4_e3":["Machine Preacher Curl w/ Cable Straight Bar Pushdown",4,75],"bwb_d4_e4":["Cable Rope Hammer Curl w/ Cable Rope Overhead Tricep Extension",4,75],"bwb_d4_e5":["EZ Bar Reverse Grip Curl w/ Bar Dips",4,75],"bwb_d5_e1":["Calves & Thighs Tri-Set (Seated Calf, Leg Ext, Ham Curl)",4,75]},"shred_with_buendia_complete_v2":{"swb_p1_d1_e2":["Cable Fly (Ladders)",4,50],"swb_p1_d4_e1":["Calf Machine / Leg Extension / Lying Hamstring Curl (Tri-Set)",4,75],"swb_p2_d4_e1":["Calf Machine / Leg Extension / Lying Hamstring Curl (Tri-Set)",4,45],"swb_p1_d5_e1":["E-Z Bar Curl w/ Tricep Straight Bar Pushdown",5,30],"swb_p1_d5_e2":["DB Hammer Curl w/ Tricep Rope Pushdown",4,60],"swb_p1_d5_e3":["DB Single Arm Spider Curl w/ DB Overhead Tricep Extension",4,60],"swb_p1_d5_e4":["DB Curl (Palms Facing Forward, Both Arms) w/ Machine Dips",4,75],"swb_p1_d5_e5":["Barbell Curl w/ Close-Grip Push-Ups",3,60],"swb_p2_d1_e3":["DB Incline Close Grip Press",4,45],"swb_p2_d4_e5":["Seated Hamstring Curl Superset w/ Leg Extensions",4,45],"swb_p2_d5_e1":["Barbell Curl w/ Close-Grip Bench Press",5,30],"swb_p2_d5_e2":["Machine Preacher Curl w/ Machine Dips",4,45],"swb_p2_d5_e3":["Cable Straight Bar Curl w/ Cable Reverse Grip Pushdown",5,45],"swb_p2_d5_e4":["Reverse Grip E-Z Bar Curl w/ Cable Rope Overhead Tricep Extensions",4,45]},"kris_gethin_legacy_12wk":{"w2_d12_e1":["TRICEPS CIRCUIT: Cable Pushdowns + Skull Crushers + Rockers + Close Grip Press + Bench Dips + Overhead Tricep Extension",4,90],"w2_d12_e2":["BICEPS CIRCUIT: Alternating Dumbbell Curls + Leaning Forward Cable in Between Your Legs Curls + Preacher Curls with Barbell Plate + Drag Curls + Row Curls / Kneeling Curls",4,90],"w5_d33_e1":["TRICEPS CIRCUIT: V Bar Cable Pushdowns + Skull Crushers + Parallel bar dips (to failure) + Bench Dips (to failure) + Overhead Dumbbell Extension",4,90],"w5_d33_e2":["BICEPS CIRCUIT: High Pulley Cable Curl + Barbell Curl + Spider Curl on an Incline Bench + Single Arm Dumbbell Curl + Double Hand Hammer Curl",4,90],"w8_d54_e1":["TRICEPS CIRCUIT: Close Grip Push-ups + Rope Extension + Overhead Rope Extension + Parallel Bar Dips + Skullcrushers",4,120]},"fst7_hard_body_blueprint_lvl1":{"fst7_l1_w1_d3_e8":["Ab Circuit (No rest between exercises, 1 min rest after circuit)",4,60],"fst7_l1_w2_d3_e8":["Ab Circuit (No rest between exercises, 1 min rest after circuit)",4,60]}},"links":["kris_gethin_dtp_split","fst7_big_and_ripped_8wk","kris_gethin_legacy_12wk"]};
+  const OLD = TABLE.old, LINK_PROGRAMS = TABLE.links;
+  const LINK_KEY = "pulsetrack_sslink_v1";
+  const LETTERS = "bcdefghi";
+  const bProg = id => (typeof BUILTIN_PROGRAMS !== "undefined" && Array.isArray(BUILTIN_PROGRAMS)) ? BUILTIN_PROGRAMS.find(x => x && x.id === id) : null;
+  const bDay = (bp, d) => (bp && bp.days || []).find(x => x.dayNumber === d.dayNumber);
+
   function splitStored(data) {
-    if (typeof BUILTIN_PROGRAMS === "undefined" || !Array.isArray(BUILTIN_PROGRAMS) || !data || !Array.isArray(data.programs)) return false;
-    const bp = BUILTIN_PROGRAMS.find(x => x && x.id === SPLIT_PROGRAM);
-    const p = data.programs.find(x => x && x.id === SPLIT_PROGRAM);
-    if (!bp || !p || !Array.isArray(p.days)) return false;
     let changed = false;
-    p.days.forEach(d => {
-      if (!d || !Array.isArray(d.exercises)) return;
-      const bd = (bp.days || []).find(x => x.dayNumber === d.dayNumber);
-      if (!bd || !Array.isArray(bd.exercises)) return;
-      const out = [];
-      d.exercises.forEach(e => {
-        const o = e && OLD[e.id];
-        if (o && e.name === o[0] && !d.exercises.some(x => x && x.id === e.id + "b")) {
-          const A = bd.exercises.find(x => x.id === e.id), B = bd.exercises.find(x => x.id === e.id + "b");
-          if (A && B) {
-            const a = clone(A), b = clone(B);
-            if (e.sets !== o[1] && e.sets > 0) { a.sets = e.sets; b.sets = e.sets; }                  // you changed the number of sets: both halves follow
-            if (e.restSeconds !== undefined && e.restSeconds !== o[2]) b.restSeconds = e.restSeconds;   // you changed the rest time: it applies after the pair
-            if (e.link) b.link = true;                                                                 // it was linked to the exercise below: still is
-            out.push(a, b); changed = true;
-            return;
+    Object.keys(OLD).forEach(pid => {
+      const bp = bProg(pid), p = data.programs.find(x => x && x.id === pid);
+      if (!bp || !p || !Array.isArray(p.days)) return;
+      p.days.forEach(d => {
+        const bd = d && Array.isArray(d.exercises) && bDay(bp, d);
+        if (!bd || !Array.isArray(bd.exercises)) return;
+        const out = [];
+        d.exercises.forEach(e => {
+          const o = e && OLD[pid][e.id];
+          if (o && e.name === o[0] && !d.exercises.some(x => x && x.id === e.id + "b")) {
+            const parts = [bd.exercises.find(x => x.id === e.id)];
+            for (let k = 0; k < LETTERS.length; k++) { const x = bd.exercises.find(y => y.id === e.id + LETTERS[k]); if (!x) break; parts.push(x); }
+            if (parts[0] && parts.length > 1) {
+              const cp = parts.map(clone), last = cp[cp.length - 1];
+              if (e.sets !== o[1] && e.sets > 0) cp.forEach(x => { x.sets = e.sets; });                    // you changed the number of sets: every part follows
+              if (e.restSeconds !== undefined && e.restSeconds !== o[2]) last.restSeconds = e.restSeconds; // you changed the rest time: it applies after the group
+              if (e.link) last.link = true;                                                               // it was linked to the exercise below: still is
+              out.push(...cp); changed = true;
+              return;
+            }
           }
-        }
-        out.push(e);
+          out.push(e);
+        });
+        d.exercises = out;
       });
-      d.exercises = out;
     });
     return changed;
   }
-  PT.splitSupersets = { splitStored, OLD };
+  function loadDone() { try { const l = JSON.parse(PTLS.getItem(LINK_KEY) || "[]"); return Array.isArray(l) ? l : []; } catch (e) { return []; } }
+  // link the supersets of programs that already had them as separate exercises (once per program, so unlinking later sticks)
+  function linkStored(data, done) {
+    let changed = false; const seen = [];
+    LINK_PROGRAMS.forEach(pid => {
+      if (done.includes(pid)) return;
+      const bp = bProg(pid), p = data.programs.find(x => x && x.id === pid);
+      if (!bp || !p || !Array.isArray(p.days)) return;
+      seen.push(pid);
+      p.days.forEach(d => {
+        const bd = d && Array.isArray(d.exercises) && bDay(bp, d);
+        if (!bd || !Array.isArray(bd.exercises)) return;
+        bd.exercises.forEach((be, bi) => {
+          if (!be.link || !bd.exercises[bi + 1]) return;
+          const i = d.exercises.findIndex(x => x && x.id === be.id);
+          if (i >= 0 && d.exercises[i + 1] && d.exercises[i + 1].id === bd.exercises[bi + 1].id && !d.exercises[i].link) { d.exercises[i].link = true; changed = true; }
+        });
+      });
+    });
+    return { changed, seen };
+  }
+  PT.splitSupersets = { splitStored, linkStored, TABLE };
   const oSeed = WorkoutStorage.seedBuiltins;
   WorkoutStorage.seedBuiltins = function (data) {
     const out = oSeed.apply(this, arguments);
-    try { if (splitStored(out)) this.setData(out); } catch (e) { console.warn("PulseTrack: superset split skipped", e); }
+    try {
+      if (!out || !Array.isArray(out.programs)) return out;
+      const a = splitStored(out), done = loadDone(), b = linkStored(out, done);
+      const saved = (a || b.changed) ? !!this.setData(out) : true;
+      if (saved && b.seen.length) safeSetItem(LINK_KEY, JSON.stringify(done.concat(b.seen)));
+    } catch (e) { console.warn("PulseTrack: superset update skipped", e); }
     return out;
   };
 
@@ -12702,6 +12737,177 @@ const PTSIM = (function () {
     try { drawJoins(this); } catch (e) { console.error("PulseTrack 2.10.0 superset joins", e); }
     return r;
   };
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.12.0: Skip a workout.
+ *  - "Skip this workout" on the Home card and "Skip day" on the workout screen. The day counts as done, so Up next moves on to the
+ *    following day (and to the next week when the week is finished), exactly like after finishing a workout, but:
+ *      · nothing is saved to History, so no stats, volume or streak days are added
+ *      · whatever was typed in for that day is cleared, so it comes back fresh next round
+ *      · a skipped day shows "SKIPPED" instead of "DONE" in the days list
+ *      · an Undo button stays on screen for a few seconds, and the day can still be opened and done later
+ *  - nothing is deleted from the program: no need to turn the workouts into a rest day
+ * ===================================================================== */
+(function () {
+  "use strict";
+  const proto = ApplicationUI.prototype;
+  const FREE = typeof FREESTYLE_ID !== "undefined" ? FREESTYLE_ID : "freestyle";
+  const clone = o => JSON.parse(JSON.stringify(o));
+  const $ = id => document.getElementById(id);
+
+  /* ------------------------------------------------------ remembering which done days were skipped */
+  // st.skipped = [dayNumbers]: only days that are still "done" count, so it tidies itself when a new round starts
+  const oGet = proto.getProgState;
+  proto.getProgState = function (prog) {
+    const st = oGet.apply(this, arguments);
+    try {
+      if (st && Array.isArray(st.skipped)) {
+        const keep = st.skipped.filter(n => Array.isArray(st.done) && st.done.includes(n));
+        if (!keep.length) delete st.skipped; else if (keep.length !== st.skipped.length) st.skipped = keep;
+      }
+    } catch (e) { /* ignore */ }
+    return st;
+  };
+  // finishing a workout on a day you had skipped makes it a normal "done" day again
+  const oMark = proto.markDayDone;
+  proto.markDayDone = function (prog, dayNumber) {
+    if (!this._skipping) {
+      try { const st = this.getProgState(prog); if (st && Array.isArray(st.skipped) && st.skipped.includes(dayNumber)) { st.skipped = st.skipped.filter(n => n !== dayNumber); if (!st.skipped.length) delete st.skipped; } } catch (e) { /* ignore */ }
+    }
+    return oMark.apply(this, arguments);
+  };
+  const oExtras = proto.dayCardExtras;
+  proto.dayCardExtras = function (day) {
+    const r = oExtras.apply(this, arguments);
+    try {
+      const st = this.activeProgram && this.getProgState(this.activeProgram);
+      if (st && Array.isArray(st.skipped) && st.skipped.includes(day.dayNumber) && /DONE/.test(r))
+        return '<span class="px-2 py-0.5 rounded-full bg-amber-950/60 border border-amber-800/60 text-amber-300 text-[10px] font-bold">SKIPPED</span>';
+    } catch (e) { /* ignore */ }
+    return r;
+  };
+
+  /* ---------------------------------------------------------------------------------- skipping */
+  const visible = id => { const e = $(id); return !!e && !e.classList.contains("hidden"); };
+  function redraw(app) {
+    if (visible("view-home")) app.renderHomeView();
+    else if (visible("view-days")) app.renderDaysView();
+    else if (visible("view-workout")) app.renderWorkoutView();
+    if (app.updateDrawerStatus) app.updateDrawerStatus();
+  }
+  const dayTitle = (app, prog, day) => (app.shortDayTitle ? app.shortDayTitle(prog, day) : "") || day.title || ("Day " + day.dayNumber);
+  function enteredCount(app, prog, day) {
+    let n = 0;
+    (day.exercises || []).forEach(ex => {
+      for (let s = 0; s < (ex.sets || 0); s++) {
+        const e = (app.logs || {})[app.getLogKey(prog.id, day.dayNumber, ex.id, s)];
+        if (e && e.completed) n++;
+      }
+    });
+    return n;
+  }
+  /** Can this day be skipped? Only a day of a real program (not Freestyle) that has something to do. */
+  proto.canSkipDay = function (prog, day) {
+    return !!(prog && day && prog.id !== FREE && Array.isArray(day.exercises) && day.exercises.length);
+  };
+
+  proto.skipDay = async function (prog, day) {
+    prog = prog || this.activeProgram; day = day || this.activeDay;
+    if (!this.canSkipDay(prog, day) || this._skipBusy) return false;
+    this._skipBusy = true;
+    try {
+      const title = dayTitle(this, prog, day), typed = enteredCount(this, prog, day);
+      const body = `"${title}" will count as done, so Up next moves on to the following day. Nothing is saved to History and your streak isn't touched.`
+        + (typed ? ` The ${typed} set${typed === 1 ? "" : "s"} you checked off for this day will be cleared.` : "") + " You can undo it right after.";
+      if (!await PT.confirm("Skip this workout?", { title: "Skip this workout?", body, ok: "Skip it", cancel: "Not now", danger: false })) return false;
+
+      // what we need to put everything back if you tap Undo
+      const pre = `${prog.id}_d${day.dayNumber}_`, noteKey = `${prog.id}_d${day.dayNumber}`;
+      const logSnap = {}; Object.keys(this.logs || {}).forEach(k => { if (k.startsWith(pre)) logSnap[k] = clone(this.logs[k]); });
+      const noteSnap = this.dayNotes ? this.dayNotes[noteKey] : undefined;
+      const stBefore = clone(this.getProgState(prog));
+      const wasActive = this.activeDay === day;
+      const onWorkout = visible("view-workout");
+
+      this._skipping = true;
+      try {
+        this.clearDayLogs(prog, day);
+        WorkoutStorage.saveLogs(this.logs);
+        this.markDayDone(prog, day.dayNumber);
+        const st = this.getProgState(prog);
+        if (Array.isArray(st.done) && st.done.includes(day.dayNumber)) { st.skipped = Array.from(new Set([...(Array.isArray(st.skipped) ? st.skipped : []), day.dayNumber])); this.saveProgState(); }
+        if (wasActive && this.stopStopwatch) { try { this.stopStopwatch(); } catch (e) { /* ignore */ } }     // the workout timer starts fresh for the next day
+        const next = this.nextDayOf(prog);
+        if (this.selectProgram) this.selectProgram(prog, next, true);
+        else { this.activeProgram = prog; this.activeDay = next; if (next) AppStateMemory.saveActive(prog.id, next.dayNumber); }
+      } finally { this._skipping = false; }
+
+      if (onWorkout) this.showView("home");
+      redraw(this);
+      const next = this.activeDay;
+      const undo = () => {
+        try {
+          this.progState[prog.id] = clone(stBefore); this.saveProgState();
+          Object.assign(this.logs, logSnap); WorkoutStorage.saveLogs(this.logs);
+          if (noteSnap !== undefined && this.dayNotes && typeof STORAGE_KEY_DAYNOTES !== "undefined") { this.dayNotes[noteKey] = noteSnap; PT.save(STORAGE_KEY_DAYNOTES, this.dayNotes); }
+          if (this.selectProgram) this.selectProgram(prog, day, true);
+          else { this.activeProgram = prog; this.activeDay = day; AppStateMemory.saveActive(prog.id, day.dayNumber); }
+          redraw(this);
+          this.toast(`Undone. "${title}" is up next again.`);
+        } catch (e) { console.error("PulseTrack skip undo", e); }
+      };
+      this.toast(`Skipped "${title}".${next && next !== day ? ` Up next: ${dayTitle(this, prog, next)}.` : ""}`, "Undo", undo, 9000);
+      return true;
+    } finally { this._skipBusy = false; }
+  };
+
+  /* ------------------------------------------------------------------------------- the buttons */
+  const css = document.createElement("style");
+  css.id = "pt-m31a-css";
+  css.textContent = `
+    #btn-home-skip { width: 100%; padding: .6rem; border-radius: .75rem; font-size: .75rem; font-weight: 700; color: rgb(var(--z300)); background: rgb(var(--z950) / .6); border: 1px solid rgb(var(--z800)); }
+    #btn-home-skip:active { background: rgb(var(--z800)); }
+    #pt-wk-actions { display: flex; flex-direction: column; align-items: stretch; gap: .4rem; flex: none; }
+    #pt-wk-actions button { white-space: nowrap; text-align: center; }
+    #btn-skip-day { font-size: .75rem; font-weight: 700; padding: .4rem .7rem; border-radius: .5rem; background: rgb(var(--z800)); color: rgb(var(--z100)); border: 1px solid rgb(var(--z700)); }
+    #btn-skip-day:active { background: rgb(var(--a600)); color: #fff; }
+  `;
+  document.head.appendChild(css);
+
+  function ensureButtons() {
+    const resume = $("btn-home-resume");
+    if (resume && !$("btn-home-skip")) {
+      const b = document.createElement("button");
+      b.type = "button"; b.id = "btn-home-skip"; b.className = "tap-active hidden"; b.textContent = "Skip this workout";
+      resume.after(b);
+    }
+    const clear = $("btn-reset-day-progress");
+    if (clear && !$("btn-skip-day")) {
+      const box = document.createElement("div"); box.id = "pt-wk-actions";
+      clear.before(box);
+      const b = document.createElement("button");
+      b.type = "button"; b.id = "btn-skip-day"; b.className = "tap-active hidden"; b.textContent = "Skip day";
+      box.append(b, clear);
+    }
+  }
+  function syncButtons(app) {
+    ensureButtons();
+    const ok = app.canSkipDay(app.activeProgram, app.activeDay);
+    const hb = $("btn-home-skip"); if (hb) hb.classList.toggle("hidden", !ok);
+    const cur = !!(app.activeProgram && (!PT.isCurrentProgram || PT.isCurrentProgram(app.activeProgram.id)));
+    const wb = $("btn-skip-day"); if (wb) wb.classList.toggle("hidden", !(ok && cur));
+  }
+  const oHome = proto.renderHomeExtras;
+  proto.renderHomeExtras = function () { const r = oHome.apply(this, arguments); try { syncButtons(this); } catch (e) { console.error("PulseTrack skip home", e); } return r; };
+  const oWk = proto.renderWorkoutView;
+  proto.renderWorkoutView = function () { const r = oWk.apply(this, arguments); try { syncButtons(this); } catch (e) { console.error("PulseTrack skip workout", e); } return r; };
+
+  document.addEventListener("click", e => {
+    const b = e.target.closest && e.target.closest("#btn-home-skip, #btn-skip-day"); if (!b) return;
+    const app = window.app; if (app) app.skipDay(app.activeProgram, app.activeDay);
+  });
 })();
   </script>
 </body>

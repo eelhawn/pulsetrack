@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.10.0*
+*Version 2.12.0*
 
-PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **537 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **545 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -97,6 +97,18 @@ Your **current program** is the one that Home, the side menu and **Start Workout
 - Every day is labelled like **Week 4 of 12 · Day 2**, the days list has week headers and scrolls to **Up next**, and rest days are skipped automatically.
 - **Switch week** counts as choosing the program, because you are starting it there.
 - History remembers which week each workout was in.
+
+### Skipping a workout
+
+Can't train today (a long day of work, an injury, a trip)? You don't need to delete the exercises or turn the day into a rest day.
+
+- On the Home card tap **Skip this workout**, or tap **Skip day** at the top of the workout screen. You get one question first: **Skip this workout?**
+- The day counts as done, so **Up next** moves on to the following day (and to the next week when the week is finished), the same as after finishing a workout. It works the same in the week-by-week plans and in the programs that repeat a few days.
+- **Nothing is saved to History.** No volume, stats or streak days are added, and your records are never touched.
+- Any sets you had already checked off for that day are cleared, so it comes back fresh. The question tells you how many.
+- In the days list a skipped day says **SKIPPED** instead of **DONE**. It stays in the program, and you can still open it and do it later; finishing it makes it a normal **DONE** day.
+- **Undo** stays on the screen for a few seconds after skipping and puts everything back exactly as it was.
+- The buttons only show for the program you are currently on, on a day that has exercises. Rest days have their own **mark as done**, and Freestyle workouts have nothing to skip.
 
 ### Make your own
 
@@ -398,7 +410,7 @@ Upload these to your GitHub repo, all in the same folder:
 |---|---|
 | `index.html` | The whole app (about 1 MB, including fonts, themes and form tips) |
 | `programs.js` | The 22 built-in programs |
-| `exercises.js` | The 537 exercises |
+| `exercises.js` | The 545 exercises |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `icon-512.png` | The app icon |
@@ -423,6 +435,17 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.12.0**
+- **Skip a workout.** **Skip this workout** on the Home card and **Skip day** on the workout screen move you on to the next day without deleting any exercises or making a rest day. The day counts as done (so the week still advances), nothing is saved to History or your streak, the sets you'd checked off for that day are cleared, and the days list shows it as **SKIPPED**. **Undo** is offered right after, and a skipped day can still be opened and done later.
+- Upload `index.html`, `sw.js` and `README.md`. `programs.js` and `exercises.js` are unchanged since 2.11.0.
+
+**2.11.0**
+- **Supersets, tri-sets and circuits, one exercise at a time, in every program.** Anything that used to be one card with a single weight box ("Barbell Curl w/ Close Grip Bench Press", "Calves Tri-Set (Donkey, Standing, Seated)", "Giant Abs Set") is now separate exercises, each with its own sets, reps and weight, linked as A1/A2 (A1/A2/A3 for tri-sets). Done in Arnold Blueprint to Mass and to Cuts, Bulk with Buendia, Shred with Buendia, Kris Gethin's Legacy 12-Week (its circuits) and FST-7: Hard Body Blueprint Level 1 (its ab circuits), on top of Super Shredded 8 from 2.10.0. The Tabata blocks stay as they were.
+- **Supersets that were already separate exercises are now linked:** Kris Gethin DTP 4-Day Split, Kris Gethin's Legacy 12-Week and FST-7: Big and Ripped. The two (or three) exercises now show as one group, with the rest timer waiting for the last one.
+- **Phones that already have these programs update themselves** the next time the app opens: only combined cards you haven't changed are replaced (if you changed the sets, every part follows; a card you swapped is left alone), and your progress, history and checked-off sets stay. Pairs are linked once; if you unlink one, it stays unlinked.
+- 8 more exercises (545 in all) and 21 more alternate names: Incline Close-Grip Dumbbell Press, Lying Lateral Raises, Front and Back Barbell Press, Cable Fly Ladders, Triceps Rockers, Between-The-Legs Cable Curls, Plate Preacher Curls, Row Curls.
+- Upload `index.html`, `programs.js`, `exercises.js`, `sw.js` and `README.md`.
 
 **2.10.0**
 - **Super Shredded 8 supersets, one exercise at a time.** Each superset used to be one card ("Bench Press / Dumbbell Flye") with a single weight box. Now every half is its own exercise with its own sets, reps and weight, linked as A1/A2. The rest comes after the second one. The Tabata blocks are unchanged. On phones that already have the program it updates itself the next time the app opens: only cards you haven't changed are replaced (if you changed the sets, both halves follow). Your progress, history, and anything you swapped stay as they are.
