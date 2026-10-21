@@ -978,48 +978,130 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p2_d1_e3",
-      "name": "Weighted Chin-Ups w/ Incline Barbell Bench Press",
+      "name": "Weighted Chin-Ups",
       "sets": 5,
       "reps": "15, 12, 8, 6, 4",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true
+     },
+     {
+      "id": "arn_p2_d1_e3b",
+      "name": "Incline Bench Press",
+      "sets": 5,
+      "reps": "15, 12, 8, 5, 3",
       "restSeconds": 45,
       "type": "superset",
-      "notes": "Super-set. Chin-Ups: 15,12,8,6,4. Incline Bench: 15,12,8,5,3 (Use Stripping Method on the last set)."
+      "notes": "Use the stripping method on the last set."
      },
      {
       "id": "arn_p2_d1_e4",
-      "name": "Bench Press w/ Chin-Ups",
+      "name": "Bench Press",
       "sets": 4,
       "reps": "15, 12, 8, 6",
-      "restSeconds": 45,
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Super-set. Bench Press: 15,12,8,6 (Week 6: use Max Effort Method). Chin-Ups: To failure."
+      "link": true,
+      "notes": "Week 6: use the max effort method."
+     },
+     {
+      "id": "arn_p2_d1_e4b",
+      "name": "Chin-Ups",
+      "sets": 4,
+      "reps": "To Failure",
+      "restSeconds": 45,
+      "type": "superset"
      },
      {
       "id": "arn_p2_d1_e5",
-      "name": "Dumbbell Flyes w/ Bent Over Rows",
+      "name": "Dumbbell Flyes",
       "sets": 4,
-      "reps": "28 / 12",
-      "restSeconds": 45,
+      "reps": "28",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Super-set. Dumbbell Flyes: Use 28 Method. Bent Over Rows: 12 Reps."
+      "link": true,
+      "notes": "Use the 28 method."
+     },
+     {
+      "id": "arn_p2_d1_e5b",
+      "name": "Barbell Row",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 45,
+      "type": "superset"
      },
      {
       "id": "arn_p2_d1_e6",
-      "name": "Dumbbell Pullovers, Dips & Cable Crossovers",
+      "name": "Dumbbell Pullover",
       "sets": 5,
-      "reps": "15 / Failure / 15",
+      "reps": "15",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Tri-set: do all three, then rest."
+     },
+     {
+      "id": "arn_p2_d1_e6b",
+      "name": "Triceps Dips",
+      "sets": 5,
+      "reps": "To Failure",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Bodyweight, to failure."
+     },
+     {
+      "id": "arn_p2_d1_e6c",
+      "name": "Cable Crossovers",
+      "sets": 5,
+      "reps": "15",
       "restSeconds": 45,
-      "type": "standard",
-      "notes": "Tri-set. Pullovers: 15 reps. Dips: Bodyweight to failure. Cable Crossovers: 15 reps."
+      "type": "giantset"
      },
      {
       "id": "arn_p2_d1_e7",
-      "name": "Giant Abs Set (No Rest)",
+      "name": "Hanging Leg Raises",
       "sets": 1,
-      "reps": "20, 20, 50, 30, 100",
+      "reps": "20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Giant abs set: no rest between exercises."
+     },
+     {
+      "id": "arn_p2_d1_e7b",
+      "name": "Hanging Knee Raises",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "arn_p2_d1_e7c",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "50",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "arn_p2_d1_e7d",
+      "name": "Seated Knee Tucks",
+      "sets": 1,
+      "reps": "30",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "arn_p2_d1_e7e",
+      "name": "Broomstick Twists",
+      "sets": 1,
+      "reps": "100",
       "restSeconds": 45,
-      "type": "standard",
-      "notes": "Hanging Straight Leg Raises (20), Hanging Knee-Ups (20), Crunches (50), Seated Leg Tucks (30), Stick Twist (100)."
+      "type": "giantset"
      }
     ]
    },
@@ -1039,30 +1121,55 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p2_d2_e2",
-      "name": "Leg Extensions w/ Squats",
+      "name": "Leg Extension",
       "sets": 5,
-      "reps": "12 / 20",
+      "reps": "12",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true
+     },
+     {
+      "id": "arn_p2_d2_e2b",
+      "name": "Squat",
+      "sets": 5,
+      "reps": "20",
       "restSeconds": 45,
       "type": "superset",
-      "notes": "Super-set. Leg Extensions: 12 Reps. Squats: 20 Reps (Use 1/4 Rep Method on Last Set)."
+      "notes": "Use the 1/4 rep method on the last set."
      },
      {
       "id": "arn_p2_d2_e3",
-      "name": "Front Squats w/ Leg Curls",
+      "name": "Front Squat",
       "sets": 4,
-      "reps": "12 / 12",
-      "restSeconds": 45,
+      "reps": "12",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Super-set. Front Squats: 12 Reps. Leg Curls: 12 Reps."
+      "link": true
+     },
+     {
+      "id": "arn_p2_d2_e3b",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 45,
+      "type": "superset"
      },
      {
       "id": "arn_p2_d2_e4",
-      "name": "Leg Press w/ Leg Curls",
+      "name": "Leg Press",
       "sets": 3,
-      "reps": "15 / 1-10",
-      "restSeconds": 45,
+      "reps": "15",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Super-set. Leg Press: 15 Reps. Leg Curls: Use 1-10 Method."
+      "link": true
+     },
+     {
+      "id": "arn_p2_d2_e4b",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "1-10 Method",
+      "restSeconds": 45,
+      "type": "superset"
      },
      {
       "id": "arn_p2_d2_e5",
@@ -1075,21 +1182,76 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p2_d2_e6",
-      "name": "Calves Tri-Set (Donkey, Standing, Seated)",
+      "name": "Donkey Calf Raises",
       "sets": 3,
-      "reps": "15 / 10 / 15",
+      "reps": "15",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Calves tri-set: do all three, then rest."
+     },
+     {
+      "id": "arn_p2_d2_e6b",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "arn_p2_d2_e6c",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "15",
       "restSeconds": 45,
-      "type": "standard",
-      "notes": "Tri-set. Donkey Calf: 15. Standing Calf: 10. Seated Calf: 15 (Use 5-Count Method on All Sets)."
+      "type": "giantset",
+      "notes": "Use the 5-count method on all sets."
      },
      {
       "id": "arn_p2_d2_e7",
-      "name": "Giant Abs Set (No Rest)",
+      "name": "Hanging Leg Raises",
       "sets": 1,
-      "reps": "20, 20, 50, 30, 100",
+      "reps": "20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Giant abs set: no rest between exercises."
+     },
+     {
+      "id": "arn_p2_d2_e7b",
+      "name": "Hanging Knee Raises",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "arn_p2_d2_e7c",
+      "name": "Crunches",
+      "sets": 1,
+      "reps": "50",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "arn_p2_d2_e7d",
+      "name": "Seated Knee Tucks",
+      "sets": 1,
+      "reps": "30",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "arn_p2_d2_e7e",
+      "name": "Broomstick Twists",
+      "sets": 1,
+      "reps": "100",
       "restSeconds": 45,
-      "type": "standard",
-      "notes": "Hanging Straight Leg Raises (20), Hanging Knee Ups (20), Crunches (50), Seated Leg Tucks (30), Stick Twist (100)."
+      "type": "giantset"
      }
     ]
    },
@@ -1109,57 +1271,130 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p2_d3_e2",
-      "name": "Barbell Press, Cable Side & Lying Side Laterals",
+      "name": "Front and Back Barbell Press",
       "sets": 4,
-      "reps": "12 / 12 / 12",
+      "reps": "12",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Tri-set: do all three, then rest. Alternate front and back (front + back = 1 rep)."
+     },
+     {
+      "id": "arn_p2_d3_e2b",
+      "name": "Cable Lateral Raises",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "arn_p2_d3_e2c",
+      "name": "Lying Lateral Raises",
+      "sets": 4,
+      "reps": "12",
       "restSeconds": 45,
-      "type": "standard",
-      "notes": "Tri-set. Barbell Press: Alternate front and back (Front+Back = 1 rep). Cable Side Laterals: 12 reps. Lying Side Laterals: Use 5-Count Method."
+      "type": "giantset",
+      "notes": "Use the 5-count method."
      },
      {
       "id": "arn_p2_d3_e3",
-      "name": "Front Dumbbell Raises w/ Rear Delt Raises",
+      "name": "Front Raises",
       "sets": 4,
-      "reps": "10 / 10",
+      "reps": "10",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Use the running-the-rack method on the last set."
+     },
+     {
+      "id": "arn_p2_d3_e3b",
+      "name": "Dumbbell Reverse Flyes",
+      "sets": 4,
+      "reps": "10",
       "restSeconds": 45,
       "type": "superset",
-      "notes": "Super-set. Front Raises: Use Running-the-Rack Method on last set. Rear Delt Raises: Use 1/4 Rep Method."
+      "notes": "Use the 1/4 rep method."
      },
      {
       "id": "arn_p2_d3_e4",
-      "name": "Barbell Curls w/ Close Grip Push-Downs",
+      "name": "Barbell Curls",
       "sets": 4,
-      "reps": "See Notes / 10",
-      "restSeconds": 45,
+      "reps": "1-10 or 28 Method",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Super-set. Barbell Curls: Use 1-10 Method or 28 Method. Close Grip Straight Bar Push-Downs: 10 reps."
+      "link": true
+     },
+     {
+      "id": "arn_p2_d3_e4b",
+      "name": "Straight Bar Pushdown",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 45,
+      "type": "superset"
      },
      {
       "id": "arn_p2_d3_e5",
-      "name": "Preacher Curls, Skullcrushers & Reverse Preacher Curls",
+      "name": "Preacher Curls",
       "sets": 4,
-      "reps": "12 / 28 / 12",
+      "reps": "12",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Tri-set: do all three, then rest."
+     },
+     {
+      "id": "arn_p2_d3_e5b",
+      "name": "Skull Crushers",
+      "sets": 4,
+      "reps": "28",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Use the 28 method (running-the-rack on the last set)."
+     },
+     {
+      "id": "arn_p2_d3_e5c",
+      "name": "Reverse Preacher Curls",
+      "sets": 4,
+      "reps": "12",
       "restSeconds": 45,
-      "type": "standard",
-      "notes": "Tri-set. Preacher Curls: 12. Skullcrushers: 28 Method (Running-the-Rack on last set). Reverse Preacher Curls: 12."
+      "type": "giantset"
      },
      {
       "id": "arn_p2_d3_e6",
-      "name": "Concentration Curls w/ Standing One-Arm Rope Push-downs",
+      "name": "Concentration Curls",
       "sets": 4,
-      "reps": "12 / 12",
+      "reps": "12",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true
+     },
+     {
+      "id": "arn_p2_d3_e6b",
+      "name": "Single-Arm Cable Pushdown",
+      "sets": 4,
+      "reps": "12",
       "restSeconds": 45,
       "type": "superset",
-      "notes": "Super-set. Concentration Curls: 12 reps. Rope Push-downs: Hold at bottom for 2 seconds each rep."
+      "notes": "Hold at the bottom for 2 seconds each rep."
      },
      {
       "id": "arn_p2_d3_e7",
-      "name": "Reverse Wrist Curls w/ Regular Wrist Curls",
+      "name": "Reverse Wrist Curls",
       "sets": 3,
-      "reps": "15 / 15",
-      "restSeconds": 45,
+      "reps": "15",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Forearm finisher superset. Reverse: 15 reps. Regular: 15 reps."
+      "link": true
+     },
+     {
+      "id": "arn_p2_d3_e7b",
+      "name": "Barbell Wrist Curls",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "superset"
      }
     ]
    }
@@ -1202,12 +1437,21 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p1_d1_e3",
-      "name": "Dumbbell Flyes Superset w/ Dumbbell Pullover",
+      "name": "Dumbbell Flyes",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Deep chest expansion on flyes. Immediately grab dumbbell and pull across flat bench for ribcage expansion pullover."
+     },
+     {
+      "id": "arn_p1_d1_e3b",
+      "name": "Dumbbell Pullover",
       "sets": 5,
       "reps": "8-12",
       "restSeconds": 60,
-      "type": "superset",
-      "notes": "Deep chest expansion on flyes. Immediately grab dumbbell and pull across flat bench for ribcage expansion pullover."
+      "type": "superset"
      },
      {
       "id": "arn_p1_d1_e4",
@@ -1220,12 +1464,22 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p1_d1_e5",
-      "name": "Bent-Over Barbell Rows Superset w/ T-Bar Rows",
+      "name": "Barbell Row",
+      "sets": 5,
+      "reps": "30, 12, 10, 8, 6",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Row bar to lower abdomen, then immediately transition to T-Bar row station. W2: 30, 8, 6, 4, 2 | W3: 30, 5x5 | W4: 20, 15, 12."
+     },
+     {
+      "id": "arn_p1_d1_e5b",
+      "name": "T-Bar Row",
       "sets": 5,
       "reps": "30, 12, 10, 8, 6",
       "restSeconds": 75,
       "type": "superset",
-      "notes": "Row bar to lower abdomen, then immediately transition to T-Bar row station. W2: 30, 8, 6, 4, 2 | W3: 30, 5x5 | W4: 20, 15, 12."
+      "notes": "Same sets and reps as the exercise above."
      },
      {
       "id": "arn_p1_d1_e6",
@@ -1263,21 +1517,39 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p1_d2_e2",
-      "name": "Seated Dumbbell Press Superset w/ Full Frontal Raise",
+      "name": "Seated Dumbbell Press",
       "sets": 5,
       "reps": "30, 12, 10, 8, 6",
-      "restSeconds": 60,
+      "restSeconds": 15,
       "type": "superset",
+      "link": true,
       "notes": "Heavy DB press followed immediately by front dumbbell raises straight overhead."
      },
      {
-      "id": "arn_p1_d2_e3",
-      "name": "Dumbbell Lateral Raises Superset w/ Barbell Upright Rows",
+      "id": "arn_p1_d2_e2b",
+      "name": "Front Raises",
       "sets": 5,
       "reps": "30, 12, 10, 8, 6",
       "restSeconds": 60,
+      "type": "superset"
+     },
+     {
+      "id": "arn_p1_d2_e3",
+      "name": "Lateral Raises",
+      "sets": 5,
+      "reps": "30, 12, 10, 8, 6",
+      "restSeconds": 15,
       "type": "superset",
+      "link": true,
       "notes": "Side delt isolation superset. Lead with elbows on both movements."
+     },
+     {
+      "id": "arn_p1_d2_e3b",
+      "name": "Barbell Upright Rows",
+      "sets": 5,
+      "reps": "30, 12, 10, 8, 6",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "arn_p1_d2_e4",
@@ -1290,12 +1562,21 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p1_d2_e5",
-      "name": "Incline DB Curls Superset w/ Concentration Curls",
+      "name": "Incline Dumbbell Curls",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Full incline stretch followed immediately by seated one-arm concentration peak squeeze."
+     },
+     {
+      "id": "arn_p1_d2_e5b",
+      "name": "Concentration Curls",
       "sets": 5,
       "reps": "8-12",
       "restSeconds": 60,
-      "type": "superset",
-      "notes": "Full incline stretch followed immediately by seated one-arm concentration peak squeeze."
+      "type": "superset"
      },
      {
       "id": "arn_p1_d2_e6",
@@ -1308,21 +1589,39 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p1_d2_e7",
-      "name": "Skull-Crushers Superset w/ Overhead DB Extension",
+      "name": "Skull Crushers",
       "sets": 5,
       "reps": "30, 12, 10, 8, 6",
-      "restSeconds": 60,
+      "restSeconds": 15,
       "type": "superset",
+      "link": true,
       "notes": "Lower bar to crown of head, then stand/sit for one-arm dumbbell overhead extension."
      },
      {
+      "id": "arn_p1_d2_e7b",
+      "name": "Dumbbell Overhead Extension",
+      "sets": 5,
+      "reps": "30, 12, 10, 8, 6",
+      "restSeconds": 60,
+      "type": "superset"
+     },
+     {
       "id": "arn_p1_d2_e8",
-      "name": "Barbell Wrist Curls Superset w/ Reverse Wrist Curls",
+      "name": "Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-20",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Rest forearms on bench; curl wrists upward, then flip wrists for reverse curls."
+     },
+     {
+      "id": "arn_p1_d2_e8b",
+      "name": "Reverse Wrist Curls",
       "sets": 5,
       "reps": "15-20",
       "restSeconds": 45,
-      "type": "superset",
-      "notes": "Rest forearms on bench; curl wrists upward, then flip wrists for reverse curls."
+      "type": "superset"
      }
     ]
    },
@@ -1369,21 +1668,39 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p1_d3_e5",
-      "name": "Leg Extension Superset w/ Lying Leg Curls",
+      "name": "Leg Extension",
       "sets": 5,
       "reps": "8-12",
-      "restSeconds": 60,
+      "restSeconds": 15,
       "type": "superset",
+      "link": true,
       "notes": "Continuous pump tempo. Hold 1-second contraction at peak on both exercises."
      },
      {
+      "id": "arn_p1_d3_e5b",
+      "name": "Lying Leg Curls",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 60,
+      "type": "superset"
+     },
+     {
       "id": "arn_p1_d3_e6",
-      "name": "Standing Calf Raise Superset w/ Seated Calf Raise",
+      "name": "Standing Calf Raises",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Full stretch at bottom; rise high onto big toes for peak squeeze."
+     },
+     {
+      "id": "arn_p1_d3_e6b",
+      "name": "Seated Calf Raises",
       "sets": 5,
       "reps": "8-12",
       "restSeconds": 45,
-      "type": "superset",
-      "notes": "Full stretch at bottom; rise high onto big toes for peak squeeze."
+      "type": "superset"
      },
      {
       "id": "arn_p1_d3_e7",
@@ -1421,12 +1738,21 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p1_d4_e3",
-      "name": "Dumbbell Flyes Superset w/ Dumbbell Pullover",
+      "name": "Dumbbell Flyes",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Arnold chest expander combo. Deep stretches with elbow bend."
+     },
+     {
+      "id": "arn_p1_d4_e3b",
+      "name": "Dumbbell Pullover",
       "sets": 5,
       "reps": "8-12",
       "restSeconds": 60,
-      "type": "superset",
-      "notes": "Arnold chest expander combo. Deep stretches with elbow bend."
+      "type": "superset"
      },
      {
       "id": "arn_p1_d4_e4",
@@ -1439,12 +1765,21 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p1_d4_e5",
-      "name": "One-Arm Dumbbell Rows Superset w/ T-Bar Rows",
+      "name": "Dumbbell Row",
+      "sets": 5,
+      "reps": "30, 12, 10, 8, 6",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Heavy lat stretch and row, immediately moving to T-Bar row station."
+     },
+     {
+      "id": "arn_p1_d4_e5b",
+      "name": "T-Bar Row",
       "sets": 5,
       "reps": "30, 12, 10, 8, 6",
       "restSeconds": 75,
-      "type": "superset",
-      "notes": "Heavy lat stretch and row, immediately moving to T-Bar row station."
+      "type": "superset"
      },
      {
       "id": "arn_p1_d4_e6",
@@ -1482,21 +1817,39 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p1_d5_e2",
-      "name": "Behind-the-Neck Barbell Press Superset w/ Full Frontal Raise",
+      "name": "Behind-The-Neck Barbell Press",
       "sets": 5,
       "reps": "30, 12, 10, 8, 6",
-      "restSeconds": 60,
+      "restSeconds": 15,
       "type": "superset",
+      "link": true,
       "notes": "Smooth controlled descent behind neck to ear level, paired with standing front raises."
      },
      {
-      "id": "arn_p1_d5_e3",
-      "name": "Incline Rear Delt Flyes Superset w/ Barbell Upright Rows",
+      "id": "arn_p1_d5_e2b",
+      "name": "Front Raises",
       "sets": 5,
       "reps": "30, 12, 10, 8, 6",
       "restSeconds": 60,
+      "type": "superset"
+     },
+     {
+      "id": "arn_p1_d5_e3",
+      "name": "Chest-Supported Dumbbell Reverse Flyes",
+      "sets": 5,
+      "reps": "30, 12, 10, 8, 6",
+      "restSeconds": 15,
       "type": "superset",
+      "link": true,
       "notes": "Lie face down on incline bench for rear delt flyes, paired immediately with upright rows."
+     },
+     {
+      "id": "arn_p1_d5_e3b",
+      "name": "Barbell Upright Rows",
+      "sets": 5,
+      "reps": "30, 12, 10, 8, 6",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "arn_p1_d5_e4",
@@ -1509,12 +1862,21 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p1_d5_e5",
-      "name": "Incline DB Curls Superset w/ Concentration Curls",
+      "name": "Incline Dumbbell Curls",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Biceps long-head stretch paired with peak brachialis contraction."
+     },
+     {
+      "id": "arn_p1_d5_e5b",
+      "name": "Concentration Curls",
       "sets": 5,
       "reps": "8-12",
       "restSeconds": 60,
-      "type": "superset",
-      "notes": "Biceps long-head stretch paired with peak brachialis contraction."
+      "type": "superset"
      },
      {
       "id": "arn_p1_d5_e6",
@@ -1527,21 +1889,39 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p1_d5_e7",
-      "name": "Cable Tricep Pushdown Superset w/ Overhead DB Extension",
+      "name": "Triceps Pushdown",
       "sets": 5,
       "reps": "30, 12, 10, 8, 6",
-      "restSeconds": 60,
+      "restSeconds": 15,
       "type": "superset",
+      "link": true,
       "notes": "Lock out pushdowns with straight/V-bar, paired with overhead extension."
      },
      {
+      "id": "arn_p1_d5_e7b",
+      "name": "Dumbbell Overhead Extension",
+      "sets": 5,
+      "reps": "30, 12, 10, 8, 6",
+      "restSeconds": 60,
+      "type": "superset"
+     },
+     {
       "id": "arn_p1_d5_e8",
-      "name": "Barbell Wrist Curls Superset w/ Reverse Wrist Curls",
+      "name": "Barbell Wrist Curls",
+      "sets": 5,
+      "reps": "15-20",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "High rep forearm pump."
+     },
+     {
+      "id": "arn_p1_d5_e8b",
+      "name": "Reverse Wrist Curls",
       "sets": 5,
       "reps": "15-20",
       "restSeconds": 45,
-      "type": "superset",
-      "notes": "High rep forearm pump."
+      "type": "superset"
      }
     ]
    },
@@ -1579,21 +1959,39 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "arn_p1_d6_e4",
-      "name": "Leg Extension Superset w/ Lying Leg Curls",
+      "name": "Leg Extension",
       "sets": 5,
       "reps": "8-12",
-      "restSeconds": 60,
+      "restSeconds": 15,
       "type": "superset",
+      "link": true,
       "notes": "Antagonist leg isolation pump."
      },
      {
+      "id": "arn_p1_d6_e4b",
+      "name": "Lying Leg Curls",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 60,
+      "type": "superset"
+     },
+     {
       "id": "arn_p1_d6_e5",
-      "name": "Standing Calf Raise Superset w/ Seated Calf Raise",
+      "name": "Standing Calf Raises",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Full gastrocnemius & soleus burn."
+     },
+     {
+      "id": "arn_p1_d6_e5b",
+      "name": "Seated Calf Raises",
       "sets": 5,
       "reps": "8-12",
       "restSeconds": 45,
-      "type": "superset",
-      "notes": "Full gastrocnemius & soleus burn."
+      "type": "superset"
      },
      {
       "id": "arn_p1_d6_e6",
@@ -1801,48 +2199,95 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "bwb_d4_e1",
-      "name": "Barbell Curl w/ Close Grip Bench Press",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "15, 10, 8, 5, 5",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Set 1 is the warm-up."
+     },
+     {
+      "id": "bwb_d4_e1b",
+      "name": "Close-Grip Bench Press",
       "sets": 5,
       "reps": "15, 10, 8, 5, 5",
       "restSeconds": 90,
-      "type": "superset",
-      "notes": "Super-set. Set 1 is warm-up. Bicep curl superset back-to-back with close grip bench press."
+      "type": "superset"
      },
      {
       "id": "bwb_d4_e2",
-      "name": "Single Arm DB Spider Curl w/ Overhead DB Tricep Extension",
+      "name": "Spider Curls",
+      "sets": 4,
+      "reps": "12, 10, 8, 6",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Unilateral preacher-style spider curls."
+     },
+     {
+      "id": "bwb_d4_e2b",
+      "name": "Dumbbell Overhead Extension",
       "sets": 4,
       "reps": "12, 10, 8, 6",
       "restSeconds": 75,
-      "type": "superset",
-      "notes": "Super-set. Unilateral preacher-style spider curls paired with overhead extensions."
+      "type": "superset"
      },
      {
       "id": "bwb_d4_e3",
-      "name": "Machine Preacher Curl w/ Cable Straight Bar Pushdown",
+      "name": "Machine Preacher Curls",
+      "sets": 4,
+      "reps": "12, 10, 6, 5",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Final set: 5 full reps then 5 partial reps."
+     },
+     {
+      "id": "bwb_d4_e3b",
+      "name": "Straight Bar Pushdown",
       "sets": 4,
       "reps": "12, 10, 6, 5",
       "restSeconds": 75,
       "type": "superset",
-      "notes": "Super-set. Final set includes 5 full reps to 5 partial reps on both movements."
+      "notes": "Final set: 5 full reps then 5 partial reps."
      },
      {
       "id": "bwb_d4_e4",
-      "name": "Cable Rope Hammer Curl w/ Cable Rope Overhead Tricep Extension",
+      "name": "Cable Rope Hammer Curls",
+      "sets": 4,
+      "reps": "12, 10, 8, 5",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Final set: 5 full reps then 5 partial reps."
+     },
+     {
+      "id": "bwb_d4_e4b",
+      "name": "Cable Overhead Extension",
       "sets": 4,
       "reps": "12, 10, 8, 5",
       "restSeconds": 75,
       "type": "superset",
-      "notes": "Super-set. Final set includes 5 full reps to 5 partial reps."
+      "notes": "Final set: 5 full reps then 5 partial reps."
      },
      {
       "id": "bwb_d4_e5",
-      "name": "EZ Bar Reverse Grip Curl w/ Bar Dips",
+      "name": "EZ-Bar Reverse Curls",
       "sets": 4,
-      "reps": "12 / 15",
+      "reps": "12",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true
+     },
+     {
+      "id": "bwb_d4_e5b",
+      "name": "Triceps Dips",
+      "sets": 4,
+      "reps": "15",
       "restSeconds": 75,
       "type": "superset",
-      "notes": "Super-set. Reverse curls paired with bodyweight dips."
+      "notes": "Bodyweight dips."
      }
     ]
    },
@@ -1853,12 +2298,30 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "bwb_d5_e1",
-      "name": "Calves & Thighs Tri-Set (Seated Calf, Leg Ext, Ham Curl)",
+      "name": "Seated Calf Raises",
       "sets": 4,
-      "reps": "20 / 10 / 10",
+      "reps": "20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Warm-up tri-set: do all three, then rest."
+     },
+     {
+      "id": "bwb_d5_e1b",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "bwb_d5_e1c",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "10",
       "restSeconds": 75,
-      "type": "standard",
-      "notes": "Warm-up tri-set. Seated Calf Machine (20 reps) -> Leg Extension (10 reps) -> Lying Hamstring Curl (10 reps)."
+      "type": "giantset"
      },
      {
       "id": "bwb_d5_e2",
@@ -2168,12 +2631,39 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "fst7_l1_w1_d3_e8",
-      "name": "Ab Circuit (No rest between exercises, 1 min rest after circuit)",
+      "name": "Reverse Crunches",
       "sets": 4,
       "reps": "14-20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Ab circuit: no rest between exercises, 1 minute after the last one."
+     },
+     {
+      "id": "fst7_l1_w1_d3_e8b",
+      "name": "Weighted Russian Twists",
+      "sets": 4,
+      "reps": "14-20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "fst7_l1_w1_d3_e8c",
+      "name": "V-Ups",
+      "sets": 4,
+      "reps": "14-20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "fst7_l1_w1_d3_e8d",
+      "name": "Mountain Climbers",
+      "sets": 4,
+      "reps": "To Failure",
       "restSeconds": 60,
-      "type": "standard",
-      "notes": "Reverse Crunch (14-20), Medicine Ball Russian Twist (14-20), V-Ups (14-20), Mountain Climbers (Failure)."
+      "type": "giantset"
      }
     ]
    },
@@ -2563,12 +3053,39 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "fst7_l1_w2_d3_e8",
-      "name": "Ab Circuit (No rest between exercises, 1 min rest after circuit)",
+      "name": "Crunches",
       "sets": 4,
       "reps": "14-20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Ab circuit: no rest between exercises, 1 minute after the last one."
+     },
+     {
+      "id": "fst7_l1_w2_d3_e8b",
+      "name": "Weighted Russian Twists",
+      "sets": 4,
+      "reps": "14-20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "fst7_l1_w2_d3_e8c",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "14-20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "fst7_l1_w2_d3_e8d",
+      "name": "V-Ups",
+      "sets": 4,
+      "reps": "To Failure",
       "restSeconds": 60,
-      "type": "standard",
-      "notes": "Crunches (14-20), Medicine Ball Russian Twist (14-20), Hanging Leg Raises (14-20), V-Ups (Failure)."
+      "type": "giantset"
      }
     ]
    },
@@ -3943,7 +4460,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "Abs Circuit (Complete all 4 back-to-back, rest 45-60s, repeat 4x)."
+      "notes": "Abs Circuit (Complete all 4 back-to-back, rest 45-60s, repeat 4x).",
+      "link": true
      },
      {
       "id": "d16_e11",
@@ -3952,7 +4470,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "Complete left side then switch to right."
+      "notes": "Complete left side then switch to right.",
+      "link": true
      },
      {
       "id": "d16_e12",
@@ -3961,7 +4480,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": ""
+      "notes": "",
+      "link": true
      },
      {
       "id": "d16_e13",
@@ -4447,7 +4967,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "Abs Circuit (Complete all 4 back-to-back, rest 45-60s, repeat 4x)."
+      "notes": "Abs Circuit (Complete all 4 back-to-back, rest 45-60s, repeat 4x).",
+      "link": true
      },
      {
       "id": "d23_e11",
@@ -4456,7 +4977,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "Complete left side then switch to right."
+      "notes": "Complete left side then switch to right.",
+      "link": true
      },
      {
       "id": "d23_e12",
@@ -4465,7 +4987,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": ""
+      "notes": "",
+      "link": true
      },
      {
       "id": "d23_e13",
@@ -4763,7 +5286,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "FST-7 Pre-Exhaust Superset. No rest between exercises, 45s after Dips."
+      "notes": "FST-7 Pre-Exhaust Superset. No rest between exercises, 45s after Dips.",
+      "link": true
      },
      {
       "id": "d29_e2",
@@ -4843,7 +5367,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset. Move immediately to Lunges."
+      "notes": "FST-7 Triset. Move immediately to Lunges.",
+      "link": true
      },
      {
       "id": "d30_e2",
@@ -4852,7 +5377,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "12-15",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d30_e3",
@@ -4941,7 +5467,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "FST-7 Superset. Raise no higher than shoulder level."
+      "notes": "FST-7 Superset. Raise no higher than shoulder level.",
+      "link": true
      },
      {
       "id": "d31_e2",
@@ -5199,7 +5726,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d34_e2",
@@ -5208,7 +5736,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "12-15",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d34_e3",
@@ -5304,7 +5833,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "FST-7 Pre-Exhaust Superset."
+      "notes": "FST-7 Pre-Exhaust Superset.",
+      "link": true
      },
      {
       "id": "d36_e2",
@@ -5384,7 +5914,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d37_e2",
@@ -5393,7 +5924,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "12-15",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d37_e3",
@@ -5482,7 +6014,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "FST-7 Superset."
+      "notes": "FST-7 Superset.",
+      "link": true
      },
      {
       "id": "d38_e2",
@@ -5740,7 +6273,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d41_e2",
@@ -5749,7 +6283,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "12-15",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d41_e3",
@@ -5845,7 +6380,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "FST-7 Pre-Exhaust Superset."
+      "notes": "FST-7 Pre-Exhaust Superset.",
+      "link": true
      },
      {
       "id": "d43_e2",
@@ -5925,7 +6461,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d44_e2",
@@ -5934,7 +6471,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "12-15",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d44_e3",
@@ -6023,7 +6561,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "FST-7 Superset."
+      "notes": "FST-7 Superset.",
+      "link": true
      },
      {
       "id": "d45_e2",
@@ -6281,7 +6820,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d48_e2",
@@ -6290,7 +6830,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "12-15",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d48_e3",
@@ -6386,7 +6927,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "FST-7 Pre-Exhaust Superset."
+      "notes": "FST-7 Pre-Exhaust Superset.",
+      "link": true
      },
      {
       "id": "d50_e2",
@@ -6466,7 +7008,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d51_e2",
@@ -6475,7 +7018,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "12-15",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d51_e3",
@@ -6564,7 +7108,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "FST-7 Superset."
+      "notes": "FST-7 Superset.",
+      "link": true
      },
      {
       "id": "d52_e2",
@@ -6822,7 +7367,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d55_e2",
@@ -6831,7 +7377,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "12-15",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "FST-7 Triset."
+      "notes": "FST-7 Triset.",
+      "link": true
      },
      {
       "id": "d55_e3",
@@ -13826,7 +14373,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "50, 40, 30, 20, 10, 10, 20, 30, 40, 50",
       "restSeconds": 0,
       "type": "dtp",
-      "notes": "Superset with Calf Press."
+      "notes": "Superset with Calf Press.",
+      "link": true
      },
      {
       "id": "dtp_d1_e2",
@@ -13860,7 +14408,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "30, 20, 10, 5, 5",
       "restSeconds": 0,
       "type": "dtp",
-      "notes": "Superset with Bent Lat Row."
+      "notes": "Superset with Bent Lat Row.",
+      "link": true
      },
      {
       "id": "dtp_d2_e2",
@@ -13878,7 +14427,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "5, 5, 10, 20, 30",
       "restSeconds": 0,
       "type": "dtp",
-      "notes": "Superset with Bent Trap Row."
+      "notes": "Superset with Bent Trap Row.",
+      "link": true
      },
      {
       "id": "dtp_d2_e4",
@@ -13909,7 +14459,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "40, 30, 20, 10, 10",
       "restSeconds": 0,
       "type": "dtp",
-      "notes": "Superset with Triceps Extension."
+      "notes": "Superset with Triceps Extension.",
+      "link": true
      },
      {
       "id": "dtp_d4_e2",
@@ -13927,7 +14478,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "10, 10, 20, 30, 40",
       "restSeconds": 0,
       "type": "dtp",
-      "notes": "Superset with Skull Crusher."
+      "notes": "Superset with Skull Crusher.",
+      "link": true
      },
      {
       "id": "dtp_d4_e4",
@@ -13961,7 +14513,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "40, 30, 20, 15, 10",
       "restSeconds": 0,
       "type": "dtp",
-      "notes": "Superset with Upright Row."
+      "notes": "Superset with Upright Row.",
+      "link": true
      },
      {
       "id": "dtp_d5_e2",
@@ -13979,7 +14532,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "10, 15, 20, 30, 40",
       "restSeconds": 0,
       "type": "dtp",
-      "notes": "Superset with Shrug."
+      "notes": "Superset with Shrug.",
+      "link": true
      },
      {
       "id": "dtp_d5_e4",
@@ -14130,7 +14684,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "10-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Facepulls."
+      "notes": "Superset with Facepulls.",
+      "link": true
      },
      {
       "id": "w1_d2_e5",
@@ -14157,7 +14712,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "Failure",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Use ab slings for the hanging leg raises. Go to failure but aim for 20 reps. Superset with Kneeling Cable Crunches."
+      "notes": "Use ab slings for the hanging leg raises. Go to failure but aim for 20 reps. Superset with Kneeling Cable Crunches.",
+      "link": true
      },
      {
       "id": "w1_d2_e8",
@@ -14331,7 +14887,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "10-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Plate Hammer Curls."
+      "notes": "Superset with Plate Hammer Curls.",
+      "link": true
      },
      {
       "id": "w1_d5_e4",
@@ -14367,7 +14924,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "10-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Close Grip Pushups."
+      "notes": "Superset with Close Grip Pushups.",
+      "link": true
      },
      {
       "id": "w1_d5_e8",
@@ -14548,7 +15106,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "14-18",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Neck Crunches."
+      "notes": "Superset with Neck Crunches.",
+      "link": true
      },
      {
       "id": "w2_d9_e6",
@@ -14566,7 +15125,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "Failure",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Crunches."
+      "notes": "Superset with Crunches.",
+      "link": true
      },
      {
       "id": "w2_d9_e8",
@@ -14726,21 +15286,103 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "w2_d12_e1",
-      "name": "TRICEPS CIRCUIT: Cable Pushdowns + Skull Crushers + Rockers + Close Grip Press + Bench Dips + Overhead Tricep Extension",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true,
+      "notes": "Circuit: rest only after you've completed all of the exercises, no rest between exercises."
+     },
+     {
+      "id": "w2_d12_e1b",
+      "name": "Skull Crushers",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w2_d12_e1c",
+      "name": "Triceps Rockers",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w2_d12_e1d",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w2_d12_e1e",
+      "name": "Bench Dips",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w2_d12_e1f",
+      "name": "Overhead Triceps Extension",
       "sets": 4,
       "reps": "14-18",
       "restSeconds": 90,
-      "type": "circuit",
-      "notes": "Rest only after you've completed all of the exercises, no rest between exercises."
+      "type": "circuit"
      },
      {
       "id": "w2_d12_e2",
-      "name": "BICEPS CIRCUIT: Alternating Dumbbell Curls + Leaning Forward Cable in Between Your Legs Curls + Preacher Curls with Barbell Plate + Drag Curls + Row Curls / Kneeling Curls",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true,
+      "notes": "Circuit: rest only after you've completed all of the exercises, no rest between exercises."
+     },
+     {
+      "id": "w2_d12_e2b",
+      "name": "Between-The-Legs Cable Curls",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w2_d12_e2c",
+      "name": "Plate Preacher Curls",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w2_d12_e2d",
+      "name": "Drag Curls",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w2_d12_e2e",
+      "name": "Row Curls",
       "sets": 4,
       "reps": "14-18",
       "restSeconds": 90,
       "type": "circuit",
-      "notes": "Rest only after you've completed all of the exercises, no rest between exercises."
+      "notes": "Or kneeling curls."
      },
      {
       "id": "w2_d12_cardio",
@@ -15068,7 +15710,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "10-15",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with EZ Bar Curls."
+      "notes": "Superset with EZ Bar Curls.",
+      "link": true
      },
      {
       "id": "w3_d19_e6",
@@ -15249,7 +15892,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "20",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Ball Knee Tucks."
+      "notes": "Superset with Ball Knee Tucks.",
+      "link": true
      },
      {
       "id": "w4_d23_e7",
@@ -15380,7 +16024,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Seated Calf Press."
+      "notes": "Superset with Seated Calf Press.",
+      "link": true
      },
      {
       "id": "w4_d25_e6",
@@ -15441,7 +16086,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "Failure",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Incline Close Grip Push-ups."
+      "notes": "Superset with Incline Close Grip Push-ups.",
+      "link": true
      },
      {
       "id": "w4_d26_e4",
@@ -15579,7 +16225,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "16-18",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Standing Calf Press."
+      "notes": "Superset with Standing Calf Press.",
+      "link": true
      },
      {
       "id": "w5_d29_e6",
@@ -15640,7 +16287,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "16-18",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Chest Supported Dumbbell Rear Raises."
+      "notes": "Superset with Chest Supported Dumbbell Rear Raises.",
+      "link": true
      },
      {
       "id": "w5_d30_e4",
@@ -15658,7 +16306,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "16-18",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Neck Crunches."
+      "notes": "Superset with Neck Crunches.",
+      "link": true
      },
      {
       "id": "w5_d30_e6",
@@ -15676,7 +16325,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "12-20",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Kneeling Cable Crunches."
+      "notes": "Superset with Kneeling Cable Crunches.",
+      "link": true
      },
      {
       "id": "w5_d30_e8",
@@ -15807,7 +16457,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "16-18",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Seated Calf Press."
+      "notes": "Superset with Seated Calf Press.",
+      "link": true
      },
      {
       "id": "w5_d32_e6",
@@ -15845,21 +16496,93 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "w5_d33_e1",
-      "name": "TRICEPS CIRCUIT: V Bar Cable Pushdowns + Skull Crushers + Parallel bar dips (to failure) + Bench Dips (to failure) + Overhead Dumbbell Extension",
+      "name": "V-Bar Pushdown",
+      "sets": 4,
+      "reps": "16-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true,
+      "notes": "Circuit: rest 60-90s only after you've completed all of the exercises, no rest between exercises."
+     },
+     {
+      "id": "w5_d33_e1b",
+      "name": "Skull Crushers",
+      "sets": 4,
+      "reps": "16-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w5_d33_e1c",
+      "name": "Triceps Dips",
+      "sets": 4,
+      "reps": "To Failure",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w5_d33_e1d",
+      "name": "Bench Dips",
+      "sets": 4,
+      "reps": "To Failure",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w5_d33_e1e",
+      "name": "Dumbbell Overhead Extension",
       "sets": 4,
       "reps": "16-18",
       "restSeconds": 90,
-      "type": "circuit",
-      "notes": "Rest 60-90s only after you've completed all of the exercises, no rest between exercises."
+      "type": "circuit"
      },
      {
       "id": "w5_d33_e2",
-      "name": "BICEPS CIRCUIT: High Pulley Cable Curl + Barbell Curl + Spider Curl on an Incline Bench + Single Arm Dumbbell Curl + Double Hand Hammer Curl",
+      "name": "High Cable Curls",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true,
+      "notes": "Circuit: rest 60-90s only after you've completed all of the exercises, no rest between exercises."
+     },
+     {
+      "id": "w5_d33_e2b",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w5_d33_e2c",
+      "name": "Spider Curls",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w5_d33_e2d",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "14-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w5_d33_e2e",
+      "name": "Hammer Curls",
       "sets": 4,
       "reps": "14-18",
       "restSeconds": 90,
-      "type": "circuit",
-      "notes": "Rest 60-90s only after you've completed all of the exercises, no rest between exercises."
+      "type": "circuit"
      },
      {
       "id": "w5_d33_e3",
@@ -15868,7 +16591,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "16-18",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with V Bar Pushdowns."
+      "notes": "Superset with V Bar Pushdowns.",
+      "link": true
      },
      {
       "id": "w5_d33_e4",
@@ -15952,7 +16676,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "30, 20, 10, 20, 30",
       "restSeconds": 0,
       "type": "dtp superset",
-      "notes": "Superset with Lying Hamstring Curls."
+      "notes": "Superset with Lying Hamstring Curls.",
+      "link": true
      },
      {
       "id": "w6_d36_e4",
@@ -15970,7 +16695,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "30, 20, 10, 20, 30",
       "restSeconds": 0,
       "type": "dtp superset",
-      "notes": "Superset with Donkey Press."
+      "notes": "Superset with Donkey Press.",
+      "link": true
      },
      {
       "id": "w6_d36_e6",
@@ -16022,7 +16748,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "30, 25, 20, 15, 10, 10, 15, 20, 25, 30",
       "restSeconds": 0,
       "type": "dtp superset",
-      "notes": "Superset with Machine Rear Raises."
+      "notes": "Superset with Machine Rear Raises.",
+      "link": true
      },
      {
       "id": "w6_d37_e4",
@@ -16074,7 +16801,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "30, 25, 20, 15, 10, 10, 15, 20, 25, 30",
       "restSeconds": 0,
       "type": "dtp superset",
-      "notes": "Superset with Incline Dumbbell Press."
+      "notes": "Superset with Incline Dumbbell Press.",
+      "link": true
      },
      {
       "id": "w6_d38_e4",
@@ -16092,7 +16820,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "Failure",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Lying Leg Raises."
+      "notes": "Superset with Lying Leg Raises.",
+      "link": true
      },
      {
       "id": "w6_d38_e6",
@@ -16323,7 +17052,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Standing Lateral Raises."
+      "notes": "Superset with Standing Lateral Raises.",
+      "link": true
      },
      {
       "id": "w7_d44_e2",
@@ -16350,7 +17080,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Neck Crunches."
+      "notes": "Superset with Neck Crunches.",
+      "link": true
      },
      {
       "id": "w7_d44_e5",
@@ -16524,7 +17255,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Standing Bicep Cable Curls."
+      "notes": "Superset with Standing Bicep Cable Curls.",
+      "link": true
      },
      {
       "id": "w7_d47_e2",
@@ -16542,7 +17274,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Barbell Preacher Curls."
+      "notes": "Superset with Barbell Preacher Curls.",
+      "link": true
      },
      {
       "id": "w7_d47_e4",
@@ -16560,7 +17293,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Parallel Bar Dips."
+      "notes": "Superset with Parallel Bar Dips.",
+      "link": true
      },
      {
       "id": "w7_d47_e6",
@@ -16578,7 +17312,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Close Grip Push-ups."
+      "notes": "Superset with Close Grip Push-ups.",
+      "link": true
      },
      {
       "id": "w7_d47_e8",
@@ -16644,7 +17379,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "16-18",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Stiff Legged Deadlifts."
+      "notes": "Superset with Stiff Legged Deadlifts.",
+      "link": true
      },
      {
       "id": "w8_d50_e2",
@@ -16671,7 +17407,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "16-18",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Freestanding Squat."
+      "notes": "Superset with Freestanding Squat.",
+      "link": true
      },
      {
       "id": "w8_d50_e5",
@@ -16881,7 +17618,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "16-18",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Seated Calf Press."
+      "notes": "Superset with Seated Calf Press.",
+      "link": true
      },
      {
       "id": "w8_d53_e6",
@@ -16919,12 +17657,48 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "w8_d54_e1",
-      "name": "TRICEPS CIRCUIT: Close Grip Push-ups + Rope Extension + Overhead Rope Extension + Parallel Bar Dips + Skullcrushers",
+      "name": "Close-Grip Push-Ups",
+      "sets": 4,
+      "reps": "16-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true,
+      "notes": "Circuit: rest only after completing each exercise in the circuit."
+     },
+     {
+      "id": "w8_d54_e1b",
+      "name": "Rope Pushdown",
+      "sets": 4,
+      "reps": "16-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w8_d54_e1c",
+      "name": "Cable Overhead Extension",
+      "sets": 4,
+      "reps": "16-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w8_d54_e1d",
+      "name": "Triceps Dips",
+      "sets": 4,
+      "reps": "16-18",
+      "restSeconds": 15,
+      "type": "circuit",
+      "link": true
+     },
+     {
+      "id": "w8_d54_e1e",
+      "name": "Skull Crushers",
       "sets": 4,
       "reps": "16-18",
       "restSeconds": 120,
-      "type": "circuit",
-      "notes": "Rest only after completing each exercise in the circuit."
+      "type": "circuit"
      },
      {
       "id": "w8_d54_e2",
@@ -17035,7 +17809,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "30, 20, 10, 20, 30",
       "restSeconds": 0,
       "type": "dtp superset",
-      "notes": "Superset with Lying Hamstring Curls."
+      "notes": "Superset with Lying Hamstring Curls.",
+      "link": true
      },
      {
       "id": "w9_d57_e4",
@@ -17053,7 +17828,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "30, 20, 10, 20, 30",
       "restSeconds": 0,
       "type": "dtp superset",
-      "notes": "Superset with Donkey Press."
+      "notes": "Superset with Donkey Press.",
+      "link": true
      },
      {
       "id": "w9_d57_e6",
@@ -17087,7 +17863,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "30, 25, 20, 15, 10, 10, 15, 20, 25, 30",
       "restSeconds": 0,
       "type": "dtp superset",
-      "notes": "Superset with Barbell Upright Rows."
+      "notes": "Superset with Barbell Upright Rows.",
+      "link": true
      },
      {
       "id": "w9_d58_e2",
@@ -17105,7 +17882,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "30, 20, 10, 20, 30",
       "restSeconds": 0,
       "type": "dtp superset",
-      "notes": "Superset with Rear Raises."
+      "notes": "Superset with Rear Raises.",
+      "link": true
      },
      {
       "id": "w9_d58_e4",
@@ -17123,7 +17901,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "20",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Kneeling Cable Crunches."
+      "notes": "Superset with Kneeling Cable Crunches.",
+      "link": true
      },
      {
       "id": "w9_d58_e6",
@@ -17270,7 +18049,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "30, 25, 20, 15, 10, 10, 15, 20, 25, 30",
       "restSeconds": 0,
       "type": "dtp superset",
-      "notes": "Superset with Lying Cable Curls."
+      "notes": "Superset with Lying Cable Curls.",
+      "link": true
      },
      {
       "id": "w9_d61_e2",
@@ -17288,7 +18068,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "10, 15, 20, 25, 30",
       "restSeconds": 0,
       "type": "dtp superset",
-      "notes": "Superset with Barbell Bicep Curls."
+      "notes": "Superset with Barbell Bicep Curls.",
+      "link": true
      },
      {
       "id": "w9_d61_e4",
@@ -17381,7 +18162,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Straight Legged Calf Press."
+      "notes": "Superset with Straight Legged Calf Press.",
+      "link": true
      },
      {
       "id": "w10_d64_e5",
@@ -17582,7 +18364,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "8-12",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Seated Calf Raises."
+      "notes": "Superset with Seated Calf Raises.",
+      "link": true
      },
      {
       "id": "w10_d67_e5",
@@ -17788,7 +18571,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "16-18",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Rear Raises."
+      "notes": "Superset with Rear Raises.",
+      "link": true
      },
      {
       "id": "w11_d72_e2",
@@ -17806,7 +18590,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "16-18",
       "restSeconds": 0,
       "type": "superset",
-      "notes": "Superset with Standing Side Raises."
+      "notes": "Superset with Standing Side Raises.",
+      "link": true
      },
      {
       "id": "w11_d72_e4",
@@ -17824,7 +18609,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "16-18",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "Giant Set."
+      "notes": "Giant Set.",
+      "link": true
      },
      {
       "id": "w11_d72_e6",
@@ -17833,7 +18619,8 @@ const BUILTIN_PROGRAMS = [
       "reps": "16-18",
       "restSeconds": 0,
       "type": "giantset",
-      "notes": "Giant Set."
+      "notes": "Giant Set.",
+      "link": true
      },
      {
       "id": "w11_d72_e7",
@@ -18456,12 +19243,21 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "swb_p1_d1_e2",
-      "name": "Cable Fly (Ladders)",
+      "name": "Cable Fly Ladders",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "5 rep Low cable fly, 5 rep Mid cable fly, 5 rep High cable fly (repeat 3x per set)."
+     },
+     {
+      "id": "swb_p1_d1_e2b",
+      "name": "Push-Ups",
       "sets": 4,
       "reps": "15",
       "restSeconds": 50,
-      "type": "superset",
-      "notes": "5 rep Low cable fly, 5 rep Mid cable fly, 5 rep High cable fly (repeat 3x per set). Supersetted with 15 push-ups."
+      "type": "superset"
      },
      {
       "id": "swb_p1_d1_e3",
@@ -18621,12 +19417,30 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "swb_p1_d4_e1",
-      "name": "Calf Machine / Leg Extension / Lying Hamstring Curl (Tri-Set)",
+      "name": "Standing Calf Raises",
       "sets": 4,
-      "reps": "20 / 10 / 10",
+      "reps": "20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Warm-up tri-set: do all three, then rest."
+     },
+     {
+      "id": "swb_p1_d4_e1b",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "swb_p1_d4_e1c",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "10",
       "restSeconds": 75,
-      "type": "standard",
-      "notes": "Warm-up tri-set. Cycle through all three movements before resting."
+      "type": "giantset"
      },
      {
       "id": "swb_p1_d4_e2",
@@ -18673,48 +19487,91 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "swb_p1_d5_e1",
-      "name": "E-Z Bar Curl w/ Tricep Straight Bar Pushdown",
+      "name": "EZ-Bar Curls",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Warm-up set, then 4 heavy working sets."
+     },
+     {
+      "id": "swb_p1_d5_e1b",
+      "name": "Straight Bar Pushdown",
       "sets": 5,
       "reps": "15",
       "restSeconds": 30,
-      "type": "superset",
-      "notes": "Superset format. Warm-up set followed by 4 heavy working sets."
+      "type": "superset"
      },
      {
       "id": "swb_p1_d5_e2",
-      "name": "DB Hammer Curl w/ Tricep Rope Pushdown",
+      "name": "Hammer Curls",
       "sets": 4,
-      "reps": "15 / 20",
-      "restSeconds": 60,
+      "reps": "15",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Superset. Both arms simultaneously on hammer curls."
+      "link": true,
+      "notes": "Both arms at the same time."
+     },
+     {
+      "id": "swb_p1_d5_e2b",
+      "name": "Rope Pushdown",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "swb_p1_d5_e3",
-      "name": "DB Single Arm Spider Curl w/ DB Overhead Tricep Extension",
+      "name": "Spider Curls",
       "sets": 4,
-      "reps": "15 / 20",
-      "restSeconds": 60,
+      "reps": "15",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Superset arm builder."
+      "link": true
+     },
+     {
+      "id": "swb_p1_d5_e3b",
+      "name": "Dumbbell Overhead Extension",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "superset"
      },
      {
       "id": "swb_p1_d5_e4",
-      "name": "DB Curl (Palms Facing Forward, Both Arms) w/ Machine Dips",
+      "name": "Dumbbell Curls",
       "sets": 4,
-      "reps": "10+10 / 15",
-      "restSeconds": 75,
+      "reps": "10+10",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Superset. 10 full reps followed by 10 partial reps on curls."
+      "link": true,
+      "notes": "Palms facing forward, both arms. 10 full reps then 10 partial reps."
+     },
+     {
+      "id": "swb_p1_d5_e4b",
+      "name": "Machine Triceps Dips",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 75,
+      "type": "superset"
      },
      {
       "id": "swb_p1_d5_e5",
-      "name": "Barbell Curl w/ Close-Grip Push-Ups",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true
+     },
+     {
+      "id": "swb_p1_d5_e5b",
+      "name": "Close-Grip Push-Ups",
       "sets": 3,
       "reps": "20",
       "restSeconds": 60,
-      "type": "superset",
-      "notes": "Arm day finishing superset."
+      "type": "superset"
      }
     ]
    },
@@ -18743,12 +19600,20 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "swb_p2_d1_e3",
-      "name": "DB Incline Close Grip Press",
+      "name": "Incline Close-Grip Dumbbell Press",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true
+     },
+     {
+      "id": "swb_p2_d1_e3b",
+      "name": "Push-Ups",
       "sets": 4,
       "reps": "15",
       "restSeconds": 45,
-      "type": "superset",
-      "notes": "Superset each set with 15 push-ups."
+      "type": "superset"
      },
      {
       "id": "swb_p2_d1_e4",
@@ -18890,12 +19755,30 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "swb_p2_d4_e1",
-      "name": "Calf Machine / Leg Extension / Lying Hamstring Curl (Tri-Set)",
+      "name": "Standing Calf Raises",
       "sets": 4,
-      "reps": "20 / 10 / 10",
+      "reps": "20",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true,
+      "notes": "Warm-up tri-set: do all three, then rest."
+     },
+     {
+      "id": "swb_p2_d4_e1b",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 15,
+      "type": "giantset",
+      "link": true
+     },
+     {
+      "id": "swb_p2_d4_e1c",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "10",
       "restSeconds": 45,
-      "type": "standard",
-      "notes": "Warm-up tri-set."
+      "type": "giantset"
      },
      {
       "id": "swb_p2_d4_e2",
@@ -18926,12 +19809,20 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "swb_p2_d4_e5",
-      "name": "Seated Hamstring Curl Superset w/ Leg Extensions",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "20, 20, 15, 15",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true
+     },
+     {
+      "id": "swb_p2_d4_e5b",
+      "name": "Leg Extension",
       "sets": 4,
       "reps": "20, 20, 15, 15",
       "restSeconds": 45,
-      "type": "superset",
-      "notes": "Superset finisher."
+      "type": "superset"
      }
     ]
    },
@@ -18942,39 +19833,73 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "swb_p2_d5_e1",
-      "name": "Barbell Curl w/ Close-Grip Bench Press",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "20, 15, 15, 10, 10",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true,
+      "notes": "Warm-up first, then heavy working sets."
+     },
+     {
+      "id": "swb_p2_d5_e1b",
+      "name": "Close-Grip Bench Press",
       "sets": 5,
       "reps": "20, 15, 15, 10, 10",
       "restSeconds": 30,
-      "type": "superset",
-      "notes": "Superset format. Warm-up followed by heavy working sets."
+      "type": "superset"
      },
      {
       "id": "swb_p2_d5_e2",
-      "name": "Machine Preacher Curl w/ Machine Dips",
+      "name": "Machine Preacher Curls",
+      "sets": 4,
+      "reps": "20, 15, 12, 10",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true
+     },
+     {
+      "id": "swb_p2_d5_e2b",
+      "name": "Machine Triceps Dips",
       "sets": 4,
       "reps": "20, 15, 12, 10",
       "restSeconds": 45,
-      "type": "superset",
-      "notes": "Superset arm builder."
+      "type": "superset"
      },
      {
       "id": "swb_p2_d5_e3",
-      "name": "Cable Straight Bar Curl w/ Cable Reverse Grip Pushdown",
-      "sets": 5,
-      "reps": "20, 15, 12, 10, 10",
-      "restSeconds": 45,
+      "name": "Cable Curls (Straight Bar)",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 15,
       "type": "superset",
-      "notes": "Superset with partial reps on final sets."
+      "link": true,
+      "notes": "Partial reps on the final sets."
+     },
+     {
+      "id": "swb_p2_d5_e3b",
+      "name": "Reverse-Grip Cable Pushdown",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "superset"
      },
      {
       "id": "swb_p2_d5_e4",
-      "name": "Reverse Grip E-Z Bar Curl w/ Cable Rope Overhead Tricep Extensions",
+      "name": "EZ-Bar Reverse Curls",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 15,
+      "type": "superset",
+      "link": true
+     },
+     {
+      "id": "swb_p2_d5_e4b",
+      "name": "Cable Overhead Extension",
       "sets": 4,
       "reps": "20",
       "restSeconds": 45,
-      "type": "superset",
-      "notes": "Brachialis and tricep long head finisher."
+      "type": "superset"
      }
     ]
    }

@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.13.0*
+*Version 2.17.0*
 
-PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **545 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -138,7 +138,7 @@ Can't train today (a long day of work, an injury, a trip)? You don't need to del
 - **Notes:** add a note to any exercise or day.
 - **Swap an exercise:** tap swap and **★ Similar exercises** lists the closest matches first, each with a short reason ("Same movement · Cable · Reverse grip"). It looks at the movement, the equipment and the grip or angle, so Rope Pushdown suggests other pushdowns before it suggests a triceps machine, and a bench press suggests other flat presses before incline ones. Exercises you have done before are marked with your last weight and reps. Below the list, every exercise in that muscle group is still there.
 - **Search by any name:** the exercise picker and the Library also search an exercise's other names. Type "barbell bench press" or "triceps rope pushdown" and you get Bench Press or Rope Pushdown, with "also called …" under it.
-- **Form tips:** each exercise card has a **Form tips ›** link with a short checklist (set-up, the movement, common mistakes) and a button to watch a video on YouTube. Nearly every exercise in the library has one.
+- **Form tips:** each exercise card has a **Form tips ›** link with a short checklist written for that exact exercise (set-up, the movement, the usual mistake to avoid) and a button to watch a video on YouTube. Every exercise in the library has its own, and every exercise the built-in programs use is in the library too. Exercises you create yourself use a general set of tips when one fits, since they have none of their own.
 - **Warm-up generator:** builds warm-up sets for your first lift.
 - **Screen stays awake** during a workout, on phones that allow it.
 - **Resume:** if you leave the app mid-workout, it picks up where you stopped.
@@ -221,6 +221,7 @@ Missing a lift? Add it from the **Create your own exercise** button in the exerc
 - You can't give it a name the list already has, including an exercise's other names (a custom "Barbell Bench Press" is refused because that is Bench Press).
 - **Home → My Exercises** lists them. The name is locked after you create it so your history keeps matching. Deleting asks first.
 - They are saved in your settings, so backups include them.
+- **One-time reset (2.16.0):** the first time 2.16.0 opens on a phone, the exercises added with Create your own exercise are cleared, because the list now has many more built-in ones. You see a short notice when it happens. Your logged workouts, records and programs keep their exercise names. A hidden copy of what was cleared stays in the settings (and in backups). It happens once; anything you add afterwards stays.
 
 ---
 
@@ -231,7 +232,7 @@ The **Progress** screen has three tabs: **Overview**, **Muscles** and **Strength
 ### Overview
 
 - **Streak, this week and total workouts** at a glance.
-- **Plateau check:** lifts that haven't improved in your last 3 sessions, each with a tip (below).
+- **Plateau check:** lifts that haven't beaten their best in the last few weeks (you choose how many: 2, 3, 4, 6 or 8; it starts at 4), each with a tip (below).
 - **Monthly recap:** a card summarising your month (workouts, volume, top muscles, PRs) that you can share as an image. A banner shows on Home in the first 10 days of each month.
 - **Lifetime totals:** total volume, total sets, and the month you started.
 
@@ -250,11 +251,11 @@ The **Progress** screen has three tabs: **Overview**, **Muscles** and **Strength
 
 ### Plateau tips
 
-A lift counts as **stalled** when its estimated max hasn't beaten your best in your last 3 sessions. The app then works out why and suggests something that fits:
+A lift counts as **stalled** when you've done it **3 or more times in the last few weeks** and none of those sessions beat the best you had before. You pick how many weeks with the **2 wk / 3 wk / 4 wk / 6 wk / 8 wk** buttons on the Plateau check card (Progress → Overview); **4 weeks** to start, and your choice is remembered. Each stuck lift shows how many weeks it has been since your best, for example **6 weeks**. A lift you've stopped doing drops off by itself, and matching your best counts as no improvement. The app then works out why and suggests something that fits:
 
 | What happened | Tip |
 |---|---|
-| Same weight 3 sessions in a row | Add a rep to every set before adding weight, or take a smaller jump (2.5 lb / 1 kg). |
+| Same weight every session | Add a rep to every set before adding weight, or take a smaller jump (2.5 lb / 1 kg). |
 | Reps climbing at the same weight | Keep going. Add weight when you hit the top of your rep range. |
 | Added weight but lost reps | Stay at that weight until the reps come back. |
 | Down 5% or more from your best | Check sleep and food, and consider a lighter week. |
@@ -409,9 +410,9 @@ Upload these to your GitHub repo, all in the same folder:
 
 | File | What it does |
 |---|---|
-| `index.html` | The whole app (about 1 MB, including fonts, themes and form tips) |
+| `index.html` | The whole app (about 1.2 MB, including fonts and themes) |
 | `programs.js` | The 22 built-in programs |
-| `exercises.js` | The 545 exercises |
+| `exercises.js` | The 624 exercises, each with its own form tips |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `icon-512.png` | The app icon |
@@ -429,13 +430,36 @@ Upload these to your GitHub repo, all in the same folder:
 
 - **Easiest:** build a program inside the app, or import a `.json` file with the Import button.
 - **Permanent for everyone:** add it to `programs.js`, one object per program with `id`, `title`, `description`, `tags` and `days`. Each day has `dayNumber`, `title`, `estimatedMinutes` and `exercises` (each with `id`, `name`, `sets`, `reps`, `restSeconds`, `type`, `notes`). For a program that lists every week, add `week: 1…12` to every day. For a program whose few days repeat over several weeks, add `weekPlan: [{ weeks: [1, 2, 3], days: [1, 2, 3, 4, 5, 6] }, { weeks: [4, 5, 6], days: [7, 8, 9, 10, 11, 12] }]` to the program itself. Both give it the pinned **Switch week** bar. An empty `exercises` list is a rest day.
-- **New exercises:** use **My Exercises** in the app, or add them to `exercises.js` for everyone. One line each: `{ name: "Machine Triceps Dips", category: "Triceps" }`. If the exercise is also known by other names, list them in `aka`: `{ name: "Rope Pushdown", category: "Triceps", aka: ["Triceps Rope Pushdown"] }`. Those names are searchable and count as the same exercise (same muscle group, never suggested as a swap for itself). Only give it its own entry if it really is a different exercise (a straight-bar pushdown is not a rope pushdown).
+- **New exercises:** use **My Exercises** in the app, or add them to `exercises.js` for everyone. One line each: `{ name: "Zercher Deadlift", category: "Back" }`. If the exercise is also known by other names, list them in `aka`: `{ name: "Rope Pushdown", category: "Triceps", aka: ["Triceps Rope Pushdown"] }`. Those names are searchable and count as the same exercise (same muscle group, never suggested as a swap for itself). Only give it its own entry if it really is a different exercise (a straight-bar pushdown is not a rope pushdown). To give an exercise its own form tips, add `tips` (3 or 4 short steps) and `avoid` (the usual mistake): `{ name: "Zercher Deadlift", category: "Back", tips: ["Hold the bar in the crooks of your elbows", "Keep your chest up and your back flat", "Stand up by driving your hips forward"], avoid: "Rounding your back at the start." }`.
 
 Keep every `id` unique. New programs reach phones on the next update.
 
 ---
 
 ## Version history
+
+**2.17.0**
+- **Every exercise the built-in programs use is now in the exercise list, with its own form tips** (624 exercises in all). The programs used about 280 exercise names the list didn't have. 35 of them were real exercises of their own and were added: Neutral-Grip Seated Cable Row, Chest-Supported Cable Row, Reverse-Grip Dumbbell Row, Seated Cable Chest Press, Low Incline Dumbbell Press, Single-Arm Low Incline Dumbbell Press, Plate Hammer Curls, EZ-Bar Front Raises, Cable Rope Curls, Seated Cable Lateral Raises, Incline Cable Front Raises, Incline Close-Grip Push-Ups, Incline Elbow-to-Knee Twist Crunch, the 10 Tabata pairs, and the combined and cardio blocks (Dead/Curl/Press, Cable Chest Fly to Cable Press, Barbell Bent Over Row to Straight Leg Deadlift, Steady State Cardio + Twists, Cardio and so on).
+- The rest were the same exercise under a different label or spelling ("FST-7 Leg Press", "Squat HIIT 100's (0s Rest)", "Standing Side Raises", "Skullcrushers (Lying Triceps Extension)"). They are now other names of the exercise they are, so searching for them finds it, "also called ..." shows under it, and they show that exercise's tips. Nothing in your workouts, history or records was renamed.
+- Only "Rest Day" and "Exercise of Your Choice" are not in the list, because they are placeholders, not exercises.
+- Upload `index.html`, `exercises.js`, `sw.js` and `README.md`. `programs.js` is unchanged since 2.11.0.
+
+**2.16.0**
+- **44 more exercises, each with its own form tips** (589 in all): Bent-Over Cable Crossover, Pause Bench Press, Barbell Pullover, Reverse-Grip Incline Bench Press, Half-Kneeling Single-Arm Lat Pulldown, Dumbbell Deadlift, Renegade Rows, Smith Machine Row, Hex Bar Row, Smith Machine Deadlifts, Reverse Hack Squat, Barbell Hack Squat, Wedge Squat, Reverse Nordic Curls, Single-Leg Lying Leg Curl, Lateral Step-Ups, Smith Machine Romanian Deadlift, Dumbbell Cleans, Barbell Power Cleans, Bradford Press, Cable Rear Delt Rows, Overhead Carry, Waiter Curls, Dumbbell Preacher Hammer Curls, Bodyweight Triceps Extensions, Barbell High Pulls, Neck Crunches, Plank Shoulder Taps, Plank Jacks, Bear Crawls, Smith Machine Crunches, Sandbag Carry, Rucking, and 11 warm-ups and stretches (Wall Slides, Hip Circles, Ankle Mobility Rocks, Deep Squat Hold, Standing Quad Stretch, Calf Stretch, Doorway Chest Stretch, Cross-Body Shoulder Stretch, Overhead Triceps Stretch, Kneeling Lat Stretch, Knee-to-Chest Stretch).
+- **Names you search for now find the exercise.** "Behind The Back Wrist Curls" finds Behind-The-Back Barbell Wrist Curls, "Incline Dumbbell Row" finds Incline Dumbbell Row (Bilateral), "Machine Tricep Dips" finds Machine Triceps Dips, and "Rope Overhead Extension" finds Cable Overhead Extension. Each shows the form tips written for that exercise.
+- **Own exercises were reset once for everyone** (see "Your own exercises"). The Create your own exercise feature is unchanged.
+- The exercises used inside the built-in programs that have a library version now use it ("Reverse Hack Squats", "Hex bar Row", "Smith Machine Crunch", "Barbell Power Cleans" and a few more).
+- Upload `index.html`, `exercises.js`, `sw.js` and `README.md`. `programs.js` is unchanged since 2.11.0.
+
+**2.15.0**
+- **Every exercise has its own form tips.** Before, **Form tips ›** showed one of about 170 general checklists, so every curl, every row and every press shared the same cues. Now all 545 exercises in the library have 3 or 4 steps and an "avoid" line written for that exercise: Bench Press, Hammer Curls, Pendlay Row, Cat-Cow, the treadmill and the rest. The 290 or so differently named exercises inside the built-in programs ("FST-7 Leg Press", "Neutral Grip Low Cable Row", "Reverse Hack Squats", the Tabata pairs and so on) are covered too: some have their own tips, the rest show the tips for the exercise they are a version of. Searching by another name still works ("Barbell Bench Press" shows the Bench Press tips).
+- Exercises you create yourself have no tips of their own, so they still use the old general checklists when one matches. If you want to give one its own, add `tips` and `avoid` to its line in `exercises.js` (see "Adding programs and exercises").
+- These are general guidance written for lifters, not coaching advice. If something hurts, stop and ask a coach or a doctor.
+- Upload `index.html`, `exercises.js`, `sw.js` and `README.md`. `programs.js` is unchanged since 2.11.0.
+
+**2.14.0**
+- **Plateau check counts weeks, not sessions.** Before, a lift was flagged after 3 saved sessions without a new best, however long those took. Now it is flagged when you've trained it at least 3 times in the last few weeks and none of those sessions beat your earlier best. Pick **2, 3, 4, 6 or 8 weeks** with the buttons on the Plateau check card (4 to start). The card, the tip on the workout screen and the one on the exercise page all say how many weeks the lift has been stuck, and a lift you've stopped doing no longer shows up.
+- Upload `index.html`, `sw.js` and `README.md`. `programs.js` and `exercises.js` are unchanged since 2.11.0.
 
 **2.13.0**
 - **Move exercises up and down.** Each exercise card now has an up and a down arrow. Tap one to swap the exercise with the one above or below it, for when a machine is busy or you just want a different order. The card stays under your thumb so you can keep tapping. Supersets move as one block. Typed and checked-off sets go with their exercise, the order is saved, and **Clear Progress** restores the original order. Works in every program and in Freestyle.
