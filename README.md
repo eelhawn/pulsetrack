@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.17.0*
+*Version 2.17.1*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -437,6 +437,10 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.17.1**
+- **The side menu now shows the real version.** The text at the bottom left of the menu was written in by hand as "PulseTrack v2.0" and never changed. It now reads the app's version, so it stays right after every update.
+- Upload `index.html`, `sw.js` and `README.md`. Nothing else changed.
 
 **2.17.0**
 - **Every exercise the built-in programs use is now in the exercise list, with its own form tips** (624 exercises in all). The programs used about 280 exercise names the list didn't have. 35 of them were real exercises of their own and were added: Neutral-Grip Seated Cable Row, Chest-Supported Cable Row, Reverse-Grip Dumbbell Row, Seated Cable Chest Press, Low Incline Dumbbell Press, Single-Arm Low Incline Dumbbell Press, Plate Hammer Curls, EZ-Bar Front Raises, Cable Rope Curls, Seated Cable Lateral Raises, Incline Cable Front Raises, Incline Close-Grip Push-Ups, Incline Elbow-to-Knee Twist Crunch, the 10 Tabata pairs, and the combined and cardio blocks (Dead/Curl/Press, Cable Chest Fly to Cable Press, Barbell Bent Over Row to Straight Leg Deadlift, Steady State Cardio + Twists, Cardio and so on).
