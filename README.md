@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.17.1*
+*Version 2.18.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -136,7 +136,7 @@ Can't train today (a long day of work, an injury, a trip)? You don't need to del
 - **Bodyweight moves:** pull-ups and dips use your body weight, with a **Weighted / Assisted** switch.
 - **Cardio:** log minutes and distance, and see your pace over time.
 - **Notes:** add a note to any exercise or day.
-- **Swap an exercise:** tap swap and **★ Similar exercises** lists the closest matches first, each with a short reason ("Same movement · Cable · Reverse grip"). It looks at the movement, the equipment and the grip or angle, so Rope Pushdown suggests other pushdowns before it suggests a triceps machine, and a bench press suggests other flat presses before incline ones. Exercises you have done before are marked with your last weight and reps. Below the list, every exercise in that muscle group is still there.
+- **Swap an exercise:** tap swap and **★ Similar exercises** lists the closest matches first, each with a short reason ("Same movement · Cable · Reverse grip"). **Everything in the list trains the same muscle** as the exercise you are looking at (the muscle is shown next to the title, for example "Side Delts · closest first"). Chest Dips only suggests chest exercises, Triceps Dips only triceps, and a barbell row never suggests a shoulder exercise. Inside that muscle the order comes from the movement, the equipment and the grip or angle, so Rope Pushdown suggests other pushdowns before it suggests a triceps machine, and a bench press suggests other flat presses before incline ones. Exercises you have done before are marked with your last weight and reps. Below the list, every exercise in that muscle group is still there.
 - **Search by any name:** the exercise picker and the Library also search an exercise's other names. Type "barbell bench press" or "triceps rope pushdown" and you get Bench Press or Rope Pushdown, with "also called …" under it.
 - **Form tips:** each exercise card has a **Form tips ›** link with a short checklist written for that exact exercise (set-up, the movement, the usual mistake to avoid) and a button to watch a video on YouTube. Every exercise in the library has its own, and every exercise the built-in programs use is in the library too. Exercises you create yourself use a general set of tips when one fits, since they have none of their own.
 - **Warm-up generator:** builds warm-up sets for your first lift.
@@ -215,7 +215,8 @@ Home → **1RM Calculator**. Type a hard set (for example 225 × 5) and it estim
 
 Missing a lift? Add it from the **Create your own exercise** button in the exercise picker (searching for something that doesn't exist offers it with that name), from the **＋ Create your own exercise** button in the Exercise Library, or from **My Exercises** on Home.
 
-- **Pick the main muscle** (14 choices). It counts toward your weekly muscle volume and lights up on the muscle map like any built-in exercise.
+- **Pick the main muscle** (14 choices). It counts toward your weekly muscle volume and lights up on the muscle map like any built-in exercise. For shoulders, back, abs and forearms it also asks **Which part?** (front, side or rear delts; lats or mid-back; abs, obliques or core stability; forearms, reverse-curl forearms or grip), because that decides which exercises are called similar. A name like "Lateral Raise" starts on the right part for you.
+- **Choose similar exercises (optional):** tap **＋ Choose similar exercises** and tick up to 6 lifts that train the same muscle. The list starts with the closest ones for your muscle, and the search box finds any exercise. Your picks come first in this exercise's Similar exercises list (marked "Your pick"), and your exercise is added to theirs too. Whatever you don't pick, the list fills up with other exercises for the same muscle. You can change the picks later with **Edit**.
 - **Pick how you log it:** weight × reps, dumbbells, bodyweight ± weight, cardio with distance, or timed.
 - Your exercise works everywhere: workouts, programs, charts, records, history and swaps.
 - You can't give it a name the list already has, including an exercise's other names (a custom "Barbell Bench Press" is refused because that is Bench Press).
@@ -412,7 +413,7 @@ Upload these to your GitHub repo, all in the same folder:
 |---|---|
 | `index.html` | The whole app (about 1.2 MB, including fonts and themes) |
 | `programs.js` | The 22 built-in programs |
-| `exercises.js` | The 624 exercises, each with its own form tips |
+| `exercises.js` | The 624 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `icon-512.png` | The app icon |
@@ -430,13 +431,20 @@ Upload these to your GitHub repo, all in the same folder:
 
 - **Easiest:** build a program inside the app, or import a `.json` file with the Import button.
 - **Permanent for everyone:** add it to `programs.js`, one object per program with `id`, `title`, `description`, `tags` and `days`. Each day has `dayNumber`, `title`, `estimatedMinutes` and `exercises` (each with `id`, `name`, `sets`, `reps`, `restSeconds`, `type`, `notes`). For a program that lists every week, add `week: 1…12` to every day. For a program whose few days repeat over several weeks, add `weekPlan: [{ weeks: [1, 2, 3], days: [1, 2, 3, 4, 5, 6] }, { weeks: [4, 5, 6], days: [7, 8, 9, 10, 11, 12] }]` to the program itself. Both give it the pinned **Switch week** bar. An empty `exercises` list is a rest day.
-- **New exercises:** use **My Exercises** in the app, or add them to `exercises.js` for everyone. One line each: `{ name: "Zercher Deadlift", category: "Back" }`. If the exercise is also known by other names, list them in `aka`: `{ name: "Rope Pushdown", category: "Triceps", aka: ["Triceps Rope Pushdown"] }`. Those names are searchable and count as the same exercise (same muscle group, never suggested as a swap for itself). Only give it its own entry if it really is a different exercise (a straight-bar pushdown is not a rope pushdown). To give an exercise its own form tips, add `tips` (3 or 4 short steps) and `avoid` (the usual mistake): `{ name: "Zercher Deadlift", category: "Back", tips: ["Hold the bar in the crooks of your elbows", "Keep your chest up and your back flat", "Stand up by driving your hips forward"], avoid: "Rounding your back at the start." }`.
+- **New exercises:** use **My Exercises** in the app, or add them to `exercises.js` for everyone. One line each: `{ name: "Zercher Deadlift", category: "Back", muscle: "Lower Back" }`. `muscle` is what Similar exercises matches on (the list of muscles is at the top of `exercises.js`). Without it the app works the muscle out from the name, and only falls back to the category when it can't. If the exercise is also known by other names, list them in `aka`: `{ name: "Rope Pushdown", category: "Triceps", aka: ["Triceps Rope Pushdown"] }`. Those names are searchable and count as the same exercise (same muscle group, never suggested as a swap for itself). Only give it its own entry if it really is a different exercise (a straight-bar pushdown is not a rope pushdown). To give an exercise its own form tips, add `tips` (3 or 4 short steps) and `avoid` (the usual mistake): `{ name: "Zercher Deadlift", category: "Back", tips: ["Hold the bar in the crooks of your elbows", "Keep your chest up and your back flat", "Stand up by driving your hips forward"], avoid: "Rounding your back at the start." }`.
 
 Keep every `id` unique. New programs reach phones on the next update.
 
 ---
 
 ## Version history
+
+**2.18.0**
+- **Similar exercises now only suggests exercises for the same muscle.** Before, it matched the movement, so a chest dip suggested triceps dips, a push-up suggested diamond push-ups, a barbell row could suggest a shoulder raise and a deadlift suggested Romanian deadlifts. Now every one of the 624 exercises has a muscle (26 in all: chest, lats, mid-back, lower back, front, side and rear delts, traps, biceps, triceps, forearms, quads, hamstrings, glutes, abs, obliques and so on) and the list only offers that muscle. Inside the muscle it is still ordered by movement, equipment and grip, and the muscle is shown above the list.
+- **When you create your own exercise you can choose its similar exercises** (up to 6) and, for shoulders, back, abs and forearms, which part of the muscle it works. Your picks come first, marked "Your pick", and your exercise shows up under the ones you picked. Old exercises you made before this update get their muscle worked out from their name.
+- Every list was checked by reading it. Fixed on the way: Chest-Supported Dumbbell Front Raises was being read as a row; Reverse Nordic Curls is now matched with sissy squats and leg extensions; "run" was matching "crunch", so Tabata ab circuits were suggested for the treadmill; Prone Trap Raises is now grouped with the other prone raises and rear delt exercises.
+- A few muscles have only a few exercises, so their lists are short: adductors (3), neck (2) and reverse curls (5). Add exercises to those and the lists grow.
+- Upload `index.html`, `exercises.js`, `sw.js` and `README.md`. `programs.js` is unchanged.
 
 **2.17.1**
 - **The side menu now shows the real version.** The text at the bottom left of the menu was written in by hand as "PulseTrack v2.0" and never changed. It now reads the app's version, so it stays right after every update.
