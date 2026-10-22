@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.20.0*
+*Version 2.21.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -166,15 +166,19 @@ Each of these can be switched off in **Settings → Workout Screen**.
 - Once you have two gyms, a small **📍 gym chip** at the top of the workout switches between them.
 - The plate calculator and the suggested weights follow the active gym. Until you edit anything there is one implicit gym ("My gym") and nothing is hidden.
 
-### Build me a workout (new in 2.19.0)
+### Build me a workout (new in 2.19.0, much bigger in 2.21.0)
 
-Home → **Build me a workout** (or **Build Workout** in the side menu). Pick what to train, how long you have and a goal, and it builds a session for you. No account and no internet needed.
+Home → **Build a Workout** (in the **Start training** row), or **Build a workout** in the side menu. Pick what to train, how long you have and a goal, and it builds a session for you. No account and no internet needed.
 
-- **What to train:** **Pick for me**, Push, Pull, Legs, Upper body, Full body or Arms, or tap any muscles yourself (13 to choose from). **Pick for me** looks at your recovery map and this week's sets and chooses the freshest group (Push, Pull or Legs), leaves out a muscle that is still recovering, and tells you why. With no history yet it starts you on Full body.
-- **How long:** 20, 30, 45, 60 or 75 minutes. It counts sets and rest times and lands within about 10% of the time you asked for. Short on time, it leaves out the smallest muscles and says so.
-- **Goal:** **Build muscle** (big lifts 6-10 reps, isolation 10-15) or **Get stronger** (big lifts 3-6 reps with longer rests).
-- **What it picks from:** the exercise library, using each exercise's muscle. It only offers what the **active gym** can do, starts each muscle with a big lift, never picks the same movement twice if there is another choice, favours well-known lifts and the ones you have done lately or starred, and leaves out jumps, carries, stretches and cardio. The first lift of a big muscle gets 4 sets (3 when time is tight).
-- **Shuffle** gives a different session with the same settings. **Start workout** opens it as a normal **Freestyle** workout, so you can still swap, add, delete, reorder, **Share day** or save it as a routine. If your last Freestyle workout still has exercises it asks before replacing them. The app remembers your last choices.
+- **A different mix every time (2.21.0).** It used to hand out much the same lifts each time. Now every build is a weighted draw from the best choices for each muscle, and it steers away from what it gave you in the last few builds, from exercises you swapped away, and from lifts in your last three saved workouts. Build Push eight times and you get eight different sessions, with no big lift missing and no odd picks.
+- **Variety:** **Favourites** leans on lifts you already do and the classics. **Balanced** is a bit of both. **Mix it up** (the default) goes for fresh picks. Hit **Shuffle** for another version.
+- **Lock, swap, remove, add (2.21.0).** After it builds, each exercise has a **🔒** (keep it when you Shuffle: **Shuffle the rest**), a **↻** (swap just that one for another exercise for the same muscle) and a **✕** (remove it). **＋ Add an exercise** adds one more for the muscle that has the fewest. The time updates as you change it.
+- **What to train:** **Pick for me**, Push, Pull, Legs, Upper body, Lower body, Full body, Chest & back, Shoulders & arms, Arms, Glutes or Core, or tap any muscles yourself (13 to choose from). **Pick for me** looks at your recovery map and this week's sets and chooses the freshest group (Push, Pull or Legs), leaves out a muscle that is still recovering, and tells you why. With no history yet it starts you on Full body.
+- **How long:** 15, 20, 30, 45, 60, 75 or 90 minutes. It counts sets and rest times and lands within about 10% of the time you asked for. Short on time, it leaves out the smallest muscles and says so.
+- **Goal:** **Build muscle** (big lifts 6-10 reps, isolation 10-15), **Get stronger** (big lifts 3-6 reps with longer rests) or **Tone & endurance** (12-15 and 15-20 reps with shorter rests).
+- **More options (2.21.0):** **Equipment**: your gym (default), Dumbbells, Machines & cables, Barbell or Bodyweight, always inside what your active gym has. **Number of exercises**: Auto, or 3, 4, 5, 6 or 8 (if that many will not fit the time, it says how long they take). **Style**: Straight sets, or **Supersets (saves time)**, which pairs opposite muscles (chest with back, biceps with triceps) and fits more into the same time. **Extras**: a **Core finisher** adds one abs exercise at the end.
+- **What it picks from:** the exercise library, using each exercise's muscle. It only offers what the **active gym** can do, starts each muscle with a big lift, never picks the same movement twice if there is another choice, favours well-known lifts, and leaves out jumps, carries, stretches and cardio. The first lift of a big muscle gets 4 sets (3 when time is tight).
+- **Start workout** opens it as a normal **Freestyle** workout (supersets stay linked), so you can still swap, add, delete, reorder, **Share day** or save it as a routine. If your last Freestyle workout still has exercises it asks before replacing them. The app remembers your last choices. The **Build** and **Shuffle** buttons stay in view at the bottom while you scroll the list.
 
 ### Work check-in (new in 2.19.0)
 
@@ -290,7 +294,7 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 - **Personal records:** new records for weight, estimated 1-rep max and volume are listed under **PRs this month** on Home (tap it for the full list), and your best lifts are in the **1RM Trophy Room**: one quiet line per lift with a thin bar toward your goal. Tap a lift to see its details and to set a goal.
 - **Per-exercise charts:** weight, estimated max and rep records over time.
 - **Streaks and weekly goal:** set how many days a week you want to train and keep your streak alive. **Settings → Streaks & Time Off** lets you mark **sick days** and **trips**: those days don't break your streak (each one lowers that week's goal by one, and a week fully off is skipped). Cardio counts toward the goal only if you switch on **Count cardio toward my weekly goal** (off by default).
-- **Home cards:** **This week** (a row of seven days with a dot for lifting, plus a cardio dot once you have logged cardio, and sick or trip days marked), **Last workout** (one short row you can tap to open it) and **PRs this month** (one row, shown only when you have new records). Two cards added in 2.19.0: **Work today** (see Work check-in) and **Build me a workout** (see above). Home is kept calm on purpose: small quiet headings, one soft colour for the shortcut icons, and no long text.
+- **Home, top to bottom (new order in 2.21.0):** **today's workout** (Start Workout), **Start training** (**Build a Workout**, **Empty Workout**, **Cardio & Sports**), **This week** (seven days with a dot for lifting, a cardio dot once you have logged cardio, sick or trip days marked, and a line underneath with your streak, active days this month and a **Calendar ›** button), **Work today** (see Work check-in), **Last workout** and **PRs this month** (one short row each; the PRs row only shows when you have new records), the **Search** bar, then the shortcuts in three labelled groups: **Train** (Programs, Exercise Library, My Exercises), **Track** (Progress, History, Body & Photos) and **Tools** (1RM Calculator, Plate Calculator, Tabata Timer), and last the **1RM Trophy Room**. The separate Consistency card is off by default because its numbers are now in This week. Home is kept calm on purpose: small quiet headings, one soft colour for the shortcut icons, and no long text.
 - **Up next on Home** includes a line about today's muscles, like "Chest, Shoulders still recovering (ready in about 3 days)" or "✓ Muscles are rested for this day".
 - **Calendar and History:** see every past workout. Open one to edit it, **Do Again**, **Share** it, or **Save as Routine**. Tap the **Time** box on a past workout to fix its length.
 
@@ -395,7 +399,11 @@ In Light mode the muscle map keeps its dark body figure so the muscles stay easy
 
 **Reset look** puts colours, background, effect, font and corners back to the original. It does not touch your Home layout, your own exercises or your data.
 
-**Home layout** (Settings → Appearance → Home screen): use ▲ ▼ to move a card and **Shown / Hidden** to hide it. The cards are the monthly recap banner, today's workout, the Search bar, This week, shortcut tiles, consistency, Last workout, PRs this month, and the 1RM Trophy Room. The new cards are shown by default. **Put the cards back the way they were** resets it.
+**Home layout** (Settings → Appearance → Home screen): use ▲ ▼ to move a card and **Shown / Hidden** to hide it. The cards are the monthly recap banner, today's workout, Start training, This week, Work check-in, Last workout, PRs this month, the Search bar, Train / Track / Tools, the 1RM Trophy Room and Consistency (off by default). **Put the cards back the way they were** resets it to the 2.21.0 order. A phone that had its own order from an older version is moved to the new order once when it updates; cards it had hidden stay hidden, and any change you make after that is kept.
+
+### The side menu (new layout in 2.21.0)
+
+Tap the ☰ button. Top to bottom: your **current program** (tap it to carry on with the workout, or to pick a day or a program), three **quick actions** (Empty workout, Build a workout, Search), the **Menu** (Home, Programs, History, Progress, Exercise Library, Body & Photos, Cardio & Sports, Settings, with the page you are on marked), **Gym tools** (Plate calculator, Tabata timer, and 30/60/90/120-second rest countdowns), and the **Workout calendar**, folded away until you tap it (the **Calendar ›** button on Home opens it for you).
 
 App pop-ups (confirmations, text boxes, lists) match your theme in light or dark, and their buttons say what they do, like **Remove**.
 
@@ -460,6 +468,14 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.21.0**
+- **A tidier Home screen.** The cards now run in the order you use them: today's workout, a **Start training** row (Build a Workout, Empty Workout, Cardio & Sports), **This week** (with your streak and a Calendar button), Work today, Last workout, PRs, Search, then the shortcuts in three labelled groups (**Train**, **Track**, **Tools**), then the Trophy Room. The two sizes of shortcut tile are now one size, the duplicate Consistency card and Build card are gone, and Work today is one quiet row until you use it. A phone with its own saved Home order is moved to the new order once (hidden cards stay hidden); Settings → Home screen still lets you change it.
+- **A tidier side menu.** Your current program is at the top, then three quick actions, one short list of pages with the current page marked, the gym tools, and the calendar folded away until you want it. The program card now says "NO PROGRAM" and "Tap to choose a program" when none is chosen.
+- **Build Workout gives a different mix every time.** A weighted draw instead of always the same best picks, steering away from what it handed you recently and what you did in your last three workouts. **Variety**: Favourites, Balanced, Mix it up (default).
+- **Build Workout: lock, swap, remove and add** an exercise from the result, and **Shuffle the rest** keeps what you locked.
+- **Build Workout: more options.** New things to train (Lower body, Chest & back, Shoulders & arms, Glutes, Core), times from 15 to 90 minutes, a **Tone & endurance** goal, **Equipment** (Dumbbells, Machines & cables, Barbell, Bodyweight), **Number of exercises**, **Supersets**, and a **Core finisher**. Build and Shuffle stay at the bottom of the screen while you scroll.
+- Upload `index.html`, `sw.js` and `README.md`. `exercises.js` and `programs.js` are unchanged.
 
 **2.20.0**
 - **A weight of 0 now means bodyweight.** Type 0 as the weight of a set on any exercise and the set counts your body weight from Body & Photos as the load, so push-ups, sit-ups, lunges and the like get volume, an estimated 1RM, PRs and a progress chart. The box shows **BW**, History shows **BW × 12**, and "Fill in", "↺ Last" and the next-time suggestion keep it as a bodyweight set. An empty box still counts as nothing. Pull-ups, chin-ups, muscle-ups and dips already worked this way and are unchanged. Log or change your body weight and old bodyweight sets are worked out again.
