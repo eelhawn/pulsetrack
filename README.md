@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.18.0*
+*Version 2.19.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -118,6 +118,7 @@ Can't train today (a long day of work, an injury, a trip)? You don't need to del
 - **Save a finished workout as a routine** to repeat it.
 - **Supersets:** two exercises done back to back. They show as A1/A2, B1/B2 and each has its own weight and reps. To make one, tap **+ Superset with next** in the gap between two exercises; tap **Superset with next · Unlink** to separate them. The rest timer waits until the last exercise of the pair.
 - **Share** a program as a link, or **import** one from a link or a `.json` file.
+- **Share one workout day (new in 2.19.0).** Edit a day the way you like it, then tap **Share day** on the workout screen (next to Clear Progress). It sends that day exactly as it is now, with your extra sets and swapped exercises, as a link (or a small file if it is very big). The other person opens the link, or taps **Programs → Paste a Share Link** and pastes it. A sheet shows what is inside and where it will go: by default the **same day of the same program** if they have it, otherwise the next day of their current program. They can change the program and the day, then tap **Replace Day N**. That day's exercises, name and length are swapped for yours. Their own day is kept underneath like any other edit, so **Clear Progress** on that day puts **their original day back** (exercises, name and length), and so does **Reset All Days**. A note under the day's name says it is a shared workout until then. Sets they had logged on that day are cleared when it is replaced; saved workouts in History and records are never touched. Or they can tap **Just do it once (Freestyle)** to run the workout without changing any program. On an iPhone, a link opened in Safari does not see the app on the Home Screen (they keep separate data), so the app offers to copy the link: open the Home Screen icon and use **Programs → Paste a Share Link**.
 
 ### Reset and restore
 
@@ -163,6 +164,25 @@ Each of these can be switched off in **Settings → Workout Screen**.
 - If a workout has an exercise the active gym can't do, its card says so with **Find a swap**.
 - Once you have two gyms, a small **📍 gym chip** at the top of the workout switches between them.
 - The plate calculator and the suggested weights follow the active gym. Until you edit anything there is one implicit gym ("My gym") and nothing is hidden.
+
+### Build me a workout (new in 2.19.0)
+
+Home → **Build me a workout** (or **Build Workout** in the side menu). Pick what to train, how long you have and a goal, and it builds a session for you. No account and no internet needed.
+
+- **What to train:** **Pick for me**, Push, Pull, Legs, Upper body, Full body or Arms, or tap any muscles yourself (13 to choose from). **Pick for me** looks at your recovery map and this week's sets and chooses the freshest group (Push, Pull or Legs), leaves out a muscle that is still recovering, and tells you why. With no history yet it starts you on Full body.
+- **How long:** 20, 30, 45, 60 or 75 minutes. It counts sets and rest times and lands within about 10% of the time you asked for. Short on time, it leaves out the smallest muscles and says so.
+- **Goal:** **Build muscle** (big lifts 6-10 reps, isolation 10-15) or **Get stronger** (big lifts 3-6 reps with longer rests).
+- **What it picks from:** the exercise library, using each exercise's muscle. It only offers what the **active gym** can do, starts each muscle with a big lift, never picks the same movement twice if there is another choice, favours well-known lifts and the ones you have done lately or starred, and leaves out jumps, carries, stretches and cardio. The first lift of a big muscle gets 4 sets (3 when time is tight).
+- **Shuffle** gives a different session with the same settings. **Start workout** opens it as a normal **Freestyle** workout, so you can still swap, add, delete, reorder, **Share day** or save it as a routine. If your last Freestyle workout still has exercises it asks before replacing them. The app remembers your last choices.
+
+### Work check-in (new in 2.19.0)
+
+Landscaping, building, moving house: a hard day at work uses the same back, grip and legs you lift with. Home has a **Work today** card with three buttons: **Light or off**, **Normal** and **Heavy**. Tap one at the end of the day (tap it again to clear it, or tap **Yesterday?** to fill in yesterday). It is saved per day and is part of your backup.
+
+- **Only Heavy changes anything.** A heavy day counts in the **Recovery map** as extra hard sets for lower back, forearms and grip, legs, shoulders, traps and back, so the Muscles tab, the "still recovering" line on Up next and **Pick for me** all know your back is tired. Chest and arms are not affected. Light and Normal days are just a record.
+- **Suggested weight stays put.** On a heavy day, lifts for those muscles keep their weight instead of suggesting more ("Heavy work day, so keep this weight and add a rep or two"). Chest and arm lifts still go up.
+- **Build me a workout goes easy.** It leaves out deadlifts, bent-over rows, shrugs and carries, prefers machines and cables, and builds one exercise fewer.
+- **Switch:** **Settings → Workout Screen → Go easier after heavy work days** (on by default). Turn it off and the check-in only feeds the recovery map. Hide the card with **Settings → Home screen**.
 
 ### Rest timer
 
@@ -241,7 +261,7 @@ The **Progress** screen has three tabs: **Overview**, **Muscles** and **Strength
 
 - **Weekly sets per muscle:** how many hard sets each muscle got (warm-ups left out). Switch between **This week**, **Last week** and **4-wk avg**. A line under the buttons shows the exact dates each one covers. **½ Helpers** counts assisting muscles as half a set.
 - **Targets:** each muscle has a target range, the grey zone on its bar. The bar is green inside the range, orange below it and red above it, and the map colours match. Starting ranges come from common training-volume guidelines (for example chest 8–20 sets a week). Tap any muscle to set your own, or **Default** to reset it.
-- **Recovery map:** tap **Recovery** at the top of the card. The map turns red (just trained), amber (recovering) or green (ready), and the list shows how long each muscle still needs. It is an estimate based on how many hard sets each muscle got and how long ago, giving bigger muscles and harder sessions more time (about 1 to 3.5 days).
+- **Recovery map:** tap **Recovery** at the top of the card. The map turns red (just trained), amber (recovering) or green (ready), and the list shows how long each muscle still needs. It is an estimate based on how many hard sets each muscle got and how long ago, giving bigger muscles and harder sessions more time (about 1 to 3.5 days). Heavy work days from the Home check-in count too (see Work check-in).
 - **Muscle map:** a detailed front and back body with 40+ muscles. Tap one to see its sets, or how recovered it is.
 - **Balance check:** compares your last 4 weeks: push vs pull, quads vs hamstrings + glutes, and upper vs lower body. If one side is far ahead it says so, with a simple fix (for example "add rows or pulldowns"). It needs about 12 sets of data first. A mismatch isn't automatically bad; it is worth knowing about.
 
@@ -269,7 +289,7 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 - **Personal records:** new records for weight, estimated 1-rep max and volume are listed under **PRs this month** on Home (tap it for the full list), and your best lifts are in the **1RM Trophy Room**: one quiet line per lift with a thin bar toward your goal. Tap a lift to see its details and to set a goal.
 - **Per-exercise charts:** weight, estimated max and rep records over time.
 - **Streaks and weekly goal:** set how many days a week you want to train and keep your streak alive. **Settings → Streaks & Time Off** lets you mark **sick days** and **trips**: those days don't break your streak (each one lowers that week's goal by one, and a week fully off is skipped). Cardio counts toward the goal only if you switch on **Count cardio toward my weekly goal** (off by default).
-- **Home cards:** **This week** (a row of seven days with a dot for lifting, plus a cardio dot once you have logged cardio, and sick or trip days marked), **Last workout** (one short row you can tap to open it) and **PRs this month** (one row, shown only when you have new records). Home is kept calm on purpose: small quiet headings, one soft colour for the shortcut icons, and no long text.
+- **Home cards:** **This week** (a row of seven days with a dot for lifting, plus a cardio dot once you have logged cardio, and sick or trip days marked), **Last workout** (one short row you can tap to open it) and **PRs this month** (one row, shown only when you have new records). Two cards added in 2.19.0: **Work today** (see Work check-in) and **Build me a workout** (see above). Home is kept calm on purpose: small quiet headings, one soft colour for the shortcut icons, and no long text.
 - **Up next on Home** includes a line about today's muscles, like "Chest, Shoulders still recovering (ready in about 3 days)" or "✓ Muscles are rested for this day".
 - **Calendar and History:** see every past workout. Open one to edit it, **Do Again**, **Share** it, or **Save as Routine**. Tap the **Time** box on a past workout to fix its length.
 
@@ -340,6 +360,7 @@ Some of the built-in programs spell exercises differently from the standard list
 - **No storage cap:** when the normal space fills up, PulseTrack keeps saving in your phone's large storage, for as long as your phone has room. Settings shows **No size limit**.
 - **CSV export:** download your workout history for Excel or Google Sheets.
 - **Share a program** as a link, or **import** one.
+- **Share a workout day** as a link or file (see Make your own), and **Programs → Paste a Share Link** opens a pasted link for a day or a whole program.
 - **Share a workout:** after you finish, or from **History → a workout → Share**, you get a picture card (date, time, volume, sets, PRs, the muscles you worked and your best set for each lift, with a gold PR badge and how your estimated max changed). It uses your theme colours and font. **Share image** sends it to Messages, Instagram and so on, **Copy as text** pastes it into any chat, and **Save image to this phone** keeps it.
 
 ---
@@ -411,7 +432,7 @@ Upload these to your GitHub repo, all in the same folder:
 
 | File | What it does |
 |---|---|
-| `index.html` | The whole app (about 1.2 MB, including fonts and themes) |
+| `index.html` | The whole app (about 1.3 MB, including fonts and themes) |
 | `programs.js` | The 22 built-in programs |
 | `exercises.js` | The 624 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
@@ -438,6 +459,12 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.19.0**
+- **Share one workout day.** After you edit a day, **Share day** sends it as a link. Whoever opens it picks a program and a day, and that day is replaced with yours. Their own day is kept underneath, so **Clear Progress** (or **Reset All Days**) puts their original back, name and length included. There is also **Programs → Paste a Share Link** (works for a day or a whole program) and a **Just do it once (Freestyle)** option that leaves their programs alone.
+- **Build me a workout.** Pick the muscles (or let it pick the freshest), 20 to 75 minutes and a goal, and it builds a session from the library using what your gym has, what you have been doing and how recovered each muscle is. It opens as a normal Freestyle workout. On Home and in the side menu.
+- **Work check-in.** A Home card asks how hard work was today (Light or off, Normal, Heavy). A heavy day counts in the recovery map for back, grip and legs, keeps the suggested weight for those lifts where it was, and makes Build me a workout go easier. Switch in Settings → Workout Screen.
+- Upload `index.html`, `sw.js` and `README.md`. `exercises.js` and `programs.js` are unchanged.
 
 **2.18.0**
 - **Similar exercises now only suggests exercises for the same muscle.** Before, it matched the movement, so a chest dip suggested triceps dips, a push-up suggested diamond push-ups, a barbell row could suggest a shoulder raise and a deadlift suggested Romanian deadlifts. Now every one of the 624 exercises has a muscle (26 in all: chest, lats, mid-back, lower back, front, side and rear delts, traps, biceps, triceps, forearms, quads, hamstrings, glutes, abs, obliques and so on) and the list only offers that muscle. Inside the muscle it is still ordered by movement, equipment and grip, and the muscle is shown above the list.

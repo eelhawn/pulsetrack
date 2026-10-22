@@ -306,8 +306,9 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
           <button data-nav="body" class="drawer-nav py-2.5 px-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-bold text-white text-left tap-active">⚖️ Body</button>
           <button data-nav="cardio" class="drawer-nav py-2.5 px-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-bold text-white text-left tap-active">🏃 Cardio &amp; Sports</button>
           <button data-nav="empty" class="drawer-nav py-2.5 px-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-bold text-white text-left tap-active">➕ Empty Workout</button>
+          <button type="button" id="pt-drawer-build" class="py-2.5 px-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-bold text-white text-left tap-active">🛠️ Build Workout</button>
           <button type="button" id="pt-drawer-search" class="py-2.5 px-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-bold text-white text-left tap-active">🔍 Search</button>
-          <button data-nav="settings" class="drawer-nav py-2.5 px-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-bold text-white text-left tap-active">⚙️ Settings</button>
+          <button data-nav="settings" class="drawer-nav col-span-2 py-2.5 px-3 bg-zinc-950 border border-zinc-800 rounded-xl text-xs font-bold text-white text-left tap-active">⚙️ Settings</button>
         </div>
       </div>
 
@@ -395,7 +396,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.18.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.19.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -479,6 +480,8 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
       <div id="home-week" class="hidden"></div>
       <div id="home-recap" class="hidden"></div>
       <div id="home-prmonth" class="hidden"></div>
+      <div id="home-work" class="hidden"></div>
+      <div id="home-build" class="hidden"></div>
     </section>
 
     <!-- Screen 1: Programs View -->
@@ -3746,7 +3749,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.18.0";
+    const APP_VERSION = "2.19.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -8034,7 +8037,9 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
         { id: "search", label: "Search bar", after: "routine", el: () => document.getElementById("home-search") },
         { id: "week", label: "This week", after: "search", el: () => document.getElementById("home-week") },
         { id: "recap", label: "Last workout", after: "streak", el: () => document.getElementById("home-recap") },
-        { id: "prmonth", label: "PRs this month", after: "recap", el: () => document.getElementById("home-prmonth") }
+        { id: "prmonth", label: "PRs this month", after: "recap", el: () => document.getElementById("home-prmonth") },
+        { id: "work", label: "Work check-in", after: "week", el: () => document.getElementById("home-work") },
+        { id: "build", label: "Build me a workout", after: "tiles", el: () => document.getElementById("home-build") }
       ];
       function homeLayout(app) {
         const saved = Array.isArray(app.settings.homeLayout) ? app.settings.homeLayout : [];
@@ -8306,16 +8311,17 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
       PT.recovery = function (now, appArg) {
         now = now || Date.now();
         const app = appArg || A() || {}, per = {};
-        (app.sessions || []).forEach(s => {
+        (app.sessions || []).concat(PT.workSessions ? PT.workSessions(now, app) : []).forEach(s => {
           const t = sessionTime(s);
           if (!(t > now - 14 * DAY) || t > now + HR) return;
           const acc = {};
+          if (s.regs) Object.keys(s.regs).forEach(r => { acc[r] = (acc[r] || 0) + s.regs[r]; });
           (s.ex || []).forEach(e => {
             const n = (e.sets || []).filter(st => st.t !== "W").length; if (!n) return;
             const regs = PT.regionsFor(e.name, true);
             Object.keys(regs).forEach(r => { acc[r] = (acc[r] || 0) + n * regs[r]; });
           });
-          Object.keys(acc).forEach(r => { (per[r] = per[r] || []).push({ t, sets: acc[r] }); });
+          Object.keys(acc).forEach(r => { (per[r] = per[r] || []).push({ t, sets: acc[r], work: !!s.work }); });
         });
         const out = {};
         Object.keys(per).forEach(r => {
@@ -8323,7 +8329,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
           let sets = last.sets;
           if (prev && last.t - prev.t < 2 * DAY) sets += 0.5 * prev.sets;     // trained twice in a row: needs longer
           const need = needHours(r, sets), since = Math.max(0, (now - last.t) / HR);
-          out[r] = { pct: Math.max(0, Math.min(100, Math.round(since / need * 100))), since, need, left: Math.max(0, need - since), sets: Math.round(last.sets * 10) / 10, last: last.t };
+          out[r] = { pct: Math.max(0, Math.min(100, Math.round(since / need * 100))), since, need, left: Math.max(0, need - since), sets: Math.round(last.sets * 10) / 10, last: last.t, work: !!last.work };
         });
         return out;
       };
@@ -8466,7 +8472,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
           root.querySelectorAll(".mm-r").forEach(el => el.addEventListener("click", () => {
             const r = el.dataset.r, x = (this._recInfo || {})[r];
             root.querySelectorAll(".mm-r").forEach(y => y.setAttribute("stroke", y.dataset.r === r ? "#ffffff" : "#09090b"));
-            info.innerHTML = x ? `<b class="text-white">${esc(regLabel(r))}</b> · ${x.pct}% recovered · ${num(x.sets)} set${x.sets === 1 ? "" : "s"} ${ago(x.since)}${x.left > 0 ? ` · ready in ${fmtLeft(x.left)}` : " · ready"}`
+            info.innerHTML = x ? `<b class="text-white">${esc(regLabel(r))}</b> · ${x.pct}% recovered · ${x.work ? "heavy work day" : num(x.sets) + " set" + (x.sets === 1 ? "" : "s")} ${ago(x.since)}${x.left > 0 ? ` · ready in ${fmtLeft(x.left)}` : " · ready"}`
               : `<b class="text-white">${esc(regLabel(r))}</b> · not trained in the last 2 weeks`;
           }));
           return;
@@ -10724,7 +10730,7 @@ const PTSIM = (function () {
   const blank = v => v === undefined || v === null || String(v).trim() === "";
 
   /* ------------------------------------------------------------ options */
-  const DEF = { nextHint: true, autoFill: true, timerFirstSet: true, finishReview: true, colPrev: false, colTag: true, col1rm: false, lefty: false };
+  const DEF = { nextHint: true, autoFill: true, timerFirstSet: true, finishReview: true, colPrev: false, colTag: true, col1rm: false, lefty: false, workEase: true };
   const opt = k => { const a = A(), v = a && a.settings ? a.settings[k] : undefined; return v === undefined ? DEF[k] : !!v; };
   PT.opt = opt;
   PT.setOpt = (k, v) => { const a = A(); if (!a) return; a.settings[k] = !!v; WorkoutStorage.saveSettings(a.settings); };
@@ -10853,6 +10859,8 @@ const PTSIM = (function () {
     } else if (reps.some(r => r < lo)) {
       k = "hold"; why = `A set was under ${lo} reps, so stay here until every set reaches ${lo}.`;
     } else { k = "reps"; why = "Same weight. One more rep on each set is progress."; }
+    // a heavy work day (Home check-in): keep the weight for lifts that work beats up, add reps instead
+    if (k === "up" && !assist && PT.workEaseFor && PT.workEaseFor(ex.name)) { k = "reps"; nextW = topW; why = "Heavy work day, so keep this weight and add a rep or two."; }
     const per = [];
     for (let i = 0; i < (ex.sets || 0); i++) {
       let r;
@@ -11665,7 +11673,8 @@ const PTSIM = (function () {
         + `<div class="p-3.5 space-y-2"><span class="text-xs font-bold text-white block">On each set row</span>`
         + `<div class="flex flex-wrap gap-1.5">${[["colPrev", "Last time"], ["colTag", "Warm-up / drop tag"], ["col1rm", "Est. 1RM"]].map(([k, l]) => `<button type="button" data-optb="${k}" aria-pressed="${O(k)}" class="pt-opt tap-active">${l}</button>`).join("")}</div>`
         + `<span class="text-[11px] text-zinc-400 block">Pick what shows on every set. Weight, reps and the check button always show.</span></div>`
-        + t("lefty", "Left-hand mode", "Moves the check button and the + Set / − Set buttons to the left, where a left thumb reaches.");
+        + t("lefty", "Left-hand mode", "Moves the check button and the + Set / − Set buttons to the left, where a left thumb reaches.")
+        + t("workEase", "Go easier after heavy work days", "When you mark work as Heavy on Home, lifts for your back, legs and grip keep their weight today instead of suggesting more, and Build me a workout goes lighter.");
     }
     const gb = document.getElementById("pt-gyms-box");
     if (gb) {
@@ -13381,6 +13390,791 @@ const PTSIM = (function () {
     }
     return r;
   };
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.19.0 (part 1): share one workout day.
+ *  - "Share day" on the workout screen sends the day exactly as you have it (your edits included) as a link or a file.
+ *  - The other person opens the link (or pastes it under Programs -> Paste a share link) and picks which day of which
+ *    program it should replace. Their own day is kept underneath, like any other edit:
+ *    Clear Progress on that day puts their original day back (exercises, name and length). Reset All Days does too.
+ *  - Or they can do it once, as a Freestyle workout, without touching a program.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const A = () => window.app;
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const clone = o => JSON.parse(JSON.stringify(o));
+  const clean = t => String(t === undefined || t === null ? "" : t).replace(/[<>]/g, "").trim();
+  const FREE = typeof FREESTYLE_ID !== "undefined" ? FREESTYLE_ID : "freestyle";
+  const MAX_LINK = 7000;
+  const K = () => PT.kit;
+
+  const css = document.createElement("style");
+  css.id = "pt-v37a-css";
+  css.textContent = `
+    #btn-share-day { font-size: .75rem; font-weight: 700; padding: .4rem .7rem; border-radius: .5rem; background: rgb(var(--z800)); color: rgb(var(--z100)); border: 1px solid rgb(var(--z700)); white-space: nowrap; text-align: center; }
+    #btn-share-day:active { background: rgb(var(--a600)); color: #fff; }
+    #pt-shared-note { margin-top: .35rem; font-size: .68rem; line-height: 1.3; color: rgb(251 191 36); }
+    .pt-dayimp-list { border: 1px solid rgb(var(--z800)); background: rgb(var(--z950)); border-radius: .75rem; padding: .25rem .75rem; max-height: 30vh; overflow-y: auto; }
+    .pt-dayimp-list > div { display: flex; justify-content: space-between; gap: .75rem; padding: .3rem 0; font-size: .75rem; border-bottom: 1px solid rgb(var(--z900)); }
+    .pt-dayimp-list > div:last-child { border-bottom: 0; }
+    .pt-dayimp-list span:first-child { color: rgb(var(--z100)); font-weight: 600; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pt-dayimp-list span:last-child { color: rgb(var(--z400)); font-family: ui-monospace, SFMono-Regular, Menlo, monospace; flex: none; }
+    .pt-pickrow { width: 100%; display: flex; align-items: center; justify-content: space-between; gap: .5rem; padding: .65rem .8rem; border-radius: .75rem; border: 1px solid rgb(var(--z800)); background: rgb(var(--z950)); text-align: left; }
+    .pt-pickrow b { display: block; font-size: .8rem; color: #fff; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pt-pickrow small { display: block; font-size: .6rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgb(var(--z400)); }
+  `;
+  document.head.appendChild(css);
+
+  /* ------------------------------------------------------------------ what is sent */
+  const EX_KEYS = ["name", "sets", "reps", "restSeconds", "restAuto", "type", "notes", "link", "workSeconds"];
+
+  /** The day as the person has it right now, with the change markers taken off. */
+  proto.dayShareObject = function (prog, day) {
+    const exercises = (day.exercises || []).filter(e => e && e.name).map(e => {
+      const o = {};
+      EX_KEYS.forEach(k => { if (e[k] !== undefined && e[k] !== null && e[k] !== "") o[k] = e[k]; });
+      return o;
+    });
+    return {
+      pulsetrackDay: 1,
+      program: { id: prog.id, title: prog.title },
+      day: {
+        dayNumber: day.dayNumber,
+        title: this.shortDayTitle ? this.shortDayTitle(prog, day) : (day.title || ("Day " + day.dayNumber)),
+        estimatedMinutes: day.estimatedMinutes || 45,
+        exercises
+      }
+    };
+  };
+
+  proto.shareActiveDay = async function () {
+    const prog = this.activeProgram, day = this.activeDay;
+    if (!prog || !day) return;
+    if (!(day.exercises || []).length) { await PT.alert("This day has no exercises to share yet."); return; }
+    const payload = this.dayShareObject(prog, day), json = JSON.stringify(payload), title = payload.day.title;
+    const link = location.origin + location.pathname + "#day=" + PT.b64urlEncode(json);
+    if (link.length <= MAX_LINK) {
+      try {
+        if (navigator.share) { await navigator.share({ title, text: `PulseTrack workout: ${title}`, url: link }); return; }
+      } catch (err) { if (err && err.name === "AbortError") return; }
+      try { await navigator.clipboard.writeText(link); this.toast("Link copied. Send it to anyone with PulseTrack"); return; } catch (err) { }
+      await PT.prompt("Share link", link, { readonly: true, copy: true, ok: "Copy link", cancel: "Close", title: "Share this workout", body: "Copy this link and send it to anyone who has PulseTrack." });
+      return;
+    }
+    const slug = String(title || "workout").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "").slice(0, 40) || "workout";
+    const file = new File([json], `${slug}.pulsetrack.json`, { type: "application/json" });
+    const ok = await this.shareFile(file, title);
+    if (ok) this.toast("This workout is big, so it was shared as a file. Open it in PulseTrack -> Programs -> Import.", null, null, 6000);
+  };
+
+  /* ------------------------------------------------------------------ what is received */
+  function cleanDay(obj) {
+    const d = obj && obj.pulsetrackDay ? obj.day : null;
+    if (!d || !Array.isArray(d.exercises)) return null;
+    const exercises = d.exercises.filter(e => e && e.name).slice(0, 40).map(e => {
+      const ex = {
+        name: clean(e.name).slice(0, 80),
+        sets: Math.max(1, Math.min(50, parseInt(e.sets, 10) || 3)),
+        reps: clean(e.reps).slice(0, 40) || "10",
+        restSeconds: Number.isFinite(parseInt(e.restSeconds, 10)) ? Math.max(0, Math.min(1800, parseInt(e.restSeconds, 10))) : 60,
+        type: clean(e.type).slice(0, 20) || "standard"
+      };
+      if (e.restAuto) ex.restAuto = true;
+      if (e.notes) ex.notes = clean(e.notes).slice(0, 400);
+      if (e.link) ex.link = true;
+      if (e.workSeconds) ex.workSeconds = Math.max(1, Math.min(600, parseInt(e.workSeconds, 10) || 20));
+      return ex;
+    });
+    if (!exercises.length) return null;
+    const p = obj.program || {};
+    return {
+      from: { id: clean(p.id).slice(0, 80), title: clean(p.title).slice(0, 80) },
+      dayNumber: parseInt(d.dayNumber, 10) || 0,
+      title: clean(d.title).slice(0, 60) || "Shared workout",
+      estimatedMinutes: Math.max(5, Math.min(240, parseInt(d.estimatedMinutes, 10) || Math.max(20, exercises.length * 9))),
+      exercises
+    };
+  }
+
+  /** Link text, a bare code or JSON -> the object inside, or null. */
+  function decodeShare(text) {
+    text = String(text || "").trim();
+    if (!text) return null;
+    const m = text.match(/#(?:day|import)=([A-Za-z0-9_\-+/=%]+)/);
+    const code = m ? m[1] : text;
+    try { const o = JSON.parse(PT.b64urlDecode(decodeURIComponent(code))); if (o && typeof o === "object") return o; } catch (e) { }
+    try { const o = JSON.parse(text); if (o && typeof o === "object") return o; } catch (e) { }
+    return null;
+  }
+  PT.decodeShare = decodeShare;
+
+  proto.openSharedText = async function (text) {
+    const obj = decodeShare(text);
+    if (obj && obj.pulsetrackDay) return this.importDayObject(obj);
+    if (obj && obj.pulsetrackProgram) return this.importProgramObject(obj.program);
+    await PT.alert("That doesn't look like a PulseTrack share link. Copy the whole link (or file) that was sent to you and try again.");
+    return false;
+  };
+
+  proto.pasteShareLink = async function () {
+    const v = await PT.prompt("Paste a share link", "", { ok: "Open", cancel: "Cancel", title: "Paste a share link", body: "Paste the link someone sent you. It can be one workout day or a whole program." });
+    if (v === null || v === undefined || !String(v).trim()) return;
+    await this.openSharedText(v);
+  };
+
+  /* ------------------------------------------------------------------ pick where it goes */
+  function dayLabel(app, prog, day) {
+    const t = app.shortDayTitle ? app.shortDayTitle(prog, day) : (day.title || "");
+    let w = 0;
+    try { w = app.progWeeks(prog) ? app.dayWeek(prog, day) : 0; } catch (e) { w = 0; }
+    return `${w ? `Week ${w} · ` : ""}Day ${day.dayNumber}: ${t}${(day.exercises || []).length ? "" : " (rest day)"}`;
+  }
+  function defaultTarget(app, sd) {
+    const progs = ((app.data && app.data.programs) || []).filter(p => p && p.id !== FREE && Array.isArray(p.days) && p.days.length);
+    if (!progs.length) return null;
+    let prog = progs.find(p => p.id === sd.from.id) || progs.find(p => p.id === PT.currentProgramId()) || progs[0];
+    let day = null;
+    if (prog.id === sd.from.id && sd.dayNumber) day = prog.days.find(d => d.dayNumber === sd.dayNumber);
+    if (!day) { try { day = app.nextDayOf(prog); } catch (e) { day = null; } }
+    if (!day) day = prog.days[0];
+    return { prog, day };
+  }
+
+  proto.importDayObject = function (obj) {
+    const app = this, sd = cleanDay(obj);
+    if (!sd) return PT.alert("That doesn't look like a PulseTrack workout.").then(() => false);
+    const progs = ((app.data && app.data.programs) || []).filter(p => p && p.id !== FREE && Array.isArray(p.days) && p.days.length);
+    let target = defaultTarget(app, sd);
+    return new Promise(resolve => {
+      const k = K(), el = k.sheet("pt-dayimp", 82);
+      const total = sd.exercises.reduce((n, e) => n + e.sets, 0);
+      const draw = () => {
+        const prog = target && target.prog, day = target && target.day;
+        const card = k.openSheet(el, `${k.head("Shared workout", sd.from.title ? `From "${sd.from.title}"` : "Someone sent you a workout")}
+          <div class="space-y-1.5">
+            <div class="flex items-baseline justify-between gap-3"><h4 class="text-sm font-bold text-white min-w-0 truncate">${esc(sd.title)}</h4><span class="text-[11px] text-zinc-400 shrink-0">${sd.exercises.length} exercises · ${total} sets</span></div>
+            <div class="pt-dayimp-list">${sd.exercises.map(e => `<div><span>${esc(e.name)}</span><span>${e.sets} × ${esc(e.reps)}</span></div>`).join("")}</div>
+          </div>
+          ${target ? `<div class="space-y-2">
+            <span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block">Put it on</span>
+            <button type="button" id="pt-di-prog" class="pt-pickrow tap-active"><span class="min-w-0"><small>Program</small><b>${esc(prog.title)}</b></span><span class="text-zinc-500">▾</span></button>
+            <button type="button" id="pt-di-day" class="pt-pickrow tap-active"><span class="min-w-0"><small>Day to replace</small><b>${esc(dayLabel(app, prog, day))}</b></span><span class="text-zinc-500">▾</span></button>
+            <p class="text-[11px] leading-relaxed text-zinc-400">This day's exercises are swapped for the ones above (sets you logged on it today are cleared; saved workouts in History stay). <b class="text-zinc-200">Clear Progress</b> on that day puts the original back.</p>
+          </div>` : ""}
+          <div class="space-y-2">
+            ${target ? `<button type="button" id="pt-di-go" class="w-full py-3 rounded-xl bg-emerald-600 text-white text-sm font-bold tap-active">Replace Day ${day.dayNumber}</button>` : ""}
+            <button type="button" id="pt-di-once" class="w-full py-3 rounded-xl bg-zinc-800 text-zinc-100 text-sm font-bold tap-active">Just do it once (Freestyle)</button>
+          </div>`);
+        let finished = false;
+        const done = v => { if (finished) return; finished = true; el.__onClose = null; resolve(v); };
+        el.__onClose = () => done(false);
+        const q = s => card.querySelector(s);
+        if (target) {
+          q("#pt-di-prog").addEventListener("click", async () => {
+            const v = await PT.pickList("Which program?", progs.map(p => ({ value: p.id, label: p.title })), prog.id);
+            if (!v || v === prog.id) return;
+            const p = progs.find(x => x.id === v); if (!p) return;
+            let d = p.id === sd.from.id && sd.dayNumber ? p.days.find(x => x.dayNumber === sd.dayNumber) : null;
+            if (!d) { try { d = app.nextDayOf(p); } catch (e) { d = null; } }
+            target = { prog: p, day: d || p.days[0] }; draw();
+          });
+          q("#pt-di-day").addEventListener("click", async () => {
+            const v = await PT.pickList("Which day should it replace?", prog.days.map(d => ({ value: d.dayNumber, label: dayLabel(app, prog, d) })), day.dayNumber);
+            if (v === null || v === undefined) return;
+            const d = prog.days.find(x => x.dayNumber === v); if (!d) return;
+            target = { prog, day: d }; draw();
+          });
+          q("#pt-di-go").addEventListener("click", async () => {
+            if (!await PT.confirm(`Replace "${app.shortDayTitle(prog, day)}" (Day ${day.dayNumber}) in "${prog.title}" with "${sd.title}"?`, { ok: "Replace" })) return;
+            done(true); k.closeSheet(el);
+            await app.applySharedDay(prog, day, sd);
+          });
+        }
+        q("#pt-di-once").addEventListener("click", async () => {
+          done(true); k.closeSheet(el);
+          await app.startFreestyleWith(sd.exercises, { title: "Freestyle", ask: true });
+        });
+      };
+      draw();
+    });
+  };
+
+  /* ------------------------------------------------------------------ put it on the day */
+  proto.applySharedDay = async function (prog, day, sd) {
+    // keep the person's own day underneath, so Clear Progress can bring it back
+    if (!day.sharedFrom) {
+      day.origTitle = day.title; day.origMinutes = day.estimatedMinutes;
+      if (!(day.exercises || []).length) day.sharedEmpty = true;
+    }
+    if (!this.builtinDay(prog, day) && !(Array.isArray(day.orig) && day.orig.length)) {
+      const o = this.originalExercises(prog, day);
+      if (o && o.length) day.orig = clone(o);
+    }
+    this.clearDayLogs(prog, day);
+    const stamp = Date.now().toString(36);
+    day.exercises = sd.exercises.map((e, i) => Object.assign({ id: `sd${stamp}_${i + 1}` }, clone(e)));
+    day.title = sd.title; day.estimatedMinutes = sd.estimatedMinutes;
+    delete day.removed;
+    day.sharedFrom = { title: sd.title, program: sd.from.title || "", at: Date.now() };
+    WorkoutStorage.saveLogs(this.logs);
+    WorkoutStorage.setData(this.data);
+    this.activeProgram = prog; this.activeDay = day;
+    try { AppStateMemory.saveActive(prog.id, day.dayNumber); } catch (e) { }
+    this.showView("workout");
+    try { this.renderWorkoutView(); } catch (e) { }
+    this.toast(`Day ${day.dayNumber} is now "${sd.title}". Clear Progress puts yours back.`, null, null, 6000);
+  };
+
+  // Clear Progress / Reset All Days: a shared day goes back to the person's own
+  const oRestore = proto.restoreDay;
+  proto.restoreDay = function (prog, day) {
+    const shared = !!(day && day.sharedFrom);
+    let changed = oRestore.apply(this, arguments);
+    if (shared) {
+      if (day.sharedEmpty && (day.exercises || []).length) day.exercises = [];
+      if (day.origTitle !== undefined) day.title = day.origTitle;
+      if (day.origMinutes !== undefined) day.estimatedMinutes = day.origMinutes;
+      delete day.sharedFrom; delete day.origTitle; delete day.origMinutes; delete day.sharedEmpty;
+      changed = true;
+    }
+    return changed;
+  };
+
+  /* ------------------------------------------------------------------ a one-off Freestyle workout from a list of exercises (also used by "Build me a workout") */
+  proto.startFreestyleWith = async function (list, o) {
+    o = o || {};
+    if (!Array.isArray(list) || !list.length) return false;
+    if (!this.data || !Array.isArray(this.data.programs)) this.data = { programs: [] };
+    let prog = this.data.programs.find(p => p.id === FREE);
+    if (!prog) {
+      prog = {
+        id: FREE, title: "Freestyle Workouts",
+        description: "Empty workouts you build on the fly. Add any exercise from the library.",
+        tags: ["Custom"],
+        days: [{ dayNumber: 1, title: "Freestyle", estimatedMinutes: 45, exercises: [] }]
+      };
+      this.data.programs.push(prog);
+    }
+    const day = prog.days[0];
+    if ((day.exercises || []).length && o.ask !== false && !await PT.confirm("Replace your last Freestyle workout with this one? (Anything you finished is already saved in History.)", { ok: "Replace" })) return false;
+    this.clearDayLogs(prog, day);
+    const stamp = Date.now().toString(36);
+    day.exercises = list.map((e, i) => {
+      const ex = Object.assign({ id: `fs${stamp}_${i + 1}`, type: "standard" }, clone(e));
+      delete ex.region; delete ex.why;
+      return ex;
+    });
+    day.title = "Freestyle";
+    day.estimatedMinutes = o.minutes || Math.max(20, list.length * 9);
+    delete day.removed;
+    WorkoutStorage.saveLogs(this.logs);
+    WorkoutStorage.setData(this.data);
+    this.activeProgram = prog; this.activeDay = day;
+    try { AppStateMemory.saveActive(prog.id, day.dayNumber); } catch (e) { }
+    this.showView("workout");
+    return true;
+  };
+
+  /* ------------------------------------------------------------------ buttons and links */
+  function syncButtons(app) {
+    const box = document.getElementById("pt-wk-actions"), clear = document.getElementById("btn-reset-day-progress");
+    if (box && clear && !document.getElementById("btn-share-day")) {
+      const b = document.createElement("button");
+      b.type = "button"; b.id = "btn-share-day"; b.className = "tap-active"; b.textContent = "Share day";
+      clear.before(b);
+    }
+    const sb = document.getElementById("btn-share-day");
+    if (sb) sb.classList.toggle("hidden", !(app.activeDay && (app.activeDay.exercises || []).length));
+    // a note under the title when this day came from someone else
+    const t = document.getElementById("workout-day-title");
+    if (t && t.parentElement) {
+      let n = document.getElementById("pt-shared-note");
+      const sf = app.activeDay && app.activeDay.sharedFrom;
+      if (sf) {
+        if (!n) { n = document.createElement("p"); n.id = "pt-shared-note"; t.parentElement.appendChild(n); }
+        n.textContent = `Shared workout${sf.program ? ` from "${sf.program}"` : ""}. Clear Progress puts your own day back.`;
+      } else if (n) n.remove();
+    }
+  }
+  const oWk = proto.renderWorkoutView;
+  proto.renderWorkoutView = function () { const r = oWk.apply(this, arguments); try { syncButtons(this); } catch (e) { console.error("PulseTrack share day", e); } return r; };
+
+  function ensurePasteButton() {
+    const imp = document.getElementById("btn-import-program");
+    if (!imp || document.getElementById("btn-paste-share")) return;
+    const b = document.createElement("button");
+    b.type = "button"; b.id = "btn-paste-share";
+    b.className = "w-full py-2.5 bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-zinc-300 font-semibold text-xs rounded-xl tap-active";
+    b.textContent = "🔗 Paste a Share Link (workout day or program)";
+    (document.getElementById("input-import-program") || imp).after(b);
+  }
+
+  document.addEventListener("click", e => {
+    const a = e.target.closest && e.target.closest("#btn-share-day, #btn-paste-share"); if (!a) return;
+    const app = A(); if (!app) return;
+    if (a.id === "btn-share-day") app.shareActiveDay(); else app.pasteShareLink();
+  });
+
+  // a file with a shared day (Programs -> Import) opens the same sheet
+  const oFile = proto.importProgramFile;
+  proto.importProgramFile = function (file) {
+    const app = this, reader = new FileReader();
+    reader.onerror = () => oFile.call(app, file);
+    reader.onload = () => {
+      let obj = null;
+      try { obj = JSON.parse(reader.result); } catch (e) { obj = null; }
+      if (obj && obj.pulsetrackDay) app.importDayObject(obj); else oFile.call(app, file);
+    };
+    reader.readAsText(file);
+  };
+
+  // a link: #day=...  (the old #import=... for whole programs is untouched)
+  async function openDayHash(app) {
+    const h = location.hash || "";
+    if (!h.startsWith("#day=")) return false;
+    const obj = decodeShare(h);
+    try { history.replaceState(null, "", location.pathname + location.search); } catch (e) { }
+    if (!obj || !obj.pulsetrackDay) { setTimeout(async () => await PT.alert("That workout link is broken or incomplete."), 300); return true; }
+    setTimeout(async () => {
+      // iPhone: a link opened in Safari does not see the app on the Home Screen (they keep separate data)
+      if (PT.isIOS() && !PT.isStandalone() && (app.sessions || []).length === 0 && !localStorage.getItem("pt_day_here")) {
+        const i = await PT.choose("This workout was sent to you. If you use PulseTrack from the icon on your Home Screen, copy the link, open the icon and use Programs -> Paste a Share Link. (Safari and the icon keep separate data.)", ["Copy link", "Use it in Safari anyway"]);
+        if (i === 0) {
+          const link = location.origin + location.pathname + "#day=" + PT.b64urlEncode(JSON.stringify(obj));
+          try { await navigator.clipboard.writeText(link); app.toast("Link copied"); } catch (e) { await PT.prompt("Share link", link, { readonly: true, copy: true, ok: "Copy link", cancel: "Close", title: "Copy this link" }); }
+          return;
+        }
+        if (i !== 1) return;
+        try { localStorage.setItem("pt_day_here", "1"); } catch (e) { }
+      }
+      app.importDayObject(obj);
+    }, 500);
+    return true;
+  }
+  const oHash = proto.checkImportHash;
+  proto.checkImportHash = function () {
+    if ((location.hash || "").startsWith("#day=")) { openDayHash(this); return; }
+    return typeof oHash === "function" ? oHash.apply(this, arguments) : undefined;
+  };
+  window.addEventListener("hashchange", () => { const a = A(); if (a && (location.hash || "").startsWith("#day=")) openDayHash(a); });
+
+  const oInit = proto.initExtras;
+  proto.initExtras = function () {
+    const r = typeof oInit === "function" ? oInit.apply(this, arguments) : undefined;
+    try { ensurePasteButton(); } catch (e) { console.error("PulseTrack paste share", e); }
+    return r;
+  };
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.19.0 (part 2): work check-in.
+ *  A Home card asks how hard work was today (Light or off / Normal / Heavy) and remembers it per day (settings.workLoad, in backups).
+ *  - A HEAVY day counts in the recovery map as extra sets for lower back, grip, legs, shoulders and traps, so the Muscles tab,
+ *    the "still recovering" hint on a workout and "Build me a workout" all know that your back is tired.
+ *  - On a heavy day the suggested weight for those muscles stays where it was instead of going up (switch: Settings -> Workout Screen).
+ *  - Light and Normal days are only a record; nothing changes.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const A = () => window.app;
+  const DAY = 86400000;
+  const SLIM = "bg-zinc-900 border border-zinc-800 rounded-2xl px-4 py-3";
+  const LEVELS = [{ v: 1, label: "Light or off" }, { v: 2, label: "Normal" }, { v: 3, label: "Heavy" }];
+  // what one heavy day counts as, in hard sets, for the recovery map
+  const HEAVY = { lowerback: 4, forearms: 4, quads: 3, hamstrings: 3, glutes: 3, shoulders: 2, traps: 2, back: 2 };
+  const EASE = new Set(Object.keys(HEAVY));
+  const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
+
+  const store = a => (a.settings.workLoad && typeof a.settings.workLoad === "object" ? a.settings.workLoad : (a.settings.workLoad = {}));
+  PT.workLevel = (ds, a) => { a = a || A(); const v = a && a.settings && a.settings.workLoad ? a.settings.workLoad[ds] : 0; return v === 1 || v === 2 || v === 3 ? v : 0; };
+  PT.setWorkLevel = (ds, v, a) => {
+    a = a || A(); if (!a) return;
+    const s = store(a);
+    if (v === 1 || v === 2 || v === 3) s[ds] = v; else delete s[ds];
+    WorkoutStorage.saveSettings(a.settings);
+  };
+  PT.workHeavyToday = a => PT.workLevel(PT.ds(), a) === 3;
+  /** True when this lift should not go up in weight today: a heavy work day, and a muscle that work beats up. */
+  PT.workEaseFor = name => {
+    const a = A(); if (!a || !PT.opt || !PT.opt("workEase")) return false;
+    if (!PT.workHeavyToday(a)) return false;
+    let regs = {};
+    try { regs = PT.regionsFor(name, false) || {}; } catch (e) { regs = {}; }
+    return Object.keys(regs).some(r => EASE.has(r));
+  };
+  /** Heavy work days of the last 14 days as pretend sessions for PT.recovery. */
+  PT.workSessions = (now, app) => {
+    const a = app || A(); if (!a || !a.settings || !a.settings.workLoad) return [];
+    now = now || Date.now();
+    const out = [];
+    Object.keys(a.settings.workLoad).forEach(ds => {
+      if (a.settings.workLoad[ds] !== 3) return;
+      const d = PT.fromDs(ds); if (!d || isNaN(d.getTime())) return;
+      let t = d.getTime() + 17 * 3600000;        // work ends about 5 pm; marked earlier than that, it counts from now
+      if (t > now) t = now;
+      if (t < now - 14 * DAY) return;
+      out.push({ ts: t, regs: Object.assign({}, HEAVY), work: true });
+    });
+    return out;
+  };
+
+  /* ------------------------------------------------------------------ the Home card */
+  let off = 0;     // 0 = today, 1 = yesterday
+  function workCard(a) {
+    const box = document.getElementById("home-work"); if (!box) return;
+    const ds = PT.ds(addDays(new Date(), -off)), cur = PT.workLevel(ds, a), ease = PT.opt("workEase");
+    const note = cur === 3
+      ? (ease ? "Heavy day. Your back, legs and grip count as worked in the recovery map, and lifts for them keep their weight today."
+        : "Heavy day. Your back, legs and grip count as worked in the recovery map.")
+      : cur ? "Saved. Nothing changes on a " + (cur === 1 ? "light" : "normal") + " day."
+        : "One tap. A heavy day counts toward recovery for your back, legs and grip.";
+    box.className = SLIM + " space-y-2";
+    box.innerHTML = `<div class="flex items-center justify-between gap-2"><h4 class="pt-eyebrow">Work ${off ? "yesterday" : "today"}</h4>
+      <button type="button" id="pt-work-day" class="text-[11px] font-semibold text-zinc-400 underline tap-active">${off ? "Back to today" : "Yesterday?"}</button></div>
+      <div class="grid grid-cols-3 gap-1.5">${LEVELS.map(l => `<button type="button" data-wl="${l.v}" aria-pressed="${cur === l.v}" class="pt-opt tap-active text-center">${l.label}</button>`).join("")}</div>
+      <p class="text-[11px] leading-relaxed text-zinc-400">${note}</p>`;
+  }
+  const oHome = proto.renderHomeView;
+  proto.renderHomeView = function () {
+    const r = oHome.apply(this, arguments);
+    try { workCard(this); } catch (e) { console.error("PulseTrack work card", e); }
+    return r;
+  };
+  document.addEventListener("click", e => {
+    const a = A(); if (!a || !e.target.closest) return;
+    const chip = e.target.closest("#home-work [data-wl]");
+    if (chip) {
+      const v = parseInt(chip.dataset.wl, 10), ds = PT.ds(addDays(new Date(), -off));
+      PT.setWorkLevel(ds, PT.workLevel(ds, a) === v ? 0 : v, a);     // tap the same one again to clear it
+      workCard(a);
+      return;
+    }
+    if (e.target.closest("#pt-work-day")) { off = off ? 0 : 1; workCard(a); }
+  });
+
+  // the recovery list says where the extra load comes from
+  const oList = proto.recoveryListHtml;
+  if (typeof oList === "function") {
+    proto.recoveryListHtml = function () {
+      const html = oList.apply(this, arguments);
+      try {
+        if (PT.workSessions(Date.now(), this).length) return html + `<p class="text-[10px] text-zinc-500 leading-relaxed">Your heavy work days count here as extra sets for back, legs and grip.</p>`;
+      } catch (e) { }
+      return html;
+    };
+  }
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.19.0 (part 3): Build me a workout.
+ *  Pick what to train (or let it pick the freshest muscles), how long you have and a goal. It builds a session from the
+ *  exercise library using: the muscle of every exercise, what the active gym can do, your recovery map (heavy work days
+ *  included), what you have actually done before, and a time budget. No account, no AI, works offline.
+ *  The result starts as a normal Freestyle workout, so Swap, add, delete and Share day all work on it.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || typeof EXERCISE_DATABASE === "undefined" || typeof PTSIM === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const A = () => window.app;
+  const esc = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const SLIM = "bg-zinc-900 border border-zinc-800 rounded-2xl px-4 py-3";
+  const DAY = 86400000;
+
+  const REGIONS = [
+    { id: "chest", label: "Chest", size: 1, cap: 4, lead: true },
+    { id: "back", label: "Back", size: 1, cap: 4, lead: true },
+    { id: "shoulders", label: "Shoulders", size: 0.75, cap: 3, lead: true },
+    { id: "biceps", label: "Biceps", size: 0.5, cap: 3 },
+    { id: "triceps", label: "Triceps", size: 0.5, cap: 3 },
+    { id: "quads", label: "Quads", size: 1, cap: 3, lead: true },
+    { id: "hamstrings", label: "Hamstrings", size: 0.8, cap: 3, lead: true },
+    { id: "glutes", label: "Glutes", size: 0.8, cap: 3, lead: true },
+    { id: "calves", label: "Calves", size: 0.4, cap: 2 },
+    { id: "abs", label: "Abs & core", size: 0.5, cap: 2 },
+    { id: "traps", label: "Traps", size: 0.4, cap: 2 },
+    { id: "forearms", label: "Forearms", size: 0.4, cap: 2 },
+    { id: "lowerback", label: "Lower back", size: 0.4, cap: 2 }
+  ];
+  const RMAP = {}; REGIONS.forEach(r => { RMAP[r.id] = r; });
+  const PRESETS = [
+    { id: "auto", label: "Pick for me" },
+    { id: "push", label: "Push", r: ["chest", "shoulders", "triceps"] },
+    { id: "pull", label: "Pull", r: ["back", "biceps", "traps"] },
+    { id: "legs", label: "Legs", r: ["quads", "hamstrings", "glutes", "calves"] },
+    { id: "upper", label: "Upper body", r: ["chest", "back", "shoulders", "biceps", "triceps"] },
+    { id: "full", label: "Full body", r: ["chest", "back", "quads", "hamstrings", "shoulders", "abs"] },
+    { id: "arms", label: "Arms", r: ["biceps", "triceps", "forearms"] }
+  ];
+  const MINUTES = [20, 30, 45, 60, 75];
+  const EXCL = /\b(jump|jumps|plyo|clean|snatch|jerk|swing|swings|sled|rope|bosu|stability ball|wheel|rollout|banded|band|isometric|hold|plank|wall sit|stretch|foam|mobility|test|1rm|negative|towel|burpee|walk|carry|carries|adductor|abductor|adduction|abduction|tibialis|neck)\b/i;
+  // well-known lifts get a bonus, odd variations a small penalty, so a new user is not handed "Row Curls" on day one
+  const STAPLE = /\b(bench press|incline (dumbbell |barbell )?press|chest press|pec deck|chest fly|cable (crossover|fly)|dumbbell fly|pull-?ups?|chin-?ups?|lat pulldown|(barbell|dumbbell|cable|machine|t-bar|seated|bent[- ]over) rows?|seated cable row|shoulder press|overhead press|military press|arnold press|lateral raises?|rear delt (fly|raise)|reverse (pec deck|fly)|face pulls?|(barbell|dumbbell|ez-?bar|cable|preacher|incline|hammer|concentration) curls?|pushdowns?|skull ?crushers?|overhead (triceps |tricep )?extensions?|close-grip bench|squats?|leg press|hack squat|leg extensions?|lunges?|romanian deadlift|rdl|leg curls?|hip thrust|glute bridge|calf raises?|crunch|crunches|leg raises?|shrugs?|wrist curls?|deadlift|dips?|back extensions?)\b/i;
+  const ODD = /\b(iso-lateral|single[- ]arm|one[- ]arm|squeeze|rockers?|high pulls?|row curls?|knee tucks?|sit-ups?|nautilus|rotary|reverse[- ]grip|behind[- ]the[- ]neck|landmine|slider|spider|zottman|drag|crush|guillotine|svend|cuban|jefferson|sissy|nordic|pause|tempo|deficit|partial|dead-stop|hatfield|finger|pull-?throughs?|frog|ghr|glute-ham|weighted|assisted)\b/i;
+  const EASE_AVOID = /deadlift|good ?morning|bent[- ]?over|barbell row|pendlay|t-bar|back extension|hyperextension|rack pull|farmer|carry|suitcase|shrug/i;
+  const COMP = /\b(bench|press|row|pull-?ups?|chin-?ups?|pulldown|pull-?down|squat|squats|deadlift|lunge|lunges|dips?|thrust|good ?morning|step-?ups?|hack|clean)\b/i;
+  const ISO = /\b(straight[- ]arm|raise|raises|fly|flye|flyes|flies|extension|extensions|curl|curls|pushdown|push-?down|kickback|kickbacks|shrug|shrugs|crunch|crunches|twist|pullover|pull-?over|face pull|calf|calves|wrist|abduction|adduction|crossover)\b/i;
+  const isComp = n => COMP.test(n) && !ISO.test(n);
+
+  function rng(seed) {      // small seeded generator, so Shuffle gives a different but repeatable result
+    let a = (seed >>> 0) || 1;
+    return function () { a |= 0; a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; };
+  }
+
+  /* ------------------------------------------------------------------ what to train when you say "pick for me" */
+  function autoFocus(app) {
+    const sessions = app.sessions || [];
+    if (!sessions.length) return { id: "full", why: "Full body is a good place to start." };
+    let rec = {}, week = {};
+    try { rec = PT.recovery(); } catch (e) { rec = {}; }
+    try { week = app.regionSetsForMode("this") || {}; } catch (e) { week = {}; }
+    const ready = r => (rec[r] ? rec[r].pct : 100);
+    const scored = ["push", "pull", "legs"].map(id => {
+      const p = PRESETS.find(x => x.id === id);
+      const fresh = p.r.reduce((n, r) => n + ready(r), 0) / p.r.length;
+      const need = p.r.map(r => { const lo = PT.targetFor ? PT.targetFor(r)[0] : 0; return lo > 0 ? Math.min(1.5, (week[r] || 0) / lo) : null; }).filter(v => v !== null);
+      const done = need.length ? need.reduce((n, v) => n + v, 0) / need.length : 0;
+      return { id, p, score: fresh - 25 * done };
+    }).sort((a, b) => b.score - a.score);
+    const top = scored[0], keep = top.p.r.filter(r => ready(r) >= 45), skip = top.p.r.filter(r => ready(r) < 45);
+    const regs = keep.length >= 2 ? keep : top.p.r;
+    const names = regs.map(r => RMAP[r].label.toLowerCase());
+    let why = `${top.p.label} looks best today: ${names.join(", ")} ${names.length > 1 ? "are" : "is"} the most rested.`;
+    if (keep.length >= 2 && skip.length) why += ` Leaving out ${skip.map(r => RMAP[r].label.toLowerCase()).join(", ")} (still recovering).`;
+    return { id: top.id, regs, why };
+  }
+
+  /* ------------------------------------------------------------------ the builder */
+  function buildPool(app) {
+    const out = [];
+    EXERCISE_DATABASE.forEach(e => {
+      if (!e || !e.name || /^(Cardio|Warm-Up)/i.test(e.category || "") || EXCL.test(e.name)) return;
+      if (PT.gymAllows && !PT.gymAllows(e.name)) return;
+      let regs = {}; try { regs = PT.regionsFor(e.name, false) || {}; } catch (x) { regs = {}; }
+      const region = Object.keys(regs)[0];
+      if (!region || !RMAP[region]) return;
+      let info = null; try { info = PTSIM.info(e.name, e.category || "Other"); } catch (x) { info = null; }
+      if (info && info.hard) return;
+      out.push({ name: e.name, region, fam: info ? info.fam : e.name, equip: info ? info.equip : "", sub: e.muscle || "", comp: isComp(e.name) });
+    });
+    return out;
+  }
+  function history(app) {
+    const cut = Date.now() - 150 * DAY, m = new Map();
+    (app.sessions || []).forEach(s => {
+      const t = s.ts || (PT.fromDs(s.date) ? PT.fromDs(s.date).getTime() : 0);
+      if (t < cut) return;
+      (s.ex || []).forEach(e => { if (e && e.name) m.set(e.name, (m.get(e.name) || 0) + 1); });
+    });
+    return m;
+  }
+
+  /** How many exercises each muscle gets. */
+  function allocate(regs, total, avail) {
+    const act = regs.filter(r => avail[r.id] > 0);
+    const out = {}; act.forEach(r => { out[r.id] = 0; });
+    if (!act.length) return out;
+    let left = Math.min(total, act.reduce((n, r) => n + Math.min(r.cap, avail[r.id]), 0));
+    const sum = act.reduce((n, r) => n + r.size, 0);
+    act.slice().sort((a, b) => b.size - a.size).forEach(r => { if (left > 0) { out[r.id] = 1; left--; } });
+    while (left > 0) {
+      let best = null, gap = -1e9;
+      act.forEach(r => {
+        if (out[r.id] === 0 || out[r.id] >= Math.min(r.cap, avail[r.id])) return;
+        const g = (r.size / sum) * total - out[r.id];
+        if (g > gap) { gap = g; best = r; }
+      });
+      if (!best) break;
+      out[best.id]++; left--;
+    }
+    return out;
+  }
+
+  function pickRegion(region, k, ctx) {
+    const R = RMAP[region];
+    const cands = ctx.pool.filter(c => c.region === region && !(ctx.ease && EASE_AVOID.test(c.name)));
+    const picks = [], fams = new Set();
+    const wantComp = R.lead ? (k >= 3 ? 2 : 1) : 0;
+    for (let slot = 0; slot < k; slot++) {
+      const nComp = picks.filter(p => p.comp).length;
+      let best = null, bs = -1e9;
+      cands.forEach(c => {
+        if (picks.includes(c)) return;
+        let s = Math.min(4, Math.log2(1 + (ctx.done.get(c.name) || 0)) * 1.6);
+        if (ctx.fav.has(c.name)) s += 1.5;
+        if (c.name.length > 38) s -= 1;
+        if (STAPLE.test(c.name)) s += 2.5;
+        if (ODD.test(c.name)) s -= 2.5;
+        if (ctx.ease && /machine|cable|smith|supported/i.test(c.name + " " + c.equip)) s += 1.2;
+        if (c.comp) s += nComp < wantComp ? 4 : -2; else if (nComp >= wantComp) s += 1;
+        if (c.sub && picks.some(p => p.sub === c.sub)) s -= 1.5; else if (c.sub) s += 1.5;
+        if (c.equip && picks.some(p => p.equip === c.equip)) s -= 0.6;
+        if (fams.has(c.fam)) s -= 3;      // the same movement twice is a last resort
+        s += ctx.rnd() * 1.6;
+        if (s > bs) { bs = s; best = c; }
+      });
+      if (!best) break;
+      picks.push(best); fams.add(best.fam);
+    }
+    return picks;
+  }
+
+  /**
+   * opts: { regions:[ids] | focus:"auto", minutes, goal:"muscle"|"strength", seed }
+   * -> { title, items:[{name, sets, reps, restSeconds, restAuto, type, region}], minutes, note, regions }
+   */
+  PT.buildWorkout = function (opts, appArg) {
+    const app = appArg || A(); opts = opts || {};
+    const minutes = MINUTES.includes(opts.minutes) ? opts.minutes : (parseInt(opts.minutes, 10) || 45);
+    const goal = opts.goal === "strength" ? "strength" : "muscle";
+    const notes = [];
+    let ids = Array.isArray(opts.regions) ? opts.regions.filter(r => RMAP[r]) : [], title = "Custom workout";
+    if (!ids.length) {
+      const p = PRESETS.find(x => x.id === opts.focus);
+      if (p && p.r) { ids = p.r.slice(); title = p.label; }
+      else { const f = autoFocus(app); const pp = PRESETS.find(x => x.id === f.id); ids = (f.regs || pp.r).slice(); title = pp.label; notes.push(f.why); }
+    } else {
+      const same = PRESETS.find(p => p.r && p.r.length === ids.length && p.r.every(r => ids.includes(r)));
+      if (same) title = same.label;
+    }
+    const heavy = !!(PT.opt && PT.opt("workEase") && PT.workHeavyToday && PT.workHeavyToday(app));
+    const ctx = { pool: buildPool(app), done: history(app), fav: new Set(Array.isArray(app.settings.favEx) ? app.settings.favEx : []), rnd: rng(opts.seed || Date.now()), ease: heavy };
+    const budget = Math.max(12, minutes - 4);
+    let total = Math.max(2, Math.min(10, Math.round(budget / 6.3)));
+    if (heavy) { total = Math.max(2, total - 1); notes.push("Heavy work day: lighter on back and grip, and one exercise fewer."); }
+    const regs = REGIONS.filter(r => ids.includes(r.id));
+    const avail = {}; regs.forEach(r => { avail[r.id] = ctx.pool.filter(c => c.region === r.id && !(ctx.ease && EASE_AVOID.test(c.name))).length; });
+    const counts = allocate(regs, total, avail);
+    const none = regs.filter(r => !avail[r.id]).map(r => r.label.toLowerCase());
+    if (none.length) notes.push(`Nothing for ${none.join(", ")} fits ${(PT.gym && PT.gym() ? PT.gym().name : "your gym")}'s equipment.`);
+
+    let items = [];
+    regs.forEach(r => { if (counts[r.id]) pickRegion(r.id, counts[r.id], ctx).forEach((c, i) => items.push({ c, region: r.id, first: i === 0 })); });
+    // the big lifts first, bigger muscles before smaller ones
+    items = items.map((it, i) => Object.assign(it, { i })).sort((a, b) => (b.c.comp - a.c.comp) || (RMAP[b.region].size - RMAP[a.region].size) || (a.i - b.i));
+    const out = items.map(it => {
+      const c = it.c, comp = c.comp, bw = !!(PT.isBodyweightEx && PT.isBodyweightEx(c.name));
+      let rest = 90; try { rest = app.smartRest(c.name) || 90; } catch (e) { }
+      if (goal === "strength" && comp) rest = Math.max(rest, 150);
+      const reps = it.region === "abs" ? "12-20" : it.region === "calves" ? "12-20" : goal === "strength" ? (comp ? "3-6" : "6-10") : (comp ? "6-10" : (bw ? "8-12" : "10-15"));
+      return { name: c.name, sets: comp ? (goal === "strength" ? 4 : 3) : 3, reps, restSeconds: rest, restAuto: true, type: "standard", region: it.region, comp, first: it.first };
+    });
+    out.forEach(e => { if (e.first && e.comp) e.sets += 1; });
+    const mins = e => e.sets * ((40 + e.restSeconds) / 60);
+    const sum = () => out.reduce((n, e) => n + mins(e), 0);
+    let guard = 60;
+    while (sum() > budget * 1.06 && guard--) {
+      const floor = e => (out.length > 2 && e.comp ? 3 : 2);      // trim isolation sets first; with room for more than two lifts, the big ones keep 3
+      const t = out.slice().reverse().find(e => e.sets > floor(e));
+      if (t) t.sets--; else if (out.length > 2) out.pop(); else break;
+    }
+    guard = 60;
+    while (sum() < budget * 0.9 && guard--) {
+      const c = out.filter(e => e.sets < (e.comp ? 5 : 4)).sort((a, b) => a.sets - b.sets || out.indexOf(a) - out.indexOf(b))[0];
+      if (!c) break; c.sets++;
+    }
+    out.forEach(e => { delete e.first; });
+    const used = new Set(out.map(e => e.region));
+    const dropped = regs.filter(r => avail[r.id] > 0 && !used.has(r.id)).map(r => r.label.toLowerCase());
+    if (dropped.length) notes.push(`Short on time, so ${dropped.join(", ")} ${dropped.length > 1 ? "are" : "is"} left out.`);
+    return { title, items: out, minutes: Math.round(sum() + 4), asked: minutes, note: notes.join(" "), regions: regs.filter(r => used.has(r.id)).map(r => r.id), heavy };
+  };
+
+  /* ------------------------------------------------------------------ the sheet */
+  const prefs = a => Object.assign({ focus: "auto", regions: [], minutes: 45, goal: "muscle" }, a.settings.buildPrefs || {});
+  function open(app) {
+    const K = PT.kit, el = K.sheet("pt-build", 78);
+    const st = prefs(app); st.seed = Date.now(); let res = null;
+    const gym = (PT.gym && PT.gym()) ? PT.gym().name : "your gym";
+    const save = () => { app.settings.buildPrefs = { focus: st.focus, regions: st.regions, minutes: st.minutes, goal: st.goal }; WorkoutStorage.saveSettings(app.settings); };
+    const chip = (attr, label, on) => `<button type="button" ${attr} aria-pressed="${on}" class="pt-opt tap-active">${esc(label)}</button>`;
+    const drawOptions = () => {
+      const heavy = PT.opt("workEase") && PT.workHeavyToday(app);
+      const card = K.openSheet(el, `${K.head("Build me a workout", "Pick what to train and how long you have.")}
+        <div><span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">What to train</span>
+          <div class="flex flex-wrap gap-1.5">${PRESETS.map(p => chip(`data-f="${p.id}"`, p.label, st.focus === p.id)).join("")}</div>
+          <span class="text-[11px] text-zinc-500 block mt-2 mb-1.5">Or tap the muscles yourself</span>
+          <div class="flex flex-wrap gap-1.5">${REGIONS.map(r => chip(`data-r="${r.id}"`, r.label, st.focus === "custom" && st.regions.includes(r.id))).join("")}</div></div>
+        <div><span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">How long</span>
+          <div class="flex flex-wrap gap-1.5">${MINUTES.map(m => chip(`data-m="${m}"`, m + " min", st.minutes === m)).join("")}</div></div>
+        <div><span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">Goal</span>
+          <div class="flex flex-wrap gap-1.5">${chip('data-g="muscle"', "Build muscle", st.goal === "muscle")}${chip('data-g="strength"', "Get stronger", st.goal === "strength")}</div></div>
+        <p class="text-[11px] leading-relaxed text-zinc-400">Uses what ${esc(gym)} has, favours lifts you already do, and skips muscles that are still recovering.${heavy ? ' <b class="text-amber-300">Heavy work day logged, so it goes easy on back and grip.</b>' : ""}</p>
+        <button type="button" id="pt-bd-go" class="w-full py-3 rounded-xl bg-emerald-600 text-white text-sm font-bold tap-active">Build it</button>`);
+      card.addEventListener("click", ev => {
+        const b = ev.target.closest("button"); if (!b) return;
+        if (b.dataset.f) { st.focus = b.dataset.f; }
+        else if (b.dataset.r) {
+          if (st.focus !== "custom") { st.focus = "custom"; st.regions = []; }
+          const i = st.regions.indexOf(b.dataset.r); if (i >= 0) st.regions.splice(i, 1); else st.regions.push(b.dataset.r);
+          if (!st.regions.length) st.focus = "auto";
+        }
+        else if (b.dataset.m) st.minutes = parseInt(b.dataset.m, 10);
+        else if (b.dataset.g) st.goal = b.dataset.g;
+        else if (b.id === "pt-bd-go") { save(); build(); return; }
+        else return;
+        drawOptions();
+      });
+    };
+    const build = () => {
+      res = PT.buildWorkout({ focus: st.focus === "custom" ? "" : st.focus, regions: st.focus === "custom" ? st.regions : [], minutes: st.minutes, goal: st.goal, seed: st.seed }, app);
+      drawResult();
+    };
+    const drawResult = () => {
+      const n = res.items.length, sets = res.items.reduce((t, e) => t + e.sets, 0);
+      const card = K.openSheet(el, `${K.head(res.title, n ? `${n} exercises · ${sets} sets · about ${res.minutes} min` : "Nothing to build")}
+        ${res.note ? `<p class="text-[11px] leading-relaxed text-zinc-300 bg-zinc-950 border border-zinc-800 rounded-xl p-2.5">${esc(res.note)}</p>` : ""}
+        ${n ? `<div class="pt-dayimp-list">${res.items.map(e => `<div><span>${esc(e.name)}<small class="block text-[10px] font-normal text-zinc-500">${esc(RMAP[e.region].label)}</small></span><span>${e.sets} × ${esc(e.reps)}</span></div>`).join("")}</div>` : '<p class="text-xs text-zinc-400">Try more muscles, or switch to a gym with more equipment.</p>'}
+        <div class="grid grid-cols-2 gap-2">
+          <button type="button" id="pt-bd-shuffle" class="py-3 rounded-xl bg-zinc-800 text-zinc-100 text-sm font-bold tap-active">Shuffle</button>
+          ${n ? '<button type="button" id="pt-bd-start" class="py-3 rounded-xl bg-emerald-600 text-white text-sm font-bold tap-active">Start workout</button>' : '<button type="button" id="pt-bd-back" class="py-3 rounded-xl bg-emerald-600 text-white text-sm font-bold tap-active">Change</button>'}
+        </div>
+        ${n ? '<button type="button" id="pt-bd-back" class="w-full text-[11px] font-semibold text-zinc-400 underline tap-active">Change what to train</button>' : ""}`);
+      card.addEventListener("click", async ev => {
+        const b = ev.target.closest("button"); if (!b) return;
+        if (b.id === "pt-bd-shuffle") { st.seed = (st.seed * 1664525 + 1013904223) >>> 0; build(); }
+        else if (b.id === "pt-bd-back") drawOptions();
+        else if (b.id === "pt-bd-start") {
+          const ok = await app.startFreestyleWith(res.items, { minutes: res.minutes, ask: true });
+          if (ok) K.closeSheet(el);
+        }
+      });
+    };
+    drawOptions();
+  }
+  PT.openBuildWorkout = () => { const a = A(); if (a) open(a); };
+
+  /* ------------------------------------------------------------------ Home card and menu */
+  function buildCard(a) {
+    const box = document.getElementById("home-build"); if (!box) return;
+    box.className = SLIM;
+    box.innerHTML = `<button type="button" id="pt-build-open" class="w-full flex items-center justify-between gap-3 text-left tap-active">
+      <span class="min-w-0"><span class="pt-eyebrow block">Build me a workout</span><span class="block text-[11px] text-zinc-400 mt-0.5">Pick the muscles and your time. It uses your gym's equipment.</span></span>
+      <span class="shrink-0 px-3 py-1.5 rounded-lg bg-zinc-800 text-xs font-semibold text-zinc-200">Build</span></button>`;
+  }
+  const oHome = proto.renderHomeView;
+  proto.renderHomeView = function () {
+    const r = oHome.apply(this, arguments);
+    try { buildCard(this); } catch (e) { console.error("PulseTrack build card", e); }
+    return r;
+  };
+  document.addEventListener("click", e => {
+    const t = e.target && e.target.closest ? e.target.closest("#pt-build-open, #pt-drawer-build") : null;
+    if (!t) return;
+    e.preventDefault();
+    const a = A(); if (!a) return;
+    if (t.id === "pt-drawer-build") a.closeDrawer();
+    open(a);
+  });
 })();
   </script>
 </body>
