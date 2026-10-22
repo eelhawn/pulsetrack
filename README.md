@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.28.0*
+*Version 2.29.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -471,6 +471,10 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.29.0**
+- **Bottom tab bar:** Home, Workout, History and Progress along the bottom (the ☰ menu stays at the top). Workout takes you to your current workout, or to the day list or Programs. It hides while you are typing a weight. Turn it off in **Settings → Bottom tab bar**.
+- **Landscape and tablets:** on a tablet or with the phone turned sideways, the bar becomes a rail down the left side, the page gets wider, and on a large tablet the exercise cards, Home cards and Progress cards sit in two columns.
 
 **2.28.0**
 - **How do you feel today?** (in Build me a workout): sleep, overall soreness and muscles to skip today. Poor sleep or very sore = a set fewer on each; sore muscles are left out. Today's answers reset tomorrow.
