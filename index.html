@@ -396,7 +396,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.19.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.20.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3281,13 +3281,13 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
             const isPR = isCompleted && currentTag !== "W" && calculated1RM > 0 && calculated1RM >= prevBest1RM;
 
             const prevSet = prevHistory[s] || null;
-            const prevHint = prevSet ? (kind.cardio ? `${prevSet.min || 0} min` : `${prevSet.weight}×${prevSet.reps}`) : ``;
+            const prevHint = prevSet ? (kind.cardio ? `${prevSet.min || 0} min` : `${prevSet.bz && !(parseFloat(prevSet.weight) > 0) ? "BW" : prevSet.weight}×${prevSet.reps}`) : ``;
 
             const inputsHtml = showLogger && kind.cardio ? this.cardioInputsHtml(key, logEntry, prevSet, kind) : showLogger ? `
               <div class="flex items-center space-x-1.5 flex-grow justify-end pr-2">
                 ${prevHint ? `<span class="text-[10px] text-zinc-500 font-mono hidden sm:inline">Prev: ${prevHint}</span>` : ''}
                 <div class="flex items-center space-x-1">
-                  <input type="number" inputmode="decimal" placeholder="${prevSet ? prevSet.weight : (kind.bw ? "0" : wl)}" value="${logEntry.weight || ''}" 
+                  <input type="number" inputmode="decimal" placeholder="${prevSet ? (prevSet.bz && !(parseFloat(prevSet.weight) > 0) ? "BW" : prevSet.weight) : (kind.bw ? "0" : wl)}" value="${logEntry.weight || ''}" 
                     data-key="${key}" data-field="weight" 
                     class="input-set-field w-14 bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
                   <span class="text-zinc-500 text-[10px]">${wUnit}</span>
@@ -3749,7 +3749,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.19.0";
+    const APP_VERSION = "2.20.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -4544,7 +4544,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
             const key = this.getLogKey(this.activeProgram.id, this.activeDay.dayNumber, ex.id, s);
             const e = this.logs[key] || { completed: false, weight: "", reps: "", tag: "R" };
             if (e.completed) continue;
-            if (e.weight === "" || e.weight === undefined) e.weight = String(p.weight);
+            if (e.weight === "" || e.weight === undefined) e.weight = (parseFloat(p.weight) || p.bz) ? String(p.weight) : "";
             if (e.reps === "" || e.reps === undefined) e.reps = String(p.reps);
             if (p.min !== undefined && (e.min === "" || e.min === undefined)) e.min = String(p.min);
             if (p.dist !== undefined && (e.dist === "" || e.dist === undefined)) e.dist = String(p.dist);
@@ -4886,7 +4886,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
           if ((e.sets || []).length > (ex.sets || 0)) this.changeSets(ex, e.sets.length - (parseInt(ex.sets, 10) || 0));
           for (let i = 0; i < (ex.sets || 0); i++) delete this.logs[this.getLogKey(prog.id, day.dayNumber, ex.id, i)];
           e.sets.forEach((st, i) => {
-            this.logs[this.getLogKey(prog.id, day.dayNumber, ex.id, i)] = Object.assign({ completed: false, weight: String(st.w), reps: String(st.r), tag: st.t || "R" },
+            this.logs[this.getLogKey(prog.id, day.dayNumber, ex.id, i)] = Object.assign({ completed: false, weight: (st.w || st.bz) ? String(st.w) : "", reps: String(st.r), tag: st.t || "R" },
               st.min !== undefined ? { min: String(st.min) } : {}, st.dist !== undefined ? { dist: String(st.dist) } : {});
             filled++;
           });
@@ -5396,7 +5396,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
         this.sessions.slice().sort((a, b) => (a.ts || 0) - (b.ts || 0)).forEach(s => (s.ex || []).forEach(e => (e.sets || []).forEach((st, i) => {
           rows.push([s.date, s.ptitle, s.week || "", s.dtitle, e.name, PT.category(e.name), i + 1, tagName[st.t] || st.t, st.w, s.unit || "lb", st.r,
             st.t === "W" ? "" : this.setE1rm(e.name, st, s.date) || "", Math.round((s.dur || 0) / 60), s.note || "", this.exNotes[e.name] || "",
-            PT.isBodyweightEx(e.name) ? this.setLoad(e.name, st, s.date) : "", st.min !== undefined ? st.min : "", st.dist !== undefined ? st.dist : "", st.dist !== undefined ? this.distLabel(s.unit) : ""].map(PT.csvCell).join(","));
+            (PT.isBodyweightEx(e.name) || st.bz) ? this.setLoad(e.name, st, s.date) : "", st.min !== undefined ? st.min : "", st.dist !== undefined ? st.dist : "", st.dist !== undefined ? this.distLabel(s.unit) : ""].map(PT.csvCell).join(","));
         })));
         const file = new File(["﻿" + rows.join("\r\n")], `pulsetrack-workouts-${PT.ds()}.csv`, { type: "text/csv" });
         this.shareFile(file, "PulseTrack workouts CSV");
@@ -6108,7 +6108,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
             if (PT.isCardioSet(st)) return;
             const r = Math.round(parseFloat(st.r) || 0), w = this.setLoad(name, st, s.date);
             if (r < 1 || r > 30) return;
-            const bwTxt = PT.isBodyweightEx(name) ? this.setText(name, st).replace(/ × .*$/, "") : "";
+            const bwTxt = (PT.isBodyweightEx(name) || st.bz) ? this.setText(name, st).replace(/ × .*$/, "") : "";
             if (!best[r] || w > best[r].w || (w === best[r].w && s.date < best[r].date)) best[r] = { w, date: s.date, bwTxt: bwTxt.startsWith("BW") ? bwTxt : "" };
           });
         }));
@@ -10818,7 +10818,7 @@ const PTSIM = (function () {
     for (const x of list) {
       if (n >= 6) { out += ", …"; break; }
       const w = parseFloat(x.weight) || 0, r = parseFloat(x.reps) || 0;
-      out += (n ? ", " : "") + (w !== lastW ? (w ? num(w) + "×" : "") : "") + num(r);
+      out += (n ? ", " : "") + (w !== lastW ? (w ? num(w) + "×" : (x.bz ? "BW×" : "")) : "") + num(r);
       lastW = w; n++;
     }
     return out;
@@ -10840,7 +10840,8 @@ const PTSIM = (function () {
     const W = x => parseFloat(x.weight) || 0, R = x => parseFloat(x.reps) || 0;
     const assist = kind.bw && app.bwMode(ex.name) === "assist";
     const ws = prev.map(W);
-    if (!kind.bw && !Math.max(...ws)) return null;
+    const bz = !kind.bw && !Math.max(...ws) && prev.some(x => x.bz);     // typed 0 = bodyweight
+    if (!kind.bw && !Math.max(...ws) && !bz) return null;
     const topW = assist ? Math.min(...ws) : Math.max(...ws);
     const atTop = prev.filter(x => W(x) === topW);
     const reps = atTop.map(R);
@@ -10848,7 +10849,9 @@ const PTSIM = (function () {
     const lo = range.lo, hi = range.hi;
     let k, nextW = topW, why = "", capped = false;
     if (reps.every(r => r >= hi)) {
-      if (assist) {
+      if (bz) {
+        k = "reps"; capped = true; why = `You hit ${hi}+ on every set. Add reps, or hold a weight to make it harder.`;
+      } else if (assist) {
         if (topW > 0) { nextW = Math.max(0, Math.round((topW - inc) * 100) / 100); k = "up"; why = `You hit ${hi}+ on every top set, so use less help.`; }
         else { k = "reps"; why = "No help needed. Add reps."; }
       } else {
@@ -10867,10 +10870,10 @@ const PTSIM = (function () {
       if (k === "up") r = lo;
       else if (k === "hold") r = lo;
       else r = Math.min(hi, (reps.length ? reps[i % reps.length] : lo) + 1);
-      per.push({ w: nextW, r });
+      per.push({ w: nextW, r, bz: !!bz });
     }
     const rangeTxt = lo === hi ? `${hi}` : `${lo}–${hi}`;
-    const wTxt = nextW ? num(nextW) + " " + u : (kind.bw ? "bodyweight" : "");
+    const wTxt = nextW ? num(nextW) + " " + u : (kind.bw || bz ? "bodyweight" : "");
     let tryTxt;
     if (k === "up") tryTxt = `try ${wTxt} × ${rangeTxt}`;
     else if (k === "hold") tryTxt = `stay at ${wTxt}, reach ${lo}+ on every set`;
@@ -10915,7 +10918,7 @@ const PTSIM = (function () {
       if (e.completed || e.tag === "W") continue;
       saved.push([key, app.logs[key] ? JSON.stringify(app.logs[key]) : null]);
       const p = t.per[s] || t.per[t.per.length - 1];
-      e.weight = p.w ? String(p.w) : "";
+      e.weight = p.w ? String(p.w) : (p.bz ? "0" : "");
       e.reps = String(p.r);
       app.logs[key] = e; n++;
     }
@@ -10923,7 +10926,7 @@ const PTSIM = (function () {
     WorkoutStorage.saveLogs(app.logs);
     app.renderWorkoutView();
     const p0 = t.per[0];
-    app.toast(`Filled ${n} set${n > 1 ? "s" : ""}: ${p0.w ? num(p0.w) + " × " : ""}${p0.r}${t.per.some(p => p.r !== p0.r) ? "+" : ""}`, "Undo", () => {
+    app.toast(`Filled ${n} set${n > 1 ? "s" : ""}: ${p0.w ? num(p0.w) + " × " : (p0.bz ? "BW × " : "")}${p0.r}${t.per.some(p => p.r !== p0.r) ? "+" : ""}`, "Undo", () => {
       saved.forEach(([k, v]) => { if (v === null) delete app.logs[k]; else app.logs[k] = JSON.parse(v); });
       WorkoutStorage.saveLogs(app.logs);
       app.renderWorkoutView();
@@ -11232,7 +11235,7 @@ const PTSIM = (function () {
     const bits = [];
     if (opt("colPrev")) {
       const p = (app.lastPerf[ex.name] || [])[s];
-      if (p && p.min === undefined) bits.push(`<span class="pt-chip">Last ${esc(num(p.weight))}×${esc(num(p.reps))}</span>`);
+      if (p && p.min === undefined) bits.push(`<span class="pt-chip">Last ${p.bz && !(parseFloat(p.weight) > 0) ? "BW" : esc(num(p.weight))}×${esc(num(p.reps))}</span>`);
     }
     if (opt("col1rm")) {
       const v = app.liveE1rm(ex, entry || {});
@@ -14175,6 +14178,139 @@ const PTSIM = (function () {
     if (t.id === "pt-drawer-build") a.closeDrawer();
     open(a);
   });
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.20.0: a weight of 0 means bodyweight.
+ *  Type 0 (not an empty box) as the weight of a set on any exercise and the set counts your own body weight as the load:
+ *  volume, estimated 1RM, PRs, the e1RM chip and the charts all use your body weight from Body & Photos, like pull-ups and dips.
+ *  - Saved sets get bz:1 (and bw: your body weight that day, when one is logged). A blank weight still counts as nothing.
+ *  - The unit next to the box says BW, History and share cards show "BW x 12", and the suggestion says "bodyweight x 12".
+ *  - Pull-ups, chin-ups, muscle-ups and dips already work this way (0 = just your body), so they are left alone.
+ *  - Log a new body weight and the volumes and PRs of old bodyweight sets are worked out again.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const A = () => window.app;
+  const esc = s => PT.esc(s);
+  /** True for a typed zero ("0", "0.0"), false for an empty box. */
+  const isZero = v => v !== undefined && v !== null && String(v).trim() !== "" && parseFloat(v) === 0;
+  PT.isZeroWeight = isZero;
+  /** A saved bodyweight set (typed 0) on an exercise that is not pull-up style or cardio. */
+  const isBz = (name, st) => !!(st && st.bz && !(parseFloat(st.w) > 0) && !PT.isCardioSet(st) && !PT.isBodyweightEx(name));
+  PT.isBodyweightSet = isBz;
+
+  // the weight moved in a bodyweight set is the person's body weight
+  const oLoad = proto.setLoad;
+  proto.setLoad = function (name, st, ds) {
+    if (isBz(name, st)) return parseFloat(st.bw) || this.bwOn(ds) || 0;
+    return oLoad.apply(this, arguments);
+  };
+
+  // a set typed as 0 is remembered as a bodyweight set
+  const oEntry = proto.entryToSet;
+  proto.entryToSet = function (ex, entry) {
+    const st = oEntry.apply(this, arguments);
+    try {
+      if (st && !PT.isCardioSet(st) && !this.exKind(ex).bw && isZero(entry && entry.weight)) {
+        st.bz = 1;
+        const bw = this.bwOn(PT.ds());
+        if (bw > 0) st.bw = bw;
+      }
+    } catch (e) { console.error("PulseTrack bodyweight set", e); }
+    return st;
+  };
+
+  // "last time" remembers it too
+  const oPerf = proto.perfFromSet;
+  proto.perfFromSet = function (st) {
+    const p = oPerf.apply(this, arguments);
+    if (st && st.bz) p.bz = 1;
+    return p;
+  };
+
+  // History, share cards and charts say BW instead of 0
+  const oText = proto.setText;
+  proto.setText = function (name, st) {
+    if (isBz(name, st)) return "BW × " + PT.num(st.r, 0);
+    return oText.apply(this, arguments);
+  };
+
+  // a new body weight changes what old bodyweight sets were worth
+  const oBody = proto.onBodyChanged;
+  proto.onBodyChanged = function () {
+    const r = oBody.apply(this, arguments);
+    try {
+      const list = this.sessions || [];
+      const has = list.some(s => (s.ex || []).some(e => (e.sets || []).some(st => st && st.bz)));
+      const did = list.some(s => (s.ex || []).some(e => PT.isBodyweightEx(e.name)));
+      if (has && !did) { this.recomputeVolumes(); this.recomputeSessionPRs(); this.rebuildPRs(); }
+    } catch (e) { console.error("PulseTrack bodyweight recompute", e); }
+    return r;
+  };
+
+  // a small note under an exercise that has a typed 0: what counts, or a nudge to log a body weight
+  const oBar = proto.kindBarHtml;
+  proto.kindBarHtml = function (ex, exIndex) {
+    const html = oBar.apply(this, arguments);
+    try {
+      if (html || !ex || this.settings.showLogger === false || ex.type === "tabata" || !this.activeProgram || !this.activeDay) return html;
+      const kind = this.exKind(ex);
+      if (kind.cardio || kind.bw) return html;
+      let any = false;
+      for (let s = 0; s < (ex.sets || 0); s++) {
+        const e = this.logs[this.getLogKey(this.activeProgram.id, this.activeDay.dayNumber, ex.id, s)];
+        if (e && isZero(e.weight)) { any = true; break; }
+      }
+      if (!any) return html;
+      const bw = this.bwOn(PT.ds()), u = this.wLabel();
+      return `<div class="bg-zinc-950/70 border border-zinc-800 rounded-lg px-2.5 py-2">${bw
+        ? `<p class="text-[11px] text-zinc-400 leading-snug">A weight of 0 is <b class="text-zinc-200">bodyweight</b>. Those sets count your body weight, <b class="font-mono text-zinc-200">${esc(PT.num(bw, 1))} ${esc(u)}</b>, for volume and PRs.</p>`
+        : `<button class="btn-log-bw w-full text-left text-[11px] text-amber-300 font-semibold tap-active">⚠ A weight of 0 is bodyweight. Log your body weight in Body &amp; Photos so it counts (tap)</button>`}</div>`;
+    } catch (e) { console.error("PulseTrack bodyweight note", e); }
+    return html;
+  };
+
+  // the unit next to the weight box reads BW while it says 0
+  function unitLabel(inp) {
+    const a = A(); if (!a || !inp || inp.dataset.field !== "weight") return;
+    const span = inp.nextElementSibling; if (!span || span.tagName !== "SPAN") return;
+    const card = inp.closest("[data-ex-card]"); if (!card) return;
+    const ex = a.activeDay && (a.activeDay.exercises || [])[parseInt(card.dataset.exCard, 10)]; if (!ex) return;
+    const kind = a.exKind(ex); if (kind.cardio || kind.bw) return;
+    if (!span.dataset.u) span.dataset.u = span.textContent;
+    span.textContent = isZero(inp.value) ? "BW" : span.dataset.u;
+  }
+  document.addEventListener("input", e => {
+    try { const inp = e.target && e.target.closest && e.target.closest(".input-set-field"); if (inp) unitLabel(inp); } catch (err) { }
+  }, true);
+
+  // one nudge per visit when a bodyweight set is checked off and no body weight is logged yet
+  let nudged = false;
+  document.addEventListener("click", e => {
+    try {
+      const a = A(); if (!a || nudged || !e.target.closest) return;
+      const btn = e.target.closest(".btn-check-set"); if (!btn || btn.dataset.completed === "1") return;
+      const ent = a.logs && a.logs[btn.dataset.key];
+      if (!ent || !isZero(ent.weight) || (ent.tag || "R") === "W") return;
+      const ex = a.activeDay && (a.activeDay.exercises || []).find(x => x.name === btn.dataset.exname);
+      if (!ex || a.exKind(ex).bw || a.exKind(ex).cardio) return;
+      if (a.bwOn(PT.ds()) > 0) return;
+      nudged = true;
+      setTimeout(() => a.toast("0 means bodyweight. Log your body weight in Body & Photos so these sets count.", "Open", () => a.showView("body"), 6000), 400);
+    } catch (err) { }
+  }, true);
+
+  // after every redraw of the workout screen, set the BW label for boxes that already say 0
+  const oRender = proto.renderWorkoutView;
+  proto.renderWorkoutView = function () {
+    const r = oRender.apply(this, arguments);
+    try { this.dom.exercisesList.querySelectorAll('.input-set-field[data-field="weight"]').forEach(unitLabel); } catch (e) { }
+    return r;
+  };
 })();
   </script>
 </body>
