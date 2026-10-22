@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.23.0*
+*Version 2.24.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -362,6 +362,8 @@ Some of the built-in programs spell exercises differently from the standard list
 > 💡 **Back up now and then.** Everything lives on your phone. If you clear browser data or get a new phone, a backup file is how you keep it all.
 
 - **Backup and Restore:** save all your data to a file (workouts, programs, body entries and your cardio and sports log), and load it back on this phone or a new one.
+- **Automatic safety copies (2.24.0):** the first time you open the app each day (after you have a workout saved), PulseTrack keeps a copy of everything on the phone. The newest 8 are kept. **Settings → Data & Backup → Automatic safety copies** lists them (date, number of workouts, version) with **Restore** next to each, and **Make one now**. Going back first saves a copy of how things are right now, so you can undo it. They live on the phone, so they protect against a mistake or a bad update, but clearing the browser's data removes them: a backup file is still the real safety net. The backup reminder on Home now appears after 7 days.
+- **Undo delete (2.24.0):** deleting a workout from History or a body entry shows **Undo** for 10 seconds.
 - **No storage cap:** when the normal space fills up, PulseTrack keeps saving in your phone's large storage, for as long as your phone has room. Settings shows **No size limit**.
 - **CSV export:** download your workout history for Excel or Google Sheets.
 - **Share a program** as a link, or **import** one.
@@ -375,7 +377,7 @@ Some of the built-in programs spell exercises differently from the standard list
 Settings is a short list of nine groups: **Workout**; **Workout Screen**; **Gyms & Equipment**; **Streaks & Time Off**; **Sound, Voice & Feel**; **Appearance**; **Data & Backup**; **App**; and **Danger Zone**. Tap one to open it. Each shows a short summary of your choices, and the app remembers which were open until you close it.
 
 - **Units:** kg or lb. Switching asks whether to **Convert my saved numbers**, **Only change the labels**, or **Cancel**.
-- **Text size:** make everything bigger or smaller.
+- **Text size:** **Normal**, **Large** or **Extra large** (2.24.0).
 - **Auto-start Rest Timer:** on or off. The rest timer also has your own times, sounds and voice.
 - **Strength level:** men's or women's standards.
 - **Weekly goal:** days per week.
@@ -468,6 +470,15 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.24.0**
+- **Automatic safety copies.** A copy of your data is kept on the phone once a day (newest 8), with a one-tap Restore in Settings → Data & Backup. Going back saves a copy of the current state first.
+- **Backup reminder after 7 days** instead of 14.
+- **Undo** after deleting a workout or a body entry (10 seconds).
+- **Text size** has three steps: Normal, Large, Extra large.
+- **History loads the newest 60 workouts** with **Show 60 more**, so it stays fast with years of workouts.
+- **Plateau check folds to one line** on Progress when nothing is stuck.
+- **Smaller fixes:** the weight box shows a dash instead of repeating "lbs"; the plate calculator icon steps aside while the timer shows so page titles are not cut off; green buttons are a slightly deeper green so white text is easier to read; future days in This week are easier to read in light mode.
 
 **2.23.0**
 - **The rep range in each box is no longer cut off.** On the workout screen the target (for example "10-12" or "12-15") showed as "10-" or "12-". The whole range now fits, on big and small phones.
