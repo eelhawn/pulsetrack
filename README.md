@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.22.0*
+*Version 2.23.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -468,6 +468,13 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.23.0**
+- **The rep range in each box is no longer cut off.** On the workout screen the target (for example "10-12" or "12-15") showed as "10-" or "12-". The whole range now fits, on big and small phones.
+- **A workout is saved on the day you started it.** Starting at 11:40 pm and finishing at 12:25 am used to put the workout, the calendar mark and the streak on the next day. Now it counts for the day you started. A timer left running for days does not back-date anything.
+- **Small buttons are easier to hit.** The set type button (R / W / D / F), move, swap and remove, the rest +/-15 buttons, Select, the month arrows, delete a body entry, and on Home Skip this workout, Calendar and Yesterday? have bigger tap areas. They look the same.
+- **Small grey text is a little brighter in dark mode** so labels, dates and hints are easier to read in a bright gym.
+- Screen readers now announce the menu close button and the set check button.
 
 **2.22.0**
 - **A much shorter Home screen.** Home was about two screens of cards. It now fits on one screen and shows only what you use every day: today's workout (with a small Skip link instead of a big button, and no long description), the **Start training** row as three small buttons, **This week**, and a one-row **Work today**. **Last workout**, **PRs this month**, the **Search** bar, the nine shortcut tiles and the **1RM Trophy Room** are off by default. All of them are still in the ☰ menu or in Progress and History, and each card can be switched back on in Settings → Home screen.
