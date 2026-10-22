@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.27.0*
+*Version 2.28.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -471,6 +471,13 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.28.0**
+- **How do you feel today?** (in Build me a workout): sleep, overall soreness and muscles to skip today. Poor sleep or very sore = a set fewer on each; sore muscles are left out. Today's answers reset tomorrow.
+- **Injuries** (Settings, and the same block in the build sheet): Shoulder, Elbow, Wrist, Lower back, Knee, Hip. Built workouts leave out exercises that load that joint, until you turn the flag off.
+- **Stretch & mobility routine** (Programs screen), and **Stretch for 5 min** on the finish screen. Pick full, upper or lower body and 5 or 10 minutes; each hold has the timer button.
+- **Progress page, new sections:** **Weekly report card** (last 7 days vs the 7 before, **Share as picture**), **Badges** (workouts, week streaks, total lifted, PRs, bench/squat/deadlift club milestones; a toast when you earn one), **Lift goals** (pick a lift and a target; shows progress and roughly when you will get there from your last 12 weeks), **Training year** heatmap, **PR timeline**, and **Family board**.
+- **Family board:** set your name, **Copy my code** (or Share), and paste the codes your family sends you. It ranks this week or last week by workouts, then volume. No accounts; codes only hold your name, week and totals.
 
 **2.27.0**
 - **Build me a program** (Programs screen): pick a split (Push/Pull/Legs, twice a week, Upper/Lower, Full body), 1 or 4 weeks, time, goal and equipment. Every day is filled in by the workout builder and saved in Programs. 4 weeks is a wave: week 2 one more rep, week 3 one more set on the big lifts, week 4 an easy week.
