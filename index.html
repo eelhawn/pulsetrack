@@ -377,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.25.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.26.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3757,7 +3757,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.25.0";
+    const APP_VERSION = "2.26.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -14015,16 +14015,19 @@ const PTSIM = (function () {
   const GOALS = [
     { id: "muscle", label: "Build muscle" },
     { id: "strength", label: "Get stronger" },
-    { id: "endurance", label: "Tone & endurance" }
+    { id: "endurance", label: "Tone & endurance" },
+    { id: "hyper", label: "Muscle size (volume)" },
+    { id: "strend", label: "Strength-endurance" },
+    { id: "pump", label: "Pump day" }
   ];
   const COUNTS = [0, 3, 4, 5, 6, 8];       // 0 = work it out from the time
   const ANTAG = { chest: "back", back: "chest", biceps: "triceps", triceps: "biceps", quads: "hamstrings", hamstrings: "quads", shoulders: "back", glutes: "quads", abs: "lowerback", lowerback: "abs" };
   const pickBy = (list, id, dflt) => list.find(x => x.id === id) || list.find(x => x.id === dflt) || list[0];
 
   function buildPool(app, equip) {
-    const out = [];
+    const out = [], hid = new Set(Array.isArray(app.settings.hiddenEx) ? app.settings.hiddenEx : []);
     EXERCISE_DATABASE.forEach(e => {
-      if (!e || !e.name || /^(Cardio|Warm-Up)/i.test(e.category || "") || EXCL.test(e.name)) return;
+      if (!e || !e.name || /^(Cardio|Warm-Up)/i.test(e.category || "") || EXCL.test(e.name) || hid.has(e.name)) return;
       if (PT.gymAllows && !PT.gymAllows(e.name)) return;
       let regs = {}; try { regs = PT.regionsFor(e.name, false) || {}; } catch (x) { regs = {}; }
       const region = Object.keys(regs)[0];
@@ -14098,6 +14101,7 @@ const PTSIM = (function () {
     if (STAPLE.test(c.name)) s += 2.5;
     if (ODD.test(c.name)) s -= 3.5;
     if (ctx.ease && /machine|cable|smith|supported/i.test(c.name + " " + c.equip)) s += 1.2;
+    if (ctx.goal === "pump" && /machine|cable|smith/i.test(c.name + " " + c.equip)) s += 1.5;
     if (c.comp) s += nComp < wantComp ? 4 : -2; else if (nComp >= wantComp) s += 1;
     if (c.sub && picks.some(p => p.sub === c.sub)) s -= 1.5; else if (c.sub) s += 1.5;
     if (c.equip && picks.some(p => p.equip === c.equip)) s -= 0.6;
@@ -14125,7 +14129,7 @@ const PTSIM = (function () {
   /** `have` are exercises already kept for this muscle (locked); the rest are drawn until there are k */
   function pickRegion(region, k, ctx, have) {
     const R = RMAP[region], picks = (have || []).slice(), cands = candsFor(region, ctx);
-    const wantComp = R.lead ? (k >= 3 ? 2 : 1) : 0;
+    const wantComp = R.lead && ctx.goal !== "pump" ? (k >= 3 ? 2 : 1) : 0;
     while (picks.length < k) {
       const scored = rank(cands.filter(c => !picks.some(p => p.name === c.name)), picks, ctx, wantComp);
       if (!scored.length) break;
@@ -14139,6 +14143,7 @@ const PTSIM = (function () {
     return {
       pool: buildPool(app, eq), done: history(app), lately: lately(app), recent: recentBuilds(app),
       fav: new Set(Array.isArray(app.settings.favEx) ? app.settings.favEx : []),
+      goal: pickBy(GOALS, opts.goal, "muscle").id,
       rnd: rng(opts.seed || Math.floor(Math.random() * 4294967296)), ease: !!heavy, v: V, ban: new Set(Array.isArray(opts.avoid) ? opts.avoid : [])
     };
   }
@@ -14147,17 +14152,79 @@ const PTSIM = (function () {
     let rest = 90; try { rest = A().smartRest(c.name) || 90; } catch (e) { }
     if (goal === "strength" && comp) rest = Math.max(rest, 150);
     if (goal === "endurance") rest = Math.min(rest, 60);
+    if (goal === "strend") rest = Math.min(rest, 75);
+    if (goal === "pump") rest = Math.min(rest, 45);
+    if (goal === "hyper" && comp) rest = Math.max(rest, 120);
     const reps = region === "abs" || region === "calves" ? "12-20"
       : goal === "strength" ? (comp ? "3-6" : "6-10")
       : goal === "endurance" ? (comp ? "12-15" : "15-20")
+      : goal === "strend" ? (comp ? "8-12" : "12-15")
+      : goal === "hyper" ? (comp ? "6-10" : "8-12")
+      : goal === "pump" ? (comp ? "12-15" : "15-20")
       : (comp ? "6-10" : (bw ? "8-12" : "10-15"));
-    let sets = comp ? (goal === "strength" ? 4 : 3) : 3;
-    if (first && comp && goal !== "endurance") sets++;
+    let sets = comp ? (goal === "strength" || goal === "hyper" ? 4 : 3) : (goal === "hyper" ? 4 : 3);
+    if (first && comp && goal !== "endurance" && goal !== "pump") sets++;
     return { name: c.name, sets, reps, restSeconds: rest, restAuto: true, type: "standard", region, comp, fam: c.fam };
   }
   /** minutes for a list: about 40 s a set, plus the rest; a superset skips the rest after its first exercise */
-  const sumOf = list => list.reduce((n, e) => n + e.sets * ((e.link ? 40 : 40 + e.restSeconds) / 60), 0);
+  const sumOf = list => list.reduce((n, e) => n + (e.extra === "cardio" ? (parseInt(e.reps, 10) || 10) : e.extra ? 0.9 : e.sets * ((e.link ? 40 : 40 + e.restSeconds) / 60)), 0);
   PT.buildMinutes = list => Math.round(sumOf(list || []) + 4);
+
+  const LBL = { warm: "Warm-up", cool: "Cool-down", cardio: "Cardio" };
+  const regLabel = r => (RMAP[r] ? RMAP[r].label : LBL[r] || r);
+  const UPPER = ["chest", "back", "shoulders", "biceps", "triceps", "traps", "forearms"], LOWER = ["quads", "hamstrings", "glutes", "calves", "lowerback"];
+  const WARM = { upper: ["Arm Circles", "Band Shoulder Dislocates", "Banded Pull-Aparts", "Scapular Push-Ups", "Thoracic Rotations"], lower: ["Front and Lateral Leg Swings", "Inchworms", "90/90 Hip Switches", "World's Greatest Stretch", "Ankle Mobility Rocks"], any: ["Cat-Cow", "Inchworms", "World's Greatest Stretch"] };
+  const COOL = { chest: "Doorway Chest Stretch", back: "Kneeling Lat Stretch", shoulders: "Cross-Body Shoulder Stretch", triceps: "Overhead Triceps Stretch", biceps: "Doorway Chest Stretch", quads: "Standing Quad Stretch", hamstrings: "Hamstring Stretch", glutes: "Pigeon Stretch", calves: "Calf Stretch", abs: "Child's Pose", lowerback: "Knee-to-Chest Stretch", traps: "Cross-Body Shoulder Stretch", forearms: "Cross-Body Shoulder Stretch" };
+  const CARDIO = ["Rowing Machine", "Stationary Bike", "Assault Bike / Air Bike", "Elliptical", "Incline Treadmill Walk", "Jump Rope", "Stairmaster", "SkiErg", "Treadmill", "Battle Ropes"];
+  const inDb = (() => { let s = null; return n => { if (!s) s = new Set(EXERCISE_DATABASE.map(e => e && e.name)); return s.has(n); }; })();
+  const extraItem = (name, kind, reps, rest) => ({ name, sets: 1, reps, restSeconds: rest, restAuto: false, type: "standard", region: kind, extra: kind });
+  const shuffle = (a, ctx) => a.map(x => [ctx.rnd(), x]).sort((p, q) => p[0] - q[0]).map(p => p[1]);
+  function hiddenSet(app) { return new Set(Array.isArray(app.settings.hiddenEx) ? app.settings.hiddenEx : []); }
+  function warmUp(used, ctx, app) {
+    const hid = hiddenSet(app), up = used.some(r => UPPER.includes(r)), lo = used.some(r => LOWER.includes(r));
+    const take = (list, n) => shuffle(list, ctx).filter(x => inDb(x) && !hid.has(x)).slice(0, n);
+    let names = up && lo ? take(WARM.upper, 1).concat(take(WARM.lower, 1)) : up ? take(WARM.upper, 2) : lo ? take(WARM.lower, 2) : take(WARM.any, 2);
+    names = names.filter((n, i) => names.indexOf(n) === i);
+    return names.map(n => extraItem(n, "warm", "30s", 15));
+  }
+  function coolDown(used, ctx, app) {
+    const hid = hiddenSet(app), names = [];
+    used.slice().sort((a, b) => ((RMAP[b] || {}).size || 0) - ((RMAP[a] || {}).size || 0)).forEach(r => { const n = COOL[r]; if (n && inDb(n) && !hid.has(n) && !names.includes(n) && names.length < 3) names.push(n); });
+    return names.map(n => extraItem(n, "cool", "30s", 10));
+  }
+  function pickCardio(mins, ctx, app) {
+    const hid = hiddenSet(app);
+    const ok = CARDIO.filter(n => inDb(n) && !hid.has(n) && (!PT.gymAllows || PT.gymAllows(n)));
+    if (!ok.length) return null;
+    const best = ok.map(n => [ctx.rnd() * 2 - (ctx.recent.get(n) || 0) - (ctx.lately.get(n) || 0) * 0.5, n]).sort((a, b) => b[0] - a[0])[0][1];
+    return extraItem(best, "cardio", mins + " min", 60);
+  }
+  /** the muscle with the fewest hard sets for its size over the last four weeks ("" when there is no history) */
+  function weakest(app) {
+    const cut = Date.now() - 28 * DAY, c = {}, list = ["chest", "back", "shoulders", "quads", "hamstrings", "glutes", "biceps", "triceps", "calves", "abs"];
+    list.forEach(r => { c[r] = 0; });
+    let any = false;
+    (app.sessions || []).forEach(s => {
+      const t = s.ts || (PT.fromDs(s.date) ? PT.fromDs(s.date).getTime() : 0); if (t < cut) return;
+      (s.ex || []).forEach(e => { let regs = {}; try { regs = PT.regionsFor(e.name, false) || {}; } catch (x) { regs = {}; } const r = Object.keys(regs)[0]; if (r in c) { c[r] += (e.sets || []).filter(st => st && st.t !== "W").length; any = true; } });
+    });
+    if (!any) return "";
+    return list.slice().sort((a, b) => (c[a] / RMAP[a].size) - (c[b] / RMAP[b].size))[0];
+  }
+  /** a circuit: everything back to back, no rest until the last one, repeated for N rounds */
+  function circuitize(list, style, budget, goal) {
+    const left = list.slice(), seq = [];
+    while (left.length) { const prev = seq[seq.length - 1]; let j = left.findIndex(x => !prev || x.region !== prev.region); if (j < 0) j = 0; seq.push(left.splice(j, 1)[0]); }
+    const n = seq.length, rounds = Math.max(2, Math.min(5, Math.floor(budget / (n * 0.75 + 1.5))));
+    seq.forEach((e, i) => {
+      e.sets = rounds; e.reps = style === "hiit" ? "40s" : (goal === "strength" ? "6-8" : "12-15");
+      e.restSeconds = i === n - 1 ? (style === "hiit" ? 60 : 90) : 15; e.restAuto = false;
+      if (i < n - 1) e.link = true; else delete e.link;
+    });
+    return seq;
+  }
+  PT.hideExercise = (name, appArg) => { const a = appArg || A(); if (!a || !name) return; const l = Array.isArray(a.settings.hiddenEx) ? a.settings.hiddenEx : []; if (!l.includes(name)) l.push(name); a.settings.hiddenEx = l; try { WorkoutStorage.saveSettings(a.settings); } catch (e) { } };
+  PT.showExercise = (name, appArg) => { const a = appArg || A(); if (!a) return; a.settings.hiddenEx = (a.settings.hiddenEx || []).filter(n => n !== name); try { WorkoutStorage.saveSettings(a.settings); } catch (e) { } };
 
   /** put exercises two by two: opposite muscles first (chest and back, biceps and triceps), else the next one along */
   function pairUp(list) {
@@ -14183,7 +14250,8 @@ const PTSIM = (function () {
   PT.buildWorkout = function (opts, appArg) {
     const app = appArg || A(); opts = opts || {};
     const minutes = MINUTES.includes(opts.minutes) ? opts.minutes : (parseInt(opts.minutes, 10) || 45);
-    const goal = pickBy(GOALS, opts.goal, "muscle").id, style = opts.style === "super" ? "super" : "straight";
+    const goal = pickBy(GOALS, opts.goal, "muscle").id, style = ["super", "circuit", "hiit"].includes(opts.style) ? opts.style : "straight";
+    const circ = style === "circuit" || style === "hiit";
     const eq = pickBy(EQUIP, opts.equip, "any"), count = COUNTS.includes(parseInt(opts.count, 10)) ? parseInt(opts.count, 10) : 0;
     const notes = [];
     let ids = Array.isArray(opts.regions) ? opts.regions.filter(r => RMAP[r]) : [], title = "Custom workout";
@@ -14195,14 +14263,19 @@ const PTSIM = (function () {
       const same = PRESETS.find(p => p.r && p.r.length === ids.length && p.r.every(r => ids.includes(r)));
       if (same) title = same.label;
     }
+    let weak = opts.weak === "auto" ? weakest(app) : (RMAP[opts.weak] ? opts.weak : "");
+    if (weak && !ids.includes(weak)) { ids = ids.concat(weak); if (title !== "Custom workout") title += " + " + RMAP[weak].label.toLowerCase(); }
+    if (weak) notes.push(`Extra focus on ${RMAP[weak].label.toLowerCase()}${opts.weak === "auto" ? " (your least-trained muscle lately)" : ""}.`);
     const heavy = !!(PT.opt && PT.opt("workEase") && PT.workHeavyToday && PT.workHeavyToday(app));
     const ctx = makeCtx(app, opts, heavy);
-    const reserve = opts.core && !ids.includes("abs") ? 3.5 : 0;      // room for a core finisher at the end
+    const cardioMin = [5, 10, 15].includes(parseInt(opts.cardio, 10)) ? parseInt(opts.cardio, 10) : 0;
+    const reserve = (opts.core && !ids.includes("abs") ? 3.5 : 0) + (opts.warm ? 2 : 0) + (opts.cool ? 3 : 0) + cardioMin;      // room for the finishers
     const budget = Math.max(12, minutes - 4 - reserve);
     const per = style === "super" ? 4.9 : 6.3;
     let total = count || Math.max(2, Math.min(style === "super" ? 12 : 10, Math.round(budget / per)));
+    if (circ && !count) total = Math.max(4, Math.min(8, Math.round(budget / 7)));
     if (heavy && !count) { total = Math.max(2, total - 1); notes.push("Heavy work day: lighter on back and grip, and one exercise fewer."); }
-    const regs = REGIONS.filter(r => ids.includes(r.id));
+    const regs = REGIONS.filter(r => ids.includes(r.id)).map(r => r.id === weak ? Object.assign({}, r, { size: r.size * 1.8, cap: r.cap + 1 }) : r);
     const lookup = n => ctx.pool.find(c => c.name === n);
     const kept = (Array.isArray(opts.keep) ? opts.keep : []).map(k => lookup(typeof k === "string" ? k : k && k.name)).filter(c => c && ids.includes(c.region));
     total = Math.max(total, kept.length);
@@ -14221,14 +14294,15 @@ const PTSIM = (function () {
     items = items.map((it, i) => Object.assign(it, { i })).sort((a, b) => (b.c.comp - a.c.comp) || (RMAP[b.region].size - RMAP[a.region].size) || (a.i - b.i));
     let out = items.map(it => shape(it.c, it.region, goal, it.first));
     if (style === "super") out = pairUp(out);
+    if (circ) out = circuitize(out, style, budget, goal);
     let guard = 60;
-    while (sum(out) > budget * 1.06 && guard--) {
+    while (!circ && sum(out) > budget * 1.06 && guard--) {
       const floor = e => (out.length > 2 && e.comp ? 3 : 2);      // trim isolation sets first; with room for more than two lifts, the big ones keep 3
       const t = out.slice().reverse().find(e => e.sets > floor(e));
       if (t) t.sets--; else if (!count && out.length > 2) { const x = out.pop(); if (out.length && out[out.length - 1].link && !x.link) delete out[out.length - 1].link; } else break;
     }
     guard = 60;
-    while (sum(out) < budget * 0.9 && guard--) {
+    while (!circ && sum(out) < budget * 0.9 && guard--) {
       const c = out.filter(e => e.sets < (e.comp ? 5 : 4)).sort((a, b) => a.sets - b.sets || out.indexOf(a) - out.indexOf(b))[0];
       if (!c) break; c.sets++;
     }
@@ -14240,10 +14314,14 @@ const PTSIM = (function () {
       if (a) { const e = shape(a, "abs", goal, false); e.sets = 3; out.push(e); used.add("abs"); notes.push("Core finisher added at the end."); }
       else notes.push("No core exercise fits that equipment, so no finisher.");
     }
+    if (cardioMin) { const cx = pickCardio(cardioMin, ctx, app); if (cx) { out.push(cx); notes.push(`${cardioMin} min of ${cx.name.toLowerCase()} to finish.`); } else notes.push("No cardio machine fits your gym, so no cardio finisher."); }
+    if (opts.cool) { const c = coolDown(Array.from(used), ctx, app); if (c.length) { c.forEach(x => out.push(x)); notes.push("Cool-down stretches at the end."); } }
+    if (opts.warm) { const w = warmUp(Array.from(used), ctx, app); if (w.length) { out.unshift(...w); notes.push("Warm-up first."); } }
     if (count && sum(out) > minutes * 1.15) notes.push(`${out.length} exercises take about ${Math.round(sum(out) + 4)} min. Pick fewer, or more time, to fit ${minutes}.`);
     if (style === "super") notes.push("Supersets: do the linked pair back to back, then rest.");
+    if (circ) notes.push(style === "hiit" ? "HIIT circuit: 40 seconds on each, straight into the next, rest after the last one, repeat for the rounds shown." : "Circuit: do every exercise back to back, rest only after the last one, then go again for the rounds shown.");
     const mins = Math.round(sum(out) + 4);
-    return { title, items: out, minutes: mins, asked: minutes, note: notes.join(" "), regions: regs.filter(r => used.has(r.id)).map(r => r.id), ids: regs.filter(r => avail[r.id] > 0).map(r => r.id), heavy };
+    return { title, items: out, minutes: mins, asked: minutes, style, note: notes.join(" "), regions: regs.filter(r => used.has(r.id)).map(r => r.id), ids: regs.filter(r => avail[r.id] > 0).map(r => r.id), heavy };
     function sum(l) { return sumOf(l); }
   };
 
@@ -14261,6 +14339,7 @@ const PTSIM = (function () {
     const c = sample(scored, ctx), goal = pickBy(GOALS, opts.goal, "muscle").id;
     const e = shape(c, old.region, goal, false);
     e.sets = old.sets; if (old.link) e.link = true;
+    if (opts.style === "circuit" || opts.style === "hiit") { e.reps = old.reps; e.restSeconds = old.restSeconds; e.restAuto = false; }
     const out = items.slice(); out[i] = e;
     return out;
   };
@@ -14284,29 +14363,38 @@ const PTSIM = (function () {
     const c = pickRegion(best.id, have.length + 1, ctx, have).pop();
     if (!c) return null;
     const out = items.slice(); const e = shape(c, best.id, pickBy(GOALS, opts.goal, "muscle").id, false); e.sets = 3;
-    if (out.length && out[out.length - 1].link) delete out[out.length - 1].link;      // an odd one out stays on its own
-    out.push(e);
+    let at = out.findIndex(x => x.extra === "cool" || x.extra === "cardio"); if (at < 0) at = out.length;
+    if ((opts.style === "circuit" || opts.style === "hiit") && at > 0 && out.slice(0, at).some(x => x.link)) {
+      const prev = out[at - 1]; e.sets = prev.sets; e.reps = prev.reps; e.restSeconds = prev.restSeconds; prev.restSeconds = 15; prev.link = true;
+    } else if (at > 0 && out[at - 1].link) delete out[at - 1].link;      // an odd one out stays on its own
+    out.splice(at, 0, e);
     return out;
   };
 
   /* ------------------------------------------------------------------ the sheet */
-  const DEF = { focus: "auto", regions: [], minutes: 45, goal: "muscle", variety: "mix", equip: "any", count: 0, style: "straight", core: false };
+  const DEF = { focus: "auto", regions: [], minutes: 45, goal: "muscle", variety: "mix", equip: "any", count: 0, style: "straight", core: false, weak: "", warm: false, cool: false, cardio: 0 };
   const prefs = a => Object.assign({}, DEF, a.settings.buildPrefs || {});
   function open(app) {
     const K = PT.kit, el = K.sheet("pt-build", 86);
     const st = prefs(app); let res = null; const locked = new Set(), avoid = [];
     const gym = (PT.gym && PT.gym()) ? PT.gym().name : "your gym";
-    const save = () => { app.settings.buildPrefs = { focus: st.focus, regions: st.regions, minutes: st.minutes, goal: st.goal, variety: st.variety, equip: st.equip, count: st.count, style: st.style, core: st.core }; WorkoutStorage.saveSettings(app.settings); };
+    const save = () => { app.settings.buildPrefs = { focus: st.focus, regions: st.regions, minutes: st.minutes, goal: st.goal, variety: st.variety, equip: st.equip, count: st.count, style: st.style, core: st.core, weak: st.weak, warm: st.warm, cool: st.cool, cardio: st.cardio }; WorkoutStorage.saveSettings(app.settings); };
     const chip = (attr, label, on) => `<button type="button" ${attr} aria-pressed="${on}" class="pt-opt tap-active">${esc(label)}</button>`;
     const lab = t => `<span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">${t}</span>`;
-    const opts = () => ({ focus: st.focus === "custom" ? "" : st.focus, regions: st.focus === "custom" ? st.regions : [], minutes: st.minutes, goal: st.goal, variety: st.variety, equip: st.equip, count: st.count, style: st.style, core: st.core, avoid });
+    const opts = () => ({ focus: st.focus === "custom" ? "" : st.focus, regions: st.focus === "custom" ? st.regions : [], minutes: st.minutes, goal: st.goal, variety: st.variety, equip: st.equip, count: st.count, style: st.style, core: st.core, weak: st.weak, warm: st.warm, cool: st.cool, cardio: st.cardio, avoid });
     const moreSummary = () => {
       const bits = [];
       if (st.equip !== "any") bits.push(pickBy(EQUIP, st.equip).label);
       if (st.count) bits.push(st.count + " exercises");
       if (st.style === "super") bits.push("supersets");
+      if (st.style === "circuit") bits.push("circuit");
+      if (st.style === "hiit") bits.push("HIIT");
+      if (st.weak) bits.push("focus: " + (st.weak === "auto" ? "weak spot" : RMAP[st.weak].label.toLowerCase()));
+      if (st.warm) bits.push("warm-up");
       if (st.core) bits.push("core finisher");
-      return bits.length ? bits.join(" · ") : "Equipment, number of exercises, supersets";
+      if (st.cardio) bits.push(st.cardio + " min cardio");
+      if (st.cool) bits.push("cool-down");
+      return bits.length ? bits.join(" · ") : "Equipment, style, weak spot, warm-up, cardio";
     };
     const drawOptions = () => {
       const heavy = PT.opt("workEase") && PT.workHeavyToday(app);
@@ -14324,8 +14412,11 @@ const PTSIM = (function () {
             <div>${lab("Equipment")}<div class="flex flex-wrap gap-1.5">${EQUIP.map(q => chip(`data-q="${q.id}"`, q.id === "any" ? "My gym" : q.label, st.equip === q.id)).join("")}</div>
               <span class="text-[11px] text-zinc-500 block mt-1.5">${st.equip === "any" ? "Uses what " + esc(gym) + " has." : "Only exercises with that equipment, and still only what " + esc(gym) + " has."}</span></div>
             <div>${lab("Number of exercises")}<div class="flex flex-wrap gap-1.5">${COUNTS.map(n => chip(`data-n="${n}"`, n ? String(n) : "Auto", st.count === n)).join("")}</div></div>
-            <div>${lab("Style")}<div class="flex flex-wrap gap-1.5">${chip('data-s="straight"', "Straight sets", st.style === "straight")}${chip('data-s="super"', "Supersets (saves time)", st.style === "super")}</div></div>
-            <div>${lab("Extras")}<div class="flex flex-wrap gap-1.5">${chip('data-x="core"', "Core finisher", st.core)}</div></div>
+            <div>${lab("Style")}<div class="flex flex-wrap gap-1.5">${chip('data-s="straight"', "Straight sets", st.style === "straight")}${chip('data-s="super"', "Supersets (saves time)", st.style === "super")}${chip('data-s="circuit"', "Circuit", st.style === "circuit")}${chip('data-s="hiit"', "HIIT (timed)", st.style === "hiit")}</div></div>
+            <div>${lab("Focus on a weak spot")}<div class="flex flex-wrap gap-1.5">${chip('data-w=""', "None", !st.weak)}${chip('data-w="auto"', "Least trained lately", st.weak === "auto")}${REGIONS.filter(r => !["traps", "forearms", "lowerback"].includes(r.id)).map(r => chip(`data-w="${r.id}"`, r.label, st.weak === r.id)).join("")}</div>
+              <span class="text-[11px] text-zinc-500 block mt-1.5">Adds that muscle to the workout and gives it an extra exercise.</span></div>
+            <div>${lab("Extras")}<div class="flex flex-wrap gap-1.5">${chip('data-x="warm"', "Warm-up", st.warm)}${chip('data-x="core"', "Core finisher", st.core)}${chip('data-x="cool"', "Cool-down stretches", st.cool)}</div></div>
+            <div>${lab("Cardio finisher")}<div class="flex flex-wrap gap-1.5">${[0, 5, 10, 15].map(m => chip(`data-c="${m}"`, m ? m + " min" : "None", st.cardio === m)).join("")}</div></div>
           </div></details>
         ${heavy ? '<p class="text-[11px] leading-relaxed text-amber-300">Heavy work day logged, so it goes easy on back and grip.</p>' : ""}
         <div class="sticky bottom-[calc(-1.25rem-env(safe-area-inset-bottom,0px))] -mx-5 -mb-5 px-5 pt-3 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] space-y-2 bg-zinc-900 border-t border-zinc-800"><button type="button" id="pt-bd-go" class="w-full py-3 rounded-xl bg-emerald-600 text-white text-sm font-bold tap-active">Build it</button></div>`);
@@ -14344,7 +14435,9 @@ const PTSIM = (function () {
         else if (b.dataset.q) st.equip = b.dataset.q;
         else if (b.dataset.n !== undefined) st.count = parseInt(b.dataset.n, 10) || 0;
         else if (b.dataset.s) st.style = b.dataset.s;
-        else if (b.dataset.x) st.core = !st.core;
+        else if (b.dataset.x) st[b.dataset.x] = !st[b.dataset.x];
+        else if (b.dataset.w !== undefined) st.weak = b.dataset.w;
+        else if (b.dataset.c !== undefined) st.cardio = parseInt(b.dataset.c, 10) || 0;
         else if (b.id === "pt-bd-go") { save(); locked.clear(); avoid.length = 0; build(false); return; }
         else return;
         drawOptions();
@@ -14360,8 +14453,8 @@ const PTSIM = (function () {
       const rows = res.items.map((e, i) => `<div class="flex items-center gap-1.5 rounded-xl border ${locked.has(e.name) ? "border-emerald-700/60" : "border-zinc-800"} bg-zinc-950 pl-1.5 pr-1 py-1.5" data-i="${i}">
           <button type="button" data-lock="${i}" aria-pressed="${locked.has(e.name)}" aria-label="${locked.has(e.name) ? "Unlock" : "Keep"} ${esc(e.name)}" class="w-9 h-9 shrink-0 rounded-lg text-base tap-active ${locked.has(e.name) ? "bg-emerald-950 text-emerald-300" : "bg-zinc-900 text-zinc-500"}">${locked.has(e.name) ? "🔒" : "🔓"}</button>
           <div class="min-w-0 flex-1"><span class="block text-[13px] font-semibold text-zinc-100 leading-snug">${esc(e.name)}</span>
-            <small class="block text-[10px] text-zinc-500">${esc(RMAP[e.region].label)} · ${e.sets} × ${esc(e.reps)}${e.link ? ' · <span class="text-purple-300">superset with next</span>' : ""}</small></div>
-          <button type="button" data-swap="${i}" aria-label="Swap ${esc(e.name)} for another" class="w-9 h-9 shrink-0 rounded-lg bg-zinc-900 text-zinc-300 text-base tap-active">↻</button>
+            <small class="block text-[10px] text-zinc-500">${esc(regLabel(e.region))} · ${e.extra === "cardio" ? esc(e.reps) : e.sets + " × " + esc(e.reps)}${e.link ? ` · <span class="text-purple-300">${res.style === "super" ? "superset with next" : "circuit"}</span>` : ""}</small></div>
+          ${e.extra ? "" : `<button type="button" data-swap="${i}" aria-label="Swap ${esc(e.name)} for another" class="w-9 h-9 shrink-0 rounded-lg bg-zinc-900 text-zinc-300 text-base tap-active">↻</button>`}
           <button type="button" data-del="${i}" aria-label="Remove ${esc(e.name)}" class="w-9 h-9 shrink-0 rounded-lg bg-zinc-900 text-zinc-500 text-sm tap-active">✕</button></div>`).join("");
       const card = K.openSheet(el, `${K.head(res.title, n ? `${n} exercises · ${sets} sets · about ${mins} min` : "Nothing to build")}
         ${res.note ? `<p class="text-[11px] leading-relaxed text-zinc-300 bg-zinc-950 border border-zinc-800 rounded-xl p-2.5">${esc(res.note)}</p>` : ""}
@@ -14388,6 +14481,7 @@ const PTSIM = (function () {
           const out = res.items.filter((x, k) => k !== i);
           if (i > 0 && res.items[i - 1].link) delete res.items[i - 1].link;      // its partner stands on its own now
           res.items = out; res.minutes = PT.buildMinutes(out); drawResult();
+          if (!e.extra) app.toast(e.name + " removed", "Never show it", () => { PT.hideExercise(e.name, app); app.toast("Hidden. You can bring it back in Settings."); }, 6000);
         }
         else if (b.dataset.swap !== undefined) {
           const i = parseInt(b.dataset.swap, 10), old = res.items[i]; if (!old) return;
@@ -14395,6 +14489,7 @@ const PTSIM = (function () {
           if (!next) { app.toast("No other exercise for that muscle fits"); return; }
           locked.delete(old.name); avoid.push(old.name); PT.noteBuild([old.name], app);
           res.items = next; note(); drawResult();
+          app.toast("Swapped for another", "Never show " + old.name.slice(0, 22), () => { PT.hideExercise(old.name, app); app.toast("Hidden. You can bring it back in Settings."); }, 6000);
         }
         else if (b.id === "pt-bd-start") {
           const list = res.items.map(e => { const x = Object.assign({}, e); delete x.comp; delete x.fam; return x; });
@@ -15235,6 +15330,45 @@ const PTSIM = (function () {
     return r;
   };
   setTimeout(() => { try { applyGym(); ensureDrawerRow(); } catch (e) { } }, 500);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.26.0: Settings list of exercises hidden from "Build me a workout" (with Show again).
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const A = () => window.app;
+  const $ = id => document.getElementById(id);
+  function draw() {
+    const a = A(); if (!a) return;
+    const list = Array.isArray(a.settings.hiddenEx) ? a.settings.hiddenEx : [];
+    let box = $("pt-hiddenex");
+    if (!list.length) { if (box) box.remove(); return; }
+    if (!box) {
+      const ref = $("pt-gym-row") || $("pt-textsize"); if (!ref) return;
+      box = document.createElement("details");
+      box.id = "pt-hiddenex"; box.className = "mt-3 rounded-xl bg-zinc-950 border border-zinc-800 px-3 py-2";
+      ref.insertAdjacentElement("afterend", box);
+      box.addEventListener("click", e => {
+        const b = e.target.closest("[data-show]"); if (!b) return;
+        PT.showExercise(b.dataset.show, A()); draw();
+      });
+    }
+    const open = box.open;
+    box.innerHTML = `<summary class="text-xs font-bold text-zinc-100 cursor-pointer">Hidden exercises (${list.length})</summary>
+      <p class="text-[11px] text-zinc-400 mt-1.5">These never come up in Build me a workout.</p>
+      <div class="mt-2 space-y-1">${list.map(n => `<div class="flex items-center justify-between gap-2 text-xs text-zinc-200"><span class="min-w-0 truncate">${PT.esc(n)}</span><button type="button" data-show="${PT.esc(n)}" class="shrink-0 px-2.5 py-1 rounded-lg bg-zinc-800 text-emerald-400 font-semibold tap-active">Show again</button></div>`).join("")}</div>`;
+    box.open = open;
+  }
+  const oExtras = proto.renderSettingsExtras;
+  proto.renderSettingsExtras = async function () {
+    const r = oExtras ? await oExtras.apply(this, arguments) : undefined;
+    try { draw(); } catch (e) { console.error("PulseTrack hidden exercises", e); }
+    return r;
+  };
 })();
   </script>
 </body>

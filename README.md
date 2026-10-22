@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.25.0*
+*Version 2.26.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -471,6 +471,14 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.26.0**
+- **Build me a workout, more options:**
+  - **Goals:** added **Muscle size (volume)**, **Strength-endurance** and **Pump day** (machines and cables, 12 to 20 reps, short rests).
+  - **Focus on a weak spot:** pick a muscle, or **Least trained lately**, and it is added to the workout with an extra exercise.
+  - **Warm-up** (1 to 2 mobility moves first), **Cool-down stretches** (up to 3, for the muscles you trained) and a **Cardio finisher** (5, 10 or 15 minutes on a machine your gym has).
+  - **Circuit** and **HIIT (timed)** styles: every exercise back to back, rest only after the last one, same rounds for all (HIIT is 40 seconds each).
+  - **Never show it:** removing or swapping an exercise offers **Never show it**. Hidden exercises are listed in **Settings → Hidden exercises** with **Show again**.
 
 **2.25.0**
 - **Finish screen "vs last time":** shows how the volume compares with the last time you did this same day, and how many lifts went up or down.
