@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.24.0*
+*Version 2.25.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -363,6 +363,7 @@ Some of the built-in programs spell exercises differently from the standard list
 
 - **Backup and Restore:** save all your data to a file (workouts, programs, body entries and your cardio and sports log), and load it back on this phone or a new one.
 - **Automatic safety copies (2.24.0):** the first time you open the app each day (after you have a workout saved), PulseTrack keeps a copy of everything on the phone. The newest 8 are kept. **Settings → Data & Backup → Automatic safety copies** lists them (date, number of workouts, version) with **Restore** next to each, and **Make one now**. Going back first saves a copy of how things are right now, so you can undo it. They live on the phone, so they protect against a mistake or a bad update, but clearing the browser's data removes them: a backup file is still the real safety net. The backup reminder on Home now appears after 7 days.
+- **Repeat last workout (2.25.0):** **Repeat last workout** in the menu, and **Do this workout again** on the finish screen, fill today's day with the weights and reps from your most recent saved workout.
 - **Undo delete (2.24.0):** deleting a workout from History or a body entry shows **Undo** for 10 seconds.
 - **No storage cap:** when the normal space fills up, PulseTrack keeps saving in your phone's large storage, for as long as your phone has room. Settings shows **No size limit**.
 - **CSV export:** download your workout history for Excel or Google Sheets.
@@ -470,6 +471,15 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.25.0**
+- **Finish screen "vs last time":** shows how the volume compares with the last time you did this same day, and how many lifts went up or down.
+- **Gym mode:** huge inputs and buttons, high contrast, and only what you need mid-set. Turn it on with the **Gym mode** button at the top of a workout, or in Settings.
+- **Timed sets:** planks, holds, hangs and carries (and any exercise with a target like "45s") get a ⏱ button on each set. It counts up, or down from the target, and fills the reps box with the seconds.
+- **Drop set button:** **↓ Drop** on an exercise adds a drop set (tagged D) at about 80% of your last weight.
+- **Repeat last workout** in the menu and on the finish screen.
+- **Voice logging:** **🎤 Say a set** on the workout screen. Say "bench 185 for 8" and the next open set of that exercise is filled in. It needs a browser that supports speech recognition (Chrome on Android does; iPhone Safari may not).
+- The plate picture under barbell sets (already there) is unchanged.
 
 **2.24.0**
 - **Automatic safety copies.** A copy of your data is kept on the phone once a day (newest 8), with a one-tap Restore in Settings → Data & Backup. Going back saves a copy of the current state first.

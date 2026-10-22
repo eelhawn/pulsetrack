@@ -377,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.24.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.25.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3757,7 +3757,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.24.0";
+    const APP_VERSION = "2.25.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -14955,6 +14955,286 @@ const PTSIM = (function () {
     #home-week .pt-wd.pt-future .pt-wn { color: rgb(var(--z500)); }
   `;
   document.head.appendChild(css);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.25.0: logging tools.
+ *  - Finish screen: "vs last time" (volume and lifts up/down against the last time you did this same day).
+ *  - Gym mode: huge buttons, high contrast, only what you need while lifting (Settings, or the Gym button on the workout screen).
+ *  - Timed sets: a timer button on holds (planks, hangs, carries) counts up, or down from a target like "45s", and fills the reps box.
+ *  - Drop set button: one tap adds a drop set at about 80% of your last weight.
+ *  - Repeat last workout: from the menu and the finish screen.
+ *  - Voice logging: say "bench 185 for 8" and the next open set is filled in (where the phone's browser supports it).
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const A = () => window.app;
+  const $ = id => document.getElementById(id);
+  const esc = s => PT.esc(s);
+
+  const css = document.createElement("style");
+  css.id = "pt-v225-css";
+  css.textContent = `
+    #pt-wtools { display: flex; gap: .5rem; }
+    #pt-wtools button { flex: 1 1 0; padding: .55rem .5rem; border-radius: .75rem; font-size: .75rem; font-weight: 700; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); color: rgb(var(--z200)); }
+    #pt-wtools button[aria-pressed="true"] { background: rgb(var(--a950)); border-color: rgb(var(--a600)); color: rgb(var(--a300)); }
+    #pt-wtools button.pt-listen { background: rgb(var(--a600)); color: #fff; }
+    .pt-tset { min-width: 2.6rem; padding: .3rem .4rem; border-radius: .6rem; font-size: .7rem; font-weight: 700; font-family: ui-monospace, monospace; background: rgb(var(--z800)); color: rgb(var(--z200)); border: 1px solid rgb(var(--z700)); flex-shrink: 0; margin-right: .35rem; }
+    .pt-tset.on { background: rgb(var(--a600)); color: #fff; border-color: rgb(var(--a500)); }
+    .pt-drop { padding: .25rem .6rem; border-radius: .5rem; font-size: .75rem; font-weight: 600; background: rgb(88 28 135 / .35); color: rgb(216 180 254); border: 1px solid rgb(107 33 168 / .6); }
+    #pt-summary-vs { font-size: .8rem; font-weight: 600; text-align: center; }
+    /* gym mode */
+    body.pt-gym #view-workout .set-row { padding-top: .35rem; padding-bottom: .35rem; }
+    body.pt-gym #view-workout .input-set-field { width: 5rem !important; height: 3.1rem; font-size: 1.35rem; font-weight: 700; color: rgb(var(--z50)); border-width: 2px; border-color: rgb(var(--z600)); }
+    body.pt-gym #view-workout .input-set-field[data-field="reps"] { width: 4rem !important; }
+    body.pt-gym #view-workout .btn-check-set { width: 3.4rem; height: 3.4rem; border-radius: 1rem; }
+    body.pt-gym #view-workout .btn-cycle-tag { padding: .5rem .7rem; font-size: .85rem; }
+    body.pt-gym #view-workout .set-row .text-xs, body.pt-gym #view-workout .set-row span.font-bold { font-size: 1rem; }
+    body.pt-gym #view-workout .set-row .text-\\[10px\\] { font-size: .75rem; color: rgb(var(--z300)); }
+    body.pt-gym #view-workout .plate-viz, body.pt-gym #view-workout .btn-ex-info, body.pt-gym #view-workout .btn-link-ex { display: none !important; }
+    body.pt-gym #view-workout .btn-add-set, body.pt-gym #view-workout .btn-remove-set, body.pt-gym #view-workout .pt-drop { padding: .6rem 1rem; font-size: 1rem; }
+    body.pt-gym #view-workout [data-ex-card] h3 { font-size: 1.15rem; color: #fff; }
+  `;
+  document.head.appendChild(css);
+
+  const gym = () => !!(A() && A().settings && A().settings.gymMode);
+  function applyGym() { document.body.classList.toggle("pt-gym", gym()); const b = $("pt-gym-btn"); if (b) b.setAttribute("aria-pressed", gym() ? "true" : "false"); }
+  function setGym(on) { const a = A(); a.settings.gymMode = !!on; WorkoutStorage.saveSettings(a.settings); applyGym(); const t = $("setting-toggle-gym"); if (t) t.checked = !!on; }
+
+  /* ------------------------------------------------------------- vs last time */
+  function bestByEx(a, s) {
+    const m = {};
+    (s.ex || []).forEach(e => { let b = 0; (e.sets || []).forEach(st => { if (st.t !== "W") b = Math.max(b, a.setE1rm(e.name, st, s.date) || 0); }); m[e.name] = b; });
+    return m;
+  }
+  function vsLast(a) {
+    const cur = a.lastSummary && a.lastSummary.session;
+    let p = $("pt-summary-vs");
+    if (!p) { const l = $("summary-pr-list"); if (!l) return; p = document.createElement("p"); p.id = "pt-summary-vs"; l.parentElement.insertBefore(p, l); }
+    p.classList.add("hidden");
+    if (!cur) return;
+    const prev = (a.sessions || []).filter(s => s.id !== cur.id && s.pid === cur.pid && s.day === cur.day && (s.ts || 0) < (cur.ts || Infinity))
+      .sort((x, y) => (y.ts || 0) - (x.ts || 0))[0];
+    if (!prev || !(prev.vol > 0)) return;
+    const diff = (cur.vol || 0) - prev.vol, pct = Math.round(diff / prev.vol * 100);
+    const c = bestByEx(a, cur), o = bestByEx(a, prev);
+    let up = 0, down = 0;
+    Object.keys(c).forEach(n => { if (o[n] > 0 && c[n] > 0) { if (c[n] > o[n] * 1.005) up++; else if (c[n] < o[n] * 0.995) down++; } });
+    const same = Math.abs(pct) < 1;
+    p.className = "text-center " + (same ? "text-zinc-300" : diff > 0 ? "text-emerald-400" : "text-amber-300");
+    p.innerHTML = (same ? "Same volume as last time" : `${diff > 0 ? "▲" : "▼"} ${Math.abs(pct)}% ${diff > 0 ? "more" : "less"} volume than last time (${diff > 0 ? "+" : "−"}${Math.abs(Math.round(diff)).toLocaleString()} ${esc(a.wLabel())})`)
+      + (up || down ? `<br><span class="text-xs font-normal text-zinc-400">${up} lift${up === 1 ? "" : "s"} up${down ? ", " + down + " down" : ""}</span>` : "");
+  }
+  const oFin = proto.finishWorkoutV2;
+  proto.finishWorkoutV2 = async function () {
+    const r = await oFin.apply(this, arguments);
+    try { vsLast(this); ensureSummaryBtn(); } catch (e) { console.error("PulseTrack vs last time", e); }
+    return r;
+  };
+
+  /* ------------------------------------------------------------- repeat last workout */
+  function lastSession(a) { return (a.sessions || []).slice().sort((x, y) => (y.ts || 0) - (x.ts || 0))[0]; }
+  function again() {
+    const a = A(), s = a && lastSession(a);
+    if (!s) { a.toast("No saved workout to repeat yet"); return; }
+    if (a.dom.modalSummary) a.dom.modalSummary.classList.add("hidden");
+    if (a.closeDrawer) a.closeDrawer();
+    a.repeatSession(s);
+  }
+  function ensureSummaryBtn() {
+    if ($("pt-summary-again")) return;
+    const t = $("btn-summary-template"); if (!t) return;
+    const b = document.createElement("button");
+    b.id = "pt-summary-again"; b.type = "button";
+    b.className = "w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-bold rounded-xl tap-active text-sm";
+    b.textContent = "↻ Do this workout again";
+    t.parentElement.insertBefore(b, t);
+  }
+  function ensureDrawerRow() {
+    if ($("pt-drawer-again")) return;
+    const ref = $("pt-drawer-build"); const grid = ref && ref.parentElement; if (!grid) return;
+    const b = document.createElement("button");
+    b.id = "pt-drawer-again"; b.type = "button"; b.className = "pt-dr tap-active mt-1.5";
+    b.innerHTML = '<span class="pt-dr-i">↻</span><span class="pt-dr-l">Repeat last workout</span><span class="pt-dr-c">›</span>';
+    grid.insertAdjacentElement("afterend", b);
+  }
+
+  /* ------------------------------------------------------------- timed sets */
+  const TIMED = /plank|hold|hang|wall sit|l-sit|isometric|carry|farmer|hollow|static|stretch|bridge/i;
+  let run = null, tick = null;
+  const mmss = s => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
+  function targetOf(ex) { const m = String((ex && ex.reps) || "").match(/(\d+)\s*(?:s|sec|secs|seconds)\b/i); return m ? parseInt(m[1], 10) : 0; }
+  function beep() { try { navigator.vibrate && navigator.vibrate([200, 100, 200]); } catch (e) { } try { const s = window.sound; s && s.completeChime && s.completeChime(); } catch (e) { } }
+  function paint() {
+    document.querySelectorAll(".pt-tset").forEach(b => {
+      const on = run && run.key === b.dataset.key;
+      b.classList.toggle("on", !!on);
+      if (!on) { b.textContent = "⏱"; return; }
+      const el = (Date.now() - run.start) / 1000;
+      b.textContent = run.target ? mmss(Math.max(0, run.target - el)) : mmss(el);
+    });
+  }
+  function stopRun(auto) {
+    const a = A(); if (!run) return;
+    const el = Math.round((Date.now() - run.start) / 1000), secs = auto && run.target ? run.target : el, key = run.key;
+    clearInterval(tick); tick = null; run = null;
+    if (!a.logs[key]) a.logs[key] = { completed: false, weight: "", reps: "", tag: "R" };
+    a.logs[key].reps = String(Math.max(1, secs));
+    WorkoutStorage.saveLogs(a.logs);
+    a.renderWorkoutView();
+    a.toast("Held " + secs + " s");
+  }
+  function startRun(key, target) {
+    if (run) stopRun(false);
+    run = { key, start: Date.now(), target };
+    tick = setInterval(() => {
+      if (!run) return;
+      if (run.target && (Date.now() - run.start) / 1000 >= run.target) { beep(); stopRun(true); return; }
+      paint();
+    }, 250);
+    paint();
+  }
+
+  /* ------------------------------------------------------------- draw on the workout screen */
+  function decorate() {
+    const a = A(); if (!a || !a.dom || !a.dom.exercisesList) return;
+    const list = a.dom.exercisesList;
+    if (!$("pt-wtools")) {
+      const bar = document.createElement("div");
+      bar.id = "pt-wtools";
+      bar.innerHTML = '<button type="button" id="pt-gym-btn" aria-pressed="false">🏋️ Gym mode</button>' + (window.SpeechRecognition || window.webkitSpeechRecognition ? '<button type="button" id="pt-voice-btn">🎤 Say a set</button>' : "");
+      list.parentElement.insertBefore(bar, list);
+    }
+    applyGym();
+    const day = a.activeDay; if (!day) return;
+    list.querySelectorAll("[data-ex-card]").forEach(card => {
+      const ex = (day.exercises || [])[parseInt(card.dataset.exCard, 10)]; if (!ex) return;
+      if (ex.type !== "tabata" && !a.exKind(ex).cardio) {
+        const add = card.querySelector(".btn-add-set");
+        if (add && !card.querySelector(".pt-drop")) {
+          const d = document.createElement("button");
+          d.type = "button"; d.className = "pt-drop tap-active"; d.dataset.exindex = add.dataset.exindex; d.textContent = "↓ Drop";
+          d.setAttribute("aria-label", "Add a drop set"); add.parentElement.insertBefore(d, add);
+        }
+      }
+      if (TIMED.test(ex.name) || targetOf(ex)) {
+        card.querySelectorAll(".set-row").forEach(row => {
+          const chk = row.querySelector(".btn-check-set"); if (!chk || row.querySelector(".pt-tset")) return;
+          const b = document.createElement("button");
+          b.type = "button"; b.className = "pt-tset tap-active"; b.dataset.key = chk.dataset.key; b.dataset.target = targetOf(ex);
+          b.setAttribute("aria-label", "Time this set"); b.textContent = "⏱";
+          chk.parentElement.insertBefore(b, chk);
+        });
+      }
+    });
+    paint();
+  }
+  const oRW = proto.renderWorkoutView;
+  proto.renderWorkoutView = function () {
+    const r = oRW.apply(this, arguments);
+    try { decorate(); } catch (e) { console.error("PulseTrack workout tools", e); }
+    return r;
+  };
+
+  /* ------------------------------------------------------------- drop set */
+  function dropSet(btn) {
+    const a = A(), idx = parseInt(btn.dataset.exindex, 10), ex = a.activeDay.exercises[idx]; if (!ex) return;
+    let w = 0;
+    for (let s = (ex.sets || 0) - 1; s >= 0; s--) {
+      const e = a.logs[a.getLogKey(a.activeProgram.id, a.activeDay.dayNumber, ex.id, s)];
+      if (e && parseFloat(e.weight) > 0) { w = parseFloat(e.weight); break; }
+    }
+    const step = a.settings && a.settings.unit === "kg" ? 2.5 : 5;
+    const dw = w > 0 ? Math.max(step, Math.round(w * 0.8 / step) * step) : 0;
+    const n = a.changeSets(ex, 1);
+    a.logs[a.getLogKey(a.activeProgram.id, a.activeDay.dayNumber, ex.id, n - 1)] = { completed: false, weight: dw ? String(dw) : "", reps: "", tag: "D" };
+    a.pendingEnter = { exIndex: idx, setIndex: n - 1 };
+    WorkoutStorage.saveLogs(a.logs); WorkoutStorage.setData(a.data);
+    a.renderWorkoutView();
+    a.toast(dw ? "Drop set added at " + dw + " " + a.wLabel() : "Drop set added");
+  }
+
+  /* ------------------------------------------------------------- voice */
+  const NUMS = { zero: 0, one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, seven: 7, eight: 8, nine: 9, ten: 10, eleven: 11, twelve: 12, fifteen: 15, twenty: 20 };
+  /** "bench 185 for 8" -> { name:"bench", w:185, r:8 } */
+  PT.parseVoiceSet = function (text) {
+    let t = String(text || "").toLowerCase().replace(/,/g, "").replace(/\b(pounds|lbs|lb|kilos|kg|reps|rep)\b/g, " ");
+    t = t.replace(/\b(zero|one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fifteen|twenty)\b/g, m => NUMS[m]);
+    const m = t.match(/(\d+(?:\.\d+)?)\s*(?:for|x|by|times|at)?\s*(\d+)\s*$/) || t.match(/(\d+(?:\.\d+)?)\s*(?:for|x|by|times|at)\s*(\d+)/);
+    if (!m) return null;
+    const name = t.slice(0, m.index).replace(/\b(log|set|i did|did|add)\b/g, " ").replace(/\s+/g, " ").trim();
+    return { name, w: parseFloat(m[1]), r: parseInt(m[2], 10) };
+  };
+  function applyVoice(text) {
+    const a = A(), p = PT.parseVoiceSet(text);
+    if (!p) { a.toast("Didn't catch that. Try \"bench 185 for 8\""); return; }
+    if (!a.activeDay) { a.toast("Open a workout first"); return; }
+    const exs = a.activeDay.exercises || [];
+    const words = p.name.split(" ").filter(Boolean);
+    const score = ex => { const n = ex.name.toLowerCase(); return words.length ? words.filter(w => n.includes(w)).length / words.length : 0; };
+    let best = null, bs = 0;
+    exs.forEach(ex => { const s = score(ex); if (s > bs) { bs = s; best = ex; } });
+    if (!best && !words.length) best = exs.find(ex => { for (let s = 0; s < ex.sets; s++) { const e = a.logs[a.getLogKey(a.activeProgram.id, a.activeDay.dayNumber, ex.id, s)]; if (!(e && e.completed)) return true; } return false; });
+    if (!best) { a.toast("No exercise matching \"" + p.name + "\" in this workout"); return; }
+    let si = -1;
+    for (let s = 0; s < best.sets; s++) { const e = a.logs[a.getLogKey(a.activeProgram.id, a.activeDay.dayNumber, best.id, s)]; if (!(e && e.completed)) { si = s; break; } }
+    if (si < 0) si = a.changeSets(best, 1) - 1;
+    const key = a.getLogKey(a.activeProgram.id, a.activeDay.dayNumber, best.id, si);
+    a.logs[key] = Object.assign({ completed: false, tag: "R" }, a.logs[key], { weight: String(p.w), reps: String(p.r) });
+    WorkoutStorage.saveLogs(a.logs); WorkoutStorage.setData(a.data);
+    a.renderWorkoutView();
+    a.toast(best.name + ": " + p.w + " × " + p.r + " in set " + (si + 1) + ". Tap ✓ to finish it.");
+  }
+  let rec = null;
+  function listen() {
+    const SR = window.SpeechRecognition || window.webkitSpeechRecognition, btn = $("pt-voice-btn"); if (!SR) return;
+    if (rec) { try { rec.stop(); } catch (e) { } return; }
+    rec = new SR(); rec.lang = "en-US"; rec.interimResults = false; rec.maxAlternatives = 1;
+    rec.onstart = () => { if (btn) { btn.classList.add("pt-listen"); btn.textContent = "🎤 Listening…"; } };
+    rec.onresult = e => { try { applyVoice(e.results[0][0].transcript); } catch (err) { console.error(err); } };
+    rec.onerror = e => { A().toast(e.error === "not-allowed" ? "Microphone is blocked for this app" : "Voice didn't work here"); };
+    rec.onend = () => { rec = null; const b = $("pt-voice-btn"); if (b) { b.classList.remove("pt-listen"); b.textContent = "🎤 Say a set"; } };
+    try { rec.start(); } catch (e) { rec = null; }
+  }
+
+  /* ------------------------------------------------------------- clicks */
+  document.addEventListener("click", e => {
+    const a = A(); if (!a || !e.target.closest) return;
+    let t;
+    if ((t = e.target.closest(".pt-tset"))) { e.preventDefault(); if (run && run.key === t.dataset.key) stopRun(false); else startRun(t.dataset.key, parseInt(t.dataset.target, 10) || 0); return; }
+    if ((t = e.target.closest(".pt-drop"))) { dropSet(t); return; }
+    if (e.target.closest("#pt-gym-btn")) { setGym(!gym()); return; }
+    if (e.target.closest("#pt-voice-btn")) { listen(); return; }
+    if (e.target.closest("#pt-summary-again") || e.target.closest("#pt-drawer-again")) { again(); return; }
+  });
+
+  /* ------------------------------------------------------------- settings + start-up */
+  const oExtras = proto.renderSettingsExtras;
+  proto.renderSettingsExtras = async function () {
+    const r = oExtras ? await oExtras.apply(this, arguments) : undefined;
+    try {
+      const seg = $("pt-textsize");
+      if (seg && !$("pt-gym-row")) {
+        const row = document.createElement("label");
+        row.id = "pt-gym-row"; row.className = "flex items-center justify-between gap-3 mt-3 cursor-pointer";
+        row.innerHTML = '<span><span class="block text-xs font-bold text-zinc-100">Gym mode</span><span class="block text-[11px] text-zinc-400">Huge buttons and high contrast on the workout screen.</span></span><input type="checkbox" id="setting-toggle-gym" class="w-5 h-5 accent-emerald-500">';
+        seg.insertAdjacentElement("afterend", row);
+        row.querySelector("input").addEventListener("change", ev => setGym(ev.target.checked));
+      }
+      const g = $("setting-toggle-gym"); if (g) g.checked = gym();
+    } catch (e) { console.error("PulseTrack settings 2.25", e); }
+    return r;
+  };
+  const oSD = proto.updateDrawerStatus;
+  proto.updateDrawerStatus = function () {
+    const r = oSD.apply(this, arguments);
+    try { ensureDrawerRow(); } catch (e) { }
+    return r;
+  };
+  setTimeout(() => { try { applyGym(); ensureDrawerRow(); } catch (e) { } }, 500);
 })();
   </script>
 </body>
