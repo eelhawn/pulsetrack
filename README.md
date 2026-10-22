@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.21.0*
+*Version 2.22.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -182,7 +182,7 @@ Home → **Build a Workout** (in the **Start training** row), or **Build a worko
 
 ### Work check-in (new in 2.19.0)
 
-Landscaping, building, moving house: a hard day at work uses the same back, grip and legs you lift with. Home has a **Work today** card with three buttons: **Light or off**, **Normal** and **Heavy**. Tap one at the end of the day (tap it again to clear it, or tap **Yesterday?** to fill in yesterday). It is saved per day and is part of your backup.
+Landscaping, building, moving house: a hard day at work uses the same back, grip and legs you lift with. Home has a one-row **Work today** card with three buttons: **Light or off**, **Normal** and **Heavy**. Tap one at the end of the day (tap it again to clear it, or tap **Yesterday?** to fill in yesterday). It is saved per day and is part of your backup.
 
 - **Only Heavy changes anything.** A heavy day counts in the **Recovery map** as extra hard sets for lower back, forearms and grip, legs, shoulders, traps and back, so the Muscles tab, the "still recovering" line on Up next and **Pick for me** all know your back is tired. Chest and arms are not affected. Light and Normal days are just a record.
 - **Suggested weight stays put.** On a heavy day, lifts for those muscles keep their weight instead of suggesting more ("Heavy work day, so keep this weight and add a rep or two"). Chest and arm lifts still go up.
@@ -224,7 +224,7 @@ An interval timer for HIIT. Open it from the side menu (**Tabata Timer**) or fro
 
 ### Plate calculator
 
-Shows which plates to load on each side, including gym plates. It is also a tile on Home.
+Shows which plates to load on each side, including gym plates. Open it from **☰ → Gym tools → Plate Calculator**.
 
 ### 1-rep-max (1RM) calculator
 
@@ -291,10 +291,10 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 
 ### Records and history
 
-- **Personal records:** new records for weight, estimated 1-rep max and volume are listed under **PRs this month** on Home (tap it for the full list), and your best lifts are in the **1RM Trophy Room**: one quiet line per lift with a thin bar toward your goal. Tap a lift to see its details and to set a goal.
+- **Personal records:** new records for weight, estimated 1-rep max and volume are listed in **Progress** (and under **PRs this month** on Home if you switch that card on in Settings → Home screen), and your best lifts are in the **1RM Trophy Room** (also a Home card you can switch on): one quiet line per lift with a thin bar toward your goal. Tap a lift to see its details and to set a goal.
 - **Per-exercise charts:** weight, estimated max and rep records over time.
 - **Streaks and weekly goal:** set how many days a week you want to train and keep your streak alive. **Settings → Streaks & Time Off** lets you mark **sick days** and **trips**: those days don't break your streak (each one lowers that week's goal by one, and a week fully off is skipped). Cardio counts toward the goal only if you switch on **Count cardio toward my weekly goal** (off by default).
-- **Home, top to bottom (new order in 2.21.0):** **today's workout** (Start Workout), **Start training** (**Build a Workout**, **Empty Workout**, **Cardio & Sports**), **This week** (seven days with a dot for lifting, a cardio dot once you have logged cardio, sick or trip days marked, and a line underneath with your streak, active days this month and a **Calendar ›** button), **Work today** (see Work check-in), **Last workout** and **PRs this month** (one short row each; the PRs row only shows when you have new records), the **Search** bar, then the shortcuts in three labelled groups: **Train** (Programs, Exercise Library, My Exercises), **Track** (Progress, History, Body & Photos) and **Tools** (1RM Calculator, Plate Calculator, Tabata Timer), and last the **1RM Trophy Room**. The separate Consistency card is off by default because its numbers are now in This week. Home is kept calm on purpose: small quiet headings, one soft colour for the shortcut icons, and no long text.
+- **Home (shorter in 2.22.0):** it fits on one screen and shows only the daily things, top to bottom: **today's workout** (Start Workout, with a small **Skip this workout** link), **Start training** (**Build a Workout**, **Empty Workout**, **Cardio & Sports**), **This week** (seven days with a dot for lifting, a cardio dot once you have logged cardio, sick or trip days marked, and a line underneath with your streak, active days this month and a **Calendar ›** button), and **Work today** (see Work check-in). Everything else that used to be on Home is one tap away in the **☰ menu** (Programs, History, Progress, Exercise Library, My Exercises, Body & Photos, Cardio & Sports, Search, Plate Calculator, Tabata Timer, 1RM Calculator) and each of these Home cards can be switched back on in **Settings → Home screen**: **Last workout**, **PRs this month**, the **Search** bar, the **Train / Track / Tools** shortcut tiles, the **1RM Trophy Room** and **Consistency**.
 - **Up next on Home** includes a line about today's muscles, like "Chest, Shoulders still recovering (ready in about 3 days)" or "✓ Muscles are rested for this day".
 - **Calendar and History:** see every past workout. Open one to edit it, **Do Again**, **Share** it, or **Save as Routine**. Tap the **Time** box on a past workout to fix its length.
 
@@ -311,7 +311,7 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 
 ## Cardio and sports
 
-A separate place to log runs, rides, swims, classes and every sport. Open it from the **Cardio & Sports** tile on Home (next to 1RM Calculator and Plate Calculator), or from the menu (☰) → **Cardio & Sports**.
+A separate place to log runs, rides, swims, classes and every sport. Open it from the **Cardio & Sports** button on Home (in the Start training row) or from the menu (☰) → **Cardio & Sports**.
 
 **It is kept apart from your lifting on purpose.** Cardio and sports sessions do not count toward your sets, volume, records, muscle map, recovery, "Consistency" or the weekly workout goal. They have their own history, stats and weekly goal. Cardio you log inside a lifting workout (for example a treadmill finisher on a program day) still works as before and stays part of that workout.
 
@@ -334,7 +334,7 @@ A separate place to log runs, rides, swims, classes and every sport. Open it fro
 
 ### Search (new in 2.8.0)
 
-Tap the **Search** bar on Home or **☰ → Search**. Type one or more words (every word has to match) and results come in groups:
+Tap **☰ → Search** (or the **Search** bar on Home, if you switch that card on). Type one or more words (every word has to match) and results come in groups:
 
 - **Exercises**, including their other names ("DB press" finds Dumbbell Press), with how many workouts you have for each.
 - **Programs**, by title, day names or an exercise inside.
@@ -399,11 +399,11 @@ In Light mode the muscle map keeps its dark body figure so the muscles stay easy
 
 **Reset look** puts colours, background, effect, font and corners back to the original. It does not touch your Home layout, your own exercises or your data.
 
-**Home layout** (Settings → Appearance → Home screen): use ▲ ▼ to move a card and **Shown / Hidden** to hide it. The cards are the monthly recap banner, today's workout, Start training, This week, Work check-in, Last workout, PRs this month, the Search bar, Train / Track / Tools, the 1RM Trophy Room and Consistency (off by default). **Put the cards back the way they were** resets it to the 2.21.0 order. A phone that had its own order from an older version is moved to the new order once when it updates; cards it had hidden stay hidden, and any change you make after that is kept.
+**Home layout** (Settings → Appearance → Home screen): use ▲ ▼ to move a card and **Shown / Hidden** to show or hide it. The cards are the monthly recap banner, today's workout, Start training, This week and Work check-in (all shown by default), then Last workout, PRs this month, the Search bar, Train / Track / Tools, the 1RM Trophy Room and Consistency (all hidden by default since 2.22.0). **Put the cards back the way they were** resets it to the short Home. When a phone updates to 2.22.0 it gets the short Home once, with a short note saying where things went; any change you make after that is kept.
 
-### The side menu (new layout in 2.21.0)
+### The side menu (new layout in 2.21.0, two more entries in 2.22.0)
 
-Tap the ☰ button. Top to bottom: your **current program** (tap it to carry on with the workout, or to pick a day or a program), three **quick actions** (Empty workout, Build a workout, Search), the **Menu** (Home, Programs, History, Progress, Exercise Library, Body & Photos, Cardio & Sports, Settings, with the page you are on marked), **Gym tools** (Plate calculator, Tabata timer, and 30/60/90/120-second rest countdowns), and the **Workout calendar**, folded away until you tap it (the **Calendar ›** button on Home opens it for you).
+Tap the ☰ button. Top to bottom: your **current program** (tap it to carry on with the workout, or to pick a day or a program), three **quick actions** (Empty workout, Build a workout, Search), the **Menu** (Home, Programs, History, Progress, Exercise Library, **My Exercises**, Body & Photos, Cardio & Sports, Settings, with the page you are on marked), **Gym tools** (Plate Calculator, Tabata Timer, **1RM Calculator**, and 30/60/90/120-second rest countdowns), and the **Workout calendar**, folded away until you tap it (the **Calendar ›** button on Home opens it for you).
 
 App pop-ups (confirmations, text boxes, lists) match your theme in light or dark, and their buttons say what they do, like **Remove**.
 
@@ -468,6 +468,12 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.22.0**
+- **A much shorter Home screen.** Home was about two screens of cards. It now fits on one screen and shows only what you use every day: today's workout (with a small Skip link instead of a big button, and no long description), the **Start training** row as three small buttons, **This week**, and a one-row **Work today**. **Last workout**, **PRs this month**, the **Search** bar, the nine shortcut tiles and the **1RM Trophy Room** are off by default. All of them are still in the ☰ menu or in Progress and History, and each card can be switched back on in Settings → Home screen.
+- **The menu has what the tiles had.** **My Exercises** is now a row in the menu and **1RM Calculator** sits next to the Plate Calculator and Tabata Timer under Gym tools.
+- **Every phone gets the shorter Home once** when it updates (a saved Home order from 2.21.0 is replaced by the new short one, and a short note says where things went). Your changes after that are kept.
+- **Work today** is a single row (the label and the three buttons side by side), and it only adds a line of text on a heavy day.
 
 **2.21.0**
 - **A tidier Home screen.** The cards now run in the order you use them: today's workout, a **Start training** row (Build a Workout, Empty Workout, Cardio & Sports), **This week** (with your streak and a Calendar button), Work today, Last workout, PRs, Search, then the shortcuts in three labelled groups (**Train**, **Track**, **Tools**), then the Trophy Room. The two sizes of shortcut tile are now one size, the duplicate Consistency card and Build card are gone, and Work today is one quiet row until you use it. A phone with its own saved Home order is moved to the new order once (hidden cards stay hidden); Settings → Home screen still lets you change it.

@@ -319,6 +319,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
         <button data-nav="history" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">🗓️</span><span class="pt-dr-l">History</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
         <button data-nav="progress" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">📈</span><span class="pt-dr-l">Progress</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
         <button data-nav="library" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">📚</span><span class="pt-dr-l">Exercise Library</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
+        <button type="button" id="pt-drawer-myex" class="pt-dr tap-active"><span class="pt-dr-i">✏️</span><span class="pt-dr-l">My Exercises</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
         <button data-nav="body" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">⚖️</span><span class="pt-dr-l">Body &amp; Photos</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
         <button data-nav="cardio" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">🏃</span><span class="pt-dr-l">Cardio &amp; Sports</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
         <button data-nav="settings" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">⚙️</span><span class="pt-dr-l">Settings</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
@@ -327,9 +328,10 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
       <!-- Gym tools -->
       <div class="space-y-1.5">
         <span class="pt-dh">Gym tools</span>
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-3 gap-2">
           <button id="btn-drawer-plate-calc" class="pt-dq tap-active"><span class="pt-dq-i">🏋️</span><span>Plate Calculator</span></button>
           <button id="btn-drawer-quick-tabata" class="pt-dq tap-active"><span class="pt-dq-i">⏱️</span><span>Tabata Timer</span></button>
+          <button type="button" id="pt-drawer-1rm" class="pt-dq tap-active"><span class="pt-dq-i">🧮</span><span>1RM Calculator</span></button>
         </div>
         <div class="pt-dcard space-y-2">
           <div class="flex items-center justify-between text-xs">
@@ -375,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.21.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.22.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -388,7 +390,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
       <div id="home-banners" class="space-y-2"></div>
       <div id="home-cardio" class="hidden"></div>
 
-      <div class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 rounded-2xl p-5 space-y-4 shadow-xl">
+      <div id="home-routine" class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 rounded-2xl p-4 space-y-3 shadow-xl">
         <div class="flex items-center justify-between">
           <span id="home-chip" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/60">ACTIVE ROUTINE</span>
           <span id="home-active-day-badge" class="text-xs font-mono text-zinc-400">Day 1</span>
@@ -3755,7 +3757,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.21.0";
+    const APP_VERSION = "2.22.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -8040,22 +8042,19 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
         { id: "build", label: "Start training (Build, Empty, Cardio)", el: () => document.getElementById("home-build") },
         { id: "week", label: "This week", el: () => document.getElementById("home-week") },
         { id: "work", label: "Work check-in", el: () => document.getElementById("home-work") },
-        { id: "recap", label: "Last workout", el: () => document.getElementById("home-recap") },
-        { id: "prmonth", label: "PRs this month", el: () => document.getElementById("home-prmonth") },
-        { id: "search", label: "Search bar", el: () => document.getElementById("home-search") },
-        { id: "tiles", label: "Train, Track and Tools", el: () => closestChild("btn-home-view-programs") },
-        { id: "trophy", label: "1RM Trophy Room", el: () => closestChild("trophy-room") },
+        { id: "recap", label: "Last workout", off: true, el: () => document.getElementById("home-recap") },
+        { id: "prmonth", label: "PRs this month", off: true, el: () => document.getElementById("home-prmonth") },
+        { id: "search", label: "Search bar", off: true, el: () => document.getElementById("home-search") },
+        { id: "tiles", label: "Train, Track and Tools", off: true, el: () => closestChild("btn-home-view-programs") },
+        { id: "trophy", label: "1RM Trophy Room", off: true, el: () => closestChild("trophy-room") },
         { id: "streak", label: "Consistency (it is also in This week)", off: true, el: () => closestChild("home-streak-title") }
       ];
       function homeLayout(app) {
-        // 2.21.0: the Home cards were regrouped. Phones that had a saved order get the new order once; what they hid stays hidden.
-        if (app.settings.homeLayoutV !== 2) {
-          const old = Array.isArray(app.settings.homeLayout) ? app.settings.homeLayout : null;
-          if (old && old.length) {
-            const was = {}; old.forEach(i => { if (i && i.id) was[i.id] = i.show !== false; });
-            app.settings.homeLayout = HOME.map(h => ({ id: h.id, show: h.id === "streak" ? false : h.id === "build" ? true : was[h.id] !== false }));
-          }
-          app.settings.homeLayoutV = 2;
+        // 2.22.0: Home is only the daily things now. Every phone gets the shorter Home once; the rest is in the menu and can be switched back on in Settings.
+        if (app.settings.homeLayoutV !== 3) {
+          app.settings.homeLayout = HOME.map(h => ({ id: h.id, show: !h.off }));
+          app.settings.homeLayoutV = 3;
+          app.settings.homeNote = 1;
           try { WorkoutStorage.saveSettings(app.settings); } catch (e) { }
         }
         const saved = Array.isArray(app.settings.homeLayout) ? app.settings.homeLayout : [];
@@ -8173,7 +8172,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
       const origInit = ApplicationUI.prototype.initExtras;
       ApplicationUI.prototype.initExtras = function () {
         const r = origInit.apply(this, arguments);
-        try { loadCustom(this); ensureTiles(this); ensureLibraryButton(); applyHomeLayout(this); drawHomeLayout(this); } catch (e) { console.error("PulseTrack v2.5 init", e); }
+        try { loadCustom(this); ensureTiles(this); ensureLibraryButton(); applyHomeLayout(this); drawHomeLayout(this); PT.applyHomeLayout = () => { applyHomeLayout(this); drawHomeLayout(this); }; } catch (e) { console.error("PulseTrack v2.5 init", e); }
         return r;
       };
       const origUi = ApplicationUI.prototype.updateAppearanceUI;
@@ -13853,11 +13852,11 @@ const PTSIM = (function () {
     const note = cur === 3
       ? (ease ? "Heavy day. Your back, legs and grip count as worked in the recovery map, and lifts for them keep their weight today."
         : "Heavy day. Your back, legs and grip count as worked in the recovery map.")
-      : cur ? "Saved. Nothing changes on a " + (cur === 1 ? "light" : "normal") + " day." : "";
+      : "";
     box.className = SLIM + " space-y-2";
-    box.innerHTML = `<div class="flex items-center justify-between gap-2"><h4 class="pt-eyebrow">Work ${off ? "yesterday" : "today"}</h4>
-      <button type="button" id="pt-work-day" class="text-[11px] font-semibold text-zinc-400 underline tap-active">${off ? "Back to today" : "Yesterday?"}</button></div>
-      <div class="grid grid-cols-3 gap-1.5">${LEVELS.map(l => `<button type="button" data-wl="${l.v}" aria-pressed="${cur === l.v}" class="pt-opt tap-active text-center">${l.label}</button>`).join("")}</div>
+    box.innerHTML = `<div class="flex items-center gap-3"><div class="shrink-0 leading-tight"><h4 class="pt-eyebrow">Work ${off ? "yesterday" : "today"}</h4>
+      <button type="button" id="pt-work-day" class="text-[10px] font-semibold text-zinc-500 underline tap-active mt-1">${off ? "Back to today" : "Yesterday?"}</button></div>
+      <div class="grid grid-cols-3 gap-1.5 flex-1 min-w-0">${LEVELS.map(l => `<button type="button" data-wl="${l.v}" aria-pressed="${cur === l.v}" class="pt-opt tap-active text-center">${l.label}</button>`).join("")}</div></div>
       ${note ? `<p class="text-[11px] leading-relaxed text-zinc-400">${note}</p>` : ""}`;
   }
   const oHome = proto.renderHomeView;
@@ -14663,6 +14662,72 @@ const PTSIM = (function () {
       const cur = name === "days" ? "programs" : name;
       document.querySelectorAll("#side-drawer .pt-dr").forEach(b => { if (b.dataset.nav === cur) b.setAttribute("aria-current", "page"); else b.removeAttribute("aria-current"); });
     } catch (e) { }
+    return r;
+  };
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.22.0: a much shorter Home screen.
+ *  Home now shows only the daily things: today's workout, Start training (Build, Empty, Cardio), This week and Work today.
+ *  Last workout, PRs, Search, the Train / Track / Tools tiles and the Trophy Room are off by default. They are all in the menu
+ *  (1RM Calculator and My Exercises were added there) and each one can be switched back on in Settings > Home screen.
+ *  Every phone gets the shorter Home once, and a short note says where things went.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const A = () => window.app;
+  const $ = id => document.getElementById(id);
+
+  const css = document.createElement("style");
+  css.id = "pt-v222-css";
+  css.textContent = `
+    /* the workout card: no long description, a text link for Skip */
+    #view-home #home-routine #home-program-desc { display: none; }
+    #view-home #home-routine #home-up-next { padding: .5rem .75rem; }
+    #view-home #home-routine #btn-home-resume { padding-top: .85rem; padding-bottom: .85rem; }
+    #view-home #btn-home-skip { background: none; border: 0; padding: .2rem .5rem; width: auto; margin: 0 auto; font-size: .6875rem; font-weight: 600; color: rgb(var(--z400)); text-decoration: underline; }
+    #view-home #btn-home-skip:not(.hidden) { display: block; }
+    /* Start training: three small buttons in a row */
+    #view-home #home-build > h4 { display: none; }
+    #view-home #home-build .pt-hg { gap: .5rem; }
+    #view-home #home-build .pt-hg > button { flex-direction: row; align-items: center; gap: .5rem; padding: .6rem .55rem; border-radius: .875rem; }
+    #view-home #home-build .pt-hg > button > span:first-child { width: 1.75rem; height: 1.75rem; flex-shrink: 0; font-size: .95rem; }
+    #view-home #home-build .pt-hg > button > span:last-child { font-size: .6875rem; line-height: 1.15; }
+    /* Work today: one row */
+    #view-home #home-work { padding-top: .6rem; padding-bottom: .6rem; }
+    #view-home #home-work .pt-opt { padding: .5rem .15rem; font-size: .6875rem; line-height: 1.1; display: flex; align-items: center; justify-content: center; min-height: 2.5rem; }
+  `;
+  document.head.appendChild(css);
+
+  // what the Home tiles used to open, from the menu
+  document.addEventListener("click", e => {
+    const a = A(); if (!a || !e.target.closest) return;
+    const t = e.target.closest("#pt-drawer-1rm, #pt-drawer-myex"); if (!t) return;
+    a.closeDrawer();
+    const tile = $(t.id === "pt-drawer-1rm" ? "tile-rm" : "tile-myex");
+    setTimeout(() => {
+      if (tile) tile.click();
+      else if (t.id === "pt-drawer-1rm" && PT.openRmCalc) PT.openRmCalc();
+    }, 180);
+  });
+
+  // one short note after the update, for phones that already have workouts
+  const oHome = proto.renderHomeView;
+  proto.renderHomeView = function () {
+    const r = oHome.apply(this, arguments);
+    try {
+      const a = this;
+      if (a.settings && a.settings.homeNote === 1) {
+        a.settings.homeNote = 2;
+        try { WorkoutStorage.saveSettings(a.settings); } catch (e) { }
+        if ((a.sessions || []).length || a.activeProgram) {
+          setTimeout(() => a.toast("Home is shorter now. Programs, History, Progress and the rest are in the menu. Settings > Home screen turns any card back on.", "Open menu", () => a.openDrawer(), 9000), 900);
+        }
+      }
+    } catch (e) { console.error("PulseTrack home note", e); }
     return r;
   };
 })();
