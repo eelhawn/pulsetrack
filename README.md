@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.29.2*
+*Version 2.30.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -471,6 +471,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.30.0**
+- **New badges (76 of them):** every badge has a tier (Bronze, Silver, Gold, Platinum) and its own medal with a ring that fills as you get closer. Lines: workouts, hours trained, big sessions, week streaks, total lifted, personal records, bench/squat/deadlift/press milestones, early bird, night owl, weekend warrior, body weight logs and exercise variety.
+- **Progress page → Badges:** an earned/tier count, a **Next up** card for the badge you are closest to, category filters, and a grid showing the date you earned each one. Tap any badge for its details and progress.
+- **Unlock celebration:** a full-screen medal reveal when you earn a badge (after a workout). Badges you already had are not announced again.
 
 **2.29.2**
 - The drag grip on exercise cards is gone (it was easy to hit while scrolling). Reorder with the up and down arrows.
