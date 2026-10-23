@@ -377,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.29.1</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.29.2</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3757,7 +3757,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.29.1";
+    const APP_VERSION = "2.29.2";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -15639,7 +15639,7 @@ const PTSIM = (function () {
     try {
       ensureCopyBtn();
       const list = this.dom.exercisesList, exs = (this.activeDay && this.activeDay.exercises) || [];
-      if (list && exs.length > 1) list.querySelectorAll(":scope > [data-ex-card]").forEach(c => {
+      if (false && list && exs.length > 1) list.querySelectorAll(":scope > [data-ex-card]").forEach(c => {
         if (c.querySelector(".pt-grip")) return;
         const anchor = c.querySelector(".btn-mv-up") || c.querySelector(".btn-swap-ex"); if (!anchor) return;
         const g = document.createElement("button");

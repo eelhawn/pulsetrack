@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.29.1*
+*Version 2.29.2*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -472,6 +472,9 @@ Keep every `id` unique. New programs reach phones on the next update.
 
 ## Version history
 
+**2.29.2**
+- The drag grip on exercise cards is gone (it was easy to hit while scrolling). Reorder with the up and down arrows.
+
 **2.29.1**
 - **Fix:** in Gym mode the exercise name no longer disappears.
 - **Tidier workout screen:** Share day, Copy day, Skip day and Clear progress are now behind one **⋯ More** button.
@@ -492,7 +495,7 @@ Keep every `id` unique. New programs reach phones on the next update.
 - **Build me a program** (Programs screen): pick a split (Push/Pull/Legs, twice a week, Upper/Lower, Full body), 1 or 4 weeks, time, goal and equipment. Every day is filled in by the workout builder and saved in Programs. 4 weeks is a wave: week 2 one more rep, week 3 one more set on the big lifts, week 4 an easy week.
 - **Make a 4-week version with progression** on the day list of your own programs.
 - **Paste a program** (Programs screen): paste text like "Bench Press 4x8" (a line without sets x reps starts a new day), check the preview, save.
-- **Copy day** on the workout screen, and a **drag grip** on each exercise card to reorder.
+- **Copy day** on the workout screen, (reorder exercises with the up and down arrows).
 - **Easy-week suggestion** on Home after 4 steady weeks (2+ workouts each); **Start easy week** makes built workouts one set lighter for 7 days.
 - **Suggested today** on Home when you have no program.
 - **Training days** (Settings): Home shows a rest day with your recovery, or a training day.
