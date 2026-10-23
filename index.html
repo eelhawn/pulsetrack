@@ -377,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.32.1</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.33.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -1274,9 +1274,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
     const BIG_LIFTS = [
       { key: "Squat",          match: /squat/i,                          exclude: /split|goblet/i,         goal: 405 },
       { key: "Bench Press",    match: /bench press|smith machine flat press/i,                   exclude: /dumbbell|incline/i,     goal: 315 },
-      { key: "Deadlift",       match: /deadlift/i,                       exclude: /romanian|stiff|single/i, goal: 495 },
-      { key: "Overhead Press", match: /(overhead|military|shoulder) press/i, exclude: null,               goal: 185 },
-      { key: "Barbell Row",    match: /barbell.*row|row.*barbell|bent.over/i, exclude: null,              goal: 225 }
+      { key: "Deadlift",       match: /deadlift/i,                       exclude: /romanian|stiff|single/i, goal: 495 }
     ];
 
     // Built-in programs that were replaced (the 15 per-phase versions became 7 full 12-week programs)
@@ -3757,7 +3755,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.32.1";
+    const APP_VERSION = "2.33.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -6197,10 +6195,9 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
     const STRENGTH_LEVELS = ["Beginner", "Novice", "Intermediate", "Advanced", "Elite"];
     const STRENGTH_COLORS = ["#a1a1aa", "#38bdf8", "#34d399", "#a78bfa", "#fbbf24"];
     const STRENGTH_LIFTS = [
-      { key: "bench", label: "Bench Press", match: /bench press/i, exclude: /dumbbell|incline|decline|close|wide|reverse|smith|machine|floor|single|hammer|iso-lateral|board|pin|spoto|landmine/i },
-      { key: "squat", label: "Squat", match: /squat/i, exclude: /split|goblet|dumbbell|smith|hack|machine|front|sumo|zercher|box|pistol|jump|belt|sissy|bulgarian|overhead|safety|cyclist|heel|pendulum|v-squat|landmine|kettlebell|wall|plie|bodyweight|cossack|pause|jefferson|air squat/i },
-      { key: "deadlift", label: "Deadlift", match: /deadlift/i, exclude: /romanian|stiff|single|rdl|dumbbell|deficit|trap|hex|kettlebell|b-stance|snatch|smith|machine/i },
-      { key: "ohp", label: "Overhead Press", match: /(overhead|military|shoulder) press/i, exclude: /dumbbell|seated|machine|smith|landmine|single|arnold|behind|push press|kettlebell|iso-lateral|hammer|converging|z press/i }
+      { key: "bench", label: "Bench Press", also: /^smith machine flat press$/i, match: /bench press/i, exclude: /dumbbell|incline|decline|close|wide|reverse|smith|machine|floor|single|hammer|iso-lateral|board|pin|spoto|landmine/i },
+      { key: "squat", label: "Squat", also: /^smith machine squats?$/i, match: /squat/i, exclude: /split|goblet|dumbbell|smith|hack|machine|front|sumo|zercher|box|pistol|jump|belt|sissy|bulgarian|overhead|safety|cyclist|heel|pendulum|v-squat|landmine|kettlebell|wall|plie|bodyweight|cossack|pause|jefferson|air squat/i },
+      { key: "deadlift", label: "Deadlift", match: /deadlift/i, exclude: /romanian|stiff|single|rdl|dumbbell|deficit|trap|hex|kettlebell|b-stance|snatch|smith|machine/i }
     ];
     const MAP_REGIONS = {
       chest: "Chest", shoulders: "Shoulders", biceps: "Biceps", triceps: "Triceps", forearms: "Forearms", abs: "Abs & core",
@@ -6614,7 +6611,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
       bestLift(lift) {
         let best = 0, holder = "";
         Object.keys(this.prs || {}).forEach(n => {
-          if (lift.match.test(n) && !(lift.exclude && lift.exclude.test(n)) && !PT.isBodyweightEx(n) && this.prs[n] > best) { best = this.prs[n]; holder = n; }
+          if (((lift.match.test(n) && !(lift.exclude && lift.exclude.test(n))) || (lift.also && lift.also.test(n))) && !PT.isBodyweightEx(n) && this.prs[n] > best) { best = this.prs[n]; holder = n; }
         });
         return { best, holder };
       },
@@ -6675,7 +6672,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
             <div class="h-2 rounded-full bg-zinc-800 overflow-hidden"><div class="h-2 rounded-full ${club >= 1000 ? "bg-amber-400" : "bg-emerald-500"}" style="width:${clubPct}%"></div></div>
             <p class="text-[10px] text-zinc-500">${club >= 1000 ? "You're in! Squat + bench + deadlift add up to 1,000 lb or more." : club ? `Squat + bench + deadlift. ${PT.num(fromLb(1000 - club), 0)} ${u} to go.` : "Log a squat, bench press and deadlift to start your total."}</p>
           </div>
-          <p class="text-[10px] text-zinc-500 leading-relaxed">Uses your best estimated 1-rep max for barbell bench, back squat, deadlift and standing overhead press, compared with StrengthLevel.com standards for your body weight. Tap a lift for its chart.</p>
+          <p class="text-[10px] text-zinc-500 leading-relaxed">Uses your best estimated 1-rep max for barbell or Smith machine bench, back or Smith machine squat, and deadlift, compared with StrengthLevel.com standards for your body weight. Tap a lift for its chart.</p>
         </div>`;
         return html;
       },
@@ -16783,7 +16780,7 @@ const PTSIM = (function () {
   }
   PT.liftRanks = function (appArg) {
     const a = appArg || A(), bw = bwLb(a), fac = a.settings.rankSex === "w" ? 0.65 : 1, best = bestLifts(a);
-    return LIFTS.map(l => {
+    return LIFTS.filter(l => l.key !== "ohp").map(l => { // the overhead press stays only as a badge line
       const e1 = best[l.key], th = l.r.map(x => x * bw * fac), idx = bw ? th.filter(t => e1 >= t).length : 0;
       return { key: l.key, label: l.label, icon: l.icon, e1, idx, rank: RANKS[idx], next: idx < 5 ? RANKS[idx + 1] : null, toNext: idx < 5 && bw ? Math.max(0, th[idx] - e1) : 0, base: idx > 0 ? th[idx - 1] : 0, target: idx < 5 ? th[idx] : th[4], ratio: bw ? e1 / bw : 0, bw };
     });
@@ -18201,7 +18198,7 @@ const PTSIM = (function () {
   }
 
   /* ============================================================== wall of fame */
-  const LIFTS = [["bench", "Bench", /^(smith machine (flat |bench )?press|(barbell )?bench press)$/i], ["squat", "Squat", /^(smith machine squats?|(barbell )?(back )?squat)$/i], ["dead", "Deadlift", /^(barbell )?(conventional )?deadlift$/i], ["ohp", "Press", /^(barbell )?(standing )?(overhead|military|shoulder) press$/i]];
+  const LIFTS = [["bench", "Bench", /^(smith machine (flat |bench )?press|(barbell )?bench press)$/i], ["squat", "Squat", /^(smith machine squats?|(barbell )?(back )?squat)$/i], ["dead", "Deadlift", /^(barbell )?(conventional )?deadlift$/i]];
   function myCard(a) {
     const st = PT.rewards(a), best = { bench: 0, squat: 0, dead: 0, ohp: 0 };
     S(a).forEach(s => (s.ex || []).forEach(e => LIFTS.forEach(([k, , re]) => { if (re.test(e.name)) (e.sets || []).forEach(x => { if (x.t !== "W") best[k] = Math.max(best[k], toLb(a.setE1rm(e.name, x, s.date) || 0, s.unit)); }); })));
@@ -18466,6 +18463,384 @@ const PTSIM = (function () {
     .pt-grade-l { flex: none; width: 4rem; height: 4rem; border-radius: 1rem; border: 3px solid; display: flex; align-items: center; justify-content: center; font-size: 1.7rem; font-weight: 900; background: rgb(var(--z950)); }
     #pt-pg-month .pt-b { padding: .5rem .85rem; border-radius: .65rem; font-size: .75rem; font-weight: 700; background: rgb(var(--z800)); color: rgb(var(--z100)); }
     #pt-pg-month .pt-b.go { background: rgb(var(--a600)); color: #fff; }
+  `;
+  document.head.appendChild(css);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.33.0: strength levels for every exercise.
+ * The big lifts (bench, squat, deadlift) use the StrengthLevel.com tables already in the app.
+ * Every other exercise is graded as a share of one of those lifts (a dumbbell curl is a share of the
+ * press, a leg extension a share of the squat, and so on). Pull-ups and dips use bodyweight ratios,
+ * and push-ups, sit-ups and the like use reps. These are estimates, not lab standards.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.strengthThresholds) return;
+  const proto = ApplicationUI.prototype;
+  const A = () => window.app;
+  const $ = id => document.getElementById(id);
+  const esc = s => PT.esc(s);
+  const LB = 2.2046226;
+  const S = a => a.sessions || [];
+  const toLb = (v, from) => (from === "kg" ? v * LB : v);
+  const sessTime = s => s.ts || (PT.fromDs && PT.fromDs(s.date) ? PT.fromDs(s.date).getTime() : 0);
+  const LEVELS = ["Beginner", "Novice", "Intermediate", "Advanced", "Elite"];
+  const COLS = ["#a1a1aa", "#38bdf8", "#34d399", "#a78bfa", "#fbbf24"];
+
+  /* ============================================================== the standards
+   * w(ref, f)      weight lifted, as a share f of the 1RM standard for the reference lift (bench, squat, deadlift, ohp)
+   * bw(ratios)     pull-ups and dips: 1RM including bodyweight, as a multiple of bodyweight
+   * reps(list)     bodyweight moves: reps in one set (extra weight counts as extra reps)
+   * null           timed holds, carries, stretches, bands: not graded */
+  const w = (ref, f) => ({ k: "w", ref, f });
+  const bwk = r => ({ k: "bw", r });
+  const reps = t => ({ k: "reps", t });
+  const NONE = null;
+  const RULES = [
+    /* ---- not graded: timed holds, carries, cardio-ish, bands, mobility, assisted/negative reps ---- */
+    [/plank|\bhold\b|hollow|l-sit|dead hang|towel hang|carry|farmer|suitcase|sandbag|wall sit|crawl|dead bug|bird dog|superman|flutter|toe touch|heel tap|mountain climb|jacks?\b|stir the pot|windshield|scapular|negative|gripper|pinch|wrist roller|pronation|neck crunch|\bband\b|resistance band|body saw|bodyweight triceps ext|triceps rockers|clap|jump|bound|tibialis|reverse nordic|slider|stability ball (leg curl|pull|crunch)|copenhagen/, NONE],
+    /* ---- pull-ups, chin-ups, dips: bodyweight plus anything added ---- */
+    [/muscle-?ups?/, bwk([1.15, 1.35, 1.6, 1.9, 2.3])],
+    [/\b(pull-?ups?|chin-?ups?)\b/, bwk([1.03, 1.15, 1.3, 1.55, 1.85])],
+    [/machine triceps dip|plate-loaded triceps dip|dip machine/, w("bench", 0.9)],
+    [/bench dips?/, reps([8, 18, 30, 45, 65])],
+    [/\bdips?\b/, bwk([1.05, 1.25, 1.5, 1.85, 2.2])],
+    /* ---- bodyweight reps ---- */
+    [/handstand push/, reps([1, 3, 8, 15, 25])],
+    [/pike push/, reps([3, 8, 15, 25, 40])],
+    [/(decline|deficit|diamond|archer|ring|close(-grip)?) push-?ups?/, reps([3, 10, 20, 32, 45])],
+    [/(incline|knee|wide-grip|wide) push-?ups?|incline close-grip push/, reps([8, 22, 40, 60, 85])],
+    [/push-?ups?/, reps([5, 15, 30, 45, 65])],
+    [/inverted row|ring row/, reps([4, 10, 18, 28, 40])],
+    [/dragon flag/, reps([1, 3, 6, 10, 15])],
+    [/toes-to-bar/, reps([1, 5, 10, 18, 28])],
+    [/ab wheel|rollout/, reps([3, 8, 15, 25, 40])],
+    [/hanging (knee|oblique)|captain|knee raises|supported knee|side knee|seated knee tuck/, reps([5, 12, 20, 30, 42])],
+    [/hanging leg raise|bench leg raise/, reps([3, 8, 15, 24, 35])],
+    [/leg raises?|leg pull-ins?|bent-knee hip raise|reverse crunch/, reps([8, 18, 30, 45, 65])],
+    [/v-ups?|jackknife/, reps([5, 14, 25, 40, 60])],
+    [/pistol/, reps([1, 3, 6, 10, 15])],
+    [/sissy squat machine/, w("squat", 0.4)],
+    [/sissy squat/, reps([5, 12, 20, 30, 45])],
+    [/rotary calf/, w("squat", 0.9)],
+    [/nordic/, reps([1, 3, 6, 10, 15])],
+    [/glute-ham raise|\bghr\b/, reps([3, 8, 14, 22, 32])],
+    [/bodyweight squat|^wedge|freestanding squat|cossack|lateral lunge|curtsy|^jefferson/, reps([12, 25, 40, 60, 85])],
+    [/^(single-leg )?(glute bridges?|glute frog pumps)$/, reps([10, 25, 40, 60, 90])],
+    [/single-leg calf raise/, reps([10, 20, 30, 45, 60])],
+    [/^back extensions$/, reps([10, 20, 30, 45, 60])],
+    /* ---- weighted core: crunch, sit-up, twist, side bend ---- */
+    [/cable crunch|cable reverse crunch|oblique cable crunch/, w("bench", 0.5)],
+    [/machine ab|ab coaster|rotary torso|smith machine crunch/, w("bench", 0.6)],
+    [/weighted (decline )?sit-?ups?|weighted scissor|weighted crunch/, w("ohp", 0.5)],
+    [/weighted russian|landmine twist|woodchop|pallof|cable side bend/, w("ohp", 0.3)],
+    [/dumbbell side bend/, w("ohp", 0.45)],
+    [/crunch|sit-?up|twist|oblique|bicycle|scissor|bottoms up|jackknife|tuck-up|hip raise/, reps([10, 25, 40, 60, 90])],
+    /* ---- squat family ---- */
+    [/safety squat|ssb/, w("squat", 0.95)],
+    [/front squat/, w("squat", 0.7)],
+    [/zercher/, w("squat", 0.7)],
+    [/box squat|pause squat|high-bar|low-bar|^squat$|barbell hack squat/, w("squat", 1)],
+    [/goblet|dumbbell squat|dumbbell sumo/, w("squat", 0.3)],
+    [/smith machine squat/, w("squat", 1)],
+    [/smith machine split/, w("squat", 0.7)],
+    [/bulgarian.*barbell|barbell.*split squat/, w("squat", 0.5)],
+    [/split squat|bulgarian/, w("squat", 0.3)],
+    [/barbell .*lunge|smith machine front lunge/, w("squat", 0.55)],
+    [/lunge/, w("squat", 0.2)],
+    [/step-?ups?/, w("squat", 0.3)],
+    [/hack squat|pendulum|v-squat|belt squat|wide-stance squat|narrow-stance squat/, w("squat", 0.85)],
+    [/leg press calf/, w("squat", 1.2)],
+    [/single-leg leg press/, w("squat", 1)],
+    [/vertical leg press/, w("squat", 1.5)],
+    [/leg press/, w("squat", 1.35)],
+    [/single-leg extension|leg extension/, w("squat", 0.42)],
+    [/dumbbell leg curl/, w("squat", 0.12)],
+    [/single-leg curl|single-leg lying/, w("squat", 0.25)],
+    [/leg curl/, w("squat", 0.32)],
+    [/dumbbell (hip thrust|glute bridge)|single-leg hip thrust/, w("squat", 0.5)],
+    [/hip thrust|glute bridge/, w("squat", 0.9)],
+    [/glute kickback|cable hip|multi-hip/, w("squat", 0.35)],
+    [/hip abductor|hip adductor/, w("squat", 0.7)],
+    [/seated dumbbell calf/, w("squat", 0.3)],
+    [/dumbbell calf/, w("squat", 0.25)],
+    [/seated calf/, w("squat", 0.6)],
+    [/calf raise/, w("squat", 0.9)],
+    /* ---- deadlift family ---- */
+    [/barbell bent over row to straight/, w("deadlift", 0.55)],
+    [/trap bar deadlift|hex bar deadlift/, w("deadlift", 1.05)],
+    [/rack pull/, w("deadlift", 1.1)],
+    [/deficit barbell deadlift|snatch-grip|dorian/, w("deadlift", 0.9)],
+    [/dumbbell deadlift|stiff-legged dumbbell/, w("deadlift", 0.35)],
+    [/single-leg rdl/, w("deadlift", 0.22)],
+    [/dumbbell romanian|b-stance|stiff-legged|romanian|smith machine romanian|smith machine deadlift/, w("deadlift", 0.72)],
+    [/good morning/, w("squat", 0.5)],
+    [/reverse hyper/, w("deadlift", 0.4)],
+    [/weighted back extension|back extension/, w("deadlift", 0.3)],
+    [/pull-?through/, w("deadlift", 0.4)],
+    [/kettlebell swing/, w("deadlift", 0.22)],
+    [/sumo deadlift|deadlift/, w("deadlift", 1)],
+    [/barbell bent over row to straight/, w("deadlift", 0.55)],
+    /* ---- bench family ---- */
+    [/smith machine (flat|bench) press|smith machine decline/, w("bench", 1)],
+    [/smith machine incline press/, w("bench", 0.8)],
+    [/smith machine close-grip/, w("bench", 0.9)],
+    [/incline close-grip bench|reverse-grip incline|incline bench press/, w("bench", 0.82)],
+    [/decline bench press/, w("bench", 1.05)],
+    [/close-grip bench|close grip bench/, w("bench", 0.9)],
+    [/wide-grip barbell bench|reverse-grip barbell bench|pause bench|spoto|^floor press$|^bench press$/, w("bench", 1)],
+    [/dumbbell floor press/, w("bench", 0.38)],
+    [/incline close-grip dumbbell/, w("bench", 0.34)],
+    [/(low )?incline dumbbell press|incline dumbbell (shoulder )?press/, w("bench", 0.3)],
+    [/single-arm (low incline )?dumbbell bench press|single-arm low incline/, w("bench", 0.4)],
+    [/dumbbell (bench|squeeze) press|decline dumbbell press|neutral-grip dumbbell press|close-grip dumbbell press/, w("bench", 0.34)],
+    [/svend|plate press/, w("bench", 0.2)],
+    [/hammer strength (flat|incline)/, w("bench", 0.85)],
+    [/iso-lateral plate-loaded (decline|wide)/, w("bench", 0.85)],
+    [/converging chest|machine (chest|incline|decline) press/, w("bench", 0.85)],
+    [/cable (scooped )?chest press|seated cable chest press|single-arm cable chest|cable chest fly to/, w("bench", 0.4)],
+    [/reverse pec deck/, w("bench", 0.35)],
+    [/pec deck/, w("bench", 0.45)],
+    [/reverse cable crossover/, w("ohp", 0.2)],
+    [/dumbbell flyes?|incline dumbbell flyes|decline dumbbell flyes/, w("bench", 0.17)],
+    [/cable (flyes?|crossovers?)|(flat|incline|decline) cable flyes|(high|low)[- ]to[- ](low|high) cable fl|(high|low) cable crossover|cable fly ladder|bent-over cable crossover|single-arm cable crossover/, w("bench", 0.22)],
+    [/dumbbell pullover/, w("bench", 0.38)],
+    [/barbell pullover/, w("bench", 0.38)],
+    [/machine pullover/, w("bench", 0.55)],
+    /* ---- rows and pulldowns ---- */
+    [/rear delt row|dumbbell rear delt/, w("ohp", 0.2)],
+    [/meadows/, w("bench", 0.5)],
+    [/hex bar row/, w("bench", 0.9)],
+    [/straight-arm/, w("bench", 0.35)],
+    [/single-arm cable lat pulldown|half-kneeling single-arm lat/, w("bench", 0.4)],
+    [/behind-the-neck pulldown|lat pulldown/, w("bench", 0.62)],
+    [/iso-lateral plate-loaded (high|low) row|hammer strength row/, w("bench", 0.65)],
+    [/single-arm (machine row|cable seated)/, w("bench", 0.42)],
+    [/t-bar|seal row|chest-supported row|chest-supported cable|barbell row|reverse-grip barbell row|pendlay|yates|hex bar row|barbell bent|bent-over trap/, w("bench", 0.75)],
+    [/dumbbell row|incline dumbbell row|bent-over dumbbell row|helms|kroc|gorilla|reverse-grip dumbbell row|renegade|dumbbell rear delt row/, w("bench", 0.36)],
+    [/seated cable row|cable seated row|underhand seated|neutral-grip seated cable|low row|diverging seated|machine row|smith machine row/, w("bench", 0.62)],
+    /* ---- shoulders ---- */
+    [/behind-the-neck (barbell )?press|smith machine behind-the-neck/, w("ohp", 0.8)],
+    [/dumbbell push press/, w("ohp", 0.52)],
+    [/dumbbell cleans/, w("ohp", 0.5)],
+    [/push press|clean and press|power clean/, w("ohp", 1.1)],
+    [/z press/, w("ohp", 0.75)],
+    [/seated reverse-grip barbell press|front and back|bradford|scott press/, w("ohp", 0.75)],
+    [/landmine press/, w("ohp", 0.7)],
+    [/arnold press/, w("ohp", 0.45)],
+    [/(seated|standing)? ?dumbbell (shoulder )?press|single-arm dumbbell press/, w("ohp", 0.4)],
+    [/kettlebell press/, w("ohp", 0.45)],
+    [/seated cable shoulder press/, w("ohp", 0.6)],
+    [/iso-lateral plate-loaded shoulder press|machine shoulder press|multi-press/, w("ohp", 1.05)],
+    [/overhead press|smith machine overhead press/, w("ohp", 1)],
+    [/machine lateral/, w("ohp", 0.4)],
+    [/cable (y-)?raises|cable lateral|single-arm cable lateral|seated cable lateral/, w("ohp", 0.14)],
+    [/lateral raises?|lateral to front|lu raises|scaption|y-raise|cuban/, w("ohp", 0.14)],
+    [/(barbell|ez-bar) front raise/, w("ohp", 0.35)],
+    [/plate front|weight plate/, w("ohp", 0.28)],
+    [/front raises?/, w("ohp", 0.18)],
+    [/rear delt|reverse flye|reverse cable crossover|lying cable rear|machine lying rear|prone dumbbell/, w("ohp", 0.16)],
+    [/face pull/, w("ohp", 0.42)],
+    [/dumbbell upright/, w("ohp", 0.3)],
+    [/cable upright/, w("ohp", 0.6)],
+    [/upright row/, w("ohp", 0.8)],
+    [/barbell incline shoulder raise/, w("ohp", 0.35)],
+    /* ---- traps and neck ---- */
+    [/barbell high pull/, w("deadlift", 0.6)],
+    [/prone trap raise/, w("ohp", 0.12)],
+    [/dumbbell shrug|incline bench dumbbell shrug/, w("deadlift", 0.33)],
+    [/shrug machine|selectorized shrug|cable shrug/, w("deadlift", 0.7)],
+    [/shrugs?/, w("deadlift", 0.75)],
+    /* ---- biceps ---- */
+    [/barbell 21s|21s/, w("ohp", 0.35)],
+    [/(barbell|ez-bar|plate) preacher|machine preacher|plate-loaded biceps|cable preacher|reverse preacher|machine incline curl/, w("ohp", 0.5)],
+    [/cable .*curl|curl.*cable|high cable|lying cable|between-the-legs|single-arm cable curl/, w("ohp", 0.45)],
+    [/(dumbbell|incline) .*curl|curls?.*dumbbell|alternating|bilateral|concentration|hammer curl|seated dumbbell|zottman|cross-body dumbbell|bicep curls|^dumbbell curls/, w("ohp", 0.25)],
+    [/reverse curl|ez-bar reverse/, w("ohp", 0.4)],
+    [/barbell curl|ez-bar curl|spider curl|drag curl|row curl|waiter|preacher curls|seated barbell curl|wide-grip barbell|close-grip barbell/, w("ohp", 0.55)],
+    [/curls?$/, w("ohp", 0.45)],
+    /* ---- triceps ---- */
+    [/jm press/, w("bench", 0.65)],
+    [/machine triceps dip|plate-loaded triceps dip/, w("bench", 0.9)],
+    [/dumbbell skull/, w("bench", 0.17)],
+    [/(ez-bar|barbell|incline|decline|lying|standing) (french|skull|overhead)|overhead ez-bar|barbell french|barbell overhead triceps|close grip french|crucifix|skull crushers/, w("bench", 0.38)],
+    [/incline two-dumbbell|dumbbell overhead|seated overhead dumbbell|single-arm overhead dumbbell|overhead triceps extension|overhead dumbbell/, w("ohp", 0.4)],
+    [/kickback|kick out|tate press/, w("ohp", 0.12)],
+    [/cross-body triceps/, w("ohp", 0.22)],
+    [/single-arm cable pushdown/, w("bench", 0.25)],
+    [/pushdown|cable overhead|single-arm overhead cable|triceps extension|cable skull/, w("bench", 0.34)],
+    /* ---- forearms ---- */
+    [/wrist curl|finger curl/, w("ohp", 0.35)],
+    [/cable reverse curl/, w("ohp", 0.35)]
+  ];
+
+  /** a standard for any exercise name (custom names too). Returns { k, ... } or null */
+  function std(name) {
+    const n = String(name || "").toLowerCase();
+    for (let i = 0; i < RULES.length; i++) if (RULES[i][0].test(n)) return RULES[i][1];
+    return null;
+  }
+  PT.exStd = std;
+
+  /* ============================================================== thresholds and levels */
+  const sexOf = a => (a.settings.strengthSex === "female" ? "female" : "male");
+  function bwOf(a) { try { const v = a.bwOn(PT.ds()); return v > 0 ? (a.unit() === "kg" ? v * LB : v) : 0; } catch (e) { return 0; } }
+  /** 5 thresholds in lb (weight kinds / bodyweight kinds) or reps. */
+  function thresholds(s, sex, bw) {
+    if (!s || !(bw > 0)) return null;
+    if (s.k === "w") { const t = PT.strengthThresholds(s.ref, sex, bw); return t ? t.map(v => v * s.f) : null; }
+    if (s.k === "bw") { const wf = sex === "female" ? 0.6 : 1; return s.r.map(r => bw * (1 + (r - 1) * wf)); }
+    if (s.k === "reps") { const wf = sex === "female" ? 0.65 : 1; return s.t.map(r => Math.max(1, Math.round(r * wf))); }
+    return null;
+  }
+  function levelOf(th, v) {
+    if (!th || !(v > 0)) return null;
+    let idx = 0; for (let k = 1; k < th.length; k++) if (v >= th[k]) idx = k;
+    const next = idx < th.length - 1 ? th[idx + 1] : null, prev = idx === 0 ? 0 : th[idx];
+    return { idx, level: LEVELS[idx], next, nextLevel: next ? LEVELS[idx + 1] : null, frac: next ? Math.max(0, Math.min(1, (v - prev) / (next - prev))) : 1 };
+  }
+  PT.exLevel = (a, name, value) => { const s = std(name); return levelOf(thresholds(s, sexOf(a), bwOf(a)), value); };
+
+  /* ============================================================== what the user has done */
+  const GROUP = { Chest: "Chest", Back: "Back", Traps: "Back", Shoulders: "Shoulders", Biceps: "Arms", Triceps: "Arms", Forearms: "Arms", Legs: "Legs", Core: "Core" };
+  const GROUPS = ["Chest", "Back", "Shoulders", "Arms", "Legs", "Core"];
+  let DB = null;
+  function db() {
+    if (DB) return DB;
+    const byName = new Map(), list = [];
+    (typeof EXERCISE_DATABASE !== "undefined" ? EXERCISE_DATABASE : []).forEach(e => {
+      if (!GROUP[e.category]) return; const g = GROUP[e.category]; list.push({ name: e.name, group: g });
+      byName.set(e.name.toLowerCase(), e.name); (e.aka || []).forEach(k => { if (!byName.has(k.toLowerCase())) byName.set(k.toLowerCase(), e.name); });
+    });
+    return (DB = { byName, list, group: new Map(list.map(x => [x.name, x.group])) });
+  }
+  const canon = n => db().byName.get(String(n || "").toLowerCase()) || n;
+  let memo = null;
+  function bests(a) {
+    const key = S(a).length + ":" + S(a).reduce((m, s) => Math.max(m, s.upd || s.ts || 0), 0) + ":" + a.unit();
+    if (memo && memo.key === key) return memo.map;
+    const map = new Map(), bw = bwOf(a);
+    S(a).forEach(s => (s.ex || []).forEach(e => {
+      const nm = canon(e.name), st = std(nm); if (!st) return; let o = map.get(nm); if (!o) { o = { name: nm, e1: 0, reps: 0, ts: 0 }; map.set(nm, o); }
+      o.ts = Math.max(o.ts, sessTime(s));
+      (e.sets || []).forEach(x => {
+        if (x.t === "W") return;
+        if (st.k === "reps") {
+          const r = parseFloat(x.r) || 0, wt = toLb(parseFloat(x.w) || 0, s.unit); if (r <= 0) return;
+          o.reps = Math.max(o.reps, r * (bw > 0 && wt > 0 ? 1 + wt / bw : 1));
+        } else {
+          const v = toLb(a.setE1rm(e.name, x, s.date) || 0, s.unit); if (v > o.e1) o.e1 = v;
+        }
+      });
+    }));
+    memo = { key, map }; return map;
+  }
+  const scoreOf = (st, o) => (st.k === "reps" ? o.reps : o.e1);
+  function rowsFor(a) {
+    const sex = sexOf(a), bw = bwOf(a), out = [];
+    bests(a).forEach(o => {
+      const st = std(o.name), v = scoreOf(st, o); if (!(v > 0)) return;
+      const th = thresholds(st, sex, bw), lv = levelOf(th, v); if (!lv) return;
+      out.push({ name: o.name, st, v, th, lv, ts: o.ts, group: db().group.get(o.name) || "Other" });
+    });
+    return out;
+  }
+  PT.exLevels = rowsFor;
+
+  /* ============================================================== display */
+  const UI = { mode: "logged", group: "All", q: "", more: 1 };
+  const unitK = a => a.unit() === "kg";
+  const fromLb = (a, v) => (unitK(a) ? v / LB : v);
+  const num = v => Math.round(v).toLocaleString();
+  const fmtV = (a, st, v) => (st.k === "reps" ? `${Math.round(v)} reps` : `${num(fromLb(a, v))} ${a.wLabel()}`);
+  const bar = (p, c) => `<div class="pt-lv-bar"><span style="width:${Math.round(Math.max(0, Math.min(1, p)) * 100)}%;background:${c}"></span></div>`;
+  const chip = (attr, label, on) => `<button type="button" ${attr} aria-pressed="${on}" class="pt-opt tap-active">${esc(label)}</button>`;
+  const kindNote = st => (st.k === "reps" ? "reps in one set" : st.k === "bw" ? "1RM with bodyweight" : "estimated 1RM");
+
+  function listRows(a) {
+    const rows = rowsFor(a), have = new Map(rows.map(r => [r.name, r])), q = UI.q.trim().toLowerCase(), sex = sexOf(a), bw = bwOf(a);
+    let pool;
+    if (UI.mode === "logged") pool = rows.slice().sort((x, y) => y.lv.idx + y.lv.frac - (x.lv.idx + x.lv.frac) || y.ts - x.ts);
+    else pool = db().list.filter(e => std(e.name)).map(e => have.get(e.name) || { name: e.name, st: std(e.name), v: 0, th: thresholds(std(e.name), sex, bw), lv: null, ts: 0, group: e.group });
+    if (UI.group !== "All") pool = pool.filter(r => r.group === UI.group);
+    if (q) pool = pool.filter(r => r.name.toLowerCase().includes(q));
+    return pool;
+  }
+  function rowHtml(a, r) {
+    if (r.lv) {
+      const c = COLS[r.lv.idx];
+      return `<button type="button" class="pt-lv-row tap-active" data-lv="${esc(r.name)}"><div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-white truncate">${esc(r.name)}</span><span class="shrink-0 text-[11px] font-black" style="color:${c}">${r.lv.level}</span></div>${bar(r.lv.frac, c)}<span class="block text-[10px] text-zinc-400">${esc(fmtV(a, r.st, r.v))} · ${r.lv.next ? esc(r.lv.nextLevel) + " at " + esc(fmtV(a, r.st, r.th[r.lv.idx + 1])) : "top level reached"}</span></button>`;
+    }
+    const t = r.th; return `<button type="button" class="pt-lv-row tap-active" data-lv="${esc(r.name)}"><div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-white truncate">${esc(r.name)}</span><span class="shrink-0 text-[10px] text-zinc-500">not logged yet</span></div>${t ? `<span class="block text-[10px] text-zinc-400">Intermediate at ${esc(fmtV(a, r.st, t[2]))} · Elite ${esc(fmtV(a, r.st, t[4]))}</span>` : ""}</button>`;
+  }
+  function cardHtml(a) {
+    const bw = bwOf(a);
+    let html = `<div class="flex items-center justify-between gap-2"><h3 class="text-xs font-bold text-white">Strength levels · every exercise</h3></div>`;
+    if (!bw) return html + `<p class="text-xs text-zinc-400">Log your body weight and every exercise you do gets a level.</p><button id="pt-lvls-bw" type="button" class="w-full py-2.5 rounded-xl text-xs font-bold bg-emerald-600 text-white tap-active">Log body weight</button>`;
+    const rows = rowsFor(a), counts = [0, 0, 0, 0, 0]; rows.forEach(r => counts[r.lv.idx]++);
+    const avg = rows.length ? Math.floor(rows.reduce((n, r) => n + r.lv.idx + r.lv.frac * 0.999, 0) / rows.length) : -1;
+    html += rows.length ? `<div class="flex items-center gap-3 bg-zinc-950 border border-zinc-800 rounded-xl p-3"><span class="text-2xl">📊</span><div class="min-w-0"><span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500">${rows.length} exercise${rows.length === 1 ? "" : "s"} graded</span><span class="block text-base font-black" style="color:${COLS[avg]}">${LEVELS[avg]} on average</span></div></div>
+      <div class="flex flex-wrap gap-1.5">${counts.map((n, i) => (n ? `<span class="pt-lv-pill" style="border-color:${COLS[i]};color:${COLS[i]}">${LEVELS[i]} ${n}</span>` : "")).join("")}</div>` : `<p class="text-xs text-zinc-400">Log some sets and each exercise gets a level here. Tap All exercises to see what each level takes.</p>`;
+    html += `<div class="flex flex-wrap gap-1.5">${chip('data-lvm="logged"', "Mine", UI.mode === "logged")}${chip('data-lvm="all"', "All exercises", UI.mode === "all")}</div>
+      <div class="flex flex-wrap gap-1.5">${["All"].concat(GROUPS).map(g => chip(`data-lvg="${g}"`, g, UI.group === g)).join("")}</div>
+      <input type="search" id="pt-lv-q" value="${esc(UI.q)}" placeholder="Search exercises" aria-label="Search exercises" autocomplete="off">
+      <div id="pt-lv-list" class="space-y-1.5">${listHtml(a)}</div>
+      <p class="text-[10px] text-zinc-500 leading-relaxed">Bench, squat and deadlift use StrengthLevel.com standards for your body weight. Every other exercise is an estimate scaled from those, so treat it as a guide. Dumbbell lifts are per hand. Men or Women follows the card above.</p>`;
+    return html;
+  }
+  function listHtml(a) {
+    const pool = listRows(a), n = UI.more * 15, show = pool.slice(0, n);
+    if (!pool.length) return `<p class="text-xs text-zinc-400">${UI.mode === "logged" ? "Nothing here yet. Log a set of an exercise to grade it." : "No exercise matches that."}</p>`;
+    return show.map(r => rowHtml(a, r)).join("") + (pool.length > n ? `<button type="button" id="pt-lv-more" class="w-full py-2 rounded-xl bg-zinc-950 border border-zinc-800 text-[11px] font-bold text-zinc-300 tap-active">Show more (${pool.length - n})</button>` : "");
+  }
+  function refresh(a) { const l = $("pt-lv-list"); if (l) l.innerHTML = listHtml(a); }
+
+  function detail(a, name) {
+    const st = std(name), bw = bwOf(a), sex = sexOf(a), th = thresholds(st, sex, bw); if (!th) return;
+    const o = bests(a).get(canon(name)), v = o ? scoreOf(st, o) : 0, lv = levelOf(th, v);
+    const rows = LEVELS.map((L, i) => `<div class="pt-lv-t ${lv && lv.idx === i ? "on" : ""}" style="${lv && lv.idx === i ? "border-color:" + COLS[i] : ""}"><span class="font-black" style="color:${COLS[i]}">${L}</span><span class="font-mono text-zinc-200">${esc(fmtV(a, st, th[i]))}${i === 0 ? " or less" : "+"}</span></div>`).join("");
+    const how = st.k === "w" ? `A share of the ${st.ref === "ohp" ? "overhead press" : st.ref} standard (about ${Math.round(st.f * 100)}%).` : st.k === "bw" ? "Based on your bodyweight plus any added weight." : "Based on reps in one set. Added weight counts as extra reps.";
+    const body = `<div class="space-y-3"><div class="flex items-center justify-between"><span class="text-xs text-zinc-400">${v > 0 ? "Your best: <b class='text-white'>" + esc(fmtV(a, st, v)) + "</b> (" + kindNote(st) + ")" : "Not logged yet"}</span>${lv ? `<span class="text-sm font-black" style="color:${COLS[lv.idx]}">${lv.level}</span>` : ""}</div>${lv ? bar(lv.frac, COLS[lv.idx]) : ""}<div class="space-y-1.5">${rows}</div>
+      <p class="text-[10px] text-zinc-500 leading-relaxed">At body weight ${esc(num(fromLb(a, bw)))} ${a.wLabel()} (${sex === "female" ? "women" : "men"}). ${esc(how)} Estimates, not lab standards.</p></div>`;
+    a.openSheet(name, "Strength level", body, `<button type="button" class="w-full py-3 rounded-xl bg-zinc-800 text-zinc-100 font-bold text-sm tap-active" data-lv-open="${esc(name)}">Open exercise</button>`);
+  }
+
+  /* ============================================================== wiring */
+  const oPV = proto.renderProgressView;
+  proto.renderProgressView = function () {
+    const r = oPV.apply(this, arguments);
+    try {
+      const root = $("progress-body"); if (!root) return r;
+      const panel = root.querySelector('[data-ptab="strength"]') || root; let card = $("pt-lvls-card");
+      if (card) card.remove();
+      card = document.createElement("div"); card.id = "pt-lvls-card"; card.className = "bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-3"; card.innerHTML = cardHtml(this);
+      const anchor = panel.querySelector("#strength-card"); if (anchor) anchor.insertAdjacentElement("afterend", card); else panel.insertBefore(card, panel.firstChild);
+    } catch (e) { console.error("PulseTrack strength levels", e); }
+    return r;
+  };
+  document.addEventListener("input", e => { if (e.target && e.target.id === "pt-lv-q") { UI.q = e.target.value; UI.more = 1; refresh(A()); } });
+  document.addEventListener("click", e => {
+    const a = A(); if (!a || !e.target.closest) return;
+    const m = e.target.closest("[data-lvm]"); if (m) { UI.mode = m.dataset.lvm; UI.more = 1; a.renderProgressView(); return; }
+    const g = e.target.closest("[data-lvg]"); if (g) { UI.group = g.dataset.lvg; UI.more = 1; a.renderProgressView(); return; }
+    if (e.target.closest("#pt-lv-more")) { UI.more++; refresh(a); return; }
+    if (e.target.closest("#pt-lvls-bw")) { a.showView("body"); return; }
+    const r = e.target.closest("[data-lv]"); if (r) { detail(a, r.dataset.lv); return; }
+    const o = e.target.closest("[data-lv-open]"); if (o) { try { a.closeSheet(); } catch (x) { } setTimeout(() => { try { a.openExerciseSheet(o.dataset.lvOpen); } catch (x) { } }, 150); }
+  });
+
+  const css = document.createElement("style"); css.id = "pt-v233-css";
+  css.textContent = `
+    .pt-lv-row { display: block; width: 100%; text-align: left; padding: .6rem .7rem; border-radius: .8rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
+    .pt-lv-row > * + * { margin-top: .3rem; }
+    .pt-lv-bar { height: .4rem; border-radius: 9999px; background: rgb(var(--z800)); overflow: hidden; }
+    .pt-lv-bar > span { display: block; height: 100%; border-radius: 9999px; }
+    .pt-lv-pill { padding: .15rem .55rem; border-radius: 9999px; border: 1px solid; font-size: .65rem; font-weight: 800; }
+    .pt-lv-t { display: flex; justify-content: space-between; align-items: center; font-size: .78rem; padding: .5rem .7rem; border-radius: .7rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
+    .pt-lv-t.on { background: rgb(var(--z900)); border-width: 2px; }
+    #pt-lv-q { width: 100%; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); border-radius: .65rem; padding: .55rem .75rem; font-size: .8rem; color: #fff; }
   `;
   document.head.appendChild(css);
 })();

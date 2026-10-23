@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.32.1*
+*Version 2.33.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -284,7 +284,7 @@ The **Progress** screen has three tabs: **Overview**, **Muscles** and **Strength
 
 ### Strength
 
-- **Strength level:** Beginner → Novice → Intermediate → Advanced → Elite for bench, squat, deadlift and overhead press, based on StrengthLevel.com standards (men and women), plus the **1,000 lb club** total.
+- **Strength level:** Beginner → Novice → Intermediate → Advanced → Elite for bench, squat and deadlift (Smith machine versions count), based on StrengthLevel.com standards (men and women), plus the **1,000 lb club** total. Right below it, **Strength levels · every exercise** grades everything else you log, with search and muscle filters.
 - **Recent PRs:** your 5 latest records, with **Show all** for the rest.
 
 ### Plateau tips
@@ -487,6 +487,10 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.33.0**
+- **Strength levels for every exercise:** on Progress, under Strength, a new card grades each exercise you have logged as Beginner, Novice, Intermediate, Advanced or Elite for your body weight (men or women, same switch as the big-lift card). Search any exercise, filter by muscle group, and tap one to see what each level takes. Bench, squat and deadlift use the StrengthLevel.com tables; every other exercise is an estimate scaled from those (a dumbbell curl is a share of the press, a leg extension a share of the squat). Pull-ups and dips go by bodyweight, and push-ups, sit-ups and similar by reps. Timed holds, carries, bands and jumps are not graded.
+- **Big lifts are now the big 3:** overhead press and barbell row are gone from the big-lift goals, the strength card and the lift ranks (overhead press badges stay). Smith machine bench and squat now count on the strength card too.
 
 **2.32.1**
 - **Smith machine counts:** Smith machine bench (Smith Machine Flat Press) and Smith machine squats now count as Bench Press and Squat for your estimated one-rep max, lift ranks, strength badges, big-lift goals and the wall of fame.
