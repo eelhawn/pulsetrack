@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.30.0*
+*Version 2.31.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -255,6 +255,18 @@ Missing a lift? Add it from the **Create your own exercise** button in the exerc
 
 The **Progress** screen has three tabs: **Overview**, **Muscles** and **Strength**.
 
+### Levels, goals and things to chase
+
+- **Level and XP:** every workout, set, personal record, goal week, badge and finished quest earns XP. Your level, title (Rookie, Regular, Grinder, Iron Hand, Veteran, Beast, Legend, Immortal) and a **profile frame** you unlock as you level up show on Home and in Progress. Tap the Home card to open it. **Share my level** sends a picture.
+- **Weekly goal ring:** pick 1 to 7 training days a week. The ring on Home fills as you train and turns gold when you hit it. Progress shows your last 12 weeks.
+- **Goal streak with freezes:** hit your goal week after week to grow the 🔥 streak. You earn a ❄️ freeze each month (keep up to 2) and one is used automatically if you miss a week.
+- **Weekly quests:** three each week, made from your own history (train your days, beat last week's volume, set a PR, hit a muscle group...). Each is worth 100 XP and they refresh on Monday.
+- **Lift ranks:** bench, squat, deadlift and overhead press ranked from Untrained up to Elite, using your estimated 1RM against your body weight (from your body log, or enter it). Shows how much more to the next rank.
+- **Year in review:** your totals, favorite lift, biggest jump, busiest month and day, with a **Share** picture.
+- **Family head to head:** a this-week matchup against your top rival and 👑 wins over the last weeks. Copy my code now carries this week plus the last three.
+- **Celebrations and sharing:** after a workout you can get a level-up, rank-up, goal-hit or streak screen with confetti, each with a **Share** button that makes a picture.
+- **Milestone and secret badges:** 22 bodyweight and total milestones (like 1.5x bodyweight bench) and 9 secret badges that stay hidden until you find them.
+
 ### Overview
 
 - **Streak, this week and total workouts** at a glance.
@@ -471,6 +483,12 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.31.0**
+- **Things to chase:** XP and levels with titles and unlockable profile frames, a weekly goal ring, a goal streak with monthly freezes, three weekly quests, lift ranks, milestone and secret badges (109 badges in all), a year in review, and a family head-to-head with weekly 👑 winners.
+- **Home:** one compact card shows your weekly ring, level, XP bar, quests and streak. Tap it to open everything on the Progress page.
+- **Celebrations:** level-up, rank-up, goal-hit and streak screens with confetti, and a **Share** picture for each (and for any badge).
+- **Existing progress is not announced again:** levels, ranks and badges you already have are quietly counted on first launch.
 
 **2.30.0**
 - **New badges (76 of them):** every badge has a tier (Bronze, Silver, Gold, Platinum) and its own medal with a ring that fills as you get closer. Lines: workouts, hours trained, big sessions, week streaks, total lifted, personal records, bench/squat/deadlift/press milestones, early bird, night owl, weekend warrior, body weight logs and exercise variety.
