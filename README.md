@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.33.1*
+*Version 2.34.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -253,7 +253,18 @@ Missing a lift? Add it from the **Create your own exercise** button in the exerc
 
 ## Progress and records
 
-The **Progress** screen has three tabs: **Overview**, **Muscles** and **Strength**.
+The **Progress** screen has six tabs, and every card lives under the tab where you would look for it:
+
+| Tab | What is in it |
+|---|---|
+| **Overview** | Streak, this week and workouts; weekly goal and streak; plateau check; your latest records; lifetime totals |
+| **Muscles** | Weekly sets per muscle and the recovery map; balance check; physique map |
+| **Strength** | Big 3 strength level and the 1,000 lb club; strength levels for every exercise; lift ranks; lift goals |
+| **History** | Monthly recap; weekly and monthly report cards; year in review; training year; PR timeline |
+| **Rewards** | Level and XP; season; weekly quests; challenge; daily check-in; badges; rewards shop |
+| **Social** | Buddies; wall of fame; family board |
+
+Rows that open and close have an icon and a one-line description, so you can see what is inside before you tap.
 
 ### Levels, goals and things to chase
 
@@ -271,8 +282,18 @@ The **Progress** screen has three tabs: **Overview**, **Muscles** and **Strength
 
 - **Streak, this week and total workouts** at a glance.
 - **Plateau check:** lifts that haven't beaten their best in the last few weeks (you choose how many: 2, 3, 4, 6 or 8; it starts at 4), each with a tip (below).
-- **Monthly recap:** a card summarising your month (workouts, volume, top muscles, PRs) that you can share as an image. A banner shows on Home in the first 10 days of each month.
+- **Recent PRs:** your 5 latest records, with **Show all** for the rest.
 - **Lifetime totals:** total volume, total sets, and the month you started.
+
+### History
+
+- **Monthly recap:** a card summarising your month (workouts, volume, top muscles, PRs) that you can share as an image. A banner shows on Home in the first 10 days of each month.
+- **Weekly and monthly report cards, year in review, training year and PR timeline.**
+
+### Rewards and Social
+
+- **Rewards:** your level and XP, the season, weekly quests, challenges, the daily check-in, badges and the rewards shop.
+- **Social:** buddies, the wall of fame and the family board.
 
 ### Muscles
 
@@ -285,8 +306,6 @@ The **Progress** screen has three tabs: **Overview**, **Muscles** and **Strength
 ### Strength
 
 - **Strength level:** Beginner → Novice → Intermediate → Advanced → Elite for bench, squat and deadlift (Smith machine versions count), based on StrengthLevel.com standards (men and women), plus the **1,000 lb club** total. Right below it, **Strength levels · every exercise** grades everything else you log, with search and muscle filters. Bodyweight moves (pull-ups, dips, push-ups, planks and more) use the published StrengthLevel.com bodyweight tables; estimates are marked "est."
-- **Recent PRs:** your 5 latest records, with **Show all** for the rest.
-
 ### Plateau tips
 
 A lift counts as **stalled** when you've done it **3 or more times in the last few weeks** and none of those sessions beat the best you had before. You pick how many weeks with the **2 wk / 3 wk / 4 wk / 6 wk / 8 wk** buttons on the Plateau check card (Progress → Overview); **4 weeks** to start, and your choice is remembered. Each stuck lift shows how many weeks it has been since your best, for example **6 weeks**. A lift you've stopped doing drops off by itself, and matching your best counts as no improvement. The app then works out why and suggests something that fits:
@@ -487,6 +506,10 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.34.0**
+- **Progress is organised:** the page now has six tabs (Overview, Muscles, Strength, History, Rewards, Social). Before, about 18 collapsed sections (level, season, quests, badges, buddies, report cards and more) sat under every tab, so you had to scroll past them whichever tab you were on. Each one now lives under the tab where it belongs, in labelled groups. Section rows have an icon tile and a one-line description (the Badges row shows how many you have). Recent PRs moved to Overview, and the monthly recap moved to History. Season starts closed so Rewards is not a wall of cards. The tab bar and rows work at 320 px wide and on a desktop screen, and everything keeps working as before (opening a section, sharing, re-rendering keeps your tab).
+- **Plateau check fix:** when nothing was stuck, the Plateau check card showed twice and its fold opened empty. It is now one row that opens to the card.
 
 **2.33.1**
 - **Bodyweight strength levels use the real tables:** the "Strength levels · every exercise" card now grades bodyweight moves against the published StrengthLevel.com standards for your body weight (men and women). Pull-ups, chin-ups, dips and muscle-ups are compared by one-rep max with added weight (assisted reps count as negative). Push-ups (and incline, decline, diamond, archer, pike and handstand versions), bench dips, sit-ups, crunches, leg raises, toes to bar, ab wheel, inverted rows, back extensions, bodyweight squats, pistols, calf raises, Russian twists and mountain climbers go by reps, and planks and side planks by time. Added weight counts toward the reps. Lunges, split squats, step-ups and calf raises are graded by reps when you log no weight. Holds without a published table (hollow hold, L-sit, dead hang, wall sit) and a few look-alikes are scaled estimates, marked "est." Carries, bands, negatives, jumps and grip tools stay ungraded.
@@ -727,7 +750,7 @@ Keep every `id` unique. New programs reach phones on the next update.
 
 **2.6**
 - New: recovery map, editable weekly target ranges, plateau tips, balance check, body-weight trend, pace and goal, form tips, and a richer workout share card with copy-as-text.
-- Tidier: Progress in three tabs, Settings in six groups, Home with one banner at a time and smaller tiles, quieter workout cards, a shorter Body log form, and a shorter Recent PRs list.
+- Tidier: Progress in tabs, Settings in six groups, Home with one banner at a time and smaller tiles, quieter workout cards, a shorter Body log form, and a shorter Recent PRs list.
 
 **2.5**
 - New: light mode and Auto, 13 themes, light and custom backgrounds, background effects, corners, row size, a Home layout editor, your own exercises, and the 1RM calculator. Your look is applied before the app draws, so a light theme doesn't flash dark. A phone that never changed its look stays dark Classic.
