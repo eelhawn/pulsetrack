@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.34.0*
+*Version 2.35.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -109,6 +109,10 @@ Can't train today (a long day of work, an injury, a trip)? You don't need to del
 - In the days list a skipped day says **SKIPPED** instead of **DONE**. It stays in the program, and you can still open it and do it later; finishing it makes it a normal **DONE** day.
 - **Undo** stays on the screen for a few seconds after skipping and puts everything back exactly as it was.
 - The buttons only show for the program you are currently on, on a day that has exercises. Rest days have their own **mark as done**, and Freestyle workouts have nothing to skip.
+
+### Busy-season version (new in 2.35.0)
+
+Slammed at work? Open any program's day list and tap **Busy-season version**. Pick **2, 3 or 4 days a week** and **30, 45 or 60 minutes** a workout. The app builds full-body days from the exercises that program leans on most (a squat, a hinge, a push, a pull and so on, at least three muscle groups a day) and checks each day fits your time. The preview shows the days before you save; **Create this program** adds it as a new program called "... · Busy season". Your own program is not changed, so you can switch back when the busy stretch ends. The button is hidden on Freestyle and on busy-season programs themselves.
 
 ### Make your own
 
@@ -257,10 +261,10 @@ The **Progress** screen has six tabs, and every card lives under the tab where y
 
 | Tab | What is in it |
 |---|---|
-| **Overview** | Streak, this week and workouts; weekly goal and streak; plateau check; your latest records; lifetime totals |
+| **Overview** | Streak, this week and workouts; weekly goal and streak; deload check; plateau check; your latest records; lifetime totals |
 | **Muscles** | Weekly sets per muscle and the recovery map; balance check; physique map |
-| **Strength** | Big 3 strength level and the 1,000 lb club; strength levels for every exercise; lift ranks; lift goals |
-| **History** | Monthly recap; weekly and monthly report cards; year in review; training year; PR timeline |
+| **Strength** | Big 3 strength level and the 1,000 lb club; closest to leveling up; strength levels for every exercise; weak points; lift ranks; lift goals |
+| **History** | Monthly recap; weekly and monthly report cards; year in review; training year calendar; PR timeline |
 | **Rewards** | Level and XP; season; weekly quests; challenge; daily check-in; badges; rewards shop |
 | **Social** | Buddies; wall of fame; family board |
 
@@ -281,6 +285,7 @@ Rows that open and close have an icon and a one-line description, so you can see
 ### Overview
 
 - **Streak, this week and total workouts** at a glance.
+- **Deload check (new in 2.35.0):** counts your hard weeks in a row and the last 8 weeks of hard sets as small bars. It says **Good time for a lighter week** when you have 6 or more weeks in a row, or 4 or more together with a sign of fatigue (lifts that stopped going up, weekly sets jumping 15% or more, or a main lift slipping 5% below your recent best), or 3 together with two signs. Each reason is listed. **Start a deload week** turns on a 7-day deload: the **Last time** hint on each exercise suggests about 10% less weight and one set fewer (the weights round to your plate increment, and **Fill in** only fills the shorter number of sets), and built workouts have a set fewer. Home shows an **Easy week** card with the days left and **End easy week**. A week that is already much lighter than your recent weeks breaks the streak, so the check does not nag after you have already backed off. It is the same switch as the older Home easy-week card, so starting or ending it in either place does the same thing.
 - **Plateau check:** lifts that haven't beaten their best in the last few weeks (you choose how many: 2, 3, 4, 6 or 8; it starts at 4), each with a tip (below).
 - **Recent PRs:** your 5 latest records, with **Show all** for the rest.
 - **Lifetime totals:** total volume, total sets, and the month you started.
@@ -288,7 +293,8 @@ Rows that open and close have an icon and a one-line description, so you can see
 ### History
 
 - **Monthly recap:** a card summarising your month (workouts, volume, top muscles, PRs) that you can share as an image. A banner shows on Home in the first 10 days of each month.
-- **Weekly and monthly report cards, year in review, training year and PR timeline.**
+- **Weekly and monthly report cards, year in review and PR timeline.**
+- **Training year calendar (bigger in 2.35.0):** opens as a **month calendar** with large day squares: green for trained days (darker means more volume, ×2 when you trained twice), a ring on today, and arrows to go back and forward. Above it, tiles show your **active days**, **longest run** and **best month**. Switch to **Year** for the full 53 weeks with month and weekday labels; the squares are 20 px, so they are easy to tap, and the strip scrolls sideways and starts on the latest weeks. Tap any day to see what you did, and tap the note (or the day if you did one workout) to open that workout. If you trained twice that day a short list lets you pick one.
 
 ### Rewards and Social
 
@@ -305,6 +311,9 @@ Rows that open and close have an icon and a one-line description, so you can see
 
 ### Strength
 
+- **Closest to leveling up (new in 2.35.0):** the five exercises nearest their next level, with a bar, how far to go ("12 lb to go · 188 lb now, 200 lb needed") and an "est." tag where the level is scaled from another lift. Tap one for the **goal planner**: pick the level you want (Intermediate, Advanced or Elite), and it shows the gap and a simple plan, with how many weeks it should take at a steady pace and the targets along the way. For weight lifts you can tap **Set as a lift goal** to track it with your other lift goals.
+- **Weak points (new in 2.35.0):** your six muscle groups (chest, back, shoulders, arms, legs, core) ranked by strength level, each scored from your three best graded exercises. If one is clearly behind, the card names it, says how many levels behind your average it is, and suggests exercises to add. If they are all within half a level it says there is no weak link. Groups you have not logged yet are listed as not graded.
+- **Level-ups and badges (new in 2.35.0):** after you finish a workout, any exercise that reached a new strength level is shown in the summary. There are also level badges: Intermediate, Advanced and Elite counts, **All-Rounder** (all six groups at Novice or better) and **No Weak Link**. The first time you open the app after updating, your current levels are saved as the starting point, so you are not told about levels you already had.
 - **Strength level:** Beginner → Novice → Intermediate → Advanced → Elite for bench, squat and deadlift (Smith machine versions count), based on StrengthLevel.com standards (men and women), plus the **1,000 lb club** total. Right below it, **Strength levels · every exercise** grades everything else you log, with search and muscle filters. Bodyweight moves (pull-ups, dips, push-ups, planks and more) use the published StrengthLevel.com bodyweight tables; estimates are marked "est."
 ### Plateau tips
 
@@ -506,6 +515,15 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.35.0**
+- **Training year calendar, much bigger:** it was a strip of tiny squares. It now opens as a month calendar with big day squares, a ring on today, month arrows and three tiles (active days, longest run, best month). The **Year** view is back with 20 px squares, month and weekday labels, and it opens scrolled to the latest weeks. Tap a day to see what you did and open that workout.
+- **Closest to leveling up and goal planner** on Progress → Strength. See the five exercises nearest their next strength level, tap one to pick Intermediate, Advanced or Elite and get the gap, a weeks estimate, and targets along the way. Weight lifts can be saved as a lift goal.
+- **Weak points** on Progress → Strength: muscle groups ranked by strength level, the one that is behind, and exercises to add. Moves that are not in the library are sorted into a muscle group by name so they still count.
+- **Level-ups:** the workout summary now lists exercises that reached a new strength level. New badges for Intermediate, Advanced and Elite lifts, **All-Rounder** and **No Weak Link**.
+- **Deload check** on Progress → Overview, with a real **deload week**: lighter weights and a set fewer in the Last time hint and in built workouts, a Home card with the days left, and the older easy-week card now shares the same switch (it used to be separate).
+- **Busy-season version** of any program: 2 to 4 full-body days of 30 to 60 minutes, saved as a new program.
+- Everything stays offline. (RPE/RIR logging was left out on purpose.)
 
 **2.34.0**
 - **Progress is organised:** the page now has six tabs (Overview, Muscles, Strength, History, Rewards, Social). Before, about 18 collapsed sections (level, season, quests, badges, buddies, report cards and more) sat under every tab, so you had to scroll past them whichever tab you were on. Each one now lives under the tab where it belongs, in labelled groups. Section rows have an icon tile and a one-line description (the Badges row shows how many you have). Recent PRs moved to Overview, and the monthly recap moved to History. Season starts closed so Rewards is not a wall of cards. The tab bar and rows work at 320 px wide and on a desktop screen, and everything keeps working as before (opening a section, sharing, re-rendering keeps your tab).
