@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.31.0*
+*Version 2.32.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -312,6 +312,10 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 
 ---
 
+### Seasons, buddies and report card
+
+Below the usual charts, Progress also has your **level, quests and season**, the **rewards shop**, a **muscle map**, **Buddies** (send and receive finished workouts, cheer with 🔥 💪 👏), the **Wall of fame**, and a **Monthly report card** graded A+ to F. To add a friend, paste the message or code they sent into the box under Buddies or the Family board. Codes work in any chat app and nothing is stored online.
+
 ## Body tracking
 
 - **Weight trend:** each weigh-in is a dot, with a smooth 7-day average line so water and food swings don't fool you.
@@ -483,6 +487,13 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.32.0**
+- **Feels better while you train:** after each set you see how many pounds you beat last time, and a new record gets a banner, confetti and a sting. Pick a sound pack (Soft, Arcade or Off) in Settings. The rest timer shows what is up next, a slim session bar shows sets done and XP earned, and **Guided mode** (More menu) walks you through one set at a time with big buttons.
+- **Seasons, challenges and rewards:** 12-week seasons with eight reward tiers, five weekly "boss" challenges, a daily check-in streak, and a **rewards shop** where coins buy accent colors, profile frames and confetti styles.
+- **Body page:** a guided camera with a ghost outline, grid and self-timer, a weekly photo reminder, a **before/after slider** you can share as a picture, measurement trends with goals and dates, a **goal physique** plan (lean, recomp or bulk) with calories and protein, and a **muscle map** on Progress that shows which areas are lagging, with a one-tap workout for them.
+- **Train together (no accounts):** start a **family challenge** on one stat for the week; **Buddies** lets you send a finished workout (with a link so a friend can do the same session), see their results and cheer them on; the **Wall of fame** shows everyone's level, badges, streak and best lifts with a crown for each top lift. Everything travels as codes you paste into any chat.
+- **Smart help:** one gentle nudge on Home (a muscle you skipped, one workout from your goal, streak at risk, photo due, challenge ending, welcome back), a short coach message after each workout, and a **monthly report card** with letter grades for consistency, strength and volume plus next month's focus. Nudges live inside the app only. They are not push notifications. Photos stay on your phone.
 
 **2.31.0**
 - **Things to chase:** XP and levels with titles and unlockable profile frames, a weekly goal ring, a goal streak with monthly freezes, three weekly quests, lift ranks, milestone and secret badges (109 badges in all), a year in review, and a family head-to-head with weekly 👑 winners.
