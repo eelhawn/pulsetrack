@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.33.0*
+*Version 2.33.1*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -284,7 +284,7 @@ The **Progress** screen has three tabs: **Overview**, **Muscles** and **Strength
 
 ### Strength
 
-- **Strength level:** Beginner → Novice → Intermediate → Advanced → Elite for bench, squat and deadlift (Smith machine versions count), based on StrengthLevel.com standards (men and women), plus the **1,000 lb club** total. Right below it, **Strength levels · every exercise** grades everything else you log, with search and muscle filters.
+- **Strength level:** Beginner → Novice → Intermediate → Advanced → Elite for bench, squat and deadlift (Smith machine versions count), based on StrengthLevel.com standards (men and women), plus the **1,000 lb club** total. Right below it, **Strength levels · every exercise** grades everything else you log, with search and muscle filters. Bodyweight moves (pull-ups, dips, push-ups, planks and more) use the published StrengthLevel.com bodyweight tables; estimates are marked "est."
 - **Recent PRs:** your 5 latest records, with **Show all** for the rest.
 
 ### Plateau tips
@@ -487,6 +487,9 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.33.1**
+- **Bodyweight strength levels use the real tables:** the "Strength levels · every exercise" card now grades bodyweight moves against the published StrengthLevel.com standards for your body weight (men and women). Pull-ups, chin-ups, dips and muscle-ups are compared by one-rep max with added weight (assisted reps count as negative). Push-ups (and incline, decline, diamond, archer, pike and handstand versions), bench dips, sit-ups, crunches, leg raises, toes to bar, ab wheel, inverted rows, back extensions, bodyweight squats, pistols, calf raises, Russian twists and mountain climbers go by reps, and planks and side planks by time. Added weight counts toward the reps. Lunges, split squats, step-ups and calf raises are graded by reps when you log no weight. Holds without a published table (hollow hold, L-sit, dead hang, wall sit) and a few look-alikes are scaled estimates, marked "est." Carries, bands, negatives, jumps and grip tools stay ungraded.
 
 **2.33.0**
 - **Strength levels for every exercise:** on Progress, under Strength, a new card grades each exercise you have logged as Beginner, Novice, Intermediate, Advanced or Elite for your body weight (men or women, same switch as the big-lift card). Search any exercise, filter by muscle group, and tap one to see what each level takes. Bench, squat and deadlift use the StrengthLevel.com tables; every other exercise is an estimate scaled from those (a dumbbell curl is a share of the press, a leg extension a share of the squat). Pull-ups and dips go by bodyweight, and push-ups, sit-ups and similar by reps. Timed holds, carries, bands and jumps are not graded.

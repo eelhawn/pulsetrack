@@ -1,5 +1,5 @@
 // Bump this number every time you change index.html, exercises.js or programs.js
-const CACHE = 'pulsetrack-offline-v59';
+const CACHE = 'pulsetrack-offline-v60';
 // Styling is built into index.html now, so these files are everything the app needs offline.
 const CORE = ['./', './index.html', './exercises.js', './programs.js', './manifest.json', './icon-512.png'];
 
