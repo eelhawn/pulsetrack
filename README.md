@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.32.0*
+*Version 2.32.1*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -487,6 +487,9 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.32.1**
+- **Smith machine counts:** Smith machine bench (Smith Machine Flat Press) and Smith machine squats now count as Bench Press and Squat for your estimated one-rep max, lift ranks, strength badges, big-lift goals and the wall of fame.
 
 **2.32.0**
 - **Feels better while you train:** after each set you see how many pounds you beat last time, and a new record gets a banner, confetti and a sting. Pick a sound pack (Soft, Arcade or Off) in Settings. The rest timer shows what is up next, a slim session bar shows sets done and XP earned, and **Guided mode** (More menu) walks you through one set at a time with big buttons.

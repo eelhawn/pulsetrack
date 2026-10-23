@@ -377,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.32.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.32.1</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -1273,7 +1273,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
     };
     const BIG_LIFTS = [
       { key: "Squat",          match: /squat/i,                          exclude: /split|goblet/i,         goal: 405 },
-      { key: "Bench Press",    match: /bench press/i,                    exclude: /dumbbell|incline/i,     goal: 315 },
+      { key: "Bench Press",    match: /bench press|smith machine flat press/i,                   exclude: /dumbbell|incline/i,     goal: 315 },
       { key: "Deadlift",       match: /deadlift/i,                       exclude: /romanian|stiff|single/i, goal: 495 },
       { key: "Overhead Press", match: /(overhead|military|shoulder) press/i, exclude: null,               goal: 185 },
       { key: "Barbell Row",    match: /barbell.*row|row.*barbell|bent.over/i, exclude: null,              goal: 225 }
@@ -3757,7 +3757,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.32.0";
+    const APP_VERSION = "2.32.1";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -16079,8 +16079,8 @@ const PTSIM = (function () {
     { cat: "streak", key: "streak", icon: "📅", steps: [2, 4, 8, 12, 26, 52], names: ["Back-to-Back", "Monthly", "Two Months", "A Full Season", "Half a Year", "Year of Iron"], desc: v => `Train every week for ${v} weeks in a row`, fmtCur: v => v + " wk" },
     { cat: "volume", key: "volume", icon: "🚛", steps: [10000, 50000, 100000, 250000, 500000, 1000000, 2500000], names: ["Heavy Hauler", "Crane Operator", "Dock Worker", "Freight Train", "Cargo Ship", "Million Pound Club", "Titan"], desc: v => `Lift ${lbl(v, true)} in total`, lb: true },
     { cat: "records", key: "prs", icon: "🏅", steps: [5, 10, 25, 50, 100, 200], names: ["Record Breaker", "Double Digits", "Quarter Hundred", "Fifty Records", "Hundred Records", "Record Machine"], desc: v => `Set ${v} personal records` },
-    { cat: "strength", key: "bench", icon: "💪", steps: [135, 185, 225, 275, 315, 405], lift: "Bench", re: /^(barbell )?bench press$/i },
-    { cat: "strength", key: "squat", icon: "🦵", steps: [135, 225, 315, 405, 495], lift: "Squat", re: /^(barbell )?(back )?squat$/i },
+    { cat: "strength", key: "bench", icon: "💪", steps: [135, 185, 225, 275, 315, 405], lift: "Bench", re: /^(smith machine (flat |bench )?press|(barbell )?bench press)$/i },
+    { cat: "strength", key: "squat", icon: "🦵", steps: [135, 225, 315, 405, 495], lift: "Squat", re: /^(smith machine squats?|(barbell )?(back )?squat)$/i },
     { cat: "strength", key: "dead", icon: "🏗️", steps: [225, 315, 405, 495, 585], lift: "Deadlift", re: /^(barbell )?(conventional )?deadlift$/i },
     { cat: "strength", key: "ohp", icon: "🙌", steps: [95, 135, 185, 225], lift: "Press", re: /^(barbell )?(standing )?(overhead|military|shoulder) press$/i },
     { cat: "habits", key: "early", icon: "🌅", steps: [5, 25, 50], names: ["Early Bird", "Dawn Patrol", "Sunrise Club"], desc: v => `Start ${v} workouts before 7 am` },
@@ -16764,8 +16764,8 @@ const PTSIM = (function () {
 
   /* ============================================================== lift ranks */
   const LIFTS = [
-    { key: "bench", label: "Bench Press", icon: "💪", re: /^(barbell )?bench press$/i, r: [0.5, 0.75, 1.25, 1.75, 2.0] },
-    { key: "squat", label: "Squat", icon: "🦵", re: /^(barbell )?(back )?squat$/i, r: [0.75, 1.25, 1.5, 2.25, 2.75] },
+    { key: "bench", label: "Bench Press", icon: "💪", re: /^(smith machine (flat |bench )?press|(barbell )?bench press)$/i, r: [0.5, 0.75, 1.25, 1.75, 2.0] },
+    { key: "squat", label: "Squat", icon: "🦵", re: /^(smith machine squats?|(barbell )?(back )?squat)$/i, r: [0.75, 1.25, 1.5, 2.25, 2.75] },
     { key: "dead", label: "Deadlift", icon: "🏗️", re: /^(barbell )?(conventional )?deadlift$/i, r: [1.0, 1.5, 2.0, 2.5, 3.0] },
     { key: "ohp", label: "Overhead Press", icon: "🙌", re: /^(barbell )?(standing )?(overhead|military|shoulder) press$/i, r: [0.35, 0.55, 0.8, 1.1, 1.4] }
   ];
@@ -18201,7 +18201,7 @@ const PTSIM = (function () {
   }
 
   /* ============================================================== wall of fame */
-  const LIFTS = [["bench", "Bench", /^(barbell )?bench press$/i], ["squat", "Squat", /^(barbell )?(back )?squat$/i], ["dead", "Deadlift", /^(barbell )?(conventional )?deadlift$/i], ["ohp", "Press", /^(barbell )?(standing )?(overhead|military|shoulder) press$/i]];
+  const LIFTS = [["bench", "Bench", /^(smith machine (flat |bench )?press|(barbell )?bench press)$/i], ["squat", "Squat", /^(smith machine squats?|(barbell )?(back )?squat)$/i], ["dead", "Deadlift", /^(barbell )?(conventional )?deadlift$/i], ["ohp", "Press", /^(barbell )?(standing )?(overhead|military|shoulder) press$/i]];
   function myCard(a) {
     const st = PT.rewards(a), best = { bench: 0, squat: 0, dead: 0, ohp: 0 };
     S(a).forEach(s => (s.ex || []).forEach(e => LIFTS.forEach(([k, , re]) => { if (re.test(e.name)) (e.sets || []).forEach(x => { if (x.t !== "W") best[k] = Math.max(best[k], toLb(a.setE1rm(e.name, x, s.date) || 0, s.unit)); }); })));
