@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.35.0*
+*Version 2.36.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -193,6 +193,30 @@ Landscaping, building, moving house: a hard day at work uses the same back, grip
 - **Build me a workout goes easy.** It leaves out deadlifts, bent-over rows, shrugs and carries, prefers machines and cables, and builds one exercise fewer.
 - **Switch:** **Settings → Workout Screen → Go easier after heavy work days** (on by default). Turn it off and the check-in only feeds the recovery map. Hide the card with **Settings → Home screen**.
 
+### Guided mode (sets added in 2.36.0)
+
+Tap **Guided mode** on the workout screen for one exercise at a time with big steppers: weight and reps, one big **Log set** button, and **Prev**, **Swap** and **Skip** at the bottom. Chips show every set (✓ with what you lifted, the current one highlighted). It writes into the normal workout screen, so nothing is lost if you switch back. Timed and other special exercises open in the normal view.
+
+- **+ Set and − Set** sit under the chips. **+ Set** adds a set to this exercise. **− Set** takes off the last set you have not logged yet; it will not remove a set you already logged (uncheck it in the normal view first), and an exercise always keeps at least one set. A set removed from the middle moves later logged sets up, so nothing is lost.
+- **Extra sets** are the ones you add on top of the program's own. They show with a dashed chip and a **+** (like **S4+**), and the line under the name says "extra set".
+- **Skipping an extra set deletes it.** On an extra set the bottom button says **✕ Skip set** and just removes that set, then moves on when the exercise has nothing left to log. On one of the program's own sets, **Skip ▶** skips the exercise as before, and any unlogged extra sets on it go too, so they do not sit there unchecked when you finish.
+- **All done screen:** after the last set you can finish the workout or add **one more set** of the last exercise.
+- Your **machine setup note** for the exercise shows under its name (see below).
+
+### Machine setup notes (new in 2.36.0)
+
+A short note per exercise **and per gym**, like "Seat 4, pin 7, back pad 3", so you do not have to guess next time. Machines, cables, benches and similar exercises show a **⚙ + Setup** button on their card in the workout. Tap it to type a note, or tap **Seat**, **Back pad**, **Leg pad**, **Pin**, **Handle**, **Grip**, **Incline** or **Stance** to start one. Once an exercise has a note, the note shows in its place on the card (and in guided mode) and tapping it changes or clears it. If you use more than one gym, each gym keeps its own notes, and the editor shows your note from your other gyms with a **Use** button. Want the button on every exercise? Settings → **Machine setup notes** → **Every exercise**. Notes are part of your backup.
+
+### Guided mobility (new in 2.36.0)
+
+Hands-free timed flows. Open them from **Programs → Guided mobility (hands-free)**, from the **Guided mobility** button on the finish screen, or from the Home card on a heavy work day.
+
+- **Six routines:** **Back relief** (6 min), **Hips and legs**, **Shoulders and upper back**, **Hands and grip** (forearms and wrists, for tool and hose work), **After-work reset** (a full-body unwind that ends with box breathing) and **Pre-lift warm-up** (dynamic).
+- **How it runs:** pick one and put the phone down. A short **Get ready** countdown comes before each move, then the hold. Moves with two sides run **Left side**, a quick **Switch sides**, then **Right side**. Big countdown ring, a one-line cue for the move, **Up next**, and beeps for the last three seconds. The screen stays awake. **Pause**, **◀◀** (restart the move, or go to the previous one), **▶▶** (skip) and **+10 s** are always there. Leaving the app pauses it, and the **✕** asks before ending.
+- **Suggested for you:** the first one on the list. A heavy work day (from the Home check-in) picks back relief, a flagged injury picks the matching routine, and otherwise it goes by what you trained most recently and is still recovering.
+- **It counts as recovery:** a routine you finish (or get at least 60% of the way through) is saved. For the areas it covers, the **recovery map** shows about 15% less waiting, as long as you did it after the last hard work there (a heavy work day counts as ending about 5 pm, so a stretch at lunch does not count yet). The Pre-lift warm-up is saved but does not change recovery.
+- **Home on a heavy work day** shows a card offering back relief until you have done one that day.
+
 ### Rest timer
 
 - Starts by itself when you check off a set (you can turn this off in Settings).
@@ -263,7 +287,7 @@ The **Progress** screen has six tabs, and every card lives under the tab where y
 |---|---|
 | **Overview** | Streak, this week and workouts; weekly goal and streak; deload check; plateau check; your latest records; lifetime totals |
 | **Muscles** | Weekly sets per muscle and the recovery map; balance check; physique map |
-| **Strength** | Big 3 strength level and the 1,000 lb club; closest to leveling up; strength levels for every exercise; weak points; lift ranks; lift goals |
+| **Strength** | Big 3 strength level and the 1,000 lb club; closest to leveling up; strength levels for every exercise; weak points; lift ranks; lift goals; PR attempt planner |
 | **History** | Monthly recap; weekly and monthly report cards; year in review; training year calendar; PR timeline |
 | **Rewards** | Level and XP; season; weekly quests; challenge; daily check-in; badges; rewards shop |
 | **Social** | Buddies; wall of fame; family board |
@@ -311,6 +335,11 @@ Rows that open and close have an icon and a one-line description, so you can see
 
 ### Strength
 
+- **PR attempt planner (new in 2.36.0):** pick a lift (your best estimated 1RM is shown), a **target for one rep** (it starts a little above your best, in steps of your plate increment, with a plain note on how realistic it is: under 3% above your best is very doable, up to 6% is a real stretch, more is ambitious) and a **test day** (1 to 4 weeks out, or any date). It builds:
+  - **The week before:** a **last heavy day** (3 sets of 3 at about 85%, 6 days out), a **light day** (3 sets of 2 or 3 at about 65%, 3 days out) and a **rest day** the day before, with a button for easy mobility. If the date is closer, the heavy day moves in or drops out.
+  - **Attempt day:** a warm-up ladder you can tick off (empty bar, then about 40, 55, 70, 80 and 90% of the target), then **Attempt 1 · opener** (about 93%), **Attempt 2** (97%) and **Attempt 3 · goal** (the target). Every step is a weight your gym can actually load, with the **plates per side** and a rest time. For lifts that are not barbell lifts the steps round to your increment. A note says to take attempt 2 only if the opener moved fast and attempt 3 only if attempt 2 was smooth.
+  - It warns you if your recent weeks look heavy (the deload check) and suggests a lighter week first.
+  - **Home** shows a reminder in the last 7 days. Log your heaviest single as a normal set; when your best estimate reaches the target the plan shows **Hit it**, and **I hit it** / **Not this time** close it and keep it as your last plan.
 - **Closest to leveling up (new in 2.35.0):** the five exercises nearest their next level, with a bar, how far to go ("12 lb to go · 188 lb now, 200 lb needed") and an "est." tag where the level is scaled from another lift. Tap one for the **goal planner**: pick the level you want (Intermediate, Advanced or Elite), and it shows the gap and a simple plan, with how many weeks it should take at a steady pace and the targets along the way. For weight lifts you can tap **Set as a lift goal** to track it with your other lift goals.
 - **Weak points (new in 2.35.0):** your six muscle groups (chest, back, shoulders, arms, legs, core) ranked by strength level, each scored from your three best graded exercises. If one is clearly behind, the card names it, says how many levels behind your average it is, and suggests exercises to add. If they are all within half a level it says there is no weak link. Groups you have not logged yet are listed as not graded.
 - **Level-ups and badges (new in 2.35.0):** after you finish a workout, any exercise that reached a new strength level is shown in the summary. There are also level badges: Intermediate, Advanced and Elite counts, **All-Rounder** (all six groups at Novice or better) and **No Weak Link**. The first time you open the app after updating, your current levels are saved as the starting point, so you are not told about levels you already had.
@@ -488,12 +517,11 @@ Upload these to your GitHub repo, all in the same folder:
 
 | File | What it does |
 |---|---|
-| `index.html` | The whole app (about 1.3 MB, including fonts and themes) |
+| `index.html` | The whole app (about 1.8 MB, including fonts and themes) |
 | `programs.js` | The 22 built-in programs |
 | `exercises.js` | The 624 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
-| `icon-512.png` | The app icon |
 | `README.md` | This file |
 
 **Update steps:** upload the changed files on GitHub → open the app online → close and reopen.
@@ -515,6 +543,15 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.36.0**
+- **Guided mode can add and remove sets.** **+ Set** and **− Set** under the set chips. Sets you add show as dashed **S4+** chips, and **✕ Skip set** on an extra set just deletes it (skipping an exercise also drops its unlogged extra sets). The all-done screen offers one more set. Removing a set from the middle moves later logged sets up.
+- **Guided mobility:** six hands-free timed routines (back relief, hips and legs, shoulders and upper back, hands and grip, after-work reset, pre-lift warm-up) with a countdown ring, Get ready, left and right sides, beeps, pause, skip, back and +10 s. A suggestion from your heavy work days, flagged injuries or recent training. A finished routine gives the recovery map about 15% credit for the areas it covers, and Home offers back relief on a heavy work day.
+- **PR attempt planner** (Progress → Strength): target and test day, a taper week, and an attempt-day warm-up ladder with plates per side. Home reminder in the last week.
+- **Machine setup notes:** a per-exercise, per-gym note ("seat 4, pin 7") on the exercise card and in guided mode. Settings has a switch to show the button on every exercise.
+- **Deload check fix:** a week still in progress was compared against full weeks, so two sessions early in the week could look "light" and reset your streak of hard weeks. The current week is no longer judged until it is over.
+- **Clean-up:** seven unused helpers removed; "1 sets" style wording fixed in nine places; the two muscle maps no longer share one gradient id (a hidden map could break the other's shading); the Close settings and Close plate calculator buttons now have labels.
+- **Offline fix:** the service worker's file list named `icon-512.png`, which is not in the repo. If any listed file is missing, the browser refuses to save the whole list, so nothing is stored for offline use. The list now has only files that exist. (The icon itself is built into `manifest.json` and nothing else used the file.)
 
 **2.35.0**
 - **Training year calendar, much bigger:** it was a strip of tiny squares. It now opens as a month calendar with big day squares, a ring on today, month arrows and three tiles (active days, longest run, best month). The **Year** view is back with 20 px squares, month and weekday labels, and it opens scrolled to the latest weeks. Tap a day to see what you did and open that workout.
