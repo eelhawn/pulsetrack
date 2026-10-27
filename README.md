@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.38.0*
+*Version 2.39.0*
 
-PulseTrack installs to your home screen like a normal app. It comes with **44 ready-made programs** (12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Frank Zane, Chris Bumstead, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -58,7 +58,7 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 
 ## Programs
 
-### Built in (44)
+### Built in (59)
 
 **12-week plans, week by week:** Phil Heath, Lou Ferrigno, Arnold Schwarzenegger, Dorian Yates (Blood & Guts), Mountain Dog 200-Rep (John Meadows), Jay Cutler, Ronnie Coleman, Kris Gethin Legacy Fat Loss Trainer, Kris Gethin 12 Weeks to Muscle.
 
@@ -76,7 +76,7 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 - USN 5 Day Mass Plan
 - 6-Day Upper/Lower Split (High Volume)
 
-**22 more from pro bodybuilders, new in 2.37.0:** see [Pro bodybuilder programs](#pro-bodybuilder-programs-new-in-2370) below.
+**22 more from pro bodybuilders, new in 2.37.0, and 15 more in 2.39.0:** see [Pro bodybuilder programs](#pro-bodybuilder-programs-new-in-2370) below.
 
 ### The Programs screen (new look in 2.37.0)
 
@@ -120,6 +120,28 @@ Routines that well-known bodybuilders trained on, as published in books, magazin
 | Pro collection | Upper-Body Days | Jackson, Wheeler, Ramy, Walker, Curry (pick one) | magazine and web write-ups |
 
 The two **collections** are not weekly plans. Each "day" is one athlete's signature session; use it in place of your own leg, chest, back or shoulder day.
+
+#### 15 more, new in 2.39.0
+
+| Athlete | Program | How it runs | Source |
+|---|---|---|---|
+| Dorian Yates | 1987-1992 Build | 2 working sets to failure per exercise; chest/arms twice, legs heavy and light, back/shoulders once | Lift Vault |
+| Mike Mentzer | Heavy Duty A / B / C Rotation | Chest and back, legs, shoulders and arms, legs again; one all-out set, pre-exhaust pairs, a rest day after each | Set For Set (from *High-Intensity Training: The Mike Mentzer Way*) |
+| Mike Mentzer | Heavy Duty "Ideal Routine" | Push, pull, legs three times a week; one set to failure, double progression | Liftosaur (from *Heavy Duty*, 2nd edition) |
+| Mike Mentzer | Traditional 5-Day Split | His pre-Heavy-Duty split: 5 sets of everything, one muscle a day | Set For Set |
+| Chris Bumstead | 2024 Off-Season 9-Day Split | Tri-sets, two 10x10 sets, rest on days 4 and 9 | Primebeast newsletter |
+| Flex Wheeler | Bro Split Hypertrophy | 6 days, 4x12 on almost everything, two leg days (Week 1 of his published program) | Boostcamp coach page |
+| Flex Wheeler | Super Hypertrophy | Same layout, quad-first legs and cable crossovers (Week 1 of his published program) | Boostcamp coach page |
+| Lee Priest | Full Body + Arm Day | Three full-body days plus his superset arm workout | BarBend, Set For Set |
+| Ronnie Coleman | Back & Leg Specialization | Thickness and width back days, two leg days | Fitness Volt |
+| Jay Cutler | Modern Back & Delts Days | His 2024 back day and "3D Delts" shoulder day | Fitness Volt |
+| Nick Walker | Weekly Split | Legs, push, pull, legs, mixed; the source lists exercises only, so sets and reps are ours | Fitness Volt |
+| Kris Gethin | Superset Thrasher & Quad Radical | A full-body superset day and a 100-rep drop-set leg day | Bodybuilding.com |
+| Arnold Schwarzenegger | Superset Chest & Back | Four chest/back pairs, 45 sets, pyramids | Bodybuilding.com |
+| Kai Greene | 5-Day Body-Part Split | High volume, calves twice a week | Lift Vault |
+| Vince Gironda | 10-8-6-15 Method | Upper/lower; 4 sets at 10, 8, 6 and 15 reps off your 6-rep max | Lift Vault (Iron and Grit) |
+
+Several of these are third-party reconstructions or a single published week of a longer program; each description says which, and where the source gave no sets, reps or rest the notes say the numbers are ours.
 
 ### Your current program
 
@@ -576,7 +598,7 @@ Upload these to your GitHub repo, all in the same folder:
 | File | What it does |
 |---|---|
 | `index.html` | The whole app (about 1.8 MB, including fonts and themes) |
-| `programs.js` | The 44 built-in programs |
+| `programs.js` | The 59 built-in programs |
 | `exercises.js` | The 624 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
@@ -601,6 +623,9 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.39.0**
+- **15 more programs from the greats** (59 in all): Dorian Yates' 1987-92 build; three from Mike Mentzer (Heavy Duty A/B/C rotation, the "Ideal Routine", and his traditional 5-day split); Chris Bumstead's 2024 off-season 9-day split; two from Flex Wheeler; Lee Priest's full-body week with his arm day; Ronnie Coleman's back and leg specialization; Jay Cutler's modern back and delts days; Nick Walker's weekly split; Kris Gethin's Superset Thrasher and Quad Radical; Arnold's superset chest and back; Kai Greene's 5-day split; Vince Gironda's 10-8-6-15. Existing phones get them automatically on the next start. Programs you already have are untouched.
 
 **2.38.0**
 - **Each side or total weight, per exercise.** Cable, machine and dumbbell exercises get a tappable label above the weight box (**Each side · Reps** / **Total · Reps** / **Each hand · Reps**) and a sheet to choose, with a 25-or-50 example. Volume counts both sides for Each side and once for Total, so 25 each side equals 50 total. Cable crossovers and flies ask (**Each stack or total?**) until you pick. Remembered per exercise, included in backups, kept when exercise names are cleaned up, and shown next to the weight in Guided mode. Only workouts saved from now on use it; past sessions are not changed.

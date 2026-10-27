@@ -1,5 +1,5 @@
 // Bump this number every time you change index.html, exercises.js or programs.js
-const CACHE = 'pulsetrack-offline-v65';
+const CACHE = 'pulsetrack-offline-v66';
 // Styling is built into index.html now, so these files are everything the app needs offline.
 // Only files that exist: cache.addAll fails the whole install if any one of them is missing, and then nothing is saved for offline.
 const CORE = ['./', './index.html', './exercises.js', './programs.js', './manifest.json'];
