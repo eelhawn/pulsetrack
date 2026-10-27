@@ -78309,5 +78309,378 @@ const BUILTIN_PROGRAMS = [
     "exercises": []
    }
   ]
+ },
+ {
+  "id": "cbum_ppl_2019_6day",
+  "title": "Chris Bumstead: Push / Pull / Legs",
+  "description": "The push, pull, legs routine CBum laid out in a video after he won his first Classic Physique Mr. Olympia in 2019: two push days, two pull days and two leg days, each with a few heavy sets up front and then constant-tension work (timed 40-second sets, supersets, drop sets). The source gives no schedule, so the six days run back to back with a rest day after them, which is our arrangement. Rests are our typical times, and warm-up sets are in the notes, not counted in the sets. The article also lists 2 drop sets of 20 cable rows on Pull Day 2; they are left off. Source: Fitness Volt, 'Chris Bumstead Reveals Intense Push, Pull, Legs Workout Routine' (November 2019), which reports his YouTube video. A different split from the two off-season programs already in the app.",
+  "tags": [
+   "Chris Bumstead",
+   "Classic Physique",
+   "Mr. Olympia",
+   "Push/Pull/Legs",
+   "Mass Building",
+   "Drop Sets",
+   "Supersets"
+  ],
+  "pro": "Chris Bumstead",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Push Day 1: Chest, Shoulders & Triceps",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "cbum_ppl_2019_6day_d1_e1",
+      "name": "Incline Bench Press",
+      "sets": 3,
+      "reps": "5-8, 5-8, 10-12",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Incline or flat, your pick. Two heavy sets, then one lighter set for more reps."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d1_e2",
+      "name": "Dumbbell Shoulder Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Alternate arms: press one dumbbell up while the other waits at your shoulder."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d1_e3",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Triceps Extension. Any chest fly works: cable, dumbbell or machine."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d1_e4",
+      "name": "Triceps Extension",
+      "sets": 4,
+      "reps": "7-10",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "Superset with Cable Crossovers for the first 3 rounds, then do the 4th set on its own. Any triceps extension works."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d1_e5",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d1_e6",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "Failure",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Bodyweight. Every set to failure."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Pull Day 1: Thickness & Biceps",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "cbum_ppl_2019_6day_d2_e1",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "dropset",
+      "notes": "Warm up with 2 light sets first. Drop set on the last set."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d2_e2",
+      "name": "Barbell Row",
+      "sets": 3,
+      "reps": "6-8, 6-8, 10-12",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Bent-over. Warm up with 2 light sets, then 2 heavy sets and 1 lighter set."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d2_e3",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Slight incline, light weight, constant tension. No swinging."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d2_e4",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "Failure",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "About 6 reps a set, taken to failure. Use a loose grip."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d2_e5",
+      "name": "EZ-Bar Curls",
+      "sets": 4,
+      "reps": "8-10, 8-10, 40 sec, 40 sec",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Sets 1-2: 8-10 reps. Sets 3-4: keep curling for 40 seconds straight, light weight, constant tension."
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Legs Day 1: Hamstrings & Glutes",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "cbum_ppl_2019_6day_d3_e1",
+      "name": "Barbell Lunges",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Reps are per leg. Warm up with 3 sets of 10-15 bodyweight steps first, then go to the barbell."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d3_e2",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Warm up with 2 light sets first. Or do conventional deadlifts for 3 sets of 6-8."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d3_e3",
+      "name": "Hip Thrusts",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Hip thrusts or glute kickbacks, your pick."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d3_e4",
+      "name": "Seated Calf Raises",
+      "sets": 6,
+      "reps": "10-12",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Lying Leg Curls. Do the first 2 sets on their own, then pair the last 4 with the curls."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d3_e5",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "8-10, 8-10, 40 sec, 40 sec",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "Superset with the last 4 calf sets. Sets 1-2: 8-10 reps. Sets 3-4: keep curling for 40 seconds straight."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Push Day 2: Close-Grip, Overhead & Delts",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "cbum_ppl_2019_6day_d4_e1",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d4_e2",
+      "name": "Overhead Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Standing barbell press."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d4_e3",
+      "name": "Pec Deck",
+      "sets": 3,
+      "reps": "8-10, 40 sec, 40 sec",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Set 1: 8-10 reps. Sets 2-3: keep pressing for 40 seconds straight, constant tension."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d4_e4",
+      "name": "Overhead Triceps Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d4_e5",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Incline Push-Ups."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d4_e6",
+      "name": "Incline Push-Ups",
+      "sets": 3,
+      "reps": "Failure",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "Superset with Dumbbell Lateral Raises. Hands on a bench. Every set to failure. Do the 4th set of raises on its own."
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Pull Day 2: Width & Brachialis",
+    "estimatedMinutes": 30,
+    "exercises": [
+     {
+      "id": "cbum_ppl_2019_6day_d5_e1",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Warm-up only: 3 easy sets, well short of failure. The rep count is ours; the source gives none."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d5_e2",
+      "name": "Rack Pulls",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Warm up with 3 light sets first, then 2 working sets."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d5_e3",
+      "name": "Hammer Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d5_e4",
+      "name": "Reverse-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Reverse-grip pulldown or reverse-grip row, your pick."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d5_e5",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Chase the pump."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d5_e6",
+      "name": "Dumbbell Curls",
+      "sets": 1,
+      "reps": "6",
+      "restSeconds": 0,
+      "type": "dropset",
+      "notes": "One big drop set: start heavy for about 6 reps, then drop the weight 4 times, going to failure each time."
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Legs Day 2: Quads & Squats",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "cbum_ppl_2019_6day_d6_e1",
+      "name": "Squat",
+      "sets": 4,
+      "reps": "8-10, 8-10, 8-10, 4-6",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Warm up with 3 light sets first. 3 sets of 8-10, then 1 heavy set of 4-6."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d6_e2",
+      "name": "Leg Press",
+      "sets": 2,
+      "reps": "40 sec",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Leg Press Calf Raises. Each set is 40 seconds of continuous reps, constant tension."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d6_e3",
+      "name": "Leg Press Calf Raises",
+      "sets": 2,
+      "reps": "Failure",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "Superset with Leg Press. To failure."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d6_e4",
+      "name": "Hip Adductor Machine",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d6_e5",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "On the last set, finish with bounce partials until you cannot do any more."
+     },
+     {
+      "id": "cbum_ppl_2019_6day_d6_e6",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "dropset",
+      "notes": "Sets 1-2: straight sets. Sets 3-4: triple drop sets. When you fail, drop the weight twice more and keep going."
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
  }
 ];

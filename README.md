@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.40.0*
+*Version 2.41.0*
 
-PulseTrack installs to your home screen like a normal app. It comes with **63 ready-made programs** (six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **64 ready-made programs** (six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -58,7 +58,7 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 
 ## Programs
 
-### Built in (63)
+### Built in (64)
 
 **12-week plans, week by week:** Phil Heath, Lou Ferrigno, Arnold Schwarzenegger, Dorian Yates (Blood & Guts), Mountain Dog 200-Rep (John Meadows), Jay Cutler, Ronnie Coleman, Kris Gethin Legacy Fat Loss Trainer, Kris Gethin 12 Weeks to Muscle.
 
@@ -76,7 +76,7 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 - USN 5 Day Mass Plan
 - 6-Day Upper/Lower Split (High Volume)
 
-**22 more from pro bodybuilders, new in 2.37.0, 15 more in 2.39.0, and 4 two-a-day programs in 2.40.0:** see [Pro bodybuilder programs](#pro-bodybuilder-programs-new-in-2370) below.
+**22 more from pro bodybuilders, new in 2.37.0, 15 more in 2.39.0, 4 two-a-day programs in 2.40.0, and Chris Bumstead's push/pull/legs in 2.41.0:** see [Pro bodybuilder programs](#pro-bodybuilder-programs-new-in-2370) below.
 
 ### The Programs screen (new look in 2.37.0, two-a-day shelf in 2.40.0)
 
@@ -162,6 +162,14 @@ Twice-a-day training is rarely published set by set, so each description says ex
 | Lou Ferrigno | Peak Two-a-Days | His six body-part workouts (chest, back, legs, abs, shoulders, arms) as a twelve-session week, each muscle twice. Which workout goes in the morning and which in the evening is ours | Fitness Volt (from Iron Man) for the numbers, The Body Blueprint for the report of twice-daily training |
 
 Two programs that were already in the app train twice a day as well and now sit on the shelf: **Franco Columbu's 14-Day Rotation** (AM and PM in one day) and the **Arnold 12-Week Plan** (weeks 10-12). I also looked for Sergio Oliva, Kevin Levrone, Kai Greene, Phil Heath and Ronnie Coleman, but could not find a published two-a-day routine with exercises and numbers for them, so they are not here.
+
+#### Chris Bumstead's push / pull / legs, new in 2.41.0
+
+| Athlete | Program | How it runs | Source |
+|---|---|---|---|
+| Chris Bumstead | Push / Pull / Legs | Two push days, two pull days and two leg days, then a rest day. A few heavy sets lead each day, then constant-tension work: timed 40-second sets, supersets (chest flyes with triceps, calves with hamstring curls, lateral raises with push-ups, leg press with calf raises) and drop sets, ending Pull Day 2 with one big dumbbell-curl drop set | Fitness Volt, "Chris Bumstead Reveals Intense Push, Pull, Legs Workout Routine" (his 2019 YouTube video) |
+
+The article gives no schedule, so the six days run back to back with a rest day after them; that arrangement and the rest times are ours. Warm-up sets are written in the notes and are not counted in the sets, and the article's 2 drop sets of 20 cable rows on Pull Day 2 are left off. This is a different split from his two off-season programs.
 
 ### Your current program
 
@@ -618,7 +626,7 @@ Upload these to your GitHub repo, all in the same folder:
 | File | What it does |
 |---|---|
 | `index.html` | The whole app (about 1.8 MB, including fonts and themes) |
-| `programs.js` | The 63 built-in programs |
+| `programs.js` | The 64 built-in programs |
 | `exercises.js` | The 624 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
@@ -643,6 +651,9 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.41.0**
+- **Chris Bumstead's push / pull / legs split** (64 programs in all): Push Day 1, Pull Day 1, Legs Day 1, Push Day 2, Pull Day 2, Legs Day 2 and a rest day, with his heavy sets, timed 40-second sets, supersets and drop sets as Fitness Volt reported them from his 2019 video. The description says what is from the source and what is our arrangement. Existing phones get it automatically on the next start; programs you already have are untouched.
 
 **2.40.0**
 - **Two-a-day programs, and a Programs screen that opens with them.** Four new programs with morning and evening sessions: Arnold's double split as its own program, Jay Cutler's two-a-day cycle (3 on, 1 off, 2 on, 1 off), Dave Draper's double-split days from his 1964-65 logs, and Lou Ferrigno's peak two-a-days (63 programs in all). Each description says what is from the source and what is our arrangement. Existing phones get them automatically on the next start; programs you already have are untouched.
