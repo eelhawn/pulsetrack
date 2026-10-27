@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.36.0*
+*Version 2.37.0*
 
-PulseTrack installs to your home screen like a normal app. It comes with **22 ready-made programs** (including 12-week plans from Arnold, Ronnie Coleman, Phil Heath, Kris Gethin and more) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **44 ready-made programs** (12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Frank Zane, Chris Bumstead, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -58,7 +58,7 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 
 ## Programs
 
-### Built in (22)
+### Built in (44)
 
 **12-week plans, week by week:** Phil Heath, Lou Ferrigno, Arnold Schwarzenegger, Dorian Yates (Blood & Guts), Mountain Dog 200-Rep (John Meadows), Jay Cutler, Ronnie Coleman, Kris Gethin Legacy Fat Loss Trainer, Kris Gethin 12 Weeks to Muscle.
 
@@ -76,11 +76,56 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 - USN 5 Day Mass Plan
 - 6-Day Upper/Lower Split (High Volume)
 
+**22 more from pro bodybuilders, new in 2.37.0:** see [Pro bodybuilder programs](#pro-bodybuilder-programs-new-in-2370) below.
+
+### The Programs screen (new look in 2.37.0)
+
+The list used to be a tall stack of buttons and big cards. It is now built to be scanned:
+
+- **Current program card** on top: the program you are on, your week, and the next workout (**Next: Week 3 · Day 2: Pull**), with an **Open** button. If nothing is selected it says so.
+- **Tools in one compact grid:** **Build me a program** across the top, then **Create your own**, **Paste a program**, **Import a file**, **Share link**, **Guided mobility** and **Stretch routine**. Same buttons as before, a third of the height.
+- **Search** by program name, athlete, tag, workout name or **exercise**. Typing "hack squat" lists every program that has one; "zane" lists his three; "mentzer pullover" narrows to the one program that has both. Every word has to match, and the match is highlighted.
+- **Filter chips with counts:** **All**, **Pro plans** (tied to a named athlete), **Mass**, **Cutting**, **Strength**, **Beginner** and **Mine** (programs you made or imported).
+- **One slim row per program:** a coloured badge with the athlete's initials (the same colour for every program of one athlete), the title, and one line of facts, like **Mass · 6 days/wk · 12 weeks · Advanced**. Rows are grouped as **Your programs**, **Pro programs** (by athlete) and **More programs**. The current program's row says **✓ Current**.
+- **Tap a row to open it. Tap ⋯ for the rest:** **Open program**, **Make it my current program**, **Share** and **Delete from this phone** (still asks first; a built-in program can be added back later).
+- The labels (athlete, goal, level, days a week) come from `programs.js`. Programs you made yourself get a guess from their title and tags.
+
+### Pro bodybuilder programs (new in 2.37.0)
+
+Routines that well-known bodybuilders trained on, as published in books, magazines and training journals. Every one follows its source's exercises, order, sets and reps. Where a source gave a range of sets ("4-5 sets") the lower number is used, and where it did not say how long to rest the app uses a normal rest for that kind of lift; each exercise's note says when something was filled in. **These are written up from published accounts. They are not official programs from the athletes or the publishers, and none of the people named are connected with PulseTrack.** Several are far more volume than most people can recover from (Oliva, Draper, Columbu), so read the program's description before you start.
+
+| Athlete | Program | How it runs | Source |
+|---|---|---|---|
+| Mike Mentzer | Heavy Duty | 2 short workouts, a rest day after each; 1-2 all-out sets with pre-exhaust pairs | John Little, Ironman Magazine |
+| Frank Zane | 3-Workout Rotation | Back/biceps, legs, chest/shoulders/triceps; every move 12, 10, 8 | Fitness Volt |
+| Frank Zane | Beginner Full Body | 3 days a week; 1 set, then 2 sets | Zane Body Training Manual |
+| Frank Zane | Upper/Lower 4-Day | 2 sets of 10 on every move | Secrets of Advanced Bodybuilding |
+| Chris Bumstead | Off-Season 8-Day Split | 3 on, 1 off; machines, drop sets, slow lowering | Fitness Volt |
+| Layne Norton | PHAT | 2 power days and 3 hypertrophy days a week | StrengthLog |
+| Steve Reeves | Classic Physique 3-Day | Every other day, 30-45 s rests | Exercise With Style |
+| Lee Haney | Stimulate, Don't Annihilate | 3 on, 1 off; chest/arms, legs, back/shoulders, two ways each | Set For Set |
+| Kevin Levrone | 6-Day Split | 3 workouts, each twice a week; heavy then pump work | Fitness Volt |
+| Sergio Oliva | The Myth's 6-Day Routine | Very high volume, weight added every set | Marty Gallagher's account |
+| Reg Park | Beginner 5x5 | Full body A/B, 2-week cycle | Fitness Volt |
+| Dave Draper | 1960s Training Journals | Two alternating days, six days a week | davedraper.com |
+| Dexter Jackson | Four-Day Split | Chest/biceps, quads, shoulders/triceps, back/hamstrings | Fitness Volt |
+| Larry Scott | Mr. Olympia 1965 Split | One muscle a day, 6 days | Fitness Volt |
+| Larry Scott | 20-Inch Arms | Two arm workouts | How I Built My 20-Inch Arms |
+| Vince Gironda | 8x8 Method | 8 sets of 8, 30 s rest, 4 workouts | Fitness Volt |
+| Arnold Schwarzenegger | The Golden Six | 6 exercises, 3 days a week | Fitness Volt |
+| Jay Cutler | 4-Day Mass Split | Chest/triceps, back/biceps, shoulders, legs | Fitness Volt |
+| Franco Columbu | 14-Day Rotation | 2 weeks, morning and evening sessions combined into one day | Set For Set |
+| Big Ramy | 5-Day Bro Split | One muscle a day, machines and cables | Set For Set |
+| Pro collection | Leg Days | Platz, Warren, Walker, Curry (pick one as your leg day) | magazine and web write-ups |
+| Pro collection | Upper-Body Days | Jackson, Wheeler, Ramy, Walker, Curry (pick one) | magazine and web write-ups |
+
+The two **collections** are not weekly plans. Each "day" is one athlete's signature session; use it in place of your own leg, chest, back or shoulder day.
+
 ### Your current program
 
 Your **current program** is the one that Home, the side menu and **Start Workout** use. **You** choose it. The app never picks it for you, and browsing never changes it.
 
-- Every program on the **Programs** list has a **Select** button. The one you picked shows a green **✓ Current** tag.
+- On the **Programs** screen, tap **⋯** on a row and choose **Make it my current program**, or open a program and tap **Select**. The one you picked sits in the **Current program** card at the top, and its row shows a green **✓ Current** tag.
 - Open a program you haven't selected and a bar says **Just looking** with a **Select** button. Inside one of its workouts, a small bar says **Not your current program** with **Select it**, which also makes that day your next one.
 - While you look around, Home and the side menu keep showing your own program.
 - **Switch week** counts as choosing the program, because you are starting it there.
@@ -148,6 +193,16 @@ Slammed at work? Open any program's day list and tap **Busy-season version**. Pi
 - **Warm-up generator:** builds warm-up sets for your first lift.
 - **Screen stays awake** during a workout, on phones that allow it.
 - **Resume:** if you leave the app mid-workout, it picks up where you stopped.
+
+### Say a set (rebuilt in 2.37.0)
+
+The **🎤 Say a set** button on the workout screen fills in a set from your voice. The first version often missed, so it was rebuilt.
+
+- **It understands how people talk in a gym:** "bench 185 for 8", "one eighty five for eight", "two plates for five", "8 reps at 135", "225 x 5", "pull ups 12", "curl forty five pounds ten reps". Phones often write "for" as "4", so "185 4 8" is read as 185 for 8.
+- **It never fills a set blind.** A small panel shows what it heard, with the exercise, weight and reps ready to fix and a **Log set** button. Pick a different exercise or change a number, then log.
+- **If the phone can't listen** (no internet, microphone blocked, or the iPhone Home Screen app, which does not allow speech input) it says why and lets you type the set in the same panel.
+- **Settings → Sound, Voice & Feel → Say a set:** **Ask first** (default), **Log right away** (logs it and shows **Undo**), or **Off** (hides the button).
+- **Limits:** most phones send your voice to the phone maker for recognition, so it needs internet and can fail in a basement gym. That is a phone limit, not something the app can fix while staying offline.
 
 ### In the gym (new in 2.8.0)
 
@@ -452,6 +507,7 @@ Settings is a short list of nine groups: **Workout**; **Workout Screen**; **Gyms
 
 - **Units:** kg or lb. Switching asks whether to **Convert my saved numbers**, **Only change the labels**, or **Cancel**.
 - **Text size:** **Normal**, **Large** or **Extra large** (2.24.0).
+- **Say a set:** **Ask first**, **Log right away** or **Off** (2.37.0).
 - **Auto-start Rest Timer:** on or off. The rest timer also has your own times, sounds and voice.
 - **Strength level:** men's or women's standards.
 - **Weekly goal:** days per week.
@@ -518,7 +574,7 @@ Upload these to your GitHub repo, all in the same folder:
 | File | What it does |
 |---|---|
 | `index.html` | The whole app (about 1.8 MB, including fonts and themes) |
-| `programs.js` | The 22 built-in programs |
+| `programs.js` | The 44 built-in programs |
 | `exercises.js` | The 624 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
@@ -535,7 +591,7 @@ Upload these to your GitHub repo, all in the same folder:
 ### Adding programs and exercises
 
 - **Easiest:** build a program inside the app, or import a `.json` file with the Import button.
-- **Permanent for everyone:** add it to `programs.js`, one object per program with `id`, `title`, `description`, `tags` and `days`. Each day has `dayNumber`, `title`, `estimatedMinutes` and `exercises` (each with `id`, `name`, `sets`, `reps`, `restSeconds`, `type`, `notes`). For a program that lists every week, add `week: 1…12` to every day. For a program whose few days repeat over several weeks, add `weekPlan: [{ weeks: [1, 2, 3], days: [1, 2, 3, 4, 5, 6] }, { weeks: [4, 5, 6], days: [7, 8, 9, 10, 11, 12] }]` to the program itself. Both give it the pinned **Switch week** bar. An empty `exercises` list is a rest day.
+- **Permanent for everyone:** add it to `programs.js`, one object per program with `id`, `title`, `description`, `tags` and `days`. Each day has `dayNumber`, `title`, `estimatedMinutes` and `exercises` (each with `id`, `name`, `sets`, `reps`, `restSeconds`, `type`, `notes`). For the Programs screen to show the athlete, goal and level, add `pro` (a name, or "" for none), `goal` (`"mass"`, `"cutting"`, `"strength"` or `"balanced"`), `level` (`"beginner"`, `"intermediate"` or `"advanced"`) and `perWeek` (workouts a week, or `null`). For a program that lists every week, add `week: 1…12` to every day. For a program whose few days repeat over several weeks, add `weekPlan: [{ weeks: [1, 2, 3], days: [1, 2, 3, 4, 5, 6] }, { weeks: [4, 5, 6], days: [7, 8, 9, 10, 11, 12] }]` to the program itself. Both give it the pinned **Switch week** bar. An empty `exercises` list is a rest day.
 - **New exercises:** use **My Exercises** in the app, or add them to `exercises.js` for everyone. One line each: `{ name: "Zercher Deadlift", category: "Back", muscle: "Lower Back" }`. `muscle` is what Similar exercises matches on (the list of muscles is at the top of `exercises.js`). Without it the app works the muscle out from the name, and only falls back to the category when it can't. If the exercise is also known by other names, list them in `aka`: `{ name: "Rope Pushdown", category: "Triceps", aka: ["Triceps Rope Pushdown"] }`. Those names are searchable and count as the same exercise (same muscle group, never suggested as a swap for itself). Only give it its own entry if it really is a different exercise (a straight-bar pushdown is not a rope pushdown). To give an exercise its own form tips, add `tips` (3 or 4 short steps) and `avoid` (the usual mistake): `{ name: "Zercher Deadlift", category: "Back", tips: ["Hold the bar in the crooks of your elbows", "Keep your chest up and your back flat", "Stand up by driving your hips forward"], avoid: "Rounding your back at the start." }`.
 
 Keep every `id` unique. New programs reach phones on the next update.
@@ -543,6 +599,12 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.37.0**
+- **22 new pro bodybuilder programs** (44 in all): Mike Mentzer's Heavy Duty; three from Frank Zane; Chris Bumstead's off-season 8-day split; Layne Norton's PHAT; Steve Reeves; Lee Haney; Kevin Levrone; Sergio Oliva; Reg Park 5x5; Dave Draper's 1960s journals; Dexter Jackson; Larry Scott (6-day split and 20-inch arms); Vince Gironda's 8x8; Arnold's Golden Six; a Jay Cutler 4-day split; Franco Columbu's 14-day rotation; Big Ramy's 5-day split; and two collections of signature leg days and upper-body days. Each is written from a published source (credited in the table above and in the program's description). They arrive on phones by themselves; a program you deleted stays deleted.
+- **The Programs screen is easier on the eyes:** a Current program card, the tools in one compact grid, search (names, athletes, workouts and exercises), filter chips with counts, and one slim row per program with a ⋯ menu for Share, Make current and Delete. Programs are grouped as Your programs, Pro programs and More programs.
+- **Say a set rebuilt.** It now understands spoken numbers ("one eighty five for eight"), plates, "225 x 5", bodyweight moves and "for" heard as "4". It shows what it heard and lets you fix the exercise, weight and reps before logging, says plainly why it can't listen when it can't (no internet, mic blocked, iPhone Home Screen app) and lets you type the set instead. Settings has **Ask first**, **Log right away** (with Undo) and **Off**.
+- Programs now carry `pro`, `goal`, `level` and `perWeek` labels (also on the 22 older ones).
 
 **2.36.0**
 - **Guided mode can add and remove sets.** **+ Set** and **− Set** under the set chips. Sets you add show as dashed **S4+** chips, and **✕ Skip set** on an extra set just deletes it (skipping an exercise also drops its unlogged extra sets). The all-done screen offers one more set. Removing a set from the middle moves later logged sets up.

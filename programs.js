@@ -11,6 +11,42 @@ const BUILTIN_PROGRAMS = [
    "6 Weeks",
    "High Volume"
   ],
+  "pro": "Kai Greene",
+  "goal": "cutting",
+  "level": "advanced",
+  "perWeek": 6,
+  "weekPlan": [
+   {
+    "weeks": [
+     1,
+     2,
+     3
+    ],
+    "days": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6
+    ]
+   },
+   {
+    "weeks": [
+     4,
+     5,
+     6
+    ],
+    "days": [
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ]
+   }
+  ],
   "days": [
    {
     "dayNumber": 1,
@@ -906,38 +942,6 @@ const BUILTIN_PROGRAMS = [
      }
     ]
    }
-  ],
-  "weekPlan": [
-   {
-    "weeks": [
-     1,
-     2,
-     3
-    ],
-    "days": [
-     1,
-     2,
-     3,
-     4,
-     5,
-     6
-    ]
-   },
-   {
-    "weeks": [
-     4,
-     5,
-     6
-    ],
-    "days": [
-     7,
-     8,
-     9,
-     10,
-     11,
-     12
-    ]
-   }
   ]
  },
  {
@@ -952,6 +956,10 @@ const BUILTIN_PROGRAMS = [
    "Weeks 5-8",
    "Advanced"
   ],
+  "pro": "Arnold Schwarzenegger",
+  "goal": "cutting",
+  "level": "advanced",
+  "perWeek": 6,
   "days": [
    {
     "dayNumber": 1,
@@ -1411,6 +1419,10 @@ const BUILTIN_PROGRAMS = [
    "4 Weeks",
    "Classic Bodybuilding"
   ],
+  "pro": "Arnold Schwarzenegger",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
   "days": [
    {
     "dayNumber": 1,
@@ -2017,6 +2029,10 @@ const BUILTIN_PROGRAMS = [
    "Strength",
    "Off-Season"
   ],
+  "pro": "Jeremy Buendia",
+  "goal": "mass",
+  "level": "intermediate",
+  "perWeek": 5,
   "days": [
    {
     "dayNumber": 1,
@@ -2392,6 +2408,38 @@ const BUILTIN_PROGRAMS = [
    "Level 1",
    "Arm Priority",
    "Hypertrophy"
+  ],
+  "pro": "Hany Rambod",
+  "goal": "mass",
+  "level": "intermediate",
+  "perWeek": 5,
+  "weekPlan": [
+   {
+    "weeks": [
+     1,
+     3
+    ],
+    "days": [
+     1,
+     2,
+     3,
+     4,
+     5
+    ]
+   },
+   {
+    "weeks": [
+     2,
+     4
+    ],
+    "days": [
+     6,
+     7,
+     8,
+     9,
+     10
+    ]
+   }
   ],
   "days": [
    {
@@ -3229,34 +3277,6 @@ const BUILTIN_PROGRAMS = [
      }
     ]
    }
-  ],
-  "weekPlan": [
-   {
-    "weeks": [
-     1,
-     3
-    ],
-    "days": [
-     1,
-     2,
-     3,
-     4,
-     5
-    ]
-   },
-   {
-    "weeks": [
-     2,
-     4
-    ],
-    "days": [
-     6,
-     7,
-     8,
-     9,
-     10
-    ]
-   }
   ]
  },
  {
@@ -3269,6 +3289,10 @@ const BUILTIN_PROGRAMS = [
    "8 Weeks",
    "Advanced"
   ],
+  "pro": "Hany Rambod",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 5,
   "days": [
    {
     "dayNumber": 1,
@@ -7475,6 +7499,10 @@ const BUILTIN_PROGRAMS = [
    "6 Weeks",
    "Detailed"
   ],
+  "pro": "Jim Stoppani",
+  "goal": "cutting",
+  "level": "intermediate",
+  "perWeek": 6,
   "days": [
    {
     "dayNumber": 1,
@@ -11575,6 +11603,10 @@ const BUILTIN_PROGRAMS = [
    "Cardio Acceleration",
    "6 Weeks"
   ],
+  "pro": "Jim Stoppani",
+  "goal": "cutting",
+  "level": "intermediate",
+  "perWeek": 6,
   "days": [
    {
     "dayNumber": 1,
@@ -14360,6 +14392,10 @@ const BUILTIN_PROGRAMS = [
    "Supersets",
    "Kris Gethin"
   ],
+  "pro": "Kris Gethin",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 4,
   "days": [
    {
     "dayNumber": 1,
@@ -14565,6 +14601,10 @@ const BUILTIN_PROGRAMS = [
    "Y3T",
    "Advanced"
   ],
+  "pro": "Kris Gethin",
+  "goal": "cutting",
+  "level": "advanced",
+  "perWeek": 5,
   "days": [
    {
     "dayNumber": 1,
@@ -19226,6 +19266,10 @@ const BUILTIN_PROGRAMS = [
    "Phase 1",
    "Phase 2"
   ],
+  "pro": "Jeremy Buendia",
+  "goal": "cutting",
+  "level": "intermediate",
+  "perWeek": 5,
   "days": [
    {
     "dayNumber": 1,
@@ -19916,6 +19960,10 @@ const BUILTIN_PROGRAMS = [
    "Fat Loss",
    "Base Split"
   ],
+  "pro": "Jim Stoppani",
+  "goal": "cutting",
+  "level": "intermediate",
+  "perWeek": 6,
   "days": [
    {
     "dayNumber": 1,
@@ -20750,6 +20798,10 @@ const BUILTIN_PROGRAMS = [
    "5 Day Split",
    "Volume"
   ],
+  "pro": "",
+  "goal": "mass",
+  "level": "intermediate",
+  "perWeek": 5,
   "days": [
    {
     "dayNumber": 1,
@@ -21181,6 +21233,10 @@ const BUILTIN_PROGRAMS = [
    "Upper/Lower",
    "High Volume"
   ],
+  "pro": "",
+  "goal": "mass",
+  "level": "intermediate",
+  "perWeek": 6,
   "days": [
    {
     "dayNumber": 1,
@@ -21774,6 +21830,10 @@ const BUILTIN_PROGRAMS = [
    "Bodybuilding"
   ],
   "weeks": 12,
+  "pro": "Phil Heath",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 5,
   "days": [
    {
     "dayNumber": 1,
@@ -26560,6 +26620,10 @@ const BUILTIN_PROGRAMS = [
    "Bodybuilding"
   ],
   "weeks": 12,
+  "pro": "Lou Ferrigno",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
   "days": [
    {
     "dayNumber": 1,
@@ -30684,6 +30748,10 @@ const BUILTIN_PROGRAMS = [
    "Bodybuilding"
   ],
   "weeks": 12,
+  "pro": "Arnold Schwarzenegger",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
   "days": [
    {
     "dayNumber": 1,
@@ -38258,6 +38326,10 @@ const BUILTIN_PROGRAMS = [
    "HIT"
   ],
   "weeks": 12,
+  "pro": "Dorian Yates",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 4,
   "days": [
    {
     "dayNumber": 1,
@@ -44152,6 +44224,10 @@ const BUILTIN_PROGRAMS = [
    "High Reps"
   ],
   "weeks": 12,
+  "pro": "John Meadows",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
   "days": [
    {
     "dayNumber": 1,
@@ -47202,6 +47278,10 @@ const BUILTIN_PROGRAMS = [
    "Bodybuilding"
   ],
   "weeks": 12,
+  "pro": "Jay Cutler",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 5,
   "days": [
    {
     "dayNumber": 1,
@@ -51438,6 +51518,10 @@ const BUILTIN_PROGRAMS = [
    "Upper/Lower"
   ],
   "weeks": 12,
+  "pro": "Ronnie Coleman",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
   "days": [
    {
     "dayNumber": 1,
@@ -57546,6 +57630,10 @@ const BUILTIN_PROGRAMS = [
    "12 Weeks",
    "Hypertrophy"
   ],
+  "pro": "Kris Gethin",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 5,
   "days": [
    {
     "dayNumber": 1,
@@ -62039,6 +62127,9201 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 0,
       "type": "cardio",
       "notes": "Rest from lifting and do cardio. The plan doesn't give a time or an interval pattern for this day."
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "mike_mentzer_heavy_duty",
+  "title": "Mike Mentzer: Heavy Duty",
+  "description": "Mentzer's high-intensity 'most productive routine': two short workouts, each followed by a rest day. One to two all-out sets per exercise, taken to failure, with pre-exhaust pairs done back to back. Brief, intense, infrequent. Based on John Little's account in Ironman Magazine.",
+  "tags": [
+   "Mike Mentzer",
+   "Heavy Duty",
+   "HIT",
+   "Mass Building",
+   "Classic Bodybuilding",
+   "Low Volume"
+  ],
+  "pro": "Mike Mentzer",
+  "goal": "mass",
+  "level": "intermediate",
+  "perWeek": 3,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Workout 1: Legs, Chest & Triceps",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "mike_mentzer_heavy_duty_d1_e1",
+      "name": "Leg Extension",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "To failure, then forced and negative reps. Go straight into leg presses."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d1_e2",
+      "name": "Leg Press",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 180,
+      "type": "superset",
+      "notes": "To failure, then forced and negative reps."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d1_e3",
+      "name": "Squat",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "To positive failure."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d1_e4",
+      "name": "Leg Curls",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d1_e5",
+      "name": "Standing Calf Raises",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d1_e6",
+      "name": "Leg Press Calf Raises",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Calf raise on the leg press machine. To failure."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d1_e7",
+      "name": "Dumbbell Flyes",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Mentzer used 1-2 sets. Pec deck works too. Go straight into the incline press."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d1_e8",
+      "name": "Incline Bench Press",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "superset",
+      "notes": "Superset with Dumbbell Fly."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d1_e9",
+      "name": "Chest Dips",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Mentzer used 1-2 sets."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d1_e10",
+      "name": "Triceps Pushdown",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Pre-exhaust. Go straight into dips."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d1_e11",
+      "name": "Triceps Dips",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "superset",
+      "notes": "Superset with Triceps Pushdown."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d1_e12",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 3,
+    "title": "Workout 2: Back, Traps, Shoulders & Biceps",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "mike_mentzer_heavy_duty_d3_e1",
+      "name": "Machine Pullover (Nautilus/Plate-Loaded)",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Nautilus pullover. Go straight into close-grip pulldowns."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d3_e2",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "superset",
+      "notes": "Superset with Machine Pullover."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d3_e3",
+      "name": "Barbell Row",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Bent-over barbell row."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d3_e4",
+      "name": "Selectorized Shrug Machine",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Go straight into upright rows."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d3_e5",
+      "name": "Upright Rows",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Superset with Machine Shrug."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d3_e6",
+      "name": "Machine Lateral Raises",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Go straight into the press."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d3_e7",
+      "name": "Machine Shoulder Press",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "superset",
+      "notes": "Mentzer used a behind-the-neck press machine."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d3_e8",
+      "name": "Rear Delt Flyes",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Seated pec deck or bent-over dumbbell lateral raise."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d3_e9",
+      "name": "Barbell Curls",
+      "sets": 1,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Standing barbell curl, to failure."
+     },
+     {
+      "id": "mike_mentzer_heavy_duty_d3_e10",
+      "name": "Concentration Curls",
+      "sets": 2,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Mentzer used 1-2 sets. Preacher curls work too."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "frank_zane_3_workout_rotation",
+  "title": "Frank Zane: 3-Workout Rotation",
+  "description": "Three workouts in a rotation (back and biceps, legs, chest and shoulders and triceps), each exercise done as 12, 10, 8 reps with 90 seconds of rest. Two rest days sit in each five-day cycle. As run in a 12-week trial: weeks 1-3 build up the loads, from week 4 add supersets, drop sets, intraset stretching, negatives and forced reps, and from week 7 add sets for triceps and hamstrings. Then one deload week and repeat. Source: Fitness Volt's write-up of Zane's program.",
+  "tags": [
+   "Frank Zane",
+   "Classic Bodybuilding",
+   "Mass Building",
+   "Aesthetics",
+   "12 Weeks"
+  ],
+  "pro": "Frank Zane",
+  "goal": "mass",
+  "level": "intermediate",
+  "perWeek": 3,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Workout 1: Back, Biceps & Forearms",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "frank_zane_3_workout_rotation_d1_e1",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d1_e2",
+      "name": "T-Bar Row",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Leverage row. A T-bar row works too."
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d1_e3",
+      "name": "Dumbbell Row",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d1_e4",
+      "name": "Seated Dumbbell Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d1_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Standing."
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d1_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d1_e7",
+      "name": "Wrist Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Seated."
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d1_e8",
+      "name": "Reverse Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d1_e9",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Abs: about 100 reps in total, split into as many sets as it takes."
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d1_e10",
+      "name": "Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Abs: about 100 reps in total, split into as many sets as it takes."
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d1_e11",
+      "name": "Seated Twists",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Abs: about 100 reps in total, split into as many sets as it takes."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 3,
+    "title": "Workout 2: Legs",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "frank_zane_3_workout_rotation_d3_e1",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d3_e2",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d3_e3",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d3_e4",
+      "name": "Leg Curls",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d3_e5",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d3_e6",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d3_e7",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "15-30",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Abs: 30-100 reps in total, split into as many sets as it takes."
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d3_e8",
+      "name": "Sit-Ups",
+      "sets": 3,
+      "reps": "15-30",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Abs: 30-100 reps in total."
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d3_e9",
+      "name": "Cable Crunches",
+      "sets": 3,
+      "reps": "15-30",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Abs: 30-100 reps in total."
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d3_e10",
+      "name": "Back Extensions",
+      "sets": 3,
+      "reps": "15-30",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Hyperextensions. 30-100 reps in total."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Workout 3: Chest, Shoulders & Triceps",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "frank_zane_3_workout_rotation_d4_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d4_e2",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d4_e3",
+      "name": "Decline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d4_e4",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Cable flye."
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d4_e5",
+      "name": "Dumbbell Shoulder Press",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d4_e6",
+      "name": "Front Raises",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Dumbbell front raise."
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d4_e7",
+      "name": "Lateral Raises",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Dumbbell lateral raise."
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d4_e8",
+      "name": "Triceps Dips",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d4_e9",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "12, 10, 8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_3_workout_rotation_d4_e10",
+      "name": "Crunches",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Abs. Seated twists and standing band crunches too, 3 x 10 each."
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "frank_zane_beginner_full_body",
+  "title": "Frank Zane: Beginner Full Body",
+  "description": "Zane's beginner full-body routine from his Zane Body Training Manual, three days a week. Start with 1 set per exercise for 2-4 weeks (12 reps), then move to 2 sets (12 reps, then 10). Stretch about 15 seconds after each exercise, wait for normal breathing between sets, and finish with 12-15 minutes of cardio.",
+  "tags": [
+   "Frank Zane",
+   "Beginner",
+   "Full Body",
+   "Classic Bodybuilding",
+   "3 Days"
+  ],
+  "pro": "Frank Zane",
+  "goal": "balanced",
+  "level": "beginner",
+  "perWeek": 3,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Monday: Full Body",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "frank_zane_beginner_full_body_d1_e1",
+      "name": "Leg Raises",
+      "sets": 1,
+      "reps": "10-30",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Abs before the workout. Add crunches (10-30) and seated twists (20-30)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d1_e2",
+      "name": "Front Squat",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets (10 reps each)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d1_e3",
+      "name": "Lunges",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d1_e4",
+      "name": "Standing Calf Raises",
+      "sets": 1,
+      "reps": "15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d1_e5",
+      "name": "Lat Pulldown",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Front pulldown. Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d1_e6",
+      "name": "Incline Bench Press",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "30-degree incline. Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d1_e7",
+      "name": "Dumbbell Pullover",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d1_e8",
+      "name": "Barbell Row",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Bent-over row. Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d1_e9",
+      "name": "Dumbbell Shoulder Press",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Overhead. Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d1_e10",
+      "name": "Barbell Curls",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d1_e11",
+      "name": "Dumbbell Overhead Extension",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Dumbbell triceps extension. Start with 1 set for 2-4 weeks, then 2 sets."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d1_e12",
+      "name": "Wrist Curls",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Forearms (a gripper works too). Start with 1 set for 2-4 weeks, then 2 sets."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 3,
+    "title": "Wednesday: Full Body",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "frank_zane_beginner_full_body_d3_e1",
+      "name": "Leg Raises",
+      "sets": 1,
+      "reps": "10-30",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Abs before the workout. Add crunches (10-30) and seated twists (20-30)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d3_e2",
+      "name": "Front Squat",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets (10 reps each)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d3_e3",
+      "name": "Lunges",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d3_e4",
+      "name": "Standing Calf Raises",
+      "sets": 1,
+      "reps": "15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d3_e5",
+      "name": "Lat Pulldown",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Front pulldown. Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d3_e6",
+      "name": "Incline Bench Press",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "30-degree incline. Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d3_e7",
+      "name": "Dumbbell Pullover",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d3_e8",
+      "name": "Barbell Row",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Bent-over row. Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d3_e9",
+      "name": "Dumbbell Shoulder Press",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Overhead. Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d3_e10",
+      "name": "Barbell Curls",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d3_e11",
+      "name": "Dumbbell Overhead Extension",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Dumbbell triceps extension. Start with 1 set for 2-4 weeks, then 2 sets."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d3_e12",
+      "name": "Wrist Curls",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Forearms (a gripper works too). Start with 1 set for 2-4 weeks, then 2 sets."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 5,
+    "title": "Friday: Full Body",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "frank_zane_beginner_full_body_d5_e1",
+      "name": "Leg Raises",
+      "sets": 1,
+      "reps": "10-30",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Abs before the workout. Add crunches (10-30) and seated twists (20-30)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d5_e2",
+      "name": "Front Squat",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets (10 reps each)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d5_e3",
+      "name": "Lunges",
+      "sets": 1,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d5_e4",
+      "name": "Standing Calf Raises",
+      "sets": 1,
+      "reps": "15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d5_e5",
+      "name": "Lat Pulldown",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Front pulldown. Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d5_e6",
+      "name": "Incline Bench Press",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "30-degree incline. Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d5_e7",
+      "name": "Dumbbell Pullover",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d5_e8",
+      "name": "Barbell Row",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Bent-over row. Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d5_e9",
+      "name": "Dumbbell Shoulder Press",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Overhead. Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d5_e10",
+      "name": "Barbell Curls",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Start with 1 set for 2-4 weeks, then 2 sets (12, then 10)."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d5_e11",
+      "name": "Dumbbell Overhead Extension",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Dumbbell triceps extension. Start with 1 set for 2-4 weeks, then 2 sets."
+     },
+     {
+      "id": "frank_zane_beginner_full_body_d5_e12",
+      "name": "Wrist Curls",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Forearms (a gripper works too). Start with 1 set for 2-4 weeks, then 2 sets."
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "frank_zane_upper_lower_4day",
+  "title": "Frank Zane: Upper/Lower 4-Day",
+  "description": "The four-day upper/lower split from Zane's Secrets of Advanced Bodybuilding: upper body Monday and Thursday, lower body (with abs) Tuesday and Friday, 2 sets of 10 on every exercise. About four sets per muscle each week.",
+  "tags": [
+   "Frank Zane",
+   "Upper/Lower",
+   "4 Days",
+   "Classic Bodybuilding",
+   "Aesthetics"
+  ],
+  "pro": "Frank Zane",
+  "goal": "mass",
+  "level": "intermediate",
+  "perWeek": 4,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Monday: Upper",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "frank_zane_upper_lower_4day_d1_e1",
+      "name": "Bench Press",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d1_e2",
+      "name": "Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d1_e3",
+      "name": "Barbell Row",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Or a leverage row."
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d1_e4",
+      "name": "Lat Pulldown",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d1_e5",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d1_e6",
+      "name": "Lateral Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Side lateral raise."
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d1_e7",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d1_e8",
+      "name": "Triceps Dips",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d1_e9",
+      "name": "Barbell Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d1_e10",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d1_e11",
+      "name": "Reverse Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Tuesday: Lower",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "frank_zane_upper_lower_4day_d2_e1",
+      "name": "Squat",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Parallel squat."
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d2_e2",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d2_e3",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d2_e4",
+      "name": "Donkey Calf Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d2_e5",
+      "name": "Standing Calf Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Machine."
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d2_e6",
+      "name": "Single-Leg Calf Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d2_e7",
+      "name": "Hanging Knee Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d2_e8",
+      "name": "Sit-Ups",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Tension sit-up."
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d2_e9",
+      "name": "Seated Twists",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 4,
+    "title": "Thursday: Upper",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "frank_zane_upper_lower_4day_d4_e1",
+      "name": "Bench Press",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d4_e2",
+      "name": "Dumbbell Flyes",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d4_e3",
+      "name": "Barbell Row",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Or a leverage row."
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d4_e4",
+      "name": "Lat Pulldown",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d4_e5",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d4_e6",
+      "name": "Lateral Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Side lateral raise."
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d4_e7",
+      "name": "Skull Crushers",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d4_e8",
+      "name": "Triceps Dips",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d4_e9",
+      "name": "Barbell Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d4_e10",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d4_e11",
+      "name": "Reverse Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Friday: Lower",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "frank_zane_upper_lower_4day_d5_e1",
+      "name": "Squat",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Parallel squat."
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d5_e2",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d5_e3",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d5_e4",
+      "name": "Donkey Calf Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d5_e5",
+      "name": "Standing Calf Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Machine."
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d5_e6",
+      "name": "Single-Leg Calf Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d5_e7",
+      "name": "Hanging Knee Raises",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d5_e8",
+      "name": "Sit-Ups",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Tension sit-up."
+     },
+     {
+      "id": "frank_zane_upper_lower_4day_d5_e9",
+      "name": "Seated Twists",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "chris_bumstead_offseason_8day",
+  "title": "Chris Bumstead: Off-Season 8-Day Split",
+  "description": "CBum's off-season classic physique split, as reported by Fitness Volt: three training days then a rest day, repeated, so the cycle runs 8 days and each muscle is hit about twice (one main day, one stimulus day). Full range of motion, a 3-5 second lowering phase, and drop sets, supersets and tri-sets as intensifiers. Not his contest-prep programming.",
+  "tags": [
+   "Chris Bumstead",
+   "Classic Physique",
+   "Off-Season",
+   "Mass Building",
+   "Modern Pro",
+   "Machines"
+  ],
+  "pro": "Chris Bumstead",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Day 1: Quads & Calves",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "chris_bumstead_offseason_8day_d1_e1",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "10, 10",
+      "restSeconds": 90,
+      "type": "dropset",
+      "notes": "Drop set on the last set."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d1_e2",
+      "name": "Smith Machine Squats",
+      "sets": 2,
+      "reps": "6-10",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d1_e3",
+      "name": "Single-Leg Leg Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Tri-set of unilateral leg press variations."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d1_e4",
+      "name": "Sissy Squats",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d1_e5",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Day 2: Chest (+ Triceps)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "chris_bumstead_offseason_8day_d2_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d2_e2",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d2_e3",
+      "name": "Hammer Strength Incline Press",
+      "sets": 2,
+      "reps": "6-10",
+      "restSeconds": 120,
+      "type": "dropset",
+      "notes": "Drop set on the last set."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d2_e4",
+      "name": "Pec Deck",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d2_e5",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d2_e6",
+      "name": "Push-Ups",
+      "sets": 2,
+      "reps": "Failure",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Day 3: Back, Thickness (+ Biceps)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "chris_bumstead_offseason_8day_d3_e1",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Underhand grip."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d3_e2",
+      "name": "Chest-Supported Row",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d3_e3",
+      "name": "T-Bar Machine Rows (Chest Supported)",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "dropset",
+      "notes": "Drop set on the last set."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d3_e4",
+      "name": "Machine Row",
+      "sets": 2,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Chest-supported."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d3_e5",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Cable lat extension."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d3_e6",
+      "name": "Machine Preacher Curls",
+      "sets": 2,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 5,
+    "title": "Day 5: Shoulders (+ Chest)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "chris_bumstead_offseason_8day_d5_e1",
+      "name": "Seated Dumbbell Press",
+      "sets": 2,
+      "reps": "6-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d5_e2",
+      "name": "Machine Shoulder Press",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 120,
+      "type": "dropset",
+      "notes": "Drop set on the last set."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d5_e3",
+      "name": "Seated Dumbbell Lateral Raises",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "dropset",
+      "notes": "Drop set on the last set."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d5_e4",
+      "name": "Machine Lateral Raises",
+      "sets": 2,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d5_e5",
+      "name": "Reverse Pec Deck",
+      "sets": 2,
+      "reps": "10-12",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Rear delts. Go straight into the machine fly."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d5_e6",
+      "name": "Pec Deck",
+      "sets": 2,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "Chest."
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Day 6: Hamstrings & Back (Width)",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "chris_bumstead_offseason_8day_d6_e1",
+      "name": "Lying Leg Curls",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d6_e2",
+      "name": "Deadlift",
+      "sets": 2,
+      "reps": "4-8",
+      "restSeconds": 180,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d6_e3",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d6_e4",
+      "name": "Standing Leg Curls",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d6_e5",
+      "name": "Wide-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d6_e6",
+      "name": "Straight-Arm Pulldown",
+      "sets": 2,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Cable lat extension."
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "title": "Day 7: Arms",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "chris_bumstead_offseason_8day_d7_e1",
+      "name": "Rope Pushdown",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "dropset",
+      "notes": "Drop set on the last set."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d7_e2",
+      "name": "Incline Skull Crushers",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d7_e3",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "dropset",
+      "notes": "Drop set on the last set."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d7_e4",
+      "name": "Dumbbell Curls",
+      "sets": 2,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d7_e5",
+      "name": "Cross-Body Triceps Extension",
+      "sets": 2,
+      "reps": "10-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Cable."
+     },
+     {
+      "id": "chris_bumstead_offseason_8day_d7_e6",
+      "name": "Cable Curls (EZ-Bar Attachment)",
+      "sets": 2,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "dropset",
+      "notes": "Low pulley with a V-bar. Drop set on the last set."
+     }
+    ]
+   },
+   {
+    "dayNumber": 8,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "layne_norton_phat",
+  "title": "Layne Norton: PHAT",
+  "description": "Power Hypertrophy Adaptive Training: Dr. Layne Norton's five-day plan that mixes two heavy power days (low reps, long rests) with three hypertrophy days (higher reps, speed work first, last sets taken to failure on isolation and machine moves). Hypertrophy days start with the week's main lift at about 85% of the power-day weight. Deload every 6-12 weeks at 60-70% of usual loads with one set fewer. Source: StrengthLog's PHAT guide.",
+  "tags": [
+   "Layne Norton",
+   "PHAT",
+   "Powerbuilding",
+   "Strength",
+   "Hypertrophy",
+   "Advanced",
+   "5 Days"
+  ],
+  "pro": "Layne Norton",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 5,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Day 1: Upper Body Power",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "layne_norton_phat_d1_e1",
+      "name": "Barbell Row",
+      "sets": 3,
+      "reps": "3-5",
+      "restSeconds": 240,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d1_e2",
+      "name": "Pull-Ups",
+      "sets": 2,
+      "reps": "6-10",
+      "restSeconds": 180,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d1_e3",
+      "name": "Lat Pulldown",
+      "sets": 2,
+      "reps": "6-10",
+      "restSeconds": 180,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d1_e4",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "3-5",
+      "restSeconds": 240,
+      "type": "standard",
+      "notes": "Dumbbell chest press."
+     },
+     {
+      "id": "layne_norton_phat_d1_e5",
+      "name": "Triceps Dips",
+      "sets": 2,
+      "reps": "6-10",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "Bar dip."
+     },
+     {
+      "id": "layne_norton_phat_d1_e6",
+      "name": "Seated Dumbbell Press",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 180,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d1_e7",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d1_e8",
+      "name": "Lying French Press",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Barbell lying triceps extension."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Day 2: Lower Body Power",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "layne_norton_phat_d2_e1",
+      "name": "Squat",
+      "sets": 3,
+      "reps": "3-5",
+      "restSeconds": 240,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d2_e2",
+      "name": "Hack Squat",
+      "sets": 2,
+      "reps": "6-10",
+      "restSeconds": 180,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d2_e3",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "6-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d2_e4",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "5-8",
+      "restSeconds": 210,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d2_e5",
+      "name": "Lying Leg Curls",
+      "sets": 2,
+      "reps": "6-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d2_e6",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "6-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d2_e7",
+      "name": "Seated Calf Raises",
+      "sets": 2,
+      "reps": "6-10",
+      "restSeconds": 90,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 4,
+    "title": "Day 4: Back & Shoulders Hypertrophy",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "layne_norton_phat_d4_e1",
+      "name": "Barbell Row",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Speed work: about 85% of your Day 1 weight, move the bar fast. One light ramp set before it."
+     },
+     {
+      "id": "layne_norton_phat_d4_e2",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d4_e3",
+      "name": "Seated Cable Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d4_e4",
+      "name": "Dumbbell Row",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d4_e5",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d4_e6",
+      "name": "Seated Dumbbell Press",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d4_e7",
+      "name": "Upright Rows",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d4_e8",
+      "name": "Lateral Raises",
+      "sets": 3,
+      "reps": "12-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Take the last set to failure."
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Day 5: Lower Body Hypertrophy",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "layne_norton_phat_d5_e1",
+      "name": "Squat",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "Speed work: about 85% of your Day 2 weight, move the bar fast. One light ramp set before it."
+     },
+     {
+      "id": "layne_norton_phat_d5_e2",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d5_e3",
+      "name": "Leg Press",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d5_e4",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Take the last set to failure."
+     },
+     {
+      "id": "layne_norton_phat_d5_e5",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d5_e6",
+      "name": "Lying Leg Curls",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d5_e7",
+      "name": "Seated Leg Curls",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Take the last set to failure."
+     },
+     {
+      "id": "layne_norton_phat_d5_e8",
+      "name": "Donkey Calf Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d5_e9",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Day 6: Chest & Arms Hypertrophy",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "layne_norton_phat_d6_e1",
+      "name": "Dumbbell Bench Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Speed work: about 85% of your Day 1 weight, move the weight fast. One light ramp set before it."
+     },
+     {
+      "id": "layne_norton_phat_d6_e2",
+      "name": "Incline Dumbbell Press",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d6_e3",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d6_e4",
+      "name": "Incline Cable Flyes (Bench)",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Take the last set to failure."
+     },
+     {
+      "id": "layne_norton_phat_d6_e5",
+      "name": "Barbell Preacher Curls",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d6_e6",
+      "name": "Concentration Curls",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d6_e7",
+      "name": "Spider Curls",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Take the last set to failure."
+     },
+     {
+      "id": "layne_norton_phat_d6_e8",
+      "name": "Standing French Press",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Barbell standing triceps extension."
+     },
+     {
+      "id": "layne_norton_phat_d6_e9",
+      "name": "Rope Pushdown",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "layne_norton_phat_d6_e10",
+      "name": "Dumbbell Kickbacks",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Take the last set to failure."
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "steve_reeves_classic_3day",
+  "title": "Steve Reeves: Classic Physique 3-Day",
+  "description": "The three-day, every-other-day routine attributed to Steve Reeves (Mr. America, Mr. Universe, Mr. Olympia 1950s): shoulders, chest and back on Monday, arms and legs on Wednesday, legs and lower back on Friday. Short rests of 30-45 seconds between sets, 3 sets of 8-12 (12 for arms and thighs). Source: Exercise With Style's write-up of Reeves' routine.",
+  "tags": [
+   "Steve Reeves",
+   "Golden Era",
+   "Classic Physique",
+   "Old School",
+   "3 Days"
+  ],
+  "pro": "Steve Reeves",
+  "goal": "balanced",
+  "level": "beginner",
+  "perWeek": 3,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Monday: Shoulders, Chest & Back",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "steve_reeves_classic_3day_d1_e1",
+      "name": "Upright Rows",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 40,
+      "type": "standard"
+     },
+     {
+      "id": "steve_reeves_classic_3day_d1_e2",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 40,
+      "type": "standard"
+     },
+     {
+      "id": "steve_reeves_classic_3day_d1_e3",
+      "name": "Bent-Over Dumbbell Rows",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 40,
+      "type": "standard",
+      "notes": "Bent-over lateral raise for rear delts."
+     },
+     {
+      "id": "steve_reeves_classic_3day_d1_e4",
+      "name": "Bench Press",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 40,
+      "type": "standard"
+     },
+     {
+      "id": "steve_reeves_classic_3day_d1_e5",
+      "name": "Incline Dumbbell Press",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 40,
+      "type": "standard"
+     },
+     {
+      "id": "steve_reeves_classic_3day_d1_e6",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 40,
+      "type": "standard"
+     },
+     {
+      "id": "steve_reeves_classic_3day_d1_e7",
+      "name": "Chin-Ups",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 40,
+      "type": "standard",
+      "notes": "Or lat pulldown."
+     },
+     {
+      "id": "steve_reeves_classic_3day_d1_e8",
+      "name": "Seated Cable Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 40,
+      "type": "standard",
+      "notes": "Low pulley row."
+     },
+     {
+      "id": "steve_reeves_classic_3day_d1_e9",
+      "name": "Dumbbell Row",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 40,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 3,
+    "title": "Wednesday: Arms & Thighs",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "steve_reeves_classic_3day_d3_e1",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 40,
+      "type": "standard",
+      "notes": "Standing."
+     },
+     {
+      "id": "steve_reeves_classic_3day_d3_e2",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 40,
+      "type": "standard"
+     },
+     {
+      "id": "steve_reeves_classic_3day_d3_e3",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 40,
+      "type": "standard",
+      "notes": "High pulley, lying back on a bench."
+     },
+     {
+      "id": "steve_reeves_classic_3day_d3_e4",
+      "name": "Dumbbell Overhead Extension",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 40,
+      "type": "standard",
+      "notes": "Dumbbell French press."
+     },
+     {
+      "id": "steve_reeves_classic_3day_d3_e5",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 40,
+      "type": "standard",
+      "notes": "Skull crusher."
+     },
+     {
+      "id": "steve_reeves_classic_3day_d3_e6",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 40,
+      "type": "standard",
+      "notes": "Prone single-arm triceps extension."
+     },
+     {
+      "id": "steve_reeves_classic_3day_d3_e7",
+      "name": "Squat",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 40,
+      "type": "standard",
+      "notes": "Half squat."
+     },
+     {
+      "id": "steve_reeves_classic_3day_d3_e8",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 40,
+      "type": "standard"
+     },
+     {
+      "id": "steve_reeves_classic_3day_d3_e9",
+      "name": "Front Squat",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 40,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 5,
+    "title": "Friday: Legs & Lower Back",
+    "estimatedMinutes": 35,
+    "exercises": [
+     {
+      "id": "steve_reeves_classic_3day_d5_e1",
+      "name": "Front Squat",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 40,
+      "type": "standard"
+     },
+     {
+      "id": "steve_reeves_classic_3day_d5_e2",
+      "name": "Leg Curls",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 40,
+      "type": "standard",
+      "notes": "Assisted leg curl."
+     },
+     {
+      "id": "steve_reeves_classic_3day_d5_e3",
+      "name": "Leg Press Calf Raises",
+      "sets": 1,
+      "reps": "20",
+      "restSeconds": 40,
+      "type": "standard"
+     },
+     {
+      "id": "steve_reeves_classic_3day_d5_e4",
+      "name": "Good Mornings",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 40,
+      "type": "standard"
+     },
+     {
+      "id": "steve_reeves_classic_3day_d5_e5",
+      "name": "Neck Crunches",
+      "sets": 2,
+      "reps": "15",
+      "restSeconds": 40,
+      "type": "standard",
+      "notes": "Partner-assisted neck flexion in the original."
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "lee_haney_3on1off",
+  "title": "Lee Haney: Stimulate, Don't Annihilate",
+  "description": "Eight-time Mr. Olympia Lee Haney's rotation: three training days then a rest day, with each muscle group done two ways across the eight-day block. Train to stimulate, not annihilate: 7-8 hours of sleep, naps when you can, and cut volume when you feel run down. Source: Set For Set's summary of his routine. Where a range of sets is given the lower number is used.",
+  "tags": [
+   "Lee Haney",
+   "Mr. Olympia",
+   "Mass Building",
+   "Classic Bodybuilding",
+   "3 On 1 Off"
+  ],
+  "pro": "Lee Haney",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Day 1: Chest & Arms (A)",
+    "estimatedMinutes": 95,
+    "exercises": [
+     {
+      "id": "lee_haney_3on1off_d1_e1",
+      "name": "Bench Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d1_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d1_e3",
+      "name": "Incline Bench Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d1_e4",
+      "name": "Incline Dumbbell Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d1_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d1_e6",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d1_e7",
+      "name": "Cable Overhead Extension",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Cable triceps extension."
+     },
+     {
+      "id": "lee_haney_3on1off_d1_e8",
+      "name": "Skull Crushers",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Skull crusher."
+     },
+     {
+      "id": "lee_haney_3on1off_d1_e9",
+      "name": "Standing Calf Raises",
+      "sets": 6,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Standing or donkey calf raise. Haney trained calves and abs at the end of every training day. Natural lifters can limit them to 3-4 days a week."
+     },
+     {
+      "id": "lee_haney_3on1off_d1_e10",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Haney did 3-4 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d1_e11",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Vertical leg raise."
+     },
+     {
+      "id": "lee_haney_3on1off_d1_e12",
+      "name": "Decline Sit-Ups",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Incline sit-up."
+     },
+     {
+      "id": "lee_haney_3on1off_d1_e13",
+      "name": "Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Seated leg raise."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Day 2: Legs (A)",
+    "estimatedMinutes": 95,
+    "exercises": [
+     {
+      "id": "lee_haney_3on1off_d2_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d2_e2",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d2_e3",
+      "name": "Squat",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "Haney did 4-5 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d2_e4",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d2_e5",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Haney did 3-4 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d2_e6",
+      "name": "Standing Calf Raises",
+      "sets": 6,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Standing or donkey calf raise. Haney trained calves and abs at the end of every training day. Natural lifters can limit them to 3-4 days a week."
+     },
+     {
+      "id": "lee_haney_3on1off_d2_e7",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Haney did 3-4 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d2_e8",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Vertical leg raise."
+     },
+     {
+      "id": "lee_haney_3on1off_d2_e9",
+      "name": "Decline Sit-Ups",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Incline sit-up."
+     },
+     {
+      "id": "lee_haney_3on1off_d2_e10",
+      "name": "Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Seated leg raise."
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Day 3: Back & Shoulders (A)",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "lee_haney_3on1off_d3_e1",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Front pulldown."
+     },
+     {
+      "id": "lee_haney_3on1off_d3_e2",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Barbell or T-bar row."
+     },
+     {
+      "id": "lee_haney_3on1off_d3_e3",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d3_e4",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Military press. Haney did 4-5 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d3_e5",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Side lateral raise."
+     },
+     {
+      "id": "lee_haney_3on1off_d3_e6",
+      "name": "Upright Rows",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d3_e7",
+      "name": "Standing Calf Raises",
+      "sets": 6,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Standing or donkey calf raise. Haney trained calves and abs at the end of every training day. Natural lifters can limit them to 3-4 days a week."
+     },
+     {
+      "id": "lee_haney_3on1off_d3_e8",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Haney did 3-4 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d3_e9",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Vertical leg raise."
+     },
+     {
+      "id": "lee_haney_3on1off_d3_e10",
+      "name": "Decline Sit-Ups",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Incline sit-up."
+     },
+     {
+      "id": "lee_haney_3on1off_d3_e11",
+      "name": "Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Seated leg raise."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 5,
+    "title": "Day 5: Chest & Arms (B)",
+    "estimatedMinutes": 105,
+    "exercises": [
+     {
+      "id": "lee_haney_3on1off_d5_e1",
+      "name": "Bench Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Haney did 4-5 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e2",
+      "name": "Incline Bench Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e4",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Haney did 3-4 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e5",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Every other workout. Haney did 3-4 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e6",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Barbell or dumbbell curl. Haney did 4-5 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e7",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Seated incline curl."
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e8",
+      "name": "Concentration Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e9",
+      "name": "Cable Overhead Extension",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Cable triceps extension."
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e10",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Seated one-arm extension."
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e11",
+      "name": "Single-Arm Cable Pushdown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Reverse-grip one-arm cable extension. Haney did 3-4 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e12",
+      "name": "Standing Calf Raises",
+      "sets": 6,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Standing or donkey calf raise. Haney trained calves and abs at the end of every training day. Natural lifters can limit them to 3-4 days a week."
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e13",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Haney did 3-4 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e14",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Vertical leg raise."
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e15",
+      "name": "Decline Sit-Ups",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Incline sit-up."
+     },
+     {
+      "id": "lee_haney_3on1off_d5_e16",
+      "name": "Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Seated leg raise."
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Day 6: Legs (B)",
+    "estimatedMinutes": 95,
+    "exercises": [
+     {
+      "id": "lee_haney_3on1off_d6_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Haney did 4-5 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d6_e2",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d6_e3",
+      "name": "Squat",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "Haney did 4-5 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d6_e4",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d6_e5",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Haney did 3-4 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d6_e6",
+      "name": "Standing Calf Raises",
+      "sets": 6,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Standing or donkey calf raise. Haney trained calves and abs at the end of every training day. Natural lifters can limit them to 3-4 days a week."
+     },
+     {
+      "id": "lee_haney_3on1off_d6_e7",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Haney did 3-4 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d6_e8",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Vertical leg raise."
+     },
+     {
+      "id": "lee_haney_3on1off_d6_e9",
+      "name": "Decline Sit-Ups",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Incline sit-up."
+     },
+     {
+      "id": "lee_haney_3on1off_d6_e10",
+      "name": "Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Seated leg raise."
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "title": "Day 7: Back & Shoulders (B)",
+    "estimatedMinutes": 95,
+    "exercises": [
+     {
+      "id": "lee_haney_3on1off_d7_e1",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Narrow-grip pulldown."
+     },
+     {
+      "id": "lee_haney_3on1off_d7_e2",
+      "name": "Barbell Row",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d7_e3",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d7_e4",
+      "name": "Dumbbell Row",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "One-arm."
+     },
+     {
+      "id": "lee_haney_3on1off_d7_e5",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Military press. Haney did 4-5 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d7_e6",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Side lateral raise."
+     },
+     {
+      "id": "lee_haney_3on1off_d7_e7",
+      "name": "Upright Rows",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "lee_haney_3on1off_d7_e8",
+      "name": "Standing Calf Raises",
+      "sets": 6,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Standing or donkey calf raise. Haney trained calves and abs at the end of every training day. Natural lifters can limit them to 3-4 days a week."
+     },
+     {
+      "id": "lee_haney_3on1off_d7_e9",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Haney did 3-4 sets."
+     },
+     {
+      "id": "lee_haney_3on1off_d7_e10",
+      "name": "Hanging Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Vertical leg raise."
+     },
+     {
+      "id": "lee_haney_3on1off_d7_e11",
+      "name": "Decline Sit-Ups",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Incline sit-up."
+     },
+     {
+      "id": "lee_haney_3on1off_d7_e12",
+      "name": "Leg Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Seated leg raise."
+     }
+    ]
+   },
+   {
+    "dayNumber": 8,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "kevin_levrone_6day",
+  "title": "Kevin Levrone: 6-Day Split",
+  "description": "Kevin Levrone's three-workout rotation, each trained twice a week: chest, shoulders and triceps; legs, calves and abs; back and biceps. Heavy 6-8 rep work first, then 12-15 rep pump work, 4 sets each. Thursday is the day off. Source: Fitness Volt's profile of Levrone.",
+  "tags": [
+   "Kevin Levrone",
+   "Mass Building",
+   "Classic Bodybuilding",
+   "6 Days",
+   "High Volume"
+  ],
+  "pro": "Kevin Levrone",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Monday: Chest, Shoulders & Triceps",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "kevin_levrone_6day_d1_e1",
+      "name": "Bench Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d1_e2",
+      "name": "Incline Bench Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d1_e3",
+      "name": "Machine Chest Press",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d1_e4",
+      "name": "Cable Crossovers",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d1_e5",
+      "name": "Dumbbell Shoulder Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d1_e6",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d1_e7",
+      "name": "Barbell Shrugs",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d1_e8",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Tuesday: Legs, Calves & Abs",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "kevin_levrone_6day_d2_e1",
+      "name": "Hack Squat",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 180,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d2_e2",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d2_e3",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d2_e4",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d2_e5",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d2_e6",
+      "name": "Cable Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d2_e7",
+      "name": "Leg Raises",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Wednesday: Back & Biceps",
+    "estimatedMinutes": 85,
+    "exercises": [
+     {
+      "id": "kevin_levrone_6day_d3_e1",
+      "name": "Straight-Arm Pulldown",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Straight-arm cable pulldown."
+     },
+     {
+      "id": "kevin_levrone_6day_d3_e2",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d3_e3",
+      "name": "Bent-Over Dumbbell Rows",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d3_e4",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d3_e5",
+      "name": "Machine Row",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d3_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d3_e7",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d3_e8",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d3_e9",
+      "name": "Cable Curls",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 5,
+    "title": "Friday: Chest, Shoulders & Triceps",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "kevin_levrone_6day_d5_e1",
+      "name": "Bench Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d5_e2",
+      "name": "Incline Bench Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d5_e3",
+      "name": "Machine Chest Press",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d5_e4",
+      "name": "Cable Crossovers",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d5_e5",
+      "name": "Dumbbell Shoulder Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d5_e6",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d5_e7",
+      "name": "Barbell Shrugs",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d5_e8",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Saturday: Legs, Calves & Abs",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "kevin_levrone_6day_d6_e1",
+      "name": "Hack Squat",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 180,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d6_e2",
+      "name": "Leg Curls",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d6_e3",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d6_e4",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d6_e5",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d6_e6",
+      "name": "Cable Crunches",
+      "sets": 4,
+      "reps": "25",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d6_e7",
+      "name": "Leg Raises",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "title": "Sunday: Back & Biceps",
+    "estimatedMinutes": 85,
+    "exercises": [
+     {
+      "id": "kevin_levrone_6day_d7_e1",
+      "name": "Straight-Arm Pulldown",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Straight-arm cable pulldown."
+     },
+     {
+      "id": "kevin_levrone_6day_d7_e2",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d7_e3",
+      "name": "Bent-Over Dumbbell Rows",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d7_e4",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d7_e5",
+      "name": "Machine Row",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d7_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d7_e7",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d7_e8",
+      "name": "Preacher Curls",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "kevin_levrone_6day_d7_e9",
+      "name": "Cable Curls",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "sergio_oliva_6day",
+  "title": "Sergio Oliva: The Myth's 6-Day Routine",
+  "description": "The routine Sergio Oliva said he used from 1970, as set out by Marty Gallagher: six days a week, few exercises, big sets. Eight reps for heavy work, five for curls and presses, 15-20 for accessories, and weight added every set on the big lifts. Very high volume (about 190 sets a week by Gallagher's count), built on a manual-labor work capacity. Treat it as a historical routine, not a beginner plan.",
+  "tags": [
+   "Sergio Oliva",
+   "The Myth",
+   "Golden Era",
+   "Mass Building",
+   "Advanced",
+   "6 Days",
+   "High Volume"
+  ],
+  "pro": "Sergio Oliva",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Monday: Chest, Back & Shoulders",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "sergio_oliva_6day_d1_e1",
+      "name": "Bench Press",
+      "sets": 7,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Add weight every set. Oliva went from 185 up to 385."
+     },
+     {
+      "id": "sergio_oliva_6day_d1_e2",
+      "name": "Wide-Grip Pull-Ups",
+      "sets": 7,
+      "reps": "15, 15, 10, 10, 8, 8, 5",
+      "restSeconds": 150,
+      "type": "superset",
+      "notes": "Superset with bench press."
+     },
+     {
+      "id": "sergio_oliva_6day_d1_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Work up to a pair of 80s."
+     },
+     {
+      "id": "sergio_oliva_6day_d1_e4",
+      "name": "Weighted Chest Dips",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 120,
+      "type": "superset",
+      "notes": "Work up to 100 lb on a belt."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Tuesday: Shoulders & Arms",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "sergio_oliva_6day_d2_e1",
+      "name": "Overhead Press",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "From the racks. Work up to 205 for 15."
+     },
+     {
+      "id": "sergio_oliva_6day_d2_e2",
+      "name": "Barbell Curls",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Standing. Work up to 205."
+     },
+     {
+      "id": "sergio_oliva_6day_d2_e3",
+      "name": "Skull Crushers",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Work up to 205."
+     },
+     {
+      "id": "sergio_oliva_6day_d2_e4",
+      "name": "Barbell Preacher Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Scott bench. Work up to 155."
+     },
+     {
+      "id": "sergio_oliva_6day_d2_e5",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Work up to 60s."
+     },
+     {
+      "id": "sergio_oliva_6day_d2_e6",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Scott bench, work up to 60s."
+     },
+     {
+      "id": "sergio_oliva_6day_d2_e7",
+      "name": "Triceps Pushdown",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Work up to the whole stack."
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Wednesday: Abs, Thighs & Calves",
+    "estimatedMinutes": 85,
+    "exercises": [
+     {
+      "id": "sergio_oliva_6day_d3_e1",
+      "name": "Sit-Ups",
+      "sets": 10,
+      "reps": "50",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "sergio_oliva_6day_d3_e2",
+      "name": "Leg Raises",
+      "sets": 5,
+      "reps": "20",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "sergio_oliva_6day_d3_e3",
+      "name": "Side Bend Crunches",
+      "sets": 5,
+      "reps": "200",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "With a 45 lb bar behind the neck."
+     },
+     {
+      "id": "sergio_oliva_6day_d3_e4",
+      "name": "Squat",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 240,
+      "type": "standard",
+      "notes": "Work up: 315, 405, 455, 475, 505."
+     },
+     {
+      "id": "sergio_oliva_6day_d3_e5",
+      "name": "Standing Calf Raises",
+      "sets": 10,
+      "reps": "8",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Heavy. Oliva used 315."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Thursday: Chest, Shoulders & Lats",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "sergio_oliva_6day_d4_e1",
+      "name": "Bench Press",
+      "sets": 7,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Work up: 205, 225, 265, 305, 325, 355, 385."
+     },
+     {
+      "id": "sergio_oliva_6day_d4_e2",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Work up to 250."
+     },
+     {
+      "id": "sergio_oliva_6day_d4_e3",
+      "name": "Machine Row",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Rowing machine, work up to 205."
+     },
+     {
+      "id": "sergio_oliva_6day_d4_e4",
+      "name": "Seated Dumbbell Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Work up to 80s."
+     },
+     {
+      "id": "sergio_oliva_6day_d4_e5",
+      "name": "Barbell Row",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Work up to 275."
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Friday: Arms & Lats",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "sergio_oliva_6day_d5_e1",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "5",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Narrow-grip triceps press. Work up to 205."
+     },
+     {
+      "id": "sergio_oliva_6day_d5_e2",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "5",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Standing. Work up to 205."
+     },
+     {
+      "id": "sergio_oliva_6day_d5_e3",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "5",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "EZ-bar. Work up to 205."
+     },
+     {
+      "id": "sergio_oliva_6day_d5_e4",
+      "name": "Barbell Preacher Curls",
+      "sets": 3,
+      "reps": "5",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Work up to 205."
+     },
+     {
+      "id": "sergio_oliva_6day_d5_e5",
+      "name": "Preacher Curls (Dumbbell)",
+      "sets": 3,
+      "reps": "5",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Work up to 50s."
+     },
+     {
+      "id": "sergio_oliva_6day_d5_e6",
+      "name": "Dumbbell Skull Crushers",
+      "sets": 3,
+      "reps": "5",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "On the preacher bench. Work up to 50s."
+     },
+     {
+      "id": "sergio_oliva_6day_d5_e7",
+      "name": "Close-Grip Chin-Ups",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Underhand grip."
+     },
+     {
+      "id": "sergio_oliva_6day_d5_e8",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "sergio_oliva_6day_d5_e9",
+      "name": "Chin-Ups",
+      "sets": 5,
+      "reps": "5-10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Behind the neck."
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Saturday: Abs, Thighs & Calves",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "sergio_oliva_6day_d6_e1",
+      "name": "Weighted Sit-Ups",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "sergio_oliva_6day_d6_e2",
+      "name": "Leg Raises",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "sergio_oliva_6day_d6_e3",
+      "name": "Side Bend Crunches",
+      "sets": 5,
+      "reps": "50",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "With a 45 lb bar."
+     },
+     {
+      "id": "sergio_oliva_6day_d6_e4",
+      "name": "Squat",
+      "sets": 8,
+      "reps": "10",
+      "restSeconds": 240,
+      "type": "standard",
+      "notes": "Ramp up over 8 sets to 405 for 10, then 3 sets of 20 with 250. Accounts of this day differ a little."
+     },
+     {
+      "id": "sergio_oliva_6day_d6_e5",
+      "name": "Squat",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Lighter, about 250 lb."
+     },
+     {
+      "id": "sergio_oliva_6day_d6_e6",
+      "name": "Front Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Work up to 205."
+     },
+     {
+      "id": "sergio_oliva_6day_d6_e7",
+      "name": "Seated Calf Raises",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Heavy. Work up to 200."
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "reg_park_beginner_5x5",
+  "title": "Reg Park: Beginner 5x5",
+  "description": "The full-body routine of Reg Park (three-time Mr. Universe and Arnold's hero), three days a week on Monday, Wednesday and Friday: Workout A, B, A in week 1 and B, A, B in week 2. Five sets of five on the big lifts, where sets 1-2 are warm-ups and sets 3-5 are the working sets at the weight you can lift for 5. Source: Fitness Volt's account of Park's beginner routine.",
+  "tags": [
+   "Reg Park",
+   "Golden Era",
+   "5x5",
+   "Strength",
+   "Beginner",
+   "Full Body",
+   "3 Days"
+  ],
+  "weeks": 2,
+  "pro": "Reg Park",
+  "goal": "strength",
+  "level": "beginner",
+  "perWeek": 3,
+  "days": [
+   {
+    "dayNumber": 1,
+    "week": 1,
+    "title": "Week 1 · Mon: Workout A",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "reg_park_beginner_5x5_d1_e1",
+      "name": "Squat",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Sets 1-2 are warm-ups. Sets 3-5 are working sets at the weight you can do for 5."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d1_e2",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Chin-ups or pull-ups. Sets 1-2 are warm-ups."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d1_e3",
+      "name": "Bench Press",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Or dips. Sets 1-2 are warm-ups."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d1_e4",
+      "name": "Barbell Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "reg_park_beginner_5x5_d1_e5",
+      "name": "Wrist Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Wrist work."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d1_e6",
+      "name": "Standing Calf Raises",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "week": 1,
+    "title": "Week 1 · Tue: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 3,
+    "week": 1,
+    "title": "Week 1 · Wed: Workout B",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "reg_park_beginner_5x5_d3_e1",
+      "name": "Front Squat",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Sets 1-2 are warm-ups. Sets 3-5 are working sets."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d3_e2",
+      "name": "Barbell Row",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Sets 1-2 are warm-ups."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d3_e3",
+      "name": "Overhead Press",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Standing press. Sets 1-2 are warm-ups."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d3_e4",
+      "name": "Deadlift",
+      "sets": 3,
+      "reps": "5",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "2 warm-up sets and 1 stabilizer set."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d3_e5",
+      "name": "Wrist Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Wrist work."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d3_e6",
+      "name": "Standing Calf Raises",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "week": 1,
+    "title": "Week 1 · Thu: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 5,
+    "week": 1,
+    "title": "Week 1 · Fri: Workout A",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "reg_park_beginner_5x5_d5_e1",
+      "name": "Squat",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Sets 1-2 are warm-ups. Sets 3-5 are working sets at the weight you can do for 5."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d5_e2",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Chin-ups or pull-ups. Sets 1-2 are warm-ups."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d5_e3",
+      "name": "Bench Press",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Or dips. Sets 1-2 are warm-ups."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d5_e4",
+      "name": "Barbell Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "reg_park_beginner_5x5_d5_e5",
+      "name": "Wrist Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Wrist work."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d5_e6",
+      "name": "Standing Calf Raises",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "week": 1,
+    "title": "Week 1 · Sat/Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 7,
+    "week": 2,
+    "title": "Week 2 · Mon: Workout B",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "reg_park_beginner_5x5_d7_e1",
+      "name": "Front Squat",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Sets 1-2 are warm-ups. Sets 3-5 are working sets."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d7_e2",
+      "name": "Barbell Row",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Sets 1-2 are warm-ups."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d7_e3",
+      "name": "Overhead Press",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Standing press. Sets 1-2 are warm-ups."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d7_e4",
+      "name": "Deadlift",
+      "sets": 3,
+      "reps": "5",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "2 warm-up sets and 1 stabilizer set."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d7_e5",
+      "name": "Wrist Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Wrist work."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d7_e6",
+      "name": "Standing Calf Raises",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 8,
+    "week": 2,
+    "title": "Week 2 · Tue: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 9,
+    "week": 2,
+    "title": "Week 2 · Wed: Workout A",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "reg_park_beginner_5x5_d9_e1",
+      "name": "Squat",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Sets 1-2 are warm-ups. Sets 3-5 are working sets at the weight you can do for 5."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d9_e2",
+      "name": "Pull-Ups",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Chin-ups or pull-ups. Sets 1-2 are warm-ups."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d9_e3",
+      "name": "Bench Press",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Or dips. Sets 1-2 are warm-ups."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d9_e4",
+      "name": "Barbell Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "reg_park_beginner_5x5_d9_e5",
+      "name": "Wrist Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Wrist work."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d9_e6",
+      "name": "Standing Calf Raises",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 10,
+    "week": 2,
+    "title": "Week 2 · Thu: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 11,
+    "week": 2,
+    "title": "Week 2 · Fri: Workout B",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "reg_park_beginner_5x5_d11_e1",
+      "name": "Front Squat",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Sets 1-2 are warm-ups. Sets 3-5 are working sets."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d11_e2",
+      "name": "Barbell Row",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Sets 1-2 are warm-ups."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d11_e3",
+      "name": "Overhead Press",
+      "sets": 5,
+      "reps": "5",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Standing press. Sets 1-2 are warm-ups."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d11_e4",
+      "name": "Deadlift",
+      "sets": 3,
+      "reps": "5",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "2 warm-up sets and 1 stabilizer set."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d11_e5",
+      "name": "Wrist Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Wrist work."
+     },
+     {
+      "id": "reg_park_beginner_5x5_d11_e6",
+      "name": "Standing Calf Raises",
+      "sets": 2,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 12,
+    "week": 2,
+    "title": "Week 2 · Sat/Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "dave_draper_1960s_split",
+  "title": "Dave Draper: 1960s Training Journals",
+  "description": "Dave Draper's two-day split from his 1964-65 journals, as published on davedraper.com: chest, back, thighs and calves on one day, delts, arms and forearms on the next, alternating six days a week so each body part is trained three times a week. Very high volume (up to 25 sets per body part). Draper himself said not to copy it. Numbers are the February 1965 pre-contest workouts; weights from the journals are left out.",
+  "tags": [
+   "Dave Draper",
+   "The Blonde Bomber",
+   "Golden Era",
+   "Mass Building",
+   "Advanced",
+   "6 Days",
+   "Very High Volume"
+  ],
+  "pro": "Dave Draper",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Day A: Chest, Back, Thighs & Calves",
+    "estimatedMinutes": 120,
+    "exercises": [
+     {
+      "id": "dave_draper_1960s_split_d1_e1",
+      "name": "Incline Bench Press",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Incline Dumbbell Flyes."
+     },
+     {
+      "id": "dave_draper_1960s_split_d1_e2",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Superset with Incline Bench Press."
+     },
+     {
+      "id": "dave_draper_1960s_split_d1_e3",
+      "name": "Bench Press",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Dumbbell Flyes."
+     },
+     {
+      "id": "dave_draper_1960s_split_d1_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Superset with Bench Press."
+     },
+     {
+      "id": "dave_draper_1960s_split_d1_e5",
+      "name": "Decline Dumbbell Flyes",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d1_e6",
+      "name": "Wide-Grip Lat Pulldown",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d1_e7",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d1_e8",
+      "name": "Seated Cable Row",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Long-pulley row."
+     },
+     {
+      "id": "dave_draper_1960s_split_d1_e9",
+      "name": "Barbell Row",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d1_e10",
+      "name": "Front Squat",
+      "sets": 5,
+      "reps": "10, 8, 7, 10, 12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d1_e11",
+      "name": "Sissy Squats",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Draper did not record the reps."
+     },
+     {
+      "id": "dave_draper_1960s_split_d1_e12",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Thigh curl."
+     },
+     {
+      "id": "dave_draper_1960s_split_d1_e13",
+      "name": "Donkey Calf Raises",
+      "sets": 10,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Day B: Delts, Arms & Forearms",
+    "estimatedMinutes": 105,
+    "exercises": [
+     {
+      "id": "dave_draper_1960s_split_d2_e1",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 5,
+      "reps": "6",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Seated military press."
+     },
+     {
+      "id": "dave_draper_1960s_split_d2_e2",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 5,
+      "reps": "6",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d2_e3",
+      "name": "Seated Dumbbell Lateral Raises",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Front Raises."
+     },
+     {
+      "id": "dave_draper_1960s_split_d2_e4",
+      "name": "Front Raises",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "notes": "Superset with Seated Dumbbell Lateral Raises."
+     },
+     {
+      "id": "dave_draper_1960s_split_d2_e5",
+      "name": "Incline Lateral Raises",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Face-down incline lateral raise (rear delts). Third exercise of the delt triset."
+     },
+     {
+      "id": "dave_draper_1960s_split_d2_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d2_e7",
+      "name": "Dumbbell Curls",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Flat bench curl."
+     },
+     {
+      "id": "dave_draper_1960s_split_d2_e8",
+      "name": "Machine Preacher Curls",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Machine curl."
+     },
+     {
+      "id": "dave_draper_1960s_split_d2_e9",
+      "name": "Reverse-Grip Barbell Bench Press",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Reverse-grip close-grip bench for triceps."
+     },
+     {
+      "id": "dave_draper_1960s_split_d2_e10",
+      "name": "Barbell French Press",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Seated."
+     },
+     {
+      "id": "dave_draper_1960s_split_d2_e11",
+      "name": "Incline Two-Dumbbell Extension",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d2_e12",
+      "name": "Zottman Curls",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d2_e13",
+      "name": "Wrist Curls",
+      "sets": 5,
+      "reps": "12",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Day A: Chest, Back, Thighs & Calves",
+    "estimatedMinutes": 120,
+    "exercises": [
+     {
+      "id": "dave_draper_1960s_split_d3_e1",
+      "name": "Incline Bench Press",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Incline Dumbbell Flyes."
+     },
+     {
+      "id": "dave_draper_1960s_split_d3_e2",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Superset with Incline Bench Press."
+     },
+     {
+      "id": "dave_draper_1960s_split_d3_e3",
+      "name": "Bench Press",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Dumbbell Flyes."
+     },
+     {
+      "id": "dave_draper_1960s_split_d3_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Superset with Bench Press."
+     },
+     {
+      "id": "dave_draper_1960s_split_d3_e5",
+      "name": "Decline Dumbbell Flyes",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d3_e6",
+      "name": "Wide-Grip Lat Pulldown",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d3_e7",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d3_e8",
+      "name": "Seated Cable Row",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Long-pulley row."
+     },
+     {
+      "id": "dave_draper_1960s_split_d3_e9",
+      "name": "Barbell Row",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d3_e10",
+      "name": "Front Squat",
+      "sets": 5,
+      "reps": "10, 8, 7, 10, 12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d3_e11",
+      "name": "Sissy Squats",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Draper did not record the reps."
+     },
+     {
+      "id": "dave_draper_1960s_split_d3_e12",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Thigh curl."
+     },
+     {
+      "id": "dave_draper_1960s_split_d3_e13",
+      "name": "Donkey Calf Raises",
+      "sets": 10,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Day B: Delts, Arms & Forearms",
+    "estimatedMinutes": 105,
+    "exercises": [
+     {
+      "id": "dave_draper_1960s_split_d4_e1",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 5,
+      "reps": "6",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Seated military press."
+     },
+     {
+      "id": "dave_draper_1960s_split_d4_e2",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 5,
+      "reps": "6",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d4_e3",
+      "name": "Seated Dumbbell Lateral Raises",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Front Raises."
+     },
+     {
+      "id": "dave_draper_1960s_split_d4_e4",
+      "name": "Front Raises",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "notes": "Superset with Seated Dumbbell Lateral Raises."
+     },
+     {
+      "id": "dave_draper_1960s_split_d4_e5",
+      "name": "Incline Lateral Raises",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Face-down incline lateral raise (rear delts). Third exercise of the delt triset."
+     },
+     {
+      "id": "dave_draper_1960s_split_d4_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d4_e7",
+      "name": "Dumbbell Curls",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Flat bench curl."
+     },
+     {
+      "id": "dave_draper_1960s_split_d4_e8",
+      "name": "Machine Preacher Curls",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Machine curl."
+     },
+     {
+      "id": "dave_draper_1960s_split_d4_e9",
+      "name": "Reverse-Grip Barbell Bench Press",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Reverse-grip close-grip bench for triceps."
+     },
+     {
+      "id": "dave_draper_1960s_split_d4_e10",
+      "name": "Barbell French Press",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Seated."
+     },
+     {
+      "id": "dave_draper_1960s_split_d4_e11",
+      "name": "Incline Two-Dumbbell Extension",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d4_e12",
+      "name": "Zottman Curls",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d4_e13",
+      "name": "Wrist Curls",
+      "sets": 5,
+      "reps": "12",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Day A: Chest, Back, Thighs & Calves",
+    "estimatedMinutes": 120,
+    "exercises": [
+     {
+      "id": "dave_draper_1960s_split_d5_e1",
+      "name": "Incline Bench Press",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Incline Dumbbell Flyes."
+     },
+     {
+      "id": "dave_draper_1960s_split_d5_e2",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Superset with Incline Bench Press."
+     },
+     {
+      "id": "dave_draper_1960s_split_d5_e3",
+      "name": "Bench Press",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Dumbbell Flyes."
+     },
+     {
+      "id": "dave_draper_1960s_split_d5_e4",
+      "name": "Dumbbell Flyes",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Superset with Bench Press."
+     },
+     {
+      "id": "dave_draper_1960s_split_d5_e5",
+      "name": "Decline Dumbbell Flyes",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d5_e6",
+      "name": "Wide-Grip Lat Pulldown",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d5_e7",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d5_e8",
+      "name": "Seated Cable Row",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Long-pulley row."
+     },
+     {
+      "id": "dave_draper_1960s_split_d5_e9",
+      "name": "Barbell Row",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d5_e10",
+      "name": "Front Squat",
+      "sets": 5,
+      "reps": "10, 8, 7, 10, 12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d5_e11",
+      "name": "Sissy Squats",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Draper did not record the reps."
+     },
+     {
+      "id": "dave_draper_1960s_split_d5_e12",
+      "name": "Leg Curls",
+      "sets": 5,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Thigh curl."
+     },
+     {
+      "id": "dave_draper_1960s_split_d5_e13",
+      "name": "Donkey Calf Raises",
+      "sets": 10,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Day B: Delts, Arms & Forearms",
+    "estimatedMinutes": 105,
+    "exercises": [
+     {
+      "id": "dave_draper_1960s_split_d6_e1",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 5,
+      "reps": "6",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Seated military press."
+     },
+     {
+      "id": "dave_draper_1960s_split_d6_e2",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 5,
+      "reps": "6",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d6_e3",
+      "name": "Seated Dumbbell Lateral Raises",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Front Raises."
+     },
+     {
+      "id": "dave_draper_1960s_split_d6_e4",
+      "name": "Front Raises",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "notes": "Superset with Seated Dumbbell Lateral Raises."
+     },
+     {
+      "id": "dave_draper_1960s_split_d6_e5",
+      "name": "Incline Lateral Raises",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Face-down incline lateral raise (rear delts). Third exercise of the delt triset."
+     },
+     {
+      "id": "dave_draper_1960s_split_d6_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d6_e7",
+      "name": "Dumbbell Curls",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Flat bench curl."
+     },
+     {
+      "id": "dave_draper_1960s_split_d6_e8",
+      "name": "Machine Preacher Curls",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Machine curl."
+     },
+     {
+      "id": "dave_draper_1960s_split_d6_e9",
+      "name": "Reverse-Grip Barbell Bench Press",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Reverse-grip close-grip bench for triceps."
+     },
+     {
+      "id": "dave_draper_1960s_split_d6_e10",
+      "name": "Barbell French Press",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Seated."
+     },
+     {
+      "id": "dave_draper_1960s_split_d6_e11",
+      "name": "Incline Two-Dumbbell Extension",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d6_e12",
+      "name": "Zottman Curls",
+      "sets": 5,
+      "reps": "8",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "dave_draper_1960s_split_d6_e13",
+      "name": "Wrist Curls",
+      "sets": 5,
+      "reps": "12",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "dexter_jackson_4day",
+  "title": "Dexter Jackson: Four-Day Split",
+  "description": "Mr. Olympia 2008 Dexter Jackson's week as published by Fitness Volt: chest and biceps, quads and calves, a rest day, shoulders-triceps-calves, then back and hamstrings, with the weekend off. Heavy machine and free-weight work in sets of about 10, plus warm-up sets before each exercise (not listed here, add 2-3 ramp-up sets of the first lift).",
+  "tags": [
+   "Dexter Jackson",
+   "The Blade",
+   "Mr. Olympia",
+   "Mass Building",
+   "Advanced",
+   "4 Days"
+  ],
+  "pro": "Dexter Jackson",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 4,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Monday: Chest & Biceps",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "dexter_jackson_4day_d1_e1",
+      "name": "Smith Machine Incline Press",
+      "sets": 3,
+      "reps": "10, 8-10, 8-10",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "dexter_jackson_4day_d1_e2",
+      "name": "Bench Press",
+      "sets": 3,
+      "reps": "10, 8-10, 8-10",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "dexter_jackson_4day_d1_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "10, 8-10, 8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "dexter_jackson_4day_d1_e4",
+      "name": "Machine Preacher Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Seated machine preacher curl."
+     },
+     {
+      "id": "dexter_jackson_4day_d1_e5",
+      "name": "Machine Incline Curl",
+      "sets": 4,
+      "reps": "10, 10, 8-10, 8-10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Seated overhead curl machine, one arm at a time."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Tuesday: Quads & Calves",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "dexter_jackson_4day_d2_e1",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "20, 20, 15-20",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "dexter_jackson_4day_d2_e2",
+      "name": "Leg Press",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Add plates every set."
+     },
+     {
+      "id": "dexter_jackson_4day_d2_e3",
+      "name": "Smith Machine Squats",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Front squat on the Smith machine."
+     },
+     {
+      "id": "dexter_jackson_4day_d2_e4",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Superset with Smith Machine Squats."
+     },
+     {
+      "id": "dexter_jackson_4day_d2_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "Failure",
+      "restSeconds": 50,
+      "type": "standard",
+      "notes": "Dumbbell walking lunge."
+     },
+     {
+      "id": "dexter_jackson_4day_d2_e6",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Work up in weight each round."
+     },
+     {
+      "id": "dexter_jackson_4day_d2_e7",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 60,
+      "type": "superset",
+      "notes": "Superset with Standing Calf Raises."
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 4,
+    "title": "Thursday: Shoulders, Triceps & Calves",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "dexter_jackson_4day_d4_e1",
+      "name": "Seated Dumbbell Press",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "dexter_jackson_4day_d4_e2",
+      "name": "Machine Lateral Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Seated lateral raise machine."
+     },
+     {
+      "id": "dexter_jackson_4day_d4_e3",
+      "name": "Rear Delt Flyes",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Pec deck, facing the pad."
+     },
+     {
+      "id": "dexter_jackson_4day_d4_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "V-bar or straight bar. Dexter did 4-5 sets."
+     },
+     {
+      "id": "dexter_jackson_4day_d4_e5",
+      "name": "Skull Crushers",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Skull crusher or dip machine. Dexter did 4-5 sets."
+     },
+     {
+      "id": "dexter_jackson_4day_d4_e6",
+      "name": "Rope Pushdown",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Dexter did 4-5 sets."
+     },
+     {
+      "id": "dexter_jackson_4day_d4_e7",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Work up in weight each round."
+     },
+     {
+      "id": "dexter_jackson_4day_d4_e8",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 60,
+      "type": "superset",
+      "notes": "Superset with Standing Calf Raises."
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Friday: Back & Hamstrings",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "dexter_jackson_4day_d5_e1",
+      "name": "Wide-Grip Lat Pulldown",
+      "sets": 4,
+      "reps": "10, 10, 10, 8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "dexter_jackson_4day_d5_e2",
+      "name": "Deadlift",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 180,
+      "type": "standard"
+     },
+     {
+      "id": "dexter_jackson_4day_d5_e3",
+      "name": "T-Bar Row",
+      "sets": 3,
+      "reps": "10, 8-10, 8-10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "\"Corner\" T-bar row with an Olympic bar."
+     },
+     {
+      "id": "dexter_jackson_4day_d5_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "dexter_jackson_4day_d5_e5",
+      "name": "Kneeling Single-Leg Curl Machine",
+      "sets": 3,
+      "reps": "10, 10, 8-10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Each leg."
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "larry_scott_6day",
+  "title": "Larry Scott: Mr. Olympia 1965 Split",
+  "description": "Larry Scott, the first Mr. Olympia, trained one muscle group a day, six days a week with Sunday off. Start with 3 sets per exercise and build to 4-5, using weights you can lift 10-12 times with good form. Source: Fitness Volt's profile of Scott.",
+  "tags": [
+   "Larry Scott",
+   "First Mr. Olympia",
+   "Golden Era",
+   "Mass Building",
+   "Classic Bodybuilding",
+   "6 Days"
+  ],
+  "pro": "Larry Scott",
+  "goal": "mass",
+  "level": "intermediate",
+  "perWeek": 6,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Monday: Chest",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "larry_scott_6day_d1_e1",
+      "name": "Wide-Grip Barbell Bench Press",
+      "sets": 5,
+      "reps": "5-8",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_6day_d1_e2",
+      "name": "Incline Dumbbell Press",
+      "sets": 5,
+      "reps": "5-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_6day_d1_e3",
+      "name": "Chest Dips",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Parallel bar dips."
+     },
+     {
+      "id": "larry_scott_6day_d1_e4",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_6day_d1_e5",
+      "name": "Decline Dumbbell Flyes",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_6day_d1_e6",
+      "name": "Push-Ups",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Tuesday: Back",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "larry_scott_6day_d2_e1",
+      "name": "Wide-Grip Pull-Ups",
+      "sets": 5,
+      "reps": "5-10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Wide-grip chin-up. Or to failure."
+     },
+     {
+      "id": "larry_scott_6day_d2_e2",
+      "name": "Scapular Pull-Ups",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Hanging scapular rotation from a bar."
+     },
+     {
+      "id": "larry_scott_6day_d2_e3",
+      "name": "Single-Arm Cable Lat Pulldown",
+      "sets": 5,
+      "reps": "8-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Straddled single-arm pulldown."
+     },
+     {
+      "id": "larry_scott_6day_d2_e4",
+      "name": "Neutral-Grip Seated Cable Row",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_6day_d2_e5",
+      "name": "Dumbbell Pullover",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Crossbench."
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Wednesday: Shoulders",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "larry_scott_6day_d3_e1",
+      "name": "Overhead Press",
+      "sets": 5,
+      "reps": "5-8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Standing barbell press."
+     },
+     {
+      "id": "larry_scott_6day_d3_e2",
+      "name": "Scott Press",
+      "sets": 5,
+      "reps": "5-8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Dumbbell Scott press."
+     },
+     {
+      "id": "larry_scott_6day_d3_e3",
+      "name": "Barbell Front Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_6day_d3_e4",
+      "name": "Lateral Raises",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Dumbbell."
+     },
+     {
+      "id": "larry_scott_6day_d3_e5",
+      "name": "Rear Delt Flyes",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Rear delt raise."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Thursday: Arms",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "larry_scott_6day_d4_e1",
+      "name": "Preacher Curls",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Scott curls, barbell or dumbbell."
+     },
+     {
+      "id": "larry_scott_6day_d4_e2",
+      "name": "Single-Arm Cable Curls",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Single-arm biceps curl."
+     },
+     {
+      "id": "larry_scott_6day_d4_e3",
+      "name": "Barbell Overhead Triceps Extension",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_6day_d4_e4",
+      "name": "Single-Arm Overhead Dumbbell Extension",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Single-arm triceps extension."
+     },
+     {
+      "id": "larry_scott_6day_d4_e5",
+      "name": "Reverse Curls",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Barbell."
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Friday: Legs",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "larry_scott_6day_d5_e1",
+      "name": "Narrow-Stance Squat",
+      "sets": 5,
+      "reps": "5-8",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "Narrow-stance barbell squat."
+     },
+     {
+      "id": "larry_scott_6day_d5_e2",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "5-8",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_6day_d5_e3",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 5,
+      "reps": "5-8",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Barbell."
+     },
+     {
+      "id": "larry_scott_6day_d5_e4",
+      "name": "Leg Extension",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_6day_d5_e5",
+      "name": "Standing Calf Raises",
+      "sets": 5,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Saturday: Abs",
+    "estimatedMinutes": 20,
+    "exercises": [
+     {
+      "id": "larry_scott_6day_d6_e1",
+      "name": "Sit-Ups",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_6day_d6_e2",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Bent-knee raise."
+     },
+     {
+      "id": "larry_scott_6day_d6_e3",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "larry_scott_20inch_arms",
+  "title": "Larry Scott: 20-Inch Arms",
+  "description": "Two arm workouts from Larry Scott's booklet How I Built My 20-Inch Arms: a main workout, and a second workout to swap in when you are fatigued or stuck. Start with 3 sets per exercise and build to 4-5, with weights you can lift 10-12 times with good form. Add it to your normal training for a specialization block.",
+  "tags": [
+   "Larry Scott",
+   "Arm Specialization",
+   "Biceps",
+   "Triceps",
+   "Golden Era",
+   "2 Workouts"
+  ],
+  "pro": "Larry Scott",
+  "goal": "mass",
+  "level": "intermediate",
+  "perWeek": 2,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Arms Workout 1 (main)",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "larry_scott_20inch_arms_d1_e1",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_20inch_arms_d1_e2",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_20inch_arms_d1_e3",
+      "name": "Reverse Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Barbell reverse curl."
+     },
+     {
+      "id": "larry_scott_20inch_arms_d1_e4",
+      "name": "Standing French Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Standing triceps press."
+     },
+     {
+      "id": "larry_scott_20inch_arms_d1_e5",
+      "name": "Incline Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Incline barbell triceps press. Scott did 3-4 sets."
+     },
+     {
+      "id": "larry_scott_20inch_arms_d1_e6",
+      "name": "Dumbbell Skull Crushers",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Lying dumbbell triceps press."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Arms Workout 2 (when fatigued or stuck)",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "larry_scott_20inch_arms_d2_e1",
+      "name": "Dumbbell Curls",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Flat bench dumbbell curl."
+     },
+     {
+      "id": "larry_scott_20inch_arms_d2_e2",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Bent-over barbell concentration curl."
+     },
+     {
+      "id": "larry_scott_20inch_arms_d2_e3",
+      "name": "Dumbbell Kickbacks",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "larry_scott_20inch_arms_d2_e4",
+      "name": "Dumbbell Kickbacks",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Barbell kickback."
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "vince_gironda_8x8",
+  "title": "Vince Gironda: 8x8 Method",
+  "description": "The Iron Guru's 8x8: eight sets of eight reps with 30 seconds of rest at 60-70% of your max, on the main exercise for each muscle, plus a few finishing sets. Four workouts, run for 4-6 weeks and then a one-week deload. Beginners can start at 40-50% of max and build up, or start with 50-60 seconds of rest and cut 5 seconds a week. Source: Fitness Volt's guide to the 8x8 method.",
+  "tags": [
+   "Vince Gironda",
+   "Iron Guru",
+   "8x8",
+   "High Volume",
+   "Short Rests",
+   "Mass Building"
+  ],
+  "pro": "Vince Gironda",
+  "goal": "mass",
+  "level": "intermediate",
+  "perWeek": 4,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Workout 1: Chest & Triceps",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "vince_gironda_8x8_d1_e1",
+      "name": "Close-Grip Bench Press",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Gironda guillotine press (bar to the neck)."
+     },
+     {
+      "id": "vince_gironda_8x8_d1_e2",
+      "name": "Incline Dumbbell Press",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d1_e3",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d1_e4",
+      "name": "Push-Ups",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Stop 1-2 reps short of failure."
+     },
+     {
+      "id": "vince_gironda_8x8_d1_e5",
+      "name": "Triceps Pushdown",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d1_e6",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "EZ-bar skull crusher."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Workout 2: Back & Biceps",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "vince_gironda_8x8_d2_e1",
+      "name": "Lat Pulldown",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d2_e2",
+      "name": "Seated Cable Row",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d2_e3",
+      "name": "Pull-Ups",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Stop 1-2 reps short of failure."
+     },
+     {
+      "id": "vince_gironda_8x8_d2_e4",
+      "name": "Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d2_e5",
+      "name": "Drag Curls",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Gironda drag curl."
+     },
+     {
+      "id": "vince_gironda_8x8_d2_e6",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Workout 3: Legs & Abs",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "vince_gironda_8x8_d3_e1",
+      "name": "Leg Press",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d3_e2",
+      "name": "Leg Extension",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d3_e3",
+      "name": "Leg Curls",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d3_e4",
+      "name": "Lunges",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d3_e5",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d3_e6",
+      "name": "Cable Crunches",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Kneeling."
+     },
+     {
+      "id": "vince_gironda_8x8_d3_e7",
+      "name": "Side Bend Crunches",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Saxon side bend."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Workout 4: Shoulders & Arms",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "vince_gironda_8x8_d4_e1",
+      "name": "Machine Shoulder Press",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d4_e2",
+      "name": "Lateral Raises",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d4_e3",
+      "name": "Reverse Cable Crossovers",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard",
+      "notes": "Reverse cable flye (rear delts)."
+     },
+     {
+      "id": "vince_gironda_8x8_d4_e4",
+      "name": "Overhead Triceps Extension",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d4_e5",
+      "name": "Preacher Curls",
+      "sets": 8,
+      "reps": "8",
+      "restSeconds": 30,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d4_e6",
+      "name": "Cable Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "vince_gironda_8x8_d4_e7",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Reverse-grip pushdown."
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "arnold_golden_six",
+  "title": "Arnold: The Golden Six",
+  "description": "The six-exercise full-body program of Steve Reeves that a teenage Arnold Schwarzenegger started on: 20 sets, about an hour, three non-consecutive days a week. Squat, bench press, chin-ups, behind-the-neck press, barbell curl and bent-knee sit-ups. Add weight when you hit all the reps. Source: Fitness Volt's write-up.",
+  "tags": [
+   "Arnold Schwarzenegger",
+   "Steve Reeves",
+   "Golden Six",
+   "Beginner",
+   "Full Body",
+   "Golden Era",
+   "3 Days"
+  ],
+  "pro": "Arnold Schwarzenegger",
+  "goal": "balanced",
+  "level": "beginner",
+  "perWeek": 3,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Monday: Golden Six",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "arnold_golden_six_d1_e1",
+      "name": "Squat",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d1_e2",
+      "name": "Bench Press",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d1_e3",
+      "name": "Chin-Ups",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d1_e4",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d1_e5",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d1_e6",
+      "name": "Sit-Ups",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Bent-knee sit-up."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 3,
+    "title": "Wednesday: Golden Six",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "arnold_golden_six_d3_e1",
+      "name": "Squat",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d3_e2",
+      "name": "Bench Press",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d3_e3",
+      "name": "Chin-Ups",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d3_e4",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d3_e5",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d3_e6",
+      "name": "Sit-Ups",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Bent-knee sit-up."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 5,
+    "title": "Friday: Golden Six",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "arnold_golden_six_d5_e1",
+      "name": "Squat",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d5_e2",
+      "name": "Bench Press",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d5_e3",
+      "name": "Chin-Ups",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d5_e4",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d5_e5",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "arnold_golden_six_d5_e6",
+      "name": "Sit-Ups",
+      "sets": 3,
+      "reps": "AMRAP",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Bent-knee sit-up."
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "jay_cutler_4day_mass",
+  "title": "Jay Cutler: 4-Day Mass Split (Weeks 1-4)",
+  "description": "A four-day mass split credited to four-time Mr. Olympia Jay Cutler: chest and triceps, back and biceps, shoulders, then legs, with rest days between. Rep ranges move from heavy (8-12) to pump (15-20) within each workout, with timed rests. The write-up says the exercises were swapped in weeks 5-8. Light cardio and stretching on rest days. Source: Fitness Volt.",
+  "tags": [
+   "Jay Cutler",
+   "Mr. Olympia",
+   "Mass Building",
+   "4 Days",
+   "Modern Pro"
+  ],
+  "pro": "Jay Cutler",
+  "goal": "mass",
+  "level": "intermediate",
+  "perWeek": 4,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Monday: Chest & Triceps",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "jay_cutler_4day_mass_d1_e1",
+      "name": "Incline Bench Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d1_e2",
+      "name": "Dumbbell Bench Press",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Flat dumbbell press."
+     },
+     {
+      "id": "jay_cutler_4day_mass_d1_e3",
+      "name": "Decline Bench Press",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d1_e4",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Cable flyes."
+     },
+     {
+      "id": "jay_cutler_4day_mass_d1_e5",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d1_e6",
+      "name": "Overhead Triceps Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d1_e7",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Tuesday: Back & Biceps",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "jay_cutler_4day_mass_d2_e1",
+      "name": "Wide-Grip Pull-Ups",
+      "sets": 4,
+      "reps": "Failure",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d2_e2",
+      "name": "Barbell Row",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Bent-over."
+     },
+     {
+      "id": "jay_cutler_4day_mass_d2_e3",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d2_e4",
+      "name": "Lat Pulldown",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d2_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d2_e6",
+      "name": "Hammer Curls",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d2_e7",
+      "name": "Concentration Curls",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 4,
+    "title": "Thursday: Shoulders",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "jay_cutler_4day_mass_d4_e1",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Military press."
+     },
+     {
+      "id": "jay_cutler_4day_mass_d4_e2",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d4_e3",
+      "name": "Front Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d4_e4",
+      "name": "Rear Delt Flyes",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Reverse flyes."
+     },
+     {
+      "id": "jay_cutler_4day_mass_d4_e5",
+      "name": "Barbell Shrugs",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 6,
+    "title": "Saturday: Legs",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "jay_cutler_4day_mass_d6_e1",
+      "name": "Squat",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d6_e2",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d6_e3",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d6_e4",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d6_e5",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "jay_cutler_4day_mass_d6_e6",
+      "name": "Seated Calf Raises",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "franco_columbu_14day",
+  "title": "Franco Columbu: 14-Day Rotation",
+  "description": "Franco Columbu's two-week block as set out by Set For Set: six training days then a rest day, repeated, often as two sessions a day (AM and PM), so each body part is trained about three times in 14 days. Supersets and ramp sets throughout, with legs trained heavy and deep. The AM and PM sessions are combined into one day here, labelled in the notes. Very demanding. Abs follow Arnold-style substitutes in the source.",
+  "tags": [
+   "Franco Columbu",
+   "Golden Era",
+   "Mass Building",
+   "Advanced",
+   "Two-A-Days",
+   "Supersets"
+  ],
+  "weeks": 2,
+  "pro": "Franco Columbu",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
+  "days": [
+   {
+    "dayNumber": 1,
+    "week": 1,
+    "title": "Week 1 · Day 1: Chest, Shoulders, Abs (AM) + Arms (PM)",
+    "estimatedMinutes": 120,
+    "exercises": [
+     {
+      "id": "franco_columbu_14day_d1_e1",
+      "name": "Bench Press",
+      "sets": 3,
+      "reps": "15, 10, 4",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Ramp up the weight each set."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e2",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "15, 10, 4",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "AM: Superset with Bench Press."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "20, 15, 6",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Superset with Cable Crossovers."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e4",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "20, 15, 6",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "AM: Superset with Dumbbell Flyes."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e5",
+      "name": "Incline Bench Press",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Light and strict."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e6",
+      "name": "Barbell Pullover",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "AM: Superset with Incline Bench Press."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e7",
+      "name": "Chest Dips",
+      "sets": 1,
+      "reps": "Failure",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d1_e8",
+      "name": "Cable Crossovers",
+      "sets": 1,
+      "reps": "25",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d1_e9",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM: Standing dumbbell lateral raise."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e10",
+      "name": "Seated Rear Delt Raises",
+      "sets": 6,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM: Bent-over lateral raise."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e11",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d1_e12",
+      "name": "Front Raises",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM: Alternating dumbbell front raise."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e13",
+      "name": "Cable Lateral Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d1_e14",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM: Incline sit-up. The source substitutes Arnold-style ab work."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e15",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d1_e16",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d1_e17",
+      "name": "Cable Crunches",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d1_e18",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "PM: Superset with Dumbbell Curls."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e19",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "PM: Standing."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e20",
+      "name": "Skull Crushers",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "PM: Barbell."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e21",
+      "name": "Barbell Preacher Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "PM: Superset with Lying Triceps Extension."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e22",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "PM: Seated barbell extension."
+     },
+     {
+      "id": "franco_columbu_14day_d1_e23",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "PM: Superset with Seated Overhead Dumbbell Extension."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "week": 1,
+    "title": "Week 1 · Day 2: Back (AM) + Legs (PM)",
+    "estimatedMinutes": 120,
+    "exercises": [
+     {
+      "id": "franco_columbu_14day_d2_e1",
+      "name": "Wide-Grip Pull-Ups",
+      "sets": 6,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d2_e2",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d2_e3",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d2_e4",
+      "name": "Dumbbell Row",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Superset with Neutral-Grip Pull-Ups."
+     },
+     {
+      "id": "franco_columbu_14day_d2_e5",
+      "name": "Neutral-Grip Pull-Ups",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "AM: Hammer-grip pull-up."
+     },
+     {
+      "id": "franco_columbu_14day_d2_e6",
+      "name": "Squat",
+      "sets": 7,
+      "reps": "20, 15, 10, 8, 6, 4, 2",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "PM: Ramp up the weight each set."
+     },
+     {
+      "id": "franco_columbu_14day_d2_e7",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "50, 25, 15, 8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "PM"
+     },
+     {
+      "id": "franco_columbu_14day_d2_e8",
+      "name": "Leg Extension",
+      "sets": 6,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "PM: Columbu did 6-7 sets."
+     },
+     {
+      "id": "franco_columbu_14day_d2_e9",
+      "name": "Barbell Lunges",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "PM: Columbu did 2-3 sets."
+     },
+     {
+      "id": "franco_columbu_14day_d2_e10",
+      "name": "Deadlift",
+      "sets": 6,
+      "reps": "5, 5, 5, 3, 1, 1",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "PM"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "week": 1,
+    "title": "Week 1 · Day 3: Chest, Shoulders, Abs (AM) + Arms (PM)",
+    "estimatedMinutes": 120,
+    "exercises": [
+     {
+      "id": "franco_columbu_14day_d3_e1",
+      "name": "Bench Press",
+      "sets": 3,
+      "reps": "15, 10, 4",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Ramp up the weight each set."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e2",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "15, 10, 4",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "AM: Superset with Bench Press."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "20, 15, 6",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Superset with Cable Crossovers."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e4",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "20, 15, 6",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "AM: Superset with Dumbbell Flyes."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e5",
+      "name": "Incline Bench Press",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Light and strict."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e6",
+      "name": "Barbell Pullover",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "AM: Superset with Incline Bench Press."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e7",
+      "name": "Chest Dips",
+      "sets": 1,
+      "reps": "Failure",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d3_e8",
+      "name": "Cable Crossovers",
+      "sets": 1,
+      "reps": "25",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d3_e9",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM: Standing dumbbell lateral raise."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e10",
+      "name": "Seated Rear Delt Raises",
+      "sets": 6,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM: Bent-over lateral raise."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e11",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d3_e12",
+      "name": "Front Raises",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM: Alternating dumbbell front raise."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e13",
+      "name": "Cable Lateral Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d3_e14",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM: Incline sit-up. The source substitutes Arnold-style ab work."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e15",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d3_e16",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d3_e17",
+      "name": "Cable Crunches",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d3_e18",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "PM: Superset with Dumbbell Curls."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e19",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "PM: Standing."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e20",
+      "name": "Skull Crushers",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "PM: Barbell."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e21",
+      "name": "Barbell Preacher Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "PM: Superset with Lying Triceps Extension."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e22",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "PM: Seated barbell extension."
+     },
+     {
+      "id": "franco_columbu_14day_d3_e23",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "PM: Superset with Seated Overhead Dumbbell Extension."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "week": 1,
+    "title": "Week 1 · Day 4: Arms",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "franco_columbu_14day_d4_e1",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Superset with Dumbbell Curls."
+     },
+     {
+      "id": "franco_columbu_14day_d4_e2",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": ": Standing."
+     },
+     {
+      "id": "franco_columbu_14day_d4_e3",
+      "name": "Skull Crushers",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Barbell."
+     },
+     {
+      "id": "franco_columbu_14day_d4_e4",
+      "name": "Barbell Preacher Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": ": Superset with Lying Triceps Extension."
+     },
+     {
+      "id": "franco_columbu_14day_d4_e5",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Seated barbell extension."
+     },
+     {
+      "id": "franco_columbu_14day_d4_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": ": Superset with Seated Overhead Dumbbell Extension."
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "week": 1,
+    "title": "Week 1 · Day 5: Legs, Abs (AM) + Back (PM)",
+    "estimatedMinutes": 120,
+    "exercises": [
+     {
+      "id": "franco_columbu_14day_d5_e1",
+      "name": "Squat",
+      "sets": 7,
+      "reps": "20, 15, 10, 8, 6, 4, 2",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "AM: Ramp up the weight each set."
+     },
+     {
+      "id": "franco_columbu_14day_d5_e2",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "50, 25, 15, 8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d5_e3",
+      "name": "Leg Extension",
+      "sets": 6,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM: Columbu did 6-7 sets."
+     },
+     {
+      "id": "franco_columbu_14day_d5_e4",
+      "name": "Barbell Lunges",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "AM: Columbu did 2-3 sets."
+     },
+     {
+      "id": "franco_columbu_14day_d5_e5",
+      "name": "Deadlift",
+      "sets": 6,
+      "reps": "5, 5, 5, 3, 1, 1",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d5_e6",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM: Incline sit-up. The source substitutes Arnold-style ab work."
+     },
+     {
+      "id": "franco_columbu_14day_d5_e7",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d5_e8",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d5_e9",
+      "name": "Cable Crunches",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d5_e10",
+      "name": "Wide-Grip Pull-Ups",
+      "sets": 6,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "PM"
+     },
+     {
+      "id": "franco_columbu_14day_d5_e11",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "PM"
+     },
+     {
+      "id": "franco_columbu_14day_d5_e12",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "PM"
+     },
+     {
+      "id": "franco_columbu_14day_d5_e13",
+      "name": "Dumbbell Row",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "PM: Superset with Neutral-Grip Pull-Ups."
+     },
+     {
+      "id": "franco_columbu_14day_d5_e14",
+      "name": "Neutral-Grip Pull-Ups",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "PM: Hammer-grip pull-up."
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "week": 1,
+    "title": "Week 1 · Day 6: Chest, Shoulders, Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "franco_columbu_14day_d6_e1",
+      "name": "Bench Press",
+      "sets": 3,
+      "reps": "15, 10, 4",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Ramp up the weight each set."
+     },
+     {
+      "id": "franco_columbu_14day_d6_e2",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "15, 10, 4",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": ": Superset with Bench Press."
+     },
+     {
+      "id": "franco_columbu_14day_d6_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "20, 15, 6",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Superset with Cable Crossovers."
+     },
+     {
+      "id": "franco_columbu_14day_d6_e4",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "20, 15, 6",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": ": Superset with Dumbbell Flyes."
+     },
+     {
+      "id": "franco_columbu_14day_d6_e5",
+      "name": "Incline Bench Press",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Light and strict."
+     },
+     {
+      "id": "franco_columbu_14day_d6_e6",
+      "name": "Barbell Pullover",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": ": Superset with Incline Bench Press."
+     },
+     {
+      "id": "franco_columbu_14day_d6_e7",
+      "name": "Chest Dips",
+      "sets": 1,
+      "reps": "Failure",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d6_e8",
+      "name": "Cable Crossovers",
+      "sets": 1,
+      "reps": "25",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d6_e9",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": ": Standing dumbbell lateral raise."
+     },
+     {
+      "id": "franco_columbu_14day_d6_e10",
+      "name": "Seated Rear Delt Raises",
+      "sets": 6,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": ": Bent-over lateral raise."
+     },
+     {
+      "id": "franco_columbu_14day_d6_e11",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d6_e12",
+      "name": "Front Raises",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": ": Alternating dumbbell front raise."
+     },
+     {
+      "id": "franco_columbu_14day_d6_e13",
+      "name": "Cable Lateral Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d6_e14",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": ": Incline sit-up. The source substitutes Arnold-style ab work."
+     },
+     {
+      "id": "franco_columbu_14day_d6_e15",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d6_e16",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d6_e17",
+      "name": "Cable Crunches",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "week": 1,
+    "title": "Week 1 · Day 7: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 8,
+    "week": 2,
+    "title": "Week 2 · Day 1: Arms (AM) + Legs (PM)",
+    "estimatedMinutes": 120,
+    "exercises": [
+     {
+      "id": "franco_columbu_14day_d8_e1",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Superset with Dumbbell Curls."
+     },
+     {
+      "id": "franco_columbu_14day_d8_e2",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "AM: Standing."
+     },
+     {
+      "id": "franco_columbu_14day_d8_e3",
+      "name": "Skull Crushers",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Barbell."
+     },
+     {
+      "id": "franco_columbu_14day_d8_e4",
+      "name": "Barbell Preacher Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "AM: Superset with Lying Triceps Extension."
+     },
+     {
+      "id": "franco_columbu_14day_d8_e5",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Seated barbell extension."
+     },
+     {
+      "id": "franco_columbu_14day_d8_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "AM: Superset with Seated Overhead Dumbbell Extension."
+     },
+     {
+      "id": "franco_columbu_14day_d8_e7",
+      "name": "Squat",
+      "sets": 7,
+      "reps": "20, 15, 10, 8, 6, 4, 2",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "PM: Ramp up the weight each set."
+     },
+     {
+      "id": "franco_columbu_14day_d8_e8",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "50, 25, 15, 8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "PM"
+     },
+     {
+      "id": "franco_columbu_14day_d8_e9",
+      "name": "Leg Extension",
+      "sets": 6,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "PM: Columbu did 6-7 sets."
+     },
+     {
+      "id": "franco_columbu_14day_d8_e10",
+      "name": "Barbell Lunges",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "PM: Columbu did 2-3 sets."
+     },
+     {
+      "id": "franco_columbu_14day_d8_e11",
+      "name": "Deadlift",
+      "sets": 6,
+      "reps": "5, 5, 5, 3, 1, 1",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "PM"
+     }
+    ]
+   },
+   {
+    "dayNumber": 9,
+    "week": 2,
+    "title": "Week 2 · Day 2: Back, Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "franco_columbu_14day_d9_e1",
+      "name": "Wide-Grip Pull-Ups",
+      "sets": 6,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d9_e2",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d9_e3",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d9_e4",
+      "name": "Dumbbell Row",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Superset with Neutral-Grip Pull-Ups."
+     },
+     {
+      "id": "franco_columbu_14day_d9_e5",
+      "name": "Neutral-Grip Pull-Ups",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": ": Hammer-grip pull-up."
+     },
+     {
+      "id": "franco_columbu_14day_d9_e6",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": ": Incline sit-up. The source substitutes Arnold-style ab work."
+     },
+     {
+      "id": "franco_columbu_14day_d9_e7",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d9_e8",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d9_e9",
+      "name": "Cable Crunches",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 10,
+    "week": 2,
+    "title": "Week 2 · Day 3: Chest, Shoulders (AM) + Arms (PM)",
+    "estimatedMinutes": 120,
+    "exercises": [
+     {
+      "id": "franco_columbu_14day_d10_e1",
+      "name": "Bench Press",
+      "sets": 3,
+      "reps": "15, 10, 4",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Ramp up the weight each set."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e2",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "15, 10, 4",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "AM: Superset with Bench Press."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "20, 15, 6",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Superset with Cable Crossovers."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e4",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "20, 15, 6",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "AM: Superset with Dumbbell Flyes."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e5",
+      "name": "Incline Bench Press",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Light and strict."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e6",
+      "name": "Barbell Pullover",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "AM: Superset with Incline Bench Press."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e7",
+      "name": "Chest Dips",
+      "sets": 1,
+      "reps": "Failure",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d10_e8",
+      "name": "Cable Crossovers",
+      "sets": 1,
+      "reps": "25",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d10_e9",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM: Standing dumbbell lateral raise."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e10",
+      "name": "Seated Rear Delt Raises",
+      "sets": 6,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM: Bent-over lateral raise."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e11",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d10_e12",
+      "name": "Front Raises",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM: Alternating dumbbell front raise."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e13",
+      "name": "Cable Lateral Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d10_e14",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "PM: Superset with Dumbbell Curls."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e15",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "PM: Standing."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e16",
+      "name": "Skull Crushers",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "PM: Barbell."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e17",
+      "name": "Barbell Preacher Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "PM: Superset with Lying Triceps Extension."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e18",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "PM: Seated barbell extension."
+     },
+     {
+      "id": "franco_columbu_14day_d10_e19",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "PM: Superset with Seated Overhead Dumbbell Extension."
+     }
+    ]
+   },
+   {
+    "dayNumber": 11,
+    "week": 2,
+    "title": "Week 2 · Day 4: Back, Abs (AM) + Legs (PM)",
+    "estimatedMinutes": 120,
+    "exercises": [
+     {
+      "id": "franco_columbu_14day_d11_e1",
+      "name": "Wide-Grip Pull-Ups",
+      "sets": 6,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d11_e2",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d11_e3",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d11_e4",
+      "name": "Dumbbell Row",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "AM: Superset with Neutral-Grip Pull-Ups."
+     },
+     {
+      "id": "franco_columbu_14day_d11_e5",
+      "name": "Neutral-Grip Pull-Ups",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "AM: Hammer-grip pull-up."
+     },
+     {
+      "id": "franco_columbu_14day_d11_e6",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM: Incline sit-up. The source substitutes Arnold-style ab work."
+     },
+     {
+      "id": "franco_columbu_14day_d11_e7",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d11_e8",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d11_e9",
+      "name": "Cable Crunches",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "AM"
+     },
+     {
+      "id": "franco_columbu_14day_d11_e10",
+      "name": "Squat",
+      "sets": 7,
+      "reps": "20, 15, 10, 8, 6, 4, 2",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "PM: Ramp up the weight each set."
+     },
+     {
+      "id": "franco_columbu_14day_d11_e11",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "50, 25, 15, 8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "PM"
+     },
+     {
+      "id": "franco_columbu_14day_d11_e12",
+      "name": "Leg Extension",
+      "sets": 6,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "PM: Columbu did 6-7 sets."
+     },
+     {
+      "id": "franco_columbu_14day_d11_e13",
+      "name": "Barbell Lunges",
+      "sets": 2,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "PM: Columbu did 2-3 sets."
+     },
+     {
+      "id": "franco_columbu_14day_d11_e14",
+      "name": "Deadlift",
+      "sets": 6,
+      "reps": "5, 5, 5, 3, 1, 1",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "PM"
+     }
+    ]
+   },
+   {
+    "dayNumber": 12,
+    "week": 2,
+    "title": "Week 2 · Day 5: Chest, Shoulders, Abs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "franco_columbu_14day_d12_e1",
+      "name": "Bench Press",
+      "sets": 3,
+      "reps": "15, 10, 4",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Ramp up the weight each set."
+     },
+     {
+      "id": "franco_columbu_14day_d12_e2",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "15, 10, 4",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": ": Superset with Bench Press."
+     },
+     {
+      "id": "franco_columbu_14day_d12_e3",
+      "name": "Dumbbell Flyes",
+      "sets": 3,
+      "reps": "20, 15, 6",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Superset with Cable Crossovers."
+     },
+     {
+      "id": "franco_columbu_14day_d12_e4",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "20, 15, 6",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": ": Superset with Dumbbell Flyes."
+     },
+     {
+      "id": "franco_columbu_14day_d12_e5",
+      "name": "Incline Bench Press",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Light and strict."
+     },
+     {
+      "id": "franco_columbu_14day_d12_e6",
+      "name": "Barbell Pullover",
+      "sets": 3,
+      "reps": "25",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": ": Superset with Incline Bench Press."
+     },
+     {
+      "id": "franco_columbu_14day_d12_e7",
+      "name": "Chest Dips",
+      "sets": 1,
+      "reps": "Failure",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d12_e8",
+      "name": "Cable Crossovers",
+      "sets": 1,
+      "reps": "25",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d12_e9",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": ": Standing dumbbell lateral raise."
+     },
+     {
+      "id": "franco_columbu_14day_d12_e10",
+      "name": "Seated Rear Delt Raises",
+      "sets": 6,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": ": Bent-over lateral raise."
+     },
+     {
+      "id": "franco_columbu_14day_d12_e11",
+      "name": "Behind-The-Neck Barbell Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d12_e12",
+      "name": "Front Raises",
+      "sets": 3,
+      "reps": "8",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": ": Alternating dumbbell front raise."
+     },
+     {
+      "id": "franco_columbu_14day_d12_e13",
+      "name": "Cable Lateral Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d12_e14",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": ": Incline sit-up. The source substitutes Arnold-style ab work."
+     },
+     {
+      "id": "franco_columbu_14day_d12_e15",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d12_e16",
+      "name": "Leg Raises",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "franco_columbu_14day_d12_e17",
+      "name": "Cable Crunches",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 13,
+    "week": 2,
+    "title": "Week 2 · Day 6: Arms",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "franco_columbu_14day_d13_e1",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Superset with Dumbbell Curls."
+     },
+     {
+      "id": "franco_columbu_14day_d13_e2",
+      "name": "Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": ": Standing."
+     },
+     {
+      "id": "franco_columbu_14day_d13_e3",
+      "name": "Skull Crushers",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Barbell."
+     },
+     {
+      "id": "franco_columbu_14day_d13_e4",
+      "name": "Barbell Preacher Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": ": Superset with Lying Triceps Extension."
+     },
+     {
+      "id": "franco_columbu_14day_d13_e5",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": ": Seated barbell extension."
+     },
+     {
+      "id": "franco_columbu_14day_d13_e6",
+      "name": "Incline Dumbbell Curls",
+      "sets": 4,
+      "reps": "8",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": ": Superset with Seated Overhead Dumbbell Extension."
+     }
+    ]
+   },
+   {
+    "dayNumber": 14,
+    "week": 2,
+    "title": "Week 2 · Day 7: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "big_ramy_5day",
+  "title": "Big Ramy: 5-Day Bro Split",
+  "description": "A one-muscle-a-day split reported for Mr. Olympia 2020 champion Mamdouh 'Big Ramy' Elssbiay: chest, legs, back, shoulders, arms. Machines and cables, 4 sets of 10-15 on almost everything, squats at 5 sets of 12-15. The source does not say where the rest days fall or what rest to take between sets, so rests are set to a typical 90-120 seconds. Source: Set For Set.",
+  "tags": [
+   "Big Ramy",
+   "Mr. Olympia",
+   "Mass Building",
+   "Bro Split",
+   "5 Days",
+   "Machines",
+   "Modern Pro"
+  ],
+  "pro": "Big Ramy",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 5,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Day 1: Chest",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "big_ramy_5day_d1_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "30-degree incline."
+     },
+     {
+      "id": "big_ramy_5day_d1_e2",
+      "name": "Machine Chest Press",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Flat machine press."
+     },
+     {
+      "id": "big_ramy_5day_d1_e3",
+      "name": "Cable Crossovers",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "big_ramy_5day_d1_e4",
+      "name": "Smith Machine Incline Press",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "60-degree incline."
+     },
+     {
+      "id": "big_ramy_5day_d1_e5",
+      "name": "Pec Deck",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Day 2: Legs",
+    "estimatedMinutes": 90,
+    "exercises": [
+     {
+      "id": "big_ramy_5day_d2_e1",
+      "name": "Squat",
+      "sets": 5,
+      "reps": "12-15",
+      "restSeconds": 180,
+      "type": "standard"
+     },
+     {
+      "id": "big_ramy_5day_d2_e2",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "big_ramy_5day_d2_e3",
+      "name": "Vertical Leg Press",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "big_ramy_5day_d2_e4",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "big_ramy_5day_d2_e5",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "big_ramy_5day_d2_e6",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "big_ramy_5day_d2_e7",
+      "name": "Standing Leg Curls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "big_ramy_5day_d2_e8",
+      "name": "Machine Ab Crunches (Selectorized)",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Ab machine."
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Day 3: Back",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "big_ramy_5day_d3_e1",
+      "name": "Hammer Strength Row",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Hammer Strength low row."
+     },
+     {
+      "id": "big_ramy_5day_d3_e2",
+      "name": "Neutral-Grip (V-Bar) Lat Pulldown",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Or reverse-grip pulldown."
+     },
+     {
+      "id": "big_ramy_5day_d3_e3",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "V-handle."
+     },
+     {
+      "id": "big_ramy_5day_d3_e4",
+      "name": "Straight-Arm Pulldown",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Straight-arm cable pullover."
+     },
+     {
+      "id": "big_ramy_5day_d3_e5",
+      "name": "Chest-Supported Row",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "big_ramy_5day_d3_e6",
+      "name": "Back Extensions",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "45-degree."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Day 4: Shoulders",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "big_ramy_5day_d4_e1",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Standing dumbbell."
+     },
+     {
+      "id": "big_ramy_5day_d4_e2",
+      "name": "Rear Delt Flyes",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Reverse pec deck."
+     },
+     {
+      "id": "big_ramy_5day_d4_e3",
+      "name": "Smith Machine Overhead Press",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "big_ramy_5day_d4_e4",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Cable reverse fly."
+     },
+     {
+      "id": "big_ramy_5day_d4_e5",
+      "name": "Machine Shoulder Press",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "big_ramy_5day_d4_e6",
+      "name": "Selectorized Shrug Machine",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Day 5: Arms",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "big_ramy_5day_d5_e1",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Standing."
+     },
+     {
+      "id": "big_ramy_5day_d5_e2",
+      "name": "Skull Crushers",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Skull crushers."
+     },
+     {
+      "id": "big_ramy_5day_d5_e3",
+      "name": "EZ-Bar Curls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Standing."
+     },
+     {
+      "id": "big_ramy_5day_d5_e4",
+      "name": "Triceps Pushdown",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Cable pushdown."
+     },
+     {
+      "id": "big_ramy_5day_d5_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Standing."
+     },
+     {
+      "id": "big_ramy_5day_d5_e6",
+      "name": "Rope Pushdown",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "big_ramy_5day_d5_e7",
+      "name": "Hammer Curls",
+      "sets": 4,
+      "reps": "10-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "One-arm dumbbell hammer curl."
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 7,
+    "title": "Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
+ },
+ {
+  "id": "pro_leg_days_collection",
+  "title": "Pro Leg Days: Platz, Warren, Walker & Curry",
+  "description": "Four signature leg workouts from pro bodybuilders, as reported in magazine and web write-ups. Not a weekly plan: pick one as your leg day. Tom Platz's pyramid squat session, Branch Warren's leg thrash with drop sets, Nick Walker's hamstring-first day, and Brandon Curry's quad day. Where a source gave no numbers the note says what was filled in.",
+  "tags": [
+   "Tom Platz",
+   "Branch Warren",
+   "Nick Walker",
+   "Brandon Curry",
+   "Leg Day",
+   "Specialization",
+   "Signature Workouts"
+  ],
+  "pro": "Pro Collection",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": null,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Tom Platz: Golden Eagle Leg Day",
+    "estimatedMinutes": 100,
+    "exercises": [
+     {
+      "id": "pro_leg_days_collection_d1_e1",
+      "name": "Squat",
+      "sets": 8,
+      "reps": "20, 15, 12, 10, 8, 6, 5, 5",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "Platz did 8-12 sets, pyramiding up in weight and down in reps from about 20 to 5. Narrow stance, below parallel. Warm up with a long stretch."
+     },
+     {
+      "id": "pro_leg_days_collection_d1_e2",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "10-15",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Rise onto the toes and drive the knees forward at the top for extra range."
+     },
+     {
+      "id": "pro_leg_days_collection_d1_e3",
+      "name": "Leg Extension",
+      "sets": 6,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Platz did 5-8 sets. Heavy."
+     },
+     {
+      "id": "pro_leg_days_collection_d1_e4",
+      "name": "Lying Leg Curls",
+      "sets": 6,
+      "reps": "10-15",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Platz did 6-10 sets, finishing with forced reps from a partner."
+     },
+     {
+      "id": "pro_leg_days_collection_d1_e5",
+      "name": "Standing Calf Raises",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Platz did 3-4 sets. Stretch the calves between sets."
+     },
+     {
+      "id": "pro_leg_days_collection_d1_e6",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Platz did 3-4 sets."
+     },
+     {
+      "id": "pro_leg_days_collection_d1_e7",
+      "name": "Leg Press Calf Raises",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Platz did 3-4 sets."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Branch Warren: The Leg Thrash",
+    "estimatedMinutes": 105,
+    "exercises": [
+     {
+      "id": "pro_leg_days_collection_d2_e1",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Warm-up: three high-rep sets, a bit heavier each time."
+     },
+     {
+      "id": "pro_leg_days_collection_d2_e2",
+      "name": "Leg Extension",
+      "sets": 2,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "dropset",
+      "notes": "Full stack. Last set: drop to 3/4 stack for 20, then 1/2 stack for 20."
+     },
+     {
+      "id": "pro_leg_days_collection_d2_e3",
+      "name": "Squat",
+      "sets": 5,
+      "reps": "10",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "Pyramid: add a plate a side each set (1, 2, 3, 4 plates), then one last set of 10 at about twice bodyweight."
+     },
+     {
+      "id": "pro_leg_days_collection_d2_e4",
+      "name": "Hack Squat",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Start with 4 plates a side and add a plate a side each set."
+     },
+     {
+      "id": "pro_leg_days_collection_d2_e5",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 150,
+      "type": "dropset",
+      "notes": "Heavy. Last set is a double drop set of 20 at each stage."
+     },
+     {
+      "id": "pro_leg_days_collection_d2_e6",
+      "name": "Smith Machine Front Lunges",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Warren used 225 lb."
+     },
+     {
+      "id": "pro_leg_days_collection_d2_e7",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "dropset",
+      "notes": "Flat bench, full stack. Last set ends with a two-step drop set."
+     },
+     {
+      "id": "pro_leg_days_collection_d2_e8",
+      "name": "Lying Leg Curls",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "dropset",
+      "notes": "Angled bench, same scheme: 3 sets, then a two-step drop set on the fourth."
+     },
+     {
+      "id": "pro_leg_days_collection_d2_e9",
+      "name": "Standing Leg Curls",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Each leg, full stack."
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Nick Walker: Hamstring-First Leg Day",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "pro_leg_days_collection_d3_e1",
+      "name": "Single-Leg Lying Leg Curl",
+      "sets": 2,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Each leg, slow negatives. Add one rest-pause set to 15 total reps per leg with a lighter weight."
+     },
+     {
+      "id": "pro_leg_days_collection_d3_e2",
+      "name": "Smith Machine Romanian Deadlift",
+      "sets": 2,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Stiff-legged on the Smith machine, for a better contraction."
+     },
+     {
+      "id": "pro_leg_days_collection_d3_e3",
+      "name": "Leg Press",
+      "sets": 2,
+      "reps": "15",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Walker added plates between sets."
+     },
+     {
+      "id": "pro_leg_days_collection_d3_e4",
+      "name": "Squat",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Squat machine: 2 sets of 12, then 1 set of 20 after dropping the weight."
+     },
+     {
+      "id": "pro_leg_days_collection_d3_e5",
+      "name": "Bulgarian Split Squats",
+      "sets": 2,
+      "reps": "12",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Dumbbell, each leg."
+     },
+     {
+      "id": "pro_leg_days_collection_d3_e6",
+      "name": "Hip Abductor Machine",
+      "sets": 2,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Superset with the split squats."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Brandon Curry: Quad Day",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "pro_leg_days_collection_d4_e1",
+      "name": "Standing Leg Curls",
+      "sets": 2,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Each leg. Warm-up for the knees."
+     },
+     {
+      "id": "pro_leg_days_collection_d4_e2",
+      "name": "Seated Leg Curls",
+      "sets": 1,
+      "reps": "14",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "pro_leg_days_collection_d4_e3",
+      "name": "Lying Leg Curls",
+      "sets": 2,
+      "reps": "7-9",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "pro_leg_days_collection_d4_e4",
+      "name": "Vertical Leg Press",
+      "sets": 2,
+      "reps": "12",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Pause briefly at the bottom of every rep."
+     },
+     {
+      "id": "pro_leg_days_collection_d4_e5",
+      "name": "Belt Squat Machine (Pit Shark)",
+      "sets": 4,
+      "reps": "7-9",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Pause briefly at the bottom of every rep."
+     },
+     {
+      "id": "pro_leg_days_collection_d4_e6",
+      "name": "Pistol Squats",
+      "sets": 3,
+      "reps": "13-16",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Single-leg squat, each leg. Use a machine or a support if needed."
+     },
+     {
+      "id": "pro_leg_days_collection_d4_e7",
+      "name": "Single-Leg Lying Leg Curl",
+      "sets": 1,
+      "reps": "15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Seated single-leg curl, each leg."
+     },
+     {
+      "id": "pro_leg_days_collection_d4_e8",
+      "name": "Seated Leg Curls",
+      "sets": 1,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "id": "pro_upper_days_collection",
+  "title": "Pro Upper-Body Days: Jackson, Wheeler, Ramy, Walker & Curry",
+  "description": "Five signature upper-body sessions from pro bodybuilders, as reported in magazine and web write-ups. Not a weekly plan: pick one as your chest, back, push or shoulder day. Dexter Jackson's machine chest day, Flex Wheeler's 4x20 back and biceps, Big Ramy's five-week rep-drop back day, Nick Walker's push day, and Brandon Curry's delt day. Where a source gave no numbers the note says what was filled in.",
+  "tags": [
+   "Dexter Jackson",
+   "Flex Wheeler",
+   "Big Ramy",
+   "Nick Walker",
+   "Brandon Curry",
+   "Chest",
+   "Back",
+   "Shoulders",
+   "Signature Workouts"
+  ],
+  "pro": "Pro Collection",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": null,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Dexter Jackson: Machine Chest Day",
+    "estimatedMinutes": 50,
+    "exercises": [
+     {
+      "id": "pro_upper_days_collection_d1_e1",
+      "name": "Hammer Strength Flat Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Iso-lateral flat press. Add weight every set."
+     },
+     {
+      "id": "pro_upper_days_collection_d1_e2",
+      "name": "Machine Incline Press",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "pro_upper_days_collection_d1_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Dexter used an Arsenal Strength incline fly machine."
+     },
+     {
+      "id": "pro_upper_days_collection_d1_e4",
+      "name": "Decline Cable Flyes",
+      "sets": 4,
+      "reps": "10",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Standing. Finisher."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Flex Wheeler: Back & Biceps, 4x20",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "pro_upper_days_collection_d2_e1",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "pro_upper_days_collection_d2_e2",
+      "name": "Machine Row",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "pro_upper_days_collection_d2_e3",
+      "name": "T-Bar Row",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Free T-bar, no machine attachment."
+     },
+     {
+      "id": "pro_upper_days_collection_d2_e4",
+      "name": "Cable Seated Rows (Wide Bar)",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "No-grip cable row in the source. A wide bar or straps are fine."
+     },
+     {
+      "id": "pro_upper_days_collection_d2_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "pro_upper_days_collection_d2_e6",
+      "name": "Cable Curls",
+      "sets": 4,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Big Ramy: Back Day (5-Week Rep Drop)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "pro_upper_days_collection_d3_e1",
+      "name": "Machine Row",
+      "sets": 4,
+      "reps": "15 (wk 1), 12, 10, 8, 6",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Reps drop each week: 15, 12, 10, 8, 6, and the weight goes up. Then restart. Big Ramy did 3-4 sets."
+     },
+     {
+      "id": "pro_upper_days_collection_d3_e2",
+      "name": "Dumbbell Row",
+      "sets": 4,
+      "reps": "15 (wk 1), 12, 10, 8, 6",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Same weekly rep drop."
+     },
+     {
+      "id": "pro_upper_days_collection_d3_e3",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "15 (wk 1), 12, 10, 8, 6",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Front pulldown, overhand grip. Same weekly rep drop."
+     },
+     {
+      "id": "pro_upper_days_collection_d3_e4",
+      "name": "Behind-the-Neck Pulldown",
+      "sets": 4,
+      "reps": "15 (wk 1), 12, 10, 8, 6",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Rear pulldown with straps. Same weekly rep drop."
+     },
+     {
+      "id": "pro_upper_days_collection_d3_e5",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "15 (wk 1), 12, 10, 8, 6",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Close-grip V-bar. Same weekly rep drop."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Nick Walker: Push Day",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "pro_upper_days_collection_d4_e1",
+      "name": "Smith Machine Incline Press",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Walker's reps were not published. 8-12 is filled in."
+     },
+     {
+      "id": "pro_upper_days_collection_d4_e2",
+      "name": "Decline Bench Press",
+      "sets": 3,
+      "reps": "8-12",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Reps not published. 8-12 is filled in."
+     },
+     {
+      "id": "pro_upper_days_collection_d4_e3",
+      "name": "Machine Lateral Raises",
+      "sets": 5,
+      "reps": "12-15",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Side lateral raise machine."
+     },
+     {
+      "id": "pro_upper_days_collection_d4_e4",
+      "name": "Rear Delt Flyes",
+      "sets": 5,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "Rear delt pec deck."
+     },
+     {
+      "id": "pro_upper_days_collection_d4_e5",
+      "name": "Overhead Triceps Extension",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "pro_upper_days_collection_d4_e6",
+      "name": "Machine Preacher Curls",
+      "sets": 5,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Atlantis preacher curl."
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Brandon Curry: Delt Day",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "pro_upper_days_collection_d5_e1",
+      "name": "Cable Lateral Raises",
+      "sets": 5,
+      "reps": "15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Bent-over single-arm cable lateral raise, long stretch on the rear delt."
+     },
+     {
+      "id": "pro_upper_days_collection_d5_e2",
+      "name": "Machine Lying Rear-Delt Raise",
+      "sets": 5,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Single-arm machine rear delt, to near failure."
+     },
+     {
+      "id": "pro_upper_days_collection_d5_e3",
+      "name": "Machine Lateral Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "dropset",
+      "notes": "Two working sets and a drop set. Reps not published."
+     },
+     {
+      "id": "pro_upper_days_collection_d5_e4",
+      "name": "Machine Shoulder Press",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 120,
+      "type": "dropset",
+      "notes": "Plate-loaded. Last set plus a drop set (15 heavy, then 12)."
+     },
+     {
+      "id": "pro_upper_days_collection_d5_e5",
+      "name": "Cable Front Raises",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Rope. Reps not published."
+     },
+     {
+      "id": "pro_upper_days_collection_d5_e6",
+      "name": "Lateral Raises",
+      "sets": 3,
+      "reps": "10",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Dumbbell. Start light and add weight each set."
      }
     ]
    }
