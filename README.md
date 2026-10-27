@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.37.0*
+*Version 2.38.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **44 ready-made programs** (12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Frank Zane, Chris Bumstead, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -183,6 +183,7 @@ Slammed at work? Open any program's day list and tap **Busy-season version**. Pi
 - **Set tags:** **R** regular, **W** warm-up, **D** drop set, **F** failure.
 - **Previous numbers:** each set shows what you did last time.
 - **Dumbbells:** enter the weight of **one** dumbbell. Your volume counts both hands.
+- **Each side or total? (new in 2.38.0):** cable, machine and dumbbell exercises have a small tappable label above the weight box. A cable crossover has two stacks, a plate machine has plates on both sides, so do you type 25 or 50? Tap the label and pick **Each side** (type one stack, one side or one dumbbell, and volume counts both) or **Total** (type everything together, and volume counts it once). The label always says which one the app expects: **Each side · Reps**, **Total · Reps** or, for dumbbells, **Each hand · Reps**. Crossovers and flies show an amber **Each stack or total?** until you choose. The choice is remembered per exercise (and travels in backups), and the same note shows in Guided mode next to the weight. **25 each side and 50 total count as the same work** (500 volume at 10 reps either way). It only affects workouts you save from now on; past sessions keep how they were logged, and estimated 1RM and PRs use the number you typed. **Back to the app's default** in the same sheet undoes it. Dumbbell exercises still start as Each hand, and barbell, bodyweight and cardio exercises have no switch.
 - **Bodyweight moves:** pull-ups and dips use your body weight, with a **Weighted / Assisted** switch.
 - **Type 0 for bodyweight (new in 2.20.0):** on any other exercise (push-ups, sit-ups, lunges, air squats and so on), type **0** as the weight and the set counts **your body weight** as the load, the same way pull-ups and dips do. Volume, estimated 1RM, PRs, charts and the **e1RM** chip all use your weight from **Body & Photos**. The unit beside the box changes to **BW**, History shows **BW × 12**, and the suggestion says "bodyweight × 13". An **empty** weight box still counts as nothing, so only a typed 0 means bodyweight. It counts your whole body weight, not a share of it, and any number above 0 counts as exactly that weight, as before (it is not added to your body weight). If no body weight is logged yet, a note under the exercise offers to open **Body & Photos**; once you log one, old bodyweight sets are worked out again. When you hit the top of the rep range on every set, the suggestion says to add reps or hold a weight.
 - **Cardio:** log minutes and distance, and see your pace over time.
@@ -248,7 +249,7 @@ Landscaping, building, moving house: a hard day at work uses the same back, grip
 - **Build me a workout goes easy.** It leaves out deadlifts, bent-over rows, shrugs and carries, prefers machines and cables, and builds one exercise fewer.
 - **Switch:** **Settings → Workout Screen → Go easier after heavy work days** (on by default). Turn it off and the check-in only feeds the recovery map. Hide the card with **Settings → Home screen**.
 
-### Guided mode (sets added in 2.36.0)
+### Guided mode (sets added in 2.36.0, each-side note in 2.38.0)
 
 Tap **Guided mode** on the workout screen for one exercise at a time with big steppers: weight and reps, one big **Log set** button, and **Prev**, **Swap** and **Skip** at the bottom. Chips show every set (✓ with what you lifted, the current one highlighted). It writes into the normal workout screen, so nothing is lost if you switch back. Timed and other special exercises open in the normal view.
 
@@ -508,6 +509,7 @@ Settings is a short list of nine groups: **Workout**; **Workout Screen**; **Gyms
 - **Units:** kg or lb. Switching asks whether to **Convert my saved numbers**, **Only change the labels**, or **Cancel**.
 - **Text size:** **Normal**, **Large** or **Extra large** (2.24.0).
 - **Say a set:** **Ask first**, **Log right away** or **Off** (2.37.0).
+- **Each side or total:** set per exercise by tapping the label above the weight box (2.38.0); there is no global switch.
 - **Auto-start Rest Timer:** on or off. The rest timer also has your own times, sounds and voice.
 - **Strength level:** men's or women's standards.
 - **Weekly goal:** days per week.
@@ -599,6 +601,9 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.38.0**
+- **Each side or total weight, per exercise.** Cable, machine and dumbbell exercises get a tappable label above the weight box (**Each side · Reps** / **Total · Reps** / **Each hand · Reps**) and a sheet to choose, with a 25-or-50 example. Volume counts both sides for Each side and once for Total, so 25 each side equals 50 total. Cable crossovers and flies ask (**Each stack or total?**) until you pick. Remembered per exercise, included in backups, kept when exercise names are cleaned up, and shown next to the weight in Guided mode. Only workouts saved from now on use it; past sessions are not changed.
 
 **2.37.0**
 - **22 new pro bodybuilder programs** (44 in all): Mike Mentzer's Heavy Duty; three from Frank Zane; Chris Bumstead's off-season 8-day split; Layne Norton's PHAT; Steve Reeves; Lee Haney; Kevin Levrone; Sergio Oliva; Reg Park 5x5; Dave Draper's 1960s journals; Dexter Jackson; Larry Scott (6-day split and 20-inch arms); Vince Gironda's 8x8; Arnold's Golden Six; a Jay Cutler 4-day split; Franco Columbu's 14-day rotation; Big Ramy's 5-day split; and two collections of signature leg days and upper-body days. Each is written from a published source (credited in the table above and in the program's description). They arrive on phones by themselves; a program you deleted stays deleted.

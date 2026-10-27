@@ -377,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.37.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.38.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3755,7 +3755,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.37.0";
+    const APP_VERSION = "2.38.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -12007,7 +12007,7 @@ const PTSIM = (function () {
         delete a.exNotes[from];
       }
       if (a.prs) delete a.prs[from];
-      ["restOverrides", "bwModes"].forEach(k => { const o = a.settings[k]; if (o && typeof o === "object" && o[from] !== undefined) { if (o[to] === undefined) o[to] = o[from]; delete o[from]; } });
+      ["restOverrides", "bwModes", "sideModes"].forEach(k => { const o = a.settings[k]; if (o && typeof o === "object" && o[from] !== undefined) { if (o[to] === undefined) o[to] = o[from]; delete o[from]; } });
     });
     if (Array.isArray(a.settings.favEx)) {
       const seen = new Set();
@@ -17454,7 +17454,7 @@ const PTSIM = (function () {
         ${last.length ? `<p class="pt-g-last">Last time: ${last.map(x => esc(String(x.weight)) + "×" + esc(String(x.reps))).join(", ")}</p>` : ""}
         <div class="pt-g-chips">${chips}</div>
         <div class="pt-g-setctl"><button type="button" id="pt-g-rmset" aria-label="Remove the last unlogged set">− Set</button><button type="button" id="pt-g-addset" aria-label="Add a set">＋ Set</button></div>
-        ${hasW ? `<div class="pt-g-flds">${stepper("w", "Weight (" + unitTxt() + ")", vv.w, stepW())}${stepper("r", "Reps", vv.r, 1)}</div><button type="button" class="pt-g-log" id="pt-g-log" data-k="${k}">${cur >= 0 ? "✔ Log set " + (s + 1) : "Next exercise ▶"}</button>` : `<p class="text-sm text-zinc-300 text-center">This one is timed or tracked differently. Log it in the normal view.</p><button type="button" class="pt-g-log" id="pt-g-normal">Open in normal view</button>`}
+        ${hasW ? `<div class="pt-g-flds">${stepper("w", "Weight (" + unitTxt() + ")" + (PT.sideTag ? PT.sideTag(ex) : ""), vv.w, stepW())}${stepper("r", "Reps", vv.r, 1)}</div><button type="button" class="pt-g-log" id="pt-g-log" data-k="${k}">${cur >= 0 ? "✔ Log set " + (s + 1) : "Next exercise ▶"}</button>` : `<p class="text-sm text-zinc-300 text-center">This one is timed or tracked differently. Log it in the normal view.</p><button type="button" class="pt-g-log" id="pt-g-normal">Open in normal view</button>`}
       </div>
       <div class="pt-g-nav"><button type="button" id="pt-g-prev" ${G.ei === 0 ? "disabled" : ""}>◀ Prev</button><button type="button" id="pt-g-swap">🔄 Swap</button>${isExtra ? `<button type="button" id="pt-g-skipset" aria-label="Skip this extra set and remove it">✕ Skip set</button>` : `<button type="button" id="pt-g-next" ${G.ei >= list.length - 1 ? "disabled" : ""}>Skip ▶</button>`}</div></div>`;
   }
@@ -21105,6 +21105,132 @@ const PTSIM = (function () {
   };
 
   PT.programsScreen = { state: ST, meta: metaOf, facts: p => facts(p, metaOf(p)), redraw: () => refresh(A()) };
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.38.0: "Each side or total?" for weights.
+ *  Cable crossovers have two stacks, plate machines have plates on both sides, dumbbells come in pairs. Do you type 25 or 50?
+ *  Now you pick, per exercise, and the label above the weight box always says which one the app expects:
+ *    Each side · Reps   (type the weight of one stack, one side or one dumbbell; volume counts both)
+ *    Total · Reps       (type everything together; volume counts it once)
+ *  Tap the label on a cable, machine or dumbbell exercise to change it. Dumbbell moves still start as "Each hand".
+ *  Only workouts you save from now on use the new choice; past sessions keep how they were logged.
+ * Setting: settings.sideModes = { "Cable Crossover": "each" | "total" }.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const A = () => window.app;
+  const esc = s => PT.esc(s);
+
+  /* ================================================================ what the app knows */
+  const keyOf = name => { try { const e = PT.exCanon && PT.exCanon(name); return e && e.name ? e.name : String(name || ""); } catch (e) { return String(name || ""); } };
+  const modes = () => { const a = A(); const m = a && a.settings && a.settings.sideModes; return m && typeof m === "object" ? m : {}; };
+  /** "each", "total" or "" (nothing chosen yet) */
+  PT.sideMode = name => { const m = modes(), v = m[keyOf(name)] || m[name]; return v === "each" || v === "total" ? v : ""; };
+  /** cable, machine and dumbbell exercises can have a side choice (not barbell, bodyweight or cardio) */
+  PT.sideEligible = name => {
+    try {
+      if (PT.isBodyweightEx && PT.isBodyweightEx(name)) return false;
+      if (PT.cardioKind && PT.cardioKind(name)) return false;
+      const k = PT.equipKey ? PT.equipKey(name) : "none";
+      return k === "cable" || k === "machine" || k === "dumbbell";
+    } catch (e) { return false; }
+  };
+  const isDumbbell = name => { try { return PT.dbCount(name) === 2 || PT.equipKey(name) === "dumbbell"; } catch (e) { return false; } };
+  /** two separate stacks, where "25 or 50?" really is a question */
+  const TWO_STACKS = /crossover|cable fl(y|ye)s?\b|\bfl(y|ye)s?\b.*cable|low.to.high|high.to.low|dual cable|\bcable chest press\b/i;
+  const asks = name => PT.sideEligible(name) && !isDumbbell(name) && TWO_STACKS.test(String(name || ""));
+
+  /** how the number in the weight box is read right now: "each" or "total" */
+  function effective(a, ex) {
+    const m = PT.sideMode(ex.name); if (m) return m;
+    return (a.exKind && a.exKind(ex).dbn === 2) ? "each" : "total";
+  }
+  /** short tag for other screens (guided mode): " · each side", " · each hand", " · total", or "" when nothing is special */
+  PT.sideTag = ex => {
+    const a = A(); if (!a || !ex || !PT.sideEligible(ex.name)) return "";
+    const m = PT.sideMode(ex.name);
+    if (m === "total") return " · total";
+    if (m === "each") return isDumbbell(ex.name) ? " · each hand" : " · each side";
+    return isDumbbell(ex.name) ? " · each hand" : "";
+  };
+
+  /* ================================================================ the choice counts in volume (through the dumbbell count the app already has) */
+  const oDbn = PT.exDbn;
+  PT.exDbn = ex => {
+    const m = ex && ex.name ? PT.sideMode(ex.name) : "";
+    if (m === "each") return 2;
+    if (m === "total") return 1;
+    return oDbn ? oDbn(ex) : 0;
+  };
+
+  /* ================================================================ the label above the weight box */
+  const oCol = proto.colLabel;
+  proto.colLabel = function (ex, kind) {
+    const base = oCol.apply(this, arguments);
+    if (!ex || !kind || kind.cardio || kind.bw || !PT.sideEligible(ex.name)) return base;
+    const m = PT.sideMode(ex.name), db = isDumbbell(ex.name);
+    let text, cls = "";
+    if (m === "each") text = (db ? "Each hand" : "Each side") + " · Reps";
+    else if (m === "total") text = "Total · Reps";
+    else if (db) text = "Each hand · Reps";
+    else if (asks(ex.name)) { text = "Each stack or total?"; cls = " ask"; }
+    else text = String(base || "Weight · Reps");
+    const idx = this.activeDay && this.activeDay.exercises ? this.activeDay.exercises.indexOf(ex) : -1;
+    return `<button type="button" class="pt-side-lbl${cls}" data-exindex="${idx}" aria-label="How do you enter the weight for ${esc(ex.name)}? Tap to change">${esc(text)} <span aria-hidden="true">▾</span></button>`;
+  };
+
+  /* ================================================================ the picker */
+  function openPicker(ex) {
+    const a = A(); if (!a || !ex) return;
+    const cur = PT.sideMode(ex.name), eff = effective(a, ex), db = isDumbbell(ex.name), u = (a.wLabel && a.wLabel()) || "lb";
+    const side = db ? "hand" : "side";
+    const opt = (m, title, line, ex2) => `<button type="button" class="pt-side-opt${cur === m ? " on" : ""}" data-m="${m}" aria-pressed="${cur === m}">
+        <span class="pt-side-t">${title}${cur === m ? " ✓" : (!cur && eff === m ? ' <span class="pt-side-def">counted this way now</span>' : "")}</span><span class="pt-side-d">${line}</span><span class="pt-side-e">${ex2}</span></button>`;
+    const el = a.openSheet(ex.name, "How do you enter the weight?", `<div class="space-y-2">
+        ${opt("each", db ? "Each hand" : "Each side", db ? "The weight of ONE dumbbell. Volume counts both hands." : "One stack, one side of the machine, or the plates on one side. Volume counts both sides.", `Two 25 ${u} stacks: type <b>25</b>. Volume counts 50.`)}
+        ${opt("total", "Total", "Everything together, as one number. Volume counts it once.", `Two 25 ${u} stacks: type <b>50</b>.`)}
+      </div>
+      <p class="text-[11px] text-zinc-400 leading-snug mt-3">Numbers already typed in today's workout stay as you typed them. Only workouts you save from now on use this; past sessions keep how they were logged.</p>
+      ${cur ? `<button type="button" class="pt-side-reset" data-m="">Back to the app's default for this exercise</button>` : ""}`, "");
+    el.querySelectorAll("[data-m]").forEach(b => b.addEventListener("click", () => {
+      const m = b.dataset.m;
+      const next = Object.assign({}, modes());
+      const k = keyOf(ex.name);
+      delete next[ex.name];
+      if (m === "each" || m === "total") next[k] = m; else delete next[k];
+      a.settings.sideModes = next;
+      try { WorkoutStorage.saveSettings(a.settings); } catch (e) { }
+      a.closeSheet();
+      try { a.renderWorkoutView(); } catch (e) { }
+      a.toast(m === "each" ? `${ex.name}: type the weight of one ${side}` : m === "total" ? `${ex.name}: type the total weight` : `${ex.name}: back to the default`);
+    }));
+  }
+  document.addEventListener("click", e => {
+    const b = e.target.closest && e.target.closest(".pt-side-lbl"); if (!b) return;
+    const a = A(); if (!a || !a.activeDay) return;
+    const ex = (a.activeDay.exercises || [])[parseInt(b.dataset.exindex, 10)];
+    if (ex) { e.preventDefault(); openPicker(ex); }
+  });
+
+  /* ================================================================ styles */
+  const css = document.createElement("style"); css.id = "pt-v238-side-css";
+  css.textContent = `
+    .pt-side-lbl { display: inline-flex; align-items: center; gap: .25rem; padding: .1rem .45rem; margin: -.1rem 0; border-radius: .5rem; border: 1px dashed rgb(var(--z700)); background: transparent; color: rgb(var(--z300)); font: inherit; font-size: inherit; letter-spacing: inherit; text-transform: inherit; white-space: nowrap; }
+    .pt-side-lbl:active { background: rgb(var(--z800)); }
+    .pt-side-lbl.ask { border-color: rgb(251 191 36 / .7); color: rgb(251 191 36); font-weight: 700; }
+    .pt-side-opt { display: flex; flex-direction: column; gap: .2rem; width: 100%; text-align: left; padding: .8rem .9rem; border-radius: .9rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
+    .pt-side-opt.on { border-color: rgb(var(--a600)); background: rgb(var(--a600) / .12); }
+    .pt-side-t { font-size: .9rem; font-weight: 800; color: rgb(var(--z100)); }
+    .pt-side-def { font-size: .65rem; font-weight: 600; color: rgb(var(--z400)); margin-left: .35rem; }
+    .pt-side-d { font-size: .75rem; color: rgb(var(--z400)); line-height: 1.3; }
+    .pt-side-e { font-size: .75rem; color: rgb(var(--z300)); }
+    .pt-side-reset { margin-top: .6rem; width: 100%; padding: .6rem; border-radius: .75rem; font-size: .75rem; font-weight: 700; color: rgb(var(--z400)); background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); }
+  `;
+  document.head.appendChild(css);
 })();
   </script>
   <script>
