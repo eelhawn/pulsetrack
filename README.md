@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.39.0*
+*Version 2.40.0*
 
-PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **63 ready-made programs** (six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -58,7 +58,7 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 
 ## Programs
 
-### Built in (59)
+### Built in (63)
 
 **12-week plans, week by week:** Phil Heath, Lou Ferrigno, Arnold Schwarzenegger, Dorian Yates (Blood & Guts), Mountain Dog 200-Rep (John Meadows), Jay Cutler, Ronnie Coleman, Kris Gethin Legacy Fat Loss Trainer, Kris Gethin 12 Weeks to Muscle.
 
@@ -76,19 +76,26 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 - USN 5 Day Mass Plan
 - 6-Day Upper/Lower Split (High Volume)
 
-**22 more from pro bodybuilders, new in 2.37.0, and 15 more in 2.39.0:** see [Pro bodybuilder programs](#pro-bodybuilder-programs-new-in-2370) below.
+**22 more from pro bodybuilders, new in 2.37.0, 15 more in 2.39.0, and 4 two-a-day programs in 2.40.0:** see [Pro bodybuilder programs](#pro-bodybuilder-programs-new-in-2370) below.
 
-### The Programs screen (new look in 2.37.0)
+### The Programs screen (new look in 2.37.0, two-a-day shelf in 2.40.0)
 
 The list used to be a tall stack of buttons and big cards. It is now built to be scanned:
 
 - **Current program card** on top: the program you are on, your week, and the next workout (**Next: Week 3 · Day 2: Pull**), with an **Open** button. If nothing is selected it says so.
+- **Two-a-day shelf (new in 2.40.0):** right under the current program, a row of sunrise-to-night cards, one per two-a-day program. Each shows the athlete, the title, the **AM** session and the **PM** session of its first double day (for example **AM Chest & Back / PM Thighs, Calves & Abs**), and days a week. Swipe sideways for the rest, tap a card to open the program, or tap **See all**. The shelf only shows on the plain All view; search or any filter hides it so the list stays the list.
 - **Tools in one compact grid:** **Build me a program** across the top, then **Create your own**, **Paste a program**, **Import a file**, **Share link**, **Guided mobility** and **Stretch routine**. Same buttons as before, a third of the height.
 - **Search** by program name, athlete, tag, workout name or **exercise**. Typing "hack squat" lists every program that has one; "zane" lists his three; "mentzer pullover" narrows to the one program that has both. Every word has to match, and the match is highlighted.
-- **Filter chips with counts:** **All**, **Pro plans** (tied to a named athlete), **Mass**, **Cutting**, **Strength**, **Beginner** and **Mine** (programs you made or imported).
-- **One slim row per program:** a coloured badge with the athlete's initials (the same colour for every program of one athlete), the title, and one line of facts, like **Mass · 6 days/wk · 12 weeks · Advanced**. Rows are grouped as **Your programs**, **Pro programs** (by athlete) and **More programs**. The current program's row says **✓ Current**.
+- **Filter chips with counts:** **All**, **Pro plans** (tied to a named athlete), **Two-a-day** (any program with morning and evening sessions), **Mass**, **Cutting**, **Strength**, **Beginner** and **Mine** (programs you made or imported).
+- **One slim row per program:** a coloured badge with the athlete's initials (the same colour for every program of one athlete), the title, and one line of facts, like **Mass · 6 days/wk · 12 weeks · Advanced**. Two-a-day programs also carry a small gold **☀ ☾ AM+PM** tag (**☀ wk 10–12** when only some weeks train twice a day). Rows are grouped as **Your programs**, **Pro programs** (by athlete) and **More programs**. The current program's row says **✓ Current**.
 - **Tap a row to open it. Tap ⋯ for the rest:** **Open program**, **Make it my current program**, **Share** and **Delete from this phone** (still asks first; a built-in program can be added back later).
 - The labels (athlete, goal, level, days a week) come from `programs.js`. Programs you made yourself get a guess from their title and tags.
+
+#### How a two-a-day program looks inside (new in 2.40.0)
+
+Open one and the day list shows what each session is. A day titled **Mon AM: Chest & Back** reads **☀ MONDAY · MORNING** over **Chest & Back**, with a gold bar down the left; **Mon PM: Thighs, Calves & Abs** reads **☾ MONDAY · EVENING** with an indigo bar and sits tight under it, so each day's pair is one block. A note above the list says how it runs: do the morning session, eat and rest, then the evening session a few hours later. Each session is still its own workout, with its own sets, timer and finish screen, and it counts when you finish it, so **Up next** goes from Monday morning to Monday evening to Tuesday. The progress line says **sessions done** instead of days. Programs that put both in one day (Franco Columbu's **Chest, Shoulders, Abs (AM) + Arms (PM)**) show the two sessions on two lines inside the card.
+
+It works for your own programs too: name the days **Mon AM: Legs** and **Mon PM: Arms** (or **Legs (AM) + Arms (PM)**) and they get the same look, the AM+PM tag, and a place on the Two-a-day shelf.
 
 ### Pro bodybuilder programs (new in 2.37.0)
 
@@ -142,6 +149,19 @@ The two **collections** are not weekly plans. Each "day" is one athlete's signat
 | Vince Gironda | 10-8-6-15 Method | Upper/lower; 4 sets at 10, 8, 6 and 15 reps off your 6-rep max | Lift Vault (Iron and Grit) |
 
 Several of these are third-party reconstructions or a single published week of a longer program; each description says which, and where the source gave no sets, reps or rest the notes say the numbers are ours.
+
+#### 4 two-a-day programs, new in 2.40.0
+
+Twice-a-day training is rarely published set by set, so each description says exactly what comes from the source and what is our arrangement of it.
+
+| Athlete | Program | How it runs | Source |
+|---|---|---|---|
+| Arnold Schwarzenegger | Double Split (Two-a-Day) | Mon/Wed/Fri: chest and back in the morning, thighs, calves and abs in the evening. Tue/Thu/Sat: shoulders, arms and calves. The same sets and reps as weeks 10-12 of the 12-week Arnold plan, as a one-week program you can repeat | the Arnold 12-week plan already in the app |
+| Jay Cutler | Two-a-Day Cycle | One body part a day, twice a day, three on, one off, two on, one off: chest, arms, back, rest, shoulders, legs, rest. Back is 18 sets of rows and pulls in the morning and 5 sets of deadlifts in the evening; the other days use the exercises from his published sessions, heavy work in the morning and isolation in the evening (that split is ours) | Fitness Volt (his cycle and two-a-days), Bodybuilding.com (Living Large back day) |
+| Dave Draper | Double-Split Days (1964-65 Logs) | The real days he logged on his site, each big day split into a morning and evening session: chest and back, then thighs and calves; delts and triceps, then biceps and forearms; plus a single back day. His logged weights are in the notes as a guide | davedraper.com, "Dave Draper's Actual Workouts of the 1960s" |
+| Lou Ferrigno | Peak Two-a-Days | His six body-part workouts (chest, back, legs, abs, shoulders, arms) as a twelve-session week, each muscle twice. Which workout goes in the morning and which in the evening is ours | Fitness Volt (from Iron Man) for the numbers, The Body Blueprint for the report of twice-daily training |
+
+Two programs that were already in the app train twice a day as well and now sit on the shelf: **Franco Columbu's 14-Day Rotation** (AM and PM in one day) and the **Arnold 12-Week Plan** (weeks 10-12). I also looked for Sergio Oliva, Kevin Levrone, Kai Greene, Phil Heath and Ronnie Coleman, but could not find a published two-a-day routine with exercises and numbers for them, so they are not here.
 
 ### Your current program
 
@@ -598,7 +618,7 @@ Upload these to your GitHub repo, all in the same folder:
 | File | What it does |
 |---|---|
 | `index.html` | The whole app (about 1.8 MB, including fonts and themes) |
-| `programs.js` | The 59 built-in programs |
+| `programs.js` | The 63 built-in programs |
 | `exercises.js` | The 624 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
@@ -615,7 +635,7 @@ Upload these to your GitHub repo, all in the same folder:
 ### Adding programs and exercises
 
 - **Easiest:** build a program inside the app, or import a `.json` file with the Import button.
-- **Permanent for everyone:** add it to `programs.js`, one object per program with `id`, `title`, `description`, `tags` and `days`. Each day has `dayNumber`, `title`, `estimatedMinutes` and `exercises` (each with `id`, `name`, `sets`, `reps`, `restSeconds`, `type`, `notes`). For the Programs screen to show the athlete, goal and level, add `pro` (a name, or "" for none), `goal` (`"mass"`, `"cutting"`, `"strength"` or `"balanced"`), `level` (`"beginner"`, `"intermediate"` or `"advanced"`) and `perWeek` (workouts a week, or `null`). For a program that lists every week, add `week: 1…12` to every day. For a program whose few days repeat over several weeks, add `weekPlan: [{ weeks: [1, 2, 3], days: [1, 2, 3, 4, 5, 6] }, { weeks: [4, 5, 6], days: [7, 8, 9, 10, 11, 12] }]` to the program itself. Both give it the pinned **Switch week** bar. An empty `exercises` list is a rest day.
+- **Permanent for everyone:** add it to `programs.js`, one object per program with `id`, `title`, `description`, `tags` and `days`. Each day has `dayNumber`, `title`, `estimatedMinutes` and `exercises` (each with `id`, `name`, `sets`, `reps`, `restSeconds`, `type`, `notes`). For two-a-day programs, title the sessions like `"Mon AM: Chest"` and `"Mon PM: Arms"` (or `"Chest (AM) + Arms (PM)"`) and the app adds the sun and moon look, the AM+PM tag and the Two-a-day shelf by itself; add `"Two-A-Days"` to `tags` too. For the Programs screen to show the athlete, goal and level, add `pro` (a name, or "" for none), `goal` (`"mass"`, `"cutting"`, `"strength"` or `"balanced"`), `level` (`"beginner"`, `"intermediate"` or `"advanced"`) and `perWeek` (workouts a week, or `null`). For a program that lists every week, add `week: 1…12` to every day. For a program whose few days repeat over several weeks, add `weekPlan: [{ weeks: [1, 2, 3], days: [1, 2, 3, 4, 5, 6] }, { weeks: [4, 5, 6], days: [7, 8, 9, 10, 11, 12] }]` to the program itself. Both give it the pinned **Switch week** bar. An empty `exercises` list is a rest day.
 - **New exercises:** use **My Exercises** in the app, or add them to `exercises.js` for everyone. One line each: `{ name: "Zercher Deadlift", category: "Back", muscle: "Lower Back" }`. `muscle` is what Similar exercises matches on (the list of muscles is at the top of `exercises.js`). Without it the app works the muscle out from the name, and only falls back to the category when it can't. If the exercise is also known by other names, list them in `aka`: `{ name: "Rope Pushdown", category: "Triceps", aka: ["Triceps Rope Pushdown"] }`. Those names are searchable and count as the same exercise (same muscle group, never suggested as a swap for itself). Only give it its own entry if it really is a different exercise (a straight-bar pushdown is not a rope pushdown). To give an exercise its own form tips, add `tips` (3 or 4 short steps) and `avoid` (the usual mistake): `{ name: "Zercher Deadlift", category: "Back", tips: ["Hold the bar in the crooks of your elbows", "Keep your chest up and your back flat", "Stand up by driving your hips forward"], avoid: "Rounding your back at the start." }`.
 
 Keep every `id` unique. New programs reach phones on the next update.
@@ -623,6 +643,12 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.40.0**
+- **Two-a-day programs, and a Programs screen that opens with them.** Four new programs with morning and evening sessions: Arnold's double split as its own program, Jay Cutler's two-a-day cycle (3 on, 1 off, 2 on, 1 off), Dave Draper's double-split days from his 1964-65 logs, and Lou Ferrigno's peak two-a-days (63 programs in all). Each description says what is from the source and what is our arrangement. Existing phones get them automatically on the next start; programs you already have are untouched.
+- **Two-a-day shelf on the Programs screen:** a row of sunrise-to-night cards under your current program, each showing its morning and evening session. New **Two-a-day** filter chip, a small **AM+PM** tag on the rows, and search finds them ("two-a-day"). Franco Columbu's 14-day rotation and the 12-week Arnold plan (weeks 10-12) are on it too.
+- **The day list shows the two sessions:** a sun or moon tag with the weekday, a gold bar for morning and an indigo bar for evening, the pair joined into one block, and a short note on how a two-a-day program runs. The progress line says "sessions done". Works for your own programs named like "Mon AM: Chest" / "Mon PM: Arms". Works in light and dark.
+- A one-exercise session now says "1 Exercise" instead of "1 Exercises".
 
 **2.39.0**
 - **15 more programs from the greats** (59 in all): Dorian Yates' 1987-92 build; three from Mike Mentzer (Heavy Duty A/B/C rotation, the "Ideal Routine", and his traditional 5-day split); Chris Bumstead's 2024 off-season 9-day split; two from Flex Wheeler; Lee Priest's full-body week with his arm day; Ronnie Coleman's back and leg specialization; Jay Cutler's modern back and delts days; Nick Walker's weekly split; Kris Gethin's Superset Thrasher and Quad Radical; Arnold's superset chest and back; Kai Greene's 5-day split; Vince Gironda's 10-8-6-15. Existing phones get them automatically on the next start. Programs you already have are untouched.

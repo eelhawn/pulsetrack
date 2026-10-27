@@ -377,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.39.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.40.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3755,7 +3755,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.39.0";
+    const APP_VERSION = "2.40.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -20776,6 +20776,9 @@ const PTSIM = (function () {
  *  - One slim row per program: athlete badge, title, one line of facts (goal, days a week, weeks, level). Programs are
  *    grouped as Your programs, Pro programs and More programs.
  *  - Share, Make current and Delete moved behind one "..." button per row, so the list is not a wall of buttons.
+ * 2.40.0: Two-a-day programs (AM + PM sessions) get a "Two-a-day" chip, a sunrise-to-night shelf of cards right under the
+ *  current program, and a small AM+PM tag on their rows. Any program whose days are titled like "Mon AM: Chest" and
+ *  "Mon PM: Arms" (or "Chest (AM) + Arms (PM)") counts, including your own.
  * ===================================================================== */
 (function () {
   "use strict";
@@ -20787,7 +20790,7 @@ const PTSIM = (function () {
 
   const GOALS = { mass: "Mass", cutting: "Cutting", strength: "Strength", balanced: "All-round" };
   const LEVELS = { beginner: "Beginner", intermediate: "Intermediate", advanced: "Advanced" };
-  const FILTERS = [["all", "All"], ["pro", "Pro plans"], ["mass", "Mass"], ["cutting", "Cutting"], ["strength", "Strength"], ["beginner", "Beginner"], ["mine", "Mine"]];
+  const FILTERS = [["all", "All"], ["pro", "Pro plans"], ["two", "Two-a-day"], ["mass", "Mass"], ["cutting", "Cutting"], ["strength", "Strength"], ["beginner", "Beginner"], ["mine", "Mine"]];
   const ST = { q: "", f: "all" };
   const APP_DEFAULTS = { kaged_massive_arms_6wk: { pro: "", goal: "mass", level: "intermediate", perWeek: 6 } };   // ships inside the app, not in programs.js
 
@@ -20819,6 +20822,43 @@ const PTSIM = (function () {
     return { pro: "", goal: g.goal, level: g.level, perWeek: g.perWeek, mine: true };
   }
 
+  /* ================================================================ two-a-day */
+  const SES1 = /^\s*(?:Day\s+\d+\s*[:\-–]\s*)?([A-Za-z]{3,9})\s+(AM|PM)\s*[:\-–]\s*(.+?)\s*$/;
+  const SES2 = /^\s*(?:Day\s+\d+\s*[:\-–]\s*)?(.+?)\s*\(AM\)\s*\+\s*(.+?)\s*\(PM\)\s*$/;
+  const stripWeek = t => String(t == null ? "" : t).replace(/^\s*(?:Week|Wk)\s+\d+\s*[·:\-–]\s*/i, "");
+  /** "Mon AM: Chest" -> { day, time: "AM", topic }; "Chest (AM) + Arms (PM)" -> { time: "both", am, pm }; anything else -> null */
+  function sessionOf(title) {
+    const t = stripWeek(title); let m;
+    if ((m = SES1.exec(t))) return { day: m[1], time: m[2], topic: m[3] };
+    if ((m = SES2.exec(t))) return { day: "", time: "both", am: m[1], pm: m[2] };
+    return null;
+  }
+  const twoCache = new Map();
+  /** null when the program has no morning/evening sessions; otherwise { sessions, training, pairs, first, partial, weeks } */
+  function twoInfo(p) {
+    const days = p.days || [];
+    const sig = p.id + "|" + days.length + "|" + (days[0] ? days[0].title : "") + "|" + (days.length ? days[days.length - 1].title : "") + "|" + (p.tags || []).join(",");
+    const c = twoCache.get(p.id); if (c && c.sig === sig) return c.v;
+    let sessions = 0, training = 0, pairs = 0, first = null, wMin = 0, wMax = 0, lastAM = null;
+    days.forEach(d => {
+      if (!(d.exercises || []).length) { lastAM = null; return; }
+      training++;
+      const s = sessionOf(d.title); if (!s) { lastAM = null; return; }
+      sessions++;
+      const w = parseInt(d.week, 10) || 0; if (w) { wMin = wMin ? Math.min(wMin, w) : w; wMax = Math.max(wMax, w); }
+      if (s.time === "both") { pairs++; if (!first) first = { day: "", am: s.am, pm: s.pm }; lastAM = null; }
+      else if (s.time === "AM") lastAM = s;
+      else {
+        if (lastAM && lastAM.day.toLowerCase() === s.day.toLowerCase()) { pairs++; if (!first) first = { day: s.day, am: lastAM.topic, pm: s.topic }; }
+        lastAM = null;
+      }
+    });
+    const tagged = (p.tags || []).some(t => /two.?a.?days?|twice.a.day/i.test(t));
+    const v = (pairs || tagged) ? { sessions, training, pairs, first, partial: training > 0 && sessions / training < 0.5, weeks: wMin ? [wMin, wMax] : null } : null;
+    twoCache.set(p.id, { sig, v });
+    return v;
+  }
+
   /* ================================================================ search text, built once per program */
   const blobs = new Map();
   function blobOf(p, m) {
@@ -20826,6 +20866,7 @@ const PTSIM = (function () {
     const c = blobs.get(p.id);
     if (c && c.sig === sig) return c.text;
     const parts = [p.title, m.pro, (p.tags || []).join(" "), GOALS[m.goal] || "", LEVELS[m.level] || "", m.mine ? "mine custom" : "", p.description];
+    if (twoInfo(p)) parts.push("two-a-day twice a day two a day double split am pm morning evening");
     (p.days || []).forEach(d => { parts.push(d.title); (d.exercises || []).forEach(e => parts.push(e.name)); });
     const text = parts.join(" \n ").toLowerCase();
     blobs.set(p.id, { sig, text });
@@ -20843,6 +20884,7 @@ const PTSIM = (function () {
     if (f === "all") return true;
     if (f === "pro") return !!m.pro;
     if (f === "mine") return m.mine;
+    if (f === "two") return !!twoInfo(p);
     if (f === "beginner") return m.level === "beginner";
     return m.goal === f;
   }
@@ -20861,7 +20903,7 @@ const PTSIM = (function () {
     const t = (p.title || "").toLowerCase(), w = m.pro.toLowerCase().split(/\s+/);
     return w.some(x => x.length > 2 && t.includes(x));
   }
-  function facts(p, m) {
+  function facts(p, m, noLevel) {
     const bits = [];
     if (!titleHasPro(p, m)) bits.push(m.pro);
     if (m.pro === "Pro Collection") bits.push("Signature workouts");
@@ -20870,11 +20912,13 @@ const PTSIM = (function () {
     if (m.perWeek) bits.push(m.perWeek + (m.perWeek === 1 ? " day/wk" : " days/wk"));
     else bits.push(n + (n === 1 ? " workout" : " workouts"));
     if (W > 1) bits.push(W + " weeks");
-    if (m.level) bits.push(LEVELS[m.level]);
+    if (m.level && !noLevel) bits.push(LEVELS[m.level]);
     return bits.filter(Boolean).slice(0, 4).join(" · ");
   }
 
   /* ================================================================ screen pieces */
+  const SUN = '<svg class="pgx-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>';
+  const MOON = '<svg class="pgx-ico" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 019.4 3.5a.6.6 0 00-.8-.7A9.5 9.5 0 1021.2 15.4a.6.6 0 00-.7-.8z"/></svg>';
   const SEARCH_SVG = '<svg class="pt-sico" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-4.35-4.35M10.5 18a7.5 7.5 0 110-15 7.5 7.5 0 010 15z"/></svg>';
   const TOOLS = [
     ["pt-prog-build", "🛠", "Build me a program", ""],
@@ -20894,6 +20938,12 @@ const PTSIM = (function () {
     if (lab.parentElement && lab.parentElement !== view) lab.parentElement.classList.add("pgx-oldhead");
     const hero = document.createElement("div"); hero.id = "pgx-hero"; hero.setAttribute("role", "button"); hero.tabIndex = 0;
     tools.insertAdjacentElement("beforebegin", hero);
+    const two = document.createElement("div"); two.id = "pgx-two"; two.hidden = true;
+    hero.insertAdjacentElement("afterend", two);
+    two.addEventListener("click", e => {
+      const all = e.target.closest("[data-f]"); if (all) { ST.f = all.dataset.f; ST.q = ""; const qq = $("pgx-q"); if (qq) qq.value = ""; drawList(); return; }
+      const c = e.target.closest(".pgx-tc"); if (c) openProgram(c.dataset.pid);
+    });
     const find = document.createElement("div"); find.id = "pgx-find";
     find.innerHTML = `<div class="relative">${SEARCH_SVG}<input id="pgx-q" type="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search programs" class="pt-sin" aria-label="Search programs"><button type="button" id="pgx-clear" class="pgx-clear hidden" aria-label="Clear search">✕</button></div>
       <div class="pgx-row"><div id="pgx-chips" class="pgx-chips" role="group" aria-label="Filter programs"></div></div>
@@ -20958,6 +21008,37 @@ const PTSIM = (function () {
     el.innerHTML = FILTERS.map(f => `<button type="button" class="pgx-chip" data-f="${f[0]}" aria-pressed="${ST.f === f[0]}">${f[1]}${f[0] !== "all" && counts[f[0]] != null ? ` <i>${counts[f[0]]}</i>` : ""}</button>`).join("");
   }
 
+  /** small "sun + moon" tag at the start of a row's facts line */
+  function apTag(p) {
+    const t = twoInfo(p); if (!t) return "";
+    const txt = t.partial && t.weeks ? `wk ${t.weeks[0]}–${t.weeks[1]}` : "AM+PM";
+    return `<b class="pgx-ap${t.partial ? " part" : ""}" title="${t.partial ? "Some weeks train twice a day" : "Trains twice a day"}">${SUN}${t.partial ? "" : MOON}${txt}</b>`;
+  }
+
+  /** the "Two-a-day" shelf: sunrise-to-night cards under the current program, only on the plain all-programs view */
+  function drawShelf(rows, show) {
+    const el = $("pgx-two"); if (!el) return;
+    const list = rows.filter(r => twoInfo(r.p)).sort((x, y) => (twoInfo(x.p).partial - twoInfo(y.p).partial) || String(x.m.pro).localeCompare(String(y.m.pro)) || String(x.p.title).localeCompare(String(y.p.title)));
+    if (!show || !list.length) { el.hidden = true; el.innerHTML = ""; return; }
+    const curId = (PT.currentProgramId && PT.currentProgramId()) || null;
+    el.innerHTML = `<div class="pgx-sh"><span class="pgx-sh-t">Two-a-day training</span><span class="pgx-sh-s">Morning and evening sessions, the way the pros split it</span><button type="button" class="pgx-sh-all" data-f="two">See all <i>${list.length}</i></button></div>
+      <div class="pgx-rail" role="list">${list.map(r => {
+        const p = r.p, m = r.m, t = twoInfo(p), b = badge(p, m), f = t.first;
+        const am = f ? f.am : "Morning session", pm = f ? f.pm : "Evening session";
+        const tail = t.partial && t.weeks ? `Two-a-day in weeks ${t.weeks[0]}–${t.weeks[1]}` : [m.perWeek ? m.perWeek + (m.perWeek === 1 ? " day/wk" : " days/wk") : "", LEVELS[m.level] || ""].filter(Boolean).join(" · ");
+        const cur = p.id === curId;
+        return `<button type="button" class="pgx-tc" role="listitem" data-pid="${esc(p.id)}" aria-label="${esc(p.title)}, two-a-day. Morning: ${esc(am)}. Evening: ${esc(pm)}${cur ? ". Current program" : ""}">
+          <span class="pgx-sky" aria-hidden="true"><span class="pgx-sun"></span><span class="pgx-moon">${MOON}</span>${cur ? '<span class="pgx-cur-pill">✓ Current</span>' : ""}</span>
+          <span class="pgx-tb">
+            <span class="pgx-trow"><span class="pgx-av" style="--h:${b.h}" aria-hidden="true">${esc(b.t)}</span><span class="pgx-tm"><span class="pgx-tc-t">${esc(p.title)}</span>${m.pro && m.pro !== "Pro Collection" ? `<span class="pgx-tc-a">${esc(m.pro)}</span>` : ""}</span></span>
+            <span class="pgx-ses"><i class="am">${SUN}AM</i> <span>${esc(am)}</span></span>
+            <span class="pgx-ses"><i class="pm">${MOON}PM</i> <span>${esc(pm)}</span></span>
+            <span class="pgx-tf">${esc(tail)}</span>
+          </span></button>`;
+      }).join("")}</div>`;
+    el.hidden = false;
+  }
+
   function drawList() {
     const a = A(), list = $("programs-list-container"); if (!a || !list || !$("pgx-find")) return;
     const all = (a.data.programs || []).filter(Boolean);
@@ -20966,6 +21047,7 @@ const PTSIM = (function () {
     const counts = {}; FILTERS.forEach(f => { if (f[0] !== "all") counts[f[0]] = rows.filter(r => passes(r.p, r.m, f[0])).length; });
     drawChips(counts);
     const shown = rows.filter(r => passes(r.p, r.m, ST.f) && toks.every(t => blobOf(r.p, r.m).includes(t)));
+    drawShelf(rows, !toks.length && ST.f === "all");
     const lab = $("program-count-label");
     if (lab) lab.textContent = shown.length === all.length ? `${all.length} programs` : `${shown.length} of ${all.length} programs`;
     const q = $("pgx-q"); if (q && q.value !== ST.q) q.value = ST.q;
@@ -20986,7 +21068,7 @@ const PTSIM = (function () {
       const p = r.p, m = r.m, b = badge(p, m), cur = p.id === curId;
       return `<div class="pgx-pr${cur ? " pgx-cur" : ""}" data-pid="${esc(p.id)}" role="button" tabindex="0" aria-label="${esc(p.title)}${cur ? ", current program" : ""}">
         <span class="pgx-av" style="--h:${b.h}" aria-hidden="true">${esc(b.t)}</span>
-        <span class="pgx-main"><span class="pgx-t">${hl(p.title, toks)}</span><span class="pgx-s">${hl(facts(p, m), toks)}</span></span>
+        <span class="pgx-main"><span class="pgx-t">${hl(p.title, toks)}</span><span class="pgx-s">${apTag(p)}${hl(facts(p, m, !!twoInfo(p)), toks)}</span></span>
         ${cur ? '<span class="pgx-pill">✓ Current</span>' : ""}
         <button type="button" class="pgx-more" aria-label="Options for ${esc(p.title)}">⋯</button>
       </div>`;
@@ -21078,6 +21160,47 @@ const PTSIM = (function () {
     .pgx-pill { flex: none; font-size: .62rem; font-weight: 800; letter-spacing: .03em; padding: .2rem .5rem; border-radius: 999px; background: rgb(var(--a600) / .16); color: rgb(var(--a400)); border: 1px solid rgb(var(--a600) / .5); white-space: nowrap; }
     .pgx-more { flex: none; width: 2.2rem; height: 2.2rem; border-radius: .7rem; font-size: 1.15rem; font-weight: 800; line-height: 1; color: rgb(var(--z400)); letter-spacing: .02em; }
     .pgx-more:active { background: rgb(var(--z800)); }
+    .pgx-ico { width: .8rem; height: .8rem; flex: none; }
+    .pgx-ap { display: inline-flex; align-items: center; gap: .15rem; margin-right: .4rem; padding: .04rem .38rem; border-radius: 999px; font-size: .6rem; font-weight: 800; letter-spacing: .03em; vertical-align: .05em; color: rgb(251 191 36); background: linear-gradient(100deg, rgb(251 191 36 / .16), rgb(129 140 248 / .2)); border: 1px solid rgb(251 191 36 / .28); }
+    .pgx-ap .pgx-ico { width: .62rem; height: .62rem; }
+    .pgx-ap .pgx-ico:nth-child(2) { color: rgb(165 180 252); margin-right: .08rem; }
+    .pgx-ap.part { color: rgb(253 186 116); background: rgb(251 191 36 / .12); }
+    html[data-mode="light"] .pgx-ap { color: rgb(180 83 9); border-color: rgb(217 119 6 / .35); background: linear-gradient(100deg, rgb(251 191 36 / .25), rgb(129 140 248 / .22)); }
+    html[data-mode="light"] .pgx-ap .pgx-ico:nth-child(2) { color: rgb(67 56 202); }
+
+    #pgx-two { display: flex; flex-direction: column; gap: .5rem; }
+    #pgx-two[hidden] { display: none; }
+    .pgx-sh { display: grid; grid-template-columns: 1fr auto; column-gap: .6rem; align-items: baseline; padding: 0 .15rem; }
+    .pgx-sh-t { font-size: .95rem; font-weight: 800; color: rgb(var(--z100)); }
+    .pgx-sh-s { grid-column: 1; grid-row: 2; font-size: .72rem; color: rgb(var(--z400)); line-height: 1.3; }
+    .pgx-sh-all { grid-column: 2; grid-row: 1 / 3; align-self: center; padding: .38rem .7rem; border-radius: 999px; font-size: .72rem; font-weight: 800; color: rgb(var(--a400)); border: 1px solid rgb(var(--a600) / .45); background: rgb(var(--a600) / .1); white-space: nowrap; }
+    .pgx-sh-all i { font-style: normal; font-weight: 700; opacity: .7; margin-left: .1rem; }
+    .pgx-rail { display: flex; gap: .65rem; overflow-x: auto; margin: 0 -1rem; padding: .15rem 1rem .5rem; scroll-snap-type: x mandatory; scroll-padding-left: 1rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; }
+    .pgx-rail::-webkit-scrollbar { display: none; }
+    .pgx-tc { flex: none; width: min(16.75rem, 78vw); scroll-snap-align: start; display: flex; flex-direction: column; text-align: left; border-radius: 1.15rem; overflow: hidden; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); -webkit-tap-highlight-color: transparent; }
+    .pgx-tc:active { transform: scale(.985); }
+    .pgx-tc:focus-visible { outline: 2px solid rgb(var(--a500)); outline-offset: 2px; }
+    .pgx-sky { position: relative; height: 3.5rem; background: radial-gradient(circle at 88% 30%, rgb(255 255 255 / .9) 0 1px, transparent 1.6px), radial-gradient(circle at 74% 62%, rgb(255 255 255 / .75) 0 1px, transparent 1.6px), radial-gradient(circle at 60% 24%, rgb(255 255 255 / .6) 0 1px, transparent 1.6px), linear-gradient(100deg, hsl(41 96% 62%) 0%, hsl(24 92% 60%) 24%, hsl(338 62% 52%) 46%, hsl(262 52% 38%) 70%, hsl(234 55% 20%) 100%); }
+    .pgx-sun { position: absolute; left: .95rem; top: .75rem; width: 2rem; height: 2rem; border-radius: 50%; background: radial-gradient(circle at 38% 35%, #fff7c2, #ffd23f 55%, #ffb01f); box-shadow: 0 0 0 .38rem rgb(255 221 100 / .28), 0 0 1.4rem .3rem rgb(255 200 80 / .55); }
+    .pgx-moon { position: absolute; right: 1rem; top: .85rem; width: 1.75rem; height: 1.75rem; color: #e8ecff; filter: drop-shadow(0 0 .4rem rgb(190 205 255 / .6)); }
+    .pgx-moon .pgx-ico { width: 100%; height: 100%; }
+    .pgx-cur-pill { position: absolute; left: 50%; top: .5rem; transform: translateX(-50%); font-size: .6rem; font-weight: 800; letter-spacing: .03em; padding: .18rem .5rem; border-radius: 999px; background: rgb(0 0 0 / .42); color: #fff; white-space: nowrap; }
+    .pgx-tb { display: flex; flex-direction: column; gap: .42rem; padding: .7rem .8rem .8rem; flex: 1; }
+    .pgx-trow { display: flex; align-items: center; gap: .6rem; min-height: 2.5rem; }
+    .pgx-trow .pgx-av { width: 2.2rem; height: 2.2rem; border-radius: .7rem; font-size: .7rem; }
+    .pgx-tm { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: .08rem; }
+    .pgx-tc-t { font-size: .84rem; font-weight: 800; line-height: 1.2; color: rgb(var(--z100)); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
+    .pgx-tc-a { font-size: .68rem; font-weight: 600; color: rgb(var(--z400)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pgx-ses { display: flex; align-items: center; gap: .45rem; font-size: .74rem; font-weight: 600; color: rgb(var(--z200)); min-width: 0; }
+    .pgx-ses > span { min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .pgx-ses i { flex: none; display: inline-flex; align-items: center; gap: .22rem; min-width: 2.7rem; padding: .14rem .45rem; border-radius: 999px; font-style: normal; font-size: .62rem; font-weight: 800; letter-spacing: .06em; }
+    .pgx-ses i.am { color: rgb(252 211 77); background: rgb(251 191 36 / .14); }
+    .pgx-ses i.pm { color: rgb(165 180 252); background: rgb(129 140 248 / .17); }
+    html[data-mode="light"] .pgx-ses i.am { color: rgb(146 64 14); background: rgb(251 191 36 / .3); }
+    html[data-mode="light"] .pgx-ses i.pm { color: rgb(55 48 163); background: rgb(129 140 248 / .22); }
+    .pgx-tf { margin-top: auto; padding-top: .1rem; font-size: .68rem; font-weight: 600; color: rgb(var(--z500)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    @media (prefers-reduced-motion: reduce) { .pgx-tc:active { transform: none; } }
+
     .pgx-empty { text-align: center; padding: 1.6rem 1rem; border-radius: 1rem; border: 1px dashed rgb(var(--z700)); color: rgb(var(--z400)); font-size: .85rem; }
     .pgx-empty button { margin-top: .7rem; padding: .5rem .95rem; border-radius: .75rem; font-size: .78rem; font-weight: 700; background: rgb(var(--z800)); color: rgb(var(--z100)); }
   `;
@@ -21089,7 +21212,7 @@ const PTSIM = (function () {
     const list = (a.data && a.data.programs) || [];
     const has = list.length > 0;
     ["pgx-hero", "pgx-find"].forEach(id => { const e = $(id); if (e) e.classList.toggle("hidden", !has); });
-    if (!has) return;                                  // the original "No programs" message stays
+    if (!has) { const t = $("pgx-two"); if (t) t.hidden = true; return; }                                  // the original "No programs" message stays
     decorateTools(); drawHero(a); drawList();
   }
   const oRP = proto.renderProgramsView;
@@ -21104,7 +21227,8 @@ const PTSIM = (function () {
     return oShow.apply(this, arguments);
   };
 
-  PT.programsScreen = { state: ST, meta: metaOf, facts: p => facts(p, metaOf(p)), redraw: () => refresh(A()) };
+  PT.sessionOf = sessionOf;
+  PT.programsScreen = { state: ST, meta: metaOf, facts: p => facts(p, metaOf(p)), redraw: () => refresh(A()), two: twoInfo, sessionOf };
 })();
   </script>
   <script>
@@ -21229,6 +21353,114 @@ const PTSIM = (function () {
     .pt-side-d { font-size: .75rem; color: rgb(var(--z400)); line-height: 1.3; }
     .pt-side-e { font-size: .75rem; color: rgb(var(--z300)); }
     .pt-side-reset { margin-top: .6rem; width: 100%; padding: .6rem; border-radius: .75rem; font-size: .75rem; font-weight: 700; color: rgb(var(--z400)); background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); }
+  `;
+  document.head.appendChild(css);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.40.0: the day list of a two-a-day program.
+ *  Days titled like "Mon AM: Chest" and "Mon PM: Arms" (or "Chest (AM) + Arms (PM)") now show what they are:
+ *   - a sun or moon tag and the weekday above the exercise name, a gold bar for the morning session and an indigo bar for the evening one
+ *   - the morning and evening session of the same day sit together as one joined pair
+ *   - a short note above the list says how a two-a-day program runs (a few hours between sessions, each session counts as a workout)
+ *  Nothing about how the sessions are logged or counted changes: each one is still its own day.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const esc = s => PT.esc(s);
+
+  const SUN = '<svg class="pt-sico2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4" fill="currentColor"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M18.7 5.3l-1.6 1.6M6.9 17.1l-1.6 1.6"/></svg>';
+  const MOON = '<svg class="pt-sico2" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.5 14.6A8.5 8.5 0 019.4 3.5a.6.6 0 00-.8-.7A9.5 9.5 0 1021.2 15.4a.6.6 0 00-.7-.8z"/></svg>';
+  const FULL = { mon: "Monday", tue: "Tuesday", wed: "Wednesday", thu: "Thursday", fri: "Friday", sat: "Saturday", sun: "Sunday" };
+  const dayName = d => FULL[String(d || "").slice(0, 3).toLowerCase()] || String(d || "");
+
+  function decorate(app) {
+    const prog = app.activeProgram, list = app.dom && app.dom.daysList; if (!prog || !list) return;
+    const old = document.getElementById("pt-dbl-note"); if (old) old.remove();
+    const info = PT.programsScreen && PT.programsScreen.two ? PT.programsScreen.two(prog) : null;
+    const sesOf = PT.sessionOf; if (!sesOf) return;
+    let prev = null;
+    [...list.children].forEach(card => {
+      const dn = card.dataset ? card.dataset.day : null;
+      if (dn == null || dn === "") { prev = null; return; }
+      const day = (prog.days || []).find(d => String(d.dayNumber) === String(dn));
+      const cnt = card.querySelector(".text-xs.text-zinc-400"); if (cnt && /^1 Exercises$/.test(cnt.textContent.trim())) cnt.textContent = "1 Exercise";
+      const s = day ? sesOf(day.title) : null;
+      if (!s) { prev = null; return; }
+      const lab = card.querySelector(".uppercase"), h4 = card.querySelector("h4");
+      if (s.time === "both") {
+        card.classList.add("pt-ses-card", "pt-ses-both");
+        if (h4) h4.innerHTML = `<span class="pt-ses-line"><i class="am">${SUN}AM</i> <span>${esc(s.am)}</span></span><span class="pt-ses-line"><i class="pm">${MOON}PM</i> <span>${esc(s.pm)}</span></span>`;
+        prev = null; return;
+      }
+      const am = s.time === "AM";
+      card.classList.add("pt-ses-card", am ? "pt-ses-am" : "pt-ses-pm");
+      if (lab) lab.innerHTML = `<span class="pt-ses-tag ${am ? "am" : "pm"}">${am ? SUN : MOON}${esc(dayName(s.day))} · ${am ? "Morning" : "Evening"}</span>`;
+      if (h4) h4.textContent = s.topic;
+      if (am) { prev = { card, day: s.day.toLowerCase() }; return; }
+      if (prev && prev.day === s.day.toLowerCase() && prev.card.nextElementSibling === card) { prev.card.classList.add("pt-pair-t"); card.classList.add("pt-pair-b"); }
+      prev = null;
+    });
+    if (!info) return;
+    const note = document.createElement("div"); note.id = "pt-dbl-note";
+    const where = info.partial && info.weeks ? `Weeks ${info.weeks[0]}–${info.weeks[1]} of this program train twice a day.` : "This program trains twice a day.";
+    note.innerHTML = `<span class="pt-dbl-ic">${SUN}${MOON}</span><span><b>${where}</b> Do the morning session, eat and rest, then the evening session a few hours later. Each session is its own workout and counts when you finish it.</span>`;
+    list.insertAdjacentElement("beforebegin", note);
+  }
+
+  /** "0/10 days done" counts sessions here, so say so */
+  const oRow = proto.renderDaysWeekRow;
+  if (typeof oRow === "function") proto.renderDaysWeekRow = function () {
+    const r = oRow.apply(this, arguments);
+    try {
+      const prog = this.activeProgram, row = document.getElementById("days-week-row");
+      const info = prog && PT.programsScreen && PT.programsScreen.two ? PT.programsScreen.two(prog) : null;
+      if (info && !info.partial && row) {
+        const d = row.firstElementChild;
+        if (d && /\d+\/\d+ days done/.test(d.textContent)) d.innerHTML = d.innerHTML.replace(/days done/, "sessions done");
+      }
+    } catch (e) { console.error("PulseTrack two-a-day week row", e); }
+    return r;
+  };
+
+  const oDec = proto.decorateDaysList;
+  proto.decorateDaysList = function () {
+    const r = typeof oDec === "function" ? oDec.apply(this, arguments) : undefined;
+    try { decorate(this); } catch (e) { console.error("PulseTrack two-a-day list", e); }
+    return r;
+  };
+
+  const css = document.createElement("style"); css.id = "pt-v240-two-css";
+  css.textContent = `
+    .pt-sico2 { width: .85em; height: .85em; flex: none; }
+    #pt-dbl-note { display: flex; gap: .7rem; align-items: flex-start; padding: .75rem .85rem; border-radius: .95rem; font-size: .74rem; line-height: 1.4; color: rgb(var(--z300)); border: 1px solid rgb(251 191 36 / .28); background: linear-gradient(100deg, rgb(251 191 36 / .1), rgb(129 140 248 / .12)); }
+    #pt-dbl-note b { color: rgb(var(--z100)); font-weight: 800; }
+    .pt-dbl-ic { flex: none; display: inline-flex; flex-direction: column; gap: .2rem; padding-top: .1rem; font-size: 1rem; color: rgb(251 191 36); }
+    .pt-dbl-ic .pt-sico2:nth-child(2) { color: rgb(165 180 252); }
+    html[data-mode="light"] .pt-dbl-ic { color: rgb(180 83 9); }
+    html[data-mode="light"] .pt-dbl-ic .pt-sico2:nth-child(2) { color: rgb(67 56 202); }
+
+    #days-list-container > .pt-ses-card { border-left-width: 4px; }
+    #days-list-container > .pt-ses-am { border-left-color: rgb(245 158 11 / .85); }
+    #days-list-container > .pt-ses-pm { border-left-color: rgb(129 140 248 / .85); }
+    #days-list-container > .pt-ses-both { border-left-color: rgb(251 146 60 / .8); }
+    #days-list-container > .pt-pair-t { border-bottom-left-radius: .4rem; border-bottom-right-radius: .4rem; }
+    #days-list-container > .pt-pair-b { margin-top: .2rem !important; border-top-left-radius: .4rem; border-top-right-radius: .4rem; }
+    .pt-ses-tag { display: inline-flex; align-items: center; gap: .3rem; font-weight: 800; }
+    .pt-ses-tag.am { color: rgb(252 211 77); }
+    .pt-ses-tag.pm { color: rgb(165 180 252); }
+    html[data-mode="light"] .pt-ses-tag.am { color: rgb(180 83 9); }
+    html[data-mode="light"] .pt-ses-tag.pm { color: rgb(67 56 202); }
+    .pt-ses-line { display: flex; align-items: center; gap: .45rem; font-size: .8rem; font-weight: 700; line-height: 1.3; }
+    .pt-ses-line + .pt-ses-line { margin-top: .22rem; }
+    .pt-ses-line i { flex: none; display: inline-flex; align-items: center; gap: .22rem; min-width: 2.8rem; padding: .1rem .42rem; border-radius: 999px; font-style: normal; font-size: .6rem; font-weight: 800; letter-spacing: .06em; }
+    .pt-ses-line i.am { color: rgb(252 211 77); background: rgb(251 191 36 / .14); }
+    .pt-ses-line i.pm { color: rgb(165 180 252); background: rgb(129 140 248 / .17); }
+    html[data-mode="light"] .pt-ses-line i.am { color: rgb(146 64 14); background: rgb(251 191 36 / .3); }
+    html[data-mode="light"] .pt-ses-line i.pm { color: rgb(55 48 163); background: rgb(129 140 248 / .22); }
   `;
   document.head.appendChild(css);
 })();
