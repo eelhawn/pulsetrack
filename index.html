@@ -377,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.44.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.45.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -1096,6 +1096,9 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
         </label>
       </div>
       </div>
+
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Mods &amp; Custom CSS</span>
+      <div id="pt-mods-box" class="bg-zinc-950 border border-zinc-800 rounded-xl divide-y divide-zinc-800 overflow-hidden"></div>
 
       <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Data &amp; Backup</span>
       <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-3">
@@ -3755,7 +3758,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.44.0";
+    const APP_VERSION = "2.45.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -8266,6 +8269,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
         "Streaks & Time Off": { id: "streak", hint: "Sick days, trips, cardio" },
         "Sound, Voice & Feel": { id: "sound", hint: "Sounds, voice coaching, vibration" },
         "Appearance": { id: "appearance", hint: "" },
+        "Mods & Custom CSS": { id: "mods", hint: "Reskin the app with your own CSS" },
         "Data & Backup": { id: "data", hint: "Back up, restore, export" },
         "App": { id: "app", hint: "Version, updates" },
         "Danger Zone": { id: "danger", hint: "Reset the app" }
@@ -16642,7 +16646,7 @@ const PTSIM = (function () {
   }
   function openMore() {
     const a = A(), K = PT.kit, el = K.sheet("pt-wkmore", 50);
-    const rows = [["pt-guided-open", "🎯", "Guided mode", ""], ["btn-share-day", "📤", "Share day", ""], ["btn-copy-day", "📑", "Copy day", ""], ["pt-steal-day", "🧩", "Steal this day…", ""], ["pt-clips-open", "🎥", "Form clips", ""], ["btn-skip-day", "⏭", "Skip day", ""], ["btn-reset-day-progress", "🧹", "Clear progress", "danger"]]
+    const rows = [["pt-guided-open", "🎯", "Guided mode", ""], ["btn-share-day", "📤", "Share day", ""], ["btn-copy-day", "📑", "Copy day", ""], ["pt-steal-day", "🧩", "Steal this day…", ""], ["pt-clips-open", "🎥", "Form clips", ""], ["pt-fuel-open", "🍌", "Pre-workout protocol", ""], ["btn-skip-day", "⏭", "Skip day", ""], ["btn-reset-day-progress", "🧹", "Clear progress", "danger"]]
       .filter(r => { const e = $(r[0]); return e && !e.classList.contains("hidden"); });
     const c = K.openSheet(el, `${K.head("Workout options", (a.activeDay && a.activeDay.title) || "")}
       <div class="space-y-2">${rows.map(r => `<button type="button" class="pt-morerow ${r[3]}" data-real="${r[0]}"><span>${r[1]}</span><span>${r[2]}</span></button>`).join("")}</div>`);
@@ -20283,7 +20287,7 @@ const PTSIM = (function () {
     const rungHtml = r => `<button type="button" class="pt-at-rung tap-active${done[r.id] ? " on" : ""}${r.kind === "att" ? " att" : ""}" data-at-done="${r.id}" aria-pressed="${!!done[r.id]}">
         <span class="pt-at-tick">${done[r.id] ? "✓" : ""}</span>
         <span class="min-w-0 flex-1 text-left"><b class="block text-sm text-white">${fw(r.w)} ${unit(a)} × ${r.reps}</b>
-          <span class="block text-[11px] text-zinc-400">${esc(r.label)}${r.pct ? " · " + r.pct + "%" : ""}${r.plates ? " · " + esc(platesTxt(r.plates)) : ""}</span></span>
+          <span class="block text-[11px] text-zinc-400">${esc(r.label)}${r.pct ? " · " + r.pct + "%" : ""}${r.id === "a3" && PT.hype && PT.hype.linked() ? " · 🔊" : ""}${r.plates ? " · " + esc(platesTxt(r.plates)) : ""}</span></span>
         ${r.rest ? `<span class="text-[10px] text-zinc-500 shrink-0">rest ${esc(r.rest)}</span>` : ""}</button>`;
     const gap = a.prs && a.prs[p.name] ? (p.target / a.prs[p.name] - 1) * 100 : 0, rl = realism(gap);
     const days = pl.days.map(d => `<div class="pt-at-day"><div class="flex items-baseline justify-between gap-2"><b class="text-sm text-white">${esc(d.title)}</b><span class="text-[10px] font-bold uppercase tracking-wider text-zinc-500">${d.off === 0 ? "Today" : esc(dateTxt(d.ds))}</span></div><p class="text-[11px] text-zinc-400 leading-relaxed mt-0.5">${esc(d.txt)}</p>${d.mob ? `<button type="button" class="pt-at-mob tap-active" data-mob="${d.mob}">⏱ Start easy mobility</button>` : ""}</div>`).join("");
@@ -20292,14 +20296,16 @@ const PTSIM = (function () {
       : lt < 0 ? `<div class="pt-at-banner">The test day was ${esc(dateTxt(p.date))}. How did it go?</div>`
         : lt === 0 ? `<div class="pt-at-banner today">It is attempt day. Work up the ladder and trust it.</div>`
           : `<div class="pt-at-banner">${lt} day${lt === 1 ? "" : "s"} to go · ${esc(dateTxt(p.date))}</div>`;
-    const body = `<div class="space-y-4">${head}
+    const body = `<div class="space-y-4">${PT.hype ? PT.hype.liveHtml() : ""}${head}
       <div class="flex items-center justify-between gap-3"><div><span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500">${esc(p.name)}</span><b class="text-2xl font-black text-white">${fw(p.target)} ${unit(a)}</b></div><p class="text-[11px] text-right max-w-[11rem] pt-at-${rl[1]}">${esc(rl[0])}</p></div>
       ${days ? `<div><span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1.5">The week before</span><div class="space-y-2">${days}</div></div>` : ""}
       <div><span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1.5">Attempt day: warm-up ladder${pl.bar ? ` (${fw(a.selectedBarWeight || 0)} ${unit(a)} bar)` : ""}</span><div class="space-y-1.5">${pl.ladder.map(rungHtml).join("")}</div>
         <p class="text-[10px] text-zinc-500 leading-relaxed mt-2">Take attempt 2 only if the opener moved fast, and attempt 3 only if attempt 2 was smooth. Log your heaviest single as a normal set so it counts as a PR. Stop any attempt that hurts.</p></div>
+      ${PT.hype ? PT.hype.block(a) : ""}
     </div>`;
     const foot = `<div class="flex gap-2"><button type="button" id="pt-at-cancel" class="px-3 py-3 rounded-xl bg-zinc-800 text-zinc-300 font-bold text-xs tap-active">Remove plan</button><button type="button" id="pt-at-edit" class="px-3 py-3 rounded-xl bg-zinc-800 text-zinc-100 font-bold text-xs tap-active">Change</button>${lt < 0 && !hit ? `<button type="button" id="pt-at-miss" class="px-3 py-3 rounded-xl bg-zinc-800 text-zinc-100 font-bold text-xs tap-active">Not this time</button>` : ""}<button type="button" id="pt-at-hit" class="flex-1 py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm tap-active">${hit ? "Save it and close 🎉" : "I hit it 🎉"}</button></div>`;
     a.openSheet("PR attempt", p.name, body, foot);
+    try { PT.hype && PT.hype.afterRender(a); } catch (e) { }
   }
   PT.openAttempt = function () { const a = A(); if (a) { plan(a) ? openPlan(a) : openSetup(a); } };
 
@@ -20371,7 +20377,7 @@ const PTSIM = (function () {
       openPlan(a); try { a.renderProgressView(); a.renderHomeView(); } catch (x) { } return;
     }
     const dn = e.target.closest("[data-at-done]");
-    if (dn) { const p = plan(a); if (p) { p.done = p.done || {}; const k = dn.dataset.atDone; if (p.done[k]) delete p.done[k]; else p.done[k] = 1; save(); const body = $("sheet-body"), top = body ? body.scrollTop : 0; openPlan(a); const b2 = $("sheet-body"); if (b2) b2.scrollTop = top; } return; }
+    if (dn) { const p = plan(a); if (p) { p.done = p.done || {}; const k = dn.dataset.atDone; if (p.done[k]) delete p.done[k]; else p.done[k] = 1; save(); try { PT.hype && PT.hype.onTick(a, p, k, !!p.done[k]); } catch (x) { } const body = $("sheet-body"), top = body ? body.scrollTop : 0; openPlan(a); const b2 = $("sheet-body"); if (b2) b2.scrollTop = top; } return; }
     if (e.target.closest("#pt-at-edit")) { const p = plan(a); if (p) { S.name = p.name; S.target = p.target; S.date = p.date; } openSetup(a); return; }
     if (e.target.closest("#pt-at-cancel")) {
       const b = $("pt-at-cancel");
@@ -22912,6 +22918,955 @@ const PTSIM = (function () {
     .pt-fc-note { font-size: .78rem; color: rgb(var(--z200)); } .pt-fc-note.empty { color: rgb(var(--z500)); }
     .pt-fc-acts { display: flex; gap: .5rem; } .pt-fc-acts button { flex: 1; } .pt-st-b.danger { color: rgb(251 113 133); }
     html[data-mode="light"] .pt-fc-l { color: rgb(var(--a600)); }
+  `;
+  document.head.appendChild(css);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.45.0: Mods (your own CSS).
+ *  Settings → Mods & Custom CSS → Open mod manager. Each mod is a named piece of CSS that you can switch on and off and put in a load
+ *  order (later ones win), like a mod list. Paste snippets, edit them with a live preview, share one as a .css file, or add one of
+ *  the starter mods (square corners, accent glow, an animated background, a condensed font and so on).
+ *  - Everything stays on the phone, in settings.mods (so it is in backups). The one exception is something you write yourself:
+ *    an @import of a web font loads from the web when you are online.
+ *  - Safety net: a mod that is saved or switched on has to be confirmed within 15 seconds ("Keep this look?"). If you do not, or the
+ *    app is closed first, that mod switches itself off, so a stylesheet that hides everything cannot lock you out. "Use my mods" turns
+ *    every mod off in one tap, and opening the app with #nomods on the end of the address starts it with mods off.
+ *  - The mods' style tag always sits last in <head>, so a mod beats the app's own styles when it has the same strength.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.kit) return;
+  const proto = ApplicationUI.prototype, A = () => window.app, K = PT.kit, esc = K.esc, $ = id => document.getElementById(id);
+  const MAX_CSS = 200000, MAX_MODS = 40, TRIAL_S = 15;
+  const save = a => { try { WorkoutStorage.saveSettings(a.settings); } catch (e) { } };
+  const list = a => (a && a.settings && Array.isArray(a.settings.mods) ? a.settings.mods : []);
+  const setList = (a, l) => { a.settings.mods = l; save(a); };
+  const safe = () => /(^|[?&#])nomods\b/i.test(String(location.hash || "") + "&" + String(location.search || ""));
+  const uid = () => "m" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+  const lines = s => (String(s || "").trim() ? String(s).trim().split("\n").length : 0);
+
+  /* ---------------------------------------------------------------- starter mods */
+  const STARTERS = [
+    { id: "s_square", name: "Square corners", note: "Sharp, flat corners on cards and buttons", css: `/* Sharp corners everywhere except round things */
+[class*="rounded-"]:not(.rounded-full), button:not(.rounded-full), input, select, textarea, details, summary { border-radius: 4px !important; }` },
+    { id: "s_round", name: "Soft and round", note: "Big, friendly rounded corners", css: `/* Extra round corners */
+[class*="rounded-xl"], [class*="rounded-2xl"], [class*="rounded-lg"] { border-radius: 1.4rem !important; }
+button:not(.rounded-full) { border-radius: 1rem !important; }` },
+    { id: "s_outline", name: "Accent outlines", note: "Cards get an outline in your accent colour", css: `/* Card outlines in the accent colour */
+[class*="border-zinc-800"], [class*="border-zinc-700"] { border-color: rgb(var(--a500) / .35) !important; }` },
+    { id: "s_glow", name: "Accent glow", note: "Main buttons glow in your accent colour", css: `/* Glow on the main buttons */
+button[class*="bg-emerald-6"], button[class*="bg-emerald-5"] { box-shadow: 0 0 18px rgb(var(--a500) / .55) !important; }
+@keyframes pt-mod-breathe { 0%, 100% { box-shadow: 0 0 10px rgb(var(--a500) / .35); } 50% { box-shadow: 0 0 22px rgb(var(--a500) / .7); } }
+#btn-start-workout, #pt-start-training { animation: pt-mod-breathe 3.2s ease-in-out infinite; }` },
+    { id: "s_aurora", name: "Aurora background", note: "Slow moving gradient behind the app", css: `/* Slowly moving gradient behind everything */
+@keyframes pt-mod-aurora { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+html, body { background: linear-gradient(120deg, rgb(var(--z950)), rgb(var(--a950)), rgb(var(--z950)), rgb(var(--a800) / .55), rgb(var(--z950))) !important; background-size: 320% 320% !important; animation: pt-mod-aurora 26s ease infinite; }` },
+    { id: "s_font", name: "Condensed font", note: "Oswald from Google Fonts. Needs internet the first time; the app keeps it after that", css: `/* Needs internet once. After that the font is kept for offline use. */
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;700&display=swap');
+html, body, button, input, select, textarea { font-family: 'Oswald', system-ui, sans-serif !important; letter-spacing: .01em; }` },
+    { id: "s_still", name: "No animation", note: "Switches off motion and fades", css: `/* Calm: no animations or transitions */
+*, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }` }
+  ];
+
+  /* ---------------------------------------------------------------- applying */
+  let styleEl = null, importEl = null, draft = null, observer = null;
+  /** @import only counts at the very top of a stylesheet, so every mod's @imports are lifted out and kept apart (comments are left alone) */
+  function hoist(css, imports) {
+    return String(css || "").replace(/\/\*[\s\S]*?\*\/|@import\s*(?:url\(\s*(?:"[^"]*"|'[^']*'|[^)]*)\s*\)|"[^"]*"|'[^']*')[^;{}]*;/gi, t => { if (t.charAt(0) === "@") { imports.push(t); return ""; } return t; });
+  }
+  function cssText(a) {
+    if (safe() || (a.settings && a.settings.modsOff)) return { imports: "", main: "" };
+    const parts = [], imports = [];
+    list(a).forEach(m => {
+      if (!m || !m.on) return;
+      const css = draft && draft.id === m.id ? draft.css : m.css;
+      parts.push("/* " + String(m.name || "mod").replace(/[\r\n]+/g, " ").replace(/\*\//g, "*") + " */\n" + hoist(css, imports));
+    });
+    if (draft && !list(a).some(m => m.id === draft.id)) parts.push("/* draft */\n" + hoist(draft.css, imports));
+    return { imports: imports.join("\n"), main: parts.join("\n") };
+  }
+  function apply(a) {
+    a = a || A(); if (!a || !a.settings) return;
+    const c = cssText(a);
+    // web-font imports live in a style tag of their own: a sheet waits for its @imports before any of its rules apply, and that wait must never hold the mods back
+    if (!importEl) { importEl = document.createElement("style"); importEl.id = "pt-mods-imports"; }
+    if (!styleEl) { styleEl = document.createElement("style"); styleEl.id = "pt-mods-style"; }
+    if (importEl.textContent !== c.imports) importEl.textContent = c.imports;
+    if (styleEl.textContent !== c.main) styleEl.textContent = c.main;
+    const last = () => document.head.lastElementChild === styleEl && styleEl.previousElementSibling === importEl;
+    if (!last()) { document.head.appendChild(importEl); document.head.appendChild(styleEl); }
+    if (!observer && window.MutationObserver) {
+      observer = new MutationObserver(() => { if (styleEl && styleEl.parentNode === document.head && !last()) { document.head.appendChild(importEl); document.head.appendChild(styleEl); } });
+      observer.observe(document.head, { childList: true });
+    }
+  }
+
+  /** read a piece of CSS the way the browser does, in a scratch document: how many rules it gave, and what looks wrong */
+  function analyse(css) {
+    css = String(css || "");
+    const out = { lines: lines(css), rules: 0, expected: 0, problems: [], imports: 0 };
+    let depth = 0, i = 0, q = "", paren = 0, start = 0;
+    const strip = css.replace(/\/\*[\s\S]*?\*\//g, " ");
+    for (i = 0; i < strip.length; i++) {
+      const c = strip[i];
+      if (q) { if (c === "\\") i++; else if (c === q) q = ""; continue; }
+      if (c === '"' || c === "'") { q = c; continue; }
+      if (c === "(") paren++; else if (c === ")") paren = Math.max(0, paren - 1);
+      else if (paren) continue;
+      else if (c === "{") { if (depth === 0) out.expected++; depth++; }
+      else if (c === "}") { depth--; if (depth < 0) { out.problems.push("There is a } with no { before it."); depth = 0; } }
+      else if (c === ";" && depth === 0) { const stmt = strip.slice(start, i); if (/^\s*@(import|charset|namespace)\b/i.test(stmt)) out.expected++; if (/^\s*@import\b/i.test(stmt)) out.imports++; }
+      if (depth === 0 && (c === "}" || c === ";")) start = i + 1;
+    }
+    if (depth > 0) out.problems.push("A { is never closed with a }.");
+    if (q) out.problems.push("A quote mark is never closed.");
+    try {
+      const d = document.implementation.createHTMLDocument(""), s = d.createElement("style"); s.textContent = css; d.head.appendChild(s);
+      out.rules = s.sheet ? s.sheet.cssRules.length : 0;
+    } catch (e) { out.rules = out.expected; }
+    if (!out.problems.length && out.rules < out.expected) out.problems.push((out.expected - out.rules) + " rule" + (out.expected - out.rules === 1 ? " was" : "s were") + " not understood and will be ignored.");
+    return out;
+  }
+
+  /* ---------------------------------------------------------------- the safety net */
+  let trialTimer = null;
+  const imp = (el, css) => css.split(";").forEach(p => { const i = p.indexOf(":"); if (i > 0) el.style.setProperty(p.slice(0, i).trim(), p.slice(i + 1).trim(), "important"); });
+  function removeBar() { clearInterval(trialTimer); trialTimer = null; const b = $("pt-mod-trial"); if (b) b.remove(); }
+  function showBar(a) {
+    removeBar();
+    let left = TRIAL_S;
+    const b = document.createElement("div"); b.id = "pt-mod-trial"; b.setAttribute("role", "alertdialog");
+    imp(b, "all:initial;position:fixed;left:8px;right:8px;top:8px;z-index:2147483647;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;background:#111827;color:#fff;border:2px solid #f59e0b;border-radius:14px;font-family:system-ui,sans-serif;font-size:14px;font-weight:700;box-shadow:0 10px 30px rgba(0,0,0,.6);opacity:1;visibility:visible;transform:none;filter:none;pointer-events:auto");
+    const t = document.createElement("span"); imp(t, "all:initial;color:#fff;font-family:system-ui,sans-serif;font-size:14px;font-weight:700;line-height:1.25");
+    const mk = (txt, bg, fg, fn) => { const x = document.createElement("button"); x.type = "button"; x.textContent = txt; imp(x, "all:initial;display:inline-block;padding:10px 14px;border-radius:10px;background:" + bg + ";color:" + fg + ";font-family:system-ui,sans-serif;font-size:14px;font-weight:800;cursor:pointer;flex:none"); x.addEventListener("click", fn); return x; };
+    const keepB = mk("Keep", "#10b981", "#022c22", () => keep(a)), undoB = mk("Undo", "#374151", "#fff", () => revert(a, "undo"));
+    const box = document.createElement("span"); imp(box, "all:initial;display:flex;gap:8px;flex:none"); box.append(undoB, keepB);
+    b.append(t, box); document.documentElement.appendChild(b);
+    const paint = () => { t.textContent = "Keep this look? Switching off in " + left + " s"; };
+    paint();
+    trialTimer = setInterval(() => { left--; if (left <= 0) revert(a, "time"); else paint(); }, 1000);
+  }
+  function trial(a, id) { a.settings.modTrial = { id, ts: Date.now() }; save(a); showBar(a); }
+  function keep(a) { delete a.settings.modTrial; save(a); removeBar(); try { a.toast("Mod kept"); } catch (e) { } refresh(a); }
+  function revert(a, why) {
+    const t = a.settings.modTrial; removeBar(); if (!t) return;
+    const l = list(a), m = l.find(x => x.id === t.id);
+    if (m) m.on = false;
+    delete a.settings.modTrial; save(a); apply(a); refresh(a);
+    try { a.toast(m ? "“" + m.name + "” is switched off. Open it to fix the CSS." : "Mod switched off", undefined, undefined, 4500); } catch (e) { }
+  }
+
+  /* ---------------------------------------------------------------- the manager */
+  let mgr = null, view = "list";
+  function row(a, m, i, n) {
+    const an = m.on ? "" : "";
+    return `<div class="pt-md-row${m.on ? " on" : ""}" data-md-row="${esc(m.id)}">
+      <label class="pt-md-sw"><input type="checkbox" data-md-on="${esc(m.id)}" ${m.on ? "checked" : ""} aria-label="Use ${esc(m.name)}"><i></i></label>
+      <button type="button" class="pt-md-name tap-active" data-md-edit="${esc(m.id)}"><b>${esc(m.name || "Untitled mod")}</b><span>${lines(m.css)} lines${m.starter ? " · starter" : ""}</span></button>
+      <span class="pt-md-mv"><button type="button" data-md-up="${esc(m.id)}" ${i === 0 ? "disabled" : ""} aria-label="Load earlier">↑</button><button type="button" data-md-dn="${esc(m.id)}" ${i === n - 1 ? "disabled" : ""} aria-label="Load later">↓</button></span></div>`;
+  }
+  function renderMgr(a) {
+    if (!mgr) return;
+    const l = list(a), off = !!a.settings.modsOff;
+    let body;
+    if (view === "starters") {
+      const have = new Set(l.map(m => m.starter));
+      body = `${K.head("Starter mods", "Tap one to add it. You can edit it afterwards.")}
+        <div class="pt-md-list">${STARTERS.map(s => `<button type="button" class="pt-md-st tap-active" data-md-add="${s.id}" ${have.has(s.id) ? "disabled" : ""}><b>${esc(s.name)}</b><span>${esc(s.note)}</span><em>${have.has(s.id) ? "Added" : "Add"}</em></button>`).join("")}</div>
+        <button type="button" class="pt-md-ghost tap-active" data-md-view="list">Back to my mods</button>`;
+    } else {
+      body = `${K.head("Mods", "Your own CSS, switched on and off like a mod list")}
+        ${off ? `<p class="pt-md-warn">All mods are switched off in Settings (“Use my mods”).</p>` : ""}
+        ${l.length ? `<p class="pt-md-fine">Loads from the top down. A mod lower in the list wins when two of them change the same thing.</p><div class="pt-md-list">${l.map((m, i) => row(a, m, i, l.length)).join("")}</div>`
+          : `<p class="pt-md-fine">No mods yet. Add a starter to see how it works, or write your own.</p>`}
+        <div class="pt-md-actions"><button type="button" class="pt-md-go tap-active" data-md-new="1">＋ New mod</button><button type="button" class="pt-md-ghost tap-active" data-md-view="starters">Starter mods</button><button type="button" class="pt-md-ghost tap-active" data-md-import="1">Import a .css file</button></div>
+        <p class="pt-md-fine">A new or changed mod has to be kept within ${TRIAL_S} seconds, or it switches itself off. If the app ever looks wrong, Settings → Mods & Custom CSS → “Use my mods” turns them all off.</p>`;
+    }
+    const card = K.openSheet(mgr, body); mgr.__card = card;
+  }
+  function openMgr(v) {
+    const a = A(); if (!a) return;
+    view = v || "list"; mgr = K.sheet("pt-mods", 62); renderMgr(a);
+  }
+  function refresh(a) {
+    a = a || A(); if (!a) return;
+    try { box(a); } catch (e) { }
+    if (mgr && !mgr.classList.contains("hidden")) { const s = mgr.__card && mgr.__card.parentElement ? mgr.__card.parentElement.scrollTop : 0; renderMgr(a); }
+  }
+
+  /* ---------------------------------------------------------------- the editor */
+  let ed = null, editing = null;
+  function openEditor(id) {
+    const a = A(); if (!a) return;
+    const m = id ? list(a).find(x => x.id === id) : null;
+    editing = m ? m.id : null; draft = null;
+    ed = K.sheet("pt-modedit", 64);
+    const css0 = m ? m.css : "", name0 = m ? m.name : "";
+    const c = K.openSheet(ed, `${K.head(m ? "Edit mod" : "New mod", "Changes show live while you type. Nothing is kept until you save.")}
+      <label class="pt-md-f"><span>Name</span><input id="pt-md-name" type="text" maxlength="40" value="${esc(name0)}" placeholder="My mod" autocomplete="off"></label>
+      <label class="pt-md-f"><span>CSS</span><textarea id="pt-md-css" rows="13" spellcheck="false" autocapitalize="off" autocorrect="off" autocomplete="off" placeholder="/* paste or write CSS here */">${esc(css0)}</textarea></label>
+      <p id="pt-md-info" class="pt-md-fine"></p>
+      <div class="pt-md-tools"><button type="button" class="pt-md-ghost tap-active" data-md-paste="1">Paste</button><button type="button" class="pt-md-ghost tap-active" data-md-copy="1">Copy</button><button type="button" class="pt-md-ghost tap-active" data-md-share="1">Share file</button>${m ? `<button type="button" class="pt-md-del tap-active" data-md-del="1">Delete</button>` : ""}</div>
+      <details class="pt-md-help"><summary>Handy hooks</summary><div>
+        <p><b>Accent colour</b> <code>rgb(var(--a500))</code>, also <code>--a300 --a400 --a600 --a800 --a950</code>. With see-through: <code>rgb(var(--a500) / .4)</code>.</p>
+        <p><b>Greys</b> <code>--z50</code> … <code>--z950</code> (light to dark in dark mode).</p>
+        <p><b>Light mode only</b> <code>html[data-mode="light"] { … }</code></p>
+        <p><b>Screens</b> <code>#view-home #view-workout #view-progress #view-body #view-history #view-programs #view-library #view-cardio</code></p>
+        <p><b>Cards and buttons</b> use utility classes, so match them like <code>[class*="rounded-2xl"]</code> or <code>.bg-zinc-900</code>.</p>
+        <p><b>Tip</b> end a line with <code>!important</code> to beat the app's own style. An <code>@import</code> of a web font needs internet the first time.</p></div></details>
+      <button type="button" id="pt-md-save" class="pt-md-go tap-active">Save</button>`);
+    ed.__onClose = () => { draft = null; apply(A()); };       // after openSheet, which clears it
+    const css = c.querySelector("#pt-md-css"), info = c.querySelector("#pt-md-info");
+    const update = () => {
+      const v = css.value, an = analyse(v);
+      info.className = "pt-md-fine" + (an.problems.length ? " bad" : "");
+      info.textContent = v.length > MAX_CSS ? "That is too long (limit about 200,000 characters)." : an.problems.length ? an.problems[0] : an.lines ? an.lines + " line" + (an.lines === 1 ? "" : "s") + " · " + an.rules + " rule" + (an.rules === 1 ? "" : "s") + (an.imports ? " · web font or file import (needs internet)" : "") : "Empty";
+      draft = { id: editing || "__new", css: v.length > MAX_CSS ? "" : v };
+      // a mod that is off still previews while you edit it
+      const a2 = A(); if (a2) { const mm = editing && list(a2).find(x => x.id === editing); if (mm && !mm.on) { const real = mm.on; mm.on = true; apply(a2); mm.on = real; } else apply(a2); }
+    };
+    css.addEventListener("input", () => { clearTimeout(update._t); update._t = setTimeout(update, 250); });
+    update();
+  }
+  function exportName(m) { return (String(m.name || "mod").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "") || "mod") + ".css"; }
+  async function shareFile(name, css) {
+    const file = new File(["/* PulseTrack mod: " + name.replace(/\*\//g, "") + " */\n" + css], exportName({ name }), { type: "text/css" });
+    try { if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: name }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+    const u = URL.createObjectURL(file), x = document.createElement("a"); x.href = u; x.download = file.name; document.body.appendChild(x); x.click(); x.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000);
+    A().toast("Saved " + file.name + " to your downloads");
+  }
+  function addMod(a, name, css, extra) {
+    const l = list(a).slice(); if (l.length >= MAX_MODS) { a.toast("That is the most mods (" + MAX_MODS + ")"); return null; }
+    const m = Object.assign({ id: uid(), name: String(name || "My mod").slice(0, 40), css: String(css || "").slice(0, MAX_CSS), on: true, ts: Date.now() }, extra || {});
+    l.push(m); setList(a, l); return m;
+  }
+
+  /* ---------------------------------------------------------------- clicks */
+  document.addEventListener("change", e => {
+    const a = A(); if (!a || !e.target || !e.target.closest) return;
+    const t = e.target;
+    if (t.matches && t.matches("[data-mods-master]")) { a.settings.modsOff = !t.checked; save(a); apply(a); refresh(a); return; }
+    const on = t.closest && t.closest("[data-md-on]");
+    if (on) {
+      const m = list(a).find(x => x.id === on.dataset.mdOn); if (!m) return;
+      m.on = !!on.checked; save(a); apply(a);
+      if (m.on && !a.settings.modsOff) trial(a, m.id); else if (a.settings.modTrial && a.settings.modTrial.id === m.id) { delete a.settings.modTrial; save(a); removeBar(); }
+      refresh(a); return;
+    }
+    if (t.id === "pt-md-file" && t.files && t.files[0]) {
+      const f = t.files[0]; t.value = "";
+      if (f.size > MAX_CSS) { a.toast("That file is too big for a mod"); return; }
+      f.text().then(txt => {
+        const first = (txt.match(/^\s*\/\*\s*PulseTrack mod:\s*(.*?)\s*\*\//) || [])[1];
+        const m = addMod(a, first || f.name.replace(/\.[a-z]+$/i, ""), txt); if (m) { apply(a); trial(a, m.id); refresh(a); }
+      }).catch(() => a.toast("Could not read that file"));
+    }
+  });
+  document.addEventListener("click", async e => {
+    const a = A(); if (!a || !e.target || !e.target.closest) return;
+    const g = s => e.target.closest(s);
+    if (g("#pt-mods-open")) { openMgr("list"); return; }
+    const vw = g("[data-md-view]"); if (vw) { view = vw.dataset.mdView; renderMgr(a); return; }
+    const ed1 = g("[data-md-edit]"); if (ed1) { openEditor(ed1.dataset.mdEdit); return; }
+    if (g("[data-md-new]")) { openEditor(null); return; }
+    const ad = g("[data-md-add]");
+    if (ad) {
+      const s = STARTERS.find(x => x.id === ad.dataset.mdAdd); if (!s || list(a).some(m => m.starter === s.id)) return;
+      const m = addMod(a, s.name, s.css, { starter: s.id }); if (m) { view = "list"; apply(a); trial(a, m.id); refresh(a); }
+      return;
+    }
+    if (g("[data-md-import]")) { let f = $("pt-md-file"); if (!f) { f = document.createElement("input"); f.type = "file"; f.id = "pt-md-file"; f.accept = ".css,.txt,text/css,text/plain"; f.className = "hidden"; document.body.appendChild(f); } f.click(); return; }
+    const mv = g("[data-md-up],[data-md-dn]");
+    if (mv) {
+      const id = mv.dataset.mdUp || mv.dataset.mdDn, l = list(a).slice(), i = l.findIndex(m => m.id === id), j = mv.dataset.mdUp ? i - 1 : i + 1;
+      if (i < 0 || j < 0 || j >= l.length) return; [l[i], l[j]] = [l[j], l[i]]; setList(a, l); apply(a); refresh(a); return;
+    }
+    if (g("#pt-md-save")) {
+      const name = ($("pt-md-name").value || "").trim() || "My mod", css = $("pt-md-css").value;
+      if (css.length > MAX_CSS) { a.toast("That is too long for a mod"); return; }
+      if (!css.trim()) { a.toast("Write some CSS first"); return; }
+      let m = editing ? list(a).find(x => x.id === editing) : null, changed = true;
+      if (m) { changed = m.css !== css; m.name = name.slice(0, 40); m.css = css; setList(a, list(a).slice()); }
+      else { m = addMod(a, name, css); if (!m) return; }
+      draft = null; const wasOn = m.on; m.on = true; save(a); apply(a);
+      K.closeSheet(ed);
+      if (!wasOn || changed || !editing) { if (!a.settings.modsOff) trial(a, m.id); } refresh(a); return;
+    }
+    if (g("[data-md-copy]")) { const v = $("pt-md-css").value; try { await navigator.clipboard.writeText(v); a.toast("Copied"); } catch (x) { const t = $("pt-md-css"); t.select(); try { document.execCommand("copy"); a.toast("Copied"); } catch (y) { a.toast("Select the text and copy it"); } } return; }
+    if (g("[data-md-paste]")) {
+      try { const txt = await navigator.clipboard.readText(); const t = $("pt-md-css"); t.value = txt; t.dispatchEvent(new Event("input", { bubbles: true })); } catch (x) { a.toast("Your phone did not allow paste here. Long-press in the box and choose Paste."); }
+      return;
+    }
+    if (g("[data-md-share]")) { const nm = ($("pt-md-name").value || "").trim() || "My mod"; await shareFile(nm, $("pt-md-css").value); return; }
+    if (g("[data-md-del]")) {
+      const m = list(a).find(x => x.id === editing); if (!m) return;
+      if (!(await PT.confirm("Delete “" + m.name + "”?", { title: "Delete this mod?", body: "The CSS in it is gone for good unless you shared a copy.", ok: "Delete" }))) return;
+      setList(a, list(a).filter(x => x.id !== m.id)); if (a.settings.modTrial && a.settings.modTrial.id === m.id) { delete a.settings.modTrial; save(a); removeBar(); }
+      draft = null; K.closeSheet(ed); apply(a); refresh(a); return;
+    }
+  });
+
+  /* ---------------------------------------------------------------- Settings box */
+  function box(a) {
+    const b = $("pt-mods-box"); if (!b) return;
+    const l = list(a), on = l.filter(m => m.on).length, off = !!a.settings.modsOff;
+    b.innerHTML = `<div class="flex items-center justify-between p-3.5 gap-3"><div class="pr-3 min-w-0"><span class="text-xs font-bold text-white block">Use my mods</span><span class="text-[11px] text-zinc-400 block mt-0.5">Turn this off to see the plain app. ${safe() ? "Safe mode is on, so mods are off until you open the app normally." : "Your mods stay saved."}</span></div>
+      <label class="pt-md-sw"><input type="checkbox" data-mods-master ${off ? "" : "checked"} aria-label="Use my mods"><i></i></label></div>
+      <div class="p-3.5 space-y-2"><p class="text-[11px] text-zinc-400 leading-relaxed">${l.length ? on + " of " + l.length + " mod" + (l.length === 1 ? "" : "s") + " on." : "Paste your own CSS to restyle the app: corners, fonts, colours, backgrounds and animations. Stays on this phone."}</p>
+        <button type="button" id="pt-mods-open" class="w-full py-2.5 rounded-xl bg-zinc-800 text-zinc-100 text-xs font-bold tap-active">Open mod manager</button></div>`;
+    const h = document.querySelector('[data-hint="mods"]'); if (h) h.textContent = off ? "Off" : l.length ? on + " of " + l.length + " on" : "Reskin the app with your own CSS";
+  }
+  const oOpenSettings = proto.openSettings;
+  proto.openSettings = function () { const r = oOpenSettings.apply(this, arguments); try { box(this); } catch (e) { console.error("PulseTrack mods box", e); } return r; };
+
+  /* ---------------------------------------------------------------- start up */
+  let booted = false;
+  function boot(a) {
+    if (booted) return; booted = true;
+    if (a.settings && a.settings.modTrial) {      // the app was closed before the last mod was confirmed: switch it off
+      const t = a.settings.modTrial, m = list(a).find(x => x.id === t.id);
+      if (m) m.on = false; delete a.settings.modTrial; save(a);
+      setTimeout(() => { try { a.toast(m ? "“" + m.name + "” was switched off because it was not confirmed" : "A mod was switched off", undefined, undefined, 5000); } catch (e) { } }, 1500);
+    }
+    if (safe()) setTimeout(() => { try { a.toast("Safe mode: mods are off", undefined, undefined, 4000); } catch (e) { } }, 1500);
+  }
+  const oTheme = proto.applyTheme;
+  proto.applyTheme = function () { const r = oTheme.apply(this, arguments); try { boot(this); apply(this); } catch (e) { console.error("PulseTrack mods", e); } return r; };
+  PT.mods = { apply: () => apply(A()), analyse, list: () => list(A()), starters: STARTERS, add: (n, c, x) => addMod(A(), n, c, x), trial: id => trial(A(), id), keep: () => keep(A()), revert: () => revert(A(), "test"), open: openMgr };
+
+  /* ---------------------------------------------------------------- CSS */
+  const css = document.createElement("style");
+  css.id = "pt-v245-mods-css";
+  css.textContent = `
+    .pt-md-fine { font-size: .7rem; line-height: 1.45; color: rgb(var(--z500)); } .pt-md-fine.bad { color: rgb(251 113 133); font-weight: 700; }
+    .pt-md-warn { padding: .6rem .75rem; border-radius: .8rem; background: rgb(251 191 36 / .1); border: 1px solid rgb(251 191 36 / .4); font-size: .75rem; color: rgb(252 211 77); }
+    .pt-md-list { display: grid; gap: .45rem; }
+    .pt-md-row { display: flex; align-items: center; gap: .6rem; padding: .55rem .65rem; border-radius: .9rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
+    .pt-md-row.on { border-color: rgb(var(--a500) / .5); }
+    .pt-md-name { flex: 1 1 auto; min-width: 0; text-align: left; display: grid; gap: .1rem; }
+    .pt-md-name b { font-size: .85rem; color: rgb(var(--z50)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .pt-md-name span { font-size: .66rem; color: rgb(var(--z500)); }
+    .pt-md-mv { display: flex; gap: .25rem; flex: none; } .pt-md-mv button { width: 2rem; height: 2rem; border-radius: .6rem; background: rgb(var(--z800)); color: rgb(var(--z100)); font-weight: 800; } .pt-md-mv button:disabled { opacity: .3; }
+    .pt-md-sw { position: relative; display: inline-block; width: 2.75rem; height: 1.5rem; flex: none; cursor: pointer; }
+    .pt-md-sw input { position: absolute; opacity: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+    .pt-md-sw i { position: absolute; inset: 0; border-radius: 999px; background: rgb(var(--z800)); transition: background .15s; pointer-events: none; }
+    .pt-md-sw i::after { content: ""; position: absolute; left: 2px; top: 2px; width: 1.25rem; height: 1.25rem; border-radius: 999px; background: #fff; transition: transform .15s; }
+    .pt-md-sw input:checked + i { background: rgb(var(--a600)); } .pt-md-sw input:checked + i::after { transform: translateX(1.25rem); }
+    .pt-md-actions, .pt-md-tools { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .pt-md-go, .pt-md-ghost, .pt-md-del { padding: .7rem .9rem; border-radius: .8rem; font-size: .8rem; font-weight: 800; flex: 1 1 auto; }
+    .pt-md-go { background: rgb(var(--a600)); color: #fff; } .pt-md-ghost { background: rgb(var(--z800)); color: rgb(var(--z100)); } .pt-md-del { background: rgb(190 18 60 / .2); color: rgb(251 113 133); }
+    .pt-md-st { display: grid; grid-template-columns: 1fr auto; gap: .1rem .6rem; text-align: left; padding: .65rem .75rem; border-radius: .9rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
+    .pt-md-st b { font-size: .85rem; color: rgb(var(--z50)); } .pt-md-st span { grid-column: 1; font-size: .7rem; color: rgb(var(--z400)); line-height: 1.35; } .pt-md-st em { grid-row: 1 / span 2; grid-column: 2; align-self: center; font-style: normal; font-size: .72rem; font-weight: 800; color: rgb(var(--a400)); }
+    .pt-md-st:disabled { opacity: .5; }
+    .pt-md-f { display: grid; gap: .3rem; } .pt-md-f > span { font-size: .6rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgb(var(--z500)); }
+    .pt-md-f input, .pt-md-f textarea { width: 100%; padding: .65rem .75rem; border-radius: .8rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); color: rgb(var(--z100)); font-size: .85rem; }
+    .pt-md-f textarea { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: .75rem; line-height: 1.45; white-space: pre; overflow: auto; tab-size: 2; }
+    .pt-md-f input:focus, .pt-md-f textarea:focus { outline: none; border-color: rgb(var(--a500)); }
+    .pt-md-help { border-radius: .8rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
+    .pt-md-help summary { padding: .6rem .75rem; font-size: .75rem; font-weight: 800; color: rgb(var(--z300)); cursor: pointer; }
+    .pt-md-help div { padding: 0 .75rem .7rem; display: grid; gap: .45rem; } .pt-md-help p { font-size: .7rem; line-height: 1.45; color: rgb(var(--z400)); } .pt-md-help b { color: rgb(var(--z200)); }
+    .pt-md-help code { font-family: ui-monospace, Menlo, monospace; font-size: .66rem; padding: .05rem .25rem; border-radius: .3rem; background: rgb(var(--z800)); color: rgb(var(--z100)); word-break: break-word; }
+  `;
+  document.head.appendChild(css);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.45.0: pre-workout protocol.
+ *  Before you leave for the gym, tap the protocol on Home (or Workout → ⋯ More). Each step is something you take or eat and how long it
+ *  needs: by default "Eggs + bananas" (60 min to settle) and "Creatine + caffeine" (45 min to peak). Tap Taken when you have had one;
+ *  its countdown starts, and when it ends you get a chime, a buzz, a spoken line and a message (and a notification if the app is in the
+ *  background and notifications are allowed). Steps and times are yours to change.
+ *  - Optional lift time: set when you want to be under the bar and every step shows when to take it ("Take at 5:30 PM"), with a reminder
+ *    when that time comes.
+ *  - Everything is worked out from the clock, so the countdowns are right whenever you open the app, even if the phone slept. A web app
+ *    cannot ring while it is closed, so "Phone alerts" saves a small calendar file whose alarms do.
+ *  - Saved in settings.fuel (the steps) and settings.fuelRun (the run in progress), so it is in backups.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.kit) return;
+  const proto = ApplicationUI.prototype, A = () => window.app, K = PT.kit, esc = K.esc, $ = id => document.getElementById(id);
+  const MIN = 60000, EXPIRE = 4 * 3600000, MAX_STEPS = 8;
+  const save = a => { try { WorkoutStorage.saveSettings(a.settings); } catch (e) { } };
+  const snd = () => { try { return typeof sound !== "undefined" ? sound : window.sound; } catch (e) { return window.sound; } };
+  const uid = () => "f" + Math.random().toString(36).slice(2, 7);
+  const DEFAULT = () => [
+    { id: "meal", icon: "🍳", name: "Eggs + bananas", wait: 60, msg: "Your meal has settled. Good to lift." },
+    { id: "supp", icon: "⚡", name: "Creatine + caffeine", wait: 45, msg: "Creatine and caffeine are kicking in. Head in and warm up." }
+  ];
+  const ADDABLE = [
+    { icon: "🥤", name: "Pre-workout drink", wait: 30, msg: "Your pre-workout is kicking in." },
+    { icon: "💧", name: "Water (500 ml)", wait: 15, msg: "Hydrated. You are good to go." },
+    { icon: "🍌", name: "Quick carbs", wait: 30, msg: "Carbs are on board." },
+    { icon: "☕", name: "Coffee", wait: 30, msg: "Caffeine is peaking." }
+  ];
+  const steps = a => {
+    const f = a.settings.fuel;
+    return f && Array.isArray(f.items) && f.items.length ? f.items : DEFAULT();
+  };
+  const cfg = a => (a.settings.fuel && typeof a.settings.fuel === "object" ? a.settings.fuel : (a.settings.fuel = { items: DEFAULT(), target: "" }));
+  const run = a => { const r = a.settings.fuelRun; return r && typeof r === "object" && r.t0 && Date.now() - r.t0 < EXPIRE ? r : null; };
+  const mmss = ms => { const s = Math.max(0, Math.ceil(ms / 1000)), h = Math.floor(s / 3600), m = Math.floor((s % 3600) / 60), x = s % 60; return h ? `${h}:${String(m).padStart(2, "0")}:${String(x).padStart(2, "0")}` : `${m}:${String(x).padStart(2, "0")}`; };
+  const clock = t => new Date(t).toLocaleTimeString(undefined, { hour: "numeric", minute: "2-digit" });
+  /** today (or the next day) at HH:MM */
+  const targetTs = hhmm => {
+    const m = /^(\d{1,2}):(\d{2})$/.exec(String(hhmm || "")); if (!m) return 0;
+    const d = new Date(); d.setHours(+m[1], +m[2], 0, 0); if (d.getTime() < Date.now() - 30 * MIN) d.setDate(d.getDate() + 1); return d.getTime();
+  };
+
+  /* ---------------------------------------------------------------- state of every step */
+  /** { it, taken, readyAt, left, state: "wait"|"due"|"settling"|"ready", takeAt } */
+  function status(a, now) {
+    now = now || Date.now(); const r = run(a), tg = r && r.target ? r.target : 0;
+    return steps(a).map(it => {
+      const taken = r && r.taken && r.taken[it.id] || 0, readyAt = taken ? taken + it.wait * MIN : 0, takeAt = tg ? tg - it.wait * MIN : 0;
+      let state = "wait";
+      if (taken) state = now >= readyAt ? "ready" : "settling"; else if (takeAt && now >= takeAt) state = "due";
+      return { it, taken, readyAt, left: taken ? Math.max(0, readyAt - now) : 0, state, takeAt };
+    });
+  }
+  /** when everything has had its time, or 0 if some step has not been taken */
+  function readyTime(a) {
+    const s = status(a); if (!s.length || s.some(x => !x.taken)) return 0;
+    return Math.max(...s.map(x => x.readyAt));
+  }
+
+  /* ---------------------------------------------------------------- pings */
+  function say(msg) {
+    const a = A(); try { if (a && a.settings.voice !== false && "speechSynthesis" in window) { speechSynthesis.cancel(); speechSynthesis.speak(new SpeechSynthesisUtterance(msg)); } } catch (e) { }
+  }
+  function ping(a, title, body, tag) {
+    try { const s = snd(); s && s.completeChime && s.completeChime(); } catch (e) { }
+    try { navigator.vibrate && navigator.vibrate([250, 120, 250, 120, 500]); } catch (e) { }
+    try { a.toast(body, undefined, undefined, 9000); } catch (e) { }
+    say(body);
+    try {
+      if (document.visibilityState !== "visible" && "Notification" in window && Notification.permission === "granted" && "serviceWorker" in navigator)
+        navigator.serviceWorker.ready.then(reg => reg.showNotification(title, { body, tag: "pulsetrack-fuel-" + tag, renotify: true, vibrate: [250, 120, 250] })).catch(() => { });
+    } catch (e) { }
+  }
+  /** look at the clock: fire what is due. Returns how many pings went out. */
+  function tick(a) {
+    a = a || A(); if (!a) return 0;
+    const r = a.settings.fuelRun; if (!r) return 0;
+    if (!run(a)) { delete a.settings.fuelRun; save(a); paint(a); return 0; }
+    const now = Date.now(); let n = 0; r.fired = r.fired || {}; r.cued = r.cued || {};
+    status(a, now).forEach(x => {
+      const id = x.it.id;
+      if (x.state === "ready" && !r.fired[id]) {
+        r.fired[id] = now; n++; const late = Math.round((now - x.readyAt) / MIN);
+        ping(a, x.it.name + " is ready", (late >= 2 ? x.it.msg + " (" + late + " min ago)" : x.it.msg), id);
+      } else if (x.state === "due" && !r.cued[id]) {
+        r.cued[id] = now; n++; ping(a, "Time to take " + x.it.name, "Time to take: " + x.it.name + ". Tap Taken when you have.", "t" + id);
+      }
+    });
+    if (n) {
+      save(a);
+      const rt = readyTime(a); if (rt && now >= rt && !r.allDone) { r.allDone = now; save(a); }
+    }
+    paint(a); return n;
+  }
+
+  /* ---------------------------------------------------------------- actions */
+  function start(a, target) {
+    const tg = target ? targetTs(target) : 0;
+    a.settings.fuelRun = { t0: Date.now(), taken: {}, fired: {}, cued: {}, target: tg };
+    save(a); try { if ("Notification" in window && Notification.permission === "default" && !a.settings.fuelAsked) { a.settings.fuelAsked = 1; save(a); Notification.requestPermission().catch(() => { }); } } catch (e) { }
+    schedule(a); paint(a);
+  }
+  function stop(a) { delete a.settings.fuelRun; save(a); schedule(a); paint(a); }
+  function take(a, id, agoMin) {
+    const r = run(a); if (!r) return; const it = steps(a).find(x => x.id === id); if (!it) return;
+    r.taken = r.taken || {}; r.taken[id] = Date.now() - (agoMin || 0) * MIN;
+    if (r.fired) delete r.fired[id]; save(a); tick(a); paint(a);
+  }
+  function untake(a, id) { const r = run(a); if (!r) return; delete r.taken[id]; if (r.fired) delete r.fired[id]; save(a); paint(a); }
+
+  let timer = null;
+  function schedule(a) {
+    clearInterval(timer); timer = null;
+    if (run(a)) timer = setInterval(() => { const b = A(); if (b) tick(b); }, 1000);
+  }
+
+  /* ---------------------------------------------------------------- calendar file with real alarms */
+  function icsStamp(t) { const d = new Date(t); const p = n => String(n).padStart(2, "0"); return `${d.getUTCFullYear()}${p(d.getUTCMonth() + 1)}${p(d.getUTCDate())}T${p(d.getUTCHours())}${p(d.getUTCMinutes())}${p(d.getUTCSeconds())}Z`; }
+  function icsText(a) {
+    const r = run(a); if (!r) return "";
+    const ev = []; const now = Date.now();
+    status(a).forEach(x => {
+      if (x.taken && x.readyAt > now) ev.push([x.readyAt, x.it.name + " ready", x.it.msg]);
+      else if (!x.taken && x.takeAt && x.takeAt > now) ev.push([x.takeAt, "Take " + x.it.name, "Time to take " + x.it.name + " for your " + clock(r.target) + " lift."]);
+    });
+    if (r.target && r.target > now) ev.push([r.target, "Lift time", "Time to train."]);
+    if (!ev.length) return "";
+    const L = ["BEGIN:VCALENDAR", "VERSION:2.0", "PRODID:-//PulseTrack//Pre-workout//EN", "CALSCALE:GREGORIAN"];
+    ev.forEach((e, i) => {
+      L.push("BEGIN:VEVENT", "UID:pulsetrack-fuel-" + r.t0 + "-" + i + "@pulsetrack.local", "DTSTAMP:" + icsStamp(now), "DTSTART:" + icsStamp(e[0]), "DTEND:" + icsStamp(e[0] + 5 * MIN),
+        "SUMMARY:" + e[1].replace(/[,;\n]/g, " "), "DESCRIPTION:" + e[2].replace(/[,;\n]/g, " "), "BEGIN:VALARM", "ACTION:DISPLAY", "DESCRIPTION:" + e[1].replace(/[,;\n]/g, " "), "TRIGGER:PT0S", "END:VALARM", "END:VEVENT");
+    });
+    L.push("END:VCALENDAR"); return L.join("\r\n");
+  }
+  async function phoneAlerts(a) {
+    const txt = icsText(a); if (!txt) { a.toast("Mark what you have taken first, or set a lift time"); return; }
+    const file = new File([txt], "pulsetrack-prelift.ics", { type: "text/calendar" });
+    try { if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: "Pre-workout alerts" }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+    const u = URL.createObjectURL(file), x = document.createElement("a"); x.href = u; x.download = file.name; document.body.appendChild(x); x.click(); x.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000);
+    a.toast("Saved pulsetrack-prelift.ics. Open it to add the alarms to your calendar.");
+  }
+
+  /* ---------------------------------------------------------------- the sheet */
+  let el = null, mode = "run", draft = null;
+  function stepRow(a, x, r) {
+    const it = x.it; let right, sub;
+    if (x.state === "ready") { right = `<span class="pt-fu-ok">Ready ✓</span>`; sub = "Taken " + clock(x.taken) + " · ready since " + clock(x.readyAt); }
+    else if (x.state === "settling") { right = `<b class="pt-fu-cd" data-fu-cd="${esc(it.id)}">${mmss(x.left)}</b>`; sub = "Taken " + clock(x.taken) + " · ready at " + clock(x.readyAt); }
+    else if (x.state === "due") { right = `<button type="button" class="pt-fu-take tap-active" data-fu-take="${esc(it.id)}">Taken</button>`; sub = "Take it now to be ready on time"; }
+    else { right = `<button type="button" class="pt-fu-take tap-active" data-fu-take="${esc(it.id)}">Taken</button>`; sub = x.takeAt ? "Take at " + clock(x.takeAt) : it.wait + " min to " + (/meal|egg|carb|banana|food/i.test(it.name) ? "settle" : "kick in"); }
+    const frac = x.state === "ready" ? 100 : x.state === "settling" ? Math.round((1 - x.left / (it.wait * MIN)) * 100) : 0;
+    return `<div class="pt-fu-step ${x.state}" data-fu-step="${esc(it.id)}"><span class="pt-fu-ic" aria-hidden="true">${esc(it.icon || "•")}</span>
+      <div class="pt-fu-mid"><b>${esc(it.name)}</b><span>${esc(sub)}</span><i class="pt-fu-bar"><u data-fu-bar="${esc(it.id)}" style="width:${frac}%"></u></i></div>
+      <div class="pt-fu-right">${right}${x.taken ? `<button type="button" class="pt-fu-undo tap-active" data-fu-untake="${esc(it.id)}" aria-label="Undo ${esc(it.name)}">undo</button>` : (r ? `<button type="button" class="pt-fu-ago tap-active" data-fu-ago="${esc(it.id)}">earlier…</button>` : "")}</div></div>`;
+  }
+  function renderSheet(a) {
+    if (!el) return;
+    const r = run(a);
+    let html;
+    if (mode === "edit") {
+      const d = draft || (draft = { items: steps(a).map(x => Object.assign({}, x)), target: (a.settings.fuel && a.settings.fuel.target) || "" });
+      html = `${K.head("Edit protocol", "What you take, and how long each one needs")}
+        <div class="pt-fu-edit">${d.items.map((it, i) => `<div class="pt-fu-er" data-fu-er="${i}">
+          <input class="pt-fu-ei" data-fu-f="icon" value="${esc(it.icon)}" maxlength="2" aria-label="Icon">
+          <input class="pt-fu-en" data-fu-f="name" value="${esc(it.name)}" maxlength="32" placeholder="Name" aria-label="Name">
+          <input class="pt-fu-ew" data-fu-f="wait" type="number" inputmode="numeric" min="1" max="240" value="${it.wait}" aria-label="Minutes"><em>min</em>
+          <button type="button" class="pt-fu-rm tap-active" data-fu-rm="${i}" aria-label="Remove ${esc(it.name)}">✕</button></div>`).join("")}</div>
+        <div class="pt-fu-adds">${d.items.length < MAX_STEPS ? ADDABLE.map((x, i) => `<button type="button" class="pt-fu-add tap-active" data-fu-addi="${i}">＋ ${esc(x.name)}</button>`).join("") + `<button type="button" class="pt-fu-add tap-active" data-fu-addi="c">＋ Your own</button>` : ""}</div>
+        <label class="pt-fu-lt"><span>Lift at (optional)</span><input id="pt-fu-target" type="time" value="${esc(d.target || "")}"></label>
+        <p class="pt-fu-fine">With a lift time, each step shows when to take it so it is ready by then. Leave it empty to just count down from when you take each one.</p>
+        <div class="pt-fu-btns"><button type="button" class="pt-fu-ghost tap-active" data-fu-reset="1">Back to the usual</button><button type="button" id="pt-fu-save" class="pt-fu-go tap-active">Save</button></div>`;
+    } else if (!r) {
+      const tg = (a.settings.fuel && a.settings.fuel.target) || "";
+      html = `${K.head("Pre-workout protocol", "Know when your food has settled and your supplements have kicked in")}
+        <div class="pt-fu-list">${steps(a).map(it => `<div class="pt-fu-step"><span class="pt-fu-ic">${esc(it.icon)}</span><div class="pt-fu-mid"><b>${esc(it.name)}</b><span>${it.wait} min</span></div></div>`).join("")}</div>
+        <label class="pt-fu-lt"><span>Lift at (optional)</span><input id="pt-fu-target0" type="time" value="${esc(tg)}"></label>
+        <p class="pt-fu-fine">Start it before you leave. Tap Taken as you have each one, and you get a ping when each is ready. Set a lift time to see when to take them.</p>
+        <div class="pt-fu-btns"><button type="button" class="pt-fu-ghost tap-active" data-fu-edit="1">Edit steps</button><button type="button" id="pt-fu-start" class="pt-fu-go tap-active">Start</button></div>`;
+    } else {
+      const st = status(a), rt = readyTime(a), allReady = rt && Date.now() >= rt;
+      html = `${K.head("Pre-workout protocol", r.target ? "Lifting at " + clock(r.target) : "Running")}
+        <div class="pt-fu-sum" id="pt-fu-sum">${fuelSummary(a)}</div>
+        <div class="pt-fu-list">${st.map(x => stepRow(a, x, r)).join("")}</div>
+        <div class="pt-fu-btns"><button type="button" class="pt-fu-ghost tap-active" data-fu-phone="1">Phone alerts</button><button type="button" class="pt-fu-ghost tap-active" data-fu-edit="1">Edit</button><button type="button" class="pt-fu-ghost danger tap-active" data-fu-stop="1">Stop</button></div>
+        <p class="pt-fu-fine">Countdowns follow the clock, so they are right whenever you open the app. A web app cannot ring while it is closed or the phone is asleep. “Phone alerts” saves a calendar file whose alarms do.</p>`;
+    }
+    K.openSheet(el, html);
+  }
+  function fuelSummary(a) {
+    const r = run(a); if (!r) return "";
+    const st = status(a), rt = readyTime(a), now = Date.now();
+    if (rt && now >= rt) return `<b>Ready to lift.</b> Everything has had its time.`;
+    if (rt) return `<b>Ready at ${esc(clock(rt))}</b> <span>(${mmss(rt - now)} to go)</span>`;
+    const left = st.filter(x => !x.taken).length;
+    return `<b>${left} step${left === 1 ? "" : "s"} still to take.</b> <span>Tap Taken as you go.</span>`;
+  }
+  function open(m) {
+    const a = A(); if (!a) return;
+    mode = m || "run"; draft = null; el = K.sheet("pt-fuel", 60);
+    renderSheet(a); el.__onClose = () => { draft = null; };
+  }
+
+  /* ---------------------------------------------------------------- live updates (no re-render, so taps never get lost) */
+  function paint(a) {
+    a = a || A(); if (!a) return;
+    const r = run(a);
+    // sheet
+    if (el && !el.classList.contains("hidden") && mode === "run" && r) {
+      const st = status(a); let structural = false;
+      st.forEach(x => {
+        const row = el.querySelector(`[data-fu-step="${CSS.escape(x.it.id)}"]`); if (!row) { structural = true; return; }
+        if (!row.classList.contains(x.state)) structural = true;
+        const cd = row.querySelector("[data-fu-cd]"); if (cd) cd.textContent = mmss(x.left);
+        const bar = row.querySelector("[data-fu-bar]"); if (bar) bar.style.width = (x.state === "ready" ? 100 : x.state === "settling" ? Math.round((1 - x.left / (x.it.wait * MIN)) * 100) : 0) + "%";
+      });
+      if (structural) renderSheet(a);
+      const sum = el.querySelector("#pt-fu-sum"); if (sum) sum.innerHTML = fuelSummary(a);
+    } else if (el && !el.classList.contains("hidden") && mode === "run" && !r) renderSheet(a);
+    homeRow(a);
+  }
+  function homeText(a) {
+    const r = run(a); if (!r) return null;
+    const st = status(a), rt = readyTime(a), now = Date.now();
+    if (rt && now >= rt) return ["Ready to lift", "everything has settled"];
+    const nxt = st.filter(x => x.state === "settling").sort((x, y) => x.left - y.left)[0];
+    const due = st.find(x => x.state === "due");
+    if (due) return ["Take " + due.it.name, "now"];
+    if (nxt) return [nxt.it.name + " ready in", mmss(nxt.left)];
+    const left = st.filter(x => !x.taken).length;
+    return ["Pre-workout running", left + " to take"];
+  }
+  function showIdleRow(a) {
+    if (a.settings.fuelRow === false) return false;
+    try { if ((a.sessions || []).some(s => s.date === PT.ds())) return false; } catch (e) { }
+    const d = a.activeDay; if (d && a.isRestDay && a.isRestDay(d)) return false;
+    return true;
+  }
+  function homeRow(a) {
+    const host = $("home-routine") || $("home-work"); let b = $("pt-home-fuel");     // right under today's workout, where you are about to start
+    if (!host) { if (b) b.remove(); return; }
+    const t = homeText(a), idle = !t && showIdleRow(a);
+    if (!t && !idle) { if (b) b.remove(); return; }
+    if (!b) { b = document.createElement("button"); b.type = "button"; b.id = "pt-home-fuel"; b.className = "tap-active"; b.dataset.fuOpen = "1"; }
+    const html = t ? `<span>🍌 ${esc(t[0])}</span><b>${esc(t[1])}</b>` : `<span>🍌 Pre-workout protocol</span><b>Start</b>`;
+    if (b.innerHTML !== html) b.innerHTML = html;
+    b.classList.toggle("run", !!t);
+    if (host.nextElementSibling !== b) host.insertAdjacentElement("afterend", b);
+  }
+  let started = false;
+  const boot = () => { const a = A(); if (a && a.settings && !started) { started = true; schedule(a); tick(a); } };
+  const oHome = proto.renderHomeView;
+  proto.renderHomeView = function () { const r = oHome.apply(this, arguments); try { boot(); homeRow(this); } catch (e) { console.error("PulseTrack fuel row", e); } return r; };
+
+  /* ---------------------------------------------------------------- clicks */
+  document.addEventListener("click", async e => {
+    const a = A(); if (!a || !e.target || !e.target.closest) return;
+    const g = s => e.target.closest(s);
+    if (g("[data-fu-open], #pt-fuel-open")) { open("run"); return; }
+    if (!el || el.classList.contains("hidden")) return;
+    const tk = g("[data-fu-take]"); if (tk) { take(a, tk.dataset.fuTake, 0); return; }
+    const ut = g("[data-fu-untake]"); if (ut) { untake(a, ut.dataset.fuUntake); renderSheet(a); return; }
+    const ag = g("[data-fu-ago]");
+    if (ag) {
+      const v = await PT.pickList("Taken how long ago?", [5, 10, 15, 20, 30, 45].map(n => ({ value: String(n), label: n + " minutes ago" })), "");
+      if (v) { take(a, ag.dataset.fuAgo, parseInt(v, 10)); renderSheet(a); }
+      return;
+    }
+    if (g("#pt-fu-start")) { const t = ($("pt-fu-target0") || {}).value || ""; const c = cfg(a); c.target = t; if (!a.settings.fuel.items) c.items = steps(a); save(a); start(a, t); renderSheet(a); return; }
+    if (g("[data-fu-stop]")) { if (!(await PT.confirm("Stop the protocol?", { title: "Stop?", body: "The countdowns are cleared.", ok: "Stop" }))) return; stop(a); mode = "run"; renderSheet(a); return; }
+    if (g("[data-fu-phone]")) { phoneAlerts(a); return; }
+    if (g("[data-fu-edit]")) { mode = "edit"; draft = null; renderSheet(a); return; }
+    if (mode !== "edit") return;
+    if (g("[data-fu-reset]")) { draft = { items: DEFAULT(), target: (draft && draft.target) || "" }; renderSheet(a); return; }
+    const rm = g("[data-fu-rm]"); if (rm && draft) { if (draft.items.length <= 1) { a.toast("Keep at least one step"); return; } draft.items.splice(parseInt(rm.dataset.fuRm, 10), 1); renderSheet(a); return; }
+    const ad = g("[data-fu-addi]");
+    if (ad && draft) {
+      const k = ad.dataset.fuAddi, base = k === "c" ? { icon: "⏱", name: "My step", wait: 30, msg: "Your step is ready." } : ADDABLE[parseInt(k, 10)];
+      draft.items.push(Object.assign({ id: uid() }, base)); renderSheet(a); return;
+    }
+    if (g("#pt-fu-save") && draft) {
+      const items = draft.items.map(it => ({ id: it.id || uid(), icon: String(it.icon || "•").slice(0, 2), name: String(it.name || "Step").trim().slice(0, 32) || "Step", wait: Math.min(240, Math.max(1, parseInt(it.wait, 10) || 30)), msg: it.msg || (String(it.name || "Step") + " is ready.") }));
+      const c = cfg(a); c.items = items; c.target = ($("pt-fu-target") || {}).value || "";
+      const r = run(a); if (r) { r.target = c.target ? targetTs(c.target) : 0; }
+      save(a); mode = "run"; draft = null; renderSheet(a); paint(a); return;
+    }
+  });
+  document.addEventListener("input", e => {
+    const f = e.target && e.target.dataset && e.target.dataset.fuF; if (!f || !draft) return;
+    const row = e.target.closest("[data-fu-er]"); if (!row) return; const it = draft.items[parseInt(row.dataset.fuEr, 10)]; if (!it) return;
+    it[f] = f === "wait" ? (parseInt(e.target.value, 10) || 0) : e.target.value;
+    if (f === "name") it.msg = it.msg && !/ is ready\.$/.test(it.msg) ? it.msg : e.target.value + " is ready.";
+  });
+  document.addEventListener("visibilitychange", () => { const a = A(); if (a && document.visibilityState === "visible") { schedule(a); tick(a); } });
+
+  /* ---------------------------------------------------------------- the real button the More sheet clicks */
+  function ensureReal() {
+    const box = $("pt-wk-actions"); if (!box || $("pt-fuel-open")) return;
+    const b = document.createElement("button"); b.type = "button"; b.id = "pt-fuel-open"; b.className = "tap-active"; b.textContent = "Pre-workout protocol"; box.appendChild(b);
+  }
+  const oRW = proto.renderWorkoutView;
+  proto.renderWorkoutView = function () { const r = oRW.apply(this, arguments); try { ensureReal(); } catch (e) { } return r; };
+
+  PT.fuel = { status: () => status(A()), start: t => start(A(), t), stop: () => stop(A()), take: (id, ago) => take(A(), id, ago), tick: () => tick(A()), steps: () => steps(A()), run: () => run(A()), ics: () => icsText(A()), open, targetTs, readyTime: () => readyTime(A()) };
+
+  const css = document.createElement("style");
+  css.id = "pt-v245-fuel-css";
+  css.textContent = `
+    #pt-home-fuel { display: flex; align-items: center; justify-content: space-between; gap: .6rem; width: 100%; padding: .4rem .8rem; border-radius: .8rem; font-size: .75rem; font-weight: 700; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); color: rgb(var(--z300)); text-align: left; }
+    #home-routine + #pt-home-fuel { margin-top: .6rem; }
+    #pt-home-fuel b { font-size: .75rem; font-weight: 800; color: rgb(var(--a400)); font-family: ui-monospace, Menlo, monospace; }
+    #pt-home-fuel.run { background: rgb(var(--a950) / .55); border-color: rgb(var(--a500) / .55); }
+    .pt-fu-list { display: grid; gap: .5rem; }
+    .pt-fu-step { display: flex; align-items: center; gap: .7rem; padding: .7rem .8rem; border-radius: .95rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
+    .pt-fu-step.settling { border-color: rgb(251 191 36 / .45); } .pt-fu-step.due { border-color: rgb(251 113 133 / .6); } .pt-fu-step.ready { border-color: rgb(var(--a500) / .6); }
+    .pt-fu-ic { font-size: 1.5rem; width: 2rem; text-align: center; flex: none; }
+    .pt-fu-mid { flex: 1 1 auto; min-width: 0; display: grid; gap: .15rem; } .pt-fu-mid b { font-size: .88rem; color: rgb(var(--z50)); } .pt-fu-mid > span { font-size: .68rem; color: rgb(var(--z400)); }
+    .pt-fu-bar { display: block; height: .3rem; border-radius: 999px; background: rgb(var(--z800)); overflow: hidden; margin-top: .2rem; } .pt-fu-bar u { display: block; height: 100%; background: rgb(var(--a500)); transition: width .8s linear; text-decoration: none; }
+    .pt-fu-step:not(.settling):not(.ready) .pt-fu-bar { display: none; }
+    .pt-fu-right { display: grid; justify-items: end; gap: .25rem; flex: none; }
+    .pt-fu-cd { font-family: ui-monospace, Menlo, monospace; font-size: 1.05rem; font-weight: 800; color: rgb(252 211 77); } .pt-fu-ok { font-size: .8rem; font-weight: 800; color: rgb(var(--a400)); }
+    .pt-fu-take { padding: .55rem .85rem; border-radius: .7rem; background: rgb(var(--a600)); color: #fff; font-size: .8rem; font-weight: 800; }
+    .pt-fu-undo, .pt-fu-ago { font-size: .62rem; font-weight: 700; color: rgb(var(--z500)); text-decoration: underline; }
+    .pt-fu-sum { padding: .75rem .85rem; border-radius: .95rem; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); font-size: .85rem; color: rgb(var(--z100)); } .pt-fu-sum span { color: rgb(var(--z400)); font-size: .75rem; }
+    .pt-fu-btns { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .pt-fu-go, .pt-fu-ghost { flex: 1 1 auto; padding: .75rem .9rem; border-radius: .85rem; font-size: .82rem; font-weight: 800; }
+    .pt-fu-go { background: rgb(var(--a600)); color: #fff; } .pt-fu-ghost { background: rgb(var(--z800)); color: rgb(var(--z100)); } .pt-fu-ghost.danger { color: rgb(251 113 133); }
+    .pt-fu-fine { font-size: .68rem; line-height: 1.45; color: rgb(var(--z500)); }
+    .pt-fu-edit { display: grid; gap: .45rem; } .pt-fu-er { display: flex; align-items: center; gap: .4rem; }
+    .pt-fu-er input, .pt-fu-lt input { padding: .6rem .6rem; border-radius: .7rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); color: rgb(var(--z100)); font-size: .85rem; min-width: 0; }
+    .pt-fu-ei { width: 2.8rem; text-align: center; } .pt-fu-en { flex: 1 1 auto; } .pt-fu-ew { width: 3.6rem; text-align: center; } .pt-fu-er em { font-style: normal; font-size: .7rem; color: rgb(var(--z500)); }
+    .pt-fu-rm { width: 2rem; height: 2rem; border-radius: .6rem; background: rgb(var(--z800)); color: rgb(var(--z300)); flex: none; }
+    .pt-fu-adds { display: flex; flex-wrap: wrap; gap: .4rem; } .pt-fu-add { padding: .45rem .7rem; border-radius: 999px; background: rgb(var(--z800)); color: rgb(var(--z100)); font-size: .72rem; font-weight: 700; }
+    .pt-fu-lt { display: flex; align-items: center; justify-content: space-between; gap: .75rem; } .pt-fu-lt span { font-size: .8rem; font-weight: 700; color: rgb(var(--z200)); }
+  `;
+  document.head.appendChild(css);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.45.0: hype track for the PR attempt planner.
+ *  PR attempt plan → Hype track → pick a song from your phone. In the plan, tick Attempt 2 and the rest timer starts for the wait
+ *  before Attempt 3 (the ladder's own rest time). The moment it reaches zero, your song starts, from the second you chose (skip an
+ *  intro straight to the drop). Tick Attempt 3 and it fades out. A "Stop" button stays on screen while it plays.
+ *  - The song is copied into this phone's app storage (IndexedDB), up to 60 MB. It is not uploaded and not in backups; "Reset
+ *    everything" removes it. Only the name, start time and volume are saved in settings.
+ *  - "Start the rest timer when I tick a step" (on by default) does the same for every step in the ladder, using the rest shown on it.
+ *  - Phones only let a page start sound after you have tapped it. Ticking a step is that tap, so the song is made ready then; if the
+ *    phone still refuses, a "Play the hype track" button appears.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const A = () => window.app, $ = id => document.getElementById(id), esc = s => PT.esc(String(s == null ? "" : s));
+  const DB = "pulsetrack-hype", STORE = "tracks", KEY = "main", MAX_BYTES = 60 * 1024 * 1024, TEST_S = 10;
+  const save = a => { try { WorkoutStorage.saveSettings(a.settings); } catch (e) { } };
+
+  /* ---------------------------------------------------------------- storage */
+  const HypeDB = {
+    _db: null,
+    open() {
+      return new Promise((resolve, reject) => {
+        if (this._db) return resolve(this._db);
+        if (!("indexedDB" in window)) return reject(new Error("no indexedDB"));
+        const req = indexedDB.open(DB, 1);
+        req.onupgradeneeded = () => { if (!req.result.objectStoreNames.contains(STORE)) req.result.createObjectStore(STORE, { keyPath: "id" }); };
+        req.onsuccess = () => { this._db = req.result; this._db.onversionchange = () => { try { this._db.close(); } catch (e) { } this._db = null; }; resolve(this._db); };
+        req.onerror = () => reject(req.error);
+      });
+    },
+    async _tx(mode, fn) {
+      const db = await this.open();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, mode), store = tx.objectStore(STORE); let result;
+        const r = fn(store); if (r) r.onsuccess = () => { result = r.result; };
+        tx.oncomplete = () => resolve(result); tx.onerror = () => reject(tx.error); tx.onabort = () => reject(tx.error);
+      });
+    },
+    get() { return this._tx("readonly", s => s.get(KEY)); },
+    put(rec) { return this._tx("readwrite", s => s.put(Object.assign({ id: KEY }, rec))); },
+    del() { return this._tx("readwrite", s => s.delete(KEY)); },
+    clear() { return this._tx("readwrite", s => s.clear()); }
+  };
+  try {
+    if (typeof PhotoDB !== "undefined" && PhotoDB && typeof PhotoDB.clear === "function") {
+      const oClear = PhotoDB.clear;
+      PhotoDB.clear = function () { return Promise.all([oClear.apply(this, arguments), HypeDB.clear().catch(() => { })]).then(() => undefined); };
+    }
+  } catch (e) { }
+
+  /* ---------------------------------------------------------------- settings */
+  const hy = a => (a.settings.hype && typeof a.settings.hype === "object" ? a.settings.hype : null);
+  const hyw = a => (hy(a) || (a.settings.hype = {}));
+  let have = false;                 // the song file is on this phone
+  let audio = null, url = null, ready = false, armed = false, playing = false, starting = false, stopTimer = null, liveTimer = null, testTimer = null;
+  const linked = () => { const a = A(); return !!(a && hy(a) && hy(a).name && have); };
+  const fmtT = s => { s = Math.max(0, Math.round(s || 0)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+  const parseT = v => { v = String(v || "").trim(); if (!v) return 0; const m = /^(\d+):(\d{1,2})$/.exec(v); if (m) return (+m[1]) * 60 + Math.min(59, +m[2]); const n = parseFloat(v); return n > 0 ? n : 0; };
+  const mb = b => (b / 1048576).toFixed(b >= 10485760 ? 0 : 1) + " MB";
+  /** "1–2 min" → 90, "30 s" → 30 */
+  function restSecs(txt) {
+    const m = /(\d+(?:\.\d+)?)(?:\s*[–-]\s*(\d+(?:\.\d+)?))?\s*(s|sec|min)/i.exec(String(txt || "")); if (!m) return 0;
+    const lo = parseFloat(m[1]), hi = m[2] ? parseFloat(m[2]) : lo, u = /^min/i.test(m[3]) ? 60 : 1;
+    return Math.round(((lo + hi) / 2) * u);
+  }
+
+  /* ---------------------------------------------------------------- the audio element */
+  const make = () => {
+    if (audio) return audio;
+    audio = new Audio(); audio.preload = "auto"; audio.loop = false;
+    audio.addEventListener("ended", () => { playing = false; chip(); });
+    audio.addEventListener("pause", () => { if (!audio.ended) { playing = false; chip(); } });
+    return audio;
+  };
+  async function prepare() {
+    try {
+      const rec = await HypeDB.get(); have = !!(rec && rec.blob);
+      if (!have) { ready = false; return false; }
+      if (url) { try { URL.revokeObjectURL(url); } catch (e) { } }
+      url = URL.createObjectURL(rec.blob); const au = make(); au.src = url; au.load(); ready = true; return true;
+    } catch (e) { have = false; ready = false; return false; }
+  }
+  /** inside a tap: lets a phone that is strict about autoplay start this element later without another tap */
+  function unlock() {
+    if (!ready || !audio) return;
+    if (playing) return;
+    try { audio.muted = true; const p = audio.play(); if (p && p.then) p.then(() => { if (audio.muted && !playing) { audio.pause(); audio.currentTime = 0; } audio.muted = false; }).catch(() => { audio.muted = false; }); } catch (e) { }
+  }
+  async function play(opts) {
+    opts = opts || {}; const a = A(); if (!a || !ready) { if (!(await prepare())) throw new Error("no song"); }
+    const au = make(), h = hy(a) || {};
+    clearTimeout(stopTimer); clearTimeout(testTimer);
+    au.muted = false; au.volume = Math.min(1, Math.max(0.05, (h.vol || 1)));
+    try { au.currentTime = Math.min(h.start || 0, Math.max(0, (au.duration || 1e9) - 1)); } catch (e) { }
+    await au.play(); playing = true; chip();
+    if (opts.test) testTimer = setTimeout(() => stop(true), TEST_S * 1000);
+  }
+  function stop(fade) {
+    clearTimeout(testTimer); armed = false;
+    if (!audio || (!playing && audio.paused)) { playing = false; chip(); return; }
+    if (!fade) { audio.pause(); playing = false; chip(); return; }
+    const au = audio, v0 = au.volume; let n = 0;
+    const iv = setInterval(() => { n++; au.volume = Math.max(0, v0 * (1 - n / 12)); if (n >= 12) { clearInterval(iv); au.pause(); au.volume = v0; playing = false; chip(); } }, 100);
+  }
+
+  /* ---------------------------------------------------------------- the floating Stop button */
+  function chip(failed) {
+    let c = $("pt-hype-chip");
+    if (!playing && !failed) { if (c) c.remove(); return; }
+    if (!c) { c = document.createElement("button"); c.type = "button"; c.id = "pt-hype-chip"; c.className = "tap-active"; document.body.appendChild(c); }
+    c.dataset.hy = failed ? "playnow" : "stop";
+    c.textContent = failed ? "▶ Play the hype track" : "🔊 Hype track · Stop";
+    c.classList.toggle("fail", !!failed);
+  }
+
+  /* ---------------------------------------------------------------- the rest timer hook */
+  function hook(a) {
+    const rt = a && a.restTimer; if (!rt || rt.__hype) return; rt.__hype = true;
+    const oStart = rt.start.bind(rt), oFinish = rt.finish.bind(rt), oDismiss = rt.dismiss ? rt.dismiss.bind(rt) : null;
+    rt.start = function (sec) { if (!starting) armed = false; return oStart(sec); };
+    rt.finish = function () {
+      const was = armed; armed = false;
+      if (!was) return oFinish();
+      const app = A(), oa = app.announceNextSet; app.announceNextSet = () => { };       // no "Rest complete" voice over the song
+      try { oFinish(); } finally { app.announceNextSet = oa; }
+      setTimeout(() => { play().then(() => { try { app.toast("🔊 Hype track. Go get it.", undefined, undefined, 4000); } catch (e) { } }).catch(() => chip(true)); }, 350);
+    };
+    if (oDismiss) rt.dismiss = function () { if (armed && rt.running) armed = false; return oDismiss(); };
+  }
+
+  /* ---------------------------------------------------------------- ticking the ladder (called by the PR planner) */
+  function onTick(a, p, id, nowDone) {
+    try {
+      hook(a);
+      if (!nowDone) return;
+      if (id === "a3") { stop(true); return; }
+      const pl = PT.attemptPlan(a, p), i = pl.ladder.findIndex(r => r.id === id); if (i < 0) return;
+      const r = pl.ladder[i], next = pl.ladder[i + 1], secs = restSecs(r.rest); if (!secs) return;
+      const final = !!(next && next.id === "a3" && linked()), want = (hy(a) || {}).timer !== false;
+      if (!want && !final) return;
+      unlock();
+      starting = true; try { a.restTimer.start(secs); } finally { starting = false; }
+      armed = final;
+      if (final) { try { a.acquireWakeLock && a.acquireWakeLock(); } catch (e) { } }
+      live();
+    } catch (e) { console.error("PulseTrack hype", e); }
+  }
+
+  /* ---------------------------------------------------------------- the block in the plan sheet */
+  function block(a) {
+    const h = hy(a), has = h && h.name && have;
+    if (!has) {
+      return `<div class="pt-hy" id="pt-hy"><div class="pt-hy-h"><b>🔊 Hype track</b><span>Your song starts when the rest before Attempt 3 hits zero</span></div>
+        ${h && h.name && !have ? `<p class="pt-hy-f">“${esc(h.name)}” is not on this phone. Songs are not part of backups, so choose it again.</p>` : ""}
+        <button type="button" class="pt-hy-go tap-active" data-hy="choose">Choose a song from this phone</button>
+        <p class="pt-hy-f">Pick any audio file, for example from Samsung Music or your downloads. It is copied into the app and stays on this phone. Tick Attempt 2 to start the rest; tick Attempt 3 to fade it out.</p></div>`;
+    }
+    return `<div class="pt-hy on" id="pt-hy"><div class="pt-hy-h"><b>🔊 ${esc(h.name)}</b><span>${fmtT(h.dur)}${h.size ? " · " + mb(h.size) : ""}</span></div>
+      <div class="pt-hy-row"><label>Start at <input id="pt-hy-start" type="text" inputmode="numeric" value="${fmtT(h.start || 0)}" aria-label="Start at, minutes and seconds"></label>
+        <label>Volume <input id="pt-hy-vol" type="range" min="10" max="100" value="${Math.round((h.vol || 1) * 100)}" aria-label="Volume"></label></div>
+      <div class="pt-hy-b"><button type="button" class="pt-hy-ghost tap-active" data-hy="test">▶ Test</button><button type="button" class="pt-hy-ghost tap-active" data-hy="choose">Change</button><button type="button" class="pt-hy-ghost tap-active" data-hy="remove">Remove</button></div>
+      <label class="pt-hy-t"><input type="checkbox" data-hy-timer ${h.timer === false ? "" : "checked"}> <span>Start the rest timer when I tick a step</span></label>
+      <p class="pt-hy-f">Tick Attempt 2 and the rest timer starts. At zero the song plays; tick Attempt 3 to fade it out. Your phone volume still decides how loud it is.</p></div>`;
+  }
+  /** the strip at the top of the plan sheet (the floating rest timer sits behind the sheet, so the countdown is repeated here) */
+  const liveHtml = () => `<div class="pt-hy-live" id="pt-hy-live"></div>`;
+  function live() {
+    clearInterval(liveTimer); liveTimer = null;
+    const draw = () => {
+      const a = A(), el = $("pt-hy-live"), sheet = $("modal-sheet");
+      if (!el || !sheet || sheet.classList.contains("hidden")) { clearInterval(liveTimer); liveTimer = null; return; }
+      const rt = a && a.restTimer;
+      let html = "";
+      if (rt && rt.isRunning() && !rt.isPaused) html = `<span>Resting <b>${fmtT(rt.remaining())}</b>${armed ? " · then your hype track 🔊" : ""}</span><button type="button" data-hy="skip" class="tap-active">Skip</button>`;
+      else if (armed) html = `<span>Your hype track is armed</span>`;
+      if (el.innerHTML !== html) el.innerHTML = html;
+      el.classList.toggle("on", !!html);
+    };
+    draw(); liveTimer = setInterval(draw, 500);
+  }
+  function afterRender(a) { prepare().then(() => { /* the song may have appeared since the sheet opened */ }); live(); }
+
+  /* ---------------------------------------------------------------- picking the file */
+  function chooser() {
+    let f = $("pt-hy-file");
+    if (!f) { f = document.createElement("input"); f.type = "file"; f.id = "pt-hy-file"; f.accept = "audio/*,.mp3,.m4a,.aac,.wav,.ogg,.flac,.opus"; f.className = "hidden"; document.body.appendChild(f); }
+    return f;
+  }
+  function duration(file) {
+    return new Promise(res => {
+      const t = new Audio(), u = URL.createObjectURL(file); let done = false;
+      const end = d => { if (done) return; done = true; try { URL.revokeObjectURL(u); } catch (e) { } res(isFinite(d) ? d : 0); };
+      t.preload = "metadata"; t.onloadedmetadata = () => end(t.duration); t.onerror = () => end(0); setTimeout(() => end(0), 4000); t.src = u;
+    });
+  }
+  async function onFile(file) {
+    const a = A(); if (!a || !file) return;
+    const okType = /^audio\//.test(file.type) || /\.(mp3|m4a|aac|wav|ogg|oga|flac|opus|weba)$/i.test(file.name);
+    if (!okType) { a.toast("That does not look like an audio file"); return; }
+    if (file.size > MAX_BYTES) { a.toast("That file is over 60 MB. Pick a shorter version."); return; }
+    const dur = await duration(file);
+    if (!dur) { a.toast("This phone could not play that file. Try an mp3 or m4a."); return; }
+    try { await HypeDB.put({ name: file.name, type: file.type, size: file.size, blob: file }); } catch (e) { a.toast("Could not save the song on this phone"); return; }
+    const h = hyw(a), old = h.name; h.name = file.name.replace(/\.[a-z0-9]{2,5}$/i, ""); h.size = file.size; h.dur = Math.round(dur); if (!old) { h.start = 0; h.vol = 1; } if (h.start > dur) h.start = 0;
+    save(a); have = true; await prepare(); a.toast("Hype track ready"); if (typeof PT.openAttempt === "function") PT.openAttempt();
+  }
+
+  /* ---------------------------------------------------------------- clicks */
+  document.addEventListener("click", async e => {
+    const a = A(); if (!a || !e.target || !e.target.closest) return;
+    const b = e.target.closest("[data-hy]"); if (!b) return;
+    const k = b.dataset.hy;
+    if (k === "choose") { chooser().click(); return; }
+    if (k === "stop") { stop(true); return; }
+    if (k === "skip") { try { a.restTimer.dismiss(); } catch (x) { } armed = false; return; }
+    if (k === "playnow") { try { await play(); } catch (x) { a.toast("Could not play it. Open the plan and tap Test."); } return; }
+    if (k === "test") { try { if (!ready) await prepare(); await play({ test: true }); a.toast("Playing for " + TEST_S + " seconds"); } catch (x) { chip(true); a.toast("Your phone would not play it. Check the volume and the file."); } return; }
+    if (k === "remove") {
+      if (!(await PT.confirm("Remove the hype track?", { title: "Remove song?", body: "The copy inside PulseTrack is deleted. The file on your phone is not touched.", ok: "Remove" }))) return;
+      try { await HypeDB.del(); } catch (x) { } stop(false); have = false; ready = false;
+      const h = hyw(a); ["name", "size", "dur", "start", "vol"].forEach(x => delete h[x]); save(a); if (typeof PT.openAttempt === "function") PT.openAttempt();
+    }
+  });
+  document.addEventListener("change", e => {
+    const a = A(); if (!a || !e.target) return;
+    if (e.target.id === "pt-hy-file") { const f = e.target.files && e.target.files[0]; e.target.value = ""; if (f) onFile(f); return; }
+    if (e.target.id === "pt-hy-start") { const h = hyw(a); h.start = Math.min(parseT(e.target.value), Math.max(0, (h.dur || 0) - 5)); e.target.value = fmtT(h.start); save(a); return; }
+    if (e.target.id === "pt-hy-vol") { const h = hyw(a); h.vol = Math.min(1, Math.max(0.1, (parseInt(e.target.value, 10) || 100) / 100)); save(a); if (audio && playing) audio.volume = h.vol; return; }
+    if (e.target.matches && e.target.matches("[data-hy-timer]")) { hyw(a).timer = !!e.target.checked; save(a); }
+  });
+  document.addEventListener("input", e => { if (e.target && e.target.id === "pt-hy-vol" && audio && playing) audio.volume = Math.min(1, Math.max(0.1, (parseInt(e.target.value, 10) || 100) / 100)); });
+
+  PT.hype = { linked, block, liveHtml, afterRender, onTick, play, stop, prepare, restSecs, unlock, db: HypeDB, state: () => ({ have, ready, armed, playing }), audio: () => audio };
+  const oHome = ApplicationUI.prototype.renderHomeView;      // find out whether a song is saved as soon as the app is up
+  ApplicationUI.prototype.renderHomeView = function () { const r = oHome.apply(this, arguments); try { if (!ready && !have && hy(this) && hy(this).name) prepare(); hook(this); } catch (e) { } return r; };
+
+  const css = document.createElement("style");
+  css.id = "pt-v245-hype-css";
+  css.textContent = `
+    .pt-hy { padding: .8rem .85rem; border-radius: .95rem; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); display: grid; gap: .6rem; }
+    .pt-hy.on { border-color: rgb(var(--a500) / .5); }
+    .pt-hy-h { display: grid; gap: .1rem; } .pt-hy-h b { font-size: .85rem; color: rgb(var(--z50)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; } .pt-hy-h span { font-size: .68rem; color: rgb(var(--z400)); }
+    .pt-hy-f { font-size: .66rem; line-height: 1.45; color: rgb(var(--z500)); }
+    .pt-hy-go { padding: .7rem .9rem; border-radius: .8rem; background: rgb(var(--a600)); color: #fff; font-size: .8rem; font-weight: 800; }
+    .pt-hy-row { display: grid; grid-template-columns: auto 1fr; gap: .75rem; align-items: center; } .pt-hy-row label { display: flex; align-items: center; gap: .45rem; font-size: .7rem; font-weight: 700; color: rgb(var(--z300)); }
+    .pt-hy-row input[type=text] { width: 3.6rem; text-align: center; padding: .45rem .3rem; border-radius: .6rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); color: rgb(var(--z100)); font-family: ui-monospace, Menlo, monospace; }
+    .pt-hy-row input[type=range] { width: 100%; min-width: 0; accent-color: rgb(var(--a500)); }
+    .pt-hy-b { display: flex; gap: .4rem; } .pt-hy-ghost { flex: 1 1 0; padding: .55rem .5rem; border-radius: .7rem; background: rgb(var(--z800)); color: rgb(var(--z100)); font-size: .75rem; font-weight: 800; }
+    .pt-hy-t { display: flex; align-items: center; gap: .5rem; font-size: .72rem; color: rgb(var(--z300)); } .pt-hy-t input { accent-color: rgb(var(--a500)); width: 1.1rem; height: 1.1rem; }
+    .pt-hy-live { display: none; position: sticky; top: 0; z-index: 5; align-items: center; justify-content: space-between; gap: .6rem; padding: .6rem .8rem; border-radius: .8rem; background: rgb(var(--z900)); border: 1px solid rgb(251 191 36 / .6); box-shadow: 0 6px 18px rgba(0,0,0,.45); font-size: .8rem; font-weight: 700; color: rgb(252 211 77); }
+    .pt-hy-live.on { display: flex; } .pt-hy-live b { font-family: ui-monospace, Menlo, monospace; font-size: 1rem; }
+    .pt-hy-live button { padding: .4rem .75rem; border-radius: .6rem; background: rgb(var(--z800)); color: rgb(var(--z100)); font-size: .72rem; font-weight: 800; flex: none; }
+    #pt-hype-chip { position: fixed; left: 50%; transform: translateX(-50%); bottom: calc(1rem + env(safe-area-inset-bottom, 0px)); z-index: 90; padding: .8rem 1.2rem; border-radius: 999px; background: rgb(var(--a600)); color: #fff; font-size: .9rem; font-weight: 800; box-shadow: 0 10px 30px rgba(0,0,0,.5); }
+    #pt-hype-chip.fail { background: rgb(217 119 6); }
   `;
   document.head.appendChild(css);
 })();

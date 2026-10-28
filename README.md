@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.44.0*
+*Version 2.45.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **64 ready-made programs** (six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -328,6 +328,17 @@ Landscaping, building, moving house: a hard day at work uses the same back, grip
 - **A heavy day reshuffles the week (new in 2.44.0).** If you mark Heavy and the workout up next is hard on those same muscles (Legs, or a back day), the Work card offers a lighter day from the same program to do today instead: *"Heavy work today, and Legs is hard on the same muscles. Chest & Arms is easier on them."* **Do Chest & Arms today** moves it up; **Keep Legs** hides the offer for today. Nothing else changes: no day is marked done, the days keep their order, Legs stays up next once you have done the swapped-in day, and **Back to Legs** puts it back with one tap. How hard a day is on you comes from the same weights as the recovery map (lower back and forearms 4, legs 3, shoulders, traps and back 2, everything else 0), averaged over the day's hard sets. A day is only offered a swap at 1.5 or more, and the day offered has to score at least 1 lower. Not offered for Freestyle, after you have already trained today, in the "Yesterday?" view, or when **Go easier after heavy work days** is off.
 - **Switch:** **Settings → Workout Screen → Go easier after heavy work days** (on by default). Turn it off and the check-in only feeds the recovery map. Hide the card with **Settings → Home screen**.
 
+### Pre-workout protocol (new in 2.45.0)
+
+Know when your food has settled and your supplements have kicked in. On a training day Home shows a small **🍌 Pre-workout protocol** row (also **Workout → ⋯ More → Pre-workout protocol**). Tap it, then **Start** before you leave.
+
+- **The steps** are two by default: **Eggs + bananas** (60 minutes to settle) and **Creatine + caffeine** (45 minutes to kick in). Tap **Taken** when you have had one and its countdown starts; **earlier…** is for something you took 5 to 45 minutes ago, **undo** for a mis-tap. When a countdown ends you get a chime, a buzz, a spoken line and a message ("Creatine and caffeine are kicking in. Head in and warm up."), plus a notification if the app is in the background and notifications are allowed.
+- **Edit** changes the names, icons and minutes (1 to 240) and adds **Pre-workout drink**, **Water**, **Quick carbs**, **Coffee** or **Your own** (up to 8 steps). **Back to the usual** restores the two defaults.
+- **Lift at (optional):** set the time you want to be under the bar and each step shows **Take at** (your lift time minus its wait), with a reminder when that time comes.
+- The summary at the top says **Ready at 5:42 PM** once every step is taken. While it runs, Home shows the next countdown; when everything has had its time it says **Ready to lift**. A run is dropped after 4 hours.
+- **Countdowns follow the clock**, so they are right whenever you open the app, even if the phone slept. A web app cannot ring while it is closed or the phone is asleep, so **Phone alerts** saves a small calendar file (`.ics`) whose alarms do: one at the time each taken step is ready, and take-it reminders plus the lift time if you set one.
+- Saved in settings (the steps and the run), so it is in backups. **Stop** clears a run.
+
 ### Guided mode (sets added in 2.36.0, each-side note in 2.38.0)
 
 Tap **Guided mode** on the workout screen for one exercise at a time with big steppers: weight and reps, one big **Log set** button, and **Prev**, **Swap** and **Skip** at the bottom. Chips show every set (✓ with what you lifted, the current one highlighted). It writes into the normal workout screen, so nothing is lost if you switch back. Timed and other special exercises open in the normal view.
@@ -474,6 +485,8 @@ Rows that open and close have an icon and a one-line description, so you can see
 - **PR attempt planner (new in 2.36.0):** pick a lift (your best estimated 1RM is shown), a **target for one rep** (it starts a little above your best, in steps of your plate increment, with a plain note on how realistic it is: under 3% above your best is very doable, up to 6% is a real stretch, more is ambitious) and a **test day** (1 to 4 weeks out, or any date). It builds:
   - **The week before:** a **last heavy day** (3 sets of 3 at about 85%, 6 days out), a **light day** (3 sets of 2 or 3 at about 65%, 3 days out) and a **rest day** the day before, with a button for easy mobility. If the date is closer, the heavy day moves in or drops out.
   - **Attempt day:** a warm-up ladder you can tick off (empty bar, then about 40, 55, 70, 80 and 90% of the target), then **Attempt 1 · opener** (about 93%), **Attempt 2** (97%) and **Attempt 3 · goal** (the target). Every step is a weight your gym can actually load, with the **plates per side** and a rest time. For lifts that are not barbell lifts the steps round to your increment. A note says to take attempt 2 only if the opener moved fast and attempt 3 only if attempt 2 was smooth.
+  - **Rest timers on the ladder (new in 2.45.0):** ticking a step starts the rest timer for the rest shown on it (a range uses its middle, so 3 to 5 minutes is 4:00). A countdown line stays pinned at the top of the plan while it runs, with **Skip**. The switch **Start the rest timer when I tick a step** (in the Hype track block) turns this off.
+  - **Hype track (new in 2.45.0):** the **Hype track** block under the ladder lets you **choose a song from your phone** (any audio file up to 60 MB, such as one from Samsung Music or your downloads). Tick **Attempt 2** and the rest before **Attempt 3** starts; the moment it reaches zero the song plays, from the **Start at** second you set (skip an intro straight to the drop) at the **Volume** you set. A **Stop** button stays on screen while it plays; ticking **Attempt 3** fades it out. Skipping or dismissing the rest early cancels it, and so does starting any other rest timer. **▶ Test** plays 10 seconds. **Change** and **Remove** are there too. If the phone refuses to start sound by itself, a **Play the hype track** button appears. The song is copied into the app on this phone only (not uploaded, not in backups; **Reset everything** removes it, and after a restore you choose it again). Your phone volume still decides how loud it is.
   - It warns you if your recent weeks look heavy (the deload check) and suggests a lighter week first.
   - **Home** shows a reminder in the last 7 days. Log your heaviest single as a normal set; when your best estimate reaches the target the plan shows **Hit it**, and **I hit it** / **Not this time** close it and keep it as your last plan.
 - **Closest to leveling up (new in 2.35.0):** the five exercises nearest their next level, with a bar, how far to go ("12 lb to go · 188 lb now, 200 lb needed") and an "est." tag where the level is scaled from another lift. Tap one for the **goal planner**: pick the level you want (Intermediate, Advanced or Elite), and it shows the gap and a simple plan, with how many weeks it should take at a steady pace and the targets along the way. For weight lifts you can tap **Set as a lift goal** to track it with your other lift goals.
@@ -572,7 +585,7 @@ Some of the built-in programs spell exercises differently from the standard list
 
 > 💡 **Back up now and then.** Everything lives on your phone. If you clear browser data or get a new phone, a backup file is how you keep it all.
 
-- **Backup and Restore:** save all your data to a file (workouts, programs, body entries and your cardio and sports log), and load it back on this phone or a new one.
+- **Backup and Restore:** save all your data to a file (workouts, programs, body entries and your cardio and sports log), and load it back on this phone or a new one. Form clips, progress photos and the hype track song are big files that stay on the phone and are not in the backup.
 - **Automatic safety copies (2.24.0):** the first time you open the app each day (after you have a workout saved), PulseTrack keeps a copy of everything on the phone. The newest 8 are kept. **Settings → Data & Backup → Automatic safety copies** lists them (date, number of workouts, version) with **Restore** next to each, and **Make one now**. Going back first saves a copy of how things are right now, so you can undo it. They live on the phone, so they protect against a mistake or a bad update, but clearing the browser's data removes them: a backup file is still the real safety net. The backup reminder on Home now appears after 7 days.
 - **Repeat last workout (2.25.0):** **Repeat last workout** in the menu, and **Do this workout again** on the finish screen, fill today's day with the weights and reps from your most recent saved workout.
 - **Undo delete (2.24.0):** deleting a workout from History or a body entry shows **Undo** for 10 seconds.
@@ -586,7 +599,7 @@ Some of the built-in programs spell exercises differently from the standard list
 
 ## Settings and looks
 
-Settings is a short list of nine groups: **Workout**; **Workout Screen**; **Gyms & Equipment**; **Streaks & Time Off**; **Sound, Voice & Feel**; **Appearance**; **Data & Backup**; **App**; and **Danger Zone**. Tap one to open it. Each shows a short summary of your choices, and the app remembers which were open until you close it.
+Settings is a short list of ten groups: **Workout**; **Workout Screen**; **Gyms & Equipment**; **Streaks & Time Off**; **Sound, Voice & Feel**; **Appearance**; **Mods & Custom CSS** (2.45.0); **Data & Backup**; **App**; and **Danger Zone**. Tap one to open it. Each shows a short summary of your choices, and the app remembers which were open until you close it.
 
 - **Units:** kg or lb. Switching asks whether to **Convert my saved numbers**, **Only change the labels**, or **Cancel**.
 - **Text size:** **Normal**, **Large** or **Extra large** (2.24.0).
@@ -616,6 +629,18 @@ In Light mode the muscle map keeps its dark body figure so the muscles stay easy
 **Reset look** puts colours, background, effect, font and corners back to the original. It does not touch your Home layout, your own exercises or your data.
 
 **Home layout** (Settings → Appearance → Home screen): use ▲ ▼ to move a card and **Shown / Hidden** to show or hide it. The cards are the monthly recap banner, today's workout, Start training, This week and Work check-in (all shown by default), then Last workout, PRs this month, the Search bar, Train / Track / Tools, the 1RM Trophy Room and Consistency (all hidden by default since 2.22.0). **Put the cards back the way they were** resets it to the short Home. When a phone updates to 2.22.0 it gets the short Home once, with a short note saying where things went; any change you make after that is kept.
+
+### Mods and custom CSS (new in 2.45.0)
+
+**Settings → Mods & Custom CSS → Open mod manager.** A mod is a named piece of your own CSS that restyles the app: corners, fonts, colours, backgrounds, animations, anything CSS can change. Mods are listed like a mod list: each has an on/off switch, **↑ ↓** set the load order (a mod lower in the list wins when two change the same thing), and tapping one opens the editor.
+
+- **Editor:** a name and a big CSS box. The change shows **live while you type** and is dropped if you close without saving. The line under the box counts lines and rules and tells you about a missing `{` or `}` or a rule the browser did not understand. **Paste**, **Copy** and **Share file** (a `.css` file with the mod's name) are there too, and **Delete** for a mod you already saved. **Handy hooks** lists the colour variables (`--a500` accent, `--z50` to `--z950` greys), `html[data-mode="light"]`, the screen ids (`#view-home` and so on) and how to match cards.
+- **Import a .css file** from the manager adds it as a mod (the name comes from a first-line comment `/* PulseTrack mod: Name */` that Share file writes).
+- **Starter mods:** **Square corners**, **Soft and round**, **Accent outlines**, **Accent glow**, **Aurora background** (a slowly moving gradient), **Condensed font** (Oswald) and **No animation**. Adding one gives you a normal mod you can edit.
+- **Keep this look?** A mod that is added, saved with changes, imported or switched on has **15 seconds** to be confirmed with **Keep**. If you tap **Undo**, or do nothing, or close the app first, that mod switches itself off (its CSS is kept so you can fix it). That means a stylesheet that hides everything cannot lock you out.
+- **Use my mods** (the switch in Settings) turns every mod off at once without deleting them. Opening the app with `#nomods` on the end of the address starts it with mods off.
+- **Web fonts:** an `@import` of a Google font works when you are online. The app keeps the font files the first time they load, so the font keeps working offline afterwards. Everything else stays on the phone.
+- Mods are saved in your settings, so they are in **backups** and move to a new phone with them.
 
 ### The side menu (new layout in 2.21.0, two more entries in 2.22.0)
 
@@ -683,6 +708,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.45.0**
+- **Mods (your own CSS).** Settings → Mods & Custom CSS: named CSS mods you switch on and off and put in a load order, with a live-preview editor, starter mods (square corners, soft and round, accent outlines, accent glow, aurora background, condensed font, no animation), `.css` import and share, and web fonts that keep working offline. A new or changed mod has 15 seconds to be confirmed with Keep, or it switches itself off, so a bad stylesheet cannot lock you out. "Use my mods" and `#nomods` turn them all off. In backups.
+- **Pre-workout protocol.** Tap it on Home before you leave: Taken starts a countdown for each step (eggs + bananas 60 min, creatine + caffeine 45 min by default, both editable), with a chime, buzz and spoken ping when each is ready, an optional lift time that tells you when to take each, and "Phone alerts" to save real alarms to your calendar.
+- **Hype track for PR attempts.** Pick a song from your phone; tick Attempt 2 in the PR planner and the rest timer before Attempt 3 starts, and when it hits zero your song plays from the second you chose. Ladder steps now start their own rest timers (a switch turns that off), with a countdown pinned at the top of the plan. The song stays on the phone and is not in backups.
 
 **2.44.0**
 - **A heavy work day reshuffles your week.** Mark Heavy with a leg or back day up next and the Work card offers the lightest day left in the program to do today instead (for example Chest & Arms instead of Legs). The skipped-over day stays up next, nothing is marked done, and one tap puts it back.
