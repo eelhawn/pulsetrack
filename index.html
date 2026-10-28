@@ -377,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.41.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.42.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3755,7 +3755,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.41.0";
+    const APP_VERSION = "2.42.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -15168,7 +15168,17 @@ const PTSIM = (function () {
   const TIMED = /plank|hold|hang|wall sit|l-sit|isometric|carry|farmer|hollow|static|stretch|bridge/i;
   let run = null, tick = null;
   const mmss = s => Math.floor(s / 60) + ":" + String(Math.floor(s % 60)).padStart(2, "0");
-  function targetOf(ex) { const m = String((ex && ex.reps) || "").match(/(\d+)\s*(?:s|sec|secs|seconds)\b/i); return m ? parseInt(m[1], 10) : 0; }
+  const SECS = /(\d+)\s*(?:s|sec|secs|seconds)\b/i;
+  function targetOf(ex) { const m = String((ex && ex.reps) || "").match(SECS); return m ? parseInt(m[1], 10) : 0; }
+  /** 2.42.0: "8-10, 8-10, 40 sec, 40 sec" is one target per set. When the list has exactly one entry per set, set i reads entry i;
+   *  a single target ("40 sec") covers every set; any other shape falls back to the first time found. Returns {target, piece}. */
+  function pieces(ex) { const p = String((ex && ex.reps) || "").split(","), n = p.map(x => x.trim()); return n.length > 1 && n.length === (ex.sets | 0) && n.every(x => x.length <= 12) ? n : null; }
+  function targetForSet(ex, i) {
+    const p = pieces(ex);
+    if (p) { const m = (p[Math.min(i, p.length - 1)] || "").match(SECS); return m ? parseInt(m[1], 10) : 0; }
+    return targetOf(ex);
+  }
+  PT.timedTarget = targetForSet;
   function beep() { try { navigator.vibrate && navigator.vibrate([200, 100, 200]); } catch (e) { } try { const s = window.sound; s && s.completeChime && s.completeChime(); } catch (e) { } }
   function paint() {
     document.querySelectorAll(".pt-tset").forEach(b => {
@@ -15181,17 +15191,18 @@ const PTSIM = (function () {
   }
   function stopRun(auto) {
     const a = A(); if (!run) return;
-    const el = Math.round((Date.now() - run.start) / 1000), secs = auto && run.target ? run.target : el, key = run.key;
+    const el = Math.round((Date.now() - run.start) / 1000), secs = auto && run.target ? run.target : el, key = run.key, loaded = run.loaded;
     clearInterval(tick); tick = null; run = null;
     if (!a.logs[key]) a.logs[key] = { completed: false, weight: "", reps: "", tag: "R" };
-    a.logs[key].reps = String(Math.max(1, secs));
+    if (loaded) a.logs[key].secs = Math.max(1, secs);                       // weighted set: seconds are NOT reps (they would fake a 1-rep-max)
+    else a.logs[key].reps = String(Math.max(1, secs));
     WorkoutStorage.saveLogs(a.logs);
     a.renderWorkoutView();
-    a.toast("Held " + secs + " s");
+    a.toast(loaded ? (auto ? "Time. " : secs + " s. ") + "Add the reps you got, then check the set off." : "Held " + secs + " s");
   }
-  function startRun(key, target) {
+  function startRun(key, target, loaded) {
     if (run) stopRun(false);
-    run = { key, start: Date.now(), target };
+    run = { key, start: Date.now(), target, loaded: !!loaded };
     tick = setInterval(() => {
       if (!run) return;
       if (run.target && (Date.now() - run.start) / 1000 >= run.target) { beep(); stopRun(true); return; }
@@ -15222,15 +15233,19 @@ const PTSIM = (function () {
           d.setAttribute("aria-label", "Add a drop set"); add.parentElement.insertBefore(d, add);
         }
       }
-      if (TIMED.test(ex.name) || targetOf(ex)) {
-        card.querySelectorAll(".set-row").forEach(row => {
-          const chk = row.querySelector(".btn-check-set"); if (!chk || row.querySelector(".pt-tset")) return;
-          const b = document.createElement("button");
-          b.type = "button"; b.className = "pt-tset tap-active"; b.dataset.key = chk.dataset.key; b.dataset.target = targetOf(ex);
-          b.setAttribute("aria-label", "Time this set"); b.textContent = "⏱";
-          chk.parentElement.insertBefore(b, chk);
-        });
-      }
+      const named = TIMED.test(ex.name), per = pieces(ex);
+      card.querySelectorAll(".set-row").forEach((row, si) => {
+        const tgt = targetForSet(ex, si), chk = row.querySelector(".btn-check-set");
+        if (per) {                                                  // one entry per set: show this set's own entry in the reps box
+          const inp = row.querySelector('input[data-field="reps"]');
+          if (inp && inp.placeholder === String(ex.reps)) inp.placeholder = per[si] || per[per.length - 1];
+        }
+        if (!(named || tgt) || !chk || row.querySelector(".pt-tset")) return;
+        const b = document.createElement("button");
+        b.type = "button"; b.className = "pt-tset tap-active"; b.dataset.key = chk.dataset.key; b.dataset.target = tgt; if (!named) b.dataset.loaded = "1";
+        b.setAttribute("aria-label", named ? "Time this set" : "Start the " + tgt + " second timer"); b.textContent = "⏱";
+        chk.parentElement.insertBefore(b, chk);
+      });
     });
     paint();
   }
@@ -15263,7 +15278,7 @@ const PTSIM = (function () {
   document.addEventListener("click", e => {
     const a = A(); if (!a || !e.target.closest) return;
     let t;
-    if ((t = e.target.closest(".pt-tset"))) { e.preventDefault(); if (run && run.key === t.dataset.key) stopRun(false); else startRun(t.dataset.key, parseInt(t.dataset.target, 10) || 0); return; }
+    if ((t = e.target.closest(".pt-tset"))) { e.preventDefault(); if (run && run.key === t.dataset.key) stopRun(false); else startRun(t.dataset.key, parseInt(t.dataset.target, 10) || 0, t.dataset.loaded === "1"); return; }
     if ((t = e.target.closest(".pt-drop"))) { dropSet(t); return; }
     if (e.target.closest("#pt-gym-btn")) { setGym(!gym()); return; }
     if (e.target.closest("#pt-summary-again") || e.target.closest("#pt-drawer-again")) { again(); return; }
@@ -21461,6 +21476,108 @@ const PTSIM = (function () {
     .pt-ses-line i.pm { color: rgb(165 180 252); background: rgb(129 140 248 / .17); }
     html[data-mode="light"] .pt-ses-line i.am { color: rgb(146 64 14); background: rgb(251 191 36 / .3); }
     html[data-mode="light"] .pt-ses-line i.pm { color: rgb(55 48 163); background: rgb(129 140 248 / .22); }
+  `;
+  document.head.appendChild(css);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.42.0: what you have moved.
+ *  - The Lifetime card on Progress → Overview gets a "What you've moved" block: your lifetime volume turned into things a landscaper
+ *    actually hauls (bags of topsoil and concrete, yards of mulch, pallets of sod, pickup trucks, mini excavators, semi loads),
+ *    with a Share button that makes a picture for the group chat. Weights are typical round numbers, not exact.
+ *  - (The 40-second set timer lives in m43a.js.)
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype, A = () => window.app;
+  const LB = 2.20462;
+
+  /* typical weights, in pounds: a 40 lb bag of topsoil, an 80 lb bag of concrete mix, about 700 lb in a yard of shredded mulch,
+     about 2,000 lb on a pallet of sod, a half-ton pickup (about 5,000 lb), a mini excavator (about 8,000 lb), a legal semi load (80,000 lb) */
+  const ITEMS = [
+    { k: "topsoil", w: 40, one: "40-lb bag of topsoil", many: "40-lb bags of topsoil", ico: "🌱" },
+    { k: "concrete", w: 80, one: "80-lb bag of concrete mix", many: "80-lb bags of concrete mix", ico: "🧱" },
+    { k: "mulch", w: 700, one: "yard of mulch", many: "yards of mulch", ico: "🪵" },
+    { k: "sod", w: 2000, one: "pallet of sod", many: "pallets of sod", ico: "🟩" },
+    { k: "truck", w: 5000, one: "pickup truck", many: "pickup trucks", ico: "🛻" },
+    { k: "excavator", w: 8000, one: "mini excavator", many: "mini excavators", ico: "🚜" },
+    { k: "semi", w: 80000, one: "fully loaded semi", many: "fully loaded semis", ico: "🚛" }
+  ];
+
+  /** n as a short friendly number: 1.4, 12, 1,250 */
+  function short(n) { return n < 10 ? String(Math.round(n * 10) / 10).replace(/\.0$/, "") : Math.round(n).toLocaleString(); }
+  function label(it, n) { const r = n < 10 ? Math.round(n * 10) / 10 : Math.round(n); return r === 1 ? it.one : it.many; }
+
+  /** Lifetime volume in pounds, and the haul list: the biggest thing that fits at least once, then up to three smaller things. */
+  PT.haul = function (a) {
+    a = a || A();
+    const vol = (a.sessions || []).reduce((s, x) => s + (parseFloat(x.vol) || 0), 0);
+    const lb = a.unit && a.unit() === "kg" ? vol * LB : vol;
+    const fit = ITEMS.filter(i => lb / i.w >= 1);
+    if (!fit.length) return { lb, big: null, rows: [] };
+    const big = fit[fit.length - 1], rows = fit.slice(0, -1).slice(-3).reverse();
+    const mk = it => ({ it, n: lb / it.w, text: short(lb / it.w) + " " + label(it, lb / it.w) });
+    return { lb, big: mk(big), rows: rows.map(mk) };
+  };
+
+  function html(h, a) {
+    if (!h.big) {
+      return `<div class="pt-haul" id="pt-haul"><div class="pt-haul-h">🚚 What you've moved</div><p class="pt-haul-s">Log a few workouts and your lifting shows up here as things you haul on the job.</p></div>`;
+    }
+    const u = a.wLabel();
+    return `<div class="pt-haul" id="pt-haul">
+      <div class="pt-haul-h">🚚 What you've moved</div>
+      <div class="pt-haul-big"><span class="pt-haul-i" aria-hidden="true">${h.big.it.ico}</span><span>About <b>${PT.esc(h.big.text)}</b></span></div>
+      <p class="pt-haul-s">Your lifetime lifting volume, in things you load and unload for work.</p>
+      ${h.rows.length ? `<div class="pt-haul-rows">${h.rows.map(r => `<div><span aria-hidden="true">${r.it.ico}</span><span>${PT.esc(r.text)}</span></div>`).join("")}</div>` : ""}
+      <button type="button" class="pt-haul-share tap-active" id="pt-haul-share">Share this</button>
+      <p class="pt-haul-f">Typical weights, rounded. Volume is weight × reps over every saved workout (${PT.esc(Math.round(a.unit && a.unit() === "kg" ? h.lb / LB : h.lb).toLocaleString())} ${u}).</p>
+    </div>`;
+  }
+
+  function add(a) {
+    const root = document.getElementById("progress-body");
+    if (!root) return;
+    const card = [...root.querySelectorAll("[data-ptab] > div, div")].find(e => { const t = e.querySelector(":scope > h3"); return t && /^Lifetime/.test(t.textContent.trim()); });
+    if (!card || card.querySelector("#pt-haul")) return;
+    card.insertAdjacentHTML("beforeend", html(PT.haul(a), a));
+  }
+
+  const oP = proto.renderProgressView;
+  proto.renderProgressView = function () {
+    const r = oP.apply(this, arguments);
+    try { add(this); } catch (e) { console.error("PulseTrack haul", e); }
+    return r;
+  };
+
+  document.addEventListener("click", e => {
+    if (!e.target.closest || !e.target.closest("#pt-haul-share")) return;
+    const a = A(), h = PT.haul(a); if (!h.big) return;
+    const first = (a.sessions || []).reduce((m, s) => (!m || s.date < m ? s.date : m), null);
+    PT.shareCard({
+      icon: h.big.it.ico, kicker: "What I've moved", title: h.big.text.replace(/^(\S+) /, "$1 "), sub: "My lifetime lifting volume, in things I haul for work. Typical weights, rounded.",
+      lines: [["Volume", Math.round(a.unit() === "kg" ? h.lb / LB : h.lb).toLocaleString() + " " + a.wLabel()], ["Workouts", String((a.sessions || []).length)], ["Since", first ? PT.fmtDate(first, { month: "short", year: "numeric" }) : "-"]],
+      c: ["#bef264", "#16a34a"]
+    });
+  });
+
+  const css = document.createElement("style");
+  css.id = "pt-v242-css";
+  css.textContent = `
+    .pt-haul { margin-top: .85rem; padding-top: .85rem; border-top: 1px solid rgb(var(--z800)); }
+    .pt-haul-h { font-size: .68rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: rgb(var(--z400)); }
+    .pt-haul-big { display: flex; align-items: center; gap: .65rem; margin-top: .5rem; font-size: 1.05rem; line-height: 1.25; color: rgb(var(--z100)); }
+    .pt-haul-big b { color: rgb(var(--a400)); font-weight: 900; }
+    .pt-haul-i { flex: none; width: 2.6rem; height: 2.6rem; border-radius: .9rem; display: grid; place-items: center; font-size: 1.5rem; background: rgb(var(--z800)); }
+    .pt-haul-s { margin-top: .4rem; font-size: .72rem; color: rgb(var(--z400)); }
+    .pt-haul-rows { display: grid; gap: .3rem; margin-top: .6rem; }
+    .pt-haul-rows > div { display: flex; align-items: center; gap: .5rem; font-size: .78rem; color: rgb(var(--z200)); }
+    .pt-haul-rows > div > span:first-child { width: 1.4rem; text-align: center; }
+    .pt-haul-share { margin-top: .75rem; padding: .5rem .9rem; border-radius: .7rem; font-size: .75rem; font-weight: 700; background: rgb(var(--z800)); color: rgb(var(--z100)); }
+    .pt-haul-f { margin-top: .6rem; font-size: .62rem; color: rgb(var(--z500)); }
+    html[data-mode="light"] .pt-haul-big b { color: rgb(var(--a600)); }
   `;
   document.head.appendChild(css);
 })();
