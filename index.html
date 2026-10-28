@@ -377,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.43.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.44.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3755,7 +3755,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.43.0";
+    const APP_VERSION = "2.44.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -13835,6 +13835,7 @@ const PTSIM = (function () {
   // what one heavy day counts as, in hard sets, for the recovery map
   const HEAVY = { lowerback: 4, forearms: 4, quads: 3, hamstrings: 3, glutes: 3, shoulders: 2, traps: 2, back: 2 };
   const EASE = new Set(Object.keys(HEAVY));
+  PT.workWeights = HEAVY;     // read by the week reshuffle (m69a.js)
   const addDays = (d, n) => { const x = new Date(d); x.setDate(x.getDate() + n); return x; };
 
   const store = a => (a.settings.workLoad && typeof a.settings.workLoad === "object" ? a.settings.workLoad : (a.settings.workLoad = {}));
@@ -16641,7 +16642,7 @@ const PTSIM = (function () {
   }
   function openMore() {
     const a = A(), K = PT.kit, el = K.sheet("pt-wkmore", 50);
-    const rows = [["pt-guided-open", "🎯", "Guided mode", ""], ["btn-share-day", "📤", "Share day", ""], ["btn-copy-day", "📑", "Copy day", ""], ["pt-steal-day", "🧩", "Steal this day…", ""], ["btn-skip-day", "⏭", "Skip day", ""], ["btn-reset-day-progress", "🧹", "Clear progress", "danger"]]
+    const rows = [["pt-guided-open", "🎯", "Guided mode", ""], ["btn-share-day", "📤", "Share day", ""], ["btn-copy-day", "📑", "Copy day", ""], ["pt-steal-day", "🧩", "Steal this day…", ""], ["pt-clips-open", "🎥", "Form clips", ""], ["btn-skip-day", "⏭", "Skip day", ""], ["btn-reset-day-progress", "🧹", "Clear progress", "danger"]]
       .filter(r => { const e = $(r[0]); return e && !e.classList.contains("hidden"); });
     const c = K.openSheet(el, `${K.head("Workout options", (a.activeDay && a.activeDay.title) || "")}
       <div class="space-y-2">${rows.map(r => `<button type="button" class="pt-morerow ${r[3]}" data-real="${r[0]}"><span>${r[1]}</span><span>${r[2]}</span></button>`).join("")}</div>`);
@@ -22239,6 +22240,678 @@ const PTSIM = (function () {
     #pt-pl-strip li.done { opacity: .6; } #pt-pl-strip li.now .pt-pl-sd { color: rgb(var(--a400)); }
     .pt-pl-sd { flex: none; width: 1rem; text-align: center; }
     html[data-mode="light"] .pt-pl-warn { color: rgb(146 64 14); }
+  `;
+  document.head.appendChild(css);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.44.0: a heavy work day reshuffles your week.
+ *  When you mark work as Heavy on Home and the workout that is up next hits the same muscles your job just beat up (legs, back, grip,
+ *  shoulders), the Work card offers a lighter day from the same program to do today instead, for example Push (chest and arms) instead
+ *  of Legs. Nothing else moves: the days stay in order, the day you swapped out stays up next, and one tap puts it back.
+ *  - How hard a day is on you: for every hard set, the muscle it works is scored with the same weights the work check-in uses for the
+ *    recovery map (lower back and forearms 4, legs 3, shoulders, traps and back 2, chest, arms, calves and abs 0). The day's score is
+ *    the average per set, 0 to 4. A day is only worth swapping out at 1.5 or more, and the day offered has to score at least 1 point lower.
+ *  - Only for programs (not Freestyle), only before you have trained today, and only when "Go easier after heavy work days" is on.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.workHeavyToday) return;
+  const proto = ApplicationUI.prototype, A = () => window.app, $ = id => document.getElementById(id), esc = s => PT.esc(String(s == null ? "" : s));
+  const FREE = "freestyle", NEXT_MIN = 1.5, GAP_MIN = 1;
+  const save = a => WorkoutStorage.saveSettings(a.settings);
+
+  /** how hard a day is on the muscles a work day beats up: average weight per hard set, 0 to 4 */
+  function load(day) {
+    const W = PT.workWeights || {}; let sets = 0, sum = 0;
+    ((day && day.exercises) || []).forEach(e => {
+      const n = Math.max(0, e.sets | 0); if (!n) return;
+      let regs = {}; try { regs = PT.regionsFor(e.name, false) || {}; } catch (x) { regs = {}; }
+      const r = Object.keys(regs)[0]; sets += n; sum += n * (W[r] || 0);
+    });
+    return sets ? sum / sets : 0;
+  }
+  const rs = a => (a.settings.reshuffle && typeof a.settings.reshuffle === "object" ? a.settings.reshuffle : null);
+  const trainedToday = a => (a.sessions || []).some(s => s.date === PT.ds());
+  const dayByNum = (prog, n) => ((prog && prog.days) || []).find(d => d.dayNumber === n) || null;
+
+  /** { moved:false, next, alt, ln, la } to offer a swap, { moved:true, from, to } once swapped, or null */
+  PT.reshuffle = function (a) {
+    a = a || A();
+    if (!a || !a.settings || !PT.opt) return null;
+    const prog = a.activeProgram, day = a.activeDay;
+    if (!prog || !day || prog.id === FREE || !Array.isArray(prog.days) || trainedToday(a)) return null;
+    const st = rs(a), today = PT.ds();
+    // once swapped, the way back stays on Home for the rest of the day, even if work gets marked Normal again
+    if (st && st.ds === today && st.pid === prog.id) {
+      if (st.dismissed) return null;
+      if (st.to === day.dayNumber) { const from = dayByNum(prog, st.from); if (from) return { moved: true, from, to: day, prog }; }
+    }
+    if (!PT.opt("workEase") || !PT.workHeavyToday(a)) return null;
+    const ln = load(day); if (ln < NEXT_MIN) return null;
+    const done = (a.getProgState(prog).done || []), W = a.progWeeks ? a.progWeeks(prog) : 0, wk = W && a.dayWeek ? a.dayWeek(prog, day) : 0;
+    let best = null;
+    prog.days.forEach(d => {
+      if (d.dayNumber === day.dayNumber || done.includes(d.dayNumber) || (a.isRestDay && a.isRestDay(d))) return;
+      if (W && a.dayWeek(prog, d) !== wk) return;
+      const l = load(d); if (l > ln - GAP_MIN) return;
+      if (!best || l < best.l - 1e-9) best = { d, l };
+    });
+    return best ? { moved: false, next: day, alt: best.d, ln, la: best.l, prog } : null;
+  };
+
+  function swap(a, r) {
+    a.activeProgram = r.prog; a.activeDay = r.alt;
+    try { AppStateMemory.saveActive(r.prog.id, r.alt.dayNumber); } catch (e) { }
+    a.settings.reshuffle = { ds: PT.ds(), pid: r.prog.id, from: r.next.dayNumber, to: r.alt.dayNumber }; save(a);
+    try { a.updateDrawerStatus && a.updateDrawerStatus(); } catch (e) { }
+    a.renderHomeView();
+  }
+  function putBack(a, r) {
+    a.activeProgram = r.prog; a.activeDay = r.from;
+    try { AppStateMemory.saveActive(r.prog.id, r.from.dayNumber); } catch (e) { }
+    delete a.settings.reshuffle; save(a);
+    try { a.updateDrawerStatus && a.updateDrawerStatus(); } catch (e) { }
+    a.renderHomeView();
+  }
+
+  /* ---------------------------------------------------------------- the block inside the Work card */
+  function draw(a) {
+    const box = $("home-work"); if (!box) return;
+    const old = box.querySelector("#pt-reshuffle"); if (old) old.remove();
+    const h = box.querySelector("h4"); if (h && /yesterday/i.test(h.textContent)) return;
+    const r = PT.reshuffle(a); if (!r) return;
+    const t = d => a.shortDayTitle ? a.shortDayTitle(r.prog, d) : d.title;
+    const el = document.createElement("div"); el.id = "pt-reshuffle"; el.className = "pt-rs";
+    el.innerHTML = r.moved
+      ? `<p>Today's workout is <b>${esc(t(r.to))}</b>, moved up because of heavy work. <b>${esc(t(r.from))}</b> stays up next after it.</p>
+         <div class="pt-rs-b"><button type="button" class="pt-rs-ghost tap-active" data-rs="back">Back to ${esc(t(r.from))}</button></div>`
+      : `<p>Heavy work today, and <b>${esc(t(r.next))}</b> is hard on the same muscles. <b>${esc(t(r.alt))}</b> is easier on them.</p>
+         <div class="pt-rs-b"><button type="button" class="pt-rs-go tap-active" data-rs="go">Do ${esc(t(r.alt))} today</button><button type="button" class="pt-rs-ghost tap-active" data-rs="no">Keep ${esc(t(r.next))}</button></div>
+         <p class="pt-rs-f">${esc(t(r.next))} stays up next after that. The days keep their order.</p>`;
+    box.appendChild(el);
+  }
+  const oHome = proto.renderHomeView;
+  proto.renderHomeView = function () {
+    const r = oHome.apply(this, arguments);
+    try { draw(this); } catch (e) { console.error("PulseTrack reshuffle", e); }
+    return r;
+  };
+  document.addEventListener("click", e => {
+    const a = A(); if (!a || !e.target || !e.target.closest) return;
+    const b = e.target.closest("#pt-reshuffle [data-rs]");
+    if (b) {
+      const r = PT.reshuffle(a); if (!r) { draw(a); return; }
+      if (b.dataset.rs === "go" && !r.moved) { swap(a, r); a.toast(`Today: ${a.shortDayTitle(r.prog, r.alt)}. ${a.shortDayTitle(r.prog, r.next)} stays up next.`, undefined, undefined, 5000); }
+      else if (b.dataset.rs === "back" && r.moved) putBack(a, r);
+      else if (b.dataset.rs === "no") { a.settings.reshuffle = { ds: PT.ds(), pid: r.prog.id, dismissed: true }; save(a); draw(a); }
+      return;
+    }
+  });
+  // the work card redraws itself when the level changes (and the tapped button is gone by the time a normal listener runs), so look first, in the capture phase, and put the block back afterwards
+  document.addEventListener("click", e => {
+    if (e.target && e.target.closest && e.target.closest("#home-work [data-wl], #pt-work-day")) setTimeout(() => { try { draw(A()); } catch (x) { } }, 0);
+  }, true);
+
+  const css = document.createElement("style");
+  css.id = "pt-v244-rs-css";
+  css.textContent = `
+    .pt-rs { margin-top: .6rem; padding: .7rem .8rem; border-radius: .9rem; background: rgb(var(--z950)); border: 1px solid rgb(251 191 36 / .35); display: grid; gap: .5rem; }
+    .pt-rs p { font-size: .78rem; line-height: 1.4; color: rgb(var(--z200)); } .pt-rs p b { color: rgb(var(--z50)); }
+    .pt-rs .pt-rs-f { font-size: .68rem; color: rgb(var(--z500)); }
+    .pt-rs-b { display: flex; gap: .5rem; flex-wrap: wrap; }
+    .pt-rs-b button { flex: 1 1 40%; padding: .6rem .7rem; border-radius: .7rem; font-size: .78rem; font-weight: 800; }
+    .pt-rs-go { background: rgb(var(--a600)); color: #fff; } .pt-rs-ghost { background: rgb(var(--z800)); color: rgb(var(--z100)); }
+    html[data-mode="light"] .pt-rs { border-color: rgb(217 119 6 / .45); }
+  `;
+  document.head.appendChild(css);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.44.0: physique blueprint.
+ *  Body screen → Physique blueprint. From your height, wrist and ankle it shows the natural ceiling for chest, arm, forearm, neck,
+ *  thigh and calf, and for lean bodyweight, using Casey Butt's formulas (from his article "Your Maximum Muscular Bodyweight and
+ *  Measurements" and book "Your Muscular Potential"). It puts your own numbers next to them, names the part that is furthest behind,
+ *  and opens Steal a day on a day for it.
+ *  - Chest, arm and thigh come from your Body log (Body → More: measurements). Forearm, neck and calf are typed in the blueprint,
+ *    because the Body log does not track them. Everything typed here is saved in settings (so it is in backups).
+ *  - The formulas work in inches and pounds, with the numbers for lean condition (about 8 to 10% body fat). cm and kg are converted.
+ *  - It is a rough ceiling from one author's formulas, not a promise or a standard.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.kit) return;
+  const proto = ApplicationUI.prototype, A = () => window.app, K = PT.kit, esc = K.esc, $ = id => document.getElementById(id);
+  const IN = 2.54, LB = 2.20462;
+
+  /* Casey Butt, in inches: H height, W wrist (hand side of the bony bump), A ankle (narrowest point) */
+  const FORM = {
+    chest: (W, A, H) => 1.6817 * W + 1.3759 * A + 0.3314 * H,
+    biceps: (W, A, H) => 1.2033 * W + 0.1236 * H,
+    forearms: (W, A, H) => 0.9626 * W + 0.0989 * H,
+    neck: (W, A, H) => 1.1424 * W + 0.1236 * H,
+    thighs: (W, A, H) => 1.3868 * A + 0.1805 * H,
+    calves: (W, A, H) => 0.9298 * A + 0.1210 * H
+  };
+  /** maximum lean body mass in pounds at a body fat percentage */
+  const leanMax = (H, W, A, bf) => Math.pow(H, 1.5) * (Math.sqrt(W) / 22.667 + Math.sqrt(A) / 17.0104) * (bf / 224 + 1);
+  // the six rows: where "yours" comes from (log = the Body log entry of that name, typed = typed in here), and which Steal a day chip helps
+  const ROWS = [
+    { k: "chest", label: "Chest", src: "log", logKey: "chest", chip: "chest" },
+    { k: "biceps", label: "Arm (flexed)", src: "log", logKey: "arms", chip: "arms" },
+    { k: "forearms", label: "Forearm", src: "typed", chip: "arms" },
+    { k: "neck", label: "Neck", src: "typed", chip: "shoulders" },
+    { k: "thighs", label: "Thigh", src: "log", logKey: "thighs", chip: "quads" },
+    { k: "calves", label: "Calf", src: "typed", chip: "calves" }
+  ];
+  const RANGE = { h: [48, 90], w: [4.5, 10], a: [6, 13] };       // inches, to catch typos
+
+  const bp = a => (a.settings.blueprint && typeof a.settings.blueprint === "object" ? a.settings.blueprint : (a.settings.blueprint = {}));
+  const cm = a => a.lenLabel() === "cm";
+  const toIn = (a, v) => (cm(a) ? v / IN : v);          // display unit → inches
+  const fromIn = (a, v) => (cm(a) ? v * IN : v);        // inches → display unit
+  const r1 = v => Math.round(v * 10) / 10;
+  const num = v => { const x = parseFloat(v); return x > 0 ? x : 0; };
+  const fixedStore = a => WorkoutStorage.saveSettings(a.settings);
+
+  /** latest Body log value of a length key (stored in the unit the app shows) */
+  function logged(a, key) {
+    const list = (a.body || []).slice().sort((x, y) => (x.date < y.date ? -1 : x.date > y.date ? 1 : 0));
+    for (let i = list.length - 1; i >= 0; i--) { const v = parseFloat(list[i][key]); if (v > 0) return { v, date: list[i].date }; }
+    return null;
+  }
+  function latestBodyNum(a, key) { const x = logged(a, key); return x ? x.v : 0; }
+
+  /** everything the blueprint shows, in inches and pounds, or { ok:false, why } while the frame is missing or looks wrong */
+  PT.blueprint = function (a) {
+    a = a || A(); const b = bp(a);
+    const H = num(b.h), W = num(b.w), An = num(b.a);
+    if (!(H && W && An)) return { ok: false, why: "need" };
+    if (H < RANGE.h[0] || H > RANGE.h[1] || W < RANGE.w[0] || W > RANGE.w[1] || An < RANGE.a[0] || An > RANGE.a[1]) return { ok: false, why: "range" };
+    const bf = Math.min(20, Math.max(5, num(b.bf) || 10));
+    const rows = ROWS.map(r => {
+      const ceil = FORM[r.k](W, An, H); let mine = 0, date = null;
+      if (r.src === "log") { const l = logged(a, r.logKey); if (l) { mine = toIn(a, l.v); date = l.date; } }
+      else { const m = b.m && b.m[r.k]; if (m > 0) mine = m; }
+      return { ...r, ceil, mine, date, pct: mine ? mine / ceil : null, gap: mine ? ceil - mine : null };
+    });
+    const have = rows.filter(r => r.pct !== null).sort((x, y) => x.pct - y.pct);
+    const lean = leanMax(H, W, An, bf), full = lean / (100 - bf) * 100;
+    let now = null; const bw = latestBodyNum(a, "bw"), bfNow = latestBodyNum(a, "bf");
+    if (bw && bfNow) { const lbNow = (a.unit() === "kg" ? bw * LB : bw) * (1 - bfNow / 100); now = { lean: lbNow, pct: lbNow / lean }; }
+    return { ok: true, H, W, A: An, bf, rows, behind: have.length >= 2 ? have[0] : (have.length === 1 ? have[0] : null), measured: have.length, leanMax: lean, fullMax: full, now };
+  };
+  PT.blueprint.formulas = FORM; PT.blueprint.leanMax = leanMax;
+
+  /* ---------------------------------------------------------------- the sheet */
+  let el = null;
+  const u = a => a.lenLabel();
+  const wShow = (a, lb) => (a.unit() === "kg" ? lb / LB : lb);
+  const fmtW = (a, lb) => Math.round(wShow(a, lb)).toLocaleString() + " " + a.wLabel();
+
+  function outHtml(a) {
+    const r = PT.blueprint(a), b = bp(a);
+    if (!r.ok) return `<p class="pt-bp-p">${r.why === "range" ? "Those numbers look off. Check the units and the tape: height, wrist and ankle should each be a real body measurement." : "Enter your height, wrist and ankle above and the ceilings show here."}</p>`;
+    const rows = r.rows.map(x => {
+      const pct = x.pct === null ? null : Math.round(x.pct * 100);
+      const mineTxt = x.mine ? `${r1(fromIn(a, x.mine))} ${u(a)}` : (x.src === "log" ? "not logged" : "");
+      return `<div class="pt-bp-row${r.behind && r.behind.k === x.k && r.measured >= 2 ? " low" : ""}">
+        <div class="pt-bp-h"><b>${esc(x.label)}</b><span>${x.mine ? `<em>${esc(mineTxt)}</em> of ` : ""}<i>${r1(fromIn(a, x.ceil))} ${u(a)}</i></span></div>
+        <div class="pt-bp-bar" role="img" aria-label="${pct === null ? "no measurement yet" : pct + " percent of the ceiling"}"><span style="width:${pct === null ? 0 : Math.min(100, pct)}%"></span></div>
+        <div class="pt-bp-s">${x.src === "typed"
+          ? `<label>Yours <input type="number" inputmode="decimal" step="0.1" min="0" data-bpm="${x.k}" value="${b.m && b.m[x.k] ? r1(fromIn(a, b.m[x.k])) : ""}" aria-label="${esc(x.label)} (${u(a)})"> ${u(a)}</label>`
+          : `<span>${x.mine ? `From your Body log, ${esc(PT.fmtDate(x.date, { month: "short", day: "numeric" }))}` : "Not in your Body log yet"}</span>`}
+          <strong>${pct === null ? "" : pct + "%"}</strong></div></div>`;
+    }).join("");
+    let behind = "";
+    if (r.behind) {
+      const x = r.behind, pct = Math.round(x.pct * 100);
+      behind = r.measured >= 2
+        ? `<div class="pt-bp-behind"><p><b>${esc(x.label)}</b> is furthest behind: ${pct}% of its ceiling, ${r1(fromIn(a, x.gap))} ${u(a)} to go.</p><button type="button" class="pt-st-b" data-bp="find" data-chip="${x.chip}">Find a day for ${esc(x.label.toLowerCase().replace(/ \(.*/, ""))}</button></div>`
+        : `<p class="pt-bp-p">Add one more measurement and it can tell you which part is furthest behind.</p>`;
+    } else behind = `<p class="pt-bp-p">Log chest, arm and thigh in <button type="button" class="pt-bp-link" data-bp="body">Body → More: measurements</button>, and type forearm, neck and calf here, to see where you stand.</p>`;
+    const wt = `<div class="pt-bp-wt"><div><span>Ceiling, lean</span><b>${fmtW(a, r.leanMax)}</b><em>muscle and bone, no fat</em></div>
+      <div><span>Ceiling at ${r.bf}% fat</span><b>${fmtW(a, r.fullMax)}</b><em>bodyweight</em></div>
+      ${r.now ? `<div><span>You now</span><b>${fmtW(a, r.now.lean)}</b><em>lean, ${Math.round(r.now.pct * 100)}% of it</em></div>` : ""}</div>`;
+    return `${rows}${behind}${wt}`;
+  }
+
+  function open() {
+    const a = A(); el = K.sheet("pt-bp", 58); const b = bp(a), L = u(a);
+    const fld = (id, label, val, step) => `<label class="pt-bp-f"><span>${label} (${L})</span><input id="${id}" type="number" inputmode="decimal" step="${step}" min="0" value="${val ? r1(fromIn(a, val)) : ""}"></label>`;
+    const c = K.openSheet(el, `${K.head("Physique blueprint", "A natural ceiling for your frame")}
+      <p class="pt-bp-p">Your bones set how much muscle you can carry. Casey Butt's formulas turn your height, wrist and ankle into the biggest chest, arm, forearm, neck, thigh and calf a natural lifter could reasonably build, at about 8 to 10% body fat.</p>
+      <div class="pt-bp-frame">${fld("pt-bp-h", "Height", b.h, "0.1")}${fld("pt-bp-w", "Wrist", b.w, "0.1")}${fld("pt-bp-a", "Ankle", b.a, "0.1")}</div>
+      <p class="pt-bp-tip">Wrist: around the wrist on the hand side of the bony bump. Ankle: the narrowest point above the foot. Arm: flexed biceps, at its biggest.</p>
+      <div id="pt-bp-out">${outHtml(a)}</div>
+      <p class="pt-bp-fine">Source: Casey Butt, "Your Maximum Muscular Bodyweight and Measurements" (weightrainer.net), and his book Your Muscular Potential. Built from drug-free competitors. A rough guide, not a promise: bones, muscle shape and genetics vary a lot, and few people reach every number.</p>`);
+    c.addEventListener("click", clicks);
+    c.addEventListener("input", e => { const t = e.target; if (!t || !t.id && !t.dataset.bpm) return; save(t); });
+  }
+  let timer = null;
+  function save(t) {
+    const a = A(), b = bp(a), v = parseFloat(t.value), inches = v > 0 ? toIn(a, v) : 0;
+    if (t.id === "pt-bp-h") b.h = inches ? r1(inches * 100) / 100 : 0;
+    else if (t.id === "pt-bp-w") b.w = inches ? r1(inches * 100) / 100 : 0;
+    else if (t.id === "pt-bp-a") b.a = inches ? r1(inches * 100) / 100 : 0;
+    else if (t.dataset.bpm) { b.m = b.m || {}; if (inches) b.m[t.dataset.bpm] = inches; else delete b.m[t.dataset.bpm]; }
+    else return;
+    clearTimeout(timer); timer = setTimeout(() => fixedStore(a), 300);
+    redrawOut(t);
+  }
+  /** redraw the table without touching the field you are typing in (they are re-attached by value) */
+  function redrawOut(active) {
+    const box = $("pt-bp-out"); if (!box) return;
+    const keep = active && active.dataset && active.dataset.bpm ? active.dataset.bpm : null, pos = keep ? active.selectionStart : null;
+    box.innerHTML = outHtml(A());
+    if (keep) { const n = box.querySelector(`[data-bpm="${keep}"]`); if (n) { n.focus(); try { n.setSelectionRange(pos, pos); } catch (e) { } } }
+  }
+  function clicks(e) {
+    const a = A(), b = e.target.closest("[data-bp]"); if (!b) return;
+    if (b.dataset.bp === "find") { K.closeSheet(el); if (PT.steal) PT.steal.open({ chip: b.dataset.chip }); }
+    else if (b.dataset.bp === "body") { K.closeSheet(el); a.showView("body"); }
+  }
+  PT.blueprint.open = open;
+
+  /* ---------------------------------------------------------------- the card on the Body screen */
+  function addCard(a) {
+    const root = $("body-root"); if (!root || $("pt-bp-card")) return;
+    const h = [...root.querySelectorAll("h3")].find(x => /^Latest measurements/.test(x.textContent.trim()));
+    const after = h ? h.closest("div.bg-zinc-900, div") : null;
+    const r = PT.blueprint(a);
+    const card = document.createElement("div"); card.id = "pt-bp-card"; card.className = "bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-2";
+    const line = r.ok
+      ? (r.behind && r.measured >= 2 ? `Furthest behind: <b class="text-white">${esc(r.behind.label)}</b>, ${Math.round(r.behind.pct * 100)}% of its ceiling.` : `Ceiling set from your frame. Add measurements to compare.`)
+      : "Find the natural ceiling for your chest, arms, thighs and calves from your height, wrist and ankle.";
+    card.innerHTML = `<h3 class="text-xs font-bold text-white">Physique blueprint</h3><p class="text-[11px] leading-relaxed text-zinc-400">${line}</p>
+      <button type="button" id="pt-bp-open" class="w-full py-2.5 bg-zinc-800 text-zinc-100 text-xs font-bold rounded-xl tap-active">${r.ok ? "Open blueprint" : "Set up blueprint"}</button>`;
+    if (after && after.parentElement === root) after.insertAdjacentElement("afterend", card); else root.appendChild(card);
+  }
+  const oBody = proto.renderBodyView;
+  proto.renderBodyView = function () {
+    const r = oBody.apply(this, arguments);
+    try { addCard(this); } catch (e) { console.error("PulseTrack blueprint card", e); }
+    return r;
+  };
+  document.addEventListener("click", e => { if (e.target && e.target.closest && e.target.closest("#pt-bp-open")) open(); });
+
+  const css = document.createElement("style");
+  css.id = "pt-v244-bp-css";
+  css.textContent = `
+    .pt-bp-p { font-size: .78rem; line-height: 1.45; color: rgb(var(--z400)); }
+    .pt-bp-tip, .pt-bp-fine { font-size: .68rem; line-height: 1.4; color: rgb(var(--z500)); }
+    .pt-bp-link { text-decoration: underline; color: rgb(var(--a400)); font-weight: 700; }
+    .pt-bp-frame { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .5rem; }
+    .pt-bp-f { display: grid; gap: .25rem; } .pt-bp-f span { font-size: .6rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgb(var(--z500)); }
+    .pt-bp-f input, .pt-bp-s input { width: 100%; min-width: 0; padding: .6rem .65rem; border-radius: .7rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); color: rgb(var(--z100)); font-family: ui-monospace, monospace; font-size: .85rem; }
+    .pt-bp-f input:focus, .pt-bp-s input:focus { outline: none; border-color: rgb(var(--a500)); }
+    #pt-bp-out { display: grid; gap: .55rem; }
+    .pt-bp-row { padding: .65rem .75rem; border-radius: .85rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); display: grid; gap: .4rem; }
+    .pt-bp-row.low { border-color: rgb(251 191 36 / .5); }
+    .pt-bp-h { display: flex; justify-content: space-between; align-items: baseline; gap: .5rem; font-size: .8rem; color: rgb(var(--z100)); }
+    .pt-bp-h b { font-weight: 800; } .pt-bp-h span { font-size: .72rem; color: rgb(var(--z400)); } .pt-bp-h em { font-style: normal; color: rgb(var(--z100)); font-weight: 700; } .pt-bp-h i { font-style: normal; color: rgb(var(--a400)); font-weight: 800; }
+    .pt-bp-bar { height: .5rem; border-radius: 999px; background: rgb(var(--z800)); overflow: hidden; } .pt-bp-bar span { display: block; height: 100%; border-radius: 999px; background: rgb(var(--a500)); }
+    .pt-bp-row.low .pt-bp-bar span { background: rgb(251 191 36); }
+    .pt-bp-s { display: flex; justify-content: space-between; align-items: center; gap: .5rem; font-size: .68rem; color: rgb(var(--z500)); }
+    .pt-bp-s label { display: flex; align-items: center; gap: .4rem; } .pt-bp-s input { width: 5.5rem; padding: .4rem .5rem; }
+    .pt-bp-s strong { font-size: .8rem; color: rgb(var(--z200)); }
+    .pt-bp-behind { padding: .75rem; border-radius: .85rem; background: rgb(var(--z950)); border: 1px solid rgb(251 191 36 / .35); display: grid; gap: .55rem; }
+    .pt-bp-behind p { font-size: .8rem; color: rgb(var(--z200)); } .pt-bp-behind b { color: rgb(var(--z50)); }
+    .pt-bp-wt { display: grid; grid-template-columns: repeat(auto-fit, minmax(7rem, 1fr)); gap: .5rem; }
+    .pt-bp-wt > div { padding: .6rem .7rem; border-radius: .85rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); display: grid; gap: .15rem; }
+    .pt-bp-wt span { font-size: .58rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgb(var(--z500)); } .pt-bp-wt b { font-size: 1rem; color: rgb(var(--z50)); } .pt-bp-wt em { font-style: normal; font-size: .62rem; color: rgb(var(--z500)); }
+    html[data-mode="light"] .pt-bp-h i, html[data-mode="light"] .pt-bp-link { color: rgb(var(--a600)); }
+  `;
+  document.head.appendChild(css);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.44.0: form clips.
+ *  Film a short clip of a set, keep it on the phone with the exercise, and watch it back later, slowed down, a frame at a time, or
+ *  next to an older clip of the same lift.
+ *  - On a workout's exercise card a "🎥 Clips" button (next to Form tips, with the count when there are some) opens that exercise's clips. Workout screen ⋯ More →
+ *    "Form clips" and Body → "Form clips" open the whole collection.
+ *  - Record with the phone's camera, or pick a video you already filmed. The video file itself is saved (nothing is re-encoded or uploaded).
+ *  - Clips live in this phone's IndexedDB ("pulsetrack-clips"), like the progress photos: they stay on the phone, are NOT part of the
+ *    backup file (too big), and "Reset everything" removes them. Nothing leaves the phone unless you tap Share.
+ *  - Player: slow motion (0.25x, 0.5x, 1x), step one frame back or forward, a note, Share, Delete. Compare plays two clips side by side
+ *    with one set of controls.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.kit) return;
+  const proto = ApplicationUI.prototype, A = () => window.app, K = PT.kit, esc = K.esc, $ = id => document.getElementById(id);
+  const DB = "pulsetrack-clips", STORE = "clips", MB = 1048576, WARN_MB = 120, MAX_MB = 400, FPS = 30;
+  const norm = s => String(s || "").trim().toLowerCase().replace(/\s+/g, " ");
+
+  /* ---------------------------------------------------------------- storage */
+  const ClipDB = {
+    _db: null,
+    open() {
+      return new Promise((resolve, reject) => {
+        if (this._db) return resolve(this._db);
+        if (!("indexedDB" in window)) return reject(new Error("This browser cannot store clips."));
+        const req = indexedDB.open(DB, 1);
+        req.onupgradeneeded = () => { if (!req.result.objectStoreNames.contains(STORE)) req.result.createObjectStore(STORE, { keyPath: "id" }); };
+        req.onsuccess = () => { this._db = req.result; this._db.onversionchange = () => { try { this._db.close(); } catch (e) { } this._db = null; }; resolve(this._db); };
+        req.onerror = () => reject(req.error);
+      });
+    },
+    async _tx(mode, fn) {
+      const db = await this.open();
+      return new Promise((resolve, reject) => {
+        const tx = db.transaction(STORE, mode), store = tx.objectStore(STORE); let result;
+        const r = fn(store); if (r) r.onsuccess = () => { result = r.result; };
+        tx.oncomplete = () => resolve(result); tx.onerror = () => reject(tx.error); tx.onabort = () => reject(tx.error);
+      });
+    },
+    all() { return this._tx("readonly", s => s.getAll()).then(r => r || []); },
+    put(rec) { return this._tx("readwrite", s => s.put(rec)); },
+    del(id) { return this._tx("readwrite", s => s.delete(id)); },
+    clear() { return this._tx("readwrite", s => s.clear()); }
+  };
+  // "Reset everything" already clears the photos; clear the clips in the same step
+  try {
+    if (typeof PhotoDB !== "undefined" && PhotoDB && typeof PhotoDB.clear === "function") {
+      const oClear = PhotoDB.clear;
+      PhotoDB.clear = function () { return Promise.all([oClear.apply(this, arguments), ClipDB.clear().catch(() => { })]).then(() => undefined); };
+    }
+  } catch (e) { }
+
+  let cache = [], loaded = false, loading = null;
+  function load() {
+    if (loaded) return Promise.resolve(cache);
+    if (!loading) loading = ClipDB.all().then(r => { cache = r.sort((x, y) => (y.ts || 0) - (x.ts || 0)); loaded = true; return cache; }).catch(() => { cache = []; loaded = true; return cache; });
+    return loading;
+  }
+  const forEx = name => cache.filter(c => c.exk === norm(name));
+  const byId = id => cache.find(c => c.id === id) || null;
+  const totalBytes = () => cache.reduce((n, c) => n + (c.size || 0), 0);
+  const sizeTxt = n => (n >= 10 * MB ? Math.round(n / MB) : Math.round(n / MB * 10) / 10) + " MB";
+  const mmss = s => { s = Math.max(0, Math.round(s || 0)); return Math.floor(s / 60) + ":" + String(s % 60).padStart(2, "0"); };
+  const when = c => PT.fmtDate(c.date, { month: "short", day: "numeric", year: c.date.slice(0, 4) === PT.ds().slice(0, 4) ? undefined : "numeric" });
+  PT.clips = { db: ClipDB, load, count: name => forEx(name).length, all: () => cache.slice() };
+
+  /* ---------------------------------------------------------------- the file pickers */
+  let pending = null, urls = [];
+  function ensureInputs() {
+    if ($("pt-clip-cam")) return;
+    const mk = (id, cam) => { const i = document.createElement("input"); i.type = "file"; i.accept = "video/*"; if (cam) i.setAttribute("capture", "environment"); i.id = id; i.hidden = true; i.addEventListener("change", onFile); document.body.appendChild(i); };
+    mk("pt-clip-cam", true); mk("pt-clip-lib", false);
+  }
+  /** has to be called straight from a tap, or the phone will not open the camera */
+  function pick(cam, ctx) { ensureInputs(); pending = ctx || null; const i = $(cam ? "pt-clip-cam" : "pt-clip-lib"); i.value = ""; i.click(); }
+
+  function probe(file) {
+    return new Promise(resolve => {
+      const v = document.createElement("video"), u = URL.createObjectURL(file); let done = false;
+      const end = d => { if (done) return; done = true; try { URL.revokeObjectURL(u); } catch (e) { } v.removeAttribute("src"); resolve(d); };
+      v.preload = "metadata"; v.muted = true; v.onloadedmetadata = () => end(isFinite(v.duration) ? v.duration : null); v.onerror = () => end(null);
+      setTimeout(() => end(null), 4000); v.src = u;
+    });
+  }
+  /** the heaviest set logged today for this exercise, as { w, r } (so two clips can say "205 x 5" and "225 x 5") */
+  function liftOf(a, ex) {
+    try {
+      if (!ex || !a.activeProgram || !a.activeDay) return null;
+      const pre = `${a.activeProgram.id}_d${a.activeDay.dayNumber}_${ex.id}_s`; let best = null;
+      Object.keys(a.logs || {}).forEach(k => {
+        if (!k.startsWith(pre)) return; const l = a.logs[k]; if (!l || l.tag === "W") return; const w = parseFloat(l.weight), r = parseFloat(l.reps);
+        if (w > 0 && r > 0 && (!best || w > best.w || (w === best.w && r > best.r))) best = { w, r };
+      });
+      return best;
+    } catch (e) { return null; }
+  }
+  async function askName(a) {
+    const seen = new Set(), items = [];
+    const add = n => { const k = norm(n); if (!k || seen.has(k)) return; seen.add(k); items.push({ value: n, label: n }); };
+    ((a.activeDay && a.activeDay.exercises) || []).forEach(e => add(e.name));
+    (a.sessions || []).slice().sort((x, y) => (y.ts || 0) - (x.ts || 0)).slice(0, 40).forEach(s => (s.ex || []).forEach(e => add(e.name)));
+    cache.forEach(c => add(c.ex));
+    items.splice(40); items.push({ value: "\u0000other", label: "Another exercise…" });
+    let v = await PT.pickList("Which exercise is this clip of?", items, items[0] ? items[0].value : "");
+    if (v === "\u0000other") v = await PT.prompt("Name the exercise", "");
+    v = String(v || "").trim().slice(0, 80);
+    return v || null;
+  }
+  async function onFile(e) {
+    const f = e.target.files && e.target.files[0]; e.target.value = ""; if (!f) return;
+    const a = A(), ctx = pending; pending = null;
+    if (!/^video\//i.test(f.type || "") && !/\.(mp4|m4v|mov|webm|3gp|mkv)$/i.test(f.name || "")) { await PT.alert("That is not a video file."); return; }
+    if (f.size > MAX_MB * MB) { await PT.alert(`That clip is ${sizeTxt(f.size)}, too big to keep on the phone. Film 10 to 20 seconds of one set, or trim it first.`); return; }
+    if (f.size > WARN_MB * MB && !await PT.confirm(`That clip is ${sizeTxt(f.size)}. Clips stay on this phone and use its storage. Keep it?`)) return;
+    try { if (navigator.storage && navigator.storage.estimate) { const q = await navigator.storage.estimate(); if (q && q.quota && q.usage != null && q.quota - q.usage < f.size * 1.5) { await PT.alert("The phone does not have room for this clip. Free some space, or delete older clips first."); return; } } } catch (x) { }
+    await load();
+    let name = ctx && ctx.name; if (!name) name = await askName(a); if (!name) return;
+    const dur = await probe(f), lift = ctx && ctx.ex ? liftOf(a, ctx.ex) : null;
+    const rec = { id: PT.uid(), ts: Date.now(), date: PT.ds(), ex: name, exk: norm(name), note: "", type: f.type || "video/mp4", size: f.size, dur, lift, blob: f.slice(0, f.size, f.type || "video/mp4") };
+    try { await ClipDB.put(rec); } catch (err) { await PT.alert("Could not save the clip. " + (err && err.message ? err.message : "The phone may be out of space.")); return; }
+    cache.unshift(rec); refreshCards();
+    A().toast(`Saved a clip of ${name}`, undefined, undefined, 3500);
+    showEx(name);
+  }
+
+  /* ---------------------------------------------------------------- the sheet */
+  let el = null, S = { view: "", name: "", sel: [], cmp: false }, nextUrls = [];
+  const revokeAll = () => { urls.forEach(u => { try { URL.revokeObjectURL(u); } catch (e) { } }); urls = []; };
+  // a view's video addresses are made while its HTML is built, and the previous view's are released only when the new one is painted
+  const urlOf = c => { const u = URL.createObjectURL(c.blob); nextUrls.push(u); return u; };
+  function open(opts) {
+    opts = opts || {}; ensureInputs();
+    el = K.sheet("pt-clips", 58); S = { view: "", name: "", sel: [], cmp: false };
+    load().then(() => { if (opts.name) showEx(opts.name, opts.ex); else showHome(); });
+  }
+  function paint(html) { revokeAll(); urls = nextUrls; nextUrls = []; const c = K.openSheet(el, html); el.__onClose = revokeAll; c.addEventListener("click", clicks); return c; }
+  /** the index of this exercise in the workout on screen, so a clip filmed from the list can still carry the set you just did */
+  const idxIn = (a, name) => { try { const i = ((a.activeDay && a.activeDay.exercises) || []).findIndex(e => norm(e.name) === norm(name)); return i >= 0 ? i : null; } catch (e) { return null; } };
+  const recBtns = (name, exIdx) => `<div class="pt-fc-rec"><button type="button" class="pt-st-b" data-fc="cam" data-n="${esc(name || "")}" data-i="${exIdx == null ? "" : exIdx}">🎥 Record a clip</button><button type="button" class="pt-st-b ghost" data-fc="lib" data-n="${esc(name || "")}" data-i="${exIdx == null ? "" : exIdx}">Choose a video</button></div>`;
+  const keepNote = `<p class="pt-fc-fine">Clips stay on this phone only. They are not in the backup file, and nothing is uploaded.</p>`;
+
+  function showHome() {
+    S.view = "home";
+    const groups = {}; cache.forEach(c => { (groups[c.exk] = groups[c.exk] || { name: c.ex, list: [] }).list.push(c); });
+    const rows = Object.values(groups).sort((x, y) => (y.list[0].ts || 0) - (x.list[0].ts || 0));
+    paint(`${K.head("Form clips", cache.length ? `${cache.length} clip${cache.length === 1 ? "" : "s"} · ${sizeTxt(totalBytes())} on this phone` : "Film a set, watch it back")}
+      ${cache.length ? "" : `<p class="pt-fc-p">Film a set with your phone. The clip is kept with the exercise, so next month you can play it next to this one, slowed down, one frame at a time.</p>`}
+      ${recBtns("", null)}
+      ${rows.length ? `<div class="pt-st-rows">${rows.map(g => `<button type="button" class="pt-st-row" data-fc="ex" data-n="${esc(g.name)}"><span class="pt-st-t">${esc(g.name)}</span><span class="pt-st-s">${g.list.length} clip${g.list.length === 1 ? "" : "s"} · latest ${esc(when(g.list[0]))}</span></button>`).join("")}</div>` : ""}
+      ${keepNote}`);
+  }
+
+  function showEx(name, exIdx) {
+    S.view = "ex"; S.name = name; S.sel = []; S.cmp = S.cmp && forEx(name).length > 1;
+    if (exIdx == null) exIdx = idxIn(A(), name);
+    const list = forEx(name);
+    const c = paint(`${K.head(name, list.length ? `${list.length} clip${list.length === 1 ? "" : "s"}` : "No clips yet")}
+      ${recBtns(name, exIdx)}
+      ${list.length > 1 ? `<div class="pt-fc-cmp"><button type="button" class="pt-fc-cmpb${S.cmp ? " on" : ""}" data-fc="cmp" aria-pressed="${S.cmp}">${S.cmp ? "Pick two clips" : "Compare two clips"}</button><span id="pt-fc-hint">${S.cmp ? "0 of 2 picked" : ""}</span></div>` : ""}
+      <div class="pt-fc-grid">${list.map(cl => `<button type="button" class="pt-fc-card" data-fc="${S.cmp ? "pick" : "play"}" data-id="${esc(cl.id)}" aria-pressed="false">
+          <video muted playsinline preload="metadata" src="${urlOf(cl)}#t=0.1"></video>
+          <span class="pt-fc-d">${esc(when(cl))}${cl.dur ? " · " + mmss(cl.dur) : ""}</span>
+          ${cl.lift ? `<span class="pt-fc-l">${esc(String(cl.lift.w))} × ${esc(String(cl.lift.r))}</span>` : ""}
+          ${cl.note ? `<span class="pt-fc-n">${esc(cl.note)}</span>` : ""}</button>`).join("")}</div>
+      ${list.length ? "" : `<p class="pt-fc-p">Nothing filmed for this exercise yet.</p>`}
+      <button type="button" class="pt-st-back" data-fc="home">‹ All clips</button>${keepNote}`);
+    c.querySelectorAll(".pt-fc-card video").forEach(v => { v.addEventListener("error", () => { v.classList.add("bad"); }); });
+  }
+
+  /* one player; the speed chips and the frame buttons drive it */
+  function playerControls(id) {
+    return `<div class="pt-fc-ctl" id="${id}">
+      <div class="pt-fc-speed" role="group" aria-label="Speed">${[0.25, 0.5, 1].map(s => `<button type="button" data-fc="spd" data-s="${s}" aria-pressed="${s === 1}">${s === 1 ? "1×" : s + "×"}</button>`).join("")}</div>
+      <div class="pt-fc-step"><button type="button" data-fc="fb" aria-label="Back one frame">◀ frame</button><button type="button" data-fc="pp" class="pt-fc-pp" aria-label="Play or pause">▶ Play</button><button type="button" data-fc="ff" aria-label="Forward one frame">frame ▶</button></div>
+      <input type="range" min="0" max="1000" value="0" data-fc="seek" aria-label="Position"><div class="pt-fc-time"><span data-fc="t">0:00</span><span data-fc="dur">0:00</span></div></div>`;
+  }
+  function showPlay(id) {
+    const cl = byId(id); if (!cl) { showEx(S.name); return; }
+    S.view = "play"; S.id = id;
+    const c = paint(`${K.head(cl.ex, when(cl) + (cl.lift ? ` · ${cl.lift.w} × ${cl.lift.r}` : ""))}
+      <video id="pt-fc-v" class="pt-fc-video" playsinline controls preload="auto" src="${urlOf(cl)}"></video>
+      ${playerControls("pt-fc-c")}
+      <p class="pt-fc-note ${cl.note ? "" : "empty"}">${cl.note ? esc(cl.note) : "No note"}</p>
+      <div class="pt-fc-acts"><button type="button" class="pt-st-b ghost" data-fc="note">${cl.note ? "Edit note" : "Add a note"}</button><button type="button" class="pt-st-b ghost" data-fc="share">Share</button><button type="button" class="pt-st-b ghost danger" data-fc="del">Delete</button></div>
+      <button type="button" class="pt-st-back" data-fc="ex" data-n="${esc(cl.ex)}">‹ ${esc(cl.ex)}</button>`);
+    wire(c, [c.querySelector("#pt-fc-v")], c.querySelector("#pt-fc-c"));
+  }
+  function showCompare(ids) {
+    const cls = ids.map(byId).filter(Boolean); if (cls.length < 2) { showEx(S.name); return; }
+    S.view = "cmp";
+    const c = paint(`${K.head("Compare", cls[0].ex)}
+      <div class="pt-fc-two">${cls.map((cl, i) => `<figure><video class="pt-fc-video" playsinline muted preload="auto" src="${urlOf(cl)}" data-k="${i}"></video><figcaption>${esc(when(cl))}${cl.lift ? ` · ${esc(String(cl.lift.w))} × ${esc(String(cl.lift.r))}` : ""}</figcaption></figure>`).join("")}</div>
+      ${playerControls("pt-fc-c")}
+      <p class="pt-fc-fine">Both clips play together at the same speed. The scrubber follows the longer one.</p>
+      <button type="button" class="pt-st-back" data-fc="ex" data-n="${esc(cls[0].ex)}">‹ ${esc(cls[0].ex)}</button>`);
+    wire(c, [...c.querySelectorAll("video.pt-fc-video")], c.querySelector("#pt-fc-c"));
+  }
+
+  /** shared controls for one or two <video> elements */
+  function wire(card, vids, ctl) {
+    const seek = ctl.querySelector('[data-fc="seek"]'), tEl = ctl.querySelector('[data-fc="t"]'), dEl = ctl.querySelector('[data-fc="dur"]'), pp = ctl.querySelector('[data-fc="pp"]');
+    const dur = () => Math.max(0, ...vids.map(v => (isFinite(v.duration) ? v.duration : 0)));
+    const anyPlaying = () => vids.some(v => !v.paused && !v.ended);
+    let rate = 1, dragging = false;
+    const sync = () => {
+      const d = dur(), t = Math.max(...vids.map(v => v.currentTime || 0));
+      if (!dragging) seek.value = d ? String(Math.round(t / d * 1000)) : "0";
+      tEl.textContent = mmss(t); dEl.textContent = mmss(d); pp.textContent = anyPlaying() ? "❚❚ Pause" : "▶ Play";
+    };
+    vids.forEach(v => { ["timeupdate", "loadedmetadata", "play", "pause", "ended", "seeked"].forEach(ev => v.addEventListener(ev, sync)); v.defaultPlaybackRate = 1; });
+    vids.forEach(v => v.addEventListener("error", () => { card.querySelector(".pt-fc-note, .pt-fc-fine") && 0; v.classList.add("bad"); }));
+    const play = () => { vids.forEach(v => { if (v.ended || (v.duration && v.currentTime >= v.duration - 0.05)) v.currentTime = 0; v.playbackRate = rate; const p = v.play(); if (p && p.catch) p.catch(() => { }); }); };
+    const pause = () => vids.forEach(v => v.pause());
+    ctl.addEventListener("click", e => {
+      const b = e.target.closest("[data-fc]"); if (!b) return; const k = b.dataset.fc;
+      if (k === "spd") { rate = parseFloat(b.dataset.s); vids.forEach(v => { v.playbackRate = rate; }); ctl.querySelectorAll('[data-fc="spd"]').forEach(x => x.setAttribute("aria-pressed", String(x === b))); }
+      else if (k === "pp") { if (anyPlaying()) pause(); else play(); }
+      else if (k === "fb" || k === "ff") { pause(); const d = (k === "ff" ? 1 : -1) / FPS; vids.forEach(v => { v.currentTime = Math.min(Math.max(0, v.currentTime + d), isFinite(v.duration) ? v.duration : v.currentTime + 1); }); }
+    });
+    seek.addEventListener("input", () => { dragging = true; pause(); const t = parseFloat(seek.value) / 1000 * dur(); vids.forEach(v => { v.currentTime = Math.min(t, isFinite(v.duration) ? v.duration : t); }); tEl.textContent = mmss(t); });
+    seek.addEventListener("change", () => { dragging = false; sync(); });
+    // the single player has its own native controls: keep the speed in step with them
+    if (vids.length === 1) vids[0].addEventListener("ratechange", () => { const r = vids[0].playbackRate; ctl.querySelectorAll('[data-fc="spd"]').forEach(x => x.setAttribute("aria-pressed", String(parseFloat(x.dataset.s) === r))); });
+    sync();
+  }
+
+  async function share(cl) {
+    const ext = /webm/.test(cl.type) ? "webm" : /quicktime/.test(cl.type) ? "mov" : "mp4";
+    const file = new File([cl.blob], `${cl.ex.replace(/[^a-z0-9]+/gi, "-").toLowerCase()}-${cl.date}.${ext}`, { type: cl.type });
+    try { if (navigator.canShare && navigator.canShare({ files: [file] })) { await navigator.share({ files: [file], title: cl.ex }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+    const u = URL.createObjectURL(file), a = document.createElement("a"); a.href = u; a.download = file.name; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(u), 4000);
+    A().toast("Saved the clip to your downloads");
+  }
+
+  async function clicks(e) {
+    const b = e.target.closest("[data-fc]"); if (!b) return; const k = b.dataset.fc;
+    if (["spd", "pp", "fb", "ff", "seek", "t", "dur"].includes(k)) return;      // the player handles these itself
+    const a = A();
+    if (k === "cam" || k === "lib") { const i = b.dataset.i; pick(k === "cam", { name: b.dataset.n || "", ex: i !== "" && a.activeDay ? (a.activeDay.exercises || [])[parseInt(i, 10)] : null }); return; }
+    if (k === "home") { S.cmp = false; showHome(); return; }
+    if (k === "ex") { S.cmp = false; showEx(b.dataset.n); return; }
+    if (k === "cmp") { S.cmp = !S.cmp; showEx(S.name); return; }
+    if (k === "play") { showPlay(b.dataset.id); return; }
+    if (k === "pick") {
+      const id = b.dataset.id, i = S.sel.indexOf(id);
+      if (i >= 0) S.sel.splice(i, 1); else if (S.sel.length < 2) S.sel.push(id); else { S.sel.shift(); S.sel.push(id); }
+      el.querySelectorAll(".pt-fc-card").forEach(x => x.setAttribute("aria-pressed", String(S.sel.includes(x.dataset.id))));
+      const h = el.querySelector("#pt-fc-hint"); if (h) h.textContent = `${S.sel.length} of 2 picked`;
+      if (S.sel.length === 2) { const ids = S.sel.slice(); S.cmp = false; setTimeout(() => showCompare(ids), 150); }
+      return;
+    }
+    const cl = byId(S.id);
+    if (k === "note" && cl) { const v = await PT.prompt("A note for this clip (optional)", cl.note || ""); if (v === null || v === undefined) return; cl.note = String(v).trim().slice(0, 120); try { await ClipDB.put(cl); } catch (x) { } showPlay(cl.id); return; }
+    if (k === "share" && cl) { await share(cl); return; }
+    if (k === "del" && cl) {
+      if (!await PT.confirm(`Delete this clip of ${cl.ex} from ${when(cl)}? This cannot be undone.`)) return;
+      try { await ClipDB.del(cl.id); } catch (x) { }
+      cache = cache.filter(c => c.id !== cl.id); refreshCards(); showEx(cl.ex);
+    }
+  }
+
+  /* ---------------------------------------------------------------- the exercise cards, More sheet and Body card */
+  function decorate(a) {
+    const list = $("exercises-list") || (a.dom && a.dom.exercisesList); if (!list || !a.activeDay) return;
+    list.querySelectorAll("[data-ex-card]").forEach(card => {
+      const i = parseInt(card.dataset.exCard, 10), ex = (a.activeDay.exercises || [])[i]; if (!ex) return;
+      const old = card.querySelector(".pt-fc-btn"); if (old) old.remove();
+      if (ex.type === "tabata" || (a.exKind && a.exKind(ex).cardio)) return;
+      const anchor = card.querySelector(".btn-cues"); if (!anchor) return;      // sits beside "Form tips ›"
+      const n = loaded ? forEx(ex.name).length : 0;
+      const b = document.createElement("button"); b.type = "button"; b.className = "pt-fc-btn shrink-0 text-[11px] font-semibold tap-active px-1 py-0.5"; b.dataset.fcx = String(i);
+      b.setAttribute("aria-label", n ? `Form clips for ${ex.name} (${n})` : `Film a form clip of ${ex.name}`); b.title = "Form clips";
+      b.innerHTML = `<span aria-hidden="true">🎥</span> Clips${n ? ` (${n})` : ""}`;
+      anchor.insertAdjacentElement("afterend", b);
+    });
+  }
+  function refreshCards() { try { const a = A(); if (a && !$("view-workout").classList.contains("hidden")) decorate(a); const c = $("pt-fc-card-body"); if (c) c.remove(); addBodyCard(a); } catch (e) { } }
+  const oRW = proto.renderWorkoutView;
+  proto.renderWorkoutView = function () {
+    const r = oRW.apply(this, arguments);
+    try {
+      decorate(this); if (!loaded) load().then(() => { try { decorate(A()); } catch (e) { } });
+      const box = $("pt-wk-actions");
+      if (box && !$("pt-clips-open")) { const b = document.createElement("button"); b.type = "button"; b.id = "pt-clips-open"; b.textContent = "Form clips"; box.appendChild(b); }
+    } catch (e) { console.error("PulseTrack clips cards", e); }
+    return r;
+  };
+  function addBodyCard(a) {
+    const root = $("body-root"); if (!root || !a) return; let card = $("pt-fc-card-body");
+    if (card) card.remove();
+    const photos = [...root.querySelectorAll("h3")].find(x => /^Progress photos/.test(x.textContent.trim())), after = photos ? photos.closest("div.bg-zinc-900, div") : null;
+    card = document.createElement("div"); card.id = "pt-fc-card-body"; card.className = "bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-2";
+    const n = cache.length;
+    card.innerHTML = `<h3 class="text-xs font-bold text-white">Form clips</h3><p class="text-[11px] leading-relaxed text-zinc-400">${n ? `${n} clip${n === 1 ? "" : "s"} on this phone (${sizeTxt(totalBytes())}).` : "Film a set, then play it back slowed down or next to an older clip."}</p>
+      <button type="button" id="pt-fc-open" class="w-full py-2.5 bg-zinc-800 text-zinc-100 text-xs font-bold rounded-xl tap-active">${n ? "Open form clips" : "Film a form clip"}</button>`;
+    if (after && after.parentElement === root) after.insertAdjacentElement("afterend", card); else root.appendChild(card);
+  }
+  const oBody = proto.renderBodyView;
+  proto.renderBodyView = function () {
+    const r = oBody.apply(this, arguments);
+    try { addBodyCard(this); if (!loaded) load().then(() => { try { addBodyCard(A()); } catch (e) { } }); } catch (e) { console.error("PulseTrack clips body card", e); }
+    return r;
+  };
+  document.addEventListener("click", e => {
+    const t = e.target && e.target.closest ? e.target : null; if (!t) return; const a = A();
+    const x = t.closest(".pt-fc-btn");
+    if (x && a && a.activeDay) { const i = parseInt(x.dataset.fcx, 10), ex = (a.activeDay.exercises || [])[i]; if (ex) open({ name: ex.name, ex: i }); return; }
+    if (t.closest("#pt-clips-open") || t.closest("#pt-fc-open")) open({});
+  });
+  load();
+
+  /* ---------------------------------------------------------------- styles */
+  const css = document.createElement("style");
+  css.id = "pt-v244-clips-css";
+  css.textContent = `
+    #pt-clips-open { display: none !important; }
+    .pt-fc-btn { color: rgb(var(--z400)); }
+    .pt-fc-p, .pt-fc-fine { font-size: .75rem; line-height: 1.45; color: rgb(var(--z400)); } .pt-fc-fine { font-size: .66rem; color: rgb(var(--z500)); }
+    .pt-fc-rec { display: flex; gap: .5rem; } .pt-fc-rec button { flex: 1 1 45%; }
+    .pt-fc-cmp { display: flex; align-items: center; gap: .6rem; font-size: .72rem; color: rgb(var(--z400)); }
+    .pt-fc-cmpb { padding: .5rem .8rem; border-radius: .7rem; font-size: .75rem; font-weight: 700; background: rgb(var(--z800)); color: rgb(var(--z100)); } .pt-fc-cmpb.on { background: rgb(var(--a600)); color: #fff; }
+    .pt-fc-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .55rem; }
+    .pt-fc-card { position: relative; display: grid; text-align: left; border-radius: .85rem; overflow: hidden; background: rgb(var(--z950)); border: 2px solid rgb(var(--z800)); }
+    .pt-fc-card[aria-pressed="true"] { border-color: rgb(var(--a500)); }
+    .pt-fc-card video { width: 100%; aspect-ratio: 3 / 4; object-fit: cover; background: #000; pointer-events: none; }
+    .pt-fc-card video.bad { opacity: .25; }
+    .pt-fc-d { padding: .4rem .55rem 0; font-size: .7rem; font-weight: 700; color: rgb(var(--z200)); }
+    .pt-fc-l { padding: .05rem .55rem 0; font-size: .68rem; font-family: ui-monospace, monospace; color: rgb(var(--a400)); }
+    .pt-fc-n { padding: .05rem .55rem .45rem; font-size: .66rem; color: rgb(var(--z400)); } .pt-fc-card > span:last-child { padding-bottom: .45rem; }
+    .pt-fc-video { width: 100%; max-height: 52vh; border-radius: .85rem; background: #000; }
+    .pt-fc-two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; } .pt-fc-two figure { margin: 0; display: grid; gap: .3rem; }
+    .pt-fc-two video { max-height: 46vh; width: 100%; object-fit: contain; } .pt-fc-two figcaption { font-size: .68rem; text-align: center; color: rgb(var(--z400)); }
+    .pt-fc-video.bad { outline: 2px solid rgb(251 113 133 / .6); }
+    .pt-fc-ctl { display: grid; gap: .5rem; }
+    .pt-fc-speed { display: flex; gap: .4rem; } .pt-fc-speed button { flex: 1; padding: .5rem; border-radius: .7rem; font-size: .78rem; font-weight: 800; background: rgb(var(--z800)); color: rgb(var(--z100)); }
+    .pt-fc-speed button[aria-pressed="true"] { background: rgb(var(--a600)); color: #fff; }
+    .pt-fc-step { display: flex; gap: .4rem; } .pt-fc-step button { flex: 1; padding: .6rem .4rem; border-radius: .7rem; font-size: .75rem; font-weight: 700; background: rgb(var(--z800)); color: rgb(var(--z100)); }
+    .pt-fc-step .pt-fc-pp { flex: 1.4; background: rgb(var(--a600)); color: #fff; font-weight: 800; }
+    .pt-fc-ctl input[type=range] { width: 100%; accent-color: rgb(var(--a500)); }
+    .pt-fc-time { display: flex; justify-content: space-between; font-size: .68rem; font-family: ui-monospace, monospace; color: rgb(var(--z500)); }
+    .pt-fc-note { font-size: .78rem; color: rgb(var(--z200)); } .pt-fc-note.empty { color: rgb(var(--z500)); }
+    .pt-fc-acts { display: flex; gap: .5rem; } .pt-fc-acts button { flex: 1; } .pt-st-b.danger { color: rgb(251 113 133); }
+    html[data-mode="light"] .pt-fc-l { color: rgb(var(--a600)); }
   `;
   document.head.appendChild(css);
 })();
