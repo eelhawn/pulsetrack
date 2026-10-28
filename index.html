@@ -377,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.42.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.43.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3755,7 +3755,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.42.0";
+    const APP_VERSION = "2.43.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -16641,7 +16641,7 @@ const PTSIM = (function () {
   }
   function openMore() {
     const a = A(), K = PT.kit, el = K.sheet("pt-wkmore", 50);
-    const rows = [["pt-guided-open", "🎯", "Guided mode", ""], ["btn-share-day", "📤", "Share day", ""], ["btn-copy-day", "📑", "Copy day", ""], ["btn-skip-day", "⏭", "Skip day", ""], ["btn-reset-day-progress", "🧹", "Clear progress", "danger"]]
+    const rows = [["pt-guided-open", "🎯", "Guided mode", ""], ["btn-share-day", "📤", "Share day", ""], ["btn-copy-day", "📑", "Copy day", ""], ["pt-steal-day", "🧩", "Steal this day…", ""], ["btn-skip-day", "⏭", "Skip day", ""], ["btn-reset-day-progress", "🧹", "Clear progress", "danger"]]
       .filter(r => { const e = $(r[0]); return e && !e.classList.contains("hidden"); });
     const c = K.openSheet(el, `${K.head("Workout options", (a.activeDay && a.activeDay.title) || "")}
       <div class="space-y-2">${rows.map(r => `<button type="button" class="pt-morerow ${r[3]}" data-real="${r[0]}"><span>${r[1]}</span><span>${r[2]}</span></button>`).join("")}</div>`);
@@ -20943,6 +20943,8 @@ const PTSIM = (function () {
     ["btn-paste-share", "🔗", "Share link", "Paste a Share Link (workout day or program)"],
     ["pt-prog-mob", "⏱", "Guided mobility", "Guided mobility (hands-free)"],
     ["pt-prog-stretch", "🧘", "Stretch routine", "Stretch & mobility routine"],
+    ["pt-prog-steal", "🧩", "Steal a day", "Take one day from any program"],      // 2.43.0 (made by m67a.js)
+    ["pt-prog-plist", "🔁", "Playlist", "Chain programs one after another"],      // 2.43.0 (made by m68a.js)
   ];
 
   function scaffold() {
@@ -21103,6 +21105,7 @@ const PTSIM = (function () {
     const m = metaOf(p), cur = !!(PT.isCurrentProgram && PT.isCurrentProgram(p.id));
     const el = a.openSheet(p.title, facts(p, m), `<div class="space-y-2">
       <button type="button" class="pt-morerow" data-act="open"><span>▶</span><span>Open program</span></button>
+      <button type="button" class="pt-morerow" data-act="steal"><span>🧩</span><span>Steal a day from it</span></button>
       ${cur ? `<div class="pt-morerow" style="opacity:.75"><span>✓</span><span>This is your current program</span></div>` : `<button type="button" class="pt-morerow" data-act="select"><span>⭐</span><span>Make it my current program</span></button>`}
       <button type="button" class="pt-morerow" data-act="share"><span>📤</span><span>Share</span></button>
       <button type="button" class="pt-morerow danger" data-act="delete"><span>🗑</span><span>Delete from this phone</span></button></div>`, "");
@@ -21111,6 +21114,7 @@ const PTSIM = (function () {
       const act = b.dataset.act; a.closeSheet();
       setTimeout(() => {
         if (act === "open") openProgram(id);
+        else if (act === "steal") { if (PT.steal) PT.steal.open({ program: p }); }
         else if (act === "select") a.selectProgram(p);
         else if (act === "share") a.shareProgram(p);
         else if (act === "delete") {
@@ -21139,9 +21143,10 @@ const PTSIM = (function () {
     .pgx-hs { font-size: .74rem; color: rgb(var(--z400)); line-height: 1.3; }
     .pgx-go { flex: none; padding: .55rem .95rem; border-radius: .8rem; background: rgb(var(--a600)); color: #fff; font-weight: 800; font-size: .78rem; }
 
-    #view-programs #pt-prog-tools { display: grid !important; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; }
-    #view-programs #pt-prog-tools > button { grid-column: auto !important; margin: 0 !important; width: 100% !important; min-height: 3.15rem !important; padding: .45rem .2rem !important; border-radius: .85rem !important; background: rgb(var(--z900)) !important; border: 1px solid rgb(var(--z800)) !important; color: rgb(var(--z100)) !important; box-shadow: none !important; font-size: .68rem !important; font-weight: 700 !important; line-height: 1.15 !important; display: flex !important; flex-direction: column; align-items: center; justify-content: center; gap: .18rem; text-align: center; }
+    #view-programs #pt-prog-tools { display: grid !important; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: .45rem; }
+    #view-programs #pt-prog-tools > button { grid-column: span 2 !important; margin: 0 !important; width: 100% !important; min-height: 3.15rem !important; padding: .45rem .2rem !important; border-radius: .85rem !important; background: rgb(var(--z900)) !important; border: 1px solid rgb(var(--z800)) !important; color: rgb(var(--z100)) !important; box-shadow: none !important; font-size: .68rem !important; font-weight: 700 !important; line-height: 1.15 !important; display: flex !important; flex-direction: column; align-items: center; justify-content: center; gap: .18rem; text-align: center; }
     #view-programs #pt-prog-tools > button:active { background: rgb(var(--z850)) !important; }
+    #view-programs #pt-prog-tools > #pt-prog-steal, #view-programs #pt-prog-tools > #pt-prog-plist { grid-column: span 3 !important; flex-direction: row; gap: .5rem; }
     #view-programs #pt-prog-tools .pgx-ti { font-size: 1.05rem; line-height: 1; }
     #view-programs #pt-prog-tools > #pt-prog-build { grid-column: 1 / -1 !important; flex-direction: row; gap: .5rem; min-height: 2.9rem !important; font-size: .88rem !important; background: rgb(var(--a600)) !important; border-color: transparent !important; color: #fff !important; }
     #view-programs #pt-prog-tools > #pt-prog-build .pgx-ti { font-size: 1rem; }
@@ -21243,7 +21248,7 @@ const PTSIM = (function () {
   };
 
   PT.sessionOf = sessionOf;
-  PT.programsScreen = { state: ST, meta: metaOf, facts: p => facts(p, metaOf(p)), redraw: () => refresh(A()), two: twoInfo, sessionOf };
+  PT.programsScreen = { state: ST, meta: metaOf, facts: p => facts(p, metaOf(p)), redraw: () => refresh(A()), two: twoInfo, sessionOf, tools: decorateTools };
 })();
   </script>
   <script>
@@ -21578,6 +21583,662 @@ const PTSIM = (function () {
     .pt-haul-share { margin-top: .75rem; padding: .5rem .9rem; border-radius: .7rem; font-size: .75rem; font-weight: 700; background: rgb(var(--z800)); color: rgb(var(--z100)); }
     .pt-haul-f { margin-top: .6rem; font-size: .62rem; color: rgb(var(--z500)); }
     html[data-mode="light"] .pt-haul-big b { color: rgb(var(--a600)); }
+  `;
+  document.head.appendChild(css);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.43.0: steal a day.
+ *  - Programs screen → "Steal a day": pick a muscle (Chest, Back, Shoulders, Arms, Quads, Hams & glutes, Calves, Abs), or search an
+ *    athlete or program, and see the best days for it from every program in the library plus your own. Days are ranked by how many
+ *    of their hard sets hit that muscle. Tap one to see its exercises, then:
+ *      Do it now        a one-off Freestyle workout with those exercises (your program is not changed),
+ *      Add to my current program   a new day at the end of it,
+ *      Add to one of my programs   a new day at the end of a program you made,
+ *      Start a new program         a program of your own with just this day.
+ *  - The same sheet opens from: a program's ⋯ menu ("Steal a day from it"), the workout screen's ⋯ More ("Steal this day…"), and
+ *    the Weak points card on Progress ("Find a day for it", already set to your weakest muscle group).
+ *  - Nothing in a built-in program is ever edited. Days are copied with new ids and no week numbers.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.kit) return;
+  const proto = ApplicationUI.prototype, A = () => window.app, K = PT.kit, esc = K.esc, $ = id => document.getElementById(id);
+  const FREESTYLE = "freestyle";
+  const CHIPS = [
+    ["chest", "Chest", ["chest"]], ["back", "Back", ["back", "lowerback"]], ["shoulders", "Shoulders", ["shoulders", "traps"]],
+    ["arms", "Arms", ["biceps", "triceps", "forearms"]], ["quads", "Quads", ["quads"]], ["hams", "Hams & glutes", ["hamstrings", "glutes"]],
+    ["calves", "Calves", ["calves"]], ["abs", "Abs", ["abs"]]
+  ];
+  const RLAB = { chest: "Chest", back: "Back", lowerback: "Lower back", shoulders: "Shoulders", traps: "Traps", biceps: "Biceps", triceps: "Triceps", forearms: "Forearms", quads: "Quads", hamstrings: "Hamstrings", glutes: "Glutes", calves: "Calves", abs: "Abs" };
+  const EX_KEYS = ["name", "sets", "reps", "restSeconds", "restAuto", "type", "notes", "link", "workSeconds"];
+  const norm = s => String(s || "").toLowerCase().replace(/[^a-z0-9]+/g, " ").trim();
+  const MAX = 30;
+
+  /** a weak-point group name ("Chest", "Legs", "Core"...) or a body-map region → one of the chip keys */
+  function chipFor(x) {
+    const s = norm(x);
+    if (/chest|pec/.test(s)) return "chest";
+    if (/back|lat|lower/.test(s)) return "back";
+    if (/shoulder|delt|trap/.test(s)) return "shoulders";
+    if (/arm|bicep|tricep|forearm/.test(s)) return "arms";
+    if (/ham|glute/.test(s)) return "hams";
+    if (/calf|calves/.test(s)) return "calves";
+    if (/abs|core/.test(s)) return "abs";
+    if (/leg|quad/.test(s)) return "quads";
+    return "";
+  }
+
+  /* ---------------------------------------------------------------- what a day trains */
+  const PROF = new WeakMap();
+  function profile(day) {
+    let p = PROF.get(day); if (p) return p;
+    const by = {}; let total = 0;
+    (day.exercises || []).forEach(e => {
+      let regs = {}; try { regs = PT.regionsFor(e.name, false) || {}; } catch (x) { regs = {}; }
+      const r = Object.keys(regs)[0]; if (!r) return;
+      const n = Math.max(0, e.sets | 0); by[r] = (by[r] || 0) + n; total += n;
+    });
+    p = { by, total }; PROF.set(day, p); return p;
+  }
+  const cleanTitle = t => String(t || "Day").replace(/^\s*Week\s+\d+\s*[·\-–:]\s*/i, "").replace(/^\s*Phase\s+\d+\s*[·\-–:]\s*/i, "").replace(/^\s*Day\s+\d+\s*[:\-–]\s*/i, "").trim() || "Day";
+  function whoOf(p) { return p && p.pro ? p.pro : ""; }
+
+  /** every day worth stealing: the whole built-in library plus the programs you made, one copy of each distinct day */
+  function sources() {
+    const a = A(), out = [], seenP = new Set();
+    const add = (p, mine) => {
+      if (!p || !Array.isArray(p.days) || p.id === FREESTYLE) return;
+      const keys = new Set();
+      p.days.forEach(d => {
+        const ex = d.exercises || []; if (ex.length < 3) return;
+        const key = ex.map(e => e.name + "×" + e.sets).join("|"); if (keys.has(key)) return; keys.add(key);
+        out.push({ p, d, mine });
+      });
+    };
+    const shipped = builtinIds();
+    (typeof BUILTIN_PROGRAMS !== "undefined" ? BUILTIN_PROGRAMS : []).forEach(p => { seenP.add(p.id); add(p, false); });
+    ((a.data && a.data.programs) || []).forEach(p => { if (!seenP.has(p.id)) add(p, !shipped.has(p.id)); });
+    return out;
+  }
+
+  function rank(list, st) {
+    const chip = CHIPS.find(c => c[0] === st.chip), toks = norm(st.q).split(" ").filter(Boolean);
+    let rows = list;
+    if (st.prog) rows = rows.filter(x => x.p.id === st.prog);
+    rows = rows.map(x => {
+      const pr = profile(x.d); let sets = 0;
+      if (chip) chip[2].forEach(r => { sets += pr.by[r] || 0; });
+      const share = pr.total ? sets / pr.total : 0;
+      return Object.assign({}, x, { pr, sets, share, score: sets * share });
+    });
+    if (chip) rows = rows.filter(x => x.sets >= 5 && x.share >= 0.4);
+    if (toks.length) rows = rows.filter(x => { const blob = norm([x.p.title, whoOf(x.p), x.d.title, (x.p.tags || []).join(" ")].join(" ")); return toks.every(t => blob.includes(t)); });
+    if (chip) rows.sort((a, b) => b.score - a.score);
+    return rows;
+  }
+  const focusLine = pr => Object.entries(pr.by).sort((a, b) => b[1] - a[1]).slice(0, 3).map(([r, n]) => `${RLAB[r] || r} ${n}`).join(" · ");
+
+  /* ---------------------------------------------------------------- copying a day */
+  function titleFor(src) {
+    let t = cleanTitle(src.d.title);
+    const s = PT.sessionOf && PT.sessionOf(src.d.title);
+    if (s && s.topic) t = s.topic;
+    const who = whoOf(src.p), last = who ? who.split(" ").pop() : "";
+    if (last && !norm(t).includes(norm(last))) t += " (" + last + ")";
+    return t.slice(0, 64);
+  }
+  function cloneDay(src, dayNumber) {
+    const base = Date.now().toString(36) + Math.floor(Math.random() * 1296).toString(36);
+    const exs = (src.d.exercises || []).map((e, i) => {
+      const o = { id: `st_${base}_${i}` };
+      EX_KEYS.forEach(k => { if (e[k] !== undefined && e[k] !== null && e[k] !== "") o[k] = k === "reps" ? String(e[k]) : e[k]; });
+      if (!(o.sets > 0)) o.sets = 3;
+      if (!o.reps) o.reps = "10";
+      if (typeof o.restSeconds !== "number") o.restSeconds = parseInt(o.restSeconds, 10) || 60;
+      return o;
+    });
+    if (exs.length && exs[exs.length - 1].link) delete exs[exs.length - 1].link;
+    return { dayNumber, title: titleFor(src), estimatedMinutes: src.d.estimatedMinutes || 45, exercises: exs };
+  }
+  /** programs that ship with the app: the whole library, plus the one inside the app itself (6 Weeks to Massive Arms) */
+  const builtinIds = () => {
+    const s = new Set((typeof BUILTIN_PROGRAMS !== "undefined" ? BUILTIN_PROGRAMS : []).map(p => p.id));
+    s.add("kaged_massive_arms_6wk");   // (not read from DEFAULT_WORKOUT_DATA: on a fresh install the app edits that very object, so programs you add would count as shipped)
+    return s;
+  };
+  const hasWeeks = p => !!(p && ((Array.isArray(p.weekPlan) && p.weekPlan.length) || p.weeks));
+  const currentProgram = () => { const a = A(); let id = null; try { id = PT.currentProgramId && PT.currentProgramId(); } catch (e) { } return id ? (a.data.programs || []).find(p => p.id === id) || null : null; };
+  const ownPrograms = () => { const b = builtinIds(); return (A().data.programs || []).filter(p => p.id !== FREESTYLE && !b.has(p.id) && !hasWeeks(p)); };
+
+  function addDay(prog, src) {
+    const a = A(); prog.days = prog.days || [];
+    const nums = prog.days.map(d => d.dayNumber | 0), day = cloneDay(src, (nums.length ? Math.max(...nums) : 0) + 1);
+    prog.days.push(day);
+    if (!WorkoutStorage.setData(a.data)) { prog.days.pop(); a.toast("Could not save. Is your phone storage full?"); return null; }
+    return day;
+  }
+  function freestyleHasProgress() {
+    const a = A(), prog = (a.data.programs || []).find(p => p.id === FREESTYLE); if (!prog || !prog.days || !prog.days[0]) return false;
+    const pre = `${prog.id}_d${prog.days[0].dayNumber}_`;
+    return (prog.days[0].exercises || []).length > 0 && Object.keys(a.logs || {}).some(k => k.startsWith(pre) && (a.logs[k].completed || a.logs[k].weight || a.logs[k].reps));
+  }
+  function doNow(src) {
+    const a = A();
+    let prog = (a.data.programs || []).find(p => p.id === FREESTYLE);
+    if (!prog) {
+      prog = { id: FREESTYLE, title: "Freestyle Workouts", description: "Empty workouts you build on the fly. Add any exercise from the library.", tags: ["Custom"], days: [{ dayNumber: 1, title: "Freestyle", estimatedMinutes: 45, exercises: [] }] };
+      a.data.programs.push(prog);
+    }
+    const day = prog.days[0];
+    a.clearDayLogs(prog, day);
+    const c = cloneDay(src, day.dayNumber);
+    day.exercises = c.exercises; day.title = c.title; day.estimatedMinutes = c.estimatedMinutes; delete day.removed;
+    WorkoutStorage.saveLogs(a.logs); WorkoutStorage.setData(a.data);
+    a.activeProgram = prog; a.activeDay = day;
+    AppStateMemory.saveActive(prog.id, day.dayNumber);
+    a.showView("workout");
+  }
+  // an empty Freestyle workout afterwards should say "Freestyle" again, not the name of the day you stole last
+  const oEmpty = proto.startEmptyWorkout;
+  if (oEmpty) proto.startEmptyWorkout = function () {
+    try { const p = ((this.data && this.data.programs) || []).find(x => x.id === FREESTYLE); if (p && p.days && p.days[0] && p.days[0].title !== "Freestyle") p.days[0].title = "Freestyle"; } catch (e) { }
+    return oEmpty.apply(this, arguments);
+  };
+
+  /* ---------------------------------------------------------------- the sheet */
+  let el = null, ST = { chip: "", q: "", prog: "", more: 0, rows: [], src: null, from: "finder", warn: false, pickMine: false };
+
+  function finderHtml() {
+    const p = ST.prog ? (A().data.programs || []).find(x => x.id === ST.prog) || (typeof BUILTIN_PROGRAMS !== "undefined" ? BUILTIN_PROGRAMS : []).find(x => x.id === ST.prog) : null;
+    return `${K.head("Steal a day", p ? "From " + p.title : "Take one day from any program")}
+      <div class="pt-st-find"><input id="pt-st-q" type="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="${p ? "Search this program's days" : "Search an athlete, program or day"}" value="${esc(ST.q)}" aria-label="Search days"></div>
+      ${ST.prog ? "" : `<div class="pt-st-chips" id="pt-st-chips" role="group" aria-label="Muscle">${CHIPS.map(c => `<button type="button" data-chip="${c[0]}" aria-pressed="${ST.chip === c[0]}">${c[1]}</button>`).join("")}</div>`}
+      <div id="pt-st-list"></div>`;
+  }
+  function listHtml() {
+    const hint = !ST.chip && !ST.q && !ST.prog;
+    if (hint) return `<p class="pt-st-hint">Pick a muscle to see the best days for it, or search an athlete (try "Cutler") or a program.</p>`;
+    const rows = ST.rows, shown = rows.slice(0, MAX + ST.more * MAX);
+    if (!rows.length) return `<p class="pt-st-hint">No days match. ${ST.chip ? "Try another muscle or clear the search." : "Try a shorter search."}</p>`;
+    const chipName = (CHIPS.find(c => c[0] === ST.chip) || [])[1];
+    return `<div class="pt-st-count">${rows.length} day${rows.length === 1 ? "" : "s"}${chipName ? " for " + esc(chipName.toLowerCase()) + ", best first" : ""}</div>
+      <div class="pt-st-rows">${shown.map((r, i) => {
+        const who = whoOf(r.p) || r.p.title, n = (r.d.exercises || []).length, m = r.d.estimatedMinutes;
+        return `<button type="button" class="pt-st-row" data-i="${i}"><span class="pt-st-t">${esc(cleanTitle(r.d.title))}</span>
+          <span class="pt-st-s">${esc(who)}${whoOf(r.p) ? " · " + esc(r.p.title.replace(who + ":", "").trim()) : ""}${r.mine ? " · mine" : ""}</span>
+          <span class="pt-st-f">${esc(focusLine(r.pr))} <i>${n} exercises${m ? " · ~" + m + " min" : ""}</i></span></button>`;
+      }).join("")}</div>
+      ${rows.length > shown.length ? `<button type="button" class="pt-st-more" id="pt-st-more">Show ${Math.min(MAX, rows.length - shown.length)} more</button>` : ""}`;
+  }
+  function refreshList() {
+    const box = el && el.querySelector("#pt-st-list"); if (!box) return;
+    ST.rows = rank(ST.all, ST);
+    box.innerHTML = listHtml();
+    el.querySelectorAll("#pt-st-chips [data-chip]").forEach(b => b.setAttribute("aria-pressed", String(ST.chip === b.dataset.chip)));
+  }
+  function showFinder() {
+    ST.view = "finder"; ST.warn = false; ST.pickMine = false;
+    const c = K.openSheet(el, finderHtml()); bind(c); refreshList();
+    return c;
+  }
+
+  function destHtml() {
+    const src = ST.src, cur = currentProgram(), mine = ownPrograms();
+    const canCur = !!(cur && cur.id !== FREESTYLE && !builtinIds().has(cur.id) && !hasWeeks(cur) && cur.id !== src.p.id);
+    const exs = (src.d.exercises || []);
+    const row = (go, ico, t, s, extra) => `<button type="button" class="pt-morerow pt-st-go" data-go="${go}" ${extra || ""}><span>${ico}</span><span class="pt-st-gt"><b>${t}</b><em>${s}</em></span></button>`;
+    const nowRow = src.p.id === FREESTYLE ? "" : row("now", "▶", "Do it now", "A one-off Freestyle workout with these exercises. Your program is not changed.");
+    const warn = ST.warn ? `<div class="pt-st-warn"><p>Your current Freestyle workout has sets in it. Doing this replaces it.</p><div><button type="button" class="pt-st-b" data-go="now-yes">Replace it</button><button type="button" class="pt-st-b ghost" data-go="now-no">Cancel</button></div></div>` : "";
+    const mineList = ST.pickMine ? `<div class="pt-st-mine">${mine.map(p => `<button type="button" class="pt-morerow" data-go="to" data-pid="${esc(p.id)}"><span>📁</span><span class="pt-st-gt"><b>${esc(p.title)}</b><em>${(p.days || []).length} day${(p.days || []).length === 1 ? "" : "s"}</em></span></button>`).join("")}</div>` : "";
+    return `${K.head(cleanTitle(src.d.title), `${whoOf(src.p) || src.p.title}${whoOf(src.p) ? " · " + src.p.title.replace(whoOf(src.p) + ":", "").trim() : ""}`)}
+      <div class="pt-st-ex">${exs.map(e => `<div><span>${esc(e.name)}${e.link ? ' <i title="Superset with the next one">⛓</i>' : ""}</span><b>${esc(String(e.sets))} × ${esc(String(e.reps))}</b></div>`).join("")}</div>
+      <div class="space-y-2">${nowRow}${warn}
+        ${canCur ? row("cur", "＋", "Add to my current program", `A new day at the end of ${esc(cur.title)}.`) : ""}
+        ${mine.length ? row("mine", "📁", "Add to one of my programs", "A new day at the end of a program you made.") : ""}${mineList}
+        ${row("new", "✨", "Start a new program from it", "A program of your own with just this day.")}
+        ${ST.from === "finder" ? `<button type="button" class="pt-st-back" data-go="back">‹ Back to the list</button>` : ""}
+      </div>`;
+  }
+  function showDest() { ST.view = "dest"; const c = K.openSheet(el, destHtml()); bind(c); return c; }
+
+  function finish(msg, undo) { K.closeSheet(el); const a = A(); a.toast(msg, undo ? "Open" : undefined, undo, 5000); }
+  function go(kind, pid) {
+    const a = A(), src = ST.src; if (!src) return;
+    if (kind === "back") { showFinder(); return; }
+    if (kind === "mine") { ST.pickMine = !ST.pickMine; showDest(); return; }
+    if (kind === "now") { if (freestyleHasProgress()) { ST.warn = true; showDest(); return; } K.closeSheet(el); doNow(src); return; }
+    if (kind === "now-no") { ST.warn = false; showDest(); return; }
+    if (kind === "now-yes") { K.closeSheet(el); doNow(src); return; }
+    if (kind === "cur" || kind === "to") {
+      const prog = kind === "cur" ? currentProgram() : (a.data.programs || []).find(p => p.id === pid); if (!prog) return;
+      const day = addDay(prog, src); if (!day) return;
+      try { if (a.renderDaysView && !$("view-days").classList.contains("hidden")) a.renderDaysView(); if (a.renderProgramsView && !$("view-programs").classList.contains("hidden")) a.renderProgramsView(); } catch (e) { }
+      finish(`Added "${day.title}" to ${prog.title}`, () => { a.activeProgram = prog; a.activeDay = day; a.showView("days"); });
+      return;
+    }
+    if (kind === "new") {
+      const day = cloneDay(src, 1), id = "custom_" + Date.now().toString(36);
+      const prog = { id, title: day.title, description: "A program built from one day taken from " + src.p.title + ". Add more days from Steal a day, or edit it from the Programs screen.", tags: ["Custom"], days: [day] };
+      a.data.programs.push(prog);
+      if (!WorkoutStorage.setData(a.data)) { a.data.programs.pop(); a.toast("Could not save. Is your phone storage full?"); return; }
+      try { if (a.renderProgramsView && !$("view-programs").classList.contains("hidden")) a.renderProgramsView(); } catch (e) { }
+      finish(`Made the program "${prog.title}"`, () => { a.activeProgram = prog; a.activeDay = day; a.showView("days"); });
+    }
+  }
+  function bind(c) {
+    c.addEventListener("click", e => {
+      if (e.target.closest("[data-close]")) return;
+      const chip = e.target.closest("#pt-st-chips [data-chip]");
+      if (chip) { ST.chip = ST.chip === chip.dataset.chip ? "" : chip.dataset.chip; ST.more = 0; refreshList(); return; }
+      if (e.target.closest("#pt-st-more")) { ST.more++; refreshList(); return; }
+      const row = e.target.closest(".pt-st-row");
+      if (row) { const r = ST.rows[parseInt(row.dataset.i, 10)]; if (r) { ST.src = r; ST.from = "finder"; showDest(); } return; }
+      const g = e.target.closest("[data-go]"); if (g) go(g.dataset.go, g.dataset.pid);
+    });
+    const q = c.querySelector("#pt-st-q");
+    if (q) q.addEventListener("input", () => { ST.q = q.value; ST.more = 0; refreshList(); });
+  }
+
+  /** opts: { chip, q, program (a program object: only its days), day + program (jump straight to what to do with that day) } */
+  function open(opts) {
+    opts = opts || {};
+    el = K.sheet("pt-steal", 58);
+    ST = { chip: opts.chip || "", q: opts.q || "", prog: opts.program ? opts.program.id : "", more: 0, rows: [], src: null, from: "finder", warn: false, pickMine: false, view: "finder", all: sources() };
+    if (opts.day && opts.program) {
+      ST.src = { p: opts.program, d: opts.day, mine: true }; ST.from = "direct"; showDest(); return;
+    }
+    showFinder();
+  }
+  PT.steal = { open, chipFor, profile, rank: (st) => rank(sources(), Object.assign({ chip: "", q: "", prog: "" }, st)), cloneDay, titleFor };
+
+  /* ---------------------------------------------------------------- entry points */
+  document.addEventListener("click", e => {
+    const t = e.target && e.target.closest ? e.target : null; if (!t) return;
+    if (t.closest("#pt-prog-steal")) { open({}); return; }
+    if (t.closest("#pt-steal-day")) { const a = A(); if (a.activeProgram && a.activeDay) open({ program: a.activeProgram, day: a.activeDay }); return; }
+    const w = t.closest("#pt-weak-find"); if (w) { open({ chip: chipFor(w.dataset.group) }); return; }
+  });
+
+  function ensureTool() {
+    const box = $("pt-prog-tools"); if (!box || $("pt-prog-steal")) return;
+    const b = document.createElement("button"); b.type = "button"; b.id = "pt-prog-steal"; b.title = "Steal a day from any program"; b.setAttribute("aria-label", "Steal a day from any program");
+    b.innerHTML = '<span class="pgx-ti">🧩</span><span class="pgx-tl">Steal a day</span>'; b.dataset.pgx = "Steal a day";
+    box.appendChild(b);
+  }
+  const oRP = proto.renderProgramsView;
+  proto.renderProgramsView = function () {
+    const r = oRP.apply(this, arguments);
+    try { ensureTool(); if (PT.programsScreen && PT.programsScreen.tools) PT.programsScreen.tools(); } catch (e) { console.error("PulseTrack steal tool", e); }
+    return r;
+  };
+  const oRW = proto.renderWorkoutView;
+  proto.renderWorkoutView = function () {
+    const r = oRW.apply(this, arguments);
+    try {
+      const box = $("pt-wk-actions");
+      if (box && !$("pt-steal-day")) { const b = document.createElement("button"); b.type = "button"; b.id = "pt-steal-day"; b.textContent = "Steal this day"; box.appendChild(b); }
+    } catch (e) { console.error("PulseTrack steal row", e); }
+    return r;
+  };
+  const oRPV = proto.renderProgressView;
+  proto.renderProgressView = function () {
+    const r = oRPV.apply(this, arguments);
+    try {
+      const card = $("pt-weak-card"), box = card && card.querySelector(".border-amber-800\\/50"); const a = this;
+      if (box && !box.querySelector("#pt-weak-find")) {
+        const w = PT.weakPoints && PT.weakPoints(a); if (w && w.ok && w.weak) {
+          const b = document.createElement("button"); b.type = "button"; b.id = "pt-weak-find"; b.dataset.group = w.weak.g; b.className = "pt-st-weak tap-active"; b.textContent = "Find a day for " + w.weak.g.toLowerCase();
+          box.appendChild(b);
+        }
+      }
+    } catch (e) { console.error("PulseTrack weak find", e); }
+    return r;
+  };
+
+  /* ---------------------------------------------------------------- styles */
+  const css = document.createElement("style");
+  css.id = "pt-v243-steal-css";
+  css.textContent = `
+    .pt-st-find input { width: 100%; padding: .7rem .85rem; border-radius: .8rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); color: rgb(var(--z100)); font-size: .85rem; }
+    .pt-st-find input:focus { outline: none; border-color: rgb(var(--a500)); }
+    .pt-st-chips { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .pt-st-chips button { padding: .45rem .8rem; border-radius: 999px; font-size: .75rem; font-weight: 700; background: rgb(var(--z800)); color: rgb(var(--z200)); border: 1px solid transparent; }
+    .pt-st-chips button[aria-pressed="true"] { background: rgb(var(--a600)); color: #fff; }
+    .pt-st-hint { font-size: .8rem; color: rgb(var(--z400)); padding: .4rem .1rem; }
+    .pt-st-count { font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgb(var(--z500)); margin-bottom: .4rem; }
+    .pt-st-rows { display: grid; gap: .5rem; }
+    .pt-st-row { text-align: left; display: grid; gap: .15rem; padding: .7rem .85rem; border-radius: .85rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); width: 100%; }
+    .pt-st-row:active { background: rgb(var(--z800)); }
+    .pt-st-t { font-size: .85rem; font-weight: 800; color: rgb(var(--z50)); }
+    .pt-st-s { font-size: .72rem; color: rgb(var(--z400)); }
+    .pt-st-f { font-size: .7rem; color: rgb(var(--a400)); font-weight: 700; }
+    .pt-st-f i { font-style: normal; color: rgb(var(--z500)); font-weight: 600; margin-left: .35rem; }
+    .pt-st-more, .pt-st-back { margin-top: .6rem; width: 100%; padding: .7rem; border-radius: .8rem; font-size: .8rem; font-weight: 700; background: rgb(var(--z800)); color: rgb(var(--z100)); }
+    .pt-st-back { background: transparent; color: rgb(var(--z400)); margin-top: .2rem; }
+    .pt-st-ex { display: grid; gap: .1rem; padding: .5rem .75rem; border-radius: .85rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); max-height: 38vh; overflow-y: auto; }
+    .pt-st-ex > div { display: flex; justify-content: space-between; gap: .75rem; font-size: .76rem; padding: .22rem 0; color: rgb(var(--z200)); }
+    .pt-st-ex > div + div { border-top: 1px solid rgb(var(--z900)); }
+    .pt-st-ex b { font-family: ui-monospace, monospace; font-weight: 700; color: rgb(var(--z400)); white-space: nowrap; }
+    .pt-st-ex i { font-style: normal; color: rgb(var(--a400)); }
+    .pt-st-go { align-items: flex-start !important; text-align: left; }
+    .pt-st-gt { display: grid; gap: .1rem; }
+    .pt-st-gt b { font-size: .85rem; font-weight: 800; }
+    .pt-st-gt em { font-style: normal; font-size: .7rem; font-weight: 500; color: rgb(var(--z400)); }
+    .pt-st-mine { display: grid; gap: .4rem; padding-left: .75rem; }
+    .pt-st-warn { padding: .75rem; border-radius: .85rem; background: rgb(var(--z950)); border: 1px solid rgb(251 191 36 / .45); }
+    .pt-st-warn p { font-size: .78rem; color: rgb(253 230 138); margin-bottom: .55rem; }
+    .pt-st-warn div { display: flex; gap: .5rem; }
+    .pt-st-b { flex: 1; padding: .6rem; border-radius: .7rem; font-size: .8rem; font-weight: 800; background: rgb(var(--a600)); color: #fff; }
+    .pt-st-b.ghost { background: rgb(var(--z800)); color: rgb(var(--z100)); }
+    .pt-st-weak { margin-top: .6rem; padding: .55rem .9rem; border-radius: .7rem; font-size: .75rem; font-weight: 800; background: rgb(var(--a600)); color: #fff; }
+    #pt-steal-day { display: none !important; }
+    html[data-mode="light"] .pt-st-f { color: rgb(var(--a600)); }
+    html[data-mode="light"] .pt-st-warn p { color: rgb(146 64 14); }
+  `;
+  document.head.appendChild(css);
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.43.0: program playlist.
+ *  - Programs screen → "Playlist": line up programs and deload weeks, each with a number of weeks, for example 8 weeks of Chris
+ *    Bumstead's push/pull/legs, 1 deload week, then 8 weeks of Arnold's double split. Start it and the first program becomes
+ *    your current program, starting at Day 1.
+ *  - When a stage's weeks are up the next program becomes your current program by itself (checked whenever you open the app), and
+ *    its progress starts from Day 1. A deload stage keeps your current program and tells you to run it with about half the sets.
+ *  - Home shows a slim row (stage, week, what is next). Tap it for the whole line-up, with Skip to next stage, +1 week and Stop.
+ *  - Progress → Training year shows the whole chain with dates above the calendar.
+ *  - Stored in settings.playlist, so it is in backups. Nothing is changed in the programs themselves.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.kit) return;
+  const proto = ApplicationUI.prototype, A = () => window.app, K = PT.kit, esc = K.esc, $ = id => document.getElementById(id);
+  const DAY = 86400000, FREESTYLE = "freestyle";
+  const PRESETS = [
+    { name: "Mass cycle", sub: "8 weeks Chris Bumstead push/pull/legs, 1 deload week, 8 weeks Arnold's double split", items: [["p", "cbum_ppl_2019_6day", 8], ["r", null, 1], ["p", "arnold_double_split_6day", 8]] },
+    { name: "Mentzer block", sub: "6 weeks of his Ideal Routine, 1 deload week, 8 weeks of the Heavy Duty A/B/C rotation", items: [["p", "mentzer_hd_ideal_routine", 6], ["r", null, 1], ["p", "mentzer_hd_abc_rotation", 8]] }
+  ];
+
+  /* ---------------------------------------------------------------- data */
+  const save = a => WorkoutStorage.saveSettings(a.settings);
+  const get = a => (a && a.settings && a.settings.playlist && typeof a.settings.playlist === "object" && Array.isArray(a.settings.playlist.items) ? a.settings.playlist : null);
+  const today = () => PT.ds();
+  const addDays = (ds, n) => { const d = PT.fromDs(ds); d.setDate(d.getDate() + n); return PT.ds(d); };
+  const between = (a, b) => Math.round((PT.fromDs(b) - PT.fromDs(a)) / DAY);
+  const fmt = ds => PT.fmtDate(ds, { month: "short", day: "numeric" });
+  const builtin = id => (typeof BUILTIN_PROGRAMS !== "undefined" ? BUILTIN_PROGRAMS : []).find(p => p.id === id) || null;
+  const progOf = (a, id) => (a.data.programs || []).find(p => p.id === id) || builtin(id);
+  const titleOf = (a, it) => it.k === "r" ? "Deload week" : ((progOf(a, it.id) || {}).title || "A program that is no longer here");
+  const stageEnd = pl => addDays(pl.started, Math.max(1, pl.items[pl.idx].weeks | 0) * 7);
+  const defaultWeeks = p => { const w = parseInt(p && p.weeks, 10); return w >= 1 && w <= 52 ? w : 8; };
+  const totalWeeks = items => items.reduce((n, it) => n + (it.weeks | 0), 0);
+
+  /** the program on this phone, added back from the built-in list when it was deleted */
+  function ensureProgram(a, id) {
+    let p = (a.data.programs || []).find(x => x.id === id);
+    if (p) return p;
+    const b = a.missingBuiltins ? a.missingBuiltins().find(x => x.id === id) : null; if (!b) return null;
+    p = JSON.parse(JSON.stringify(b)); a.data.programs.push(p);
+    if (!WorkoutStorage.setData(a.data)) { a.data.programs.pop(); return null; }
+    return p;
+  }
+  function resetProgress(a, p) {
+    const st = a.getProgState(p); st.week = 1; st.round = 1; st.done = [];
+    (p.days || []).forEach(d => { try { a.clearDayLogs(p, d); } catch (e) { } });
+    a.saveProgState(); WorkoutStorage.saveLogs(a.logs);
+  }
+  function openProgramDays(a, p) {
+    a.activeProgram = p; a.activeDay = a.nextDayOf ? (a.nextDayOf(p) || p.days[0]) : p.days[0];
+    if (a.activeDay) AppStateMemory.saveActive(p.id, a.activeDay.dayNumber);
+    a.showView("days");
+  }
+  /** begin the stage at pl.idx: a program becomes the current one at Day 1, a deload keeps whatever you have */
+  function begin(a, it, quiet) {
+    if (it.k === "r") { if (!quiet) a.toast(`Deload week. Run your usual days with the same weights and about half the sets.`, undefined, undefined, 6000); return true; }
+    const p = ensureProgram(a, it.id); if (!p) return false;
+    resetProgress(a, p); a.selectProgram(p, null, true);
+    if (!quiet) a.toast(`Playlist: now on ${p.title} (${it.weeks} week${it.weeks === 1 ? "" : "s"})`, "Open", () => openProgramDays(a, p), 6000);
+    return true;
+  }
+
+  function start(a, items) {
+    const clean = items.filter(it => it && (it.k === "r" || it.k === "p")).map(it => ({ k: it.k, id: it.k === "p" ? it.id : null, weeks: Math.max(1, Math.min(52, it.weeks | 0 || 1)) }));
+    let i = clean.findIndex(it => it.k === "p"); if (i < 0) return false;
+    a.settings.playlist = { items: clean, idx: 0, started: today(), on: true, log: [] };
+    const pl = a.settings.playlist;
+    while (pl.idx < pl.items.length && !begin(a, pl.items[pl.idx], pl.idx !== 0 ? false : false)) pl.idx++;
+    if (pl.idx >= pl.items.length) { delete a.settings.playlist; return false; }
+    save(a); return true;
+  }
+  function advance(a) {
+    const pl = get(a); if (!pl || !pl.on) return false;
+    pl.log = (pl.log || []).concat([{ i: pl.idx, from: pl.started, to: today() }]);
+    pl.idx++;
+    while (pl.idx < pl.items.length) { const it = pl.items[pl.idx]; if (it.k === "r" || ensureProgram(a, it.id)) break; pl.idx++; }
+    if (pl.idx >= pl.items.length) { pl.on = false; pl.done = true; save(a); a.toast("Playlist finished. Nice work. Pick a new one any time.", undefined, undefined, 6000); return true; }
+    pl.started = today(); begin(a, pl.items[pl.idx]); save(a); return true;
+  }
+  /** once a day, when the current stage's weeks are up, move on (one stage at a time, so a long break never skips a program) */
+  function tick(a) {
+    const pl = get(a); if (!pl || !pl.on || pl.idx >= pl.items.length) return false;
+    if (today() >= stageEnd(pl)) return advance(a);
+    return false;
+  }
+  PT.playlist = { get: () => get(A()), start: items => start(A(), items), tick: () => tick(A()), advance: () => advance(A()), stageEnd };
+
+  /* ---------------------------------------------------------------- Home row */
+  function stageLine(a, pl) {
+    const it = pl.items[pl.idx], wk = Math.min(it.weeks, Math.floor(between(pl.started, today()) / 7) + 1), left = Math.max(0, between(today(), stageEnd(pl)));
+    const next = pl.items[pl.idx + 1];
+    return { it, wk, left, next, nextTxt: next ? `Next: ${titleOf(a, next)} on ${fmt(stageEnd(pl))}` : `Last stage, ends ${fmt(stageEnd(pl))}` };
+  }
+  function homeRow(a) {
+    let box = $("pt-home-plist");
+    const pl = get(a);
+    if (!pl || (!pl.on && (!pl.done || pl.hide))) { if (box) box.remove(); return; }
+    if (!box) {
+      box = document.createElement("div"); box.id = "pt-home-plist";
+      const anchor = $("home-work"); if (!anchor || !anchor.parentElement) return;
+      anchor.insertAdjacentElement("beforebegin", box);
+    }
+    if (!pl.on) { box.innerHTML = `<button type="button" class="pt-pl-row" data-pl="open"><span class="pt-pl-i">🏁</span><span class="pt-pl-m"><b>Playlist finished</b><em>Tap to start a new one</em></span></button><button type="button" class="pt-pl-x" data-pl="hide" aria-label="Hide">×</button>`; return; }
+    const s = stageLine(a, pl), it = s.it;
+    box.innerHTML = `<button type="button" class="pt-pl-row" data-pl="open"><span class="pt-pl-i">🔁</span><span class="pt-pl-m">
+      <b>Week ${s.wk} of ${it.weeks} · ${esc(titleOf(a, it))}</b>
+      <em>${it.k === "r" ? "Same weights, about half the sets. " : ""}${esc(s.nextTxt)}</em></span><span class="pt-pl-c">›</span></button>`;
+  }
+  const oHome = proto.renderHomeView;
+  proto.renderHomeView = function () {
+    const r = oHome.apply(this, arguments);
+    try { if (tick(this)) oHome.apply(this, arguments); homeRow(this); } catch (e) { console.error("PulseTrack playlist home", e); }
+    return r;
+  };
+  document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible") { try { const a = A(); if (a && tick(a)) { if (a.renderProgramsView) a.renderProgramsView(); if (a.renderHomeView) a.renderHomeView(); } } catch (e) { } } });
+  setTimeout(() => { try { const a = A(); if (a && a.settings && tick(a) && a.renderHomeView) a.renderHomeView(); } catch (e) { } }, 1500);
+
+  /* ---------------------------------------------------------------- the sheet */
+  let el = null, view = "", draft = [], pickQ = "";
+
+  function open() {
+    el = K.sheet("pt-plist", 58);
+    const pl = get(A()); draft = [];
+    if (pl && pl.on) showActive(); else showEmpty();
+  }
+  function paint(html, onBind) { const c = K.openSheet(el, html); c.addEventListener("click", clicks); if (onBind) onBind(c); return c; }
+
+  function showEmpty() {
+    view = "empty";
+    const a = A(), ok = PRESETS.filter(p => p.items.every(x => x[0] === "r" || builtin(x[1])));
+    const pl = get(a);
+    paint(`${K.head("Program playlist", "Run programs one after another")}
+      <p class="pt-pl-p">Line up programs and deload weeks, each with its own number of weeks. When a stage's weeks are up, the next program becomes your current program by itself and starts at Day 1.</p>
+      ${pl && pl.done ? `<p class="pt-pl-p pt-pl-ok">Your last playlist finished. Start a new one below.</p>` : ""}
+      <button type="button" class="pt-morerow pt-pl-go" data-pl="new"><span>＋</span><span class="pt-pl-gt"><b>Build a playlist</b><em>Pick the programs and how many weeks each runs</em></span></button>
+      ${ok.length ? `<div class="pt-pl-lab">Or start from one of these</div>${ok.map((p, i) => `<button type="button" class="pt-morerow pt-pl-go" data-pl="preset" data-i="${PRESETS.indexOf(p)}"><span>📋</span><span class="pt-pl-gt"><b>${esc(p.name)}</b><em>${esc(p.sub)}</em></span></button>`).join("")}` : ""}`);
+  }
+
+  function editHtml() {
+    const a = A(), n = totalWeeks(draft);
+    return `${K.head("Build a playlist", "Stage by stage, in order")}
+      ${draft.length ? `<ol class="pt-pl-list">${draft.map((it, i) => `<li><span class="pt-pl-n">${i + 1}</span>
+        <span class="pt-pl-w"><b>${esc(titleOf(a, it))}</b><em>${it.k === "r" ? "Keeps your current program" : "Starts at Day 1"}</em></span>
+        <span class="pt-pl-ctl"><button type="button" data-pl="wm" data-i="${i}" aria-label="One week less">−</button><span>${it.weeks} wk</span><button type="button" data-pl="wp" data-i="${i}" aria-label="One week more">+</button></span>
+        <span class="pt-pl-mv"><button type="button" data-pl="up" data-i="${i}" aria-label="Move up" ${i === 0 ? "disabled" : ""}>↑</button><button type="button" data-pl="dn" data-i="${i}" aria-label="Move down" ${i === draft.length - 1 ? "disabled" : ""}>↓</button><button type="button" data-pl="rm" data-i="${i}" aria-label="Remove">✕</button></span></li>`).join("")}</ol>
+        <p class="pt-pl-p">${n} week${n === 1 ? "" : "s"} in all, about ${Math.max(1, Math.round(n / 4.345))} month${Math.round(n / 4.345) <= 1 ? "" : "s"}.</p>` : `<p class="pt-pl-p">Nothing here yet. Add a program to begin.</p>`}
+      <div class="pt-pl-add"><button type="button" data-pl="addp">＋ Add a program</button><button type="button" data-pl="addr">＋ Deload week</button></div>
+      <div class="pt-pl-foot"><button type="button" class="pt-st-b" data-pl="go" ${draft.some(x => x.k === "p") ? "" : "disabled"}>Start today</button><button type="button" class="pt-st-b ghost" data-pl="cancel">Cancel</button></div>
+      <p class="pt-pl-p">Starting resets the first program to Day 1 and makes it your current program.</p>`;
+  }
+  function showEdit() { view = "edit"; paint(editHtml()); }
+
+  function pickList() {
+    const a = A(), toks = String(pickQ || "").toLowerCase().split(/\s+/).filter(Boolean), seen = new Set(), out = [];
+    ((a.data.programs || []).concat(typeof BUILTIN_PROGRAMS !== "undefined" ? BUILTIN_PROGRAMS : [])).forEach(p => { if (!p || p.id === FREESTYLE || seen.has(p.id)) return; seen.add(p.id); out.push(p); });
+    out.sort((x, y) => String(x.title).localeCompare(String(y.title), undefined, { sensitivity: "base", numeric: true }));
+    return out.filter(p => { const blob = (p.title + " " + (p.pro || "") + " " + (p.tags || []).join(" ")).toLowerCase(); return toks.every(t => blob.includes(t)); });
+  }
+  function pickHtml() {
+    const rows = pickList().slice(0, 40);
+    return rows.length ? rows.map(p => `<button type="button" class="pt-st-row" data-pl="pick" data-id="${esc(p.id)}"><span class="pt-st-t">${esc(p.title)}</span><span class="pt-st-s">${esc(PT.programsScreen && PT.programsScreen.facts ? PT.programsScreen.facts(p) : "")}${p.weeks ? " · " + esc(String(p.weeks)) + " weeks" : ""}</span></button>`).join("")
+      : `<p class="pt-st-hint">No program matches.</p>`;
+  }
+  function showPick() {
+    view = "pick"; pickQ = "";
+    const c = paint(`${K.head("Add a program", "It runs for the weeks you choose")}
+      <div class="pt-st-find"><input id="pt-pl-q" type="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search programs or athletes" aria-label="Search programs"></div>
+      <div class="pt-st-rows" id="pt-pl-rows">${pickHtml()}</div><button type="button" class="pt-st-back" data-pl="edit">‹ Back</button>`);
+    const q = c.querySelector("#pt-pl-q"); q.addEventListener("input", () => { pickQ = q.value; c.querySelector("#pt-pl-rows").innerHTML = pickHtml(); });
+  }
+
+  /** every stage with its state (done / now / next) and its dates, shared by the playlist sheet and the Progress calendar strip */
+  function timeline(a, pl) {
+    let cursor = pl.started;
+    return pl.items.map((it, i) => {
+      let state, dates;
+      if (i < pl.idx || !pl.on) { const lg = (pl.log || []).find(l => l.i === i); state = "done"; dates = lg ? `${fmt(lg.from)} to ${fmt(lg.to)}` : "Done"; }
+      else if (i === pl.idx) { state = "now"; const s = stageLine(a, pl); dates = `Week ${s.wk} of ${it.weeks} · ends ${fmt(stageEnd(pl))}`; cursor = stageEnd(pl); }
+      else { state = "next"; const e = addDays(cursor, it.weeks * 7); dates = `${fmt(cursor)} to ${fmt(e)} · ${it.weeks} wk`; cursor = e; }
+      return { i, it, state, dates, title: titleOf(a, it) };
+    });
+  }
+  function showActive() {
+    view = "active";
+    const a = A(), pl = get(a); if (!pl) { showEmpty(); return; }
+    const rows = timeline(a, pl).map(r => `<li class="pt-pl-s ${r.state}"><span class="pt-pl-n">${r.state === "done" ? "✓" : r.i + 1}</span><span class="pt-pl-w"><b>${esc(r.title)}</b><em>${esc(r.dates)}</em></span></li>`).join("");
+    const it = pl.items[pl.idx], cur = (() => { try { return PT.currentProgramId && PT.currentProgramId(); } catch (e) { return null; } })();
+    const mismatch = pl.on && it && it.k === "p" && cur !== it.id;
+    paint(`${K.head("Program playlist", pl.on ? `Stage ${pl.idx + 1} of ${pl.items.length}` : "Finished")}
+      <ol class="pt-pl-list pt-pl-tl">${rows}</ol>
+      ${mismatch ? `<p class="pt-pl-p pt-pl-warn">Your current program is not ${esc(titleOf(a, it))}.</p><button type="button" class="pt-morerow pt-pl-go" data-pl="cur"><span>⭐</span><span class="pt-pl-gt"><b>Make it my current program</b><em>Keeps your progress in it</em></span></button>` : ""}
+      ${pl.on ? `<div class="pt-pl-foot3"><button type="button" class="pt-st-b ghost" data-pl="skip">Skip to next stage</button><button type="button" class="pt-st-b ghost" data-pl="plus">＋1 week</button><button type="button" class="pt-st-b ghost danger" data-pl="stop">Stop playlist</button></div>` : `<button type="button" class="pt-st-b" data-pl="new">Start a new playlist</button>`}`);
+  }
+
+  async function clicks(e) {
+    const b = e.target.closest("[data-pl]"); if (!b) return;
+    const a = A(), act = b.dataset.pl, i = parseInt(b.dataset.i, 10);
+    if (act === "new") { draft = []; showEdit(); return; }
+    if (act === "preset") { const p = PRESETS[i]; draft = p.items.map(x => ({ k: x[0], id: x[1], weeks: x[2] })); showEdit(); return; }
+    if (act === "wm") { draft[i].weeks = Math.max(1, draft[i].weeks - 1); showEdit(); return; }
+    if (act === "wp") { draft[i].weeks = Math.min(52, draft[i].weeks + 1); showEdit(); return; }
+    if (act === "up" && i > 0) { [draft[i - 1], draft[i]] = [draft[i], draft[i - 1]]; showEdit(); return; }
+    if (act === "dn" && i < draft.length - 1) { [draft[i + 1], draft[i]] = [draft[i], draft[i + 1]]; showEdit(); return; }
+    if (act === "rm") { draft.splice(i, 1); showEdit(); return; }
+    if (act === "addr") { draft.push({ k: "r", id: null, weeks: 1 }); showEdit(); return; }
+    if (act === "addp") { showPick(); return; }
+    if (act === "edit") { showEdit(); return; }
+    if (act === "pick") { const p = progOf(a, b.dataset.id); if (p) draft.push({ k: "p", id: p.id, weeks: defaultWeeks(p) }); showEdit(); return; }
+    if (act === "cancel") { K.closeSheet(el); return; }
+    if (act === "go") {
+      if (!start(a, draft)) { a.toast("Add at least one program first."); return; }
+      K.closeSheet(el); homeRow(a);
+      try { if (a.renderProgramsView) a.renderProgramsView(); } catch (x) { }
+      return;
+    }
+    if (act === "cur") { const pl = get(a), p = pl && ensureProgram(a, pl.items[pl.idx].id); if (p) { a.selectProgram(p, null, true); a.toast(`"${p.title}" is now your current program`); showActive(); } return; }
+    if (act === "skip") { if (await PT.confirm("Move on to the next stage now?")) { advance(a); homeRow(a); try { a.renderProgramsView && a.renderProgramsView(); } catch (x) { } if (get(a) && get(a).on) showActive(); else showEmpty(); } return; }
+    if (act === "plus") { const pl = get(a); if (pl && pl.on) { pl.items[pl.idx].weeks++; save(a); homeRow(a); showActive(); } return; }
+    if (act === "stop") { if (await PT.confirm("Stop the playlist? Your current program stays as it is.")) { delete a.settings.playlist; save(a); homeRow(a); K.closeSheet(el); a.toast("Playlist stopped"); } return; }
+  }
+  document.addEventListener("click", e => {
+    const t = e.target && e.target.closest ? e.target : null; if (!t) return;
+    if (t.closest("#pt-prog-plist") || t.closest("#pt-home-plist [data-pl=open]")) { open(); return; }
+    const h = t.closest("#pt-home-plist [data-pl=hide]"); if (h) { const a = A(), pl = get(a); if (pl) { pl.hide = true; save(a); homeRow(a); } }
+  });
+
+  /* ---------------------------------------------------------------- Progress → Training year: the whole chain, with dates */
+  function addStrip(a) {
+    const pl = get(a), host = $("pt-pg-heat"); if (!host) return;
+    const old = host.querySelector("#pt-pl-strip"); if (old) old.remove();
+    if (!pl || !pl.on) return;
+    const rows = timeline(a, pl).map(r => `<li class="${r.state}"><span class="pt-pl-sd">${r.state === "done" ? "✓" : r.state === "now" ? "●" : "○"}</span><span><b>${esc(r.title)}</b><em>${esc(r.dates)}</em></span></li>`).join("");
+    const box = document.createElement("div"); box.id = "pt-pl-strip";
+    box.innerHTML = `<div class="pt-pl-sh">🔁 Program playlist</div><ol>${rows}</ol>`;
+    const body = host.querySelector("summary") ? host.querySelector("summary").nextElementSibling : null;
+    if (body) body.insertAdjacentElement("afterbegin", box); else host.appendChild(box);
+  }
+  const oPV = proto.renderProgressView;
+  proto.renderProgressView = function () {
+    const r = oPV.apply(this, arguments);
+    try { addStrip(this); } catch (e) { console.error("PulseTrack playlist strip", e); }
+    return r;
+  };
+
+  /* ---------------------------------------------------------------- the Programs tile */
+  function ensureTool() {
+    const box = $("pt-prog-tools"); if (!box || $("pt-prog-plist")) return;
+    const b = document.createElement("button"); b.type = "button"; b.id = "pt-prog-plist"; b.title = "Chain programs one after another"; b.setAttribute("aria-label", "Program playlist"); b.dataset.pgx = "Playlist";
+    b.innerHTML = '<span class="pgx-ti">🔁</span><span class="pgx-tl">Playlist</span>';
+    box.appendChild(b);
+  }
+  const oRP = proto.renderProgramsView;
+  proto.renderProgramsView = function () {
+    const r = oRP.apply(this, arguments);
+    try { ensureTool(); if (PT.programsScreen && PT.programsScreen.tools) PT.programsScreen.tools(); } catch (e) { console.error("PulseTrack playlist tool", e); }
+    return r;
+  };
+
+  /* ---------------------------------------------------------------- styles */
+  const css = document.createElement("style");
+  css.id = "pt-v243-plist-css";
+  css.textContent = `
+    #pt-home-plist { position: relative; }
+    .pt-pl-row { display: flex; align-items: center; gap: .7rem; width: 100%; text-align: left; padding: .6rem .8rem; border-radius: 1rem; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); }
+    .pt-pl-i { flex: none; width: 2rem; height: 2rem; border-radius: .7rem; display: grid; place-items: center; background: rgb(var(--z800)); font-size: 1rem; }
+    .pt-pl-m { display: grid; gap: .1rem; min-width: 0; flex: 1; }
+    .pt-pl-m b { font-size: .78rem; font-weight: 800; color: rgb(var(--z100)); line-height: 1.25; }
+    .pt-pl-m em { font-style: normal; font-size: .68rem; color: rgb(var(--z400)); line-height: 1.3; }
+    .pt-pl-c { flex: none; color: rgb(var(--z500)); font-size: 1.2rem; }
+    .pt-pl-x { position: absolute; top: .35rem; right: .5rem; width: 1.8rem; height: 1.8rem; font-size: 1.1rem; color: rgb(var(--z500)); }
+    .pt-pl-p { font-size: .78rem; line-height: 1.45; color: rgb(var(--z400)); }
+    .pt-pl-ok { color: rgb(var(--a400)); font-weight: 700; }
+    .pt-pl-warn { color: rgb(253 230 138); }
+    .pt-pl-lab { font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgb(var(--z500)); }
+    .pt-pl-go { align-items: flex-start !important; text-align: left; }
+    .pt-pl-gt { display: grid; gap: .1rem; } .pt-pl-gt b { font-size: .85rem; font-weight: 800; } .pt-pl-gt em { font-style: normal; font-size: .7rem; font-weight: 500; color: rgb(var(--z400)); }
+    .pt-pl-list { display: grid; gap: .45rem; list-style: none; padding: 0; margin: 0; }
+    .pt-pl-list > li { display: grid; grid-template-columns: 1.7rem 1fr auto; align-items: center; gap: .3rem .6rem; padding: .6rem .7rem; border-radius: .85rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
+    .pt-pl-n { width: 1.7rem; height: 1.7rem; border-radius: 999px; display: grid; place-items: center; font-size: .72rem; font-weight: 800; background: rgb(var(--z800)); color: rgb(var(--z200)); }
+    .pt-pl-w { display: grid; gap: .1rem; min-width: 0; } .pt-pl-w b { font-size: .8rem; font-weight: 800; color: rgb(var(--z50)); } .pt-pl-w em { font-style: normal; font-size: .68rem; color: rgb(var(--z400)); }
+    .pt-pl-ctl { display: flex; align-items: center; gap: .3rem; font-size: .72rem; font-weight: 700; color: rgb(var(--z200)); white-space: nowrap; }
+    .pt-pl-ctl button, .pt-pl-mv button { width: 1.8rem; height: 1.8rem; border-radius: .55rem; background: rgb(var(--z800)); color: rgb(var(--z100)); font-weight: 800; }
+    .pt-pl-mv { grid-column: 2 / -1; display: flex; gap: .3rem; justify-content: flex-end; }
+    .pt-pl-mv button:disabled { opacity: .3; }
+    .pt-pl-add { display: flex; gap: .5rem; } .pt-pl-add button { flex: 1; padding: .65rem .5rem; border-radius: .8rem; font-size: .78rem; font-weight: 700; background: rgb(var(--z800)); color: rgb(var(--z100)); }
+    .pt-pl-foot, .pt-pl-foot3 { display: flex; gap: .5rem; flex-wrap: wrap; } .pt-pl-foot3 button { flex: 1 1 30%; font-size: .72rem; }
+    .pt-st-b:disabled { opacity: .4; } .pt-st-b.danger { color: rgb(251 113 133); }
+    .pt-pl-tl > li.done { opacity: .6; } .pt-pl-tl > li.now { border-color: rgb(var(--a600) / .7); } .pt-pl-tl > li.now .pt-pl-n { background: rgb(var(--a600)); color: #fff; }
+    .pt-pl-tl > li { grid-template-columns: 1.7rem 1fr; }
+    #pt-pl-strip { margin-bottom: .75rem; padding: .7rem .8rem; border-radius: .9rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
+    .pt-pl-sh { font-size: .68rem; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: rgb(var(--z400)); margin-bottom: .45rem; }
+    #pt-pl-strip ol { list-style: none; margin: 0; padding: 0; display: grid; gap: .4rem; }
+    #pt-pl-strip li { display: flex; gap: .55rem; align-items: baseline; font-size: .74rem; color: rgb(var(--z300)); }
+    #pt-pl-strip li b { display: block; font-weight: 700; color: rgb(var(--z100)); } #pt-pl-strip li em { display: block; font-style: normal; font-size: .66rem; color: rgb(var(--z500)); }
+    #pt-pl-strip li.done { opacity: .6; } #pt-pl-strip li.now .pt-pl-sd { color: rgb(var(--a400)); }
+    .pt-pl-sd { flex: none; width: 1rem; text-align: center; }
+    html[data-mode="light"] .pt-pl-warn { color: rgb(146 64 14); }
   `;
   document.head.appendChild(css);
 })();

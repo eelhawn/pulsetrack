@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.42.0*
+*Version 2.43.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **64 ready-made programs** (six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -84,11 +84,11 @@ The list used to be a tall stack of buttons and big cards. It is now built to be
 
 - **Current program card** on top: the program you are on, your week, and the next workout (**Next: Week 3 · Day 2: Pull**), with an **Open** button. If nothing is selected it says so.
 - **Two-a-day shelf (new in 2.40.0):** right under the current program, a row of sunrise-to-night cards, one per two-a-day program. Each shows the athlete, the title, the **AM** session and the **PM** session of its first double day (for example **AM Chest & Back / PM Thighs, Calves & Abs**), and days a week. Swipe sideways for the rest, tap a card to open the program, or tap **See all**. The shelf only shows on the plain All view; search or any filter hides it so the list stays the list.
-- **Tools in one compact grid:** **Build me a program** across the top, then **Create your own**, **Paste a program**, **Import a file**, **Share link**, **Guided mobility** and **Stretch routine**. Same buttons as before, a third of the height.
+- **Tools in one compact grid:** **Build me a program** across the top, then **Create your own**, **Paste a program**, **Import a file**, **Share link**, **Guided mobility** and **Stretch routine**, and (new in 2.43.0) **Steal a day** and **Playlist** on a row of their own. Same buttons as before, a third of the height.
 - **Search** by program name, athlete, tag, workout name or **exercise**. Typing "hack squat" lists every program that has one; "zane" lists his three; "mentzer pullover" narrows to the one program that has both. Every word has to match, and the match is highlighted.
 - **Filter chips with counts:** **All**, **Pro plans** (tied to a named athlete), **Two-a-day** (any program with morning and evening sessions), **Mass**, **Cutting**, **Strength**, **Beginner** and **Mine** (programs you made or imported).
 - **One slim row per program:** a coloured badge with the athlete's initials (the same colour for every program of one athlete), the title, and one line of facts, like **Mass · 6 days/wk · 12 weeks · Advanced**. Two-a-day programs also carry a small gold **☀ ☾ AM+PM** tag (**☀ wk 10–12** when only some weeks train twice a day). Rows are grouped as **Your programs**, **Pro programs** (by athlete) and **More programs**. The current program's row says **✓ Current**.
-- **Tap a row to open it. Tap ⋯ for the rest:** **Open program**, **Make it my current program**, **Share** and **Delete from this phone** (still asks first; a built-in program can be added back later).
+- **Tap a row to open it. Tap ⋯ for the rest:** **Open program**, **Steal a day from it** (2.43.0), **Make it my current program**, **Share** and **Delete from this phone** (still asks first; a built-in program can be added back later).
 - The labels (athlete, goal, level, days a week) come from `programs.js`. Programs you made yourself get a guess from their title and tags.
 
 #### How a two-a-day program looks inside (new in 2.40.0)
@@ -170,6 +170,32 @@ Two programs that were already in the app train twice a day as well and now sit 
 | Chris Bumstead | Push / Pull / Legs | Two push days, two pull days and two leg days, then a rest day. A few heavy sets lead each day, then constant-tension work: timed 40-second sets, supersets (chest flyes with triceps, calves with hamstring curls, lateral raises with push-ups, leg press with calf raises) and drop sets, ending Pull Day 2 with one big dumbbell-curl drop set | Fitness Volt, "Chris Bumstead Reveals Intense Push, Pull, Legs Workout Routine" (his 2019 YouTube video) |
 
 The article gives no schedule, so the six days run back to back with a rest day after them; that arrangement and the rest times are ours. Warm-up sets are written in the notes and are not counted in the sets, and the article's 2 drop sets of 20 cable rows on Pull Day 2 are left off. This is a different split from his two off-season programs.
+
+### Steal a day (new in 2.43.0)
+
+Take one workout from any program without taking the whole program. **Programs → Steal a day** opens a finder:
+
+- **Pick a muscle** (Chest, Back, Shoulders, Arms, Quads, Hams & glutes, Calves, Abs) and it lists the best days for it from every program in the library plus your own, best first. A day is ranked by how many of its hard sets hit that muscle, and only days that are mostly that muscle (at least 40% of the sets and at least 5 sets) are listed. Each row shows the day, the athlete and program, its biggest muscle groups with set counts, and the number of exercises and minutes.
+- **Or search** an athlete, a program or a day name ("Cutler", "back width", "Heavy Duty"). The list shows 30 at a time with **Show more**.
+- **Tap a day** to see all its exercises with sets and reps, then choose what to do with it:
+  - **Do it now:** a one-off **Freestyle** workout with those exercises. Your program is not touched, and your current program stays your current program. If your Freestyle workout already has sets logged, it asks before replacing it.
+  - **Add to my current program:** a new day at the end of it. Only offered when your current program is one you made yourself (see below).
+  - **Add to one of my programs:** pick any program you made, and the day goes at the end of it.
+  - **Start a new program from it:** a program of your own with just that day. Add more days to it later from the same screen.
+- **Nothing in a built-in program is ever edited.** The day is copied with fresh ids, and supersets are kept (the last exercise is never left linked to nothing). That is why **Add to my current program** is not offered while a built-in program is current: use **Add to one of my programs** or **Start a new program from it** instead.
+- **Other ways in:** a program's **⋯** menu (**Steal a day from it**, showing only that program's days), the workout screen's **⋯ More → Steal this day…** (for the day on screen), and the **Weak points** card on Progress → Strength, whose new **Find a day for legs** button opens the finder already set to your weakest muscle group.
+
+### Program playlist (new in 2.43.0)
+
+Run programs one after another with no thinking about it, for example **8 weeks of Chris Bumstead's push / pull / legs, 1 deload week, then 8 weeks of Arnold's double split**. **Programs → Playlist**:
+
+- **Build a playlist:** add programs (search by name or athlete) and **deload weeks**, set the number of weeks for each with − and +, reorder with the arrows, remove with ✕. It shows the total, for example "17 weeks in all, about 4 months". Two ready-made ones are offered: **Mass cycle** (CBum push/pull/legs, deload, Arnold's double split) and **Mentzer block** (his Ideal Routine, deload, the Heavy Duty A/B/C rotation).
+- **Start today** makes the first program your current program, starting at **Day 1** (its earlier progress in the program is cleared, and the app tells you so before you start).
+- **It moves on by itself.** Each time you open the app, if the current stage's weeks are up, the next stage begins: the next program becomes your current program at Day 1 and a note says so. A deload stage keeps your current program and tells you to run it with the same weights and about half the sets. It only ever moves **one stage at a time**, so a long break never skips a whole program. After the last stage it says **Playlist finished**.
+- **Home shows one slim row** above the work check-in: **Week 2 of 8 · Chris Bumstead: Push / Pull / Legs** and **Next: Deload week on Dec 23**. Tap it for the whole line-up with dates, a ✓ on finished stages and the current one highlighted. There you can **Skip to next stage**, add **+1 week** to the current stage, or **Stop playlist** (your current program stays as it is). If you switch to a different program on your own, the sheet offers **Make it my current program** to get back on track.
+- **On Progress too:** the **History** tab's **Training year** section shows the whole chain with dates above the calendar (current stage marked, later stages with their start and end dates).
+- If a program in the playlist was deleted from the phone, it is added back from the built-in list when its turn comes.
+- The playlist is saved with your settings, so it is in backups. Stopping it, or never starting one, changes nothing.
 
 ### Your current program
 
@@ -653,6 +679,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.43.0**
+- **Steal a day.** Programs → Steal a day (also on a program's ⋯ menu, the workout screen's ⋯ More, and the Weak points card): pick a muscle or search an athlete and get the best days for it from every program, ranked by how many hard sets hit it. Do the day now as a Freestyle workout, add it to a program you made, or start a new program from it. Built-in programs are never edited.
+- **Program playlist.** Programs → Playlist: line up programs and deload weeks with a number of weeks for each (8 weeks CBum push/pull/legs, 1 deload week, 8 weeks Arnold's double split). Each stage becomes your current program at Day 1 when its weeks start; Home shows the stage, the week and what is next; the Training year section on Progress shows the whole chain with dates; Skip, +1 week and Stop are in the playlist sheet.
+- **Find a day for your weak point.** The Weak points card on Progress → Strength has a button that opens Steal a day set to your weakest muscle group.
 
 **2.42.0**
 - **40-second timers on the right sets.** A timer button now appears only on the sets whose own target is a time: in "8-10, 8-10, 40 sec, 40 sec" just sets 3 and 4. Each set's reps box shows its own target. On weighted sets the timer no longer writes seconds into the reps box (they would have produced a fake 1-rep-max record); it saves the seconds and you type the reps. Planks and other bodyweight holds work as before. This fixes Chris Bumstead's timed sets, which had a timer on every set before.
