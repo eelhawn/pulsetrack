@@ -107093,5 +107093,669 @@ const BUILTIN_PROGRAMS = [
     ]
    }
   ]
+ },
+ {
+  "id": "custom_6day_chestback_legs_sharms",
+  "title": "Custom 6-Day: Chest & Back, Legs, Sharms",
+  "description": "A six-day split: chest and back together, legs with abs and calves, and shoulders with arms (sharms), each done twice a week with Sunday as the only rest day. On chest and back day the muscles alternate set for set, the way Arnold trained them: one back exercise, straight into one chest exercise, then rest. Per day that is 4 chest and 5 back; 7 legs, 2 ab supersets and 2 calf exercises; 5 shoulders, 3 biceps, 3 triceps and 1 forearm. This is a custom layout, not a published routine, so the exercises, sets, reps and rest times are our picks. Change any of them in the editor. Both copies of each day are the same, so the weights you log on Monday carry over to Thursday.",
+  "tags": [
+   "Custom",
+   "6 Days",
+   "Chest & Back",
+   "Sharms",
+   "Arnold Principle",
+   "Supersets",
+   "Mass Building"
+  ],
+  "pro": "",
+  "goal": "mass",
+  "level": "intermediate",
+  "perWeek": 6,
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Mon: Chest & Back",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "custom_6day_chestback_legs_sharms_d1_e1",
+      "name": "Pull-Ups",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Back first, then chest. Warm up with 2 light sets of each exercise. Add weight once 10 reps feel easy."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d1_e2",
+      "name": "Bench Press",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Do one set of pull-ups, go straight to a set of bench press, then rest."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d1_e3",
+      "name": "Barbell Row",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Incline Dumbbell Press."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d1_e4",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Superset with Barbell Row."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d1_e5",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Chest Dips."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d1_e6",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "Bodyweight. Lean forward a little to hit the chest."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d1_e7",
+      "name": "Seated Cable Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Cable Crossovers."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d1_e8",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "Superset with Seated Cable Row."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d1_e9",
+      "name": "Straight-Arm Pulldown",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "On its own at the end. Keep your arms nearly straight and feel your lats."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Tue: Legs, Abs & Calves",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e1",
+      "name": "Barbell High-Bar Back Squat",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Warm up with 3 light sets first."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e2",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e3",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e4",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Reps are per leg. Dumbbells in your hands."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e5",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e6",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e7",
+      "name": "Hip Thrusts",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e8",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Straight legs up as high as you can, then go straight into the knee raises."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e9",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 60,
+      "type": "superset",
+      "notes": "Bent knees up to your chest. Do it right after the leg raises, no rest between them."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e10",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Decline Russian Twists."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e11",
+      "name": "Decline Russian Twists",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "superset",
+      "notes": "Same bench as the sit-ups. 20 reps is the total, counting both sides."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e12",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Pause for a second at the top and at the bottom."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d2_e13",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Wed: Shoulders & Arms (Sharms)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "custom_6day_chestback_legs_sharms_d3_e1",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Standing barbell press. Warm up with 2 light sets first."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d3_e2",
+      "name": "Arnold Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d3_e3",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Light weight, no swinging."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d3_e4",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Rear delts."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d3_e5",
+      "name": "Face Pulls",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d3_e6",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d3_e7",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d3_e8",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d3_e9",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d3_e10",
+      "name": "Hammer Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d3_e11",
+      "name": "Overhead Triceps Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d3_e12",
+      "name": "Wrist Curls",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Forearms."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Thu: Chest & Back",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "custom_6day_chestback_legs_sharms_d4_e1",
+      "name": "Pull-Ups",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Back first, then chest. Warm up with 2 light sets of each exercise. Add weight once 10 reps feel easy."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d4_e2",
+      "name": "Bench Press",
+      "sets": 4,
+      "reps": "6-10",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Do one set of pull-ups, go straight to a set of bench press, then rest."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d4_e3",
+      "name": "Barbell Row",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Incline Dumbbell Press."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d4_e4",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 90,
+      "type": "superset",
+      "notes": "Superset with Barbell Row."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d4_e5",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Chest Dips."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d4_e6",
+      "name": "Chest Dips",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "Bodyweight. Lean forward a little to hit the chest."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d4_e7",
+      "name": "Seated Cable Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Cable Crossovers."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d4_e8",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "superset",
+      "notes": "Superset with Seated Cable Row."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d4_e9",
+      "name": "Straight-Arm Pulldown",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "On its own at the end. Keep your arms nearly straight and feel your lats."
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Fri: Legs, Abs & Calves",
+    "estimatedMinutes": 80,
+    "exercises": [
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e1",
+      "name": "Barbell High-Bar Back Squat",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard",
+      "notes": "Warm up with 3 light sets first."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e2",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e3",
+      "name": "Romanian Deadlift (RDL)",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e4",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Reps are per leg. Dumbbells in your hands."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e5",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e6",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e7",
+      "name": "Hip Thrusts",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e8",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Straight legs up as high as you can, then go straight into the knee raises."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e9",
+      "name": "Hanging Knee Raises",
+      "sets": 3,
+      "reps": "10-15",
+      "restSeconds": 60,
+      "type": "superset",
+      "notes": "Bent knees up to your chest. Do it right after the leg raises, no rest between them."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e10",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 0,
+      "type": "superset",
+      "link": true,
+      "notes": "Superset with Decline Russian Twists."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e11",
+      "name": "Decline Russian Twists",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 60,
+      "type": "superset",
+      "notes": "Same bench as the sit-ups. 20 reps is the total, counting both sides."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e12",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "8-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Pause for a second at the top and at the bottom."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d5_e13",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Sat: Shoulders & Arms (Sharms)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "custom_6day_chestback_legs_sharms_d6_e1",
+      "name": "Overhead Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Standing barbell press. Warm up with 2 light sets first."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d6_e2",
+      "name": "Arnold Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d6_e3",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Light weight, no swinging."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d6_e4",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Rear delts."
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d6_e5",
+      "name": "Face Pulls",
+      "sets": 3,
+      "reps": "15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d6_e6",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d6_e7",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d6_e8",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d6_e9",
+      "name": "Triceps Pushdown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d6_e10",
+      "name": "Hammer Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d6_e11",
+      "name": "Overhead Triceps Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "custom_6day_chestback_legs_sharms_d6_e12",
+      "name": "Wrist Curls",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Forearms."
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "title": "Sun: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
  }
 ];
