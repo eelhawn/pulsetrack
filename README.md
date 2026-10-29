@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.47.0*
+*Version 2.48.0*
 
-PulseTrack installs to your home screen like a normal app. It comes with **64 ready-made programs** (six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **55 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -58,7 +58,7 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 
 ## Programs
 
-### Built in (64)
+### Built in (55)
 
 **12-week plans, week by week:** Phil Heath, Lou Ferrigno, Arnold Schwarzenegger, Dorian Yates (Blood & Guts), Mountain Dog 200-Rep (John Meadows), Jay Cutler, Ronnie Coleman, Kris Gethin Legacy Fat Loss Trainer, Kris Gethin 12 Weeks to Muscle.
 
@@ -103,13 +103,10 @@ Routines that well-known bodybuilders trained on, as published in books, magazin
 
 | Athlete | Program | How it runs | Source |
 |---|---|---|---|
-| Mike Mentzer | Heavy Duty | 2 short workouts, a rest day after each; 1-2 all-out sets with pre-exhaust pairs | John Little, Ironman Magazine |
-| Frank Zane | 3-Workout Rotation | Back/biceps, legs, chest/shoulders/triceps; every move 12, 10, 8 | Fitness Volt |
 | Frank Zane | Beginner Full Body | 3 days a week; 1 set, then 2 sets | Zane Body Training Manual |
 | Frank Zane | Upper/Lower 4-Day | 2 sets of 10 on every move | Secrets of Advanced Bodybuilding |
 | Chris Bumstead | Off-Season 8-Day Split | 3 on, 1 off; machines, drop sets, slow lowering | Fitness Volt |
 | Layne Norton | PHAT | 2 power days and 3 hypertrophy days a week | StrengthLog |
-| Steve Reeves | Classic Physique 3-Day | Every other day, 30-45 s rests | Exercise With Style |
 | Lee Haney | Stimulate, Don't Annihilate | 3 on, 1 off; chest/arms, legs, back/shoulders, two ways each | Set For Set |
 | Kevin Levrone | 6-Day Split | 3 workouts, each twice a week; heavy then pump work | Fitness Volt |
 | Sergio Oliva | The Myth's 6-Day Routine | Very high volume, weight added every set | Marty Gallagher's account |
@@ -117,7 +114,6 @@ Routines that well-known bodybuilders trained on, as published in books, magazin
 | Dave Draper | 1960s Training Journals | Two alternating days, six days a week | davedraper.com |
 | Dexter Jackson | Four-Day Split | Chest/biceps, quads, shoulders/triceps, back/hamstrings | Fitness Volt |
 | Larry Scott | Mr. Olympia 1965 Split | One muscle a day, 6 days | Fitness Volt |
-| Larry Scott | 20-Inch Arms | Two arm workouts | How I Built My 20-Inch Arms |
 | Vince Gironda | 8x8 Method | 8 sets of 8, 30 s rest, 4 workouts | Fitness Volt |
 | Arnold Schwarzenegger | The Golden Six | 6 exercises, 3 days a week | Fitness Volt |
 | Jay Cutler | 4-Day Mass Split | Chest/triceps, back/biceps, shoulders, legs | Fitness Volt |
@@ -133,18 +129,13 @@ The two **collections** are not weekly plans. Each "day" is one athlete's signat
 | Athlete | Program | How it runs | Source |
 |---|---|---|---|
 | Dorian Yates | 1987-1992 Build | 2 working sets to failure per exercise; chest/arms twice, legs heavy and light, back/shoulders once | Lift Vault |
-| Mike Mentzer | Heavy Duty A / B / C Rotation | Chest and back, legs, shoulders and arms, legs again; one all-out set, pre-exhaust pairs, a rest day after each | Set For Set (from *High-Intensity Training: The Mike Mentzer Way*) |
-| Mike Mentzer | Heavy Duty "Ideal Routine" | Push, pull, legs three times a week; one set to failure, double progression | Liftosaur (from *Heavy Duty*, 2nd edition) |
 | Mike Mentzer | Traditional 5-Day Split | His pre-Heavy-Duty split: 5 sets of everything, one muscle a day | Set For Set |
 | Chris Bumstead | 2024 Off-Season 9-Day Split | Tri-sets, two 10x10 sets, rest on days 4 and 9 | Primebeast newsletter |
 | Flex Wheeler | Bro Split Hypertrophy | 6 days, 4x12 on almost everything, two leg days (Week 1 of his published program) | Boostcamp coach page |
 | Flex Wheeler | Super Hypertrophy | Same layout, quad-first legs and cable crossovers (Week 1 of his published program) | Boostcamp coach page |
 | Lee Priest | Full Body + Arm Day | Three full-body days plus his superset arm workout | BarBend, Set For Set |
 | Ronnie Coleman | Back & Leg Specialization | Thickness and width back days, two leg days | Fitness Volt |
-| Jay Cutler | Modern Back & Delts Days | His 2024 back day and "3D Delts" shoulder day | Fitness Volt |
 | Nick Walker | Weekly Split | Legs, push, pull, legs, mixed; the source lists exercises only, so sets and reps are ours | Fitness Volt |
-| Kris Gethin | Superset Thrasher & Quad Radical | A full-body superset day and a 100-rep drop-set leg day | Bodybuilding.com |
-| Arnold Schwarzenegger | Superset Chest & Back | Four chest/back pairs, 45 sets, pyramids | Bodybuilding.com |
 | Kai Greene | 5-Day Body-Part Split | High volume, calves twice a week | Lift Vault |
 | Vince Gironda | 10-8-6-15 Method | Upper/lower; 4 sets at 10, 8, 6 and 15 reps off your 6-rep max | Lift Vault (Iron and Grit) |
 
@@ -176,7 +167,7 @@ The article gives no schedule, so the six days run back to back with a rest day 
 Take one workout from any program without taking the whole program. **Programs → Steal a day** opens a finder:
 
 - **Pick a muscle** (Chest, Back, Shoulders, Arms, Quads, Hams & glutes, Calves, Abs) and it lists the best days for it from every program in the library plus your own, best first. A day is ranked by how many of its hard sets hit that muscle, and only days that are mostly that muscle (at least 40% of the sets and at least 5 sets) are listed. Each row shows the day, the athlete and program, its biggest muscle groups with set counts, and the number of exercises and minutes.
-- **Or search** an athlete, a program or a day name ("Cutler", "back width", "Heavy Duty"). The list shows 30 at a time with **Show more**.
+- **Or search** an athlete, a program or a day name ("Cutler", "back width", "PHAT"). The list shows 30 at a time with **Show more**.
 - **Tap a day** to see all its exercises with sets and reps, then choose what to do with it:
   - **Do it now:** a one-off **Freestyle** workout with those exercises. Your program is not touched, and your current program stays your current program. If your Freestyle workout already has sets logged, it asks before replacing it.
   - **Add to my current program:** a new day at the end of it. Only offered when your current program is one you made yourself (see below).
@@ -189,7 +180,7 @@ Take one workout from any program without taking the whole program. **Programs �
 
 Run programs one after another with no thinking about it, for example **8 weeks of Chris Bumstead's push / pull / legs, 1 deload week, then 8 weeks of Arnold's double split**. **Programs → Playlist**:
 
-- **Build a playlist:** add programs (search by name or athlete) and **deload weeks**, set the number of weeks for each with − and +, reorder with the arrows, remove with ✕. It shows the total, for example "17 weeks in all, about 4 months". Two ready-made ones are offered: **Mass cycle** (CBum push/pull/legs, deload, Arnold's double split) and **Mentzer block** (his Ideal Routine, deload, the Heavy Duty A/B/C rotation).
+- **Build a playlist:** add programs (search by name or athlete) and **deload weeks**, set the number of weeks for each with − and +, reorder with the arrows, remove with ✕. It shows the total, for example "17 weeks in all, about 4 months". A program you add runs for its own length (12 weeks for most of the library). Two ready-made ones are offered: **Mass cycle** (12 weeks of CBum push/pull/legs, a week off, 12 weeks of Arnold's double split) and **Base then size** (6 weeks of Reg Park's full-body 5x5, a deload week, 12 weeks of Frank Zane's upper / lower).
 - **Start today** makes the first program your current program, starting at **Day 1** (its earlier progress in the program is cleared, and the app tells you so before you start).
 - **It moves on by itself.** Each time you open the app, if the current stage's weeks are up, the next stage begins: the next program becomes your current program at Day 1 and a note says so. A deload stage keeps your current program and tells you to run it with the same weights and about half the sets. It only ever moves **one stage at a time**, so a long break never skips a whole program. After the last stage it says **Playlist finished**.
 - **Home shows one slim row** above the work check-in: **Week 2 of 8 · Chris Bumstead: Push / Pull / Legs** and **Next: Deload week on Dec 23**. Tap it for the whole line-up with dates, a ✓ on finished stages and the current one highlighted. There you can **Skip to next stage**, add **+1 week** to the current stage, or **Stop playlist** (your current program stays as it is). If you switch to a different program on your own, the sheet offers **Make it my current program** to get back on track.
@@ -213,8 +204,13 @@ Your **current program** is the one that Home, the side menu and **Start Workout
 
 - A **week bar** is pinned right under the header of the Days screen (**Week 4 of 12 · 3/64 done**, with a **Switch week** button). It stays there while you scroll the list of days.
 - **Switch week** opens a grid of the weeks. Tap the one you are on: earlier weeks are marked done and **Up next** jumps there. Going back to an earlier week works the same way. Your saved workouts and PRs are never changed.
-- This works for every program that is laid out week by week: the 12-week plans, Kris Gethin 12 Weeks to Muscle and Legacy 12-Week, FST-7 Big and Ripped, both Jim Stoppani 6-week programs, and the programs that repeat a few days over several weeks (Kai Greene 6 weeks: days 1-6 for weeks 1-3, days 7-12 for weeks 4-6; FST-7 Level 1: weeks 1 and 3 use days 1-5, weeks 2 and 4 use days 6-10). For those two, the plan stays on the first set of days until you finish them, then moves to the next week.
-- Programs that are a single week repeated (Bulk with Buendia, USN 5 Day Mass Plan and so on) have the same bar with a plain week counter. **Switch week** asks for the week number. Shred with Buendia is in this group too, because its plan says "Phase 1 and Phase 2" without saying how many weeks each lasts.
+- This works for every program that is laid out week by week: the 12-week plans, Kris Gethin 12 Weeks to Muscle and Legacy 12-Week, FST-7 Big and Ripped, both Jim Stoppani 6-week programs, the programs that repeat a few days over several weeks (Kai Greene 6 weeks: days 1-6 for weeks 1-3, days 7-12 for weeks 4-6; FST-7 Level 1: weeks 1 and 3 use days 1-5, weeks 2 and 4 use days 6-10), and, since 2.48.0, almost everything else (below). For those, the plan stays on the first set of days until you finish them, then moves to the next week.
+- **Longer programs (new in 2.48.0).** The programs that used to be one week on repeat now run for several weeks, so the week bar counts a real plan (**Week 6 of 12 · Build**) and the days list has headers like **Weeks 5-8 · Build**. Which weeks are real and which are ours is spelled out in each program's description:
+  - **Weeks as published.** Shred with Buendia is 8 weeks (Phase 1 is weeks 1-4, Phase 2 is weeks 5-8). Arnold's Blueprint to Mass phase 1 and Blueprint to Cuts phase 2 are 4 weeks each (Cuts is now six days a week: Monday/Thursday, Tuesday/Friday and Wednesday/Saturday repeat). Frank Zane's beginner routine is 8 weeks: one set of every exercise for weeks 1-3, then two sets, as his manual says.
+  - **Weeks that PulseTrack adds.** The original sources only describe one week or a few weeks, so for the rest we added a plain progression and say so in the description. In the 12-week programs, weeks 1-4 are the routine exactly as published. **Build** (weeks 5-8) adds a set to the first two lifts of each day (never above 5 sets) and two reps to the other plain lifts. **Push** (weeks 9-11) goes back to the published sets but heavier on the first two lifts (two fewer reps, 20 s more rest). **Deload** (week 12) is about 60% of the sets, so go lighter. Jay Cutler's 4-day split is 8 weeks the same way (4 as published, 3 Build, 1 Deload).
+  - **Method programs are left alone.** Layne Norton's PHAT, Kris Gethin's DTP split, Super Shredded 8, Vince Gironda's 8x8 (6 weeks plus an easy week) and 10-8-6-15 (8 weeks) keep every set and rep as published, with just an easy final week. Arnold's Golden Six is the same three workouts for 12 weeks (the length is our choice), adding weight whenever you hit all the reps. Anything that is part of a method (8x8, FST-7 finishers, pyramids like 10, 8, 6, 15, drop sets, Tabata, AMRAP) is never changed in any program.
+  - A day that would come out the same in a later phase is simply reused, so the days list only shows what really changes. Progress you already had is kept: a "Week 3" counter becomes week 3 of the plan.
+- The **Pro Leg Days** and **Pro Upper-Body Days** collections, and programs you build or import yourself, are still a single week repeated. They have the same bar with a plain week counter, and **Switch week** asks for the week number.
 - Every day is labelled like **Week 4 of 12 · Day 2**, the days list has week headers and scrolls to **Up next**, and rest days are skipped automatically.
 - **Switch week** counts as choosing the program, because you are starting it there.
 - History remembers which week each workout was in.
@@ -697,7 +693,7 @@ Upload these to your GitHub repo, all in the same folder:
 | File | What it does |
 |---|---|
 | `index.html` | The whole app (about 1.8 MB, including fonts and themes) |
-| `programs.js` | The 64 built-in programs |
+| `programs.js` | The 55 built-in programs |
 | `exercises.js` | The 624 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
@@ -709,7 +705,7 @@ Upload these to your GitHub repo, all in the same folder:
 
 - A program that is **new** in `programs.js` shows up on phones automatically.
 - A program that **already existed** and was edited is *not* replaced on phones, so your progress is safe. To get the changed version, delete the program in the app and use **Add Back a Built-in Program**.
-- Two exceptions. **Week info:** if a built-in program is still the same as when you got it but did not yet have week numbers (FST-7 Big and Ripped, Jim Stoppani Shortcut to Shred) or a week plan (Kai Greene, FST-7 Level 1), the app fills that in by itself the next time it opens. Only the missing week numbers are added; exercises, edits and history are never touched, and a program you rebuilt yourself is left alone. A "Week 3" you had typed in before becomes week 3 of the program, once. **Wording:** if a built-in program still carries an old source note, the app swaps in the cleaned text by itself. It only touches text containing an old note, so anything you wrote or edited is never changed, and no exercise, set, rep or logged workout changes.
+- Two exceptions. **Week info:** if a built-in program is still the same as when you got it but did not yet have week numbers (FST-7 Big and Ripped, Jim Stoppani Shortcut to Shred) or a week plan (Kai Greene, FST-7 Level 1), the app fills that in by itself the next time it opens. Only the missing week numbers are added; exercises, edits and history are never touched, and a program you rebuilt yourself is left alone. A "Week 3" you had typed in before becomes week 3 of the program, once. **Longer programs (2.48.0):** a built-in program that used to be one week on repeat gets its extra weeks added to your copy, as new days after the ones you have, when your copy still has its original days numbered 1 to n. Your own edits to those days stay, and nothing is replaced. If you removed or reordered days in it, it is left as it was. Rest days that an old program had stored as an exercise (USN 5 Day Mass Plan) become real rest days. **Wording:** if a built-in program still carries an old source note, the app swaps in the cleaned text by itself. It only touches text containing an old note, so anything you wrote or edited is never changed, and no exercise, set, rep or logged workout changes.
 
 ### Adding programs and exercises
 
@@ -722,6 +718,13 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.48.0**
+- **Fewer, better programs.** Nine weekly programs of three days or fewer that were not full-body are retired: Mike Mentzer's Heavy Duty, Heavy Duty A / B / C and Ideal Routine, Frank Zane's 3-Workout Rotation, Steve Reeves' Classic Physique 3-Day, Larry Scott's 20-Inch Arms, Jay Cutler's Modern Back & Delts Days, Kris Gethin's Superset Thrasher & Quad Radical and Arnold's Superset Chest & Back (**55 programs** now). A phone that still has one loses it on the next start; logged workouts stay. Kept as full-body: Frank Zane Beginner Full Body, Reg Park 5x5 and Arnold's Golden Six. Steal a day no longer offers days from the retired programs.
+- **Longer programs.** 37 programs that were one week on repeat now run for 4 to 12 weeks (see [Programs that run for several weeks](#programs-that-run-for-several-weeks)). Weeks as published are kept as published; the added weeks (Build, Push, Deload) are labelled as ours. Phone copies are upgraded in place without touching your edits or progress. Week plans can now name their phases, and the week bar and days list show them.
+- **Exercise names tidied.** 147 names used by programs (Leg Extensions, Lat Pull Down, Pullups, Dips, Butterfly and so on) were not in the exercise library and were only matched by guessing from the name. Each is now a listed alias of the exercise it is, so Done before, similar exercises, records and history group them with the right exercise. Programs and logged history keep their names.
+- **Week layout fixed.** USN 5 Day Mass Plan's two rest days were stored as exercises and counted as workouts; Arnold's Blueprint to Cuts phase 2 listed three of its six days; Shred with Buendia's two phases had no weeks.
+- The Playlist presets use each program's own length.
 
 **2.47.0**
 - **Coach mode.** Cardio & Sports → Coach mode, for running a practice from one phone: teams and rosters (paste a list), a stopwatch that times many athletes at once (Start all with a countdown, Start next, or tap a name; taps stamped at finger-down; undo, reset, ranked live, personal bests flagged, survives the app closing), 22 ready-made drills plus your own (timed, held, measured or counted, in cm or inches), a Group timer with Tabata and circuit presets where named stations rotate groups round the room with beeps, voice and a screen that stays awake, gear counted out before and in after practice with what did not come home flagged, and a text summary and CSV export. All on the phone and in your backup.

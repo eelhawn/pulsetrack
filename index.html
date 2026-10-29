@@ -377,7 +377,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.47.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.48.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -1284,7 +1284,9 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
     const RETIRED_BUILTINS = ["phil_heath_12wk_p1", "phil_heath_12wk_p2", "phil_heath_12wk_p3", "lou_ferrigno_12wk_p1", "lou_ferrigno_12wk_p2",
       "arnold_routine1_muscle_split", "arnold_routine2_twice_week", "arnold_routine3_hybrid", "arnold_routine4_twice_a_day",
       "dorian_yates_blood_guts", "mountain_dog_200_rep", "jay_cutler_routine1_split", "jay_cutler_routine2_cut_like_cutler",
-      "jay_cutler_routine3_olympia", "ronnie_coleman_12wk"];
+      "jay_cutler_routine3_olympia", "ronnie_coleman_12wk",
+      "arnold_superset_chest_back", "larry_scott_20inch_arms", "mentzer_hd_abc_rotation", "jay_cutler_modern_back_delts", "kris_gethin_signature_days",
+      "mike_mentzer_heavy_duty", "frank_zane_3_workout_rotation", "steve_reeves_classic_3day", "mentzer_hd_ideal_routine"];
 
     class AppStateMemory {
       static getActive() {
@@ -3758,7 +3760,7 @@ html[data-mode="light"] .pr-glow-badge{box-shadow:none}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.47.0";
+    const APP_VERSION = "2.48.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -12488,8 +12490,9 @@ const PTSIM = (function () {
         if (!g || !Array.isArray(g.weeks) || !Array.isArray(g.days) || !g.weeks.length || !g.days.length) { ok = false; return null; }
         const days = g.days.map(n => parseInt(n, 10)), weeks = g.weeks.map(n => parseInt(n, 10)).sort((a, b) => a - b);
         if (!days.every(n => nums.has(n))) ok = false;
-        weeks.forEach(w => { if (!(w >= 1) || byWeek[w]) { ok = false; return; } byWeek[w] = { gi, days }; if (w > W) W = w; });
-        return { gi, weeks, days };
+        const name = typeof g.name === "string" ? g.name : "";
+        weeks.forEach(w => { if (!(w >= 1) || byWeek[w]) { ok = false; return; } byWeek[w] = { gi, days, name }; if (w > W) W = w; });
+        return { gi, weeks, days, name };
       });
       for (let w = 1; w <= W; w++) if (!byWeek[w]) ok = false;
       if (ok && W > 1) plan = { W, byWeek, groups };
@@ -12528,6 +12531,34 @@ const PTSIM = (function () {
     return pending;
   };
   const savePending = () => { try { safeSetItem(MIG_KEY, JSON.stringify(pending || [])); } catch (e) { } };
+  /* 2.48.0: programs that used to repeat one week now run for several weeks (a weekPlan). A phone that already has the old
+     one-week copy gets the extra days added and the week plan switched on. Nothing is replaced: your own edits to the
+     original days stay, and only a copy that still has exactly its original days (1..n) is upgraded. */
+  const REST_NAME = /^(rest day|active recovery)/i;
+  function upgradeProgram(p, b) {
+    let changed = false;
+    // a rest day that was stored as an "exercise" counted as a workout
+    if (Array.isArray(b.days)) {
+      b.days.forEach(bd => {
+        if (!bd || (bd.exercises || []).length) return;
+        const d = p.days.find(x => x && x.dayNumber === bd.dayNumber);
+        if (d && Array.isArray(d.exercises) && d.exercises.length === 1 && REST_NAME.test(String(d.exercises[0] && d.exercises[0].name || ""))) { d.exercises = []; d.estimatedMinutes = 0; changed = true; }
+      });
+    }
+    if (!Array.isArray(b.weekPlan) || !b.weekPlan.length || Array.isArray(p.weekPlan) || !(b.baseDays > 0)) return changed;
+    const seq = p.days.length === b.baseDays && p.days.every((d, i) => d && d.dayNumber === i + 1);
+    if (!seq) return changed;
+    const have = new Set(p.days.map(d => d.dayNumber));
+    b.days.forEach(bd => { if (!have.has(bd.dayNumber)) p.days.push(JSON.parse(JSON.stringify(bd))); });
+    p.weekPlan = JSON.parse(JSON.stringify(b.weekPlan));
+    if (b.weeks) p.weeks = b.weeks;
+    p.baseDays = b.baseDays;
+    // the longer description only when it is still the original one
+    const od = String(p.description || "");
+    if (od && String(b.description || "").indexOf(od.trim()) === 0) p.description = b.description;
+    if (Array.isArray(b.tags)) { p.tags = Array.isArray(p.tags) ? p.tags : []; b.tags.forEach(t => { if (!p.tags.includes(t) && /^\d+ Weeks$/.test(t)) p.tags.push(t); }); }
+    return true;
+  }
   function stampWeeks(data) {
     if (typeof BUILTIN_PROGRAMS === "undefined" || !Array.isArray(BUILTIN_PROGRAMS) || !data || !Array.isArray(data.programs)) return false;
     let changed = false;
@@ -12535,6 +12566,7 @@ const PTSIM = (function () {
       if (!p || !Array.isArray(p.days)) return;
       const b = BUILTIN_PROGRAMS.find(x => x && x.id === p.id);
       if (!b || !Array.isArray(b.days)) return;
+      try { if (upgradeProgram(p, b)) changed = true; } catch (e) { console.warn("PulseTrack: program upgrade skipped", e); }
       // only when it is still the same program (same days); something you rebuilt yourself is left alone
       const have = new Set(p.days.map(d => d && d.dayNumber));
       if (b.days.length !== p.days.length || !b.days.every(d => have.has(d.dayNumber))) return;
@@ -12562,7 +12594,8 @@ const PTSIM = (function () {
   // st = { week, done:[dayNumbers of THIS week], round }
   function normalize(app, prog, P, st) {
     let changed = false;
-    const wk = Math.max(1, Math.min(P.W, Math.floor(+st.week) || 1));
+    let wk = Math.max(1, Math.floor(+st.week) || 1);
+    if (wk > P.W) { st.round = (st.round || 1) + Math.floor((wk - 1) / P.W); wk = ((wk - 1) % P.W) + 1; st.done = []; changed = true; }   // a plain "Week 14" counter from before the program had weeks
     if (wk !== st.week) { st.week = wk; changed = true; }
     const S = P.byWeek[st.week].days;
     const keep = st.done.filter(n => S.includes(n));
@@ -12769,7 +12802,8 @@ const PTSIM = (function () {
       if (st.week > 1) extra = ` · round ${st.week}`;
     }
     row.classList.remove("hidden");
-    row.innerHTML = `<div class="text-zinc-400"><span class="font-black text-white">Week ${cur} of ${W}</span> · ${done}/${total} done${extra}</div>
+    const phase = P && P.byWeek[cur] && P.byWeek[cur].name ? ` · ${esc(P.byWeek[cur].name)}` : "";
+    row.innerHTML = `<div class="text-zinc-400"><span class="font-black text-white">Week ${cur} of ${W}</span>${phase} · ${done}/${total} done${extra}</div>
       <button id="btn-set-week" type="button" class="tap-active">Switch week</button>`;
     $("btn-set-week").addEventListener("click", () => openWeekSheet(this, prog));
     placeBar();
@@ -12795,7 +12829,7 @@ const PTSIM = (function () {
           const hd = document.createElement("div");
           hd.className = "pt-3 pb-0.5 px-1 flex items-baseline justify-between";
           hd.dataset.weekHeader = G.weeks[0];
-          hd.innerHTML = `<span class="text-xs font-black uppercase tracking-widest ${isCur ? "text-emerald-400" : "text-zinc-400"}">${esc(weeksLabel(G.weeks))}</span>`
+          hd.innerHTML = `<span class="text-xs font-black uppercase tracking-widest ${isCur ? "text-emerald-400" : "text-zinc-400"}">${esc(weeksLabel(G.weeks))}${G.name ? " · " + esc(G.name) : ""}</span>`
             + `<span class="text-[10px] text-zinc-500 font-mono">${isCur ? `now: week ${st.week} · ${done}/${work.length} done` : ""}</span>`;
           list.insertBefore(hd, card);
         }
@@ -20847,7 +20881,7 @@ const PTSIM = (function () {
   /* ================================================================ two-a-day */
   const SES1 = /^\s*(?:Day\s+\d+\s*[:\-–]\s*)?([A-Za-z]{3,9})\s+(AM|PM)\s*[:\-–]\s*(.+?)\s*$/;
   const SES2 = /^\s*(?:Day\s+\d+\s*[:\-–]\s*)?(.+?)\s*\(AM\)\s*\+\s*(.+?)\s*\(PM\)\s*$/;
-  const stripWeek = t => String(t == null ? "" : t).replace(/^\s*(?:Week|Wk)\s+\d+\s*[·:\-–]\s*/i, "");
+  const stripWeek = t => String(t == null ? "" : t).replace(/^\s*\[W[\d\s\-–&,]+\]\s*/i, "").replace(/^\s*(?:Week|Wk)\s+\d+\s*[·:\-–]\s*/i, "");   // "[W5-8] Mon AM: Chest" (a progressed copy in a longer program) is still Mon AM
   /** "Mon AM: Chest" -> { day, time: "AM", topic }; "Chest (AM) + Arms (PM)" -> { time: "both", am, pm }; anything else -> null */
   function sessionOf(title) {
     const t = stripWeek(title); let m;
@@ -21447,7 +21481,7 @@ const PTSIM = (function () {
       const info = prog && PT.programsScreen && PT.programsScreen.two ? PT.programsScreen.two(prog) : null;
       if (info && !info.partial && row) {
         const d = row.firstElementChild;
-        if (d && /\d+\/\d+ days done/.test(d.textContent)) d.innerHTML = d.innerHTML.replace(/days done/, "sessions done");
+        if (d && /\d+\/\d+ (?:days )?done/.test(d.textContent)) d.innerHTML = d.innerHTML.replace(/(\d+\/\d+) (?:days )?done/, "$1 sessions done");
       }
     } catch (e) { console.error("PulseTrack two-a-day week row", e); }
     return r;
@@ -21649,7 +21683,7 @@ const PTSIM = (function () {
     });
     p = { by, total }; PROF.set(day, p); return p;
   }
-  const cleanTitle = t => String(t || "Day").replace(/^\s*Week\s+\d+\s*[·\-–:]\s*/i, "").replace(/^\s*Phase\s+\d+\s*[·\-–:]\s*/i, "").replace(/^\s*Day\s+\d+\s*[:\-–]\s*/i, "").trim() || "Day";
+  const cleanTitle = t => String(t || "Day").replace(/^\s*\[W[\d\s\-–&,]+\]\s*/i, "").replace(/^\s*Week\s+\d+\s*[·\-–:]\s*/i, "").replace(/^\s*Phase\s+\d+\s*[·\-–:]\s*/i, "").replace(/^\s*Day\s+\d+\s*[:\-–]\s*/i, "").trim() || "Day";
   function whoOf(p) { return p && p.pro ? p.pro : ""; }
 
   /** every day worth stealing: the whole built-in library plus the programs you made, one copy of each distinct day */
@@ -21659,6 +21693,7 @@ const PTSIM = (function () {
       if (!p || !Array.isArray(p.days) || p.id === FREESTYLE) return;
       const keys = new Set();
       p.days.forEach(d => {
+        if (d.derived) return;                           // a progressed copy of a day (weeks 5+ of a longer program): the plain day is already listed
         const ex = d.exercises || []; if (ex.length < 3) return;
         const key = ex.map(e => e.name + "×" + e.sets).join("|"); if (keys.has(key)) return; keys.add(key);
         out.push({ p, d, mine });
@@ -21965,8 +22000,8 @@ const PTSIM = (function () {
   const proto = ApplicationUI.prototype, A = () => window.app, K = PT.kit, esc = K.esc, $ = id => document.getElementById(id);
   const DAY = 86400000, FREESTYLE = "freestyle";
   const PRESETS = [
-    { name: "Mass cycle", sub: "8 weeks Chris Bumstead push/pull/legs, 1 deload week, 8 weeks Arnold's double split", items: [["p", "cbum_ppl_2019_6day", 8], ["r", null, 1], ["p", "arnold_double_split_6day", 8]] },
-    { name: "Mentzer block", sub: "6 weeks of his Ideal Routine, 1 deload week, 8 weeks of the Heavy Duty A/B/C rotation", items: [["p", "mentzer_hd_ideal_routine", 6], ["r", null, 1], ["p", "mentzer_hd_abc_rotation", 8]] }
+    { name: "Mass cycle", sub: "12 weeks of Chris Bumstead's push / pull / legs, 1 week off, 12 weeks of Arnold's double split", items: [["p", "cbum_ppl_2019_6day", 12], ["r", null, 1], ["p", "arnold_double_split_6day", 12]] },
+    { name: "Base then size", sub: "6 weeks of Reg Park's full-body 5x5, 1 deload week, 12 weeks of Frank Zane's upper / lower", items: [["p", "reg_park_beginner_5x5", 6], ["r", null, 1], ["p", "frank_zane_upper_lower_4day", 12]] }
   ];
 
   /* ---------------------------------------------------------------- data */
