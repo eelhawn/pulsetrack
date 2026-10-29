@@ -1,5 +1,5 @@
 // Bump this number every time you change index.html, exercises.js or programs.js
-const CACHE = 'pulsetrack-offline-v76';
+const CACHE = 'pulsetrack-offline-v77';
 // Web fonts a Mod imports (fonts.googleapis.com / fonts.gstatic.com) are kept here the first time they load, so they work offline afterwards
 const FONTS = 'pulsetrack-fonts-v1';
 // Styling is built into index.html now, so these files are everything the app needs offline.

@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.49.0*
+*Version 2.49.1*
 
-PulseTrack installs to your home screen like a normal app. It comes with **56 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **55 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -58,7 +58,7 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 
 ## Programs
 
-### Built in (56)
+### Built in (55)
 
 **12-week plans, week by week:** Phil Heath, Lou Ferrigno, Arnold Schwarzenegger, Dorian Yates (Blood & Guts), Mountain Dog 200-Rep (John Meadows), Jay Cutler, Ronnie Coleman, Kris Gethin Legacy Fat Loss Trainer, Kris Gethin 12 Weeks to Muscle.
 
@@ -75,9 +75,6 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 - Bulk with Buendia and Shred with Buendia
 - USN 5 Day Mass Plan
 - 6-Day Upper/Lower Split (High Volume)
-- Custom 6-Day: Chest & Back, Legs, Sharms (new in 2.49.0; see below)
-
-**Custom 6-Day: Chest & Back, Legs, Sharms (2.49.0).** A split built from a simple layout, not from a published routine: Monday and Thursday chest and back, Tuesday and Friday legs with abs and calves, Wednesday and Saturday shoulders and arms ("sharms"), Sunday off. Chest and back alternate set for set, the way Arnold trained them: four back-then-chest supersets (pull-ups with bench press, barbell rows with incline dumbbell press, close-grip pulldowns with chest dips, seated cable rows with cable crossovers), then straight-arm pulldowns on their own, so it is 5 back and 4 chest exercises. The legs day has 7 leg exercises, two ab supersets (hanging leg raises with hanging knee raises, decline sit-ups with decline Russian twists) and 2 calf exercises. The sharms day has 5 shoulder exercises, 3 for biceps, 3 for triceps (alternating) and 1 for forearms. Both copies of each day are the same, so the weights you log carry over. The exercises, sets, reps and rests are our picks; change any of them in the program editor.
 
 **22 more from pro bodybuilders, new in 2.37.0, 15 more in 2.39.0, 4 two-a-day programs in 2.40.0, and Chris Bumstead's push/pull/legs in 2.41.0:** see [Pro bodybuilder programs](#pro-bodybuilder-programs-new-in-2370) below.
 
@@ -696,7 +693,7 @@ Upload these to your GitHub repo, all in the same folder:
 | File | What it does |
 |---|---|
 | `index.html` | The whole app (about 1.8 MB, including fonts and themes) |
-| `programs.js` | The 56 built-in programs |
+| `programs.js` | The 55 built-in programs |
 | `exercises.js` | The 625 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
@@ -721,6 +718,9 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.49.1**
+- **The custom 6-day split from 2.49.0 is removed again.** Phones that received it lose it on the next start; workouts already logged with it stay in History. The new exercise **Decline Russian Twists** stays (625 exercises).
 
 **2.49.0**
 - **A custom 6-day split.** New built-in program *Custom 6-Day: Chest & Back, Legs, Sharms*: Sunday is the only rest day; chest and back alternate in back-then-chest supersets (4 chest, 5 back); legs with 7 leg exercises, 2 ab supersets and 2 calf exercises; shoulders (5) with biceps (3), triceps (3) and forearms (1). Each day appears twice a week with the same exercises. The exercises, sets, reps and rests are ours and can be edited. It is listed under More programs, not Pro plans.
