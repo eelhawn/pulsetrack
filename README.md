@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.49.1*
+*Version 2.50.0*
 
-PulseTrack installs to your home screen like a normal app. It comes with **55 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **624 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **55 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **625 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -230,6 +230,19 @@ Can't train today (a long day of work, an injury, a trip)? You don't need to del
 ### Busy-season version (new in 2.35.0)
 
 Slammed at work? Open any program's day list and tap **Busy-season version**. Pick **2, 3 or 4 days a week** and **30, 45 or 60 minutes** a workout. The app builds full-body days from the exercises that program leans on most (a squat, a hinge, a push, a pull and so on, at least three muscle groups a day) and checks each day fits your time. The preview shows the days before you save; **Create this program** adds it as a new program called "... · Busy season". Your own program is not changed, so you can switch back when the busy stretch ends. The button is hidden on Freestyle and on busy-season programs themselves.
+
+### Build me a program, pick your own muscles (new in 2.50.0)
+
+On the Programs screen, **Build me a program** now has a fifth split next to Push / Pull / Legs, Upper / Lower and the rest: **Pick my own muscles**. You build the week, the app fills in the exercises.
+
+- **Your days.** Each day is a card. Tap the muscles that day trains (chest, back, shoulders, biceps, triceps, forearms, quads, hamstrings, glutes, calves, abs and core, traps, lower back) and set **how many exercises each muscle gets**, 1 to 8. Or start a day from a ready-made one (Push, Pull, Legs, Upper, Lower, Chest & back, Shoulders & arms, Arms, Core). Up to 14 days.
+- **Rest days are days in the list.** Tap **＋ Rest day** and put it where you want it, so "rest only on Sunday" is a 7-day list with the last day a rest day.
+- **Copy a day.** **Copy** adds a day that runs the very same exercises ("Same exercises as day 1"). **Make it different** turns the copy into its own day with its own picks. Removing the original hands its muscles to the copy.
+- **Supersets.** Tick **Chest ↔ back** (Arnold style: one chest exercise, one back exercise, over and over), **Biceps ↔ triceps**, **Quads ↔ hamstrings** and **Abs in pairs** (abs run two by two, for example leg raises with bent-knee raises). With none ticked every exercise stands alone. The longer list starts so the alternation lasts the whole day.
+- **Exercise choice.** **Classics** (default: the well-known lifts and what you already do), **Balanced** or **Mix it up** (fresher picks, steering away from what you did lately). Goal and equipment work as before. Machines only, dumbbells only or bodyweight only builds what fits and says so when a muscle runs short.
+- **Preview before it is saved.** Every day is listed with its exercises, sets, reps and superset pairs. **↻** swaps one for another that trains the same muscle (the superset pair stays), **✕** removes one (its partner is freed), **Shuffle** re-picks one day with the same muscle counts, **Shuffle everything** re-picks the lot, **Change the days** goes back, **Save program** saves it. Copied days follow the day they copy.
+- **Length and name.** 1 week (repeat it) or 4 weeks with progression (week 2 one more rep, week 3 one more set on the big lifts, week 4 an easy week; rest days stay rest days). Give it a name; it is saved under **More programs** with the Custom tag.
+- Your days, supersets, exercise choice and name are remembered for the next time.
 
 ### Make your own
 
@@ -718,6 +731,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.50.0**
+- **Build me a program: Pick my own muscles.** A new split where you choose the muscles for every day and how many exercises each gets (1 to 8), add rest days where you like, copy a day so it repeats with the very same exercises, and pick the superset pairs (chest ↔ back, biceps ↔ triceps, quads ↔ hamstrings, abs in pairs). Choose Classics, Balanced or Mix it up for the exercises. A preview lets you swap, remove or shuffle before saving. 1 week or 4 weeks with progression. See "Build me a program, pick your own muscles" under Programs.
+- **Build me a workout** no longer picks cleans, rollouts or crawls, because those were odd choices for a general session.
+- The 55 programs and 625 exercises are unchanged.
 
 **2.49.1**
 - **The custom 6-day split from 2.49.0 is removed again.** Phones that received it lose it on the next start; workouts already logged with it stay in History. The new exercise **Decline Russian Twists** stays (625 exercises).
