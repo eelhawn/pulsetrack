@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.51.0*
+*Version 2.51.1*
 
 PulseTrack installs to your home screen like a normal app. It comes with **55 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **625 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -738,6 +738,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.51.1**
+- **The light look no longer hides text.** Many numbers and labels were white (or pale yellow) on a white page, so they could not be seen. Fixed on the Progress screen (the Year in review numbers, the month names and day numbers in the training calendar, the Rewards frames and shop names, the deload banner, rank names, "Plateau check"), the workout screen (the "0 / N sets" count, "+XP", "Drop"), the leaderboard search, the mobility session, the one-rep-max attempt card, the stopwatch pause badge and the stretch list. The dark look is exactly as before.
+- **Easier to tap.** The small buttons under an exercise name (**Form tips**, **Clips**, **Bar path**) and the **Rest** buttons now have a taller tap area (the look does not change), and so does the ✕ on the "See it" tip.
+- The 55 programs and 625 exercises are unchanged.
 
 **2.51.0**
 - **Guided mode runs supersets and giant sets as one screen.** Each exercise in the group gets its own weight and reps boxes (with + and −), and one **Log round** button logs the whole round. Before, guided mode walked through each exercise of a superset separately, all its sets, then the next, which is not how a superset is done. Add or remove a round with **＋ Round** / **− Round**, swap one exercise from its own card, and Prev and Skip move a group at a time. The Log button stays above the rest timer. Lone exercises work as before.
