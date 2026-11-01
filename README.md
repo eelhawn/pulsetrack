@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.50.1*
+*Version 2.51.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **55 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **625 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -349,7 +349,7 @@ Know when your food has settled and your supplements have kicked in. On a traini
 - **Countdowns follow the clock**, so they are right whenever you open the app, even if the phone slept. A web app cannot ring while it is closed or the phone is asleep, so **Phone alerts** saves a small calendar file (`.ics`) whose alarms do: one at the time each taken step is ready, and take-it reminders plus the lift time if you set one.
 - Saved in settings (the steps and the run), so it is in backups. **Stop** clears a run.
 
-### Guided mode (sets added in 2.36.0, each-side note in 2.38.0)
+### Guided mode (sets added in 2.36.0, each-side note in 2.38.0, supersets in 2.51.0)
 
 Tap **Guided mode** on the workout screen for one exercise at a time with big steppers: weight and reps, one big **Log set** button, and **Prev**, **Swap** and **Skip** at the bottom. Chips show every set (✓ with what you lifted, the current one highlighted). It writes into the normal workout screen, so nothing is lost if you switch back. Timed and other special exercises open in the normal view.
 
@@ -358,6 +358,11 @@ Tap **Guided mode** on the workout screen for one exercise at a time with big st
 - **Skipping an extra set deletes it.** On an extra set the bottom button says **✕ Skip set** and just removes that set, then moves on when the exercise has nothing left to log. On one of the program's own sets, **Skip ▶** skips the exercise as before, and any unlogged extra sets on it go too, so they do not sit there unchecked when you finish.
 - **All done screen:** after the last set you can finish the workout or add **one more set** of the last exercise.
 - Your **machine setup note** for the exercise shows under its name (see below).
+- **Supersets, tri-sets, giant sets and circuits (new in 2.51.0).** Exercises linked with **Superset with next** (the A1 / A2 / A3 groups on the workout screen) now come up as **one screen**. Each exercise in the group has its own card with its own **Weight** and **Reps** (type them or use + and −), a 🔄 button to swap just that one, and its target and last time. One big **✔ Log round 1** button logs set 1 of every exercise in order, through the same buttons as the normal screen, so the rest timer, PRs and history work the same. The rest timer comes up after the last exercise of the round, and the Log button moves up above it so the timer never covers it. Then it moves on to round 2, starting from the weight and reps you just used.
+  - The chips show **R1, R2, R3** (a round is done when every exercise has that set). **＋ Round** and **− Round** add or remove one set on every exercise in the group. An extra round shows with a dashed **R6+** chip, and **✕ Skip round** deletes it. **Prev** and **Skip** move a whole group at a time, and the top line says "Exercises 3–4 of 16".
+  - If the exercises in a group have different numbers of sets, the later rounds only show the exercises that still have a set; the others say "all 3 sets done". A timed exercise in a group is listed with "timed or tracked differently" and is logged in the normal view, while the rest of the group still logs here.
+  - Exercises that are not linked keep the same single screen as before.
+  - Guided mode is now readable in the light look too (the title, numbers and buttons were white on white).
 
 ### Machine setup notes (new in 2.36.0)
 
@@ -733,6 +738,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.51.0**
+- **Guided mode runs supersets and giant sets as one screen.** Each exercise in the group gets its own weight and reps boxes (with + and −), and one **Log round** button logs the whole round. Before, guided mode walked through each exercise of a superset separately, all its sets, then the next, which is not how a superset is done. Add or remove a round with **＋ Round** / **− Round**, swap one exercise from its own card, and Prev and Skip move a group at a time. The Log button stays above the rest timer. Lone exercises work as before.
+- **Guided mode in the light look** now shows its title, weights, reps and buttons (they were white on white).
+- The 55 programs and 625 exercises are unchanged.
 
 **2.50.1**
 - **Reopen where you left off.** When the phone closed the app, it used to start on Home, even though your sets and the workout timer were still there. Now it opens on the screen you were on (a workout, the list of days, History, Progress and so on) at the same scroll position. Workouts are remembered for 12 hours, other pages for 3. Switch it off in Settings.
