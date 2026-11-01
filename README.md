@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.50.0*
+*Version 2.50.1*
 
 PulseTrack installs to your home screen like a normal app. It comes with **55 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **625 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -682,6 +682,8 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 - If you don't use the app for a long time, iPhone may clear its stored files. Keep a backup.
 - It has not been tested on a real iPhone.
 
+**The phone closes the app (new in 2.50.1).** Phones close apps they have not used for a while, or when the screen is off and memory is short. Your sets and the workout timer were always saved, but the app used to start again on Home. Now it remembers the screen you were on and how far down you had scrolled, and opens straight back on it. In a workout it keeps your place for 12 hours (the same as the workout timer); on any other page, 3 hours, and after that it opens on Home as usual. If you had just finished a workout it opens on Home, and it only returns to a workout if it is still the same program and day. Turn it off in **Settings → Reopen where I left off**.
+
 **About the numbers.** Recovery times and target ranges are estimates and typical guidelines, not medical or coaching advice. Form tips are general guidance: if something hurts, stop and ask a coach or doctor.
 
 **What a web app can't do.** Apple Health or Strava sync, a watch app, home-screen widgets, a lock-screen timer, or reminder notifications. Those need a native app or a server.
@@ -731,6 +733,9 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.50.1**
+- **Reopen where you left off.** When the phone closed the app, it used to start on Home, even though your sets and the workout timer were still there. Now it opens on the screen you were on (a workout, the list of days, History, Progress and so on) at the same scroll position. Workouts are remembered for 12 hours, other pages for 3. Switch it off in Settings.
 
 **2.50.0**
 - **Build me a program: Pick my own muscles.** A new split where you choose the muscles for every day and how many exercises each gets (1 to 8), add rest days where you like, copy a day so it repeats with the very same exercises, and pick the superset pairs (chest ↔ back, biceps ↔ triceps, quads ↔ hamstrings, abs in pairs). Choose Classics, Balanced or Mix it up for the exercises. A preview lets you swap, remove or shuffle before saving. 1 week or 4 weeks with progression. See "Build me a program, pick your own muscles" under Programs.
