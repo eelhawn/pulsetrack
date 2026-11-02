@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.51.1*
+*Version 2.52.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **55 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **625 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -348,6 +348,14 @@ Know when your food has settled and your supplements have kicked in. On a traini
 - The summary at the top says **Ready at 5:42 PM** once every step is taken. While it runs, Home shows the next countdown; when everything has had its time it says **Ready to lift**. A run is dropped after 4 hours.
 - **Countdowns follow the clock**, so they are right whenever you open the app, even if the phone slept. A web app cannot ring while it is closed or the phone is asleep, so **Phone alerts** saves a small calendar file (`.ics`) whose alarms do: one at the time each taken step is ready, and take-it reminders plus the lift time if you set one.
 - Saved in settings (the steps and the run), so it is in backups. **Stop** clears a run.
+
+### Simpler screens (new in 2.52.0)
+
+Less to read at a glance. One switch, **Settings → Simpler screens** (on by default), controls all three. Nothing is removed or saved differently: it only changes what is shown, and everything folded opens with one tap.
+
+- **Home shows one reminder at a time.** When more than one is waiting (the backup reminder, the easy week card, the report card or monthly recap), only the most important shows, with a small **+ 2 more reminders** line under it. Tap the line to see the rest, and tap it again to tuck them away. When you dismiss one, the next one comes up. Start Workout moves up the page.
+- **A finished exercise folds into one line** on the workout screen: its name, how many sets and your best set (for example "3 sets · top 195 lb × 8"). It folds about two seconds after the last set, so you can still add a set or fix a number. Tap the line to open it again; it then stays open. Supersets, giant sets and timed exercises never fold. Exercises that were already finished fold straight away when you come back to the workout.
+- **The day list opens only this week.** The other weeks of a multi-week program are one line each with the number of days ("Weeks 5–8 · Build · 6 days"). Tap a week to open it, and tap this week to fold it.
 
 ### Guided mode (sets added in 2.36.0, each-side note in 2.38.0, supersets in 2.51.0)
 
@@ -738,6 +746,10 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.52.0**
+- **Simpler screens.** Home shows one reminder at a time (with a "+ 2 more reminders" line), finished exercises on the workout screen fold into one line, and the day list opens only this week. All three are on one switch in Settings, and everything folded opens with a tap.
+- The 55 programs and 625 exercises are unchanged.
 
 **2.51.1**
 - **The light look no longer hides text.** Many numbers and labels were white (or pale yellow) on a white page, so they could not be seen. Fixed on the Progress screen (the Year in review numbers, the month names and day numbers in the training calendar, the Rewards frames and shop names, the deload banner, rank names, "Plateau check"), the workout screen (the "0 / N sets" count, "+XP", "Drop"), the leaderboard search, the mobility session, the one-rep-max attempt card, the stopwatch pause badge and the stretch list. The dark look is exactly as before.

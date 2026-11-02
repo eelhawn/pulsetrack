@@ -395,7 +395,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.51.1</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.52.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3779,7 +3779,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.51.1";
+    const APP_VERSION = "2.52.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -26275,6 +26275,212 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     } catch (e) { console.error("PulseTrack reopen setting", e); }
     return r;
   };
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.52.0: simpler screens, so there is less to read.
+ * One switch (Settings -> Simpler screens, on by default) turns three things on:
+ *   - Home: when more than one reminder is waiting (backup, easy week, report card), only the most important one shows.
+ *     A small "+ 2 more reminders" line shows the rest when you tap it.
+ *   - Workout: an exercise whose sets are all done folds up into one line (name, sets, best set). Tap the line to open it
+ *     again. It folds a moment after the last set, so you can still add a set. Supersets and timers never fold.
+ *   - Day list: only this week is open. The other weeks are one line each (tap to open).
+ * Nothing is removed and nothing is saved differently: it is only what is shown. Switch it off and the screens look as before.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const $ = id => document.getElementById(id);
+  const A = () => window.app;
+  const on = () => { const a = A(); return !(a && a.settings && a.settings.simple === false); };
+  const unit = () => { try { return A().unit() === "kg" ? "kg" : "lb"; } catch (e) { return "lb"; } };
+  const num = v => { const n = parseFloat(String(v == null ? "" : v).replace(",", ".")); return isFinite(n) ? n : 0; };
+  const escH = s => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+  /* ============================================================ Home: one reminder at a time */
+  let homeOpen = false, homeBusy = false, homeTimer = 0, homeObs = null;
+  const shown = el => !!el && getComputedStyle(el).display !== "none";
+  function tidyHome() {
+    const v = $("view-home"); if (!v) return;
+    homeBusy = true;
+    try {
+      const ban = $("home-banners"), dl = $("pt-home-deload"), nd = $("pt-nudge");
+      const b0 = ban && ban.firstElementChild;
+      [b0, dl, nd].forEach(e => { if (e) e.classList.remove("pt-tidy-off"); });
+      let chip = $("pt-tidy-chip");
+      const items = [];
+      if (shown(ban) && shown(b0)) items.push({ el: b0, rank: /back\s*up/i.test(b0.textContent || "") ? 0 : 3 });
+      if (shown(dl)) items.push({ el: dl, rank: 1 });
+      if (shown(nd)) items.push({ el: nd, rank: 2 });
+      items.sort((x, y) => x.rank - y.rank);
+      if (!on() || items.length < 2) { if (chip) chip.remove(); return; }
+      const extra = items.slice(1);
+      if (!homeOpen) extra.forEach(i => i.el.classList.add("pt-tidy-off"));
+      if (!chip) {
+        chip = document.createElement("button"); chip.type = "button"; chip.id = "pt-tidy-chip"; chip.className = "tap-active";
+        chip.addEventListener("click", () => { homeOpen = !homeOpen; tidyHome(); });
+      }
+      chip.textContent = homeOpen ? "Show fewer reminders ▴" : `+ ${extra.length} more reminder${extra.length === 1 ? "" : "s"} ▾`;
+      chip.setAttribute("aria-expanded", homeOpen ? "true" : "false");
+      const anchor = ban && ban.parentNode === v ? ban : $("pt-home-extra");
+      if (anchor && chip.previousElementSibling !== anchor) anchor.insertAdjacentElement("afterend", chip);
+    } catch (e) { console.error("PulseTrack simpler Home", e); }
+    finally { homeBusy = false; if (homeObs) homeObs.takeRecords(); }
+  }
+  const schedHome = () => { if (homeBusy) return; clearTimeout(homeTimer); homeTimer = setTimeout(tidyHome, 60); };
+  const oRH = proto.renderHomeView;
+  if (typeof oRH === "function") proto.renderHomeView = function () { const r = oRH.apply(this, arguments); schedHome(); return r; };
+  const v0 = $("view-home");
+  if (v0 && typeof MutationObserver !== "undefined") { homeObs = new MutationObserver(schedHome); homeObs.observe(v0, { childList: true, subtree: true }); }
+
+  /* ============================================================ Workout: finished exercises fold up */
+  const pinned = new Set(), prevDone = {};
+  let ctx = "", firstRender = true;
+  function summary(card) {
+    let n = 0, top = null;
+    card.querySelectorAll(".set-row").forEach(row => {
+      const b = row.querySelector(".btn-check-set"); if (!b || b.dataset.completed !== "1") return;
+      n++;
+      const w = num((row.querySelector('input[data-field="weight"]') || {}).value), r = num((row.querySelector('input[data-field="reps"]') || {}).value);
+      if (!top || w > top.w || (w === top.w && r > top.r)) top = { w, r };
+    });
+    let t = `${n} set${n === 1 ? "" : "s"}`;
+    if (top && top.w > 0) t += ` · top ${top.w} ${unit()}${top.r ? " × " + top.r : ""}`;
+    else if (top && top.r > 0) t += ` · ${top.r} reps`;
+    return t;
+  }
+  function applyFold(card, name) {
+    if (!card || card.classList.contains("pt-folded")) return;
+    const bar = document.createElement("button");
+    bar.type = "button"; bar.className = "pt-fold-bar tap-active"; bar.setAttribute("aria-expanded", "false");
+    bar.innerHTML = `<span class="pt-fb-ck" aria-hidden="true">✓</span><span class="pt-fb-n">${escH(name)}</span><span class="pt-fb-s">${escH(summary(card))}</span><span class="pt-fb-c" aria-hidden="true">▾</span>`;
+    card.insertBefore(bar, card.firstChild);
+    card.classList.add("pt-folded");
+  }
+  function foldWorkout(app) {
+    if (!app || !app.dom || !app.dom.exercisesList) return;
+    const day = app.activeDay, prog = app.activeProgram; if (!day || !prog) return;
+    const c = prog.id + "|" + day.dayNumber;
+    if (c !== ctx) { ctx = c; pinned.clear(); Object.keys(prevDone).forEach(k => delete prevDone[k]); firstRender = true; }
+    const first = firstRender; firstRender = false;
+    const exs = day.exercises || [];
+    app.dom.exercisesList.querySelectorAll("[data-ex-card]").forEach(card => {
+      const i = parseInt(card.getAttribute("data-ex-card"), 10), ex = exs[i];
+      if (!ex || ex.type === "tabata" || ex.link || (i > 0 && exs[i - 1] && exs[i - 1].link)) return;
+      const btns = card.querySelectorAll(".btn-check-set"); if (!btns.length) return;
+      const done = [...btns].every(b => b.dataset.completed === "1");
+      const was = prevDone[i]; prevDone[i] = done;
+      if (!done || pinned.has(i) || !on()) return;
+      if (!first && was === false) {
+        // it was finished just now: give a moment to add a set or fix a number before it folds
+        setTimeout(() => {
+          try {
+            const a = A(); if (!a || !on() || ctx !== c || pinned.has(i)) return;
+            const cd = a.dom.exercisesList.querySelector(`[data-ex-card="${i}"]`); if (!cd) return;
+            if ([...cd.querySelectorAll(".btn-check-set")].every(b => b.dataset.completed === "1")) applyFold(cd, ex.name);
+          } catch (e) { }
+        }, 2500);
+        return;
+      }
+      applyFold(card, ex.name);
+    });
+  }
+  const oRW = proto.renderWorkoutView;
+  if (typeof oRW === "function") proto.renderWorkoutView = function () {
+    const r = oRW.apply(this, arguments);
+    try { foldWorkout(this); } catch (e) { console.error("PulseTrack simpler workout", e); }
+    return r;
+  };
+  document.addEventListener("click", e => {
+    const b = e.target.closest && e.target.closest(".pt-fold-bar"); if (!b) return;
+    const card = b.closest("[data-ex-card]"); if (!card) return;
+    pinned.add(parseInt(card.getAttribute("data-ex-card"), 10));
+    card.classList.remove("pt-folded"); b.remove();
+  });
+
+  /* ============================================================ Day list: only this week is open */
+  const openWk = new Set(), closedWk = new Set();
+  function foldDays(app) {
+    const list = app && app.dom && app.dom.daysList, prog = app && app.activeProgram; if (!list || !prog) return;
+    const heads = [...list.querySelectorAll(":scope > [data-week-header]")];
+    list.querySelectorAll(".pt-fold-off").forEach(e => e.classList.remove("pt-fold-off"));
+    if (!on() || heads.length < 2) { heads.forEach(h => { h.removeAttribute("role"); h.removeAttribute("aria-expanded"); const ch = h.querySelector(".pt-wk-chev"); if (ch) ch.remove(); }); return; }
+    heads.forEach(hd => {
+      const cards = [];
+      for (let n = hd.nextElementSibling; n && !n.hasAttribute("data-week-header"); n = n.nextElementSibling) cards.push(n);
+      const key = prog.id + "|" + hd.dataset.weekHeader;
+      const right = hd.lastElementChild;
+      if (right && hd.dataset.orig === undefined) hd.dataset.orig = right.textContent;
+      const cur = /now:/.test(hd.dataset.orig || "");
+      const open = closedWk.has(key) ? false : (cur || openWk.has(key));
+      const count = cards.filter(x => x.hasAttribute("data-day")).length;
+      hd.setAttribute("role", "button"); hd.tabIndex = 0; hd.setAttribute("aria-expanded", open ? "true" : "false");
+      if (!hd.querySelector(".pt-wk-chev")) { const ch = document.createElement("i"); ch.className = "pt-wk-chev"; ch.setAttribute("aria-hidden", "true"); hd.firstElementChild.insertBefore(ch, hd.firstElementChild.firstChild); }
+      if (right) right.textContent = open ? (hd.dataset.orig || "") : `${count} day${count === 1 ? "" : "s"}`;
+      if (!open) cards.forEach(x => x.classList.add("pt-fold-off"));
+    });
+  }
+  const toggleWeek = hd => {
+    const a = A(); if (!a || !a.activeProgram) return;
+    const key = a.activeProgram.id + "|" + hd.dataset.weekHeader, was = hd.getAttribute("aria-expanded") === "true";
+    if (was) { closedWk.add(key); openWk.delete(key); } else { openWk.add(key); closedWk.delete(key); }
+    foldDays(a);
+  };
+  document.addEventListener("click", e => { const hd = e.target.closest && e.target.closest("[data-week-header]"); if (hd && hd.getAttribute("role") === "button") toggleWeek(hd); });
+  document.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && e.target && e.target.matches && e.target.matches("[data-week-header][role=button]")) { e.preventDefault(); toggleWeek(e.target); } });
+  const oDec = proto.decorateDaysList;
+  proto.decorateDaysList = function () {
+    const r = typeof oDec === "function" ? oDec.apply(this, arguments) : undefined;
+    try { foldDays(this); } catch (e) { console.error("PulseTrack simpler day list", e); }
+    return r;
+  };
+
+  /* ============================================================ the switch in Settings */
+  const oEx = proto.renderSettingsExtras;
+  proto.renderSettingsExtras = async function () {
+    const r = oEx ? await oEx.apply(this, arguments) : undefined;
+    try {
+      if (!$("pt-simple-row")) {
+        const ref = $("pt-resume-row") || $("pt-tabs-row") || $("pt-gym-row") || $("pt-textsize");
+        if (ref) {
+          const row = document.createElement("label");
+          row.id = "pt-simple-row"; row.className = "flex items-center justify-between gap-3 mt-3 cursor-pointer";
+          row.innerHTML = '<span><span class="block text-xs font-bold text-zinc-100">Simpler screens</span><span class="block text-[11px] text-zinc-400">Home shows one reminder at a time, finished exercises fold into one line, and the day list opens only this week. Tap to open anything that is folded.</span></span><input type="checkbox" id="setting-toggle-simple" class="accent-emerald-500 w-5 h-5 shrink-0">';
+          ref.insertAdjacentElement("afterend", row);
+          row.querySelector("input").addEventListener("change", ev => {
+            const a = A(); a.settings.simple = ev.target.checked; WorkoutStorage.saveSettings(a.settings);
+            homeOpen = false; tidyHome();
+            try { a.renderWorkoutView && a.renderWorkoutView(); } catch (e) { }
+            try { a.renderDaysView && a.activeProgram && a.renderDaysView(); } catch (e) { }
+          });
+        }
+      }
+      const t = $("setting-toggle-simple"); if (t) t.checked = on();
+    } catch (e) { console.error("PulseTrack simpler screens setting", e); }
+    return r;
+  };
+
+  const css = document.createElement("style"); css.id = "pt-v252-simple-css";
+  css.textContent = `
+    .pt-tidy-off { display: none !important; }
+    #pt-tidy-chip { display: block; width: 100%; margin-top: .5rem; padding: .55rem .8rem; border-radius: .85rem; border: 1px dashed rgb(var(--z700)); background: transparent; color: rgb(var(--z400)); font-size: .72rem; font-weight: 700; text-align: center; }
+    [data-ex-card].pt-folded > :not(.pt-fold-bar) { display: none !important; }
+    [data-ex-card].pt-folded { padding: 0 0 .9rem 0 !important; border-color: rgb(var(--a500) / .35); }   /* the room underneath is for the 'Superset with next' pill that sits on the edge */
+    .pt-fold-bar { display: flex; align-items: center; gap: .6rem; width: 100%; min-height: 3rem; padding: .7rem .9rem; text-align: left; border-radius: inherit; }
+    .pt-fb-ck { flex: none; color: rgb(var(--a500)); font-weight: 900; }
+    .pt-fb-n { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .82rem; font-weight: 800; color: rgb(var(--z100)); }
+    .pt-fb-s { margin-left: auto; flex: none; font-size: .7rem; color: rgb(var(--z400)); white-space: nowrap; }
+    .pt-fb-c { flex: none; color: rgb(var(--z500)); }
+    .pt-fold-off { display: none !important; }
+    [data-week-header][role="button"] { cursor: pointer; user-select: none; -webkit-user-select: none; align-items: center !important; min-height: 2.75rem; }
+    [data-week-header] .pt-wk-chev { display: inline-block; width: 1.1em; font-style: normal; }
+    [data-week-header] .pt-wk-chev::before { content: "▸"; }
+    [data-week-header][aria-expanded="true"] .pt-wk-chev::before { content: "▾"; }
+  `;
+  document.head.appendChild(css);
+  schedHome();
 })();
   </script>
   <script>
