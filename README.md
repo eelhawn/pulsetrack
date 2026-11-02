@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.52.0*
+*Version 2.53.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **55 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **625 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -459,7 +459,7 @@ The **Progress** screen has six tabs, and every card lives under the tab where y
 | **Strength** | Big 3 strength level and the 1,000 lb club; closest to leveling up; strength levels for every exercise; weak points; lift ranks; lift goals; PR attempt planner |
 | **History** | Monthly recap; weekly and monthly report cards; year in review; training year calendar; PR timeline |
 | **Rewards** | Level and XP; season; weekly quests; challenge; daily check-in; badges; rewards shop |
-| **Social** | Buddies; wall of fame; family board |
+| **Social** | Family board; buddies; wall of fame; family challenge |
 
 Rows that open and close have an icon and a one-line description, so you can see what is inside before you tap.
 
@@ -469,9 +469,9 @@ Rows that open and close have an icon and a one-line description, so you can see
 - **Weekly goal ring:** pick 1 to 7 training days a week. The ring on Home fills as you train and turns gold when you hit it. Progress shows your last 12 weeks.
 - **Goal streak with freezes:** hit your goal week after week to grow the 🔥 streak. You earn a ❄️ freeze each month (keep up to 2) and one is used automatically if you miss a week.
 - **Weekly quests:** three each week, made from your own history (train your days, beat last week's volume, set a PR, hit a muscle group...). Each is worth 100 XP and they refresh on Monday.
-- **Lift ranks:** bench, squat, deadlift and overhead press ranked from Untrained up to Elite, using your estimated 1RM against your body weight (from your body log, or enter it). Shows how much more to the next rank.
+- **Lift ranks:** bench, squat, deadlift and overhead press ranked from Untrained up to Elite, using your estimated 1RM against your body weight (from your body log, or enter it). Since 2.53.0 they use the same StrengthLevel numbers as the **Strength level** card, so a lift can no longer be "Advanced" in one place and "Intermediate" in another, and the **Male / Female** switch sets both. Shows how much more to the next rank.
 - **Year in review:** your totals, favorite lift, biggest jump, busiest month and day, with a **Share** picture.
-- **Family head to head:** a this-week matchup against your top rival and 👑 wins over the last weeks. Copy my code now carries this week plus the last three.
+- **Family board:** see **Family board** below. It scores everyone against their own goal, so it is fair between people who lift very different weights.
 - **Celebrations and sharing:** after a workout you can get a level-up, rank-up, goal-hit or streak screen with confetti, each with a **Share** button that makes a picture.
 - **Milestone and secret badges:** 22 bodyweight and total milestones (like 1.5x bodyweight bench) and 9 secret badges that stay hidden until you find them.
 
@@ -493,7 +493,7 @@ Rows that open and close have an icon and a one-line description, so you can see
 ### Rewards and Social
 
 - **Rewards:** your level and XP, the season, weekly quests, challenges, the daily check-in, badges and the rewards shop.
-- **Social:** buddies, the wall of fame and the family board.
+- **Social:** the family board, buddies, the wall of fame and the family challenge. See **Family board** below.
 
 ### Muscles
 
@@ -516,6 +516,7 @@ Rows that open and close have an icon and a one-line description, so you can see
 - **Weak points (new in 2.35.0):** your six muscle groups (chest, back, shoulders, arms, legs, core) ranked by strength level, each scored from your three best graded exercises. If one is clearly behind, the card names it, says how many levels behind your average it is, and suggests exercises to add. If they are all within half a level it says there is no weak link. Groups you have not logged yet are listed as not graded.
 - **Level-ups and badges (new in 2.35.0):** after you finish a workout, any exercise that reached a new strength level is shown in the summary. There are also level badges: Intermediate, Advanced and Elite counts, **All-Rounder** (all six groups at Novice or better) and **No Weak Link**. The first time you open the app after updating, your current levels are saved as the starting point, so you are not told about levels you already had.
 - **Strength level:** Beginner → Novice → Intermediate → Advanced → Elite for bench, squat and deadlift (Smith machine versions count), based on StrengthLevel.com standards (men and women), plus the **1,000 lb club** total. Right below it, **Strength levels · every exercise** grades everything else you log, with search and muscle filters. Bodyweight moves (pull-ups, dips, push-ups, planks and more) use the published StrengthLevel.com bodyweight tables; estimates are marked "est."
+- **Accurate per exercise (new in 2.53.0):** every exercise is graded against its own StrengthLevel.com standard for your body weight and sex, instead of one rule for the whole group. Bench, squat, deadlift and overhead press use their published tables, and dozens of other lifts (dumbbell, machine, cable and Smith versions, curls, rows, pulldowns, lunges, hip thrusts, calf raises and more) use their own ratio for each level, because the gap between Beginner and Elite is not the same size on every lift. Lifts that StrengthLevel does not publish are still scaled from a related lift and are marked **est.**; exercises that cannot be fairly graded by weight (carries, grip tools, jumps, band work, lunge holds, bodyweight triceps extensions, wrist and rotator-cuff work) are left out rather than given a wrong level. Sets above 20 reps are graded as if they were 20, so a 50-rep set of light weight no longer looks like a heavy max. The card's **how this was graded** note tells you which table was used.
 ### Plateau tips
 
 A lift counts as **stalled** when you've done it **3 or more times in the last few weeks** and none of those sessions beat the best you had before. You pick how many weeks with the **2 wk / 3 wk / 4 wk / 6 wk / 8 wk** buttons on the Plateau check card (Progress → Overview); **4 weeks** to start, and your choice is remembered. Each stuck lift shows how many weeks it has been since your best, for example **6 weeks**. A lift you've stopped doing drops off by itself, and matching your best counts as no improvement. The app then works out why and suggests something that fits:
@@ -541,9 +542,28 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 
 ---
 
+### Family board (rebuilt in 2.53.0)
+
+**Progress → Social.** There is no server, so the board runs on codes that travel in any chat. The old board only changed when somebody sent a fresh code, and people who had not sent one that week fell off it. Now:
+
+- **One update code carries everything.** Your last four weeks, streak, progress and strength rating are in a single update. **Send my update** shares it in one tap, and **Paste update** reads the one in your clipboard. You can also paste a whole message into the box and tap **Add**.
+- **Every workout you send also updates the board.** Sending a finished workout, a card or a challenge to buddies adds your update to the same message, so the messages you already send keep the board current without extra steps.
+- **Nobody disappears.** People who have not sent anything this week stay on the board, with how long ago they last updated ("updated 4 days ago"). A stale row has an **Ask for update** button that sends your own update along with a request for theirs.
+- **Fair between different people.** Volume and weights are gone, because they depend on how big and strong someone is. The contests are:
+  - **Score:** 100 points for hitting **your own** weekly goal, plus 10 for each new record (up to 5). Goals count between 3 and 6 days, so setting a goal of 1 cannot be farmed.
+  - **Consistency:** days trained against your own goal.
+  - **Streak:** weeks in a row you hit your goal.
+  - **Records:** new personal records.
+  - **Progress:** how much your main lifts went up over 4 weeks, in percent. A beginner adding 10 lb and an advanced lifter adding 20 lb are compared by percent, not pounds.
+  - **Strength:** your StrengthLevel rating out of 100 for your body weight and sex (the average level of your 5 best exercises).
+- **Weekly crowns and a season.** The top score of each week earns a 👑, and a table shows crowns and points over the last 8 weeks that had two or more people. **This week / Last week** switches the view.
+- **Family challenge:** pick a contest for the week (highest score, best consistency or most records), tap **Start a challenge** and **Share challenge + my update**. Challenges started before 2.53.0 (most workouts, volume, sets) still finish and show.
+- **Everyone needs 2.53.0 to read the new update.** Old codes (weekly codes, buddy workouts, reactions, wall cards) still work in both directions, but the new update code only shows on phones that have updated. Open the app online once, then close and reopen it.
+- Codes only hold names, week totals and ratings. Nothing is stored online.
+
 ### Seasons, buddies and report card
 
-Below the usual charts, Progress also has your **level, quests and season**, the **rewards shop**, a **muscle map**, **Buddies** (send and receive finished workouts, cheer with 🔥 💪 👏), the **Wall of fame**, and a **Monthly report card** graded A+ to F. To add a friend, paste the message or code they sent into the box under Buddies or the Family board. Codes work in any chat app and nothing is stored online.
+Below the usual charts, Progress also has your **level, quests and season**, the **rewards shop**, a **muscle map**, **Buddies** (send and receive finished workouts, cheer with 🔥 💪 👏), the **Wall of fame**, and a **Monthly report card** graded A+ to F. To add a friend, paste the message or code they sent into the box under Buddies or the Family board (or tap **Paste update**). Codes work in any chat app and nothing is stored online.
 
 ## Body tracking
 
@@ -746,6 +766,13 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.53.0**
+- **Strength levels are accurate per exercise.** Each exercise is graded against its own StrengthLevel.com standard for your body weight and sex, using that lift's real ratio at every level (not one factor for a whole group). Dozens of lifts changed, including dumbbell, machine, cable and Smith versions, curls, rows, pulldowns, lunges, hip thrusts and calf raises. Dumbbell Romanian deadlifts are no longer graded as a barbell, and wrist curls, lunge holds, bodyweight triceps extensions and rotator-cuff work are no longer given a level at all. Sets above 20 reps count as 20 so light, high-rep sets cannot inflate a level.
+- **Lift ranks and the Strength level card now agree.** They use the same thresholds and the same Male / Female switch, and the best matching lift counts for each.
+- **The family board stays fresh.** One update code carries a person's last four weeks, streak, progress and strength, it is attached to every workout, card and challenge you share, and **Paste update** reads it from the clipboard in one tap. People who have not sent anything stay on the board with "updated 3 days ago" and an **Ask for update** button.
+- **A fair contest.** Volume and weight are gone. Scores are measured against your own weekly goal (100 points for hitting it, 10 per record), plus Consistency, Streak, Records, Progress (% gain on your main lifts over 4 weeks) and Strength rating. There are weekly 👑 crowns and an 8-week season table.
+- Family members need 2.53.0 to see the new update; old codes still work. The 55 programs and 625 exercises are unchanged.
 
 **2.52.0**
 - **Simpler screens.** Home shows one reminder at a time (with a "+ 2 more reminders" line), finished exercises on the workout screen fold into one line, and the day list opens only this week. All three are on one switch in Settings, and everything folded opens with a tap.

@@ -395,7 +395,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.52.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.53.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3779,7 +3779,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.52.0";
+    const APP_VERSION = "2.53.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -17192,11 +17192,29 @@ const PTSIM = (function () {
     S(a).forEach(s => { const m = bestE1(a, s); Object.keys(m).forEach(n => LIFTS.forEach(l => { if (l.re.test(n)) best[l.key] = Math.max(best[l.key], toLb(m[n], s.unit)); })); });
     return best;
   }
+  /* 2.53.0: the ranks use the SAME standards as the Strength level card: StrengthLevel.com tables for your body weight, the Men / Women switch on that card, and the same best-lift
+   * matching (bench, squat and deadlift variations are counted or left out exactly the same way). Before, this section used its own rough ratios, so one lift showed two different targets. */
+  const SEX_OF = a => (a.settings.strengthSex === "female" ? "female" : "male");
+  const BASE_KEY = { bench: "bench", squat: "squat", dead: "deadlift", ohp: "ohp" };
+  const BASE_MATCH = {
+    bench: { match: /bench press/i, exclude: /dumbbell|incline|decline|close|wide|reverse|smith|machine|floor|single|hammer|iso-lateral|board|pin|spoto|landmine/i, also: /^smith machine flat press$/i },
+    squat: { match: /squat/i, exclude: /split|goblet|dumbbell|smith|hack|machine|front|sumo|zercher|box|pistol|jump|belt|sissy|bulgarian|overhead|safety|cyclist|heel|pendulum|v-squat|landmine|kettlebell|wall|plie|bodyweight|cossack|pause|jefferson|air squat/i, also: /^smith machine squats?$/i },
+    dead: { match: /deadlift/i, exclude: /romanian|stiff|single|rdl|dumbbell|deficit|trap|hex|kettlebell|b-stance|snatch|smith|machine/i }
+  };
+  function bestFor(a, key, scanned) {
+    const d = BASE_MATCH[key];
+    if (d && typeof a.bestLift === "function" && a.prs) { const b = a.bestLift(d).best; if (b > 0) return unitKg() ? b * LB : b; }
+    return scanned || 0;
+  }
+  /** best estimated 1RM in lb for bench / squat / dead / ohp, counted exactly like the Strength level card */
+  PT.bigBest = function (a, key) { a = a || A(); return bestFor(a, key, bestLifts(a)[key] || 0); };
   PT.liftRanks = function (appArg) {
-    const a = appArg || A(), bw = bwLb(a), fac = a.settings.rankSex === "w" ? 0.65 : 1, best = bestLifts(a);
+    const a = appArg || A(), bw = bwLb(a), sex = SEX_OF(a), best = bestLifts(a);
     return LIFTS.filter(l => l.key !== "ohp").map(l => { // the overhead press stays only as a badge line
-      const e1 = best[l.key], th = l.r.map(x => x * bw * fac), idx = bw ? th.filter(t => e1 >= t).length : 0;
-      return { key: l.key, label: l.label, icon: l.icon, e1, idx, rank: RANKS[idx], next: idx < 5 ? RANKS[idx + 1] : null, toNext: idx < 5 && bw ? Math.max(0, th[idx] - e1) : 0, base: idx > 0 ? th[idx - 1] : 0, target: idx < 5 ? th[idx] : th[4], ratio: bw ? e1 / bw : 0, bw };
+      const e1 = bestFor(a, l.key, best[l.key]), th = bw ? PT.strengthThresholds(BASE_KEY[l.key], sex, bw) : null;
+      const idx = th && e1 > 0 ? Math.max(1, th.filter(t => e1 >= t).length) : 0; // the card calls anything under Novice "Beginner", so does this
+      const nxt = th && idx < 5 && idx > 0 ? th[idx] : 0;
+      return { key: l.key, label: l.label, icon: l.icon, e1, idx, rank: RANKS[idx], next: th && idx > 0 && idx < 5 ? RANKS[idx + 1] : null, toNext: nxt ? Math.max(0, nxt - e1) : 0, base: th && idx > 1 ? th[idx - 1] : 0, target: th ? (idx < 5 ? th[Math.max(idx, 1)] : th[4]) : 0, ratio: bw ? e1 / bw : 0, bw };
     });
   };
 
@@ -17416,7 +17434,7 @@ const PTSIM = (function () {
     }).join("");
   }
   function ranksHtml(a) {
-    const rk = PT.liftRanks(a), bw = rk[0].bw, u = unitKg() ? "kg" : "lb", sex = a.settings.rankSex === "w";
+    const rk = PT.liftRanks(a), bw = rk[0].bw, u = unitKg() ? "kg" : "lb", sex = SEX_OF(a) === "female";
     const head = `<div class="flex flex-wrap items-center gap-1.5">${chip('data-rsex="m"', "Men's standards", !sex)}${chip('data-rsex="w"', "Women's standards", sex)}</div>
       <div class="flex items-center justify-between gap-2 text-[11px] text-zinc-400"><span>${bw ? "Body weight " + V(bw) + ((a.body || []).some(b => b.bw > 0) ? " (from your log)" : "") : "Needs your body weight to rank you"}</span><button type="button" class="pt-b" id="pt-rank-bw">${bw ? "Change" : "Set body weight"}</button></div>`;
     if (!bw) return head;
@@ -17424,7 +17442,7 @@ const PTSIM = (function () {
       const col = RANK_COL[r.idx], pc = r.next ? (r.e1 - r.base) / Math.max(1, r.target - r.base) : 1;
       return `<div class="pt-rk"><span class="text-2xl">${r.icon}</span><div class="min-w-0 flex-1"><div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-white truncate">${esc(r.label)}</span><span class="pt-rn" style="color:${col}">${r.e1 ? esc(r.rank) : "No data"}</span></div>
         ${r.e1 ? bar(pc) : ""}<span class="block text-[10px] text-zinc-400 mt-0.5">${r.e1 ? `${V(r.e1)} est. 1RM · ${r.ratio.toFixed(2)}× bodyweight` : "Log it to get ranked"}${r.next && r.e1 ? ` · ${V(r.toNext)} to ${esc(r.next)}` : r.e1 ? " · top rank" : ""}</span></div></div>`;
-    }).join("") + `<div><button type="button" class="pt-b" id="pt-share-rank">Share my ranks</button></div><p class="text-[10px] text-zinc-500">Rough guide based on common strength standards for your bodyweight. Estimated 1RM, not a tested max.</p>`;
+    }).join("") + `<div><button type="button" class="pt-b" id="pt-share-rank">Share my ranks</button></div><p class="text-[10px] text-zinc-500">Same StrengthLevel.com standards for your body weight as the Strength level card above, so the targets match. Estimated 1RM, not a tested max.</p>`;
   }
 
   /* year in review */
@@ -17537,7 +17555,8 @@ const PTSIM = (function () {
     }
     // rank ups
     const rk = PT.liftRanks(a), seen = stt.rankSeen && typeof stt.rankSeen === "object" ? stt.rankSeen : null, up = [];
-    if (rk[0].bw) { if (seen) rk.forEach(r => { if (seen[r.key] !== undefined && r.idx > seen[r.key] && r.idx >= 1) up.push(r); }); stt.rankSeen = rk.reduce((o, r) => (o[r.key] = r.idx, o), {}); }
+    /* 2.53.0 changed the standards, so the first workout after the update only re-records where everyone stands (no rank-up pop-ups for a change in the yardstick) */
+    if (rk[0].bw) { if (stt.rankStd === 2 && seen) rk.forEach(r => { if (seen[r.key] !== undefined && r.idx > seen[r.key] && r.idx >= 1) up.push(r); }); stt.rankStd = 2; stt.rankSeen = rk.reduce((o, r) => (o[r.key] = r.idx, o), {}); }
     up.slice(0, 2).forEach(r => items.push({ custom: true, label: "Rank up", name: `${r.label}: ${r.rank}`, desc: `${V(r.e1)} est. 1RM · ${r.ratio.toFixed(2)}× bodyweight`, big: `<div class="pt-rkbig" style="font-size:96px;line-height:1">${r.icon}</div>`, glow: RANK_COL[r.idx] + "99", a: RANK_COL[r.idx], b: "#52525b", confetti: true,
       share: { icon: r.icon, kicker: "Rank up", title: `${r.label}: ${r.rank}`, sub: `${V(r.e1)} estimated 1RM, ${r.ratio.toFixed(2)}× bodyweight`, lines: [["Lift", r.label], ["Rank", r.rank]], c: [RANK_COL[r.idx], "#52525b"] } }));
     // weekly goal
@@ -17572,7 +17591,9 @@ const PTSIM = (function () {
     if (s.lvlSeen === undefined) { s.lvlSeen = st.lv.L; ch = true; }
     if (s.streakSeen === undefined) { s.streakSeen = [4, 8, 12, 26, 52].filter(m => st.streak.cur >= m).pop() || 0; ch = true; }
     if (s.goalHitWk === undefined) { s.goalHitWk = st.streak.hitNow ? dsOf(mondayOf(Date.now())) : ""; ch = true; }
-    const rk = PT.liftRanks(a); if (!s.rankSeen && rk[0].bw) { s.rankSeen = rk.reduce((o, r) => (o[r.key] = r.idx, o), {}); ch = true; }
+    /* one switch for Men / Women: anyone who had picked Women's standards in the ranks keeps them on the Strength level card too */
+    if (!s.sexUnified) { s.sexUnified = true; if (s.rankSex === "w" && s.strengthSex !== "female") s.strengthSex = "female"; ch = true; }
+    const rk = PT.liftRanks(a); if ((!s.rankSeen || s.rankStd !== 2) && rk[0].bw) { s.rankSeen = rk.reduce((o, r) => (o[r.key] = r.idx, o), {}); s.rankStd = 2; ch = true; }
     if (ch) save();
     syncQuests(a);
   }
@@ -17585,7 +17606,7 @@ const PTSIM = (function () {
     const wg = on("[data-wg]"); if (wg) { PT.setWeekGoal(wg.dataset.wg, a); memo = null; a.renderProgressView(); try { a.renderHomeView(); } catch (x) { } return; }
     const fr = on("[data-frame]"); if (fr) { const f = allFrames(a).find(x => x.id === fr.dataset.frame); if (f && unlockedFrame(a, f)) { a.settings.frame = f.id; save(); a.renderProgressView(); try { a.renderHomeView(); } catch (x) { } } else if (f) a.toast(`Unlocks: ${frameReq(f)}`); return; }
     const ry = on("[data-ry]"); if (ry) { a.__recapYear = ry.dataset.ry; OPEN.recap = true; a.renderProgressView(); return; }
-    const rs = on("[data-rsex]"); if (rs) { a.settings.rankSex = rs.dataset.rsex; save(); OPEN.rank = true; a.renderProgressView(); return; }
+    const rs = on("[data-rsex]"); if (rs) { a.settings.strengthSex = rs.dataset.rsex === "w" ? "female" : "male"; a.settings.rankSex = rs.dataset.rsex; save(); OPEN.rank = true; a.renderProgressView(); return; }
     if (t("pt-rank-bw")) {
       const v = parseFloat(await PT.prompt(`Your body weight (${unitKg() ? "kg" : "lb"})?`, "", { type: "number", title: "Body weight", ok: "Save" }));
       if (v > 0) { a.settings.rankBw = unitKg() ? v * LB : v; save(); memo = null; OPEN.rank = true; a.renderProgressView(); }
@@ -18699,6 +18720,8 @@ const PTSIM = (function () {
   const enc = (tag, o) => tag + "." + btoa(unescape(encodeURIComponent(JSON.stringify(o))));
   const dec = tok => { try { const m = String(tok).match(/^(PT1|PTB1|PTC1|PTR1|PTW1)\.([A-Za-z0-9+/=_-]+)$/); if (!m) return null; return { tag: m[1], o: JSON.parse(decodeURIComponent(escape(atob(m[2])))) }; } catch (e) { return null; } };
   const clip = (s, n) => String(s == null ? "" : s).slice(0, n);
+  const famTail = a => { try { return PT.famUpdateCode ? "\n" + PT.famUpdateCode(a) : ""; } catch (e) { return ""; } };
+  const sent = () => { try { if (PT.famMarkSent) PT.famMarkSent(); } catch (e) { } };
   const myName = a => a.settings.myName || "";
   async function ensureName(a) {
     if (myName(a)) return myName(a);
@@ -18736,7 +18759,8 @@ const PTSIM = (function () {
   };
 
   /* ============================================================== family challenge */
-  const STATS = { k: { label: "Most workouts", unit: "workouts", f: x => String(x) }, v: { label: "Most volume", unit: "lifted", f: x => V(x) }, s: { label: "Most sets", unit: "sets", f: x => String(x) }, p: { label: "Most records", unit: "PRs", f: x => String(x) } };
+  const STATS = { k: { label: "Most workouts", unit: "workouts", f: x => String(x) }, v: { label: "Most volume", unit: "lifted", f: x => V(x) }, s: { label: "Most sets", unit: "sets", f: x => String(x) }, p: { label: "Most records", unit: "PRs", f: x => String(x) },
+    sc: { label: "Highest score", unit: "points", f: x => x + " pts" }, cn: { label: "Best consistency", unit: "%", f: x => x + "%" } }; // 2.53.0: sc and cn are the fair contests (the board in m80a draws them)
   const thisWeekId = () => dsOf(mondayOf(Date.now()));
   function mine(a, weekT) { const w = PT.weeksOf(a).get(mondayOf(weekT)); return { k: w ? w.days.size : 0, v: w ? Math.round(w.v) : 0, s: w ? w.s : 0, p: w ? w.p : 0 }; }
   function chalRows(a, c) {
@@ -18777,9 +18801,11 @@ const PTSIM = (function () {
     const a = A(); s = s || lastSession(a); if (!s) { a.toast("Finish a workout first"); return; }
     if (!(await ensureName(a))) return;
     const o = { n: myName(a), d: s.date, t: s.dtitle || s.ptitle || "Workout", v: Math.round(toLb(s.vol || 0, s.unit)), m: Math.round((s.dur || 0) / 60), s: s.sets || 0, p: (s.prs || []).length };
-    const link = dayLink(s), text = `${o.n} finished ${o.t}: ${V(o.v)}, ${o.m} min${o.p ? ", " + o.p + " PR" + (o.p === 1 ? "" : "s") : ""} 💪\n${link ? "Do the same workout: " + link + "\n" : ""}${enc("PTB1", o)}`;
-    try { if (navigator.share) { await navigator.share({ title: "I finished a workout", text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+    /* 2.53.0: the message carries my family update code too, so every workout I send also refreshes the family board */
+    const link = dayLink(s), text = `${o.n} finished ${o.t}: ${V(o.v)}, ${o.m} min${o.p ? ", " + o.p + " PR" + (o.p === 1 ? "" : "s") : ""} 💪\n${link ? "Do the same workout: " + link + "\n" : ""}${enc("PTB1", o)}${famTail(a)}`;
+    try { if (navigator.share) { await navigator.share({ title: "I finished a workout", text }); sent(); return; } } catch (e) { if (e && e.name === "AbortError") return; }
     try { await navigator.clipboard.writeText(text); a.toast("Copied. Paste it in your group chat"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
+    sent();
   }
   function ago(d) { const t = PT.fromDs(d); if (!t) return ""; const n = Math.round((mondayOf(Date.now()) - mondayOf(t.getTime())) / DAY), dd = Math.round((new Date().setHours(0, 0, 0, 0) - new Date(t).setHours(0, 0, 0, 0)) / DAY); return dd <= 0 ? "today" : dd === 1 ? "yesterday" : dd + " days ago"; }
   function feedHtml(a) {
@@ -18819,9 +18845,10 @@ const PTSIM = (function () {
   }
   async function shareCard() {
     const a = A(); if (!(await ensureName(a))) return; const c = myCard(a);
-    const text = `${c.n}: Level ${c.lv}, ${c.b} badges, ${c.st} week streak 💪\n${enc("PTW1", c)}`;
-    try { if (navigator.share) { await navigator.share({ title: "My PulseTrack card", text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+    const text = `${c.n}: Level ${c.lv}, ${c.b} badges, ${c.st} week streak 💪\n${enc("PTW1", c)}${famTail(a)}`;
+    try { if (navigator.share) { await navigator.share({ title: "My PulseTrack card", text }); sent(); return; } } catch (e) { if (e && e.name === "AbortError") return; }
     try { await navigator.clipboard.writeText(text); a.toast("Copied. Send it to your family"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
+    sent();
   }
 
   /* ============================================================== Progress wiring */
@@ -18842,7 +18869,7 @@ const PTSIM = (function () {
   /* finish screen button */
   function ensureSummaryBtn() {
     if ($("pt-summary-send")) return; const t = $("btn-summary-template"); if (!t || !t.parentElement) return;
-    const b = document.createElement("button"); b.id = "pt-summary-send"; b.type = "button"; b.className = "w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-bold rounded-xl tap-active text-sm"; b.textContent = "🤝 Send to my buddies"; t.parentElement.insertBefore(b, t);
+    const b = document.createElement("button"); b.id = "pt-summary-send"; b.type = "button"; b.className = "w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-bold rounded-xl tap-active text-sm"; b.textContent = "🤝 Send to family & buddies"; t.parentElement.insertBefore(b, t);
   }
   const oFin = proto.finishWorkoutV2;
   proto.finishWorkoutV2 = async function () { const r = await oFin.apply(this, arguments); try { ensureSummaryBtn(); } catch (e) { } return r; };
@@ -19101,6 +19128,30 @@ const PTSIM = (function () {
   const w = (ref, f, alt) => ({ k: "w", ref, f, alt });
   const NONE = null;
 
+  /* ---- StrengthLevel.com community standards, men, lb, 1RM (dumbbells are per hand), read 2026: Beginner, Novice, Intermediate, Advanced, Elite.
+   *      All of these come from the same community table, so an exercise is graded as the SAME SHARE of the matching big-lift standard
+   *      that it is in this table, level by level (a lat pulldown is 87% of a bench at Beginner and 84% at Elite, a leg extension 65% to 82% of a squat).
+   *      The big-lift standards themselves are the by-bodyweight tables, so your body weight and Men / Women still apply. ---- */
+  const SL = {
+    bench: [107, 154, 212, 280, 353], squat: [145, 209, 289, 382, 482], deadlift: [176, 249, 340, 445, 558], ohp: [65, 97, 137, 185, 236],
+    legExt: [94, 149, 219, 303, 395], hack: [129, 217, 335, 478, 637], legPress: [146, 243, 370, 525, 697], smithSquat: [105, 167, 246, 341, 445],
+    front: [120, 170, 231, 303, 380], goblet: [31, 55, 88, 129, 174], bbBulg: [37, 80, 143, 224, 318], dbBulg: [25, 43, 69, 101, 136],
+    bbLunge: [66, 114, 178, 256, 343], dbLunge: [18, 37, 63, 96, 134], hipAbd: [76, 130, 203, 292, 392], hipThrust: [100, 188, 309, 460, 631],
+    legCurlLy: [58, 94, 140, 195, 257], legCurlSe: [77, 121, 176, 243, 316], calfBar: [97, 171, 271, 395, 534], calfMach: [95, 181, 302, 453, 625], calfSeat: [61, 119, 200, 302, 418],
+    rdl: [129, 191, 270, 362, 462], dbRdl: [36, 60, 92, 130, 173], dbDead: [28, 54, 90, 136, 188], sumo: [198, 275, 370, 478, 594], shrug: [103, 178, 279, 401, 539], dbShrug: [31, 58, 93, 138, 188],
+    smithBench: [99, 144, 199, 264, 334], inclineBench: [96, 138, 190, 251, 317], cgbp: [108, 152, 206, 268, 336], dbBench: [37, 58, 85, 117, 153], inclDb: [41, 60, 83, 110, 140],
+    chestPress: [75, 124, 189, 267, 354], machineFly: [81, 127, 188, 260, 339], dbFly: [16, 30, 50, 76, 105], cableFly: [15, 39, 76, 126, 186],
+    latPull: [93, 132, 180, 235, 295], tbar: [74, 119, 177, 248, 327], pendlay: [108, 150, 202, 262, 325], bor: [94, 137, 192, 255, 325], scr: [91, 133, 186, 246, 313], dbRow: [36, 60, 91, 129, 171],
+    pushdown: [33, 60, 98, 144, 196], lte: [37, 61, 92, 129, 171], dbTri: [11, 25, 45, 72, 103],
+    dbSp: [29, 45, 67, 93, 121], machSp: [54, 100, 162, 239, 326], arnold: [21, 34, 52, 74, 98], lat: [10, 20, 35, 53, 75], frontR: [8, 20, 37, 59, 85],
+    facePull: [30, 59, 100, 151, 209], cableUpright: [45, 84, 137, 203, 278], dbUpright: [15, 31, 53, 81, 114],
+    dbCurl: [16, 29, 46, 68, 93], hammer: [20, 33, 50, 71, 94], bbCurl: [42, 67, 99, 138, 180], ezCurl: [49, 72, 100, 132, 168], preacher: [40, 64, 96, 133, 174], cableCurl: [38, 67, 108, 157, 214]
+  };
+  PT.slStd = SL;
+  /** wr(ref, key, scale, alt, est): graded as the share of the reference lift that `key` is in the StrengthLevel table. scale / est mark the ones adjusted by hand (one arm, one leg) */
+  const wr = (ref, key, scale, alt, est) => ({ k: "w", ref, f: SL[key].map((v, i) => Math.round(v / SL[ref][i] * (scale || 1) * 1000) / 1000), sl: !est && !(scale && scale !== 1), alt: alt || null });
+  const fMid = st => (Array.isArray(st.f) ? st.f[2] : st.f);
+
   /* ---- StrengthLevel.com bodyweight tables, read 2026. Rows: bodyweight (lb): Beginner, Novice, Intermediate, Advanced, Elite.
    *      u: reps = reps in one set, sec = seconds held, add = one-rep max with added weight (lb, negative = assisted) ---- */
   const rows = t => t.trim().split(/\s+/).map(r => { const [b, v] = r.split(":"); return [+b].concat(v.split(",").map(Number)); });
@@ -19206,9 +19257,11 @@ const PTSIM = (function () {
     return last.slice(1);
   };
   const tb = (t, s, est) => ({ k: "tbl", t, s: s || 1, est: !!est });
-  const NOT_GRADED = /carry|farmer|suitcase|sandbag|crawl|gripper|pinch|wrist roller|pronation|neck crunch|\bband\b|resistance band|negative|jump|bound|clap|tibialis|reverse nordic|slider|stability ball leg curl|freestanding squat|triceps rockers/;
+  const NOT_GRADED = /carry|farmer|suitcase|sandbag|crawl|gripper|pinch|wrist roller|pronation|neck crunch|\bband\b|resistance band|negative|jump|bound|clap|tibialis|reverse nordic|slider|stability ball leg curl|freestanding squat|triceps rockers|lunge hold|bodyweight triceps/;
   const RULES = [
     [NOT_GRADED, NONE],
+    /* light rehab moves, graded as a small share of the press so a 10 lb rotation is not scored as an upright row */
+    [/external rotation|internal rotation/, w("ohp", 0.1)],
     /* weight-stack ab machines first */
     [/cable crunch|cable reverse crunch|oblique cable crunch/, w("bench", 0.5)],
     [/machine ab|ab coaster|rotary torso|smith machine crunch/, w("bench", 0.6)],
@@ -19292,72 +19345,80 @@ const PTSIM = (function () {
     [/crunch|twist|oblique|hip raise/, tb("crunch", 0.8, true)],
     /* ---- squat family ---- */
     [/safety squat|ssb/, w("squat", 0.95)],
-    [/front squat/, w("squat", 0.7)],
+    [/front squat/, wr("squat", "front")],
     [/zercher/, w("squat", 0.7)],
     [/box squat|pause squat|high-bar|low-bar|^squat$|barbell hack squat/, w("squat", 1)],
-    [/goblet|dumbbell squat|dumbbell sumo/, w("squat", 0.3)],
-    [/smith machine squat/, w("squat", 1)],
+    [/goblet|dumbbell squat|dumbbell sumo/, wr("squat", "goblet")],
+    [/smith machine squat/, wr("squat", "smithSquat")],
     [/smith machine split/, w("squat", 0.7)],
-    [/bulgarian.*barbell|barbell.*split squat/, w("squat", 0.5)],
-    [/split squat|bulgarian/, w("squat", 0.3, tb("bwsquat", 0.5, true))],
-    [/barbell .*lunge|smith machine front lunge/, w("squat", 0.55)],
-    [/lunge/, w("squat", 0.2, tb("bwsquat", 0.5, true))],
+    [/bulgarian.*barbell|barbell.*split squat/, wr("squat", "bbBulg")],
+    [/split squat|bulgarian/, wr("squat", "dbBulg", 1, tb("bwsquat", 0.5, true))],
+    [/barbell .*lunge|smith machine front lunge/, wr("squat", "bbLunge")],
+    [/lunge/, wr("squat", "dbLunge", 1, tb("bwsquat", 0.5, true))],
     [/step-?ups?/, w("squat", 0.3, tb("bwsquat", 0.5, true))],
-    [/hack squat|pendulum|v-squat|belt squat|wide-stance squat|narrow-stance squat/, w("squat", 0.85)],
-    [/leg press calf/, w("squat", 1.2)],
-    [/single-leg leg press/, w("squat", 1)],
-    [/vertical leg press/, w("squat", 1.5)],
-    [/leg press/, w("squat", 1.35)],
-    [/single-leg extension|leg extension/, w("squat", 0.42)],
+    [/wide-stance squat|narrow-stance squat/, w("squat", 0.95)],
+    [/hack squat|pendulum|v-squat|belt squat/, wr("squat", "hack")],
+    [/leg press calf/, wr("squat", "calfMach", 1, null, true)],
+    [/single-leg leg press/, wr("squat", "legPress", 0.6)],
+    [/vertical leg press/, wr("squat", "legPress", 1.1)],
+    [/leg press/, wr("squat", "legPress")],
+    [/single-leg extension/, wr("squat", "legExt", 0.55)],
+    [/leg extension/, wr("squat", "legExt")],
     [/dumbbell leg curl/, w("squat", 0.12)],
-    [/single-leg curl|single-leg lying/, w("squat", 0.25)],
-    [/leg curl/, w("squat", 0.32)],
+    [/single-leg curl|single-leg lying/, wr("squat", "legCurlLy", 0.55)],
+    [/seated leg curl/, wr("squat", "legCurlSe")],
+    [/leg curl/, wr("squat", "legCurlLy")],
     [/dumbbell (hip thrust|glute bridge)|single-leg hip thrust/, w("squat", 0.5)],
-    [/hip thrust|glute bridge/, w("squat", 0.9)],
+    [/hip thrust|glute bridge/, wr("squat", "hipThrust")],
     [/glute kickback|cable hip|multi-hip/, w("squat", 0.35)],
-    [/hip abductor|hip adductor/, w("squat", 0.7)],
+    [/hip abductor/, wr("squat", "hipAbd")],
+    [/hip adductor/, wr("squat", "hipAbd", 1, null, true)],
     [/seated dumbbell calf/, w("squat", 0.3)],
     [/dumbbell calf/, w("squat", 0.25)],
-    [/seated calf/, w("squat", 0.6)],
-    [/calf raise/, w("squat", 0.9, tb("bwcalf", 1, true))],
+    [/seated calf/, wr("squat", "calfSeat")],
+    [/calf raise/, wr("squat", "calfBar", 1, tb("bwcalf", 1, true))],
     /* ---- deadlift family ---- */
     [/barbell bent over row to straight/, w("deadlift", 0.55)],
     [/trap bar deadlift|hex bar deadlift/, w("deadlift", 1.05)],
     [/rack pull/, w("deadlift", 1.1)],
     [/deficit barbell deadlift|snatch-grip|dorian/, w("deadlift", 0.9)],
-    [/dumbbell deadlift|stiff-legged dumbbell/, w("deadlift", 0.35)],
+    [/dumbbell deadlift|stiff-legged dumbbell/, wr("deadlift", "dbDead")],
     [/single-leg rdl/, w("deadlift", 0.22)],
-    [/dumbbell romanian|b-stance|stiff-legged|romanian|smith machine romanian|smith machine deadlift/, w("deadlift", 0.72)],
+    [/dumbbell romanian|dumbbell stiff/, wr("deadlift", "dbRdl")],
+    [/b-stance/, wr("deadlift", "rdl", 0.8)],
+    [/stiff-legged|romanian|smith machine romanian|smith machine deadlift/, wr("deadlift", "rdl")],
     [/good morning/, w("squat", 0.5)],
     [/reverse hyper/, w("deadlift", 0.4)],
     [/weighted back extension|back extension/, w("deadlift", 0.3)],
     [/pull-?through/, w("deadlift", 0.4)],
     [/kettlebell swing/, w("deadlift", 0.22)],
-    [/sumo deadlift|deadlift/, w("deadlift", 1)],
+    [/sumo deadlift/, wr("deadlift", "sumo")],
+    [/deadlift/, w("deadlift", 1)],
     [/barbell bent over row to straight/, w("deadlift", 0.55)],
     /* ---- bench family ---- */
-    [/smith machine (flat|bench) press|smith machine decline/, w("bench", 1)],
-    [/smith machine incline press/, w("bench", 0.8)],
+    [/smith machine (flat|bench) press|smith machine decline/, wr("bench", "smithBench")],
+    [/smith machine incline press/, wr("bench", "inclineBench", 0.94)],
     [/smith machine close-grip/, w("bench", 0.9)],
-    [/incline close-grip bench|reverse-grip incline|incline bench press/, w("bench", 0.82)],
+    [/incline close-grip bench|reverse-grip incline/, w("bench", 0.82)],
+    [/incline bench press/, wr("bench", "inclineBench")],
     [/decline bench press/, w("bench", 1.05)],
-    [/close-grip bench|close grip bench/, w("bench", 0.9)],
+    [/close-grip bench|close grip bench/, wr("bench", "cgbp")],
     [/wide-grip barbell bench|reverse-grip barbell bench|pause bench|spoto|^floor press$|^bench press$/, w("bench", 1)],
     [/dumbbell floor press/, w("bench", 0.38)],
-    [/incline close-grip dumbbell/, w("bench", 0.34)],
-    [/(low )?incline dumbbell press|incline dumbbell (shoulder )?press/, w("bench", 0.3)],
+    [/incline close-grip dumbbell/, wr("bench", "inclDb", 0.9)],
+    [/incline dumbbell (bench )?press|incline dumbbell (shoulder )?press|low incline dumbbell|incline dumbbell bench/, wr("bench", "inclDb")],
     [/single-arm (low incline )?dumbbell bench press|single-arm low incline/, w("bench", 0.4)],
-    [/dumbbell (bench|squeeze) press|decline dumbbell press|neutral-grip dumbbell press|close-grip dumbbell press/, w("bench", 0.34)],
+    [/dumbbell (bench|squeeze) press|decline dumbbell press|neutral-grip dumbbell press|close-grip dumbbell press/, wr("bench", "dbBench")],
     [/svend|plate press/, w("bench", 0.2)],
-    [/hammer strength (flat|incline)/, w("bench", 0.85)],
-    [/iso-lateral plate-loaded (decline|wide)/, w("bench", 0.85)],
-    [/converging chest|machine (chest|incline|decline) press/, w("bench", 0.85)],
+    [/hammer strength (flat|incline)/, wr("bench", "chestPress", 1, null, true)],
+    [/iso-lateral plate-loaded (decline|wide)/, wr("bench", "chestPress", 1, null, true)],
+    [/converging chest|machine (chest|incline|decline) press/, wr("bench", "chestPress")],
     [/cable (scooped )?chest press|seated cable chest press|single-arm cable chest|cable chest fly to/, w("bench", 0.4)],
     [/reverse pec deck/, w("bench", 0.35)],
-    [/pec deck/, w("bench", 0.45)],
+    [/pec deck/, wr("bench", "machineFly")],
     [/reverse cable crossover/, w("ohp", 0.2)],
-    [/dumbbell flyes?|incline dumbbell flyes|decline dumbbell flyes/, w("bench", 0.17)],
-    [/cable (flyes?|crossovers?)|(flat|incline|decline) cable flyes|(high|low)[- ]to[- ](low|high) cable fl|(high|low) cable crossover|cable fly ladder|bent-over cable crossover|single-arm cable crossover/, w("bench", 0.22)],
+    [/dumbbell flyes?|incline dumbbell flyes|decline dumbbell flyes/, wr("bench", "dbFly")],
+    [/cable (flyes?|crossovers?)|(flat|incline|decline) cable flyes|(high|low)[- ]to[- ](low|high) cable fl|(high|low) cable crossover|cable fly ladder|bent-over cable crossover|single-arm cable crossover/, wr("bench", "cableFly")],
     [/dumbbell pullover/, w("bench", 0.38)],
     [/barbell pullover/, w("bench", 0.38)],
     [/machine pullover/, w("bench", 0.55)],
@@ -19366,13 +19427,16 @@ const PTSIM = (function () {
     [/meadows/, w("bench", 0.5)],
     [/hex bar row/, w("bench", 0.9)],
     [/straight-arm/, w("bench", 0.35)],
-    [/single-arm cable lat pulldown|half-kneeling single-arm lat/, w("bench", 0.4)],
-    [/behind-the-neck pulldown|lat pulldown/, w("bench", 0.62)],
+    [/single-arm cable lat pulldown|half-kneeling single-arm lat/, wr("bench", "latPull", 0.5)],
+    [/behind-the-neck pulldown|lat pulldown/, wr("bench", "latPull")],
     [/iso-lateral plate-loaded (high|low) row|hammer strength row/, w("bench", 0.65)],
-    [/single-arm (machine row|cable seated)/, w("bench", 0.42)],
-    [/t-bar|seal row|chest-supported row|chest-supported cable|barbell row|reverse-grip barbell row|pendlay|yates|hex bar row|barbell bent|bent-over trap/, w("bench", 0.75)],
-    [/dumbbell row|incline dumbbell row|bent-over dumbbell row|helms|kroc|gorilla|reverse-grip dumbbell row|renegade|dumbbell rear delt row/, w("bench", 0.36)],
-    [/seated cable row|cable seated row|underhand seated|neutral-grip seated cable|low row|diverging seated|machine row|smith machine row/, w("bench", 0.62)],
+    [/single-arm (machine row|cable seated)/, wr("bench", "scr", 0.5)],
+    [/pendlay/, wr("bench", "pendlay")],
+    [/chest-supported cable/, wr("bench", "scr")],
+    [/t-bar|seal row|chest-supported row|chest-supported t-bar/, wr("bench", "tbar")],
+    [/barbell row|reverse-grip barbell row|yates|hex bar row|barbell bent|bent-over trap/, wr("bench", "bor")],
+    [/dumbbell row|incline dumbbell row|bent-over dumbbell row|helms|kroc|gorilla|reverse-grip dumbbell row|renegade|dumbbell rear delt row/, wr("bench", "dbRow")],
+    [/seated cable row|cable seated row|underhand seated|neutral-grip seated cable|low row|diverging seated|machine row|smith machine row/, wr("bench", "scr")],
     /* ---- shoulders ---- */
     [/behind-the-neck (barbell )?press|smith machine behind-the-neck/, w("ohp", 0.8)],
     [/dumbbell push press/, w("ohp", 0.52)],
@@ -19381,48 +19445,56 @@ const PTSIM = (function () {
     [/z press/, w("ohp", 0.75)],
     [/seated reverse-grip barbell press|front and back|bradford|scott press/, w("ohp", 0.75)],
     [/landmine press/, w("ohp", 0.7)],
-    [/arnold press/, w("ohp", 0.45)],
-    [/(seated|standing)? ?dumbbell (shoulder )?press|single-arm dumbbell press/, w("ohp", 0.4)],
+    [/arnold press/, wr("ohp", "arnold")],
+    [/(seated|standing)? ?dumbbell (shoulder )?press|single-arm dumbbell press/, wr("ohp", "dbSp")],
     [/kettlebell press/, w("ohp", 0.45)],
     [/seated cable shoulder press/, w("ohp", 0.6)],
-    [/iso-lateral plate-loaded shoulder press|machine shoulder press|multi-press/, w("ohp", 1.05)],
+    [/iso-lateral plate-loaded shoulder press|machine shoulder press|multi-press/, wr("ohp", "machSp")],
     [/overhead press|smith machine overhead press/, w("ohp", 1)],
     [/machine lateral/, w("ohp", 0.4)],
-    [/cable (y-)?raises|cable lateral|single-arm cable lateral|seated cable lateral/, w("ohp", 0.14)],
-    [/lateral raises?|lateral to front|lu raises|scaption|y-raise|cuban/, w("ohp", 0.14)],
+    [/cable (y-)?raises|cable lateral|single-arm cable lateral|seated cable lateral/, wr("ohp", "lat", 0.7)],
+    [/lu raises|scaption|y-raise|cuban/, wr("ohp", "lat", 0.6)],
+    [/lateral raises?|lateral to front/, wr("ohp", "lat")],
     [/(barbell|ez-bar) front raise/, w("ohp", 0.35)],
     [/plate front|weight plate/, w("ohp", 0.28)],
-    [/front raises?/, w("ohp", 0.18)],
+    [/cable front raise|incline cable front/, wr("ohp", "frontR", 0.7)],
+    [/front raises?/, wr("ohp", "frontR")],
     [/rear delt|reverse flye|reverse cable crossover|lying cable rear|machine lying rear|prone dumbbell/, w("ohp", 0.16)],
-    [/face pull/, w("ohp", 0.42)],
-    [/dumbbell upright/, w("ohp", 0.3)],
-    [/cable upright/, w("ohp", 0.6)],
+    [/face pull/, wr("ohp", "facePull")],
+    [/dumbbell upright/, wr("ohp", "dbUpright")],
+    [/cable upright/, wr("ohp", "cableUpright")],
     [/upright row/, w("ohp", 0.8)],
     [/barbell incline shoulder raise/, w("ohp", 0.35)],
     /* ---- traps and neck ---- */
     [/barbell high pull/, w("deadlift", 0.6)],
     [/prone trap raise/, w("ohp", 0.12)],
-    [/dumbbell shrug|incline bench dumbbell shrug/, w("deadlift", 0.33)],
+    [/dumbbell shrug|incline bench dumbbell shrug/, wr("deadlift", "dbShrug")],
     [/shrug machine|selectorized shrug|cable shrug/, w("deadlift", 0.7)],
-    [/shrugs?/, w("deadlift", 0.75)],
+    [/shrugs?/, wr("deadlift", "shrug")],
     /* ---- biceps ---- */
     [/barbell 21s|21s/, w("ohp", 0.35)],
-    [/(barbell|ez-bar|plate) preacher|machine preacher|plate-loaded biceps|cable preacher|reverse preacher|machine incline curl/, w("ohp", 0.5)],
-    [/cable .*curl|curl.*cable|high cable|lying cable|between-the-legs|single-arm cable curl/, w("ohp", 0.45)],
-    [/(dumbbell|incline) .*curl|curls?.*dumbbell|alternating|bilateral|concentration|hammer curl|seated dumbbell|zottman|cross-body dumbbell|bicep curls|^dumbbell curls/, w("ohp", 0.25)],
+    [/wrist curl|finger curl/, wr("ohp", "dbCurl", 0.6)],
+    [/cable reverse curl/, wr("ohp", "cableCurl", 0.6)],
+    [/(barbell|ez-bar|plate) preacher|machine preacher|plate-loaded biceps|cable preacher|reverse preacher|machine incline curl/, wr("ohp", "preacher")],
+    [/single-arm cable curl/, wr("ohp", "cableCurl", 0.6)],
+    [/cable .*curl|curl.*cable|high cable|lying cable|between-the-legs/, wr("ohp", "cableCurl")],
+    [/hammer curl/, wr("ohp", "hammer")],
+    [/(dumbbell|incline) .*curl|curls?.*dumbbell|alternating|bilateral|concentration|seated dumbbell|zottman|cross-body dumbbell|bicep curls|^dumbbell curls/, wr("ohp", "dbCurl")],
     [/reverse curl|ez-bar reverse/, w("ohp", 0.4)],
-    [/barbell curl|ez-bar curl|spider curl|drag curl|row curl|waiter|preacher curls|seated barbell curl|wide-grip barbell|close-grip barbell/, w("ohp", 0.55)],
+    [/preacher curls/, wr("ohp", "preacher")],
+    [/ez-bar curl|spider curl|drag curl|row curl|waiter|seated barbell curl|wide-grip barbell|close-grip barbell/, wr("ohp", "ezCurl")],
+    [/barbell curl/, wr("ohp", "bbCurl")],
     [/curls?$/, w("ohp", 0.45)],
     /* ---- triceps ---- */
     [/jm press/, w("bench", 0.65)],
     [/machine triceps dip|plate-loaded triceps dip/, w("bench", 0.9)],
     [/dumbbell skull/, w("bench", 0.17)],
-    [/(ez-bar|barbell|incline|decline|lying|standing) (french|skull|overhead)|overhead ez-bar|barbell french|barbell overhead triceps|close grip french|crucifix|skull crushers/, w("bench", 0.38)],
-    [/incline two-dumbbell|dumbbell overhead|seated overhead dumbbell|single-arm overhead dumbbell|overhead triceps extension|overhead dumbbell/, w("ohp", 0.4)],
+    [/(ez-bar|barbell|incline|decline|lying|standing) (french|skull|overhead)|overhead ez-bar|barbell french|barbell overhead triceps|close grip french|crucifix|skull crushers/, wr("bench", "lte")],
+    [/incline two-dumbbell|dumbbell overhead|seated overhead dumbbell|single-arm overhead dumbbell|overhead triceps extension|overhead dumbbell/, wr("ohp", "dbTri")],
     [/kickback|kick out|tate press/, w("ohp", 0.12)],
     [/cross-body triceps/, w("ohp", 0.22)],
-    [/single-arm cable pushdown/, w("bench", 0.25)],
-    [/pushdown|cable overhead|single-arm overhead cable|triceps extension|cable skull/, w("bench", 0.34)],
+    [/single-arm cable pushdown|single-arm overhead cable/, wr("bench", "pushdown", 0.6)],
+    [/pushdown|cable overhead|single-arm overhead cable|triceps extension|cable skull/, wr("bench", "pushdown")],
     /* ---- forearms ---- */
     [/wrist curl|finger curl/, w("ohp", 0.35)],
     [/cable reverse curl/, w("ohp", 0.35)]
@@ -19442,7 +19514,7 @@ const PTSIM = (function () {
   /** 5 thresholds in lb (weight kinds / bodyweight kinds) or reps. */
   function thresholds(s, sex, bw) {
     if (!s || !(bw > 0)) return null;
-    if (s.k === "w") { const t = PT.strengthThresholds(s.ref, sex, bw); return t ? t.map(v => v * s.f) : null; }
+    if (s.k === "w") { const t = PT.strengthThresholds(s.ref, sex, bw); return t ? t.map((v, i) => v * (Array.isArray(s.f) ? s.f[i] : s.f)) : null; }
     if (s.k === "tbl") {
       const T = TABLES[s.t], r = interp(sex === "female" ? T.f : T.m, bw);
       return T.u === "add" ? r.map(v => bw + v) : r.map(v => Math.max(1, Math.ceil(v * s.s - 1e-6)));
@@ -19486,17 +19558,23 @@ const PTSIM = (function () {
     return "Other";
   }
   /** one logged set as { e1 } (estimated 1RM in lb) or { reps } (reps, or seconds held), or null when it counts for nothing */
+  /** estimated 1RM of one set in lb. The estimate is Epley (weight x (1 + reps / 30)), which runs high for very long sets, so reps past 20 stop adding to it. */
+  const CAP_REPS = 20;
+  function e1Of(a, e, x, s) {
+    const v = toLb(a.setE1rm(e.name, x, s.date) || 0, s.unit), r = parseFloat(x.r) || 0;
+    return r > CAP_REPS && v > 0 ? v * (1 + CAP_REPS / 30) / (1 + r / 30) : v;
+  }
   function setVal(a, e, x, s, st, bw) {
     const T = st.k === "tbl" ? TABLES[st.t] : null;
-    if (T && T.u === "add") return { e1: toLb(a.setE1rm(e.name, x, s.date) || 0, s.unit) };
+    if (T && T.u === "add") return { e1: e1Of(a, e, x, s) };
     if (T || st.alt) {
       const r = parseFloat(x.r) || 0; if (r <= 0 || PT.isCardioSet(x)) return null;
       const wt = toLb(PT.isBodyweightEx(e.name) ? Math.max(0, a.setLoad(e.name, x, s.date) - (a.bwOn(s.date) || 0)) : (parseFloat(x.w) || 0), s.unit);
-      if (st.alt && wt > 0) return { e1: toLb(a.setE1rm(e.name, x, s.date) || 0, s.unit) };
+      if (st.alt && wt > 0) return { e1: e1Of(a, e, x, s) };
       if (T && T.u === "sec") return { reps: r };
       return { reps: r * (bw > 0 && wt > 0 ? 1 + wt / bw : 1) };
     }
-    return { e1: toLb(a.setE1rm(e.name, x, s.date) || 0, s.unit) };
+    return { e1: e1Of(a, e, x, s) };
   }
   let memo = null;
   function bests(a) {
@@ -19547,7 +19625,7 @@ const PTSIM = (function () {
     return `${num(fromLb(a, v))} ${a.wLabel()}`;
   };
   const BIG = /^(bench press|squat|deadlift|overhead press)$/i;
-  const isEst = (st, name) => (st.k === "tbl" ? st.est : st.k === "w" ? !(st.f === 1 && BIG.test(name)) : true);
+  const isEst = (st, name) => (st.k === "tbl" ? st.est : st.k === "w" ? !(st.sl || (st.f === 1 && BIG.test(name))) : true);
   const bar = (p, c) => `<div class="pt-lv-bar"><span style="width:${Math.round(Math.max(0, Math.min(1, p)) * 100)}%;background:${c}"></span></div>`;
   const chip = (attr, label, on) => `<button type="button" ${attr} aria-pressed="${on}" class="pt-opt tap-active">${esc(label)}</button>`;
   const kindNote = st => ({ reps: "reps in one set", sec: "seconds held", add: "1RM with body weight" }[unitOfStd(st)] || "estimated 1RM");
@@ -19580,7 +19658,7 @@ const PTSIM = (function () {
       <div class="flex flex-wrap gap-1.5">${["All"].concat(GROUPS).map(g => chip(`data-lvg="${g}"`, g, UI.group === g)).join("")}</div>
       <input type="search" id="pt-lv-q" value="${esc(UI.q)}" placeholder="Search exercises" aria-label="Search exercises" autocomplete="off">
       <div id="pt-lv-list" class="space-y-1.5">${listHtml(a)}</div>
-      <p class="text-[10px] text-zinc-500 leading-relaxed">Bench, squat, deadlift and the bodyweight moves (pull-ups, dips, push-ups, sit-ups, planks and more) use StrengthLevel.com tables for your body weight. Machine, cable, dumbbell and barbell variations are estimates scaled from those and marked est. Dumbbell lifts are per hand. Men or Women follows the card above.</p>`;
+      <p class="text-[10px] text-zinc-500 leading-relaxed">Bench, squat, deadlift, press and the bodyweight moves (pull-ups, dips, push-ups, sit-ups, planks and more) use StrengthLevel.com tables for your body weight. About 60 more lifts (leg press, leg extension, curls, rows, pulldowns, pushdowns, calf raises, hip thrusts and others) use StrengthLevel's own standards for that exercise, scaled to your body weight. Anything marked est. is a rougher guess. Sets past 20 reps stop adding to the estimate. Dumbbell lifts are per hand. Men or Women follows the card above.</p>`;
     return html;
   }
   function listHtml(a) {
@@ -19600,7 +19678,11 @@ const PTSIM = (function () {
       const T = TABLES[st.t];
       how = (est ? `Estimated from the ${T.label.toLowerCase()} table${st.s !== 1 ? ` (about ${Math.round(st.s * 100)}% of it)` : ""}, since there is no published table for this exact move.` : `StrengthLevel.com ${T.label.toLowerCase()} standards for your body weight.`)
         + (T.u === "add" ? " Your best one-rep max (body weight plus added weight) is compared with the added-weight standard; assisted reps count as negative weight." : T.u === "sec" ? " Seconds held in one set." : " Reps in one set. Added weight counts as extra reps.");
-    } else how = (est ? `A share of the ${st.ref === "ohp" ? "overhead press" : st.ref} standard (about ${Math.round(st.f * 100)}%). Not an official table.` : "StrengthLevel.com standards for your body weight.");
+    } else {
+      const refName = st.ref === "ohp" ? "overhead press" : st.ref;
+      how = st.sl ? `StrengthLevel.com's own standards for this exercise, which come to about ${Math.round(fMid(st) * 100)}% of the ${refName} standard at Intermediate, adjusted to your body weight.`
+        : est ? `A share of the ${refName} standard (about ${Math.round(fMid(st) * 100)}%). Not an official table.` : "StrengthLevel.com standards for your body weight.";
+    }
     const best = v > 0 ? `Your best: <b class='text-white'>${esc(fmtV(a, st, v))}</b> (${kindNote(st)})` : "Not logged yet";
     const body = `<div class="space-y-3"><div class="flex items-center justify-between gap-2"><span class="text-xs text-zinc-400">${best}</span>${lv ? `<span class="shrink-0 text-sm font-black" style="color:${COLS[lv.idx]}">${lv.level}</span>` : ""}</div>${lv ? bar(lv.frac, COLS[lv.idx]) : ""}<div class="space-y-1.5">${rows}</div>
       <p class="text-[10px] text-zinc-500 leading-relaxed">At body weight ${esc(num(fromLb(a, bw)))} ${a.wLabel()} (${sex === "female" ? "women" : "men"}). ${esc(how)}</p></div>`;
@@ -26481,6 +26563,371 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   `;
   document.head.appendChild(css);
   schedHome();
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.53.0: a family board that stays fresh and is fair to everybody.
+ *
+ * Why it only updated once: the board has no server, so it runs on codes people paste into each other's phones, and every code was a snapshot
+ * from the moment it was sent. Anyone who had not sent a new one this week also vanished from the board.
+ *
+ * Now:
+ *  - One update code (PTF2) carries a person's last 4 weeks, streak, progress and strength rating. Every workout / card / challenge share
+ *    includes it automatically, so each message you already send keeps the board current.
+ *  - "Paste update" reads the clipboard in one tap. Nobody disappears: people who have not sent this week stay on the board, with "updated 3 days ago".
+ *    A stale row gets an "Ask for update" button that sends your own update along with the request.
+ *  - The contest is fair between people who lift different weights. Volume and weights are gone. It is scored on:
+ *      Score        100 for hitting YOUR weekly goal (3 to 6 days counts, so a goal of 1 cannot be farmed) + 10 per new record (up to 5)
+ *      Consistency  days trained against your own goal
+ *      Streak       weeks in a row hitting your goal
+ *      Records      new personal records
+ *      Progress     how much your main lifts went up over 4 weeks, in %
+ *      Strength     your StrengthLevel rating for your body weight and sex (0 to 100)
+ *    Weekly crowns and an 8 week season table sit on top.
+ * Old codes (PT1, PTW1, PTB1, PTC1, PTR1) still work.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.rewards || !PT.weeksOf || !PT.goalFor) return;
+  const proto = ApplicationUI.prototype;
+  const A = () => window.app;
+  const $ = id => document.getElementById(id);
+  const esc = s => PT.esc(s);
+  const DAY = 86400000, HOUR = 3600000;
+  const S = a => a.sessions || [];
+  const save = () => { try { WorkoutStorage.saveSettings(A().settings); } catch (e) { } };
+  const num = v => { const n = parseFloat(v); return isFinite(n) ? n : 0; };
+  const clip = (s, n) => String(s == null ? "" : s).slice(0, n);
+  const toLb = (v, from) => (from === "kg" ? v * 2.2046226 : v);
+  const sessTime = s => s.ts || (PT.fromDs && PT.fromDs(s.date) ? PT.fromDs(s.date).getTime() : 0);
+  const mondayOf = t => { const d = new Date(t); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - ((d.getDay() + 6) % 7)); return d.getTime(); };
+  const dsOf = t => PT.ds(new Date(t));
+  /** the Monday i weeks back (noon offset keeps it safe across daylight saving changes) */
+  const wkMon = i => mondayOf(mondayOf(Date.now()) - i * 7 * DAY + 12 * HOUR);
+  const myName = a => a.settings.myName || "";
+  const arr = (a, k) => (Array.isArray(a.settings[k]) ? a.settings[k] : []);
+  const chip = (attr, label, on) => `<button type="button" ${attr} aria-pressed="${on}" class="pt-opt tap-active">${esc(label)}</button>`;
+  const enc = (tag, o) => tag + "." + btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+  const dec = tok => { try { const m = String(tok).match(/^(PTF2|PTC1)\.([A-Za-z0-9+/=_-]+)$/); if (!m) return null; return { tag: m[1], o: JSON.parse(decodeURIComponent(escape(atob(m[2])))) }; } catch (e) { return null; } };
+  const LEVELS = ["Beginner", "Novice", "Intermediate", "Advanced", "Elite"];
+  const fam2 = a => (a.settings.fam2 && typeof a.settings.fam2 === "object" && !Array.isArray(a.settings.fam2) ? a.settings.fam2 : (a.settings.fam2 = {}));
+
+  async function ensureName(a) {
+    if (myName(a)) return myName(a);
+    const i = $("pt-f2-name"); if (i && i.value.trim()) { a.settings.myName = clip(i.value.trim(), 24); save(); return a.settings.myName; }
+    const v = await PT.prompt("What name should your family see?", "", { title: "Your name", ok: "Save", maxlength: 24 });
+    const n = clip(String(v || "").trim(), 24); if (!n) return ""; a.settings.myName = n; save(); return n;
+  }
+
+  /* ============================================================== what I send */
+  const effG = g => Math.max(3, Math.min(6, g || 3)); // a goal of 1 or 2 days still has to cover 3, and more than 6 does not help
+  const cons = w => Math.min(1, num(w.d) / effG(w.g));
+  const score = w => Math.round(cons(w) * 100 + 10 * Math.min(num(w.p), 5));
+
+  let memoR = null;
+  /** your strength rating: average level of your 5 best graded exercises, 0 to 100, graded for YOUR body weight and sex */
+  function rating(a) {
+    try {
+      const rows = PT.exLevels ? PT.exLevels(a) : []; if (!rows || !rows.length) return null;
+      const sc = rows.map(r => r.lv.idx + r.lv.frac).sort((x, y) => y - x).slice(0, 5), avg = sc.reduce((n, x) => n + x, 0) / sc.length;
+      return { sr: Math.round(avg / 5 * 100), lvl: Math.max(0, Math.min(4, Math.floor(avg))) };
+    } catch (e) { return null; }
+  }
+  /** how much your lifts went up over the last 4 weeks: best estimated 1RM now against before, averaged over your 6 most trained lifts (each capped), in % */
+  function progress(a) {
+    const cut = Date.now() - 28 * DAY, per = new Map();
+    S(a).forEach(s => {
+      const t = sessTime(s);
+      (s.ex || []).forEach(e => {
+        if (PT.isBodyweightEx && PT.isBodyweightEx(e.name)) return;
+        (e.sets || []).forEach(x => {
+          if (x.t === "W" || (PT.isCardioSet && PT.isCardioSet(x))) return;
+          const r = parseFloat(x.r) || 0; let v = toLb(a.setE1rm(e.name, x, s.date) || 0, s.unit); if (!(v > 0)) return;
+          if (r > 20) v = v * (1 + 20 / 30) / (1 + r / 30);
+          let o = per.get(e.name); if (!o) { o = { cur: 0, prev: 0, n: 0 }; per.set(e.name, o); }
+          if (t >= cut) { if (v > o.cur) o.cur = v; o.n++; } else if (v > o.prev) o.prev = v;
+        });
+      });
+    });
+    const g = []; per.forEach(o => { if (o.cur > 0 && o.prev > 0 && o.n >= 2) g.push({ n: o.n, g: Math.max(-0.15, Math.min(0.3, o.cur / o.prev - 1)) }); });
+    if (g.length < 2) return null;
+    g.sort((x, y) => y.n - x.n); const top = g.slice(0, 6);
+    return Math.round(top.reduce((n, x) => n + x.g, 0) / top.length * 1000) / 10;
+  }
+  function slow(a) {
+    const key = S(a).length + ":" + S(a).reduce((m, s) => Math.max(m, s.upd || s.ts || 0), 0) + ":" + (a.body || []).length + ":" + a.unit() + ":" + a.settings.strengthSex + ":" + PT.ds();
+    if (memoR && memoR.key === key) return memoR.v;
+    const v = { rt: rating(a), pg: progress(a) }; memoR = { key, v }; return v;
+  }
+  function bigBest(a, k) { try { return Math.round(PT.bigBest ? PT.bigBest(a, k) : 0); } catch (e) { return 0; } }
+  function myRec(a, n) {
+    const W = PT.weeksOf(a), st = PT.rewards(a), wk = [], sl = slow(a);
+    for (let i = 0; i < n; i++) { const mon = wkMon(i), o = W.get(mon); wk.push({ w: dsOf(mon), d: o ? o.days.size : 0, g: PT.goalFor(a, mon), p: o ? o.p : 0 }); }
+    const l = {}; ["bench", "squat", "dead", "ohp"].forEach(k => { l[k] = bigBest(a, k); });
+    return { n: myName(a) || "Me", lv: st.lv.L, b: st.badges.filter(x => x.got).length, st: st.streak.cur, l, wk, sr: sl.rt ? sl.rt.sr : null, sl: sl.rt ? sl.rt.lvl : null, pg: sl.pg };
+  }
+  /** my update, as a code anyone can paste */
+  function code(a) {
+    const r = myRec(a, 4), o = { v: 2, n: r.n, t: Date.now(), lv: r.lv, b: r.b, st: r.st, l: r.l, wk: r.wk.map(x => [x.w, x.d, x.g, x.p]) };
+    if (r.sr != null) { o.sr = r.sr; o.sl = r.sl; } if (r.pg != null) o.pg = r.pg;
+    return enc("PTF2", o);
+  }
+  PT.famUpdateCode = a => code(a || A());
+  PT.famMarkSent = () => { const a = A(); a.settings.famSent = Date.now(); save(); };
+  /** true when there is somebody to update and you have trained since you last sent */
+  PT.famDue = a => {
+    a = a || A(); const sent = num(a.settings.famSent), others = Object.keys(fam2(a)).length + arr(a, "family").length;
+    return others > 0 && (!sent || S(a).some(s => sessTime(s) > sent));
+  };
+
+  /* ============================================================== what I receive */
+  function receive(text, a) {
+    const names = [], f2 = fam2(a), me = myName(a).toLowerCase(); let same = 0, self = 0;
+    (String(text || "").match(/PTF2\.[A-Za-z0-9+/=_-]+/g) || []).forEach(tok => {
+      const d = dec(tok); if (!d || d.tag !== "PTF2" || !d.o || d.o.v !== 2 || !d.o.n) return; const o = d.o;
+      const n = clip(o.n, 24); if (me && n.toLowerCase() === me) { self++; return; }
+      const key = Object.keys(f2).find(k => k.toLowerCase() === n.toLowerCase()) || n, old = f2[key], t = Math.min(num(o.t) || Date.now(), Date.now() + HOUR);
+      if (old && num(old.t) >= t) { same++; return; }
+      const wk = Object.assign({}, old ? old.wk : {});
+      (Array.isArray(o.wk) ? o.wk : []).slice(0, 8).forEach(x => { if (Array.isArray(x) && /^\d{4}-\d{2}-\d{2}$/.test(String(x[0]))) wk[x[0]] = { d: Math.max(0, Math.min(7, num(x[1]))), g: Math.max(1, Math.min(7, num(x[2]) || 3)), p: Math.max(0, Math.min(99, num(x[3]))) }; });
+      const kept = {}; Object.keys(wk).sort().slice(-14).forEach(k => { kept[k] = wk[k]; });
+      const l = { bench: num(o.l && o.l.bench), squat: num(o.l && o.l.squat), dead: num(o.l && o.l.dead), ohp: num(o.l && o.l.ohp) };
+      f2[key] = { n, t, rx: Date.now(), lv: num(o.lv), b: num(o.b), st: num(o.st), l, sr: o.sr != null ? num(o.sr) : null, sl: o.sl != null ? Math.max(0, Math.min(4, num(o.sl))) : null, pg: o.pg != null ? num(o.pg) : null, wk: kept };
+      const w = a.settings.wall && typeof a.settings.wall === "object" ? a.settings.wall : (a.settings.wall = {}); w[n] = { n, lv: num(o.lv), b: num(o.b), st: num(o.st), l, ts: Date.now() };
+      names.push(n);
+    });
+    if (names.length) { a.settings.fam2 = f2; save(); }
+    return { names, same, self };
+  }
+  /** take any pasted text: the new update code and every older code */
+  function importText(a, text) {
+    const r = receive(text, a), pt1 = (String(text || "").match(/PT1\.[A-Za-z0-9+/=_-]+/g) || []).join(" "); let other = 0, old = 0;
+    try { if (pt1 && PT.familyAdd) old = PT.familyAdd(pt1, a) || 0; } catch (e) { }
+    try { if (PT.takeCodes) { const g = PT.takeCodes(text, a); other = g.feed + g.react + g.wall + g.chal; } } catch (e) { }
+    if (r.names.length) a.toast(`Updated ${r.names.join(", ")} 💪`);
+    else if (other || old) a.toast("Added");
+    else if (r.same) a.toast("Already up to date");
+    else if (r.self) a.toast("That one is your own update");
+    else a.toast("That doesn't look like a PulseTrack update");
+    return r.names.length + other + old;
+  }
+
+  /* ============================================================== the people on the board */
+  function people(a) {
+    const mine = myRec(a, 10), mk = mine.n.toLowerCase(), out = {};
+    const me = { me: true, n: mine.n, t: Date.now(), lv: mine.lv, b: mine.b, st: mine.st, l: mine.l, sr: mine.sr, sl: mine.sl, pg: mine.pg, wk: {} };
+    mine.wk.forEach(x => { me.wk[x.w] = { d: x.d, g: x.g, p: x.p }; }); out[mk] = me;
+    const get = n => { const k = String(n).toLowerCase(); return out[k] || (out[k] = { n: String(n), wk: {}, t: 0 }); };
+    arr(a, "family").forEach(x => { if (!x || !x.n || String(x.n).toLowerCase() === mk) return; const p = get(x.n); if (!p.wk[x.w]) p.wk[x.w] = { d: num(x.k), g: 4, p: num(x.p), old: true }; });
+    Object.values(a.settings.wall && typeof a.settings.wall === "object" ? a.settings.wall : {}).forEach(x => { if (!x || !x.n || String(x.n).toLowerCase() === mk) return; const p = get(x.n); if (p.lv == null) { p.lv = x.lv; p.b = x.b; p.st = x.st; p.l = x.l; } if (!p.t && x.ts) p.t = x.ts; });
+    Object.values(fam2(a)).forEach(x => { if (!x || !x.n || String(x.n).toLowerCase() === mk) return; const p = get(x.n); Object.assign(p, { t: x.t, lv: x.lv, b: x.b, st: x.st, l: x.l, sr: x.sr, sl: x.sl, pg: x.pg }); Object.assign(p.wk, x.wk || {}); p.fresh = true; });
+    return out;
+  }
+  const ago = t => {
+    if (!t) return "";
+    const m = Math.max(0, Math.round((Date.now() - t) / 60000)); if (m < 2) return "just now"; if (m < 60) return m + " min ago";
+    const h = Math.round(m / 60); if (h < 24) return h + " h ago"; const d = Math.round(h / 24); return d + (d === 1 ? " day ago" : " days ago");
+  };
+  const STALE = 3 * DAY;
+
+  /** weekly winners and an 8 week table */
+  function season(a, ppl) {
+    ppl = ppl || people(a); const rows = {}; Object.values(ppl).forEach(p => { rows[p.n] = { n: p.n, me: !!p.me, pts: 0, crowns: 0, weeks: 0 }; });
+    let rounds = 0;
+    for (let i = 1; i <= 8; i++) {
+      const wid = dsOf(wkMon(i)), list = Object.values(ppl).filter(p => p.wk[wid]).map(p => ({ p, sc: score(p.wk[wid]) }));
+      if (list.length < 2) continue; list.sort((x, y) => y.sc - x.sc); rounds++;
+      list.forEach(x => { rows[x.p.n].pts += x.sc; rows[x.p.n].weeks++; });
+      if (list[0].sc > 0 && list[0].sc > list[1].sc) rows[list[0].p.n].crowns++;
+    }
+    return { rounds, rows: Object.values(rows).filter(r => r.weeks > 0).sort((x, y) => y.crowns - x.crowns || y.pts - x.pts) };
+  }
+  /** true when you had the top score last week (a crown shows next to your level) */
+  PT.familyWon = function (appArg) {
+    try {
+      const a = appArg || A(), ppl = people(a), wid = dsOf(wkMon(1)), list = Object.values(ppl).filter(p => p.wk[wid]).map(p => ({ p, sc: score(p.wk[wid]) })).sort((x, y) => y.sc - x.sc);
+      return !!(list.length >= 2 && list[0].p.me && list[0].sc > 0 && list[0].sc > list[1].sc);
+    } catch (e) { return false; }
+  };
+
+  /* ============================================================== the contests */
+  const dayTxt = (w, extra) => `${num(w.d)} of ${effG(w.g)} days${extra ? " · " + extra : ""}`;
+  const CATS = {
+    sc: { label: "Score", wk: true, val: (p, w) => (p.wk[w] ? score(p.wk[w]) : null), txt: v => v + " pts", sub: (p, w) => (p.wk[w] ? dayTxt(p.wk[w], num(p.wk[w].p) + " record" + (num(p.wk[w].p) === 1 ? "" : "s")) : ""), how: "100 points for hitting your own weekly goal, plus 10 for each new record (up to 5). Goals count between 3 and 6 days." },
+    cn: { label: "Consistency", wk: true, val: (p, w) => (p.wk[w] ? Math.round(cons(p.wk[w]) * 100) : null), txt: v => v + "%", sub: (p, w) => (p.wk[w] ? dayTxt(p.wk[w]) : ""), how: "Days trained against your own weekly goal. Everyone is measured against themselves." },
+    st: { label: "Streak", val: p => (p.st != null ? num(p.st) : null), txt: v => v + (v === 1 ? " week" : " weeks"), sub: () => "in a row hitting the weekly goal", how: "Weeks in a row you hit your weekly goal." },
+    rc: { label: "Records", wk: true, val: (p, w) => (p.wk[w] ? num(p.wk[w].p) : null), txt: v => v + (v === 1 ? " PR" : " PRs"), sub: (p, w) => (p.wk[w] ? dayTxt(p.wk[w]) : ""), how: "New personal records set that week." },
+    pg: { label: "Progress", val: p => (p.pg != null ? num(p.pg) : null), txt: v => (v > 0 ? "+" : "") + v.toFixed(1) + "%", sub: () => "main lifts, last 4 weeks", how: "How much your main lifts went up over the last 4 weeks, in percent. It needs a few weeks of training history. A bigger number means more progress, whatever weight you lift." },
+    sr: { label: "Strength", val: p => (p.sr != null ? num(p.sr) : null), txt: v => v + " / 100", sub: p => (p.sl != null ? LEVELS[p.sl] + " for body weight" : "level for body weight"), how: "Your StrengthLevel rating: the average level of your 5 best exercises for your body weight and sex, out of 100. Needs your body weight logged." }
+  };
+  const CAT_ORDER = ["sc", "cn", "st", "rc", "pg", "sr"];
+  function rank(ppl, cat, wid) {
+    const C = CATS[cat], all = Object.values(ppl).map(p => ({ p, v: C.val(p, wid) }));
+    const have = all.filter(x => x.v != null).sort((x, y) => y.v - x.v || (x.p.me ? -1 : 1)), none = all.filter(x => x.v == null).sort((x, y) => (y.p.t || 0) - (x.p.t || 0));
+    return { have, none };
+  }
+  function insight(a, ppl, wid) {
+    const r = rank(ppl, "sc", wid).have; if (r.length < 2) return "";
+    const my = r.findIndex(x => x.p.me); if (my < 0) return "";
+    if (my === 0) return r[1].v < r[0].v ? `<p class="text-[11px] font-bold text-emerald-400">You are in the lead by ${r[0].v - r[1].v} 👑</p>` : `<p class="text-[11px] font-bold text-amber-300">Tied at the top with ${esc(r[1].p.n)}. One more workout breaks it.</p>`;
+    const lead = r[0], gap = lead.v - r[my].v, w = r[my].p.wk[wid] || {}, left = Math.max(0, effG(w.g) - num(w.d)), perDay = 100 / effG(w.g);
+    const days = Math.ceil((gap + 1) / perDay);
+    const tail = left > 0 && days <= left ? `${days} more workout day${days === 1 ? "" : "s"} puts you in front.` : left > 0 ? "Finish your weekly goal and add a record or two." : "A new record is worth +10.";
+    return `<p class="text-[11px] text-zinc-300"><b class="text-white">${esc(lead.p.n)}</b> leads by ${gap}. ${tail}</p>`;
+  }
+  function rowHtml(r, i, cat, wid, ppl) {
+    const C = CATS[cat], p = r.p, stale = !p.me && (!p.t || Date.now() - p.t > STALE), top = r.v != null && i === 0 && r.v > 0;
+    const meta = p.me ? "live from your phone" : p.t ? "updated " + ago(p.t) : "from an older code";
+    const none = r.v == null;
+    return `<div class="pt-f2row ${p.me ? "me" : ""} ${top ? "first" : ""} ${none ? "dim" : ""}"><span class="pt-f2rk">${none ? "–" : i + 1}</span>
+      <div class="min-w-0 flex-1"><div class="flex items-center justify-between gap-2"><span class="min-w-0 truncate text-xs font-black text-white">${top ? "👑 " : ""}${esc(p.n)}${p.me ? " (you)" : ""}</span><span class="pt-f2val shrink-0">${none ? "no data" : esc(C.txt(r.v))}</span></div>
+        <div class="pt-f2sub">${none ? (C.wk ? "No update for this week yet" : "Not in their update yet") : esc(C.sub(p, wid))}</div>
+        <div class="pt-f2sub ${stale ? "pt-f2stale" : ""}">${esc(meta)}${stale && !p.me ? ` · <button type="button" class="pt-f2ask tap-active" data-f2ask="${esc(p.n)}">Ask for update</button>` : ""}</div></div>
+      ${p.me ? '<span class="pt-xdel" style="visibility:hidden" aria-hidden="true">✕</span>' : `<button type="button" data-f2del="${esc(p.n)}" class="pt-xdel tap-active" aria-label="Remove ${esc(p.n)}">✕</button>`}</div>`;
+  }
+
+  /* ---- family challenge: pick a contest for the week */
+  const CH = { sc: "Highest score", cn: "Best consistency", p: "Most records" };
+  const CH_ALL = { sc: "Highest score", cn: "Best consistency", p: "Most records", k: "Most workouts", v: "Most volume", s: "Most sets" };
+  function chalVal(a, ppl, p, c) {
+    const w = p.wk[c.w]; const legacy = p.me ? null : arr(a, "family").find(x => x.n === p.n && x.w === c.w);
+    if (c.s === "sc") return w ? score(w) : 0; if (c.s === "cn") return w ? Math.round(cons(w) * 100) : 0; if (c.s === "p") return w ? num(w.p) : 0; if (c.s === "k") return w ? num(w.d) : 0;
+    if (p.me) { const o = PT.weeksOf(a).get(mondayOf(PT.fromDs(c.w).getTime())); return o ? (c.s === "v" ? Math.round(o.v) : o.s) : 0; }
+    return legacy ? num(legacy[c.s]) : 0;
+  }
+  const chalTxt = (a, c, v) => (c.s === "sc" ? v + " pts" : c.s === "cn" ? v + "%" : c.s === "v" ? fmtV(a, v) : String(v));
+  const fmtV = (a, lb) => { const kg = a.unit() === "kg"; return Math.round(kg ? lb / 2.2046226 : lb).toLocaleString() + (kg ? " kg" : " lb"); };
+  function chalHtml(a, ppl) {
+    const c = a.settings.famChal, pick = a.__f2cs || "sc";
+    if (!c) return `<div class="pt-f2box"><span class="pt-f2h">Family challenge</span><p class="text-[11px] text-zinc-400 leading-snug">Pick one contest for the week. Everyone pastes the message and the standings show up here.</p>
+      <div class="flex flex-wrap gap-1.5">${Object.keys(CH).map(k => chip(`data-f2cs="${k}"`, CH[k], pick === k)).join("")}</div><div><button type="button" class="pt-b go" id="pt-f2-chal-new">Start a challenge</button></div></div>`;
+    const cur = dsOf(wkMon(0)), past = c.w < cur, rows = Object.values(ppl).map(p => ({ p, v: chalVal(a, ppl, p, c) })).sort((x, y) => y.v - x.v || (x.p.me ? -1 : 1)), top = Math.max(1, ...rows.map(r => r.v));
+    const left = Math.max(0, Math.ceil((mondayOf(PT.fromDs(c.w).getTime()) + 7 * DAY - Date.now()) / DAY)), lead = rows[0];
+    return `<div class="pt-f2box"><div class="flex items-center justify-between"><span class="pt-f2h">Family challenge</span><span class="text-[10px] font-bold ${past ? "text-amber-300" : "text-zinc-400"}">${past ? "Finished" : left + " day" + (left === 1 ? "" : "s") + " left"}</span></div>
+      <span class="text-sm font-black text-white">${esc(c.t || CH_ALL[c.s] || "Challenge")}</span>
+      ${rows.map((r, i) => `<div class="space-y-1"><div class="flex items-center justify-between text-xs"><span class="${r.p.me ? "font-black text-white" : "text-zinc-300"}">${i === 0 && r.v > 0 ? "👑 " : ""}${esc(r.p.n)}</span><span class="font-mono ${i === 0 && r.v > 0 ? "text-amber-300" : "text-zinc-400"}">${esc(chalTxt(a, c, r.v))}</span></div><div class="pt-bar"><span style="width:${Math.round(r.v / top * 100)}%"></span></div></div>`).join("")}
+      ${lead && lead.v > 0 ? `<p class="text-[11px] font-bold ${lead.p.me ? "text-emerald-400" : "text-zinc-400"}">${lead.p.me ? (past ? "You won this one 🏆" : "You are in the lead") : esc(lead.p.n) + (past ? " won" : " leads") + " this " + (past ? "round" : "week")}</p>` : ""}
+      <div class="flex flex-wrap gap-2"><button type="button" class="pt-b go" id="pt-f2-chal-share">Share challenge + my update</button><button type="button" class="pt-b" id="pt-f2-chal-end">${past ? "New challenge" : "End it"}</button></div></div>`;
+  }
+
+  /* ============================================================== the board */
+  function boardHtml(a) {
+    const ppl = people(a), last = a.__f2w === "last", wid = dsOf(wkMon(last ? 1 : 0)), cat = CATS[a.__f2c] ? a.__f2c : "sc", C = CATS[cat], R = rank(ppl, cat, wid);
+    const others = Object.values(ppl).filter(p => !p.me).length, sent = num(a.settings.famSent), since = sent ? S(a).filter(s => sessTime(s) > sent).length : S(a).length;
+    const due = !sent || since > 0, S8 = season(a, ppl);
+    const named = !!myName(a);
+    const head = !named ? `<div class="pt-f2box"><span class="pt-f2h">First, your name</span><p class="text-[11px] text-zinc-400 leading-snug">This is what the family sees next to your score.</p><input type="text" id="pt-f2-name" placeholder="Your name" maxlength="24" aria-label="Your name"></div>` : "";
+    const list = R.have.map((r, i) => rowHtml(r, i, cat, wid, ppl)).join("") + R.none.map(r => rowHtml(r, 0, cat, wid, ppl)).join("");
+    const seas = S8.rounds ? `<div class="pt-f2box"><span class="pt-f2h">Last ${S8.rounds} week${S8.rounds === 1 ? "" : "s"} with 2 or more people</span>${S8.rows.map((r, i) => `<div class="flex items-center justify-between gap-2 text-xs"><span class="min-w-0 truncate ${r.me ? "font-black text-white" : "text-zinc-300"}">${i === 0 && r.crowns ? "👑 " : ""}${esc(r.n)}${r.me ? " (you)" : ""}</span><span class="shrink-0 font-mono text-zinc-400">${r.crowns} 👑 · ${r.pts} pts</span></div>`).join("")}<p class="text-[10px] text-zinc-500 leading-snug">A crown is the top score of a week. Points add up each week's score.</p></div>` : `<p class="text-[10px] text-zinc-500 leading-snug">After a full week with 2 or more people on the board, weekly crowns and a season table show up here.</p>`;
+    return `${head}
+      <div class="flex gap-1.5">${chip('data-f2w="this"', "This week", !last)}${chip('data-f2w="last"', "Last week", last)}</div>
+      <div class="flex flex-wrap gap-1.5">${CAT_ORDER.map(k => chip(`data-f2c="${k}"`, CATS[k].label, cat === k)).join("")}</div>
+      ${cat === "sc" && !last ? insight(a, ppl, wid) : ""}
+      <div class="space-y-1.5">${list}</div>
+      <p class="text-[10px] text-zinc-500 leading-snug">${esc(C.how)}${C.wk ? "" : " Shows the latest from each phone, not a single week."}</p>
+      <div class="pt-f2box"><span class="pt-f2h">Keep it fresh</span>
+        <p class="text-[11px] text-zinc-400 leading-snug">${sent ? `You last sent your update ${esc(ago(sent))}${since ? ` · ${since} workout${since === 1 ? "" : "s"} since` : ""}.` : "You haven't sent your update yet."} ${others ? "" : "Send it to the family chat, and ask them to send theirs."} Every workout you send to your buddies updates the board too.</p>
+        <div class="flex flex-wrap gap-2"><button type="button" class="pt-b ${due ? "go" : ""}" id="pt-f2-send">📣 Send my update</button><button type="button" class="pt-b" id="pt-f2-paste">📋 Paste update</button></div>
+        <input type="text" id="pt-f2-text" placeholder="Or paste a message or code here" aria-label="Paste a code"><button type="button" class="pt-b" id="pt-f2-add">Add</button>
+        ${named ? `<span class="text-[10px] text-zinc-500">Your name on the board</span><input type="text" id="pt-f2-name" placeholder="Your name for the board" value="${esc(myName(a))}" maxlength="24" aria-label="Your name">` : ""}</div>
+      ${seas}
+      ${chalHtml(a, ppl)}`;
+  }
+  function drawFam(a) {
+    const box = document.querySelector("#pt-pg-fam > div"); if (!box) return;
+    box.innerHTML = boardHtml(a);
+  }
+  const oPV = proto.renderProgressView;
+  proto.renderProgressView = function () {
+    const r = oPV.apply(this, arguments);
+    try { drawFam(this); } catch (e) { console.error("PulseTrack family board 2.53", e); }
+    return r;
+  };
+
+  /* ============================================================== sharing */
+  async function deliver(a, title, text) {
+    try { if (navigator.share) { await navigator.share({ title, text }); PT.famMarkSent(); return true; } } catch (e) { if (e && e.name === "AbortError") return false; }
+    try { await navigator.clipboard.writeText(text); a.toast("Copied. Paste it in your family chat"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
+    PT.famMarkSent(); return true;
+  }
+  const summaryLine = a => { const r = myRec(a, 1), w = r.wk[0]; return `${score(w)} pts this week · ${w.d} of ${effG(w.g)} days${r.st ? " · " + r.st + " week streak 🔥" : ""}`; };
+  async function sendUpdate(a, askName) {
+    if (!(await ensureName(a))) return;
+    const n = myName(a), text = askName
+      ? `Hey ${askName}, send me your PulseTrack update when you can 💪 Here is mine (${summaryLine(a)}). In PulseTrack: Progress > Social > Paste update.\n${code(a)}`
+      : `${n}'s PulseTrack update: ${summaryLine(a)}. In PulseTrack: Progress > Social > Paste update.\n${code(a)}`;
+    if (await deliver(a, "PulseTrack update", text)) { try { a.renderProgressView(); } catch (e) { } }
+  }
+  async function shareChallenge(a) {
+    const c = a.settings.famChal; if (!c) return; if (!(await ensureName(a))) return;
+    const text = `PulseTrack family challenge: ${c.t}. In PulseTrack: Progress > Social > Paste update.\n${enc("PTC1", c)}\n${code(a)}`;
+    await deliver(a, "Family challenge", text);
+  }
+  async function pasteClipboard(a) {
+    let txt = ""; try { txt = await navigator.clipboard.readText(); } catch (e) { txt = ""; }
+    if (txt && /(PTF2|PT1|PTB1|PTC1|PTR1|PTW1)\./.test(txt)) { importText(a, txt); a.renderProgressView(); return; }
+    const i = $("pt-f2-text"); if (i) { try { i.focus(); i.scrollIntoView({ block: "center" }); } catch (e) { } }
+    a.toast(txt ? "Nothing from PulseTrack in your clipboard" : "Paste the message in the box, then tap Add");
+  }
+
+  document.addEventListener("click", async e => {
+    const a = A(); if (!a || !e.target.closest) return; const t = id => e.target.closest("#" + id), on = sel => e.target.closest(sel);
+    const w = on("[data-f2w]"); if (w) { a.__f2w = w.dataset.f2w; a.renderProgressView(); return; }
+    const c = on("[data-f2c]"); if (c) { a.__f2c = c.dataset.f2c; a.renderProgressView(); return; }
+    const cs = on("[data-f2cs]"); if (cs) { a.__f2cs = cs.dataset.f2cs; a.renderProgressView(); return; }
+    const ask = on("[data-f2ask]"); if (ask) { sendUpdate(a, ask.dataset.f2ask); return; }
+    const del = on("[data-f2del]");
+    if (del) {
+      const n = del.dataset.f2del, k = n.toLowerCase(), f2 = fam2(a);
+      Object.keys(f2).forEach(x => { if (x.toLowerCase() === k) delete f2[x]; });
+      a.settings.family = arr(a, "family").filter(x => String(x.n).toLowerCase() !== k);
+      const wall = a.settings.wall || {}; Object.keys(wall).forEach(x => { if (x.toLowerCase() === k) delete wall[x]; });
+      save(); a.renderProgressView(); return;
+    }
+    if (t("pt-f2-send")) { sendUpdate(a); return; }
+    if (t("pt-f2-paste")) { pasteClipboard(a); return; }
+    if (t("pt-f2-add")) { const i = $("pt-f2-text"); importText(a, i ? i.value : ""); a.renderProgressView(); return; }
+    if (t("pt-f2-chal-new")) { if (!(await ensureName(a))) return; const k = a.__f2cs || "sc"; a.settings.famChal = { s: k, w: dsOf(wkMon(0)), t: CH[k] + " this week" }; save(); a.renderProgressView(); setTimeout(() => shareChallenge(A()), 200); return; }
+    if (t("pt-f2-chal-share")) { shareChallenge(a); return; }
+    if (t("pt-f2-chal-end")) { a.settings.famChal = null; save(); a.renderProgressView(); return; }
+  }, false);
+  document.addEventListener("change", e => {
+    const a = A(); if (!a || !e.target || e.target.id !== "pt-f2-name") return;
+    const v = clip(e.target.value.trim(), 24); if (v) { a.settings.myName = v; save(); }
+  });
+  /* the Buddies paste box understands the new update code too (it runs first, then the rest of that box carries on if nothing here matched) */
+  document.addEventListener("click", e => {
+    const a = A(); if (!a || !e.target.closest || !e.target.closest("#pt-code-add")) return;
+    const i = $("pt-code-paste"), txt = i ? i.value : ""; if (!/PTF2\./.test(txt)) return;
+    e.stopPropagation(); importText(a, txt); a.renderProgressView();
+  }, true);
+
+  /* ============================================================== the finish screen: say it is for the family too */
+  function polishSummaryBtn() {
+    const b = $("pt-summary-send"); if (!b) return; const a = A();
+    b.textContent = "🤝 Send to family & buddies";
+    if (PT.famDue && PT.famDue(a)) b.className = "w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl tap-active text-sm";
+  }
+  const oFin = proto.finishWorkoutV2;
+  if (oFin) proto.finishWorkoutV2 = async function () { const r = await oFin.apply(this, arguments); try { polishSummaryBtn(); } catch (e) { } return r; };
+
+  const css = document.createElement("style"); css.id = "pt-v253-fam-css";
+  css.textContent = `
+    .pt-f2row { display: flex; gap: .55rem; align-items: flex-start; padding: .6rem .7rem; border-radius: .8rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
+    .pt-f2row.me { border-color: rgb(var(--a500) / .6); }
+    .pt-f2row.dim { opacity: .75; }
+    .pt-f2rk { flex: none; width: 1.3rem; text-align: center; font-weight: 900; font-size: .85rem; color: rgb(var(--z500)); padding-top: .05rem; }
+    .pt-f2row.first .pt-f2rk { color: #fbbf24; }
+    .pt-f2val { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-weight: 800; font-size: .82rem; color: rgb(var(--z100)); }
+    .pt-f2sub { font-size: .68rem; color: rgb(var(--z400)); line-height: 1.35; margin-top: .1rem; }
+    .pt-f2stale { color: #fbbf24; }
+    .pt-f2ask { display: inline-flex; align-items: center; min-height: 1.9rem; padding: 0 .25rem; margin: -.4rem 0; background: none; border: 0; font: inherit; font-weight: 800; color: rgb(var(--a400)); text-decoration: underline; }
+    .pt-f2box { display: flex; flex-direction: column; gap: .45rem; padding: .7rem; border-radius: .9rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
+    .pt-f2h { font-size: .62rem; font-weight: 800; text-transform: uppercase; letter-spacing: .08em; color: rgb(var(--z500)); }
+    html[data-mode="light"] .pt-f2row.first .pt-f2rk, html[data-mode="light"] .pt-f2stale { color: #b45309; }
+  `;
+  document.head.appendChild(css);
 })();
   </script>
   <script>
