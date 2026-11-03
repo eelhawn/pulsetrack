@@ -395,7 +395,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.54.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.55.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3779,7 +3779,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.54.0";
+    const APP_VERSION = "2.55.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -26368,6 +26368,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
  *     A small "+ 2 more reminders" line shows the rest when you tap it.
  *   - Workout: an exercise whose sets are all done folds up into one line (name, sets, best set). Tap the line to open it
  *     again. It folds a moment after the last set, so you can still add a set. Supersets and timers never fold.
+ *     (2.55.0) An exercise you opened keeps a slim "Minimize" bar on top, so you can fold it up again with one tap.
  *   - Day list: only this week is open. The other weeks are one line each (tap to open).
  * Nothing is removed and nothing is saved differently: it is only what is shown. Switch it off and the screens look as before.
  * ===================================================================== */
@@ -26434,13 +26435,21 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     else if (top && top.r > 0) t += ` · ${top.r} reps`;
     return t;
   }
+  /** the bar on top of a finished exercise: folded = one line with the best set; open = a slim "Minimize" bar (the full card is under it) */
+  function setBar(card, name, open) {
+    let bar = card.querySelector(":scope > .pt-fold-bar");
+    if (!bar) { bar = document.createElement("button"); bar.type = "button"; bar.className = "pt-fold-bar tap-active"; card.insertBefore(bar, card.firstChild); }
+    bar.classList.toggle("pt-open", open);
+    bar.setAttribute("aria-expanded", open ? "true" : "false");
+    bar.setAttribute("aria-label", (open ? "Minimize " : "Open ") + name);
+    bar.innerHTML = open
+      ? `<span class="pt-fb-ck" aria-hidden="true">✓</span><span class="pt-fb-d">Exercise done</span><span class="pt-fb-m">Minimize <span aria-hidden="true">▴</span></span>`
+      : `<span class="pt-fb-ck" aria-hidden="true">✓</span><span class="pt-fb-n">${escH(name)}</span><span class="pt-fb-s">${escH(summary(card))}</span><span class="pt-fb-c" aria-hidden="true">▾</span>`;
+    card.classList.toggle("pt-folded", !open);
+  }
   function applyFold(card, name) {
     if (!card || card.classList.contains("pt-folded")) return;
-    const bar = document.createElement("button");
-    bar.type = "button"; bar.className = "pt-fold-bar tap-active"; bar.setAttribute("aria-expanded", "false");
-    bar.innerHTML = `<span class="pt-fb-ck" aria-hidden="true">✓</span><span class="pt-fb-n">${escH(name)}</span><span class="pt-fb-s">${escH(summary(card))}</span><span class="pt-fb-c" aria-hidden="true">▾</span>`;
-    card.insertBefore(bar, card.firstChild);
-    card.classList.add("pt-folded");
+    setBar(card, name, false);
   }
   function foldWorkout(app) {
     if (!app || !app.dom || !app.dom.exercisesList) return;
@@ -26455,7 +26464,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       const btns = card.querySelectorAll(".btn-check-set"); if (!btns.length) return;
       const done = [...btns].every(b => b.dataset.completed === "1");
       const was = prevDone[i]; prevDone[i] = done;
-      if (!done || pinned.has(i) || !on()) return;
+      if (!done || !on()) return;
+      if (pinned.has(i)) { setBar(card, ex.name, true); return; }   // one you opened: it keeps a Minimize bar
       if (!first && was === false) {
         // it was finished just now: give a moment to add a set or fix a number before it folds
         setTimeout(() => {
@@ -26479,8 +26489,10 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   document.addEventListener("click", e => {
     const b = e.target.closest && e.target.closest(".pt-fold-bar"); if (!b) return;
     const card = b.closest("[data-ex-card]"); if (!card) return;
-    pinned.add(parseInt(card.getAttribute("data-ex-card"), 10));
-    card.classList.remove("pt-folded"); b.remove();
+    const i = parseInt(card.getAttribute("data-ex-card"), 10), a = A();
+    const ex = a && a.activeDay && (a.activeDay.exercises || [])[i], name = (ex && ex.name) || "";
+    if (card.classList.contains("pt-folded")) { pinned.add(i); setBar(card, name, true); }   // open it, with a way to fold it again
+    else { pinned.delete(i); setBar(card, name, false); }                                      // minimize it again
   });
 
   /* ============================================================ Day list: only this week is open */
@@ -26556,6 +26568,10 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     .pt-fb-n { flex: 0 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: .82rem; font-weight: 800; color: rgb(var(--z100)); }
     .pt-fb-s { margin-left: auto; flex: none; font-size: .7rem; color: rgb(var(--z400)); white-space: nowrap; }
     .pt-fb-c { flex: none; color: rgb(var(--z500)); }
+    .pt-fold-bar.pt-open { min-height: 2.75rem; padding: .45rem .75rem; margin: 0 0 .65rem; border-radius: .7rem; background: rgb(var(--z950) / .7); border: 1px solid rgb(var(--z800)); }
+    .pt-fb-d { flex: 0 1 auto; font-size: .75rem; font-weight: 700; color: rgb(var(--z300)); }
+    .pt-fb-m { margin-left: auto; flex: none; font-size: .72rem; font-weight: 800; color: rgb(var(--a400)); white-space: nowrap; }
+    html[data-mode="light"] .pt-fb-ck, html[data-mode="light"] .pt-fb-m { color: rgb(4 120 87); }
     .pt-fold-off { display: none !important; }
     [data-week-header][role="button"] { cursor: pointer; user-select: none; -webkit-user-select: none; align-items: center !important; min-height: 2.75rem; }
     [data-week-header] .pt-wk-chev { display: inline-block; width: 1.1em; font-style: normal; }
