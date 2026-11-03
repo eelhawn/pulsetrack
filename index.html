@@ -395,7 +395,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.58.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.59.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3779,7 +3779,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.58.0";
+    const APP_VERSION = "2.59.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -19562,7 +19562,7 @@ const PTSIM = (function () {
   /** estimated 1RM of one set in lb. The estimate is Epley (weight x (1 + reps / 30)), which runs high for very long sets, so reps past 20 stop adding to it. */
   const CAP_REPS = 20;
   function e1Of(a, e, x, s) {
-    const v = toLb(a.setE1rm(e.name, x, s.date) || 0, s.unit), r = parseFloat(x.r) || 0;
+    const v = toLb(a.setE1rm(e.name, x, s.date) || 0, s.unit), r = (parseFloat(x.r) || 0) * (x.rm === "t" ? 0.5 : 1);
     return r > CAP_REPS && v > 0 ? v * (1 + CAP_REPS / 30) / (1 + r / 30) : v;
   }
   function setVal(a, e, x, s, st, bw) {
@@ -21827,6 +21827,13 @@ const PTSIM = (function () {
  *  Tap the label on a cable, machine or dumbbell exercise to change it. Dumbbell moves still start as "Each hand".
  *  Only workouts you save from now on use the new choice; past sessions keep how they were logged.
  * Setting: settings.sideModes = { "Cable Crossover": "each" | "total" }.
+ *
+ * PulseTrack 2.59.0: and are the REPS per hand or all together?
+ *  Dumbbell pairs, one-sided moves (single-arm, lunges, step-ups...) and iso-lateral machines get a second button next to the weight one:
+ *    Reps: per hand · Reps: per side   (10 on each arm: type 10; volume counts both hands)
+ *    Reps: total                        (10 on each arm: type 20; volume counts every rep once)
+ *  Nothing chosen = counted exactly as before. The choice is saved with each set (set.rm = "t" for total) so volume, e1RM, PRs, strength levels
+ *  and History read the reps the way you meant them. Setting: settings.repModes = { "Alternating Dumbbell Curls": "each" | "total" }.
  * ===================================================================== */
 (function () {
   "use strict";
@@ -21854,24 +21861,53 @@ const PTSIM = (function () {
   const TWO_STACKS = /crossover|cable fl(y|ye)s?\b|\bfl(y|ye)s?\b.*cable|low.to.high|high.to.low|dual cable|\bcable chest press\b/i;
   const asks = name => PT.sideEligible(name) && !isDumbbell(name) && TWO_STACKS.test(String(name || ""));
 
+  /* ================================================================ reps: per hand or total (2.59.0) */
+  const repModes = () => { const a = A(); const m = a && a.settings && a.settings.repModes; return m && typeof m === "object" ? m : {}; };
+  /** "each" (the reps of one hand or one side), "total" (both added up) or "" (nothing chosen: counted like before) */
+  PT.repMode = name => { const m = repModes(), v = m[keyOf(name)] || m[name]; return v === "each" || v === "total" ? v : ""; };
+  const ONE_SIDED = /single[- ]arm|one[- ]arm|single[- ]leg|one[- ]leg|alternating|unilateral|concentration|bulgarian|split squat|step[- ]?ups?|lunge|iso-?lateral/i;
+  /** dumbbell pairs, one-sided moves and iso-lateral machines: the reps can be counted per hand or all together */
+  PT.repEligible = name => {
+    try {
+      if (!PT.sideEligible(name)) return false;
+      const n = String(name || "");
+      return ONE_SIDED.test(n) || (isDumbbell(n) && PT.dbCount(n) === 2);
+    } catch (e) { return false; }
+  };
+  const handWord = name => (isDumbbell(name) ? "hand" : "side");
+  /** how many working hands/sides the typed weight stands for: 2 when it is the weight of ONE hand (or side), 1 when it is everything together */
+  function weightFactor(name) {
+    const m = PT.sideMode(name); if (m) return m === "each" ? 2 : 1;
+    return isDumbbell(name) ? 2 : 1;
+  }
+  /** the weight side only, as it was before reps could be picked */
+  function weightDbn(ex) {
+    const m = PT.sideMode(ex.name); if (m) return m === "each" ? 2 : 1;
+    return (oDbn ? oDbn(ex) : 0) || PT.dbCount(ex.name, ex.reps) || 1;
+  }
+
   /** how the number in the weight box is read right now: "each" or "total" */
   function effective(a, ex) {
     const m = PT.sideMode(ex.name); if (m) return m;
-    return (a.exKind && a.exKind(ex).dbn === 2) ? "each" : "total";
+    return weightDbn(ex) === 2 ? "each" : "total";
   }
   /** short tag for other screens (guided mode): " · each side", " · each hand", " · total", or "" when nothing is special */
   PT.sideTag = ex => {
     const a = A(); if (!a || !ex || !PT.sideEligible(ex.name)) return "";
-    const m = PT.sideMode(ex.name);
-    if (m === "total") return " · total";
-    if (m === "each") return isDumbbell(ex.name) ? " · each hand" : " · each side";
-    return isDumbbell(ex.name) ? " · each hand" : "";
+    const m = PT.sideMode(ex.name), r = PT.repEligible(ex.name) ? PT.repMode(ex.name) : "";
+    const rt = r === "total" ? " · reps total" : r === "each" ? " · reps per " + handWord(ex.name) : "";
+    if (m === "total") return " · total" + rt;
+    if (m === "each") return (isDumbbell(ex.name) ? " · each hand" : " · each side") + rt;
+    return (isDumbbell(ex.name) ? " · each hand" : "") + rt;
   };
 
   /* ================================================================ the choice counts in volume (through the dumbbell count the app already has) */
   const oDbn = PT.exDbn;
   PT.exDbn = ex => {
     const m = ex && ex.name ? PT.sideMode(ex.name) : "";
+    // reps picked on purpose: hands/sides the weight stands for × (every hand's reps, or the reps of all hands added up counted once → half)
+    const r = ex && ex.name && PT.repEligible(ex.name) ? PT.repMode(ex.name) : "";
+    if (r) return weightFactor(ex.name) * (r === "total" ? 0.5 : 1);
     if (m === "each") return 2;
     if (m === "total") return 1;
     return oDbn ? oDbn(ex) : 0;
@@ -21882,15 +21918,20 @@ const PTSIM = (function () {
   proto.colLabel = function (ex, kind) {
     const base = oCol.apply(this, arguments);
     if (!ex || !kind || kind.cardio || kind.bw || !PT.sideEligible(ex.name)) return base;
-    const m = PT.sideMode(ex.name), db = isDumbbell(ex.name);
+    const m = PT.sideMode(ex.name), db = isDumbbell(ex.name), both = PT.repEligible(ex.name);
     let text, cls = "";
     if (m === "each") text = (db ? "Each hand" : "Each side") + " · Reps";
     else if (m === "total") text = "Total · Reps";
     else if (db) text = "Each hand · Reps";
     else if (asks(ex.name)) { text = "Each stack or total?"; cls = " ask"; }
     else text = String(base || "Weight · Reps");
+    if (both) text = text.replace(/ · Reps$/, "");                       // the reps get a button of their own right next to it
     const idx = this.activeDay && this.activeDay.exercises ? this.activeDay.exercises.indexOf(ex) : -1;
-    return `<button type="button" class="pt-side-lbl${cls}" data-exindex="${idx}" aria-label="How do you enter the weight for ${esc(ex.name)}? Tap to change">${esc(text)} <span aria-hidden="true">▾</span></button>`;
+    const wBtn = `<button type="button" class="pt-side-lbl${cls}" data-exindex="${idx}" aria-label="How do you enter the weight for ${esc(ex.name)}? Tap to change">${esc(text)} <span aria-hidden="true">▾</span></button>`;
+    if (!both) return wBtn;
+    const r = PT.repMode(ex.name), word = handWord(ex.name);
+    const rText = r === "each" ? `Reps: per ${word}` : r === "total" ? "Reps: total" : (weightDbn(ex) === 2 ? `Reps: per ${word}` : "Reps");
+    return `<span class="pt-lbl-grp">` + wBtn + `<button type="button" class="pt-rep-lbl${r ? "" : " dflt"}" data-exindex="${idx}" aria-label="Are the reps for ${esc(ex.name)} per ${word} or total? Tap to change">${esc(rText)} <span aria-hidden="true">▾</span></button></span>`;
   };
 
   /* ================================================================ the picker */
@@ -21919,18 +21960,71 @@ const PTSIM = (function () {
       a.toast(m === "each" ? `${ex.name}: type the weight of one ${side}` : m === "total" ? `${ex.name}: type the total weight` : `${ex.name}: back to the default`);
     }));
   }
+  function openRepPicker(ex) {
+    const a = A(); if (!a || !ex) return;
+    const cur = PT.repMode(ex.name), word = handWord(ex.name), def = weightDbn(ex) === 2 ? "each" : "";
+    const opt = (m, title, line, ex2) => `<button type="button" class="pt-side-opt${cur === m ? " on" : ""}" data-m="${m}" aria-pressed="${cur === m}">
+        <span class="pt-side-t">${title}${cur === m ? " ✓" : (!cur && def === m ? ' <span class="pt-side-def">counted this way now</span>' : "")}</span><span class="pt-side-d">${line}</span><span class="pt-side-e">${ex2}</span></button>`;
+    const el = a.openSheet(ex.name, "Are your reps per " + word + " or total?", `<div class="space-y-2">
+        ${opt("each", "Per " + word, `The reps of ONE ${word}. Both ${word}s did that many, so volume counts both.`, `10 on each ${word === "hand" ? "arm" : "side"}: type <b>10</b>.`)}
+        ${opt("total", "Total", "Both added together, as one number. Volume counts every rep once.", `10 on each ${word === "hand" ? "arm" : "side"}: type <b>20</b>.`)}
+      </div>
+      <p class="text-[11px] text-zinc-400 leading-snug mt-3">Numbers already typed in today's workout stay as you typed them. Only workouts you save from now on use this; past sessions keep how they were logged. Volume, estimated 1RM, records and strength levels all read your reps this way.</p>
+      ${cur ? `<button type="button" class="pt-side-reset" data-m="">Back to the app's default for this exercise</button>` : ""}`, "");
+    el.querySelectorAll("[data-m]").forEach(b => b.addEventListener("click", () => {
+      const m = b.dataset.m, next = Object.assign({}, repModes()), k = keyOf(ex.name);
+      delete next[ex.name];
+      if (m === "each" || m === "total") next[k] = m; else delete next[k];
+      a.settings.repModes = next;
+      try { WorkoutStorage.saveSettings(a.settings); } catch (e) { }
+      a.closeSheet();
+      try { a.renderWorkoutView(); } catch (e) { }
+      a.toast(m === "each" ? `${ex.name}: type the reps of one ${word}` : m === "total" ? `${ex.name}: type the reps of both ${word}s together` : `${ex.name}: back to the default`);
+    }));
+  }
   document.addEventListener("click", e => {
+    const rb = e.target.closest && e.target.closest(".pt-rep-lbl");
+    if (rb) {
+      const a = A(); if (!a || !a.activeDay) return;
+      const ex = (a.activeDay.exercises || [])[parseInt(rb.dataset.exindex, 10)];
+      if (ex) { e.preventDefault(); openRepPicker(ex); }
+      return;
+    }
     const b = e.target.closest && e.target.closest(".pt-side-lbl"); if (!b) return;
     const a = A(); if (!a || !a.activeDay) return;
     const ex = (a.activeDay.exercises || [])[parseInt(b.dataset.exindex, 10)];
     if (ex) { e.preventDefault(); openPicker(ex); }
   });
 
+  /* ================================================================ the choice travels with each set */
+  const oEts = proto.entryToSet;
+  if (typeof oEts === "function") proto.entryToSet = function (ex, entry) {
+    const st = oEts.apply(this, arguments);
+    try { if (st && ex && ex.name && !PT.isCardioSet(st) && PT.repEligible(ex.name) && PT.repMode(ex.name) === "total") st.rm = "t"; } catch (e) { }
+    return st;
+  };
+  /** an estimated 1RM needs the reps of ONE hand: "total" reps are halved for it */
+  const oE1 = proto.setE1rm;
+  if (typeof oE1 === "function") proto.setE1rm = function (name, st, ds) {
+    if (st && st.rm === "t") st = Object.assign({}, st, { r: (parseFloat(st.r) || 0) / 2 });
+    return oE1.call(this, name, st, ds);
+  };
+  const oTxt = proto.setText;
+  if (typeof oTxt === "function") proto.setText = function (name, st) {
+    const t = oTxt.apply(this, arguments);
+    return st && st.rm === "t" && typeof t === "string" ? t + " total" : t;
+  };
+
   /* ================================================================ styles */
   const css = document.createElement("style"); css.id = "pt-v238-side-css";
   css.textContent = `
     .pt-side-lbl { display: inline-flex; align-items: center; gap: .25rem; padding: .1rem .45rem; margin: -.1rem 0; border-radius: .5rem; border: 1px dashed rgb(var(--z700)); background: transparent; color: rgb(var(--z300)); font: inherit; font-size: inherit; letter-spacing: inherit; text-transform: inherit; white-space: nowrap; }
-    .pt-side-lbl:active { background: rgb(var(--z800)); }
+    .pt-side-lbl:active, .pt-rep-lbl:active { background: rgb(var(--z800)); }
+    .pt-rep-lbl { display: inline-flex; align-items: center; gap: .25rem; padding: .1rem .45rem; margin: -.1rem 0; border-radius: .5rem; border: 1px dashed rgb(var(--z700)); background: transparent; color: rgb(var(--z300)); font: inherit; font-size: inherit; letter-spacing: inherit; text-transform: inherit; font-weight: inherit; white-space: nowrap; }
+    .pt-lbl-grp { display: inline-flex; align-items: center; gap: .35rem; flex-wrap: nowrap; }
+    .pr-10:has(> .pt-lbl-grp) { padding-right: .25rem; }
+    @media (max-width: 349px) { .pt-lbl-grp { flex-wrap: wrap; justify-content: center; row-gap: .3rem; } }
+    .pt-rep-lbl:not(.dflt) { border-color: rgb(var(--a500) / .7); color: rgb(var(--a300)); }
     .pt-side-lbl.ask { border-color: rgb(251 191 36 / .7); color: rgb(251 191 36); font-weight: 700; }
     .pt-side-opt { display: flex; flex-direction: column; gap: .2rem; width: 100%; text-align: left; padding: .8rem .9rem; border-radius: .9rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
     .pt-side-opt.on { border-color: rgb(var(--a600)); background: rgb(var(--a600) / .12); }
@@ -27351,11 +27445,20 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     } else html += `<p class="text-xs text-emerald-300">No clear weak link. Every muscle is close to your average level.</p>`;
     if (w.thin && (!w.weak || w.thin.id !== w.weak.id)) html += `<p class="text-[11px] text-zinc-400">${esc(w.thin.label)} looks low, but only one exercise trains it so far. Log another to be sure.</p>`;
     const cut = w.sorted.length > 8 ? 6 : w.sorted.length, first = w.sorted.slice(0, cut), rest = w.sorted.slice(cut);
-    html += `<div class="space-y-1 pt-wk-list"><span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Weakest first · tap one to see why</span>${first.map(x => rowHtml(x, w.weak)).join("")}${rest.length ? `<details class="pt-wk-more"><summary class="tap-active">Show the other ${rest.length} muscles</summary>${rest.map(x => rowHtml(x, w.weak)).join("")}</details>` : ""}</div>`;
+    html += `<div class="space-y-1 pt-wk-list"><span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Weakest first · tap one to see why</span>${first.map(x => rowHtml(x, w.weak)).join("")}${rest.length ? `<div class="pt-wk-more" hidden>${rest.map(x => rowHtml(x, w.weak)).join("")}</div><button type="button" class="pt-wk-toggle tap-active" aria-expanded="false" data-n="${rest.length}">Show the other ${rest.length} muscles</button>` : ""}</div>`;
     if (w.untested.length) html += `<p class="text-[11px] text-zinc-500">Not graded yet: ${esc(w.untested.join(", "))}.</p>`;
     html += `<p class="text-[10px] text-zinc-500 leading-relaxed">Each bar uses every graded exercise for that muscle, not just the best: recent lifts count more, helper muscles count a little, and one standout lift cannot carry a muscle. A muscle needs two exercises before it is called behind. Estimates for most lifts.</p>`;
     return html;
   }
+  // "Show the other N muscles": the rows open ABOVE the button, so the button moves down to the end of the list ("Show fewer muscles" there)
+  document.addEventListener("click", e => {
+    const b = e.target && e.target.closest ? e.target.closest(".pt-wk-toggle") : null; if (!b) return;
+    const box = b.previousElementSibling; if (!box || !box.classList.contains("pt-wk-more")) return;
+    const open = box.hidden; box.hidden = !open;
+    b.setAttribute("aria-expanded", String(open));
+    b.textContent = open ? "Show fewer muscles" : "Show the other " + b.dataset.n + " muscles";
+    if (!open) { try { b.scrollIntoView({ block: "nearest" }); } catch (err) { } }       // closing: the button jumps back up, keep it in sight
+  });
   const oPV = proto.renderProgressView;
   proto.renderProgressView = function () {
     const r = oPV.apply(this, arguments);
@@ -27365,15 +27468,15 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 
   const css = document.createElement("style"); css.id = "pt-v257-weak-css";
   css.textContent = `
-    .pt-wk-row > summary, .pt-wk-more > summary { list-style: none; cursor: pointer; }
-    .pt-wk-row > summary::-webkit-details-marker, .pt-wk-more > summary::-webkit-details-marker { display: none; }
+    .pt-wk-row > summary { list-style: none; cursor: pointer; }
+    .pt-wk-more[hidden] { display: none; }
+    .pt-wk-row > summary::-webkit-details-marker { display: none; }
     .pt-wk-row { border-radius: .6rem; }
     .pt-wk-row > summary { display: block; padding: .5rem .1rem .15rem; min-height: 2.75rem; }
     .pt-wk-row > summary .pt-lv-bar { margin-top: .3rem; }
     .pt-wk-n { font-weight: 600; color: rgb(var(--z500)); margin-left: .3rem; }
     .pt-wk-ex { padding: .2rem .5rem .6rem; border-left: 2px solid rgb(var(--z800)); margin-left: .25rem; }
-    .pt-wk-more > summary { display: flex; align-items: center; justify-content: center; min-height: 2.75rem; margin-top: .25rem; border: 1px dashed rgb(var(--z700)); border-radius: .85rem; font-size: .72rem; font-weight: 700; color: rgb(var(--z400)); }
-    .pt-wk-more[open] > summary { margin-bottom: .25rem; }
+    .pt-wk-toggle { display: flex; align-items: center; justify-content: center; width: 100%; min-height: 2.75rem; margin-top: .25rem; border: 1px dashed rgb(var(--z700)); border-radius: .85rem; font-size: .72rem; font-weight: 700; color: rgb(var(--z400)); background: transparent; }
   `;
   document.head.appendChild(css);
 })();
