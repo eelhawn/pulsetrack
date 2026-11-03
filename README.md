@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.55.0*
+*Version 2.56.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **55 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **625 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -356,7 +356,7 @@ Know when your food has settled and your supplements have kicked in. On a traini
 Less to read at a glance. One switch, **Settings → Simpler screens** (on by default), controls all three. Nothing is removed or saved differently: it only changes what is shown, and everything folded opens with one tap.
 
 - **Home shows one reminder at a time.** When more than one is waiting (the backup reminder, the easy week card, the report card or monthly recap), only the most important shows, with a small **+ 2 more reminders** line under it. Tap the line to see the rest, and tap it again to tuck them away. When you dismiss one, the next one comes up. Start Workout moves up the page.
-- **A finished exercise folds into one line** on the workout screen: its name, how many sets and your best set (for example "3 sets · top 195 lb × 8"). It folds about two seconds after the last set, so you can still add a set or fix a number. Tap the line to open it again. An exercise you opened keeps a slim bar on top ("✓ Exercise done · **Minimize ▴**"): tap it to fold the exercise up again, as many times as you like (new in 2.55.0). Until you minimize it, an opened exercise stays open. Supersets, giant sets and timed exercises never fold. Exercises that were already finished fold straight away when you come back to the workout.
+- **A finished exercise folds into one line** on the workout screen: its name, how many sets and your best set (for example "3 sets · top 195 lb × 8"). It folds about two seconds after the last set, so you can still add a set or fix a number. Tap the line to open it again. An exercise you opened keeps a slim bar on top ("✓ Exercise done · **Minimize ▴**"): tap it to fold the exercise up again, as many times as you like (new in 2.55.0). Until you minimize it, an opened exercise stays open. **A finished superset or giant set folds as one block (new in 2.56.0):** once every exercise in it is done (all its rounds ticked), the whole group becomes a single line with the names and the rounds, for example "Weighted Chin-Ups + Incline Bench Press · Superset · 5 rounds". It waits the same two seconds, and with only some of the exercises done nothing folds. Tap the line to open the whole group, then use the same **Minimize ▴** bar ("✓ Superset done") to fold it again. Timed (tabata) exercises never fold. Exercises and groups that were already finished fold straight away when you come back to the workout.
 - **The day list opens only this week.** The other weeks of a multi-week program are one line each with the number of days ("Weeks 5–8 · Build · 6 days"). Tap a week to open it, and tap this week to fold it.
 
 ### Guided mode (sets added in 2.36.0, each-side note in 2.38.0, supersets in 2.51.0)
@@ -768,6 +768,10 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.56.0**
+- **A finished superset or giant set minimizes.** When every exercise in a superset or giant set is done, the whole group folds into one line ("Weighted Chin-Ups + Incline Bench Press · Superset · 5 rounds") instead of staying open as several cards. Tap it to open the group; a slim **Minimize ▴** bar on top folds it again. Nothing folds while any exercise in the group still has a set to do, and nothing you logged changes. It is part of Settings → Simpler screens.
+- The 55 programs and 625 exercises are unchanged.
 
 **2.55.0**
 - **Minimize a finished exercise again.** When a finished exercise has folded into one line and you open it, a slim bar now stays on top of it ("✓ Exercise done · Minimize ▴"). Tap it to fold the exercise back into its one-line summary. Before, once you opened it there was no way to fold it again. An opened exercise stays open until you minimize it, and a minimized one stays minimized when the screen redraws. Nothing you logged changes, and the bar is gone if you turn off Simpler screens.

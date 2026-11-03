@@ -395,7 +395,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.55.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.56.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3779,7 +3779,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.55.0";
+    const APP_VERSION = "2.56.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -26367,8 +26367,9 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
  *   - Home: when more than one reminder is waiting (backup, easy week, report card), only the most important one shows.
  *     A small "+ 2 more reminders" line shows the rest when you tap it.
  *   - Workout: an exercise whose sets are all done folds up into one line (name, sets, best set). Tap the line to open it
- *     again. It folds a moment after the last set, so you can still add a set. Supersets and timers never fold.
+ *     again. It folds a moment after the last set, so you can still add a set. Timed (tabata) exercises never fold.
  *     (2.55.0) An exercise you opened keeps a slim "Minimize" bar on top, so you can fold it up again with one tap.
+ *     (2.56.0) A superset or giant set folds as ONE block once every exercise in it is done (names, rounds), with the same tap to open and Minimize.
  *   - Day list: only this week is open. The other weeks are one line each (tap to open).
  * Nothing is removed and nothing is saved differently: it is only what is shown. Switch it off and the screens look as before.
  * ===================================================================== */
@@ -26451,32 +26452,69 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     if (!card || card.classList.contains("pt-folded")) return;
     setBar(card, name, false);
   }
+  /** the blocks of a day: [first, last] index of each single exercise or superset / giant set (every one but the last is linked to the next) */
+  function blocksOf(exs) {
+    const out = []; let st = 0;
+    for (let i = 0; i < exs.length; i++) if (!(exs[i] && exs[i].link) || i === exs.length - 1) { out.push([st, i]); st = i + 1; }
+    return out;
+  }
+  const doneAll = card => { const b = card.querySelectorAll(".btn-check-set"); return b.length > 0 && [...b].every(x => x.dataset.completed === "1"); };
+  /** a superset / giant set: one bar on the first card, the other cards (and the joiners between them) tucked away */
+  function setGroup(app, s, e, open) {
+    const exs = (app.activeDay && app.activeDay.exercises) || [], cards = [];
+    for (let i = s; i <= e; i++) { const c = app.dom.exercisesList.querySelector(`[data-ex-card="${i}"]`); if (!c) return; cards.push(c); }
+    const head = cards[0], n = e - s + 1, label = n > 2 ? "Giant set" : "Superset";
+    let bar = head.querySelector(":scope > .pt-fold-bar");
+    if (!bar) { bar = document.createElement("button"); bar.type = "button"; bar.className = "pt-fold-bar tap-active"; head.insertBefore(bar, head.firstChild); }
+    bar.dataset.gs = String(s); bar.dataset.ge = String(e);
+    const names = exs.slice(s, e + 1).map(x => x.name).join(" + ");
+    const counts = cards.map(c => [...c.querySelectorAll(".btn-check-set")].filter(x => x.dataset.completed === "1").length);
+    const lo = Math.min(...counts), hi = Math.max(...counts);
+    const rounds = lo === hi ? `${hi} round${hi === 1 ? "" : "s"}` : `${lo}–${hi} sets`;
+    bar.classList.toggle("pt-open", open);
+    bar.setAttribute("aria-expanded", open ? "true" : "false");
+    bar.setAttribute("aria-label", (open ? "Minimize " : "Open ") + label.toLowerCase() + ": " + names);
+    bar.innerHTML = open
+      ? `<span class="pt-fb-ck" aria-hidden="true">✓</span><span class="pt-fb-d">${label} done</span><span class="pt-fb-m">Minimize <span aria-hidden="true">▴</span></span>`
+      : `<span class="pt-fb-ck" aria-hidden="true">✓</span><span class="pt-fb-g"><span class="pt-fb-gn">${escH(names)}</span><span class="pt-fb-g2">${label} · ${escH(rounds)}</span></span><span class="pt-fb-c" aria-hidden="true">▾</span>`;
+    head.classList.toggle("pt-folded", !open);
+    head.classList.toggle("pt-gfold-head", !open);
+    cards.slice(1).forEach(c => c.classList.toggle("pt-gfold-hide", !open));
+  }
   function foldWorkout(app) {
     if (!app || !app.dom || !app.dom.exercisesList) return;
     const day = app.activeDay, prog = app.activeProgram; if (!day || !prog) return;
     const c = prog.id + "|" + day.dayNumber;
     if (c !== ctx) { ctx = c; pinned.clear(); Object.keys(prevDone).forEach(k => delete prevDone[k]); firstRender = true; }
     const first = firstRender; firstRender = false;
-    const exs = day.exercises || [];
-    app.dom.exercisesList.querySelectorAll("[data-ex-card]").forEach(card => {
-      const i = parseInt(card.getAttribute("data-ex-card"), 10), ex = exs[i];
-      if (!ex || ex.type === "tabata" || ex.link || (i > 0 && exs[i - 1] && exs[i - 1].link)) return;
+    const exs = day.exercises || [], list = app.dom.exercisesList;
+    const grace = (key, check, apply) => setTimeout(() => {
+      try {
+        const a = A(); if (!a || !on() || ctx !== c || pinned.has(key)) return;
+        if (check(a)) apply(a);
+      } catch (e) { }
+    }, 2500);   // it was finished just now: give a moment to add a set or fix a number before it folds
+    blocksOf(exs).forEach(([s, e]) => {
+      if (s !== e) {
+        /* ---- a superset or giant set: folds as one block when every exercise in it is done */
+        if (exs.slice(s, e + 1).some(x => !x || x.type === "tabata")) return;
+        const cards = []; for (let i = s; i <= e; i++) { const cd = list.querySelector(`[data-ex-card="${i}"]`); if (!cd) return; cards.push(cd); }
+        if (!cards.every(cd => cd.querySelector(".btn-check-set"))) return;
+        const key = "g" + s, done = cards.every(doneAll), was = prevDone[key]; prevDone[key] = done;
+        if (!done || !on()) return;
+        if (pinned.has(key)) { setGroup(app, s, e, true); return; }   // one you opened: it keeps a Minimize bar
+        if (!first && was === false) { grace(key, a => { const cs = []; for (let i = s; i <= e; i++) { const cd = a.dom.exercisesList.querySelector(`[data-ex-card="${i}"]`); if (!cd) return false; cs.push(cd); } return cs.every(doneAll); }, a => setGroup(a, s, e, false)); return; }
+        setGroup(app, s, e, false);
+        return;
+      }
+      const i = s, ex = exs[i], card = list.querySelector(`[data-ex-card="${i}"]`);
+      if (!card || !ex || ex.type === "tabata" || ex.link) return;
       const btns = card.querySelectorAll(".btn-check-set"); if (!btns.length) return;
       const done = [...btns].every(b => b.dataset.completed === "1");
       const was = prevDone[i]; prevDone[i] = done;
       if (!done || !on()) return;
       if (pinned.has(i)) { setBar(card, ex.name, true); return; }   // one you opened: it keeps a Minimize bar
-      if (!first && was === false) {
-        // it was finished just now: give a moment to add a set or fix a number before it folds
-        setTimeout(() => {
-          try {
-            const a = A(); if (!a || !on() || ctx !== c || pinned.has(i)) return;
-            const cd = a.dom.exercisesList.querySelector(`[data-ex-card="${i}"]`); if (!cd) return;
-            if ([...cd.querySelectorAll(".btn-check-set")].every(b => b.dataset.completed === "1")) applyFold(cd, ex.name);
-          } catch (e) { }
-        }, 2500);
-        return;
-      }
+      if (!first && was === false) { grace(i, a => { const cd = a.dom.exercisesList.querySelector(`[data-ex-card="${i}"]`); return !!cd && doneAll(cd); }, a => { const cd = a.dom.exercisesList.querySelector(`[data-ex-card="${i}"]`); if (cd) applyFold(cd, ex.name); }); return; }
       applyFold(card, ex.name);
     });
   }
@@ -26489,7 +26527,14 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   document.addEventListener("click", e => {
     const b = e.target.closest && e.target.closest(".pt-fold-bar"); if (!b) return;
     const card = b.closest("[data-ex-card]"); if (!card) return;
-    const i = parseInt(card.getAttribute("data-ex-card"), 10), a = A();
+    const a = A();
+    if (b.dataset.gs !== undefined) {                                   // a superset or giant set
+      const s = parseInt(b.dataset.gs, 10), en = parseInt(b.dataset.ge, 10), key = "g" + s;
+      if (card.classList.contains("pt-folded")) { pinned.add(key); setGroup(a, s, en, true); }
+      else { pinned.delete(key); setGroup(a, s, en, false); }
+      return;
+    }
+    const i = parseInt(card.getAttribute("data-ex-card"), 10);
     const ex = a && a.activeDay && (a.activeDay.exercises || [])[i], name = (ex && ex.name) || "";
     if (card.classList.contains("pt-folded")) { pinned.add(i); setBar(card, name, true); }   // open it, with a way to fold it again
     else { pinned.delete(i); setBar(card, name, false); }                                      // minimize it again
@@ -26569,6 +26614,11 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     .pt-fb-s { margin-left: auto; flex: none; font-size: .7rem; color: rgb(var(--z400)); white-space: nowrap; }
     .pt-fb-c { flex: none; color: rgb(var(--z500)); }
     .pt-fold-bar.pt-open { min-height: 2.75rem; padding: .45rem .75rem; margin: 0 0 .65rem; border-radius: .7rem; background: rgb(var(--z950) / .7); border: 1px solid rgb(var(--z800)); }
+    [data-ex-card].pt-gfold-hide, [data-ex-card].pt-gfold-hide + .pt-ssj, [data-ex-card].pt-gfold-head + .pt-ssj { display: none !important; }
+    [data-ex-card].pt-gfold-head { padding-bottom: 0 !important; border-left-color: #a855f7 !important; }
+    .pt-fb-g { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; gap: .1rem; }
+    .pt-fb-gn { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-size: .82rem; font-weight: 800; line-height: 1.25; color: rgb(var(--z100)); }
+    .pt-fb-g2 { font-size: .68rem; font-weight: 700; color: rgb(var(--z400)); }
     .pt-fb-d { flex: 0 1 auto; font-size: .75rem; font-weight: 700; color: rgb(var(--z300)); }
     .pt-fb-m { margin-left: auto; flex: none; font-size: .72rem; font-weight: 800; color: rgb(var(--a400)); white-space: nowrap; }
     html[data-mode="light"] .pt-fb-ck, html[data-mode="light"] .pt-fb-m { color: rgb(4 120 87); }
