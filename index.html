@@ -395,7 +395,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.59.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.59.1</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3779,7 +3779,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.59.0";
+    const APP_VERSION = "2.59.1";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -21828,12 +21828,16 @@ const PTSIM = (function () {
  *  Only workouts you save from now on use the new choice; past sessions keep how they were logged.
  * Setting: settings.sideModes = { "Cable Crossover": "each" | "total" }.
  *
- * PulseTrack 2.59.0: and are the REPS per hand or all together?
- *  Dumbbell pairs, one-sided moves (single-arm, lunges, step-ups...) and iso-lateral machines get a second button next to the weight one:
- *    Reps: per hand · Reps: per side   (10 on each arm: type 10; volume counts both hands)
- *    Reps: total                        (10 on each arm: type 20; volume counts every rep once)
- *  Nothing chosen = counted exactly as before. The choice is saved with each set (set.rm = "t" for total) so volume, e1RM, PRs, strength levels
- *  and History read the reps the way you meant them. Setting: settings.repModes = { "Alternating Dumbbell Curls": "each" | "total" }.
+ * PulseTrack 2.59.0 / 2.59.1: and are the REPS per hand or total?
+ *  EVERY dumbbell exercise (also hammer curls, lateral raises, flyes, kickbacks and the like, whether or not "dumbbell" is in the name), the
+ *  one-sided cable and machine moves (single-arm, single-leg, unilateral) and iso-lateral machines get a Reps button next to the weight one:
+ *    Reps: per hand · per leg · per side   (10 on each arm: type 10; volume counts both hands)
+ *    Reps: total                            (10 on each arm: type 20; volume counts every rep once)
+ *  Not offered where there is nothing to split: goblet squats, pullovers, overhead extensions, leg curls (one dumbbell, both hands), barbell, bodyweight.
+ *  Nothing chosen = counted exactly as before (the button says which of the two that is). The choice is saved with each set (set.rm = "t" for total)
+ *  so volume, e1RM, PRs, strength levels and History read the reps the way you meant them.
+ *  Setting: settings.repModes = { "Alternating Dumbbell Curls": "each" | "total" }.
+ *  Volume = weights moving on each rep (implementsOf) x reps multiplier (repsMult): hands/legs that take turns add up, those that work together count once.
  * ===================================================================== */
 (function () {
   "use strict";
@@ -21865,25 +21869,56 @@ const PTSIM = (function () {
   const repModes = () => { const a = A(); const m = a && a.settings && a.settings.repModes; return m && typeof m === "object" ? m : {}; };
   /** "each" (the reps of one hand or one side), "total" (both added up) or "" (nothing chosen: counted like before) */
   PT.repMode = name => { const m = repModes(), v = m[keyOf(name)] || m[name]; return v === "each" || v === "total" ? v : ""; };
-  const ONE_SIDED = /single[- ]arm|one[- ]arm|single[- ]leg|one[- ]leg|alternating|unilateral|concentration|bulgarian|split squat|step[- ]?ups?|lunge|iso-?lateral/i;
-  /** dumbbell pairs, one-sided moves and iso-lateral machines: the reps can be counted per hand or all together */
-  PT.repEligible = name => {
+  /** limbs that take turns (one arm, one leg, alternating...): "per hand" really is half of "total" */
+  const SEQ = /single[- ]arm|one[- ]arm|single[- ]leg|one[- ]leg|alternating|unilateral|concentration|bulgarian|split squat|step[- ]?ups?|lunge/i;
+  /** moves where the two legs take turns, so the reps are per leg rather than per hand */
+  const LEGS = /single[- ]leg|one[- ]leg|bulgarian|split squat|step[- ]?ups?|lunge/i;
+  /** machines that train each side on its own plates */
+  const ISO = /iso-?lateral/i;
+  /** one dumbbell held with both hands (or between the feet): no left and right, so nothing to choose */
+  const SINGLE_HELD = /goblet|pull-?over|sumo squat|overhead (triceps? )?extension|overhead dumbbell extension|french press|leg curl|kettlebell|hip thrust/i;
+  /** a dumbbell move: the app knows it as one (equipment), or "dumbbell"/"DB" is in the name */
+  const dbLift = name => {
     try {
-      if (!PT.sideEligible(name)) return false;
       const n = String(name || "");
-      return ONE_SIDED.test(n) || (isDumbbell(n) && PT.dbCount(n) === 2);
+      if (SINGLE_HELD.test(n)) return false;
+      if (PT.equipKey(n) === "dumbbell") return true;
+      return /dumbbell|dumbell|\bdbs?\b/i.test(n) && !/barbell|ez[- ]?bar|\bbands?\b|smith|machine|cable/i.test(n);
     } catch (e) { return false; }
   };
-  const handWord = name => (isDumbbell(name) ? "hand" : "side");
-  /** how many working hands/sides the typed weight stands for: 2 when it is the weight of ONE hand (or side), 1 when it is everything together */
-  function weightFactor(name) {
-    const m = PT.sideMode(name); if (m) return m === "each" ? 2 : 1;
-    return isDumbbell(name) ? 2 : 1;
-  }
+  /** every dumbbell move (hammer curls, lateral raises and flyes too, not only the ones with "dumbbell" in the name), one-sided cable moves and iso-lateral machines:
+   *  the reps can be counted per hand, or per leg or side, or all together */
+  PT.repEligible = name => {
+    try {
+      const n = String(name || "");
+      if ((PT.isBodyweightEx && PT.isBodyweightEx(n)) || (PT.cardioKind && PT.cardioKind(n))) return false;
+      if (dbLift(n)) return true;
+      return PT.sideEligible(n) && (SEQ.test(n) || ISO.test(n));
+    } catch (e) { return false; }
+  };
+  const handWord = name => (LEGS.test(String(name || "")) ? "leg" : (dbLift(name) || isDumbbell(name) ? "hand" : "side"));
+  /** what the word is called in an example: 10 on each arm / leg / side */
+  const limbWord = word => (word === "hand" ? "arm" : word);
   /** the weight side only, as it was before reps could be picked */
   function weightDbn(ex) {
     const m = PT.sideMode(ex.name); if (m) return m === "each" ? 2 : 1;
     return (oDbn ? oDbn(ex) : 0) || PT.dbCount(ex.name, ex.reps) || 1;
+  }
+  /** how many weights move on every rep: 2 for a pair of dumbbells (or "each side" weight), 1 for one dumbbell, one stack or a typed total */
+  function implementsOf(ex) {
+    const n = ex.name, m = PT.sideMode(n);
+    if (LEGS.test(n)) return m ? (m === "each" ? 2 : 1) : (PT.dbCount(n, ex.reps) === 2 ? 2 : 1);
+    if (SEQ.test(n)) return m === "total" && dbLift(n) ? 0.5 : 1;               // one dumbbell at a time (a typed total is split between the two)
+    return m ? (m === "each" ? 2 : 1) : (isDumbbell(n) ? 2 : 1);
+  }
+  /** what the reps are multiplied by: limbs that take turns add up (per hand = both hands' reps), limbs that work together count once; "total" is already everything */
+  const repsMult = (ex, r) => (SEQ.test(ex.name) ? (r === "total" ? 1 : 2) : (r === "total" ? 0.5 : 1));
+  /** which choice matches how volume counts today when nothing was picked: "each", "total" or "" */
+  function defaultRep(ex) {
+    const legacy = weightDbn(ex), impl = implementsOf(ex);
+    if (legacy === impl * repsMult(ex, "each")) return "each";
+    if (legacy === impl * repsMult(ex, "total")) return "total";
+    return "";
   }
 
   /** how the number in the weight box is read right now: "each" or "total" */
@@ -21893,9 +21928,11 @@ const PTSIM = (function () {
   }
   /** short tag for other screens (guided mode): " · each side", " · each hand", " · total", or "" when nothing is special */
   PT.sideTag = ex => {
-    const a = A(); if (!a || !ex || !PT.sideEligible(ex.name)) return "";
-    const m = PT.sideMode(ex.name), r = PT.repEligible(ex.name) ? PT.repMode(ex.name) : "";
+    const a = A(); if (!a || !ex) return "";
+    const se = PT.sideEligible(ex.name), r = PT.repEligible(ex.name) ? PT.repMode(ex.name) : "";
     const rt = r === "total" ? " · reps total" : r === "each" ? " · reps per " + handWord(ex.name) : "";
+    if (!se) return rt;
+    const m = PT.sideMode(ex.name);
     if (m === "total") return " · total" + rt;
     if (m === "each") return (isDumbbell(ex.name) ? " · each hand" : " · each side") + rt;
     return (isDumbbell(ex.name) ? " · each hand" : "") + rt;
@@ -21907,7 +21944,7 @@ const PTSIM = (function () {
     const m = ex && ex.name ? PT.sideMode(ex.name) : "";
     // reps picked on purpose: hands/sides the weight stands for × (every hand's reps, or the reps of all hands added up counted once → half)
     const r = ex && ex.name && PT.repEligible(ex.name) ? PT.repMode(ex.name) : "";
-    if (r) return weightFactor(ex.name) * (r === "total" ? 0.5 : 1);
+    if (r) return implementsOf(ex) * repsMult(ex, r);
     if (m === "each") return 2;
     if (m === "total") return 1;
     return oDbn ? oDbn(ex) : 0;
@@ -21917,8 +21954,18 @@ const PTSIM = (function () {
   const oCol = proto.colLabel;
   proto.colLabel = function (ex, kind) {
     const base = oCol.apply(this, arguments);
-    if (!ex || !kind || kind.cardio || kind.bw || !PT.sideEligible(ex.name)) return base;
-    const m = PT.sideMode(ex.name), db = isDumbbell(ex.name), both = PT.repEligible(ex.name);
+    if (!ex || !kind || kind.cardio || kind.bw) return base;
+    const both = PT.repEligible(ex.name), sideOk = PT.sideEligible(ex.name);
+    if (!sideOk && !both) return base;
+    const idx = this.activeDay && this.activeDay.exercises ? this.activeDay.exercises.indexOf(ex) : -1;
+    const repBtn = () => {
+      const r = PT.repMode(ex.name), word = handWord(ex.name), d = defaultRep(ex), shown = r || d;
+      const rText = shown === "each" ? `Reps: per ${word}` : shown === "total" ? "Reps: total" : "Reps";
+      return `<button type="button" class="pt-rep-lbl${r ? "" : " dflt"}" data-exindex="${idx}" aria-label="Are the reps for ${esc(ex.name)} per ${word} or total? Tap to change">${esc(rText)} <span aria-hidden="true">▾</span></button>`;
+    };
+    // no each-side/total choice for the weight (lunges, step-ups, chest-supported rows...): the plain label, then the reps button
+    if (!sideOk) return `<span class="pt-lbl-grp"><span>${esc(String(base || "Weight · Reps").replace(/<[^>]*>/g, "").replace(/\s*·\s*Reps\s*$/i, "") || "Weight")}</span>${repBtn()}</span>`;
+    const m = PT.sideMode(ex.name), db = isDumbbell(ex.name);
     let text, cls = "";
     if (m === "each") text = (db ? "Each hand" : "Each side") + " · Reps";
     else if (m === "total") text = "Total · Reps";
@@ -21926,12 +21973,9 @@ const PTSIM = (function () {
     else if (asks(ex.name)) { text = "Each stack or total?"; cls = " ask"; }
     else text = String(base || "Weight · Reps");
     if (both) text = text.replace(/ · Reps$/, "");                       // the reps get a button of their own right next to it
-    const idx = this.activeDay && this.activeDay.exercises ? this.activeDay.exercises.indexOf(ex) : -1;
     const wBtn = `<button type="button" class="pt-side-lbl${cls}" data-exindex="${idx}" aria-label="How do you enter the weight for ${esc(ex.name)}? Tap to change">${esc(text)} <span aria-hidden="true">▾</span></button>`;
     if (!both) return wBtn;
-    const r = PT.repMode(ex.name), word = handWord(ex.name);
-    const rText = r === "each" ? `Reps: per ${word}` : r === "total" ? "Reps: total" : (weightDbn(ex) === 2 ? `Reps: per ${word}` : "Reps");
-    return `<span class="pt-lbl-grp">` + wBtn + `<button type="button" class="pt-rep-lbl${r ? "" : " dflt"}" data-exindex="${idx}" aria-label="Are the reps for ${esc(ex.name)} per ${word} or total? Tap to change">${esc(rText)} <span aria-hidden="true">▾</span></button></span>`;
+    return `<span class="pt-lbl-grp">` + wBtn + repBtn() + `</span>`;
   };
 
   /* ================================================================ the picker */
@@ -21962,12 +22006,12 @@ const PTSIM = (function () {
   }
   function openRepPicker(ex) {
     const a = A(); if (!a || !ex) return;
-    const cur = PT.repMode(ex.name), word = handWord(ex.name), def = weightDbn(ex) === 2 ? "each" : "";
+    const cur = PT.repMode(ex.name), word = handWord(ex.name), limb = limbWord(word), def = defaultRep(ex);
     const opt = (m, title, line, ex2) => `<button type="button" class="pt-side-opt${cur === m ? " on" : ""}" data-m="${m}" aria-pressed="${cur === m}">
         <span class="pt-side-t">${title}${cur === m ? " ✓" : (!cur && def === m ? ' <span class="pt-side-def">counted this way now</span>' : "")}</span><span class="pt-side-d">${line}</span><span class="pt-side-e">${ex2}</span></button>`;
     const el = a.openSheet(ex.name, "Are your reps per " + word + " or total?", `<div class="space-y-2">
-        ${opt("each", "Per " + word, `The reps of ONE ${word}. Both ${word}s did that many, so volume counts both.`, `10 on each ${word === "hand" ? "arm" : "side"}: type <b>10</b>.`)}
-        ${opt("total", "Total", "Both added together, as one number. Volume counts every rep once.", `10 on each ${word === "hand" ? "arm" : "side"}: type <b>20</b>.`)}
+        ${opt("each", "Per " + word, `The reps of ONE ${word}. Both ${word}s did that many, so volume counts both.`, `10 on each ${limb}: type <b>10</b>.`)}
+        ${opt("total", "Total", "Both added together, as one number. Volume counts every rep once.", `10 on each ${limb}: type <b>20</b>.`)}
       </div>
       <p class="text-[11px] text-zinc-400 leading-snug mt-3">Numbers already typed in today's workout stay as you typed them. Only workouts you save from now on use this; past sessions keep how they were logged. Volume, estimated 1RM, records and strength levels all read your reps this way.</p>
       ${cur ? `<button type="button" class="pt-side-reset" data-m="">Back to the app's default for this exercise</button>` : ""}`, "");
