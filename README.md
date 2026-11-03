@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.57.0*
+*Version 2.58.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **55 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **625 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -34,7 +34,7 @@ PulseTrack installs to your home screen like a normal app. It comes with **55 re
 | iPhone (Safari) | Share button → **Add to Home Screen** → Add |
 | Android (Chrome) | ⋮ menu → **Install app** (or **Add to Home screen**) |
 
-After that it opens full screen like any app and works offline.
+After that it opens full screen like any app and works offline. **Settings → App** shows **Works offline ✓** when the whole app is saved on the phone (and the side menu shows "offline ✓" next to the version). If it ever says **Not saved for offline yet**, tap **Save now** with internet on.
 
 **Update.** When new files have been uploaded to GitHub:
 
@@ -710,7 +710,14 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 
 ## Good to know
 
-**Works offline.** After the first load, everything (programs, exercises, charts, styling, fonts) is stored in the app. Only the YouTube "How to do it" links and getting updates need internet.
+**Works offline.** After the first load, everything (programs, exercises, charts, styling, fonts) is stored in the app. Only the YouTube "How to do it" links, getting updates and voice logging on most phones need internet. The family board works offline too: it is made of codes you send each other, with no server behind it. Close the app and reopen it in airplane mode, or refresh the page offline, and it opens with every feature.
+
+**Offline, in detail (new in 2.58.0).**
+- **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
+- **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.58.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
+- Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
 **iPhone**
 - Updates can lag. Close the app fully and reopen it online.
@@ -768,6 +775,12 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.58.0**
+- **Offline hardening.** The app was already built to run with no internet; this makes sure it really opens, and shows you. A connection that never answers (weak signal, gym wifi that has not logged you in) now opens the saved app after 4 seconds instead of hanging, and a wifi login page can no longer be saved in place of the app. Saving an update is all or nothing, so you never get half a version.
+- **Offline status.** Settings → App shows **Works offline ✓** (or **Not saved for offline yet** with a **Save now** button), the Settings list shows it under App, and the side menu shows "offline ✓" next to the version. If the saved copy goes missing the app saves it again by itself when you are online. Installed apps ask the phone to keep the saved copy and your data safe from automatic cleanup.
+- Tested: first install, update from the previous version, and then airplane mode with a refresh, a full close and reopen, and every screen; a connection that never answers; a wifi login page; a missing copy repairing itself.
+- The 55 programs and 625 exercises are unchanged.
 
 **2.57.0**
 - **Weak points, muscle by muscle.** The Weak points card no longer lumps biceps, triceps and forearms into "Arms" (or splits the body into six groups at all). It now ranks 16 muscles: chest; front, side and rear delts; lats, upper back, traps and lower back; biceps, triceps and forearms; abs and core; quads, hamstrings, glutes and calves. It names the exact weakest muscle ("Triceps is your weakest muscle"), suggests exercises for that muscle, and the **Find a day for triceps** button opens Steal a day on the matching muscle. Tap any muscle to see the exercises it was scored from.
