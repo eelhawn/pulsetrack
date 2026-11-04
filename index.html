@@ -395,7 +395,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.61.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.62.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3779,7 +3779,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.61.0";
+    const APP_VERSION = "2.62.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -19153,10 +19153,50 @@ const PTSIM = (function () {
   const wr = (ref, key, scale, alt, est) => ({ k: "w", ref, f: SL[key].map((v, i) => Math.round(v / SL[ref][i] * (scale || 1) * 1000) / 1000), sl: !est && !(scale && scale !== 1), alt: alt || null });
   const fMid = st => (Array.isArray(st.f) ? st.f[2] : st.f);
 
+  /* ---- 2.62.0: more StrengthLevel.com exercise tables, read 2026 (men, 180 lb body weight, 1RM in lb: Beginner, Novice, Intermediate, Advanced, Elite).
+   *      Each one becomes a share of the matching big-lift standard AT 180 lb, so it follows your body weight and Men / Women like the rest. ---- */
+  const SL180 = {
+    cableCrunch: [58, 98, 151, 216, 288], reverseCurl: [35, 59, 90, 128, 171], wristCurl: [17, 48, 98, 166, 246], reverseWrist: [8, 37, 90, 165, 258],
+    dbWrist: [17, 35, 60, 92, 129], uprightRow: [53, 87, 132, 187, 248]
+  };
+  PT.slStd180 = SL180;
+  /** wx(ref, key, scale, alt, est): like wr, for the rows above (a share of the reference lift's standard at 180 lb) */
+  const wx = (ref, key, scale, alt, est) => {
+    const base = PT.strengthThresholds(ref, "male", 180) || SL[ref];
+    return { k: "w", ref, f: SL180[key].map((v, i) => Math.round(v / base[i] * (scale || 1) * 1000) / 1000), sl: !est && !(scale && scale !== 1), alt: alt || null };
+  };
+
+  /* ---- 2.62.0: how a typed number is compared with the standard (see wMult below) ---- */
+  const ONE_SIDED = /single[- ]arm|one[- ]arm|single[- ]leg|one[- ]leg|unilateral|alternating|single[- ]hand/i;
+  const isDbMove = n => { try { return PT.dbCount(n) === 2 || PT.equipKey(n) === "dumbbell"; } catch (e) { return false; } };
+  const convOn = a => !(a && a.settings && a.settings.slConv === false);
+  /** StrengthLevel counts a dumbbell move PER HAND and a machine or cable move as the TOTAL load. What you typed is scaled to match:
+   *  each side on a machine or cable x2; a total typed for dumbbells (both together) x0.5; everything else as typed. One-arm and one-leg moves, barbells and bodyweight never change.
+   *  Sets saved from 2.62.0 on carry how the weight was entered (set.sm); older sets are read from the exercise's saved dumbbell count. */
+  function wMult(a, e, x) {
+    try {
+      if (!convOn(a)) return 1;
+      const n = e.name;
+      if (!PT.sideEligible(n) || ONE_SIDED.test(n)) return 1;
+      const db = isDbMove(n);
+      if (x.sm === "e") return db ? 1 : 2;
+      if (x.sm === "t") return db ? 0.5 : 1;
+      if (db) return 1;                                             // dumbbell numbers have always been per hand
+      const d = parseFloat(e.dbn) || 0; if (!(d > 0)) return 1;
+      return (x.rm === "t" ? d * 2 : d) >= 2 ? 2 : 1;               // a saved "x2" on a machine or cable meant each side
+    } catch (err) { return 1; }
+  }
+  PT.slMult = wMult;
+  /** typed number x factor = number compared with the standard, for how this exercise is entered right now (the planner and goals divide by it to show what to type) */
+  PT.slFactor = (a, name) => { try { return wMult(a, { name }, { sm: PT.sideSm ? PT.sideSm(name) : "" }) || 1; } catch (e) { return 1; } };
+
   /* ---- StrengthLevel.com bodyweight tables, read 2026. Rows: bodyweight (lb): Beginner, Novice, Intermediate, Advanced, Elite.
    *      u: reps = reps in one set, sec = seconds held, add = one-rep max with added weight (lb, negative = assisted) ---- */
   const rows = t => t.trim().split(/\s+/).map(r => { const [b, v] = r.split(":"); return [+b].concat(v.split(",").map(Number)); });
   const TABLES = {
+    farmer: { u: "max", label: "Farmer's walk (each hand)",
+      m: rows("110:8,26,54,92,139 130:12,32,63,104,152 150:16,38,71,114,165 170:19,43,78,123,176 190:23,48,85,132,186 210:26,53,91,140,196 230:30,58,97,147,205 250:33,62,103,154,213 270:36,66,109,161,221 290:39,70,114,167,228 310:42,74,119,173,235"),
+      f: null },
     pullup: { u: "add", label: "Pull-ups",
       m: rows("110:-12,16,49,85,124 130:-8,23,59,99,140 150:-6,28,66,109,153 170:-5,31,72,117,164 190:-5,33,76,123,172 210:-6,34,79,128,178 230:-7,34,80,131,183 250:-10,32,81,133,186 270:-14,30,80,134,189 290:-18,27,79,134,190"),
       f: rows("90:-30,-11,13,39,68 110:-32,-9,17,46,77 130:-34,-10,19,51,84 150:-38,-11,19,53,88 170:-42,-14,18,54,90 190:-48,-18,16,53,91 210:-54,-23,12,51,90 230:-61,-29,8,47,88 250:-68,-35,3,43,85") },
@@ -19250,6 +19290,7 @@ const PTSIM = (function () {
     deadhang: { u: "sec", label: "Dead hangs", m: rows("150:10,25,45,75,110"), f: rows("150:6,16,30,50,75") },
     wallsit: { u: "sec", label: "Wall sits", m: rows("150:20,45,80,120,180"), f: rows("150:15,40,70,105,150") }
   };
+  TABLES.farmer.f = TABLES.farmer.m.map(r => [r[0]].concat(r.slice(1).map(v => Math.round(v * 0.62))));   // women: scaled from the men's table
   PT.exTables = TABLES;
   const interp = (rs, bw) => {
     if (bw <= rs[0][0]) return rs[0].slice(1);
@@ -19258,9 +19299,45 @@ const PTSIM = (function () {
     return last.slice(1);
   };
   const tb = (t, s, est) => ({ k: "tbl", t, s: s || 1, est: !!est });
-  const NOT_GRADED = /carry|farmer|suitcase|sandbag|crawl|gripper|pinch|wrist roller|pronation|neck crunch|\bband\b|resistance band|negative|jump|bound|clap|tibialis|reverse nordic|slider|stability ball leg curl|freestanding squat|triceps rockers|lunge hold|bodyweight triceps/;
+  const NOT_GRADED = /crawl|gripper|pinch|wrist roller|pronation|\bband\b|resistance band|negative|bound\b|lunge hold|freestanding squat/;
   const RULES = [
     [NOT_GRADED, NONE],
+    /* ---- 2.62.0: carries, graded by the heaviest weight in each hand (StrengthLevel.com farmer's walk, 20 m); the other carries are scaled from it ---- */
+    [/farmer|trap bar carry|dumbbell carry/, tb("farmer")],
+    [/suitcase/, tb("farmer", 1.05, true)],
+    [/overhead carry|waiter carry/, tb("farmer", 0.45, true)],
+    [/sandbag carry|yoke|bear hug carry/, tb("farmer", 1.4, true)],
+    /* ---- 2.62.0: reps-based moves that were left out, graded as a share of the closest bodyweight table (est.) ---- */
+    [/jumping lunge/, tb("bwsquat", 0.5, true)],
+    [/jump squat/, tb("bwsquat", 0.6, true)],
+    [/clap push/, tb("pushup", 0.35, true)],
+    [/stability ball leg curl|slider leg curl/, tb("lyingleg", 0.8, true)],
+    [/tibialis/, tb("bwcalf", 0.8, true)],
+    [/reverse nordic/, tb("pistol", 0.4, true)],
+    [/bodyweight triceps|triceps rockers/, tb("pushup", 0.5, true)],
+    [/neck crunch/, tb("crunch", 0.5, true)],
+    /* ---- 2.62.0: exercises that have a StrengthLevel.com table of their own (the rest below are shares of a related one) ---- */
+    [/^(standing )?cable crunch(es)?( \(standing\))?$|kneeling cable crunch/, wx("bench", "cableCrunch")],
+    [/oblique cable crunch/, wx("bench", "cableCrunch", 0.55, null, true)],
+    [/cable reverse crunch/, wx("bench", "cableCrunch", 0.5, null, true)],
+    [/^(ez-bar |barbell )?reverse curls?$|^ez-bar reverse curls?$/, wx("ohp", "reverseCurl")],
+    [/cable reverse curl/, wx("ohp", "reverseCurl", 0.8, null, true)],
+    [/^reverse wrist curls?$/, wx("ohp", "reverseWrist")],
+    [/reverse dumbbell wrist|dumbbell reverse wrist/, wx("ohp", "dbWrist", 0.75, null, true)],
+    [/dumbbell wrist curl/, wx("ohp", "dbWrist")],
+    [/cable wrist curl/, wx("ohp", "wristCurl", 0.6, null, true)],
+    [/finger curl/, wx("ohp", "wristCurl", 0.5, null, true)],
+    [/behind-the-back (barbell )?wrist/, wx("ohp", "wristCurl", 1, null, true)],
+    [/^(barbell )?wrist curls?$/, wx("ohp", "wristCurl")],
+    [/^(barbell |ez-bar )?upright rows?$/, wx("ohp", "uprightRow")],
+    [/smith machine upright/, wx("ohp", "uprightRow", 1, null, true)],
+    /* ---- 2.62.0: machines that had no rule of their own ---- */
+    [/dual-axis chest press/, wr("bench", "chestPress")],
+    [/hammer strength (flat|incline|super incline)/, wr("bench", "chestPress", 1, null, true)],
+    [/super fly|hammer strength .*fly/, wr("bench", "machineFly")],
+    [/hammer strength (d\.y\. )?row|d\.y\. row/, w("bench", 0.65)],
+    [/squat press/, wr("squat", "hack", 1, null, true)],
+    [/seated triceps press|triceps press machine/, wr("bench", "pushdown", 1.4, null, true)],
     /* light rehab moves, graded as a small share of the press so a 10 lb rotation is not scored as an upright row */
     [/external rotation|internal rotation/, w("ohp", 0.1)],
     /* weight-stack ab machines first */
@@ -19562,12 +19639,13 @@ const PTSIM = (function () {
   /** estimated 1RM of one set in lb. The estimate is Epley (weight x (1 + reps / 30)), which runs high for very long sets, so reps past 20 stop adding to it. */
   const CAP_REPS = 20;
   function e1Of(a, e, x, s) {
-    const v = toLb(a.setE1rm(e.name, x, s.date) || 0, s.unit), r = (parseFloat(x.r) || 0) * (x.rm === "t" ? 0.5 : 1);
+    const v = toLb(a.setE1rm(e.name, x, s.date) || 0, s.unit) * wMult(a, e, x), r = (parseFloat(x.r) || 0) * (x.rm === "t" ? 0.5 : 1);
     return r > CAP_REPS && v > 0 ? v * (1 + CAP_REPS / 30) / (1 + r / 30) : v;
   }
   function setVal(a, e, x, s, st, bw) {
     const T = st.k === "tbl" ? TABLES[st.t] : null;
     if (T && T.u === "add") return { e1: e1Of(a, e, x, s) };
+    if (T && T.u === "max") { const wt = toLb(parseFloat(x.w) || 0, s.unit) * wMult(a, e, x); return wt > 0 && !PT.isCardioSet(x) ? { e1: wt } : null; }
     if (T || st.alt) {
       const r = parseFloat(x.r) || 0; if (r <= 0 || PT.isCardioSet(x)) return null;
       const wt = toLb(PT.isBodyweightEx(e.name) ? Math.max(0, a.setLoad(e.name, x, s.date) - (a.bwOn(s.date) || 0)) : (PT.bwAdded && PT.isBwMove && PT.isBwMove(e.name) ? PT.bwAdded(e.name, x, s.date) : (parseFloat(x.w) || 0)), s.unit);
@@ -19579,7 +19657,7 @@ const PTSIM = (function () {
   }
   let memo = null;
   function bests(a) {
-    const key = S(a).length + ":" + S(a).reduce((m, s) => Math.max(m, s.upd || s.ts || 0), 0) + ":" + a.unit();
+    const key = S(a).length + ":" + S(a).reduce((m, s) => Math.max(m, s.upd || s.ts || 0), 0) + ":" + a.unit() + ":" + (convOn(a) ? 1 : 0);
     if (memo && memo.key === key) return memo.map;
     const map = new Map(), bw = bwOf(a);
     S(a).forEach(s => (s.ex || []).forEach(e => {
@@ -19596,7 +19674,7 @@ const PTSIM = (function () {
   }
   /** the standard that applies to what was logged, and the value to compare. Weight-based moves with a bodyweight fallback use it when no weight was logged. */
   function scored(st, o) {
-    if (st.k === "tbl") return { st, v: TABLES[st.t].u === "add" ? o.e1 : o.reps };
+    if (st.k === "tbl") return { st, v: TABLES[st.t].u === "add" || TABLES[st.t].u === "max" ? o.e1 : o.reps };
     if (st.alt && !(o.e1 > 0) && o.reps > 0) return { st: st.alt, v: o.reps };
     return { st, v: o.e1 };
   }
@@ -19629,7 +19707,7 @@ const PTSIM = (function () {
   const isEst = (st, name) => (st.k === "tbl" ? st.est : st.k === "w" ? !(st.sl || (st.f === 1 && BIG.test(name))) : true);
   const bar = (p, c) => `<div class="pt-lv-bar"><span style="width:${Math.round(Math.max(0, Math.min(1, p)) * 100)}%;background:${c}"></span></div>`;
   const chip = (attr, label, on) => `<button type="button" ${attr} aria-pressed="${on}" class="pt-opt tap-active">${esc(label)}</button>`;
-  const kindNote = st => ({ reps: "reps in one set", sec: "seconds held", add: "1RM with body weight" }[unitOfStd(st)] || "estimated 1RM");
+  const kindNote = st => ({ reps: "reps in one set", sec: "seconds held", add: "1RM with body weight", max: "heaviest weight" }[unitOfStd(st)] || "estimated 1RM");
 
   function listRows(a) {
     const rows = rowsFor(a), have = new Map(rows.map(r => [r.name, r])), q = UI.q.trim().toLowerCase(), sex = sexOf(a), bw = bwOf(a);
@@ -19659,7 +19737,7 @@ const PTSIM = (function () {
       <div class="flex flex-wrap gap-1.5">${["All"].concat(GROUPS).map(g => chip(`data-lvg="${g}"`, g, UI.group === g)).join("")}</div>
       <input type="search" id="pt-lv-q" value="${esc(UI.q)}" placeholder="Search exercises" aria-label="Search exercises" autocomplete="off">
       <div id="pt-lv-list" class="space-y-1.5">${listHtml(a)}</div>
-      <p class="text-[10px] text-zinc-500 leading-relaxed">Bench, squat, deadlift, press and the bodyweight moves (pull-ups, dips, push-ups, sit-ups, planks and more) use StrengthLevel.com tables for your body weight. About 60 more lifts (leg press, leg extension, curls, rows, pulldowns, pushdowns, calf raises, hip thrusts and others) use StrengthLevel's own standards for that exercise, scaled to your body weight. Anything marked est. is a rougher guess. Sets past 20 reps stop adding to the estimate. Dumbbell lifts are per hand. Men or Women follows the card above.</p>`;
+      <p class="text-[10px] text-zinc-500 leading-relaxed">Bench, squat, deadlift, press, the bodyweight moves (pull-ups, dips, push-ups, sit-ups, planks and more) and about 80 more lifts (leg press, leg extension, curls, wrist curls, rows, pulldowns, pushdowns, upright rows, cable crunches, calf raises, hip thrusts, farmer's walk and others) use StrengthLevel.com's own standards for that exercise, scaled to your body weight. Anything marked est. is a share of the closest related exercise. Cardio, stretches, bands, jumps and sleds have no 1RM, so no level. Sets past 20 reps stop adding to the estimate. What you type is matched to the standard: dumbbells per hand, machines and cables as both sides together, reps per hand. Men or Women follows the card above.</p>`;
     return html;
   }
   function listHtml(a) {
@@ -19678,15 +19756,19 @@ const PTSIM = (function () {
     if (st.k === "tbl") {
       const T = TABLES[st.t];
       how = (est ? `Estimated from the ${T.label.toLowerCase()} table${st.s !== 1 ? ` (about ${Math.round(st.s * 100)}% of it)` : ""}, since there is no published table for this exact move.` : `StrengthLevel.com ${T.label.toLowerCase()} standards for your body weight.`)
-        + (T.u === "add" ? " Your best one-rep max (body weight plus added weight) is compared with the added-weight standard; assisted reps count as negative weight." : T.u === "sec" ? " Seconds held in one set." : " Reps in one set. Added weight counts as extra reps.");
+        + (T.u === "max" ? " The heaviest weight you carried (in each hand) is compared; women's figures are scaled from the men's table." : T.u === "add" ? " Your best one-rep max (body weight plus added weight) is compared with the added-weight standard; assisted reps count as negative weight." : T.u === "sec" ? " Seconds held in one set." : " Reps in one set. Added weight counts as extra reps.");
     } else {
       const refName = st.ref === "ohp" ? "overhead press" : st.ref;
       how = st.sl ? `StrengthLevel.com's own standards for this exercise, which come to about ${Math.round(fMid(st) * 100)}% of the ${refName} standard at Intermediate, adjusted to your body weight.`
         : est ? `A share of the ${refName} standard (about ${Math.round(fMid(st) * 100)}%). Not an official table.` : "StrengthLevel.com standards for your body weight.";
     }
+    const conv = (() => { try {
+      if (!convOn(a) || !PT.sideEligible(name) || ONE_SIDED.test(name) || st.k === "tbl") return "";
+      return (isDbMove(name) ? " Dumbbells are compared per hand: if you enter both together, it is halved." : " Machines and cables are compared as both sides together: if you enter each side, it is doubled.") + (PT.repEligible && PT.repEligible(name) ? " Total reps are halved to reps per hand." : "");
+    } catch (e) { return ""; } })();
     const best = v > 0 ? `Your best: <b class='text-white'>${esc(fmtV(a, st, v))}</b> (${kindNote(st)})` : "Not logged yet";
     const body = `<div class="space-y-3"><div class="flex items-center justify-between gap-2"><span class="text-xs text-zinc-400">${best}</span>${lv ? `<span class="shrink-0 text-sm font-black" style="color:${COLS[lv.idx]}">${lv.level}</span>` : ""}</div>${lv ? bar(lv.frac, COLS[lv.idx]) : ""}<div class="space-y-1.5">${rows}</div>
-      <p class="text-[10px] text-zinc-500 leading-relaxed">At body weight ${esc(num(fromLb(a, bw)))} ${a.wLabel()} (${sex === "female" ? "women" : "men"}). ${esc(how)}</p></div>`;
+      <p class="text-[10px] text-zinc-500 leading-relaxed">At body weight ${esc(num(fromLb(a, bw)))} ${a.wLabel()} (${sex === "female" ? "women" : "men"}). ${esc(how + conv)}</p></div>`;
     a.openSheet(name, est ? "Strength level (estimate)" : "Strength level", body, `<button type="button" class="w-full py-3 rounded-xl bg-zinc-800 text-zinc-100 font-bold text-sm tap-active" data-lv-open="${esc(name)}">Open exercise</button>`);
   }
 
@@ -19823,9 +19905,9 @@ const PTSIM = (function () {
       const w = i === marks ? n : Math.round(n * i / marks), v = Math.min(p.target, p.v + p.rate * w);
       let txt;
       if (p.u === "reps") txt = Math.ceil(v - 1e-6) + " reps";
-      else if (p.u === "sec") txt = K.fmtV(a, p.st, v);
+      else if (p.u === "sec" || p.u === "max") txt = K.fmtV(a, p.st, v);
       else {
-        const w5 = v / (1 + 5 / 30), shown = p.u === "add" ? w5 - K.bwOf(a) : w5;
+        const w5 = v / (1 + 5 / 30) / (p.u === "lb" && PT.slFactor ? PT.slFactor(a, p.nm) : 1), shown = p.u === "add" ? w5 - K.bwOf(a) : w5;
         txt = (p.u === "add" ? (shown < 0 ? "−" : "+") : "") + K.num(Math.abs(rounded(a, shown))) + " " + a.wLabel() + " × 5";
       }
       rows.push(`<div class="pt-lv-t"><span class="text-zinc-400">Week ${w}</span><span class="font-mono text-zinc-100">${esc(txt)}</span></div>`);
@@ -19845,14 +19927,14 @@ const PTSIM = (function () {
       <div class="grid grid-cols-3 gap-2 text-center"><div class="pt-lv-t flex-col"><span class="text-[10px] text-zinc-500">NOW</span><b class="text-white">${esc(pair(a, p.st, p.v, p.target)[0])}</b></div><div class="pt-lv-t flex-col"><span class="text-[10px] text-zinc-500">${esc(K.LEVELS[p.t]).toUpperCase()}</span><b style="color:${K.COLS[p.t]}">${esc(pair(a, p.st, p.v, p.target)[1])}</b></div><div class="pt-lv-t flex-col"><span class="text-[10px] text-zinc-500">TO GO</span><b class="text-white">${esc(toGo(a, p.st, p.gap))}</b></div></div>
       <p class="text-xs text-zinc-300 leading-relaxed">${when} ${esc(paceTxt)}</p>
       ${long ? "" : `<div class="space-y-1.5"><span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block">Targets along the way</span>${milestones(a, p)}</div>
-      <p class="text-[10px] text-zinc-500 leading-relaxed">${p.u === "reps" || p.u === "sec" ? "Your best single set in that week." : "A good top set that week, shown for five reps. Estimates, not promises: sleep, food and bad weeks all move it."}</p>`}</div>`;
+      <p class="text-[10px] text-zinc-500 leading-relaxed">${p.u === "reps" || p.u === "sec" || p.u === "max" ? "Your best single set in that week." : "A good top set that week, shown for five reps. Estimates, not promises: sleep, food and bad weeks all move it."}</p>`}</div>`;
     const footer = `<div class="grid gap-2">${goalOk ? `<button type="button" data-plan-goal="${esc(p.nm)}" data-plan-t="${p.t}" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm tap-active">Set as a lift goal</button>` : ""}<button type="button" data-lv-open="${esc(p.nm)}" class="w-full py-3 rounded-xl bg-zinc-800 text-zinc-100 font-bold text-sm tap-active">Open exercise</button></div>`;
     a.openSheet(p.nm, "Goal planner · " + p.lv.level + " → " + K.LEVELS[p.t], body, footer);
   }
   function setGoal(a, name, tIdx) {
     const p = plan(a, name, tIdx); if (!p || !p.target) return;
     const l = Array.isArray(a.settings.liftGoals) ? a.settings.liftGoals : [];
-    const target = Math.ceil(K.fromLb(a, p.target));
+    const target = Math.ceil(K.fromLb(a, p.target / (PT.slFactor ? PT.slFactor(a, p.nm) : 1)));
     if (l.some(g => g.name === p.nm)) { l.forEach(g => { if (g.name === p.nm) g.target = target; }); } else l.push({ name: p.nm, target });
     a.settings.liftGoals = l; save(); try { a.closeSheet(); } catch (e) { }
     a.toast(`Goal set: ${p.nm} to ${target} ${a.wLabel()} (${K.LEVELS[p.t]})`); try { a.renderProgressView(); } catch (e) { }
@@ -21942,6 +22024,13 @@ const PTSIM = (function () {
     const m = PT.sideMode(ex.name); if (m) return m;
     return weightDbn(ex) === 2 ? "each" : "total";
   }
+  /** 2.62.0: how the weight box is read for this exercise right now: "e" (each side / each hand), "t" (total) or "" (barbell, bodyweight, one-armed moves: nothing to match) */
+  PT.sideSm = (name, ex) => {
+    try {
+      const a = A(); if (!a || !name || !PT.sideEligible(name) || ONE_SIDED.test(String(name))) return "";
+      return effective(a, ex && ex.name ? ex : { name, reps: "" }) === "each" ? "e" : "t";
+    } catch (e) { return ""; }
+  };
   /** short tag for other screens (guided mode): " · each side", " · each hand", " · total", or "" when nothing is special */
   PT.sideTag = ex => {
     const a = A(); if (!a || !ex) return "";
@@ -22061,6 +22150,8 @@ const PTSIM = (function () {
   if (typeof oEts === "function") proto.entryToSet = function (ex, entry) {
     const st = oEts.apply(this, arguments);
     try { if (st && ex && ex.name && !PT.isCardioSet(st) && PT.repEligible(ex.name) && PT.repMode(ex.name) === "total") st.rm = "t"; } catch (e) { }
+    // 2.62.0: how the weight was typed (e = each side / each hand, t = total), so strength levels can match it to the standard
+    try { const sm = PT.sideSm(ex && ex.name, ex); if (sm && st && !PT.isCardioSet(st)) st.sm = sm; } catch (e) { }
     return st;
   };
   /** an estimated 1RM needs the reps of ONE hand: "total" reps are halved for it */
@@ -28062,6 +28153,50 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
         return h.replace('<ol class="space-y-1.5">', `<p class="pt-cue-desc text-xs text-zinc-400 leading-snug"><b class="text-zinc-200">What it is:</b> ${esc(c.desc)}</p><ol class="space-y-1.5">`);
     } catch (e) { console.error("PulseTrack form tips description", e); }
     return h;
+  };
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.62.0: strength levels follow your "each side / total" and "per hand / total" choices.
+ *  StrengthLevel.com counts a dumbbell move PER HAND and a machine or cable move as the TOTAL load. Your level now compares the same thing:
+ *    machine or cable, weight "Each side" -> doubled (a 30 lb stack on each side is graded as 60 lb)
+ *    dumbbells, weight "Total" -> halved (both dumbbells together are graded per hand)
+ *    reps "Total" -> halved to the reps of one hand (this part already worked, now it is on the screen)
+ *  Barbell, bodyweight, one-arm and one-leg moves are never changed. Sets saved from now on remember how the weight was typed (set.sm); older sets use the
+ *  dumbbell count saved with the exercise. Estimated 1RM, records, volume and History still show the number you typed.
+ *  Also: ~15 more exercises get their own StrengthLevel.com table (cable crunch, reverse curl, wrist curls, upright row, farmer's walk) and every
+ *  machine added in 2.61.0 has a level. Cardio, stretches, mobility, bands, jumps and sleds have no 1RM, so they have no level.
+ *  Setting: settings.slConv = false (only when turned off). Settings -> "Match strength levels".
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const A = () => window.app;
+  const $ = id => document.getElementById(id);
+
+  const oEx = proto.renderSettingsExtras;
+  if (typeof oEx === "function") proto.renderSettingsExtras = async function () {
+    const r = await oEx.apply(this, arguments);
+    try {
+      if (!$("pt-slconv-row")) {
+        const ref = $("pt-typo-row") || $("pt-dbpair-row") || $("pt-simple-row") || $("pt-resume-row") || $("pt-tabs-row") || $("pt-gym-row") || $("pt-textsize");
+        if (ref) {
+          const row = document.createElement("label");
+          row.id = "pt-slconv-row"; row.className = "flex items-center justify-between gap-3 mt-3 cursor-pointer";
+          row.innerHTML = '<span><span class="block text-xs font-bold text-zinc-100">Match strength levels</span><span class="block text-[11px] text-zinc-400">Dumbbells are graded per hand, machines and cables as both sides together, using your Each side / Total choice.</span></span><input type="checkbox" id="setting-toggle-slconv" class="accent-emerald-500 w-5 h-5 shrink-0">';
+          ref.insertAdjacentElement("afterend", row);
+          row.querySelector("input").addEventListener("change", ev => {
+            const a = A(); if (ev.target.checked) delete a.settings.slConv; else a.settings.slConv = false;
+            WorkoutStorage.saveSettings(a.settings);
+            try { if (a.renderProgressView && $("progress-body")) a.renderProgressView(); } catch (e) { }
+          });
+        }
+      }
+      const t = $("setting-toggle-slconv"), a = A(); if (t && a) t.checked = a.settings.slConv !== false;
+    } catch (e) { console.error("PulseTrack strength level match setting", e); }
+    return r;
   };
 })();
   </script>
