@@ -395,7 +395,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.60.3</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.61.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3779,7 +3779,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.60.3";
+    const APP_VERSION = "2.61.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -13432,7 +13432,7 @@ const PTSIM = (function () {
   const made = new WeakMap();
   const fromEntry = e => {
     let c = made.get(e);
-    if (!c) { c = { id: "ex:" + e.name, own: true, name: e.name, title: e.category || "This exercise", do: e.tips, avoid: e.avoid }; made.set(e, c); }
+    if (!c) { c = { id: "ex:" + e.name, own: true, name: e.name, title: e.category || "This exercise", do: e.tips, avoid: e.avoid, desc: e.desc || "" }; made.set(e, c); }
     return c;
   };
 
@@ -21869,7 +21869,7 @@ const PTSIM = (function () {
   /** one handle or one leg at a time: there is nothing to double */
   const ONE_SIDED = /single[- ]arm|one[- ]arm|single[- ]leg|one[- ]leg|unilateral|alternating|single[- ]hand/i;
   /** moves that are one load by nature (one pad, one strap, one pulley, one sled): "25 or 50?" never comes up */
-  const ONE_LOAD = /leg extension|leg curl|calf|hip abduct|hip adduct|abductor|adductor|multi-hip|kickback|pull-?through|crunch|woodchop|side bend|torso|ab coaster|pec dec|shrug|pullover|sissy|y-raise|wrist curl|\(tabata\)/i;
+  const ONE_LOAD = /leg extension|leg curl|calf|hip abduct|hip adduct|abductor|adductor|multi-hip|kickback|pull-?through|crunch|woodchop|side bend|torso|ab coaster|pec dec|shrug|pullover|sissy|y-raise|wrist curl|back extension|\(tabata\)/i;
   /** cable and machine moves that can have two stacks or plates on both sides, where "25 or 50?" really is a question (2.60.3: every one of them, not only crossovers) */
   const asks = name => {
     try {
@@ -28036,6 +28036,32 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       }
     } catch (e) { console.error("PulseTrack twists bodyweight", e); }
     return r;
+  };
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.61.0: a short "What it is" line at the top of Form tips.
+ *
+ * Exercises can carry a "desc" in exercises.js (one or two sentences on what the exercise or machine is and what it trains). The Form tips sheet shows it
+ * above the numbered steps. The machines added in 2.61.0 (the ones LA Fitness and other big gyms have: dual-axis chest press and pulldown, Hammer Strength
+ * super incline press, super fly, wide pulldown, D.Y. row and T-bar row, back extension machine, triceps press, plate-loaded lateral raise, standing hip
+ * abductor, iso-lateral leg extension, linear leg press, squat press, glute-ham raise, Precor AMT, and three Smith machine moves) all have one. Exercises
+ * without a desc look exactly as before.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof PT === "undefined" || typeof PT.cuesHtml !== "function" || typeof PT.cueFor !== "function") return;
+  const esc = s => PT.esc(s);
+  const O = PT.cuesHtml;
+  PT.cuesHtml = function (name, open) {
+    const h = O.apply(this, arguments);
+    try {
+      const c = h && PT.cueFor(name);
+      if (c && c.desc && h.indexOf('<ol class="space-y-1.5">') >= 0)
+        return h.replace('<ol class="space-y-1.5">', `<p class="pt-cue-desc text-xs text-zinc-400 leading-snug"><b class="text-zinc-200">What it is:</b> ${esc(c.desc)}</p><ol class="space-y-1.5">`);
+    } catch (e) { console.error("PulseTrack form tips description", e); }
+    return h;
   };
 })();
   </script>
