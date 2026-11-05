@@ -12,7 +12,7 @@
   const L = PT.look, K = PT.kit, esc = K.esc;
   const A = () => window.app;
   const GAL = "pt-gal";
-  let cat = "all", view = "grid", note = "";
+  let cat = "all", view = "grid", note = "", q = "";
 
   const allLooks = () => L.PRESETS.concat(L.mine());
   const labelOf = id => { const p = L.byId(id); return p ? p.label : ""; };
@@ -22,7 +22,7 @@
   /* ------------------------------------------------------------ the pieces of the screen */
   function chips() {
     const n = L.mine().length, list = L.CATS.concat([["mine", "Mine" + (n ? " (" + n + ")" : "")]]);
-    return `<div class="pt-gal-chips" role="group" aria-label="Theme groups">${list.map(c => `<button type="button" class="pt-gal-chip tap-active" data-cat="${c[0]}" aria-pressed="${cat === c[0]}">${esc(c[1])}</button>`).join("")}</div>`;
+    return `<div class="pt-gal-chips" role="group" aria-label="Theme groups">${list.map(c => `<button type="button" class="pt-gal-chip tap-active" data-cat="${c[0]}" aria-pressed="${!q.trim() && cat === c[0]}">${esc(c[1])}</button>`).join("")}</div>`;
   }
   function actions() {
     const auto = A().settings.autoLook && A().settings.autoLook.on;
@@ -34,15 +34,22 @@
   }
   function grid() {
     const cur = A().settings.preset;
-    const list = cat === "mine" ? L.mine() : cat === "all" ? L.PRESETS : L.PRESETS.filter(p => p.cat === cat);
-    if (!list.length) return `<div class="pt-gal-empty">${cat === "mine" ? "Nothing saved yet. Make a look you like, then tap Save." : "No themes here."}</div>`;
+    const needle = q.trim().toLowerCase();
+    const list = needle ? allLooks().filter(p => (p.label || "").toLowerCase().includes(needle) || (p.id || "").toLowerCase().includes(needle))
+      : cat === "mine" ? L.mine() : cat === "all" ? L.PRESETS : L.PRESETS.filter(p => p.cat === cat);
+    if (!list.length) return `<div class="pt-gal-empty">${needle ? "No theme has “" + esc(q.trim()) + "” in its name." : cat === "mine" ? "Nothing saved yet. Make a look you like, then tap Save." : "No themes here."}</div>`;
     return `<div class="pt-gal-grid">${list.map(p => `<div class="pt-gal-cell">
       <button type="button" class="pt-gal-it tap-active" data-look="${esc(p.id)}" aria-current="${cur === p.id}">${L.previewOf(p)}</button><span class="pt-gal-tick" aria-hidden="true">✓</span>
       ${p.id.startsWith("my-") ? `<button type="button" class="pt-gal-x tap-active" data-del="${esc(p.id)}" aria-label="Delete ${esc(p.label)}">✕</button>` : ""}</div>`).join("")}</div>`;
   }
+  function shuffleRow() {
+    return `<div class="pt-gal-chips" role="group" aria-label="Shuffle one thing"><span class="pt-gal-shuf">Shuffle only</span>${[["accent", "Colour"], ["bg", "Background"], ["font", "Font"], ["bgfx", "Effect"], ["round", "Corners"]].map(c => `<button type="button" class="pt-gal-chip tap-active" data-shuf="${c[0]}">${c[1]}</button>`).join("")}</div>`;
+  }
   function gridView() {
     const n = L.PRESETS.length;
-    return `<p class="text-xs text-zinc-400">${n} themes${note ? " · " + esc(note) : ""}. Tap one to use it. Anything you change after that is yours to keep with Save.</p>${actions()}${chips()}${grid()}`;
+    return `<p class="text-xs text-zinc-400">${n} themes${note ? " · " + esc(note) : " · tap one to use it"}</p>${actions()}${shuffleRow()}
+      <div id="pt-gal-sticky"><input type="search" id="pt-gal-q" placeholder="Find a theme by name" value="${esc(q)}" autocomplete="off" autocapitalize="off" spellcheck="false" enterkeyhint="search" aria-label="Find a theme by name">
+      <div id="pt-gal-chips">${chips()}</div></div><div id="pt-gal-list">${grid()}</div>`;
   }
   function codeView() {
     const code = L.codeOf(A().settings);
@@ -89,7 +96,8 @@
     paint(el);
     card.addEventListener("click", async e => {
       const t = e.target.closest("button"); if (!t) return;
-      if (t.dataset.cat) { cat = t.dataset.cat; paint(el); return; }
+      if (t.dataset.cat) { cat = t.dataset.cat; q = ""; paint(el); return; }
+      if (t.dataset.shuf) { shuffleOne(t.dataset.shuf); paint(el); return; }
       if (t.dataset.look) { if (L.apply(t.dataset.look)) { note = labelOf(t.dataset.look) + " is on"; paint(el); } return; }
       if (t.dataset.del) {
         const ok = await PT.confirm("Delete this saved look? Your other looks are not affected.", { title: "Delete " + labelOf(t.dataset.del) + "?", ok: "Delete", danger: true });
@@ -116,6 +124,13 @@
         }
       }
     });
+    card.addEventListener("input", e => {
+      if (e.target.id !== "pt-gal-q") return;
+      q = e.target.value;
+      const list = card.querySelector("#pt-gal-list"), ch = card.querySelector("#pt-gal-chips");
+      if (list) list.innerHTML = grid();
+      if (ch) ch.innerHTML = chips();
+    });
     card.addEventListener("change", e => {
       const f = e.target.closest("[data-auto]"); if (!f) return;
       const s = A().settings; s.autoLook = Object.assign({ on: false, day: "paper", night: "classic", dayAt: "07:00", nightAt: "19:30" }, s.autoLook || {});
@@ -134,10 +149,22 @@
     note = "saved as " + m.label; cat = "mine"; a.toast("Saved \"" + m.label + "\"");
     return true;
   }
+  /** change one thing only (colour, background, font, effect or corners) and keep the rest */
+  function shuffleOne(kind) {
+    const a = A(), s = a.settings, ids = list => list.map(x => x.id), mode = L.effMode(s);
+    let name = "";
+    if (kind === "accent") { const x = pick(L.ACCENTS); s.accent = x.id; delete s.accentHex; name = x.label; }
+    else if (kind === "bg") { const x = pick(mode === "light" ? L.LBGS : L.BGS); if (mode === "light") { s.bgL = x.id; delete s.bgLHex; } else { s.bg = x.id; delete s.bgHex; } name = x.label; }
+    else if (kind === "font") { const x = pick(L.FONTS); s.font = x.id; name = x.label; }
+    else if (kind === "bgfx") { const x = pick(L.FX); s.bgfx = x.id; name = x.label; }
+    else if (kind === "round") { s.round = pick(["square", "sharp", "normal", "round", "pill"]); name = s.round; }
+    else return;
+    delete s.preset; a.saveAppearance(); note = "new " + (kind === "bg" ? "background" : kind === "bgfx" ? "effect" : kind === "accent" ? "colour" : kind) + ": " + name;
+  }
   function surprise(quiet) {
     const a = A(); if (!a) return;
     const dark = Math.random() < .7, ids = list => list.map(x => x.id);
-    const s = { theme: dark ? "dark" : "light", accent: pick(ids(L.ACCENTS)), font: pick(ids(L.FONTS)), round: pick(["sharp", "normal", "normal", "round"]),
+    const s = { theme: dark ? "dark" : "light", accent: pick(ids(L.ACCENTS)), font: pick(ids(L.FONTS)), round: pick(["square", "sharp", "normal", "normal", "round", "round", "pill"]),
       card: pick(["filled", "filled", "outlined", "raised", "glass"]), btn: pick(["solid", "solid", "gradient", "soft"]),
       bgfx: pick(["solid", "solid", ...ids(L.FX)]) };
     if (dark) s.bg = pick(ids(L.BGS)); else s.bgL = pick(ids(L.LBGS));

@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.70.0*
+*Version 2.71.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **58 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **645 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -701,14 +701,14 @@ Settings is a short list of ten groups: **Workout**; **Workout Screen**; **Gyms 
 
 | Setting | Choices |
 |---|---|
-| **Theme** (65 since 2.70.0) | 65 one-tap looks in eight groups: **Dark** (Classic, Midnight, Iron, Graphite, Obsidian, Charcoal, Noir, Slate blue, Ink), **Colour** (Crimson, Royal, Candy, Lagoon, Grape, Tangerine, Citrus, Berry, Bubblegum), **Neon** (Neon, Cyberpunk, Synthwave, Toxic, Ultraviolet, Matrix, Electric), **Warm** (Sunset, Ember, Mocha, Cocoa, Gold rush, Rosewood), **Nature** (Ocean, Forest, Pine, Moss, Desert, Canyon, Tide, Glacier, Meadow), **Light** (Paper, Daylight, Sandy, Bloom, Ivory, Linen, Mist, Peachy, Lilac, Seafoam, Butter, Sage), **Retro** (Arcade, Terminal, Handheld, Newspaper, Blueprint, Vaporwave) and **Seasons** (Halloween, Christmas, Valentine, Spring, Summer, Autumn, Winter). A theme sets mode, colour, background, effect, font and style together; change any one afterwards and the rest stays. **All 65 themes** opens the gallery (below). |
+| **Theme** (304 since 2.71.0) | 304 one-tap looks in 18 groups. **Dark** (9), **Colour** (9), **Neon** (7), **Warm** (6), **Nature** (9), **Light** (12), **Retro** (6) and **Seasons** (7) are from 2.70.0; 2.71.0 adds **Gym** (22: Pump day, Leg day, PR day, Deadlift, Beast mode, Rest day, Chalk bag, WOD and more), **Pastel** (16), **Sweet** (18: Strawberry milk, Mocha latte, Matcha, Bubble tea…), **Gems** (18: Ruby, Emerald city, Opal, Onyx, Jade temple…), **Metal** (13: Gold bar, Silver, Copper pot, Titanium, Chrome…), **Space** (15: Nebula, Mars, Saturn, Northern lights, Starship…), **Mood** (18: Calm, Focus, Rage, Zen, Cozy, Hype…), **Fonts** (26, one for each new font, such as Library, Dev, Opera, Art deco, 8-bit and Handwritten), **Pure dark** (62) and **Pure light** (31): one colour each with a matching background. A theme sets mode, colour, background, effect, font and style together; change any one afterwards and the rest stays. **All 304 themes** opens the gallery (below). |
 | **Mode** | **Dark**, **Light**, or **Auto** (follows your phone and switches live). |
 | **Neater look** (2.69.0) | **On** (the default) or **Off**. On: cards are filled instead of outlined, the header and tab bar lose their boxes, dashed and coloured outlines go away, helper buttons go quiet, and a long program description folds to two lines with a **More** button. Off brings back the boxed look exactly as it was. It works with every theme, light or dark, and a theme change keeps your choice. |
-| **Accent colour** | 42 ready-made colours (24 more in 2.70.0), or the rainbow circle for your own: type a **hex code** like `#FF3366` or drag the three sliders. Colours are adjusted per mode so text stays readable. |
-| **Background** | 28 dark (Classic, True black, Midnight, Slate, Forest, Plum, Ember, Wine, Graphite, Obsidian, Navy, Deep sea, Pine, Moss, Mocha, Espresso, Rust, Indigo night, Violet night, Cherry, Steel, Warm charcoal, Mauve, Ink, Teal night, Bordeaux, Cocoa, Dusk) and 18 light (Paper, Snow, Cloud, Sand, Mint, Blush, Lavender, Stone, Ivory, Linen, Sky, Seafoam, Peach, Lilac, Butter, Mist, Rosewater, Sage). Or a **custom hex** for either (adjusted to suit the mode). Dark and light remember their own. |
-| **Background effect** | 14: **Solid**, **Glow**, **Fade**, **Aurora**, **Gradient** (two colours of your own), and from 2.70.0 **Spotlight**, **Horizon**, **Mesh**, **Dusk**, **Vignette**, **Stripes**, **Dots**, **Grid** and **Stars**. They use your accent colour. |
-| **Font** | System, Poppins, Outfit, Work Sans, Big Shoulders, Tektur, Lora and JetBrains Mono are built in and work offline. Since 2.70.0 there are six more that use the fonts already on your phone: **Condensed**, **Rounded**, **Serif**, **Mono**, **Typewriter** and **Humanist**. They cost no download, and how they look depends on the phone (they fall back to the normal font if it lacks them). |
-| **Corners** | **Sharp**, **Normal** or **Round**. |
+| **Accent colour** | 110 ready-made colours (42 in 2.70.0, 68 more in 2.71.0: Scarlet, Cherry, Hot pink, Mango, Lemon, Neon green, Acid, Turquoise, Cerulean, Periwinkle, Neon purple, Silver, Terracotta, Coffee and many more), or the rainbow circle for your own: type a **hex code** like `#FF3366` or drag the three sliders. Colours are adjusted per mode so text stays readable. |
+| **Background** | **67 dark** and **42 light**. 2.71.0 adds 39 dark (Coal, Smoke, Ash, Gunmetal, Abyss, Evergreen, Chocolate, Burnt, Maroon night, Grape night, Twilight, Cobalt night, Deep teal, Navy ink, Hot coal and more) and 24 light (Pearl, Porcelain, Oat, Almond, Cream, Vanilla, Pistachio, Celadon, Powder, Wisteria, Rose petal, Apricot, Fog, Chalk, Sea glass and more). Or a **custom hex** for either (adjusted to suit the mode). Dark and light remember their own. |
+| **Background effect** | 28: **Solid**, **Glow**, **Fade**, **Aurora**, **Gradient** (two colours of your own), **Spotlight**, **Horizon**, **Mesh**, **Dusk**, **Vignette**, **Stripes**, **Dots**, **Grid**, **Stars**, and from 2.71.0 **Rings**, **Checker**, **Sunburst**, **Plaid**, **Corners**, **Sunrise**, **Beams**, **Diamonds**, **Confetti**, **Scanlines**, **Grain**, **Twin glow**, **Waves** and **Prism**. They use your accent colour. |
+| **Font** | **40 fonts.** Built in and working offline: System, Poppins, Outfit, Work Sans, Big Shoulders, Tektur, Lora, JetBrains Mono and, new in 2.71.0, **Inter, Bricolage, Instrument Sans, Carlito, National Park, Jura, Smooch Sans, Poiret One, Arsenal SC, Erica One, Boldonse** (sans); **Plex Serif, Crimson, Caladea, Baskerville, Young Serif, Gloock, Instrument Serif, Italiana** (serif); **Plex Mono, Geist Mono, Red Hat Mono, DM Mono, Pixelify, Silkscreen** (mono and pixel); and **Handwriting**. The new ones add about 0.5 MB to the app and are all open-licence (SIL Open Font License). Six more (**Condensed, Rounded, Serif, Mono, Typewriter, Humanist, marked "phone"**) use whatever the phone already has, so they cost nothing and look a little different per phone. Boldonse and Erica One are very wide and heavy; they are for fun. |
+| **Corners** | **Square**, **Sharp**, **Normal**, **Round** or **Pill** (Square and Pill are new in 2.71.0). |
 | **Card style** (2.70.0) | **Filled** (the default), **Outlined** (a thin line round every card), **Raised** (a soft shadow) or **Glass** (see-through cards that blur the background; best with a background effect). |
 | **Buttons** (2.70.0) | The main accent buttons (Start Workout, Save and so on): **Solid**, **Gradient**, **Soft** (a tint with coloured text) or **Outline**. |
 | **Tab bar** (2.70.0) | **Labels** (the default), **Icons** (bigger icons, no words) or **Floating** (a rounded bar that hovers above the bottom edge). Under 768 px wide in portrait only; the side rail on wide screens and landscape phones is unchanged. |
@@ -722,8 +722,9 @@ In Light mode the muscle map keeps its dark body figure so the muscles stay easy
 
 **Readable on any colour (2.70.0).** Whatever accent and background you choose, custom hex colours included, accent text and the main buttons are nudged just enough to keep a readable contrast (about 4.5 to 1). The test suite checks every theme at every contrast level, and a few hundred random combinations.
 
-**The theme gallery (2.70.0).** Settings → Appearance → **All 65 themes**.
-- **Browse:** group buttons across the top (All, Dark, Light, Colour, Neon, Nature, Warm, Retro, Seasons, Mine), two small previews per row, a ✓ on the one in use. Tap one to use it.
+**The theme gallery (2.70.0).** Settings → Appearance → **All 304 themes**.
+- **Browse:** group buttons across the top (All, Dark, Light, Colour, Neon, Nature, Warm, Retro, Seasons, Gym, Pastel, Sweet, Gems, Metal, Space, Mood, Fonts, Pure dark, Pure light, Mine), two small previews per row, a ✓ on the one in use. Tap one to use it. The search box and the group buttons stay at the top while you scroll. **Find a theme by name** searches all 304 (and your saved ones).
+- **Shuffle only:** change just one thing: **Colour**, **Background**, **Font**, **Effect** or **Corners**, and keep the rest. Tap again to get another.
 - **🎲 Surprise:** a random look (colours, font, corners, card, button and effect). **Surprise me** is also on the Themes row in Appearance. Tap **Save** in the message to keep one you like.
 - **💾 Save:** names and keeps the look you have made now (up to 40). They show under **Mine**, with a ✕ to delete one. Saved looks are in your settings, so they are in backups and move to a new phone.
 - **🔗 Code:** your look as a short code starting `PT1.` to copy and send to anyone with PulseTrack (colours, font and style only, nothing private), and a box to paste a code someone sent you. A code with anything unknown in it is refused.
@@ -760,7 +761,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.70.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.71.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -798,14 +799,14 @@ Upload these to your GitHub repo, all in the same folder:
 
 | File | What it does |
 |---|---|
-| `index.html` | The whole app (about 2.5 MB, including fonts and themes). Built from `src/` since 2.68.0 |
+| `index.html` | The whole app (about 3 MB, including fonts and themes). Built from `src/` since 2.68.0 |
 | `programs.js` | The 58 built-in programs |
 | `exercises.js` | The 645 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 12 style files (`css/`), its 93 scripts (`js/`) and `VERSION` (new in 2.68.0) |
-| `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0) and `neat_borders.py` (2.69.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 94 scripts (`js/`) and `VERSION` (new in 2.68.0) |
+| `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0) and `make_fonts.py` (2.71.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
 **Update steps:** upload the changed files on GitHub → open the app online → close and reopen.
@@ -817,8 +818,8 @@ Upload these to your GitHub repo, all in the same folder:
 - **`src/index.template.html`** is the page. Wherever it says `{{file:js/...}}` or `{{file:css/...}}` inside a `<script>` or `<style>` tag, the build puts that file's text there. The order of the lines is the order the scripts run. `{{VERSION}}` is replaced by `src/VERSION`.
 - **`src/js/NNN-*.js`** are the scripts, in order. `004-app-core.js` is the app itself; each `v2.xx.x` file is one feature, added on top. The `999-` file always stays last.
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
-- **New feature:** `python3 tools/new_module.py 2.70.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
-- **New release:** `python3 tools/bump.py 2.70.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
+- **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
+- **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
 - **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
@@ -841,9 +842,20 @@ Keep every `id` unique. New programs reach phones on the next update.
 
 ## Version history
 
+**2.71.0**
+- **Way more themes: 304** (was 65), in 18 groups. New groups: **Gym** (Pump day, Leg day, PR day, Deadlift, Beast mode, Rest day…), **Pastel**, **Sweet**, **Gems**, **Metal**, **Space**, **Mood**, **Fonts** (a theme for each new font), and **Pure dark** and **Pure light** (one colour each, 93 of them, with a matching background).
+- **More colours:** 110 accent colours (was 42), 67 dark and 42 light backgrounds (was 28 and 18).
+- **More effects:** 28 (was 14). New: Rings, Checker, Sunburst, Plaid, Corners, Sunrise, Beams, Diamonds, Confetti, Scanlines, Grain, Twin glow, Waves and Prism.
+- **26 new fonts, built in** (they work offline): Inter, Bricolage, Instrument Sans, Carlito, National Park, Jura, Smooch Sans, Poiret One, Arsenal SC, Erica One, Boldonse, Plex Serif, Crimson, Caladea, Baskerville, Young Serif, Gloock, Instrument Serif, Italiana, Plex Mono, Geist Mono, Red Hat Mono, DM Mono, Pixelify, Silkscreen and Handwriting. All are open-licence (SIL OFL), cut down to Latin letters and numbers. The app grows from about 2.6 MB to about 3.1 MB. `tools/make_fonts.py` rebuilds them.
+- **Two more corner styles:** **Square** (no rounding at all) and **Pill** (very round), next to Sharp, Normal and Round.
+- **A better gallery:** a **search box** (find a theme by name), group buttons that stay put while you scroll, and **Shuffle only** buttons that change just the colour, background, font, effect or corners. Surprise now also uses the new fonts, effects and corners.
+- **Still readable on any colour:** the automatic contrast fix is a little stronger for the text on Soft and Outline buttons, and the dark end of every new accent is kept dark enough for gradient buttons.
+- `tests/themes.py` now checks all 304 themes at every contrast level and with the Gradient, Soft and Outline buttons, 400 random Surprise looks, that every built-in font loads and that none makes a screen scroll sideways, that every effect is valid CSS in dark and light, the new corner styles, the gallery search and Shuffle only.
+- The 58 programs and the 645 exercises are unchanged.
+
 **2.70.0**
 - **Many more themes: 65 in eight groups** (Dark, Colour, Neon, Warm, Nature, Light, Retro, Seasons), up from 13. Plus 42 accent colours (was 18), 28 dark and 18 light backgrounds (was 8 and 8), 14 background effects (was 5; new: Spotlight, Horizon, Mesh, Dusk, Vignette, Stripes, Dots, Grid, Stars) and six more fonts that use the fonts already on your phone (Condensed, Rounded, Serif, Mono, Typewriter, Humanist).
-- **A theme gallery.** Settings → Appearance → **All 65 themes**: browse by group, tap to use, **Surprise** for a random look, **Save** a look you made (up to 40, in backups), share a look as a short **code** and use a code someone sent you, and **Day/night** to switch between two looks at set times.
+- **A theme gallery.** Settings → Appearance → **All 304 themes**: browse by group, tap to use, **Surprise** for a random look, **Save** a look you made (up to 40, in backups), share a look as a short **code** and use a code someone sent you, and **Day/night** to switch between two looks at set times.
 - **More ways to make it yours.** New Appearance rows: **Card style** (Filled, Outlined, Raised, Glass), **Buttons** (Solid, Gradient, Soft, Outline), **Tab bar** (Labels, Icons, Floating), **Text contrast** (Soft, Normal, High), **Spacing** (Tight, Normal, Airy), **Motion** (Phone, Full, Less, Off) and **Top bar** (Full, Simple). **Reset look** puts all of them back.
 - **Readable on any colour.** Accent text and the main buttons are nudged just enough to stay readable on whatever accent and background you pick, custom colours included.
 - New `tests/themes.py`: every theme at every contrast level, every button style in light and dark, all the new options, no sideways overflow, the gallery (browse, use, save, delete, code round trip, wrong code refused, Surprise), 160 random Surprise looks, and the day/night times.

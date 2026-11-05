@@ -296,6 +296,8 @@
       const DARK_TEXT = { 50: "250 250 250", 100: "244 244 245", 200: "228 228 231", 300: "212 212 216", 400: "161 161 170", 500: "138 138 148", 600: "82 82 91" };
       const LIGHT_TEXT = { 50: "9 9 11", 100: "24 24 27", 200: "39 39 42", 300: "63 63 70", 400: "82 82 91", 500: "113 113 122", 600: "161 161 170" };
       const FX = [{ id: "solid", label: "Solid" }, { id: "glow", label: "Glow" }, { id: "fade", label: "Fade" }, { id: "aurora", label: "Aurora" }, { id: "gradient", label: "Gradient" }];
+      /** background effects added by later modules (2.71.0): id -> (lt, t, c500, ac, bg, s) => css */
+      const FX_EXT = {};
       const GRAD_QUICK = ["emerald", "sky", "sapphire", "indigo", "amethyst", "fuchsia", "crimson", "orange", "amber", "teal"];
       // One-tap looks (dark ones use bg, light ones use bgL)
       const PRESETS = [
@@ -451,6 +453,7 @@
       /** The picture painted over the page colour (glow, fade, aurora or a two-colour gradient). */
       function fxCss(s, mode, ac, bg) {
         const t = k => ac.sh[k].map(Math.round).join(" "), c500 = t(2), lt = mode === "light";
+        if (FX_EXT[s.bgfx]) return FX_EXT[s.bgfx](lt, t, c500, ac, bg, s);
         if (s.bgfx === "glow") return `radial-gradient(110% 55% at 50% -10%, rgb(${c500} / ${lt ? .2 : .26}), transparent 70%)`;
         if (s.bgfx === "fade") return `linear-gradient(180deg, rgb(${t(4)} / ${lt ? .75 : .55}) 0%, transparent 62%)`;
         if (s.bgfx === "aurora") {
@@ -500,7 +503,7 @@
       const SEGS = {
         theme:   { title: "Mode", def: "dark", opts: [{ id: "dark", label: "Dark" }, { id: "light", label: "Light" }, { id: "auto", label: "Auto" }], note: "Auto follows your phone's dark / light setting." },
         bgfx:    { title: "Background effect", def: "solid", opts: FX },
-        round:   { title: "Corners", def: "normal", opts: [{ id: "sharp", label: "Sharp" }, { id: "normal", label: "Normal" }, { id: "round", label: "Round" }] },
+        round:   { title: "Corners", def: "normal", opts: [{ id: "square", label: "Square" }, { id: "sharp", label: "Sharp" }, { id: "normal", label: "Normal" }, { id: "round", label: "Round" }, { id: "pill", label: "Pill" }] },
         neat:    { title: "Neater look", def: "on", opts: [{ id: "on", label: "On" }, { id: "off", label: "Off" }], note: "Filled cards instead of outlined boxes, a quieter header and fewer lines everywhere. Off brings back the boxed look." },
         card:    { title: "Card style", def: "filled", opts: [{ id: "filled", label: "Filled" }, { id: "outlined", label: "Outlined" }, { id: "raised", label: "Raised" }, { id: "glass", label: "Glass" }], note: "How boxes on every screen look. Glass looks best with a background effect." },
         btn:     { title: "Buttons", def: "solid", opts: [{ id: "solid", label: "Solid" }, { id: "gradient", label: "Gradient" }, { id: "soft", label: "Soft" }, { id: "outline", label: "Outline" }], note: "The main green (or your colour) buttons: Start Workout, Save, Add." },
@@ -526,7 +529,7 @@
         if (o.bgL === "custom" ? out.bgLHex : has(LBGS, o.bgL)) out.bgL = o.bgL;
         if (has(FONTS, o.font)) out.font = o.font;
         if (has(FX, o.bgfx)) out.bgfx = o.bgfx;
-        if (["sharp", "normal", "round"].includes(o.round)) out.round = o.round;
+        if (["square", "sharp", "normal", "round", "pill"].includes(o.round)) out.round = o.round;
         ["card", "btn", "nav"].forEach(k => { if (CHOICES[k].includes(o[k])) out[k] = o[k]; });
         return out;
       }
@@ -538,7 +541,7 @@
       /** the small picture of a theme (page, card, text, accent and the background effect) */
       function previewOf(p, big) {
         const st = p.s || p, mode = effMode(st), ac = accentShades(st, mode), bg = bgShades(st, mode), fx = fxCss(st, mode, ac, bg);
-        const f = FONTS.find(x => x.id === st.font) || FONTS[0], c = i => "rgb(" + ac.sh[i].map(Math.round).join(",") + ")", r = st.round === "sharp" ? "2px" : st.round === "round" ? "12px" : "7px";
+        const f = FONTS.find(x => x.id === st.font) || FONTS[0], c = i => "rgb(" + ac.sh[i].map(Math.round).join(",") + ")", r = st.round === "square" ? "0" : st.round === "sharp" ? "2px" : st.round === "round" ? "12px" : st.round === "pill" ? "16px" : "7px";
         const card = st.card === "outlined" ? `border:1px solid ${bg[4]}` : `box-shadow:${st.card === "raised" ? "0 2px 6px rgb(0 0 0 / .35)" : "none"};border:1px solid ${bg[3]}`;
         return `<span class="block overflow-hidden relative" style="height:${big ? 78 : 64}px;border-radius:${big ? 12 : 10}px;background:${bg[0]}"><span class="absolute inset-0" style="background:${fx}"></span>
           <span class="absolute left-2 right-2 top-2 h-5" style="border-radius:${r};background:${mode === "light" ? bg[1] : bg[2]};${card}"></span>
@@ -560,7 +563,8 @@
         }
       });
       PT.look = {
-        PRESETS, CATS, ACCENTS, BGS, LBGS, FONTS, FX, LOOK_KEYS, PREF_KEYS, MINE_MAX, mine, byId: lookById,
+        PRESETS, CATS, ACCENTS, BGS, LBGS, FONTS, FX, FX_EXT, LOOK_KEYS, PREF_KEYS, MINE_MAX, mine, byId: lookById,
+        util: { hx, toHex, rgb2hsl, hsl2rgb, lum, SYS },
         get SEGS() { return SEGS; }, get CHOICES() { return CHOICES; }, get CONTRAST() { return CONTRAST; },
         accentShades, bgShades, fxCss, effMode, previewOf, cleanLook, lookOf, codeOf, fromCode,
         saveMine(name) {
@@ -593,9 +597,9 @@
           {
             const crOf = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
             const nums = k => String(vars[k]).split(" ").map(Number), beds = ["--z950", "--z900", "--z850"].map(nums), toward = mode === "light" ? [0, 0, 0] : [255, 255, 255];
-            ["--a300", "--a400"].forEach(k => {
+            [["--a300", 5.6], ["--a400", 4.6]].forEach(([k, want]) => {     // a300 also colours the text of Soft and Outline buttons, which sit on a tint, so it gets more room
               let c = nums(k), n = 0;
-              while (n++ < 24 && Math.min(...beds.map(b => crOf(c, b))) < 4.6) c = c.map((v, i) => v + (toward[i] - v) * .1);
+              while (n++ < 30 && Math.min(...beds.map(b => crOf(c, b))) < want) c = c.map((v, i) => v + (toward[i] - v) * .1);
               vars[k] = c.map(Math.round).join(" ");
             });
             if (!ac.light) { let c = nums("--a600"), n = 0; while (n++ < 24 && crOf(c, [255, 255, 255]) < 4.6) c = c.map(v => v * .96); vars["--a600"] = c.map(Math.round).join(" "); }
@@ -604,7 +608,7 @@
           vars["--pt-font"] = f.stack;
           vars["--pt-fx"] = fxCss(s, mode, ac, bg);
           Object.keys(vars).forEach(k => root.style.setProperty(k, vars[k]));
-          const attrs = { "data-mode": mode, "data-round": ["sharp", "round"].includes(s.round) ? s.round : "normal", "data-density": ["compact", "roomy"].includes(s.density) ? s.density : "normal", "data-neat": neat ? "1" : "0",
+          const attrs = { "data-mode": mode, "data-round": ["square", "sharp", "round", "pill"].includes(s.round) ? s.round : "normal", "data-density": ["compact", "roomy"].includes(s.density) ? s.density : "normal", "data-neat": neat ? "1" : "0",
             "data-card": CHOICES.card.includes(s.card) ? s.card : "filled", "data-btn": CHOICES.btn.includes(s.btn) ? s.btn : "solid", "data-nav": CHOICES.nav.includes(s.nav) ? s.nav : "labels",
             "data-space": CHOICES.space.includes(s.space) ? s.space : "normal", "data-header": CHOICES.header.includes(s.header) ? s.header : "normal",
             "data-motion": CHOICES.motion.includes(s.motion) && s.motion !== "auto" ? s.motion : ((window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "less" : "full") };
@@ -756,7 +760,7 @@
           set("font", esc((FONTS.find(x => x.id === s.font) || FONTS[0]).label));
           set("neat", s.neat === "off" ? "Off" : "On");
           ["card", "btn", "nav", "header", "contrast", "space", "motion"].forEach(k => { const d = SEGS[k], o = d.opts.find(x => x.id === s[k]) || d.opts.find(x => x.id === d.def); set(k, esc(o.label)); });
-          set("round", esc(({ sharp: "Sharp", round: "Round" })[s.round] || "Normal"));
+          set("round", esc(({ square: "Square", sharp: "Sharp", round: "Round", pill: "Pill" })[s.round] || "Normal"));
           set("density", esc(({ compact: "Compact", roomy: "Roomy" })[s.density] || "Normal"));
         },
         updateAppearanceUI(ac, bg, mode) {

@@ -1,4 +1,4 @@
-"""Themes (2.70.0): 65+ themes stay readable in every mode and contrast level, the new card / button / tab-bar / spacing / motion
+"""Themes (2.70.0, grown in 2.71.0): 300+ themes stay readable in every mode and contrast level, the new card / button / tab-bar / spacing / motion
 options apply and reset, the theme gallery browses / applies / saves / shares / schedules, and nothing overflows sideways."""
 import os, sys, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -44,23 +44,30 @@ with page() as p:
     p.evaluate('app.selectProgram(app.data.programs.find(x => x.id === "frank_zane_upper_lower_4day"), null, true)')
     L = lambda js, *a: p.evaluate('(...a) => { ' + js + ' }', list(a)) if a else p.evaluate('() => { ' + js + ' }')
     n_pre = p.evaluate('PT.look.PRESETS.length')
-    c.ok(n_pre >= 60, 'at least 60 themes (%d)' % n_pre)
-    c.ok(p.evaluate('PT.look.ACCENTS.length') >= 40, 'at least 40 accent colours')
-    c.ok(p.evaluate('PT.look.FONTS.length') >= 14, 'at least 14 fonts')
+    c.ok(n_pre >= 300, 'at least 300 themes (%d)' % n_pre)
+    c.ok(p.evaluate('PT.look.ACCENTS.length') >= 100, 'at least 100 accent colours')
+    c.ok(p.evaluate('PT.look.BGS.length') >= 60 and p.evaluate('PT.look.LBGS.length') >= 40, 'at least 60 dark and 40 light backgrounds')
+    c.ok(p.evaluate('PT.look.FX.length') >= 28, 'at least 28 background effects')
+    c.ok(p.evaluate('PT.look.FONTS.length') >= 40, 'at least 40 fonts')
+    for k in ['ACCENTS', 'BGS', 'LBGS', 'FX', 'FONTS']:
+        c.ok(p.evaluate('k => new Set(PT.look[k].map(x => x.id)).size === PT.look[k].length', k), 'no repeated ids in ' + k)
     c.ok(p.evaluate('new Set(PT.look.PRESETS.map(x => x.id)).size') == n_pre, 'theme ids are unique')
     c.ok(p.evaluate('PT.look.PRESETS.every(x => PT.look.CATS.some(k => k[0] === x.cat))'), 'every theme belongs to a group')
-    c.ok(p.evaluate('PT.look.PRESETS.every(x => JSON.stringify(PT.look.cleanLook(x.s)) !== "{}" && PT.look.cleanLook(x.s).accent)'), 'every theme survives cleaning (nothing unknown in it)')
+    c.eq(p.evaluate('''() => PT.look.PRESETS.filter(x => { const o = PT.look.cleanLook(x.s); return Object.keys(x.s).some(k => o[k] !== x.s[k]); }).map(x => x.id)'''), [], 'every theme survives cleaning untouched (no unknown colour, font, effect or style in it)')
 
     stage('readable in every theme')
     # ---- readable in every theme, light and dark, at every contrast level
+    p.evaluate('() => { window.__probe = ' + PROBE + '; }')
+    rows = p.evaluate('''() => { const out = []; for (const x of PT.look.PRESETS) for (const lv of ["soft", "normal", "high"]) { PT.look.apply(x.id); app.settings.contrast = lv; app.saveAppearance(); out.push([x.id, lv, window.__probe()]); } return out; }''')
     fails = []
-    for pr in p.evaluate('PT.look.PRESETS.map(x => x.id)'):
-        for level in ['soft', 'normal', 'high']:
-            p.evaluate('([id, lv]) => { PT.look.apply(id); app.settings.contrast = lv; app.saveAppearance(); }', [pr, level])
-            r = p.evaluate(PROBE)
-            b = bad(r)
-            if level == 'soft': b = [x for x in b if not x.startswith('text-zinc-5')]  # soft is allowed to calm the faintest text
-            if b: fails.append('%s/%s: %s' % (pr, level, ', '.join(b)))
+    for pr, level, r in rows:
+        b = bad(r)
+        if level == 'soft': b = [x for x in b if not x.startswith('text-zinc-5')]  # soft is allowed to calm the faintest text
+        if b: fails.append('%s/%s: %s' % (pr, level, ', '.join(b)))
+    rows = p.evaluate('''() => { const out = []; for (const x of PT.look.PRESETS) for (const b of ["gradient", "soft", "outline"]) { PT.look.apply(x.id); app.settings.btn = b; app.saveAppearance(); out.push([x.id, b, window.__probe()]); } return out; }''')
+    for pr, btn, r in rows:
+        b = bad(r)
+        if b: fails.append('%s/%s button: %s' % (pr, btn, ', '.join(b)))
     for f in fails[:40]: print('   ', f)
     c.ok(not fails, 'every theme is readable at every contrast level (%d problems)' % len(fails))
 
@@ -118,11 +125,33 @@ with page() as p:
             c.ok(p.evaluate('document.documentElement.scrollWidth - document.documentElement.clientWidth') <= 0, 'no sideways overflow: %s with %s' % (v, json.dumps(combo)))
     p.evaluate('app.resetLook(); app.showView("home")')
 
+    stage('every font loads and fits')
+    fams = p.evaluate('''() => PT.look.FONTS.map(f => [f.id, (/^"([^"]+)"/.exec(f.stack) || [])[1] || ""]).filter(x => x[1].startsWith("PT "))''')
+    c.ok(len(fams) >= 33, 'the built-in fonts are listed (%d)' % len(fams))
+    notloaded = p.evaluate('''async (fams) => { const bad = []; for (const [id, fam] of fams) { try { await document.fonts.load('16px "' + fam + '"'); } catch (e) {} if (!document.fonts.check('16px "' + fam + '"')) bad.push(id); } return bad; }''', fams)
+    c.eq(notloaded, [], 'every built-in font file loads')
+    wide = p.evaluate('''async (fams) => {
+      const out = [], ids = ["home", "programs", "workout", "history", "progress"], w = () => document.documentElement.scrollWidth - document.documentElement.clientWidth;
+      for (const [id] of fams) { app.resetLook(); app.settings.font = id; app.saveAppearance();
+        for (const v of ids) { app.showView(v); await new Promise(r => setTimeout(r, 50)); if (w() > 0) { out.push(id + "@" + v); break; } } }
+      return out; }''', fams)
+    c.eq(wide, [], 'no font makes a screen scroll sideways')
+    p.evaluate('app.resetLook(); app.showView("home")')
+    bad_fx = p.evaluate('''() => { const out = []; for (const f of PT.look.FX) for (const mode of ["dark", "light"]) {
+      const s = { theme: mode, accent: "emerald", bgfx: f.id }, ac = PT.look.accentShades(s, mode), bg = PT.look.bgShades(s, mode), v = PT.look.fxCss(s, mode, ac, bg);
+      if (f.id !== "solid" && (!v || v === "none")) out.push(f.id + "/" + mode + " empty"); else if (!CSS.supports("background", v)) out.push(f.id + "/" + mode + " invalid"); } return out; }''')
+    c.eq(bad_fx, [], 'every background effect makes valid CSS in dark and light')
+    # corners
+    for rd, test in [('square', lambda r: r == 0), ('sharp', lambda r: 0 < r <= 8), ('normal', lambda r: 8 < r <= 14), ('round', lambda r: 14 < r <= 24), ('pill', lambda r: r > 24)]:
+        r = p.evaluate('''(rd) => { app.settings.round = rd; app.saveAppearance(); const e = document.createElement("div"); e.className = "rounded-xl"; document.body.appendChild(e); const v = parseFloat(getComputedStyle(e).borderTopLeftRadius); e.remove(); return v; }''', rd)
+        c.ok(test(r), 'corners %s on a rounded-xl box (%spx)' % (rd, r))
+    p.evaluate('app.resetLook()')
+
     stage('the gallery')
     # ---- the gallery
     p.evaluate('PT.look.openGallery()'); p.wait_for_selector('#pt-gal:not(.hidden) .pt-gal-it')
     c.eq(p.locator('#pt-gal .pt-gal-it').count(), n_pre, 'the gallery shows every theme')
-    c.eq(p.locator('#pt-gal .pt-gal-chip').count(), p.evaluate('PT.look.CATS.length') + 1, 'a group button for each group, plus Mine')
+    c.eq(p.locator('#pt-gal-chips .pt-gal-chip').count(), p.evaluate('PT.look.CATS.length') + 1, 'a group button for each group, plus Mine')
     p.locator('#pt-gal .pt-gal-chip[data-cat="neon"]').click()
     want = p.evaluate('PT.look.PRESETS.filter(x => x.cat === "neon").length')
     c.eq(p.locator('#pt-gal .pt-gal-it').count(), want, 'a group shows only its own themes (%d)' % want)
@@ -131,6 +160,26 @@ with page() as p:
     p.locator('#pt-gal .pt-gal-it').first.click()
     c.eq(p.evaluate('app.settings.preset'), first, 'tapping a theme uses it')
     c.eq(p.locator('#pt-gal .pt-gal-it[aria-current="true"]').count(), 1, 'the one in use is marked')
+    # search and shuffle
+    p.fill('#pt-gal-q', 'scarlet')
+    n_hit = p.locator('#pt-gal .pt-gal-it').count()
+    c.ok(n_hit >= 1 and p.evaluate('[...document.querySelectorAll("#pt-gal .pt-gal-it")].every(b => (PT.look.byId(b.dataset.look).label + b.dataset.look).toLowerCase().includes("scarlet"))'), 'search finds themes by name (%d)' % n_hit)
+    p.fill('#pt-gal-q', 'zzzzqq'); c.ok('has' in p.inner_text('#pt-gal .pt-gal-empty'), 'search with no match says so')
+    p.fill('#pt-gal-q', ''); c.eq(p.locator('#pt-gal .pt-gal-it').count(), p.evaluate('PT.look.PRESETS.filter(x => x.cat === "neon").length'), 'clearing the search brings the group back')
+    seen_acc = set()
+    for _ in range(8):
+        p.locator('#pt-gal [data-shuf="accent"]').click(); seen_acc.add(p.evaluate('app.settings.accent'))
+    c.ok(len(seen_acc) > 3, 'Shuffle colour picks different colours (%d)' % len(seen_acc))
+    c.eq(p.evaluate('app.settings.preset'), None, 'shuffling one thing makes it your own look (no theme name)')
+    for k, key in [('bg', 'bg'), ('font', 'font'), ('bgfx', 'bgfx'), ('round', 'round')]:
+        before = p.evaluate('k => app.settings[k]', key)
+        ch = False
+        for _ in range(12):
+            p.locator('#pt-gal [data-shuf="%s"]' % k).click()
+            if p.evaluate('k => app.settings[k]', key) != before: ch = True; break
+        c.ok(ch, 'Shuffle %s changes it' % k)
+    p.locator('#pt-gal .pt-gal-chip[data-cat="neon"]').click()
+    p.locator('#pt-gal .pt-gal-it').first.click()
     # save, find under Mine, delete
     p.evaluate('app.settings.round = "round"; app.saveAppearance()')
     p.evaluate('() => { window.__s = PT.prompt; PT.prompt = async () => "Test look"; }')
@@ -168,13 +217,10 @@ with page() as p:
 
     stage('every random Surprise')
     # ---- every random Surprise is readable
-    sf = []
-    for i in range(160):
-        p.evaluate('() => { PT.look.surprise(); }')
-        b = bad(p.evaluate(PROBE))
-        if b: sf.append('%s: %s' % (p.evaluate('JSON.stringify(PT.look.lookOf(app.settings))'), ', '.join(b)))
+    rows = p.evaluate('''() => { const out = []; for (let i = 0; i < 400; i++) { PT.look.surprise(); out.push([JSON.stringify(PT.look.lookOf(app.settings)), window.__probe()]); } return out; }''')
+    sf = ['%s: %s' % (look, ', '.join(bad(r))) for look, r in rows if bad(r)]
     for f in sf[:10]: print('   ', f)
-    c.ok(not sf, 'random Surprise looks are all readable (%d of 160 not)' % len(sf))
+    c.ok(not sf, 'random Surprise looks are all readable (%d of 400 not)' % len(sf))
 
     stage('day & night')
     # ---- day & night
