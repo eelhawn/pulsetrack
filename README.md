@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.65.1*
+*Version 2.66.0*
 
-PulseTrack installs to your home screen like a normal app. It comes with **56 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **645 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **58 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **645 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
 ## Contents
 
@@ -60,7 +60,7 @@ Android updates on the first refresh. iPhone can be slower: if you don't see the
 
 The **Workout** tab along the bottom (next to Home, History and Progress) opens this page, with all the programs, **Build me a program**, the playlist and the rest. If a workout is running, the tab takes you back to it from another tab, and tapping it again while you are on the workout (or the day list) goes up to this page.
 
-### Built in (56)
+### Built in (58)
 
 **12-week plans, week by week:** Phil Heath, Lou Ferrigno, Arnold Schwarzenegger, Dorian Yates (Blood & Guts), Mountain Dog 200-Rep (John Meadows), Jay Cutler, Ronnie Coleman, Kris Gethin Legacy Fat Loss Trainer, Kris Gethin 12 Weeks to Muscle.
 
@@ -73,7 +73,7 @@ The **Workout** tab along the bottom (next to Home, History and Progress) opens 
 - HIIT 100's fat-loss program (36 workouts)
 - Kai Greene: Beast of the Beach (6 weeks)
 - Kris Gethin DTP 4-Day Split
-- Arnold Blueprint to Mass and to Cuts
+- Arnold Blueprint: Phase 1 + Phase 2 (one 8-week program)
 - Bulk with Buendia and Shred with Buendia
 - USN 5 Day Mass Plan
 - 6-Day Upper/Lower Split (High Volume)
@@ -138,6 +138,10 @@ The two **collections** are not weekly plans. Each "day" is one athlete's signat
 | Lee Priest | Full Body + Arm Day | Three full-body days plus his superset arm workout | BarBend, Set For Set |
 | Ronnie Coleman | Back & Leg Specialization | Thickness and width back days, two leg days | Fitness Volt |
 | Ronnie Coleman | 6-On, 1-Off Split | His own week: back + biceps, chest + triceps, legs, shoulders, back + biceps, chest + triceps, rest. The split is his; the 54 exercises are our pick from his documented lifts, 12 weeks, same week repeated | Men's Health UK (his Instagram video with Jeremy Ethier), Generation Iron, Built for Athletes, Fitness Volt, Iron Man magazine, Hunt Fitness |
+| Ronnie Coleman | Olympia Powerbuilding (4 Days) | Back + biceps, chest + triceps, shoulders + traps + calves, legs; sets of 2 on deadlift and squat. 4 weeks (the page shows week 1, which repeats); rests are 1:00 as listed, 3 minutes on the heavy sets of 2 (ours) | Exercise.com |
+| Ronnie Coleman | High-Rep 6-Day Split | Legs twice, back + triceps, shoulders, chest + biceps, chest + triceps + abs; 15-20 reps. The version that circulates, 'not an exact replica' by DMoose's own words; rests and the 12 weeks are ours | Jacked Gorilla, DMoose |
+| Ronnie Coleman-Inspired | 4-Day Upper/Lower | Not his routine: Set For Set's adaptation for average lifters, two upper and two lower days; weekdays, rests and the 12 weeks are ours | Set For Set |
+| Arnold Schwarzenegger | Blueprint: Phase 1 + Phase 2 | The two Blueprint programs that were already in the app, joined: weeks 1-4 Phase 1 (Blueprint to Mass), weeks 5-8 Phase 2 (Blueprint to Cut), six days a week. Nothing in the workouts changed | the two programs already in the app |
 | Nick Walker | Weekly Split | Legs, push, pull, legs, mixed; the source lists exercises only, so sets and reps are ours | Fitness Volt |
 | Kai Greene | 5-Day Body-Part Split | High volume, calves twice a week | Lift Vault |
 | Vince Gironda | 10-8-6-15 Method | Upper/lower; 4 sets at 10, 8, 6 and 15 reps off your 6-rep max | Lift Vault (Iron and Grit) |
@@ -209,7 +213,7 @@ Your **current program** is the one that Home, the side menu and **Start Workout
 - **Switch week** opens a grid of the weeks. Tap the one you are on: earlier weeks are marked done and **Up next** jumps there. Going back to an earlier week works the same way. Your saved workouts and PRs are never changed.
 - This works for every program that is laid out week by week: the 12-week plans, Kris Gethin 12 Weeks to Muscle and Legacy 12-Week, FST-7 Big and Ripped, both Jim Stoppani 6-week programs, the programs that repeat a few days over several weeks (Kai Greene 6 weeks: days 1-6 for weeks 1-3, days 7-12 for weeks 4-6; FST-7 Level 1: weeks 1 and 3 use days 1-5, weeks 2 and 4 use days 6-10), and, since 2.48.0, almost everything else (below). For those, the plan stays on the first set of days until you finish them, then moves to the next week.
 - **Longer programs (new in 2.48.0).** The programs that used to be one week on repeat now run for several weeks, so the week bar counts a real plan (**Week 6 of 12 · Build**) and the days list has headers like **Weeks 5-8 · Build**. Which weeks are real and which are ours is spelled out in each program's description:
-  - **Weeks as published.** Shred with Buendia is 8 weeks (Phase 1 is weeks 1-4, Phase 2 is weeks 5-8). Arnold's Blueprint to Mass phase 1 and Blueprint to Cuts phase 2 are 4 weeks each (Cuts is now six days a week: Monday/Thursday, Tuesday/Friday and Wednesday/Saturday repeat). Frank Zane's beginner routine is 8 weeks: one set of every exercise for weeks 1-3, then two sets, as his manual says.
+  - **Weeks as published.** Shred with Buendia is 8 weeks (Phase 1 is weeks 1-4, Phase 2 is weeks 5-8). Arnold's Blueprint is one 8-week program: Phase 1 (from his Blueprint to Mass) is weeks 1-4 and Phase 2 (from his Blueprint to Cut) is weeks 5-8, six days a week each (in Phase 2 Monday/Thursday, Tuesday/Friday and Wednesday/Saturday repeat). Frank Zane's beginner routine is 8 weeks: one set of every exercise for weeks 1-3, then two sets, as his manual says.
   - **Weeks that PulseTrack adds.** The original sources only describe one week or a few weeks, so for the rest we added a plain progression and say so in the description. In the 12-week programs, weeks 1-4 are the routine exactly as published. **Build** (weeks 5-8) adds a set to the first two lifts of each day (never above 5 sets) and two reps to the other plain lifts. **Push** (weeks 9-11) goes back to the published sets but heavier on the first two lifts (two fewer reps, 20 s more rest). **Deload** (week 12) is about 60% of the sets, so go lighter. Jay Cutler's 4-day split is 8 weeks the same way (4 as published, 3 Build, 1 Deload).
   - **Method programs are left alone.** Layne Norton's PHAT, Kris Gethin's DTP split, Super Shredded 8, Vince Gironda's 8x8 (6 weeks plus an easy week) and 10-8-6-15 (8 weeks) keep every set and rep as published, with just an easy final week. Arnold's Golden Six is the same three workouts for 12 weeks (the length is our choice), adding weight whenever you hit all the reps. Anything that is part of a method (8x8, FST-7 finishers, pyramids like 10, 8, 6, 15, drop sets, Tabata, AMRAP) is never changed in any program.
   - A day that would come out the same in a later phase is simply reused, so the days list only shows what really changes. Progress you already had is kept: a "Week 3" counter becomes week 3 of the plan.
@@ -725,7 +729,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.65.1 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.66.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -749,6 +753,9 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 - Phil Heath Phase 3: cardio has no time listed.
 - Ronnie Coleman: crunches have no sets or reps listed.
 - Ronnie Coleman 6-On, 1-Off Split: the video report names the muscle groups only, so the exercises, sets and reps come from other write-ups of his training (Generation Iron, Built for Athletes, Fitness Volt, Iron Man magazine, Hunt Fitness). Only the 20 steps on the walking lunges (the sources say about 30 meters a set) and the 12 weeks are ours. Calves sit on his leg day here; in the write-ups they were on Saturday.
+- Ronnie Coleman Olympia Powerbuilding: Exercise.com presents it as his regimen and lists it as 4 weeks, but its page shows week 1 only, so that week repeats. Exercise.com gives every exercise 1:00 rest; the sets of 2 on the deadlift and squat get 3 minutes here.
+- Ronnie Coleman High-Rep 6-Day Split: it is the routine Jacked Gorilla and DMoose publish; neither names an original source and DMoose calls it 'not an exact replica'. Where a source says '3-4 sets' the lower number is used; rest times and the 12 weeks are ours.
+- Ronnie Coleman-Inspired 4-Day Upper/Lower: Set For Set wrote it, not Coleman. The site gives four workouts without weekdays or rest times; both are ours, and so are the 12 weeks.
 
 ---
 
@@ -761,7 +768,7 @@ Upload these to your GitHub repo, all in the same folder:
 | File | What it does |
 |---|---|
 | `index.html` | The whole app (about 1.8 MB, including fonts and themes) |
-| `programs.js` | The 56 built-in programs |
+| `programs.js` | The 58 built-in programs |
 | `exercises.js` | The 645 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
@@ -786,6 +793,12 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.66.0**
+- **Arnold's Blueprint, Phase 1 and Phase 2 in one program.** "Arnold Blueprint to Mass: Phase 1" and "Arnold Blueprint to Cuts: Phase 2" are now one 8-week program: weeks 1-4 are Phase 1 and weeks 5-8 are Phase 2, six days a week. Every exercise, set, rep and rest is exactly as it was. Day titles start with "Phase 1 -" or "Phase 2 -", and Phase 2's "Monday & Thursday" days are now named one day each. The description says that Phase 2 comes from his Blueprint to Cut, so the program builds first and then leans out; the Blueprint to Mass has a Phase 2 of its own that is not in the app.
+- A phone that already has the two old Arnold programs keeps them (nothing on a phone is deleted) and gets the combined one next to them; delete the old two from the Programs list when you like. A new phone gets only the combined one.
+- **Three more Ronnie Coleman programs.** Olympia Powerbuilding (4 days, Exercise.com's plan with sets of 2 on the deadlift and squat), a High-Rep 6-Day Split (the version Jacked Gorilla and DMoose publish) and a Coleman-Inspired 4-Day Upper/Lower (Set For Set's own adaptation, not his routine). Each description says where its numbers come from and which are ours.
+- The program count goes from 56 to 58: three new programs, and two merged into one. The 645 exercises are unchanged.
 
 **2.65.1**
 - **More of Ronnie Coleman's own exercises in the 6-On, 1-Off Split.** I searched out what he is documented doing and worked it into the week: 54 exercises now, up from 41. Back days add behind-the-neck pulldowns, pullovers, hammer curls and more curls; chest days add dumbbell flyes on the flat bench, decline dumbbell presses and pushdowns; legs become one full day (leg extension warm-up, a 12-10-8-4-2 squat pyramid, leg press, hack squat, walking lunges, three hamstring lifts, standing and seated calf raises); shoulders now have his machine lateral raise and press superset, rear-delt cable flyes and behind-the-back shrugs. Sources: Generation Iron, Built for Athletes, Fitness Volt, Iron Man magazine (2005) and Hunt Fitness. A phone that already has the 2.65.0 copy gets the new list by itself the next time the app starts online, as long as you have not edited that program; a copy you edited is left alone.
