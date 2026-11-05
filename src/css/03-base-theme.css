@@ -1,0 +1,59 @@
+
+    :root { --a300:110 231 183; --a400:52 211 153; --a500:16 185 129; --a600:4 123 86; --a800:6 95 70; --a950:2 44 34;
+      --z50:250 250 250; --z100:244 244 245; --z200:228 228 231; --z300:212 212 216; --z400:161 161 170; --z500:138 138 148; --z600:82 82 91;
+      --z700:63 63 70; --z800:39 39 42; --z850:24 24 27; --z900:18 18 21; --z950:9 9 11;
+      --pt-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+    .set-row { touch-action: pan-y; }
+    * {
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      box-sizing: border-box;
+    }
+    input, textarea {
+      user-select: text;
+    }
+    body {
+      background-color: rgb(var(--z950));
+      color: #f4f4f5;
+      font-family: var(--pt-font);
+      padding-top: env(safe-area-inset-top);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .view-transition {
+      transition: opacity 0.18s ease-in-out, transform 0.18s ease-in-out;
+    }
+    .hide-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .hide-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+    .tap-active:active {
+      transform: scale(0.97);
+    }
+    @keyframes prGlow {
+      0%, 100% { opacity: 0.9; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.08); }
+    }
+    .pr-glow-badge {
+      animation: prGlow 2s ease-in-out infinite;
+    }
+    /* Row / card animations */
+    @keyframes rowIn {
+      from { opacity: 0; max-height: 0; transform: translateY(-6px); }
+      to   { opacity: 1; max-height: 80px; transform: translateY(0); }
+    }
+    .anim-enter { animation: rowIn 0.25s ease-out; overflow: hidden; }
+    .anim-exit {
+      opacity: 0;
+      max-height: 0 !important;
+      padding-top: 0 !important;
+      padding-bottom: 0 !important;
+      margin-top: 0 !important;
+      margin-bottom: 0 !important;
+      border-width: 0 !important;
+      overflow: hidden;
+      transition: max-height 0.22s ease, opacity 0.18s ease, padding 0.22s ease, margin 0.22s ease, border-width 0.22s ease;
+    }
+  

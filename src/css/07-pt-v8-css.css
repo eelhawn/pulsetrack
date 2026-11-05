@@ -1,0 +1,46 @@
+
+    /* ---- rows that open and close (Settings groups, Appearance parts, form cues) ---- */
+    details > summary { list-style: none; }
+    details > summary::-webkit-details-marker { display: none; }
+    details > summary::marker { content: ""; }
+    .pt-chev { display: inline-block; font-size: 1.1rem; line-height: 1; color: rgb(var(--z500)); transition: transform .15s ease; }
+    details[open] > summary .pt-chev { transform: rotate(90deg); }
+    details.pt-sub > summary, details.pt-acc > summary { display: flex; align-items: center; gap: .6rem; padding: .85rem .9rem; cursor: pointer; min-height: 3rem; }
+    details.pt-sub > summary:active, details.pt-acc > summary:active { background: rgb(var(--z900)); }
+    .pt-sub-body { padding: .15rem .9rem .95rem; }
+    .pt-sum { display: inline-flex; align-items: center; font-size: .72rem; font-weight: 600; color: rgb(var(--z400)); white-space: nowrap; max-width: 55%; overflow: hidden; text-overflow: ellipsis; }
+    .pt-dot { display: inline-block; width: .7rem; height: .7rem; border-radius: 999px; margin-right: .4rem; border: 1px solid rgb(var(--z700)); flex: none; }
+    details.pt-acc { border: 1px solid rgb(var(--z800)); border-radius: .9rem; background: rgb(var(--z950)); overflow: hidden; }
+    details.pt-acc > summary .pt-acc-t { font-size: .8rem; font-weight: 800; color: rgb(var(--z50)); }
+    details.pt-acc > summary .pt-acc-h { display: block; font-size: .7rem; font-weight: 500; color: rgb(var(--z400)); margin-top: .1rem; }
+    details.pt-acc > .pt-acc-body { border-top: 1px solid rgb(var(--z800)); }
+    details.pt-acc.pt-acc-danger { border-color: rgba(159, 18, 57, .45); }
+    #modal-settings .pt-acc-body > .bg-zinc-950, #modal-settings .pt-acc-body > button { margin: 0; border: 0; border-radius: 0; }
+    /* ---- Progress tabs ---- */
+    #pt-ptabs { margin-bottom: .25rem; }
+    /* ---- Home: calmer ---- */
+    #home-banners [data-banner] { padding: .5rem .75rem; align-items: center; gap: .6rem; }
+    #home-banners [data-banner] > div:last-child { flex-direction: row; gap: .35rem; }
+    #home-banners [data-banner] > div:last-child > button { padding: .4rem .7rem; font-size: .72rem; }
+    #home-banners [data-banner] ~ [data-banner] { display: none; }
+    #view-home .grid.grid-cols-3 > button { padding: .6rem .7rem; gap: .35rem; }
+    #view-home .grid.grid-cols-3 > button > span:first-child { width: 1.75rem; height: 1.75rem; font-size: .85rem; border-radius: .55rem; }
+    #view-home .grid.grid-cols-3 > #tile-rm, #view-home .grid.grid-cols-3 > #tile-plates, #view-home .grid.grid-cols-3 > #tile-myex { flex-direction: row; align-items: center; padding: .45rem .55rem; gap: .45rem; }
+    #view-home .grid.grid-cols-3 > #tile-rm > span:first-child, #view-home .grid.grid-cols-3 > #tile-plates > span:first-child, #view-home .grid.grid-cols-3 > #tile-myex > span:first-child { width: 1.4rem; height: 1.4rem; font-size: .7rem; border-radius: .4rem; }
+    #view-home .grid.grid-cols-3 > #tile-rm > span:last-child, #view-home .grid.grid-cols-3 > #tile-plates > span:last-child, #view-home .grid.grid-cols-3 > #tile-myex > span:last-child { font-size: .66rem; line-height: 1.15; }
+    #trophy-room > .pt-empty { padding: .1rem 0; }
+    #trophy-room > .pt-empty > div:nth-child(n+2) { display: none; }
+    /* ---- Workout cards: quieter ---- */
+    [data-ex-card] .btn-swap-ex, [data-ex-card] .btn-delete-ex, [data-ex-card] .btn-link-ex:not(.bg-purple-600) { background: transparent !important; padding: .4rem; }
+    [data-ex-card] .btn-delete-ex:active { background: rgba(244, 63, 94, .18) !important; }
+    .pt-note-line { font-size: .72rem; line-height: 1.35; color: rgb(var(--z400)); padding-left: .55rem; border-left: 2px solid rgb(var(--z700)); }
+    .pt-tip-line { font-size: .72rem; line-height: 1.35; font-weight: 600; padding-left: .55rem; border-left: 2px solid; }
+    .pt-tip-up { color: rgb(var(--a300)); border-color: rgb(var(--a500) / .6); }
+    .pt-tip-warn { color: #fcd34d; border-color: rgba(217, 119, 6, .7); }
+    html[data-mode="light"] .pt-tip-warn { color: #b45309; }
+    .pt-tip-plain { color: rgb(var(--z300)); border-color: rgb(var(--z700)); }
+    /* ---- Body ---- */
+    #bf-more > summary { display: flex; align-items: center; justify-content: space-between; padding: .65rem .8rem; cursor: pointer; font-size: .72rem; font-weight: 700; color: rgb(var(--z300)); }
+    #bf-more[open] > summary .pt-chev { transform: rotate(90deg); }
+    .pt-cues > summary:active { background: rgb(var(--z900)); border-radius: .75rem; }
+  

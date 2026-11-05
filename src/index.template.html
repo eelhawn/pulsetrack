@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="theme-color" content="#09090b">
+  <script>{{file:js/001-theme-cache.js}}</script>
+  <title>PulseTrack Mobile Workout PWA</title>
+
+  <!-- Tailwind CSS, compiled and built in so styling never needs the internet -->
+  <style id="tailwind-css">{{file:css/01-tailwind-css.css}}</style>
+
+  <!-- External Exercise Database -->
+  <script src="./exercises.js"></script>
+  <!-- Built-in programs shipped to everyone -->
+  <script src="./programs.js"></script>
+  <script id="pt-storage">{{file:js/002-pt-storage.js}}</script>
+
+  <style id="pt-fonts">{{file:css/02-pt-fonts.css}}</style>
+  <style>{{file:css/03-base-theme.css}}</style>
+
+  <!-- Direct Embedded Manifest & Icon -->
+  <link rel="manifest" href="manifest.json?v=9">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIGZpbGw9IiMxMGI5ODEiLz48dGV4dCB4PSIyNTYiIHk9IjMwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAwIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzA5MDkwYiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UFQ8L3RleHQ+PC9zdmc+">
+
+  <!-- Register the Service Worker -->
+  <script>{{file:js/003-service-worker-register.js}}</script>
+</head>
+<body class="bg-zinc-950 min-h-screen text-zinc-100 flex flex-col justify-between">
+
+  <!-- Core Global Navigation Header -->
+  <header class="sticky top-0 z-30 bg-zinc-900/90 backdrop-blur-md border-b border-zinc-800/80 px-4 py-3">
+    <div class="max-w-xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-2.5 overflow-hidden">
+        <button id="btn-open-drawer" class="p-2 rounded-lg bg-zinc-800 text-zinc-300 hover:text-white tap-active" aria-label="Open Navigation Drawer">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <button id="nav-back-btn" class="hidden p-2 rounded-lg bg-zinc-800 text-zinc-300 tap-active" aria-label="Go Back">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+        </button>
+        <div class="flex flex-col truncate">
+          <h1 id="header-title" class="text-base font-bold tracking-tight text-white truncate">PulseTrack</h1>
+          <span id="header-breadcrumb" class="text-xs text-zinc-400 truncate">Dashboard</span>
+        </div>
+      </div>
+      
+      <div class="flex items-center space-x-2">
+        <!-- Live Session Stopwatch Display -->
+        <button type="button" id="session-stopwatch-badge" class="hidden items-center gap-1.5 px-2.5 py-1.5 rounded-full bg-emerald-950/80 border border-emerald-800/80 text-emerald-400 font-mono text-xs font-bold tap-active" aria-label="Workout timer. Tap to pause, resume or stop.">
+          <span class="pt-ic pt-ic-run"></span>
+          <span id="session-stopwatch-display">00:00</span>
+        </button>
+
+        <!-- Quick Plate Calculator Icon -->
+        <button id="btn-header-plate-calc" class="p-2 rounded-lg bg-zinc-800 text-zinc-300 hover:text-white tap-active" aria-label="Plate Calculator" title="Barbell Plate Calculator">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 6h2m14 0h2M6 4v4m12-4v4M8 6h8M4 18h2m14 0h2M6 16v4m12-4v4M8 18h8M7 10h10v4H7z"/></svg>
+        </button>
+
+        <!-- Settings Button -->
+        <button id="btn-open-settings" class="p-2 rounded-lg bg-zinc-800 text-zinc-300 hover:text-white tap-active" aria-label="Data Settings">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Side Navigation Drawer Backdrop -->
+  <div id="drawer-backdrop" class="fixed inset-0 bg-black/75 z-50 transition-opacity duration-300 opacity-0 pointer-events-none"></div>
+
+  <!-- Slide-Out Sidebar / Menu -->
+  <aside id="side-drawer" class="fixed top-0 bottom-0 left-0 w-80 max-w-[88vw] bg-zinc-900 border-r border-zinc-800 z-50 transform -translate-x-full transition-transform duration-300 flex flex-col justify-between overflow-y-auto hide-scrollbar">
+    <div class="p-5 space-y-5">
+      
+      <!-- Drawer Header -->
+      <div class="flex items-center justify-between pb-3 border-b border-zinc-800">
+        <div class="flex items-center space-x-2.5">
+          <span class="w-8 h-8 rounded-xl bg-emerald-600 flex items-center justify-center font-black text-white text-base">P</span>
+          <div>
+            <h2 class="text-sm font-bold text-white leading-tight">PulseTrack Pro</h2>
+            <span class="text-[11px] text-zinc-400">Athletic Training Suite</span>
+          </div>
+        </div>
+        <button id="btn-close-drawer" aria-label="Close menu" class="p-1.5 rounded-lg bg-zinc-800 text-zinc-400 hover:text-white tap-active">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Current program: the one thing most people open the menu for -->
+      <div id="drawer-active-program-card" class="pt-dcard cursor-pointer tap-active">
+        <div class="flex items-center justify-between gap-2">
+          <span id="drawer-active-badge" class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/60">ACTIVE</span>
+          <span id="drawer-active-day-label" class="text-xs font-mono text-zinc-400">Day 1</span>
+        </div>
+        <h3 id="drawer-active-program-title" class="text-sm font-bold text-white truncate">6-Weeks to Massive Arms</h3>
+        <p id="drawer-active-subtext" class="text-[11px] text-zinc-400">Tap to continue active workout</p>
+      </div>
+
+      <!-- Start something -->
+      <div class="space-y-1.5">
+        <span class="pt-dh">Quick actions</span>
+        <div class="grid grid-cols-3 gap-2">
+          <button data-nav="empty" class="drawer-nav pt-dq tap-active"><span class="pt-dq-i">➕</span><span>Empty workout</span></button>
+          <button type="button" id="pt-drawer-build" class="pt-dq tap-active"><span class="pt-dq-i">🛠️</span><span>Build a workout</span></button>
+          <button type="button" id="pt-drawer-search" class="pt-dq tap-active"><span class="pt-dq-i">🔍</span><span>Search</span></button>
+        </div>
+      </div>
+
+      <!-- Pages -->
+      <nav class="space-y-0.5" aria-label="Pages">
+        <span class="pt-dh block pb-1">Menu</span>
+        <button data-nav="home" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">🏠</span><span class="pt-dr-l">Home</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
+        <button data-nav="programs" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">📂</span><span class="pt-dr-l">Programs</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
+        <button data-nav="history" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">🗓️</span><span class="pt-dr-l">History</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
+        <button data-nav="progress" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">📈</span><span class="pt-dr-l">Progress</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
+        <button data-nav="library" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">📚</span><span class="pt-dr-l">Exercise Library</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
+        <button type="button" id="pt-drawer-myex" class="pt-dr tap-active"><span class="pt-dr-i">✏️</span><span class="pt-dr-l">My Exercises</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
+        <button data-nav="body" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">⚖️</span><span class="pt-dr-l">Body &amp; Photos</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
+        <button data-nav="cardio" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">🏃</span><span class="pt-dr-l">Cardio &amp; Sports</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
+        <button data-nav="settings" class="drawer-nav pt-dr tap-active"><span class="pt-dr-i">⚙️</span><span class="pt-dr-l">Settings</span><span class="pt-dr-c" aria-hidden="true">›</span></button>
+      </nav>
+
+      <!-- Gym tools -->
+      <div class="space-y-1.5">
+        <span class="pt-dh">Gym tools</span>
+        <div class="grid grid-cols-3 gap-2">
+          <button id="btn-drawer-plate-calc" class="pt-dq tap-active"><span class="pt-dq-i">🏋️</span><span>Plate Calculator</span></button>
+          <button id="btn-drawer-quick-tabata" class="pt-dq tap-active"><span class="pt-dq-i">⏱️</span><span>Tabata Timer</span></button>
+          <button type="button" id="pt-drawer-1rm" class="pt-dq tap-active"><span class="pt-dq-i">🧮</span><span>1RM Calculator</span></button>
+        </div>
+        <div class="pt-dcard space-y-2">
+          <div class="flex items-center justify-between text-xs">
+            <span class="font-bold text-zinc-300">Rest countdown</span>
+            <span class="text-[10px] text-zinc-500">Tap to start</span>
+          </div>
+          <div class="grid grid-cols-4 gap-1.5">
+            <button class="btn-quick-rest py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-200 tap-active" data-sec="30">30s</button>
+            <button class="btn-quick-rest py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-200 tap-active" data-sec="60">60s</button>
+            <button class="btn-quick-rest py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-200 tap-active" data-sec="90">90s</button>
+            <button class="btn-quick-rest py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-200 tap-active" data-sec="120">120s</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Calendar: tucked away until you want it -->
+      <details id="pt-drawer-cal" class="pt-dcal">
+        <summary><span class="pt-dh">Workout calendar</span><span id="pt-drawer-cal-sum" class="text-[11px] text-zinc-500"></span></summary>
+        <div class="space-y-2.5 pt-2.5">
+          <div class="flex items-center justify-between">
+            <button id="btn-cal-prev" class="p-1 rounded bg-zinc-800 text-zinc-400 hover:text-white tap-active" aria-label="Previous Month">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <span id="cal-month-year-label" class="text-xs font-bold text-zinc-200 px-1">October 2026</span>
+            <button id="btn-cal-next" class="p-1 rounded bg-zinc-800 text-zinc-400 hover:text-white tap-active" aria-label="Next Month">
+              <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+          <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3 space-y-2">
+            <div class="grid grid-cols-7 gap-1 text-center text-[10px] font-bold text-zinc-500">
+              <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+            </div>
+            <div id="calendar-days-grid" class="grid grid-cols-7 gap-1 text-center text-xs font-mono"></div>
+            <div class="pt-2 border-t border-zinc-800/80 flex items-center justify-between text-[11px]">
+              <span class="text-zinc-400">This Month:</span>
+              <span id="cal-month-active-count" class="font-bold text-emerald-400">0 Days Active</span>
+            </div>
+          </div>
+        </div>
+      </details>
+
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
+      <span>PulseTrack <span id="drawer-version">v{{VERSION}}</span></span>
+      <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
+    </div>
+  </aside>
+
+  <!-- Main Viewports Router Container -->
+  <main class="max-w-xl mx-auto w-full px-4 pt-4 pb-28 flex-grow">
+    
+    <!-- Screen 0: Home / Dashboard View -->
+    <section id="view-home" class="view-transition space-y-4">
+      <div id="home-banners" class="space-y-2"></div>
+      <div id="home-cardio" class="hidden"></div>
+
+      <div id="home-routine" class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 rounded-2xl p-4 space-y-3 shadow-xl">
+        <div class="flex items-center justify-between">
+          <span id="home-chip" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/60">ACTIVE ROUTINE</span>
+          <span id="home-active-day-badge" class="text-xs font-mono text-zinc-400">Day 1</span>
+        </div>
+        <div>
+          <h2 id="home-program-title" class="text-lg font-black text-white">Program</h2>
+          <p id="home-program-desc" class="text-xs text-zinc-400 mt-1.5 leading-relaxed line-clamp-2">Description</p>
+        </div>
+        <div id="home-up-next" class="bg-zinc-950/70 border border-zinc-800 rounded-xl px-3 py-2.5 text-xs"></div>
+        <button id="btn-home-resume" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-xl tap-active text-sm flex items-center justify-center space-x-2 shadow-lg shadow-emerald-950/60">
+          <span>⚡</span><span id="home-resume-label">Start Workout</span>
+        </button>
+      </div>
+
+      <!-- Train / Track / Tools (the tiles other scripts add - 1RM, plates, My Exercises, Cardio - are moved into place by script) -->
+      <div id="pt-home-groups" class="space-y-4">
+        <section aria-label="Train">
+          <h4 class="pt-eyebrow mb-2">Train</h4>
+          <div id="pt-hg-train" class="pt-hg">
+          <button id="btn-home-view-programs" class="bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-2xl p-3 text-left tap-active transition flex flex-col gap-2">
+            <span class="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center">📂</span>
+            <span class="text-xs font-bold text-white leading-tight">Programs</span>
+          </button>
+          <button id="btn-home-library" class="bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-2xl p-3 text-left tap-active transition flex flex-col gap-2">
+            <span class="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center">📚</span>
+            <span class="text-xs font-bold text-white leading-tight">Exercise Library</span>
+          </button>
+          </div>
+        </section>
+        <section aria-label="Track">
+          <h4 class="pt-eyebrow mb-2">Track</h4>
+          <div id="pt-hg-track" class="pt-hg">
+          <button id="tile-progress" class="bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-2xl p-3 text-left tap-active transition flex flex-col gap-2">
+            <span class="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center">📈</span>
+            <span class="text-xs font-bold text-white leading-tight">Progress</span>
+          </button>
+          <button id="tile-history" class="bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-2xl p-3 text-left tap-active transition flex flex-col gap-2">
+            <span class="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center">🗓️</span>
+            <span class="text-xs font-bold text-white leading-tight">History</span>
+          </button>
+          <button id="tile-body" class="bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-2xl p-3 text-left tap-active transition flex flex-col gap-2">
+            <span class="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center">⚖️</span>
+            <span class="text-xs font-bold text-white leading-tight">Body &amp; Photos</span>
+          </button>
+          </div>
+        </section>
+        <section aria-label="Tools">
+          <h4 class="pt-eyebrow mb-2">Tools</h4>
+          <div id="pt-hg-tools" class="pt-hg">
+          <button id="tile-tabata" class="bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-2xl p-3 text-left tap-active transition flex flex-col gap-2">
+            <span class="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center">⏱️</span>
+            <span class="text-xs font-bold text-white leading-tight">Tabata Timer</span>
+          </button>
+          </div>
+        </section>
+      </div>
+
+      <!-- Consistency -->
+      <div id="home-streak-card" class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 flex items-center justify-between gap-3">
+        <div class="flex items-center space-x-3 min-w-0">
+          <div class="w-10 h-10 shrink-0 rounded-xl bg-zinc-800 flex items-center justify-center text-base">🔥</div>
+          <div class="min-w-0">
+            <h4 id="home-streak-title" class="text-xs font-bold text-white">Consistency</h4>
+            <p id="home-monthly-streak" class="text-[11px] text-zinc-400 mt-0.5">0 active days this month</p>
+          </div>
+        </div>
+        <button id="btn-home-open-drawer-cal" class="shrink-0 px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-xs font-semibold text-zinc-200 rounded-lg tap-active">
+          Calendar
+        </button>
+      </div>
+
+      <!-- 1RM Trophy Room -->
+      <div id="trophy-card" class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-1">
+        <div class="flex items-center justify-between gap-2">
+          <h4 class="pt-eyebrow">1RM Trophy Room</h4>
+          <span class="text-[10px] text-zinc-500">estimated &middot; tap to set a goal</span>
+        </div>
+        <div id="trophy-room"></div>
+      </div>
+
+      <!-- 2.8.0 cards (filled in by script) -->
+      <div id="home-search" class="hidden"></div>
+      <div id="home-week" class="hidden"></div>
+      <div id="home-recap" class="hidden"></div>
+      <div id="home-prmonth" class="hidden"></div>
+      <div id="home-work" class="hidden"></div>
+      <div id="home-build" class="space-y-2">
+        <h4 class="pt-eyebrow">Start training</h4>
+        <div id="pt-hg-quick" class="pt-hg">
+          <button type="button" id="pt-build-open" class="bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-2xl p-3 text-left tap-active transition flex flex-col gap-2">
+            <span class="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center">🛠️</span>
+            <span class="text-xs font-bold text-white leading-tight">Build a Workout</span>
+          </button>
+          <button id="tile-empty" class="bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 rounded-2xl p-3 text-left tap-active transition flex flex-col gap-2">
+            <span class="w-8 h-8 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center">➕</span>
+            <span class="text-xs font-bold text-white leading-tight">Empty Workout</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screen 1: Programs View -->
+    <section id="view-programs" class="view-transition hidden space-y-4">
+      <div class="flex items-center justify-between pb-1">
+        <h2 class="text-xs uppercase tracking-wider font-semibold text-zinc-400">Available Programs</h2>
+        <span class="text-xs text-zinc-500" id="program-count-label">0 Loaded</span>
+      </div>
+      <button id="btn-create-program" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl tap-active flex items-center justify-center space-x-2 shadow-lg shadow-emerald-950/60">
+        <span>＋ Create Custom Program</span>
+      </button>
+      <button id="btn-import-program" class="w-full py-2.5 bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-zinc-300 font-semibold text-xs rounded-xl tap-active">
+        ⤓ Import a Shared Program File
+      </button>
+      <input id="input-import-program" type="file" accept=".json,application/json" class="hidden">
+      <button id="btn-addback-builtin" class="hidden w-full py-2.5 bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 text-zinc-300 font-semibold text-xs rounded-xl tap-active">
+        ↺ Add Back a Built-in Program <span id="addback-count" class="text-zinc-500"></span>
+      </button>
+      <div id="programs-list-container" class="space-y-3"></div>
+    </section>
+
+    <!-- Screen 2: Days View -->
+    <section id="view-days" class="view-transition hidden space-y-4">
+      <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
+        <div class="flex items-start justify-between gap-3">
+          <div class="min-w-0">
+            <h2 id="days-view-program-title" class="text-lg font-bold text-white">Program Name</h2>
+            <p id="days-view-program-desc" class="text-xs text-zinc-400 mt-1 leading-relaxed">Detailed split description.</p>
+          </div>
+          <button id="btn-reset-program" class="shrink-0 text-xs px-2.5 py-1.5 rounded-lg bg-zinc-800 text-zinc-300 border border-zinc-700/60 tap-active whitespace-nowrap">
+            Reset All Days
+          </button>
+        </div>
+        <div id="days-week-row" class="mt-3 pt-3 border-t border-zinc-800/70 flex items-center justify-between gap-2"></div>
+      </div>
+      <div class="flex items-center justify-between pb-1">
+        <h3 class="text-xs uppercase tracking-wider font-semibold text-zinc-400">Routine Split Calendar</h3>
+      </div>
+      <div id="days-list-container" class="space-y-3"></div>
+    </section>
+
+    <!-- Screen 3: Active Workout View -->
+    <section id="view-workout" class="view-transition hidden space-y-4">
+      <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl flex items-center justify-between">
+        <div>
+          <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400" id="workout-day-badge">Day 1</span>
+          <h2 id="workout-day-title" class="text-lg font-bold text-white">Chest & Triceps</h2>
+        </div>
+        <button id="btn-reset-day-progress" class="text-xs px-2.5 py-1.5 rounded-lg bg-zinc-800 text-zinc-400 border border-zinc-700/60 tap-active">
+          Clear Progress
+        </button>
+      </div>
+
+      <!-- Exercise Cards Container -->
+      <div id="exercises-list-container" class="space-y-4"></div>
+
+      <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-2">
+        <label for="workout-day-note" class="text-[10px] font-bold uppercase tracking-wider text-zinc-400">Workout Notes</label>
+        <textarea id="workout-day-note" rows="2" placeholder="How did it feel? Anything to remember next time…" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2 text-sm text-zinc-200 focus:outline-none focus:border-emerald-500 placeholder-zinc-600"></textarea>
+        <p class="text-[10px] text-zinc-500">Saved with this workout when you tap Finish.</p>
+      </div>
+
+      </section>
+
+    <!-- Screen 4: Exercise Library -->
+    <section id="view-library" class="view-transition hidden space-y-4">
+      <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl">
+        <h2 class="text-lg font-bold text-white">Exercise Library</h2>
+        <p id="lib-summary" class="text-xs text-zinc-400 mt-1">Loading...</p>
+      </div>
+      <input type="text" id="lib-search" placeholder="Search exercises or categories..." autocomplete="off" class="w-full bg-zinc-900 border border-zinc-800 rounded-xl px-4 py-3 text-sm font-semibold text-white focus:outline-none focus:border-emerald-500 placeholder-zinc-500">
+      <label class="flex items-center space-x-2 text-xs text-zinc-400">
+        <input type="checkbox" id="lib-only-data" class="accent-emerald-500">
+        <span>Only show exercises with logged data</span>
+      </label>
+      <div id="lib-list" class="space-y-2"></div>
+    </section>
+
+    <!-- Screen 5: Workout History -->
+    <section id="view-history" class="view-transition hidden space-y-4">
+      <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-xl flex items-center justify-between gap-3">
+        <div class="min-w-0">
+          <h2 class="text-lg font-bold text-white">Workout History</h2>
+          <p id="history-summary" class="text-xs text-zinc-400 mt-1"></p>
+        </div>
+        <button id="btn-history-csv" class="shrink-0 text-xs px-2.5 py-1.5 rounded-lg bg-zinc-800 text-zinc-300 border border-zinc-700/60 tap-active">Export CSV</button>
+      </div>
+      <div id="history-filter" class="hidden"></div>
+      <div id="history-list" class="space-y-4"></div>
+    </section>
+
+    <!-- Screen 6: Progress & Analytics -->
+    <section id="view-progress" class="view-transition hidden space-y-4">
+      <div id="progress-body" class="space-y-4"></div>
+    </section>
+
+    <!-- Screen 7: Body & Photos -->
+    <section id="view-body" class="view-transition hidden space-y-4">
+      <div id="body-root" class="space-y-4"></div>
+    </section>
+
+    <!-- Screen 8: Cardio & Sports (its own log, apart from lifting) -->
+    <section id="view-cardio" class="view-transition hidden space-y-4">
+      <div id="cardio-root" class="space-y-4"></div>
+    </section>
+
+
+  </main>
+
+  <!-- Sticky Finish Workout Bar -->
+  <div id="finish-bar" class="hidden fixed left-0 right-0 z-40 px-4 py-3 bg-zinc-900/80 backdrop-blur-md border-t border-zinc-800/80" style="bottom: env(safe-area-inset-bottom, 0px);">
+    <div class="max-w-xl mx-auto">
+      <button id="btn-finish-workout" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold rounded-2xl tap-active text-sm shadow-xl shadow-emerald-950/60 flex items-center justify-center space-x-2">
+        <span>🏆 Finish Workout</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Interactive Floating Rest Countdown Timer -->
+  <aside id="floating-rest-timer" class="fixed bottom-4 left-4 right-4 max-w-xl mx-auto z-40 bg-zinc-900 border border-zinc-700 shadow-2xl rounded-2xl p-3.5 flex items-center justify-between transform translate-y-32 opacity-0 transition-all duration-300 pointer-events-none">
+    <div class="flex items-center space-x-3.5">
+      <div class="relative w-11 h-11 flex items-center justify-center">
+        <svg class="w-11 h-11 transform -rotate-90" viewBox="0 0 36 36">
+          <path class="text-zinc-800" stroke-width="3" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+          <path id="rest-timer-progress-svg" class="text-emerald-500 transition-all duration-200" stroke-dasharray="100, 100" stroke-dashoffset="0" stroke-width="3" stroke-linecap="round" stroke="currentColor" fill="none" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+        </svg>
+        <span id="rest-timer-display" class="absolute text-xs font-bold font-mono text-white">60s</span>
+      </div>
+      <div>
+        <h4 class="text-xs font-bold text-white leading-tight">Rest Interval</h4>
+        <p class="text-[11px] text-zinc-400" id="rest-timer-subtext">Catch your breath</p>
+      </div>
+    </div>
+    <div class="flex items-center space-x-1.5">
+      <button id="btn-timer-sub15" class="px-2 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-300 rounded-lg tap-active">-15</button>
+      <button id="btn-timer-add15" class="px-2 py-1.5 bg-zinc-800 hover:bg-zinc-700 text-xs font-bold text-zinc-300 rounded-lg tap-active">+15</button>
+      <button id="btn-timer-toggle" class="p-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg tap-active" aria-label="Toggle Timer">
+        <svg id="timer-toggle-icon" class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zM7 8a1 1 0 012 0v4a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v4a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
+      </button>
+      <button id="btn-timer-dismiss" class="p-2 bg-zinc-800 text-zinc-400 hover:text-white rounded-lg tap-active" aria-label="Close Timer">
+        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Tabata / interval timer (2.6.3) -->
+  <style id="pt-tabata-css">{{file:css/04-pt-tabata-css.css}}</style>
+  <div id="overlay-tabata" data-phase="prep" role="dialog" aria-modal="true" aria-label="Interval timer" aria-hidden="true">
+    <div class="pt-tab-top">
+      <div class="pt-tab-title">
+        <span id="tabata-exercise-title" class="pt-tab-name">Tabata Burnout</span>
+        <span id="tabata-phase-subtitle" class="pt-tab-sub">20s work · 10s rest · 8 rounds</span>
+      </div>
+      <button type="button" id="btn-tabata-adjust" class="pt-tab-icon" aria-label="Change the timing">
+        <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M4 7h10M18 7h2M4 17h2M10 17h10"/><circle cx="16" cy="7" r="2"/><circle cx="8" cy="17" r="2"/></svg>
+      </button>
+      <button type="button" id="btn-tabata-close" class="pt-tab-icon" aria-label="Close the timer">
+        <svg fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+    </div>
+
+    <div class="pt-tab-mid">
+      <div id="tabata-visual-card" class="pt-tab-ring">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><circle class="trk" cx="100" cy="100" r="90"/><circle id="tabata-arc" class="arc" cx="100" cy="100" r="90"/></svg>
+        <span id="tabata-phase-label" class="pt-tab-phase">GET READY</span>
+        <span id="tabata-seconds-display" class="pt-tab-num">3</span>
+        <span id="tabata-next" class="pt-tab-next">Next: Work 20s</span>
+      </div>
+      <div id="tabata-segs" class="pt-tab-segs" aria-hidden="true"></div>
+      <div class="pt-tab-info"><b id="tabata-interval-count">Round 1 of 8</b><span id="tabata-left">3:00 left</span></div>
+      <p id="tabata-cue-text" class="pt-tab-cue">Get into position and breathe.</p>
+    </div>
+
+    <div class="pt-tab-controls">
+      <button type="button" id="btn-tabata-restart" class="pt-tab-sq" aria-label="Start over">
+        <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 12a9 9 0 109-9 9.5 9.5 0 00-6.7 2.8L3 8"/><path d="M3 3v5h5"/></svg>
+      </button>
+      <button type="button" id="btn-tabata-toggle-pause" class="pt-tab-main">Pause</button>
+      <button type="button" id="btn-tabata-skip" class="pt-tab-sq" aria-label="Skip to the next part">
+        <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M5 5l9 7-9 7z"/><path d="M19 5v14"/></svg>
+      </button>
+    </div>
+
+    <div class="pt-tab-scrim" id="tabata-scrim"></div>
+    <div class="pt-tab-panel" id="tabata-panel" role="group" aria-label="Timer settings">
+      <h3>Timing</h3>
+      <div class="pt-tab-presets" id="tabata-presets"></div>
+      <div class="pt-tab-row"><label>Work<small>Go hard</small></label><div class="pt-tab-step"><button type="button" data-k="work" data-d="-1" aria-label="Less work time">−</button><output id="tabata-v-work">20s</output><button type="button" data-k="work" data-d="1" aria-label="More work time">+</button></div></div>
+      <div class="pt-tab-row"><label>Rest<small>Between rounds</small></label><div class="pt-tab-step"><button type="button" data-k="rest" data-d="-1" aria-label="Less rest">−</button><output id="tabata-v-rest">10s</output><button type="button" data-k="rest" data-d="1" aria-label="More rest">+</button></div></div>
+      <div class="pt-tab-row"><label>Rounds<small>How many times</small></label><div class="pt-tab-step"><button type="button" data-k="rounds" data-d="-1" aria-label="Fewer rounds">−</button><output id="tabata-v-rounds">8</output><button type="button" data-k="rounds" data-d="1" aria-label="More rounds">+</button></div></div>
+      <div class="pt-tab-row"><label>Get ready<small>Before round 1</small></label><div class="pt-tab-step"><button type="button" data-k="prep" data-d="-1" aria-label="Shorter get ready">−</button><output id="tabata-v-prep">3s</output><button type="button" data-k="prep" data-d="1" aria-label="Longer get ready">+</button></div></div>
+      <div class="pt-tab-actions"><button type="button" class="ghost" id="tabata-adj-cancel">Cancel</button><button type="button" class="go" id="tabata-adj-go">Start</button></div>
+    </div>
+  </div>
+
+  <!-- Barbell Plate Calculator Modal -->
+  <div id="modal-plate-calc" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
+    <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-t-2xl sm:rounded-2xl p-5 space-y-4 max-h-[90vh] overflow-y-auto hide-scrollbar" style="padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));">
+      <div class="flex items-center justify-between">
+        <h3 class="text-base font-bold text-white flex items-center space-x-2">
+          <span>Barbell Plate Calculator</span>
+        </h3>
+        <button id="btn-close-plate-calc" aria-label="Close the plate calculator" class="p-1.5 text-zinc-400 hover:text-white tap-active">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <!-- Total Weight Input & Quick Adjusters -->
+      <div class="space-y-1.5">
+        <label id="plate-target-label" class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Target Weight (lbs)</label>
+        <div class="flex items-center space-x-2">
+          <input type="number" id="plate-target-input" value="225" step="5" class="flex-grow bg-zinc-950 border border-zinc-800 rounded-xl px-4 py-3 text-xl font-bold font-mono text-white text-center focus:outline-none focus:border-emerald-500">
+        </div>
+        <div class="grid grid-cols-4 gap-1.5 pt-1">
+          <button class="btn-plate-adjust py-1.5 bg-zinc-800 rounded-lg text-xs font-bold text-zinc-300 tap-active" data-val="-20">-20</button>
+          <button class="btn-plate-adjust py-1.5 bg-zinc-800 rounded-lg text-xs font-bold text-zinc-300 tap-active" data-val="-5">-5</button>
+          <button class="btn-plate-adjust py-1.5 bg-zinc-800 rounded-lg text-xs font-bold text-zinc-300 tap-active" data-val="5">+5</button>
+          <button class="btn-plate-adjust py-1.5 bg-zinc-800 rounded-lg text-xs font-bold text-zinc-300 tap-active" data-val="20">+20</button>
+        </div>
+      </div>
+
+      <!-- Bar Weight Selector -->
+      <div class="space-y-1.5">
+        <label class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Bar Weight</label>
+        <div class="grid grid-cols-5 gap-1.5" id="plate-bar-selector">
+          <button class="btn-bar-select py-2 rounded-lg text-xs font-bold bg-emerald-600 text-white tap-active" data-bar="45">45 lb</button>
+          <button class="btn-bar-select py-2 rounded-lg text-xs font-bold bg-zinc-800 text-zinc-400 tap-active" data-bar="35">35 lb</button>
+          <button class="btn-bar-select py-2 rounded-lg text-xs font-bold bg-zinc-800 text-zinc-400 tap-active" data-bar="15">15 lb</button>
+          <button class="btn-bar-select py-2 rounded-lg text-xs font-bold bg-zinc-800 text-zinc-400 tap-active" data-bar="0">0 lb</button>
+          <button class="btn-bar-select py-2 rounded-lg text-xs font-bold bg-zinc-800 text-zinc-400 tap-active" data-bar="custom">Other</button>
+        </div>
+      </div>
+
+      <!-- Plate Results Output -->
+      <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-2">
+        <div class="flex items-center justify-between text-xs">
+          <span class="text-zinc-400">Load per side:</span>
+          <span id="plate-weight-per-side" class="font-bold text-white font-mono text-sm">90 lbs</span>
+        </div>
+        <div id="plate-badges-container" class="flex flex-wrap gap-1.5 pt-1 min-h-[38px] items-center"></div>
+        <p id="plate-near" class="hidden text-[11px] text-amber-300 leading-relaxed"></p>
+      </div>
+
+      <!-- Plates this gym actually has -->
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between">
+          <label class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider">Plates at my gym</label>
+          <button id="btn-plates-reset" class="text-[11px] font-bold text-zinc-500 hover:text-zinc-300 tap-active">Reset</button>
+        </div>
+        <div id="plate-inventory" class="flex flex-wrap gap-1.5"></div>
+        <p class="text-[10px] text-zinc-500 leading-relaxed">Tap a plate to turn it on or off. The calculator and the plate hints under your sets only use plates you have. Your bar choice is remembered too.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Routine Builder Modal -->
+  <div id="modal-builder" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
+    <div class="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-t-2xl sm:rounded-2xl flex flex-col h-[92vh] sm:h-[700px] overflow-hidden">
+      <div class="p-4 border-b border-zinc-800 flex items-center justify-between shrink-0">
+        <h3 id="builder-title" class="text-base font-bold text-white">Create Custom Program</h3>
+        <button id="btn-close-builder" class="p-1.5 text-zinc-400 hover:text-white tap-active" aria-label="Close">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="builder-body" class="flex-grow overflow-y-auto p-4 space-y-4 hide-scrollbar"></div>
+      <div class="p-4 border-t border-zinc-800 shrink-0">
+        <button id="btn-save-builder" class="w-full py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-xl tap-active text-sm">Save Program</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Exercise Database Selector Modal -->
+  <div id="modal-ex-selector" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
+    <div class="bg-zinc-900 border border-zinc-800 w-full max-w-md rounded-t-3xl sm:rounded-2xl flex flex-col h-[88vh] sm:h-[640px] overflow-hidden">
+      <!-- Header -->
+      <div class="px-4 pt-4 pb-3 flex items-start justify-between shrink-0 bg-zinc-900">
+        <div class="min-w-0 pr-3">
+          <h3 class="text-lg font-extrabold text-white leading-tight" id="ex-selector-title">Select Exercise</h3>
+          <p class="text-xs text-zinc-400 mt-0.5 truncate" id="ex-selector-sub"></p>
+        </div>
+        <button id="btn-close-ex-selector" class="p-2 -mr-1 bg-zinc-800 text-zinc-300 hover:text-white rounded-full tap-active" aria-label="Close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <!-- Search -->
+      <div class="px-4 pb-3 shrink-0 bg-zinc-900">
+        <div class="relative">
+          <svg class="w-5 h-5 absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+          <input type="text" id="ex-search-input" placeholder="Search exercises..." autocomplete="off" class="w-full bg-zinc-950 border border-zinc-800 rounded-xl pl-10 pr-4 py-3 text-sm font-semibold text-white focus:outline-none focus:border-emerald-500 placeholder-zinc-500">
+        </div>
+      </div>
+      <!-- Category chips -->
+      <div id="ex-chips" class="flex gap-2 overflow-x-auto hide-scrollbar px-4 pb-3 shrink-0 bg-zinc-900 border-b border-zinc-800"></div>
+      <!-- List -->
+      <div id="ex-list-container" class="flex-grow overflow-y-auto hide-scrollbar bg-zinc-950/60" style="padding-bottom: env(safe-area-inset-bottom);"></div>
+    </div>
+  </div>
+
+  <!-- Workout Summary & Celebration Modal -->
+  <div id="modal-workout-summary" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md flex items-center justify-center hidden p-4">
+    <!-- Zero-dependency Canvas Confetti Layer -->
+    <canvas id="canvas-confetti" class="absolute inset-0 pointer-events-none w-full h-full z-10"></canvas>
+
+    <div class="relative z-20 bg-zinc-900 border border-zinc-700/80 w-full max-w-sm rounded-2xl p-6 text-center space-y-5 shadow-2xl max-h-[92vh] overflow-y-auto">
+      <div class="w-16 h-16 bg-emerald-500/20 text-emerald-400 rounded-full flex items-center justify-center mx-auto text-3xl">
+        🏆
+      </div>
+      <div>
+        <h3 class="text-xl font-black text-white">Workout Complete!</h3>
+        <p class="text-xs text-zinc-400 mt-1" id="summary-workout-name">Session Finished</p>
+      </div>
+
+      <!-- Summary Metrics Grid -->
+      <div class="grid grid-cols-2 gap-2 text-left">
+        <div class="bg-zinc-950 p-3 rounded-xl border border-zinc-800">
+          <span class="text-[10px] text-zinc-500 font-bold uppercase">Time Elapsed</span>
+          <p id="summary-duration" class="text-base font-bold font-mono text-white mt-0.5">00:00</p>
+        </div>
+        <div class="bg-zinc-950 p-3 rounded-xl border border-zinc-800">
+          <span class="text-[10px] text-zinc-500 font-bold uppercase">Total Volume</span>
+          <p id="summary-volume" class="text-base font-bold font-mono text-emerald-400 mt-0.5">0 lbs</p>
+        </div>
+        <div class="bg-zinc-950 p-3 rounded-xl border border-zinc-800">
+          <span class="text-[10px] text-zinc-500 font-bold uppercase">Sets Completed</span>
+          <p id="summary-sets" class="text-base font-bold font-mono text-white mt-0.5">0</p>
+        </div>
+        <div class="bg-zinc-950 p-3 rounded-xl border border-zinc-800">
+          <span class="text-[10px] text-zinc-500 font-bold uppercase">PRs Achieved</span>
+          <p id="summary-prs" class="text-base font-bold font-mono text-amber-400 mt-0.5">0</p>
+        </div>
+      </div>
+
+      <div id="summary-pr-list" class="hidden text-left text-xs text-amber-200 bg-amber-950/30 border border-amber-800/40 rounded-xl p-3 space-y-1"></div>
+      <p id="summary-next" class="hidden text-xs text-zinc-400"></p>
+
+      <button id="btn-summary-template" class="hidden w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-bold rounded-xl tap-active text-sm">💾 Save as Routine</button>
+      <div class="flex gap-2">
+        <button id="btn-share-summary" class="px-4 py-3.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-bold rounded-xl tap-active text-sm">Share</button>
+        <button id="btn-close-summary" class="flex-1 py-3.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl tap-active text-sm">
+          Done
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="modal-settings" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
+    <div class="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-t-2xl sm:rounded-2xl p-5 space-y-4 max-h-[90vh] overflow-y-auto" style="padding-bottom: calc(1.25rem + env(safe-area-inset-bottom, 0px));">
+      <div class="flex items-center justify-between">
+        <h3 class="text-base font-bold text-white">Settings</h3>
+        <button id="btn-close-settings" aria-label="Close settings" class="p-1.5 text-zinc-400 hover:text-white tap-active">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Workout</span>
+      <div class="bg-zinc-950 border border-zinc-800 rounded-xl divide-y divide-zinc-800 overflow-hidden">
+<div class="flex items-center justify-between p-3.5">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Log Weight &amp; Reps</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Show weight and reps fields on each set. Turn off for a simple checklist.</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" id="setting-toggle-logger" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+        </label>
+      </div>
+      <div class="flex items-center justify-between p-3.5 gap-3">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Units</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Pounds or kilograms for weights, plates and bodyweight.</span>
+        </div>
+        <div class="flex gap-1.5 w-28 shrink-0">
+          <button class="btn-unit flex-1 py-2 rounded-lg text-xs font-bold tap-active bg-emerald-600 text-white" data-unit="lb">lb</button>
+          <button class="btn-unit flex-1 py-2 rounded-lg text-xs font-bold tap-active bg-zinc-800 text-zinc-400" data-unit="kg">kg</button>
+        </div>
+      </div>
+      <div class="flex items-center justify-between p-3.5 gap-3">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Weight Jump</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">How much to add when the app suggests going heavier.</span>
+        </div>
+        <div class="flex items-center gap-1.5 shrink-0">
+          <input id="setting-increment" type="number" inputmode="decimal" step="0.5" min="0.5" class="w-16 bg-zinc-900 border border-zinc-800 rounded-lg px-2 py-1.5 text-right font-mono text-sm text-white focus:outline-none focus:border-emerald-500">
+          <span id="setting-increment-unit" class="text-xs text-zinc-400">lb</span>
+        </div>
+      </div>
+      <div class="flex items-center justify-between p-3.5 gap-3">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Weekly Goal</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Workouts per week needed to keep your streak. Rest days never break it.</span>
+        </div>
+        <select id="setting-weekly-goal" aria-label="Workouts per week" class="shrink-0 bg-zinc-900 border border-zinc-800 rounded-lg px-2 py-1.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+          <option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option><option value="6">6</option><option value="7">7</option>
+        </select>
+      </div>
+      <div class="flex items-center justify-between p-3.5 gap-3">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Week Starts On</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Decides what "This week" and "Last week" mean in Progress and your streak.</span>
+        </div>
+        <select id="setting-week-start" aria-label="First day of the week" class="shrink-0 bg-zinc-900 border border-zinc-800 rounded-lg px-2 py-1.5 text-sm text-white focus:outline-none focus:border-emerald-500">
+          <option value="auto">Auto</option><option value="sun">Sunday</option><option value="mon">Monday</option>
+        </select>
+      </div>
+      <div class="p-3.5 space-y-2.5">
+        <div class="flex items-start justify-between gap-3">
+          <div class="pr-1">
+            <span class="text-xs font-bold text-white block">Rest Times</span>
+            <span id="rest-mode-hint" class="text-[11px] text-zinc-400 block mt-0.5"></span>
+          </div>
+          <div class="flex gap-1.5 w-36 shrink-0">
+            <button class="btn-restmode flex-1 py-2 rounded-lg text-xs font-bold tap-active bg-emerald-600 text-white" data-mode="auto">Auto</button>
+            <button class="btn-restmode flex-1 py-2 rounded-lg text-xs font-bold tap-active bg-zinc-800 text-zinc-400" data-mode="smart">Smart</button>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 gap-1.5">
+          <label class="bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 flex items-center justify-between gap-2"><span class="text-xs text-zinc-200 font-semibold leading-tight min-w-0">Heavy compound <span class="text-[10px] text-zinc-500 font-normal">· squat, deadlift, bench</span></span><select class="sel-rest shrink-0 bg-zinc-950 border border-zinc-800 rounded-md px-1.5 py-1 text-xs font-mono text-white focus:outline-none focus:border-emerald-500" data-k="heavy" aria-label="Heavy compound rest"></select></label>
+          <label class="bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 flex items-center justify-between gap-2"><span class="text-xs text-zinc-200 font-semibold leading-tight min-w-0">Other compound <span class="text-[10px] text-zinc-500 font-normal">· rows, presses, lunges</span></span><select class="sel-rest shrink-0 bg-zinc-950 border border-zinc-800 rounded-md px-1.5 py-1 text-xs font-mono text-white focus:outline-none focus:border-emerald-500" data-k="compound" aria-label="Other compound rest"></select></label>
+          <label class="bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 flex items-center justify-between gap-2"><span class="text-xs text-zinc-200 font-semibold leading-tight min-w-0">Isolation <span class="text-[10px] text-zinc-500 font-normal">· curls, raises, flyes</span></span><select class="sel-rest shrink-0 bg-zinc-950 border border-zinc-800 rounded-md px-1.5 py-1 text-xs font-mono text-white focus:outline-none focus:border-emerald-500" data-k="isolation" aria-label="Isolation rest"></select></label>
+          <label class="bg-zinc-900 border border-zinc-800 rounded-lg px-3 py-2 flex items-center justify-between gap-2"><span class="text-xs text-zinc-200 font-semibold leading-tight min-w-0">Abs &amp; cardio <span class="text-[10px] text-zinc-500 font-normal">· crunches, planks, bike</span></span><select class="sel-rest shrink-0 bg-zinc-950 border border-zinc-800 rounded-md px-1.5 py-1 text-xs font-mono text-white focus:outline-none focus:border-emerald-500" data-k="short" aria-label="Abs &amp; cardio rest"></select></label>
+        </div>
+        <div class="flex items-center justify-between gap-2">
+          <p id="rest-override-status" class="text-[11px] text-zinc-500"></p>
+          <button id="btn-clear-rest-overrides" class="hidden shrink-0 px-2.5 py-1 rounded-lg bg-zinc-800 text-zinc-300 text-[11px] font-bold tap-active">Clear custom</button>
+        </div>
+      </div>
+      <div class="flex items-center justify-between p-3.5 gap-3">
+        <div class="pr-3 min-w-0">
+          <span class="text-xs font-bold text-white block">Auto-start Rest Timer</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">The countdown starts by itself as soon as you check off a set.</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" id="setting-toggle-autorest" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+        </label>
+      </div>
+      <div class="flex items-center justify-between p-3.5 gap-3">
+        <div class="pr-3 min-w-0">
+          <span class="text-xs font-bold text-white block">Gym Plates &amp; Bar</span>
+          <span id="gym-plates-status" class="text-[11px] text-zinc-400 block mt-0.5"></span>
+        </div>
+        <button id="btn-edit-gym-plates" class="shrink-0 px-3 py-2 rounded-lg bg-zinc-800 text-zinc-200 text-xs font-bold tap-active">Edit</button>
+      </div>
+<div class="flex items-center justify-between p-3.5">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Clear Day After Finishing</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">After a workout is saved to History, clear its checkmarks so the day is fresh next time. "Prev" values still show.</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" id="setting-toggle-resetfinish" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+        </label>
+      </div>
+      </div>
+
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Workout Screen</span>
+      <div id="pt-wscreen" class="bg-zinc-950 border border-zinc-800 rounded-xl divide-y divide-zinc-800 overflow-hidden"></div>
+
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Gyms &amp; Equipment</span>
+      <div id="pt-gyms-box" class="bg-zinc-950 border border-zinc-800 rounded-xl divide-y divide-zinc-800 overflow-hidden"></div>
+
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Streaks &amp; Time Off</span>
+      <div id="pt-streak-box" class="bg-zinc-950 border border-zinc-800 rounded-xl divide-y divide-zinc-800 overflow-hidden"></div>
+
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Sound, Voice &amp; Feel</span>
+      <div class="bg-zinc-950 border border-zinc-800 rounded-xl divide-y divide-zinc-800 overflow-hidden">
+<div class="flex items-center justify-between p-3.5">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Sound Effects</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Beeps and chimes for sets, rest timer and Tabata.</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" id="setting-toggle-sound" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+        </label>
+      </div>
+<div class="flex items-center justify-between p-3.5">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Voice Coaching</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Speak "Rest complete. Next set…" when the rest timer ends.</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" id="setting-toggle-voice" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+        </label>
+      </div>
+<div class="flex items-center justify-between p-3.5">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Vibration</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Buzz on set complete and timer end (Android; iPhones don't allow web apps to vibrate).</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" id="setting-toggle-vibrate" class="sr-only peer" checked>
+          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+        </label>
+      </div>
+<div class="flex items-center justify-between p-3.5">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Rest Timer Notification</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Show a notification when rest ends while you're in another app. Works best on Android; on iPhone you'll hear it when you come back.</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" id="setting-toggle-restnotify" class="sr-only peer">
+          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+        </label>
+      </div>
+      </div>
+
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Appearance</span>
+      <div class="bg-zinc-950 border border-zinc-800 rounded-xl divide-y divide-zinc-800 overflow-hidden">
+      <div id="pt-appearance"></div>
+<div class="flex items-center justify-between p-3.5">
+        <div class="pr-3">
+          <span class="text-xs font-bold text-white block">Large Text</span>
+          <span class="text-[11px] text-zinc-400 block mt-0.5">Bigger text and buttons for easier reading mid-set.</span>
+        </div>
+        <label class="relative inline-flex items-center cursor-pointer flex-shrink-0">
+          <input type="checkbox" id="setting-toggle-largetext" class="sr-only peer">
+          <div class="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+        </label>
+      </div>
+      </div>
+
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Mods &amp; Custom CSS</span>
+      <div id="pt-mods-box" class="bg-zinc-950 border border-zinc-800 rounded-xl divide-y divide-zinc-800 overflow-hidden"></div>
+
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Data &amp; Backup</span>
+      <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-3">
+        <p class="text-[11px] text-zinc-400 leading-relaxed">Everything is stored only on this phone. Export a backup regularly and save it to Files, iCloud Drive or Google Drive. The same file restores your data on a new phone.</p>
+        <p id="backup-status" class="text-xs font-semibold text-zinc-200"></p>
+        <div class="grid grid-cols-2 gap-2">
+          <button id="btn-export-backup" class="py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-xs rounded-xl tap-active">Export Backup</button>
+          <button id="btn-import-backup" class="py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-semibold text-xs rounded-xl tap-active">Restore Backup</button>
+          <button id="btn-export-csv" class="py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-semibold text-xs rounded-xl tap-active">Export CSV</button>
+          <button id="btn-rebuild-prs" class="py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-semibold text-xs rounded-xl tap-active">Recalculate PRs</button>
+          <button id="btn-clean-names" class="col-span-2 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-semibold text-xs rounded-xl tap-active">Clean Up Exercise Names</button>
+        </div>
+        <input id="input-import-backup" type="file" accept=".json,application/json" class="hidden">
+        <div class="pt-3 border-t border-zinc-800 space-y-2">
+          <p id="storage-status" class="text-[11px] text-zinc-400"></p>
+          <button id="btn-persist" class="w-full py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-semibold text-xs rounded-xl tap-active">Protect My Data From Auto-Cleanup</button>
+        </div>
+      </div>
+
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">App</span>
+      <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-2.5">
+        <div class="flex items-center justify-between text-xs">
+          <span class="font-bold text-white">PulseTrack <span id="app-version" class="font-mono text-zinc-400">v2</span></span>
+          <span id="install-hint" class="text-[11px] text-zinc-400 text-right pl-3"></span>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <button id="btn-install-app" class="hidden py-2.5 bg-emerald-600 text-white font-bold text-xs rounded-xl tap-active">Install App</button>
+          <button id="btn-check-update" class="py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-semibold text-xs rounded-xl tap-active">Check for Updates</button>
+        </div>
+      </div>
+
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Danger Zone</span>
+      <button id="btn-reset-defaults" class="w-full py-2.5 bg-rose-950/40 hover:bg-rose-900/50 border border-rose-800/40 text-rose-300 font-medium text-xs rounded-xl tap-active">
+        Reset to Factory Defaults
+      </button>
+    </div>
+  </div>
+
+  <!-- Generic bottom sheet (workout details, exercise charts, photo compare) -->
+  <div id="modal-sheet" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-end sm:items-center justify-center hidden p-0 sm:p-4">
+    <div class="bg-zinc-900 border border-zinc-800 w-full max-w-lg rounded-t-3xl sm:rounded-2xl flex flex-col max-h-[92vh] overflow-hidden">
+      <div class="px-4 pt-4 pb-3 flex items-start justify-between shrink-0 border-b border-zinc-800">
+        <div class="min-w-0 pr-3">
+          <h3 id="sheet-title" class="text-lg font-extrabold text-white leading-tight"></h3>
+          <p id="sheet-sub" class="text-xs text-zinc-400 mt-0.5"></p>
+        </div>
+        <button id="btn-close-sheet" class="p-2 -mr-1 bg-zinc-800 text-zinc-300 hover:text-white rounded-full tap-active" aria-label="Close">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+      <div id="sheet-body" class="flex-grow overflow-y-auto p-4 space-y-3 hide-scrollbar"></div>
+      <div id="sheet-footer" class="hidden p-4 border-t border-zinc-800 shrink-0" style="padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));"></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="pt-toast" class="hidden fixed left-4 right-4 z-[60] max-w-md mx-auto" style="top: calc(env(safe-area-inset-top, 0px) + 0.75rem);">
+    <div class="bg-zinc-800 border border-zinc-700 rounded-xl shadow-2xl px-4 py-3 flex items-center justify-between gap-3">
+      <span id="pt-toast-msg" class="text-xs font-semibold text-white"></span>
+      <button id="pt-toast-action" class="hidden shrink-0 px-3 py-1.5 bg-emerald-600 text-white text-xs font-bold rounded-lg tap-active"></button>
+    </div>
+  </div>
+
+  <script>{{file:js/004-app-core.js}}</script>
+  <script>{{file:js/005-v2-history-analytics-backup-body-tracking-sharing.js}}</script>
+  <script>{{file:js/006-v2.1-smart-rest-times-swap-suggestions-gym-plates.js}}</script>
+  <script>{{file:js/007-v2.2-bodyweight-lifts-weighted-assisted-cardio-logging.js}}</script>
+  <script>{{file:js/008-v2.3-full-multi-week-programs-week-6-of.js}}</script>
+  <style id="pt-v6-css">{{file:css/05-pt-v6-css.css}}</style>
+  <script>{{file:js/009-v2.4-your-own-look-fonts-colours-hex-pop.js}}</script>
+  <style id="pt-v7-css">{{file:css/06-pt-v7-css.css}}</style>
+  <script>{{file:js/010-v2.5-your-own-exercises-home-layout-1rm-calculator.js}}</script>
+  <style id="pt-v8-css">{{file:css/07-pt-v8-css.css}}</style>
+  <script>{{file:js/011-v2.6-a-tidier-settings-calmer-home.js}}</script>
+  <script>{{file:js/012-v2.6-muscle-recovery-weekly-targets-per-muscle.js}}</script>
+  <script>{{file:js/013-v2.6-body-weight-trend-and-goal-form-cues.js}}</script>
+  <style id="pt-v9-css">{{file:css/08-pt-v9-css.css}}</style>
+  <script>{{file:js/014-v2.6.1-a-workout-timer-you-can-pause-resume.js}}</script>
+  <style id="pt-v10-css">{{file:css/09-pt-v10-css.css}}</style>
+  <script>{{file:js/015-v2.6.2-looking-at-a-program-never-makes-it.js}}</script>
+  <script>{{file:js/016-v2.6.5-similar-exercises.js}}</script>
+  <script>{{file:js/017-v2.7-cardio-sports-its-own-log-kept-apart.js}}</script>
+  <script>{{file:js/018-v2.8.0-in-the-gym.js}}</script>
+  <script>{{file:js/019-v2.8.0-gyms-more-home-cards-streak-rules-settings.js}}</script>
+  <script>{{file:js/020-v2.8.0-clean-up-of-exercise-names-and-search.js}}</script>
+  <script>{{file:js/021-v2.8.2-a-calmer-home-screen.js}}</script>
+  <script>{{file:js/022-v2.9.0-switch-week-from-the-very-top-of.js}}</script>
+  <script>{{file:js/023-v2.11.0-supersets-that-are-simple-to-use-in.js}}</script>
+  <script>{{file:js/024-v2.12.0-skip-a-workout.js}}</script>
+  <script>{{file:js/025-v2.12.1-removes-stray-cite-197-tags.js}}</script>
+  <script>{{file:js/026-v2.13.0-move-exercises-up-and-down.js}}</script>
+  <script>{{file:js/027-v2.14.0-the-plateau-check-counts-weeks-not-sessions.js}}</script>
+  <script>{{file:js/028-v2.15.0-updated-in-2-17-0-every-exercise.js}}</script>
+  <script>{{file:js/029-v2.16.0-one-time-reset-of-the-exercises-people.js}}</script>
+  <script>{{file:js/030-v2.19.0-share-one-workout-day.js}}</script>
+  <script>{{file:js/031-v2.19.0-work-check-in.js}}</script>
+  <script>{{file:js/032-v2.19.0-build-me-a-workout-2-21-0.js}}</script>
+  <script>{{file:js/033-v2.20.0-a-weight-of-0-means-bodyweight.js}}</script>
+  <script>{{file:js/034-v2.21.0-a-tidier-home-screen-and-side-menu.js}}</script>
+  <script>{{file:js/035-v2.22.0-a-much-shorter-home-screen.js}}</script>
+  <script>{{file:js/036-v2.23.0-fixes-from-a-full-run-through-the.js}}</script>
+  <script>{{file:js/037-v2.24.0-safety-copies-a-text-size-you-pick.js}}</script>
+  <script>{{file:js/038-v2.25.0-logging-tools.js}}</script>
+  <script>{{file:js/039-v2.26.0-settings-list-of-exercises-hidden-from-build.js}}</script>
+  <script>{{file:js/040-v2.27.0-programs-and-planning.js}}</script>
+  <script>{{file:js/041-v2.28.0-body-recovery-and-progress.js}}</script>
+  <script>{{file:js/042-v2.29.0-bottom-tab-bar-and-a-layout-for.js}}</script>
+  <script>{{file:js/043-v2.29.1-tidier-buttons.js}}</script>
+  <script>{{file:js/044-v2.31.0-things-to-chase.js}}</script>
+  <script>{{file:js/045-v2.32.0-a-the-workout-itself-feels-alive.js}}</script>
+  <script>{{file:js/046-v2.32.0-b-things-to-keep-chasing.js}}</script>
+  <script>{{file:js/047-v2.32.0-c-look-and-track.js}}</script>
+  <script>{{file:js/048-v2.32.0-d1-train-together-no-accounts-needed.js}}</script>
+  <script>{{file:js/049-v2.32.0-d2-in-app-nudges-coach-messages-and.js}}</script>
+  <script>{{file:js/050-v2.33.0-strength-levels-for-every-exercise.js}}</script>
+  <script>{{file:js/051-v2.35.0-what-to-do-with-your-strength-levels.js}}</script>
+  <script>{{file:js/052-v2.35.0-deload-helper-and-busy-season-mode.js}}</script>
+  <script>{{file:js/053-v2.36.0-machine-setup-notes.js}}</script>
+  <script>{{file:js/054-v2.36.0-guided-mobility-flows.js}}</script>
+  <script>{{file:js/055-v2.36.0-pr-attempt-planner.js}}</script>
+  <script>{{file:js/056-v2.37.0-say-a-set-rebuilt-so-it-actually.js}}</script>
+  <script>{{file:js/057-v2.37.0-the-programs-screen-easier-on-the-eyes.js}}</script>
+  <script>{{file:js/058-v2.38.0-each-side-or-total-for-weights.js}}</script>
+  <script>{{file:js/059-v2.40.0-the-day-list-of-a-two-a.js}}</script>
+  <script>{{file:js/060-v2.42.0-what-you-have-moved.js}}</script>
+  <script>{{file:js/061-v2.43.0-steal-a-day.js}}</script>
+  <script>{{file:js/062-v2.43.0-program-playlist.js}}</script>
+  <script>{{file:js/063-v2.44.0-a-heavy-work-day-reshuffles-your-week.js}}</script>
+  <script>{{file:js/064-v2.44.0-physique-blueprint.js}}</script>
+  <script>{{file:js/065-v2.44.0-form-clips.js}}</script>
+  <script>{{file:js/066-v2.45.0-mods-your-own-css.js}}</script>
+  <script>{{file:js/067-v2.45.0-pre-workout-protocol.js}}</script>
+  <script>{{file:js/068-v2.45.0-hype-track-for-the-pr-attempt-planner.js}}</script>
+  <script>{{file:js/069-v2.46.0-studio-mode-for-progress-photos.js}}</script>
+  <script>{{file:js/070-v2.46.0-bar-path-core-no-screen-no-dom.js}}</script>
+  <script>{{file:js/071-v2.46.0-bar-path-and-bar-speed-from-the.js}}</script>
+  <script>{{file:js/072-v2.47.0-coach-mode-for-running-a-practice-from.js}}</script>
+  <script>{{file:js/073-v2.47.0-coach-mode-part-two-the-two-live.js}}</script>
+  <script>{{file:js/074-v2.50.1-reopen-where-you-left-off.js}}</script>
+  <script>{{file:js/075-v2.52.0-simpler-screens-so-there-is-less-to.js}}</script>
+  <script>{{file:js/076-v2.53.0-a-family-board-that-stays-fresh-and.js}}</script>
+  <script>{{file:js/077-v2.54.0-on-bodyweight-exercises-a-number-you-type.js}}</script>
+  <script>{{file:js/078-v2.57.0-weak-points-muscle-by-muscle-and-harder.js}}</script>
+  <script>{{file:js/079-v2.58.0-works-offline-and-tells-you-so.js}}</script>
+  <script>{{file:js/080-v2.60.0-dumbbells-count-both-hands-everywhere.js}}</script>
+  <script>{{file:js/081-v2.60.0-typo-check-did-you-mean-25.js}}</script>
+  <script>{{file:js/082-v2.60.1-russian-twists-and-the-other-body-loaded.js}}</script>
+  <script>{{file:js/083-v2.61.0-a-short-what-it-is-line-at.js}}</script>
+  <script>{{file:js/084-v2.62.0-strength-levels-follow-your-each-side-total.js}}</script>
+  <script>{{file:js/085-v2.63.0-fix-old-workouts.js}}</script>
+  <script>{{file:js/086-v2.63.0-family-weekly-recap.js}}</script>
+  <script>{{file:js/087-v2.64.0-change-each-side-total-from-the-exercise.js}}</script>
+  <script>{{file:js/088-v2.65.1-a-built-in-program-that-changed-its.js}}</script>
+  <script>{{file:js/089-v2.67.0-deleting-a-program-is-tidy-and-you.js}}</script>
+  <script>{{file:js/091-v2.68.0-training-calendar.js}}</script>
+  <script>{{file:js/999-v2.34.0-progress-page-organised.js}}</script>
+</body>
+</html>

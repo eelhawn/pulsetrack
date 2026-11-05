@@ -1,0 +1,1 @@
+try{var c=JSON.parse(localStorage.getItem("pt_theme_cache")||"null");if(c){var r=document.documentElement,k;for(k in c.v)r.style.setProperty(k,c.v[k]);for(k in c.a)r.setAttribute(k,c.a[k]);if(c.l)r.setAttribute("data-accent-light","1");var m=document.querySelector('meta[name="theme-color"]');if(m&&c.t)m.setAttribute("content",c.t);}}catch(e){}

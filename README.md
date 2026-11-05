@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.67.0*
+*Version 2.68.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **58 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **645 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -90,7 +90,7 @@ The list used to be a tall stack of buttons and big cards. It is now built to be
 - **Search** by program name, athlete, tag, workout name or **exercise**. Typing "hack squat" lists every program that has one; "zane" lists his three; "mentzer pullover" narrows to the one program that has both. Every word has to match, and the match is highlighted.
 - **Filter chips with counts:** **All**, **Pro plans** (tied to a named athlete), **Two-a-day** (any program with morning and evening sessions), **Mass**, **Cutting**, **Strength**, **Beginner** and **Mine** (programs you made or imported).
 - **One slim row per program:** a coloured badge with the athlete's initials (the same colour for every program of one athlete), the title, and one line of facts, like **Mass · 6 days/wk · 12 weeks · Advanced**. Two-a-day programs also carry a small gold **☀ ☾ AM+PM** tag (**☀ wk 10–12** when only some weeks train twice a day). Rows are grouped as **Your programs**, **Pro programs** (by athlete) and **More programs**. The current program's row says **✓ Current**.
-- **Tap a row to open it. Tap ⋯ for the rest:** **Open program**, **Steal a day from it** (2.43.0), **Make it my current program**, **Share** and **Delete from this phone** (asks first in the app's own dialog, then offers **Undo** for 10 seconds; a built-in program can also be added back later).
+- **Tap a row to open it. Tap ⋯ for the rest:** **Open program**, **Steal a day from it** (2.43.0), **Make it my current program**, **Add to my calendar** (2.68.0), **Share** and **Delete from this phone** (asks first in the app's own dialog, then offers **Undo** for 10 seconds; a built-in program can also be added back later).
 - The labels (athlete, goal, level, days a week) come from `programs.js`. Programs you made yourself get a guess from their title and tags.
 
 #### How a two-a-day program looks inside (new in 2.40.0)
@@ -221,6 +221,20 @@ Your **current program** is the one that Home, the side menu and **Start Workout
 - Every day is labelled like **Week 4 of 12 · Day 2**, the days list has week headers and scrolls to **Up next**, and rest days are skipped automatically.
 - **Switch week** counts as choosing the program, because you are starting it there.
 - History remembers which week each workout was in.
+
+### Add training to your calendar (new in 2.68.0)
+
+Put your program's workouts in your phone's calendar, so they show up next to everything else, with a reminder. Tap **⋯** on a program in the Programs list, then **Add to my calendar**.
+
+- **One small sheet.** **First workout** (a date), **Time** (6:00 PM to start), **Remind me** (none, at the start, 15 minutes, 30 minutes or 1 hour before; 30 minutes to start), **For** how many weeks, and **Training days** (Mon to Sun buttons). Under it a box says how many workouts that makes, the first and last date, and the first three. **Add to calendar** saves a small calendar file (`.ics`). Open it, or choose Calendar from the share list if your phone offers one, and your calendar adds every workout.
+- **One event per workout.** The title is the day's name (**Chest, Upper Back & Abs**, without the "Monday:" or "Week 3" in front), the notes say the program, the week and the day, then list the exercises with sets and reps. Each event is as long as the day's estimated minutes.
+- **Which days.** A program that names its weekdays (**Monday: Chest**, **Mon AM: Arms**) keeps those weekdays, and the Mon to Sun buttons are hidden because the program already decided. Any other program goes on the days you pick, and the usual days for its number of workouts a week are already picked (three workouts: Mon, Wed, Fri; four: Mon, Tue, Thu, Fri; five: Mon to Fri; six: Mon to Sat). Rest days in a program are not events: the weekdays are the rest days. If the program has 6 workouts a week and you pick 4 days, the box says its weeks will take a little longer.
+- **Weeks.** A program with weeks (**Week 3 of 8**, a week plan) goes week by week and starts with all of its weeks; **−** and **＋** change how many. A program that repeats one week repeats it for the number of weeks in its name ("6-Weeks to Massive Arms" gives 6), or 4 if the name has none, up to 12.
+- **Morning and evening.** On a two-a-day program the **AM** session goes at 7:00 AM (or earlier, if you picked an earlier time) and the **PM** session at 5:00 PM (or later), both on the same day.
+- **Safe to do again.** Every workout has a fixed ID, so adding the same program again after you changed the time or the days updates those events in most calendar apps instead of doubling them. Events that no longer exist (you chose fewer weeks) stay until you delete them in the calendar.
+- **Times do not move.** They use your phone's own clock, so a 6:00 PM workout stays at 6:00 PM when you travel.
+- **Remembered.** The time, the reminder and the days you picked are saved in your settings (and in a backup) for next time.
+- Freestyle has no set days, so it has nothing to add. This is separate from **Phone alerts** on timers and the pre-workout protocol, which make their own small calendar files.
 
 ### Skipping a workout
 
@@ -729,7 +743,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.67.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.68.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -767,14 +781,29 @@ Upload these to your GitHub repo, all in the same folder:
 
 | File | What it does |
 |---|---|
-| `index.html` | The whole app (about 1.8 MB, including fonts and themes) |
+| `index.html` | The whole app (about 2.5 MB, including fonts and themes). Built from `src/` since 2.68.0 |
 | `programs.js` | The 58 built-in programs |
 | `exercises.js` | The 645 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `README.md` | This file |
+| `src/` | The app's source: the page (`index.template.html`), its 9 style blocks (`css/`), its 91 scripts (`js/`) and `VERSION` (new in 2.68.0) |
+| `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0) |
+| `tests/` | The test suite (new in 2.68.0) |
 
 **Update steps:** upload the changed files on GitHub → open the app online → close and reopen.
+
+### Building and testing (new in 2.68.0)
+
+`index.html` used to be made by running about ninety patch scripts one after another, and those scripts were lost. It is now made from plain source files, so a change is an edit to one file:
+
+- **`src/index.template.html`** is the page. Wherever it says `{{file:js/...}}` or `{{file:css/...}}` inside a `<script>` or `<style>` tag, the build puts that file's text there. The order of the lines is the order the scripts run. `{{VERSION}}` is replaced by `src/VERSION`.
+- **`src/js/NNN-*.js`** are the scripts, in order. `004-app-core.js` is the app itself; each `v2.xx.x` file is one feature, added on top. The `999-` file always stays last.
+- **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
+- **New feature:** `python3 tools/new_module.py 2.69.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
+- **New release:** `python3 tools/bump.py 2.69.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
 ### How program changes reach phones
 
@@ -793,6 +822,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.68.0**
+- **Add your training to your phone's calendar.** **⋯** on a program → **Add to my calendar**. Pick the first workout date, the time, a reminder (none, at the start, 15 or 30 minutes, or 1 hour before), how many weeks and which weekdays. It saves a calendar file (`.ics`) with one event per workout: the day's name as the title, and the program, week, day and every exercise with its sets and reps in the notes. Programs that name their weekdays keep them; two-a-day programs put the morning session at 7:00 AM and the evening one at 5:00 PM on the same day. Adding the same program again updates the events instead of doubling them. Your choices are remembered.
+- **Under the hood: the app now builds from plain source files.** `index.html` is made from `src/` (the page, 9 style files and 91 scripts, one per feature) by `tools/build.py`, with `tools/new_module.py` and `tools/bump.py` for new features and releases, and a test suite in `tests/` that opens the real app in Chromium and checks every program's calendar file, the Programs screen, the delete-and-Undo flow and all nine screens. The old patch scripts that made `index.html` were lost; the new files rebuild the very same page, letter for letter. Nothing changes in how the app looks or works because of this.
+- The 58 programs and the 645 exercises are unchanged.
 
 **2.67.0**
 - **Deleting a program is tidy.** **Delete from this phone** used to open the grey browser pop-up ("eelhawn.github.io says..."). It now asks in the app's own dialog, like the rest of the app: **Delete this program?**, the program's name, what happens to it (a built-in one can be added back with **Add Back a Built-in Program**; one you made or imported cannot be added back later), and that saved workouts in History are kept. The buttons are **Keep it** and a red **Delete**.

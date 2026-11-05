@@ -1,0 +1,11 @@
+
+    @keyframes ptpop { from { opacity: 0; transform: translateY(8px) scale(.97); } to { opacity: 1; transform: none; } }
+    @keyframes ptfade { from { opacity: 0; } to { opacity: 1; } }
+    #pt-dlg { animation: ptfade .14s ease-out; transition: opacity .14s ease; }
+    #pt-dlg .pt-dlg-card { animation: ptpop .18s cubic-bezier(.2,.9,.3,1.1); }
+    .pt-range { -webkit-appearance: none; appearance: none; width: 100%; height: 26px; border-radius: 13px; background: var(--track, #444); outline: none; border: 1px solid rgb(var(--z700)); }
+    .pt-range::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 24px; height: 24px; border-radius: 50%; background: #fff; border: 3px solid rgba(0,0,0,.55); box-shadow: 0 1px 4px rgba(0,0,0,.5); }
+    .pt-range::-moz-range-thumb { width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 3px solid rgba(0,0,0,.55); }
+    html[data-accent-light="1"] [class*="bg-emerald-600"][class*="text-white"], html[data-accent-light="1"] [class*="bg-emerald-500"][class*="text-white"] { color: #0a0a0a; }
+    .pt-select-btn { text-align: left; }
+  
