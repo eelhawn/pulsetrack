@@ -1,0 +1,64 @@
+/* =====================================================================
+ * PulseTrack 2.69.0: the Neater look (Settings -> Appearance -> Neater look, on by default).
+ *  One calm surface style: cards are filled, not outlined; the header and tab bar lose their boxes; dashed and
+ *  coloured outlines go away; small controls go quiet. Everything uses the theme's own colour variables, so it
+ *  follows every theme, light or dark. In dark themes the card fill is set in applyTheme (--z900 takes the
+ *  lighter z850 shade). The outline swaps for module-made cards are in 10-pt-neat-borders.css (tools/neat_borders.py).
+ * ===================================================================== */
+html[data-neat="1"] {
+  --nt-hair: transparent;
+  --nt-edge: rgb(var(--z700) / .38);
+  --nt-ctl: rgb(var(--z800) / .7);
+  --nt-line: rgb(var(--z800) / .55);
+}
+html[data-neat="1"][data-mode="light"] {
+  --nt-hair: rgb(var(--z800) / .7);
+  --nt-edge: rgb(var(--z700) / .6);
+  --nt-ctl: rgb(var(--z850));
+  --nt-line: rgb(var(--z800) / .8);
+}
+
+/* ---- header and tab bar ---- */
+html[data-neat="1"] header.sticky { background: rgb(var(--z950) / .92); border-bottom: 0; box-shadow: 0 1px 0 var(--nt-line); }
+html[data-neat="1"] header.sticky button.bg-zinc-800 { background: transparent; }
+html[data-neat="1"] body.pt-tabs #pt-tabbar { background: rgb(var(--z950) / .95); border-top: 0; box-shadow: 0 -1px 0 var(--nt-line); }
+
+/* ---- Tailwind-made cards and controls ---- */
+html[data-neat="1"] main .bg-gradient-to-br { background-image: none; background-color: rgb(var(--z900)); }
+html[data-neat="1"] .border-zinc-800, html[data-neat="1"] .border-zinc-700, html[data-neat="1"] .border-zinc-700\/60, html[data-neat="1"] .border-zinc-800\/80 { border-color: var(--nt-hair); }
+html[data-neat="1"] main .border-zinc-800\/50 { border-color: var(--nt-line); }
+html[data-neat="1"] main .border-dashed { border-style: solid; }
+html[data-neat="1"] main .shadow-xl, html[data-neat="1"] main .shadow-lg, html[data-neat="1"] main .shadow-2xl { box-shadow: none; }
+html[data-neat="1"] main button.bg-zinc-800, html[data-neat="1"] main .bg-zinc-800 { background-color: var(--nt-ctl); }
+html[data-neat="1"] main [class*="border-amber-"], html[data-neat="1"] main [class*="border-emerald-"], html[data-neat="1"] main [class*="border-sky-"],
+html[data-neat="1"] main [class*="border-red-"], html[data-neat="1"] main [class*="border-rose-"], html[data-neat="1"] main [class*="border-violet-"] { border-color: transparent; }
+html[data-neat="1"] main input:not([type=checkbox]):not([type=radio]):not([type=range]), html[data-neat="1"] main select, html[data-neat="1"] main textarea { border-color: var(--nt-edge); }
+
+/* ---- Home ---- */
+html[data-neat="1"] #home-banners [data-banner] { background: rgb(var(--z900)); border: 0; box-shadow: inset 3px 0 0 rgb(var(--a500)); }
+html[data-neat="1"] #pt-tidy-chip { border: 0; color: rgb(var(--z500)); }
+html[data-neat="1"] #pt-checkin, html[data-neat="1"] #pt-home-fuel { border: 0; }
+
+/* ---- screens that repeat the page title inside a card: a quiet line instead ---- */
+html[data-neat="1"] #view-history > div:first-child, html[data-neat="1"] #view-library > div:first-child { background: transparent; border: 0; padding: .1rem .15rem; }
+html[data-neat="1"] #view-history > div:first-child h2, html[data-neat="1"] #view-library > div:first-child h2 { display: none; }
+
+/* ---- Workout: quieter helpers, calmer exercise cards ---- */
+html[data-neat="1"] #pt-wtools { gap: .5rem; }
+html[data-neat="1"] #pt-wtools button { border: 0; background: transparent; color: rgb(var(--z400)); font-weight: 600; }
+html[data-neat="1"] #pt-sbar .pt-sbar-in { border: 0; }
+html[data-neat="1"] [data-ex-card] .btn-mv { opacity: .55; }
+html[data-neat="1"] [data-ex-card] .btn-rest-edit { border: 0; background: transparent; padding-left: 0; }
+html[data-neat="1"] [data-ex-card] .pt-acts button { border: 0; }
+html[data-neat="1"] [data-ex-card] .btn-check-set { border-color: transparent; }
+html[data-neat="1"] [data-ex-card] .btn-cycle-tag { border-color: transparent; background: var(--nt-ctl); }
+html[data-neat="1"] [data-ex-card] .set-row { border-color: transparent; }
+html[data-neat="1"] [data-ex-card] .pt-hdr { opacity: .65; }
+
+/* ---- Programs: the tool buttons are quiet (only Build me a program is filled) ---- */
+html[data-neat="1"] #view-programs #pt-prog-tools > button:not(#pt-prog-build) { background: transparent !important; color: rgb(var(--z300)) !important; }
+
+/* ---- Day list: a long description shows two lines and a More button ---- */
+#pt-desc-more { display: none; }
+html[data-neat="1"] #pt-desc-more:not([hidden]) { display: inline-block; margin-top: .25rem; font-size: .7rem; font-weight: 700; color: rgb(var(--a400)); }
+html[data-neat="1"] #days-view-program-desc:not(.pt-open) { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }

@@ -395,7 +395,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.68.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.69.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3779,7 +3779,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.68.0";
+    const APP_VERSION = "2.69.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -7504,6 +7504,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         theme:   { title: "Mode", def: "dark", opts: [{ id: "dark", label: "Dark" }, { id: "light", label: "Light" }, { id: "auto", label: "Auto" }], note: "Auto follows your phone's dark / light setting." },
         bgfx:    { title: "Background effect", def: "solid", opts: FX },
         round:   { title: "Corners", def: "normal", opts: [{ id: "sharp", label: "Sharp" }, { id: "normal", label: "Normal" }, { id: "round", label: "Round" }] },
+        neat:    { title: "Neater look", def: "on", opts: [{ id: "on", label: "On" }, { id: "off", label: "Off" }], note: "Filled cards instead of outlined boxes, a quieter header and fewer lines everywhere. Off brings back the boxed look." },
         density: { title: "Row size", def: "normal", opts: [{ id: "compact", label: "Compact" }, { id: "normal", label: "Normal" }, { id: "roomy", label: "Roomy" }], note: "Sets and buttons in your workout. Roomy is easier to hit with sweaty thumbs." }
       };
 
@@ -7516,11 +7517,13 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           const tx = mode === "light" ? LIGHT_TEXT : DARK_TEXT;
           Object.keys(tx).forEach(k => { vars["--z" + k] = tx[k]; });
           ["950", "900", "850", "800", "700"].forEach((k, i) => { vars["--z" + k] = triple(bg[i]); });
+          const neat = s.neat !== "off";
+          if (neat && mode === "dark") vars["--z900"] = triple(bg[2]);        // Neater look: cards take the lighter shade, so they stand out without an outline
           const f = FONTS.find(x => x.id === s.font) || FONTS[0];
           vars["--pt-font"] = f.stack;
           vars["--pt-fx"] = fxCss(s, mode, ac, bg);
           Object.keys(vars).forEach(k => root.style.setProperty(k, vars[k]));
-          const attrs = { "data-mode": mode, "data-round": ["sharp", "round"].includes(s.round) ? s.round : "normal", "data-density": ["compact", "roomy"].includes(s.density) ? s.density : "normal" };
+          const attrs = { "data-mode": mode, "data-round": ["sharp", "round"].includes(s.round) ? s.round : "normal", "data-density": ["compact", "roomy"].includes(s.density) ? s.density : "normal", "data-neat": neat ? "1" : "0" };
           Object.keys(attrs).forEach(k => root.setAttribute(k, attrs[k]));
           if (ac.light) root.setAttribute("data-accent-light", "1"); else root.removeAttribute("data-accent-light");
           const meta = document.querySelector('meta[name="theme-color"]'); if (meta) meta.setAttribute("content", bg[0]);
@@ -7535,7 +7538,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           this.saveAppearance();
         },
         resetLook() {
-          APPEARANCE_KEYS.forEach(k => { delete this.settings[k]; }); delete this.settings.density;
+          APPEARANCE_KEYS.forEach(k => { delete this.settings[k]; }); delete this.settings.density; delete this.settings.neat;
           this.saveAppearance();
         },
 
@@ -7571,6 +7574,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           host.innerHTML =
             sec("Themes", `<div class="flex gap-2.5 overflow-x-auto hide-scrollbar pb-1 -mx-1 px-1">${PRESETS.map(presetCard).join("")}</div>`, "One tap sets the colours, background, font and mode together. You can still change anything after.", "preset") +
             sec(SEGS.theme.title, seg("theme"), SEGS.theme.note, "theme") +
+            sec(SEGS.neat.title, seg("neat"), SEGS.neat.note, "neat") +
             sec("Accent colour", `<div class="flex flex-wrap gap-x-3 gap-y-3.5 pt-0.5">${ACCENTS.map(a => sw("accent", a.id, a.label, a.s[2])).join("")}${custom("accent")}</div>${panel("accent")}`, null, "accent") +
             sec('<span id="pt-bg-title">Background</span>', `<div id="pt-bg-sw" class="flex flex-wrap gap-x-3 gap-y-3.5 pt-0.5"></div>${panel("bg")}`, null, "bg") +
             sec(SEGS.bgfx.title, `${seg("bgfx")}<div id="pt-grad-box" class="hidden space-y-2.5 pt-1"><span class="text-[11px] text-zinc-400 block">Second colour</span><div class="flex flex-wrap gap-2">${quick}</div>${panel("grad")}</div>`, null, "bgfx") +
@@ -7657,6 +7661,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           set("bg", dotc(bg[0]) + (bk === "custom" ? "Custom" : esc((b || bl[0]).label)));
           set("bgfx", esc((FX.find(x => x.id === s.bgfx) || FX[0]).label));
           set("font", esc((FONTS.find(x => x.id === s.font) || FONTS[0]).label));
+          set("neat", s.neat === "off" ? "Off" : "On");
           set("round", esc(({ sharp: "Sharp", round: "Round" })[s.round] || "Normal"));
           set("density", esc(({ compact: "Compact", roomy: "Roomy" })[s.density] || "Normal"));
         },
@@ -29045,6 +29050,33 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   document.head.appendChild(css);
 })();
 </script>
+  <script>/* =====================================================================
+ * PulseTrack 2.69.0: the Neater look (the styles are in css/11-pt-neat.css, the switch is in 009's Appearance block).
+ *  - A long program description on the day list shows two lines with a small More button, so the days start higher.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined") return;
+  const $ = id => document.getElementById(id);
+  let timer = 0;
+  function tidyDesc() {
+    const p = $("days-view-program-desc"); if (!p) return;
+    let b = $("pt-desc-more");
+    if (!b) {
+      b = document.createElement("button"); b.type = "button"; b.id = "pt-desc-more"; b.className = "tap-active"; b.hidden = true;
+      p.insertAdjacentElement("afterend", b);
+      b.addEventListener("click", () => { const open = p.classList.toggle("pt-open"); b.textContent = open ? "Less ▴" : "More ▾"; });
+    }
+    p.classList.remove("pt-open"); b.textContent = "More ▾";
+    b.hidden = !(p.scrollHeight > p.clientHeight + 2);        // a short description needs no button
+  }
+  const later = () => { clearTimeout(timer); timer = setTimeout(tidyDesc, 30); };
+  const proto = ApplicationUI.prototype, orig = proto.showView;
+  if (typeof orig === "function") proto.showView = function (name) { const r = orig.apply(this, arguments); if (name === "days") later(); return r; };
+  const p = $("days-view-program-desc");
+  if (p && window.MutationObserver) new MutationObserver(later).observe(p, { childList: true, characterData: true, subtree: true });
+})();
+</script>
   <script>
 /* =====================================================================
  * PulseTrack 2.34.0: Progress page, organised.
@@ -29228,5 +29260,225 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   document.head.appendChild(css);
 })();
   </script>
+<style id="pt-neat-borders">/* Generated by tools/neat_borders.py: do not edit by hand. The Neater look swaps card and control outlines for softer ones. */
+
+:where(html[data-neat="1"]) .pt-next,
+:where(html[data-neat="1"]) .pt-next-use,
+:where(html[data-neat="1"]) .pt-fin-row,
+:where(html[data-neat="1"]) .pt-gchip,
+:where(html[data-neat="1"]) .pt-opt,
+:where(html[data-neat="1"]) .pt-sbar,
+:where(html[data-neat="1"]) .pt-sres,
+:where(html[data-neat="1"]) .pt-wkb,
+:where(html[data-neat="1"]) .pt-ssj button,
+:where(html[data-neat="1"]) #btn-home-skip,
+:where(html[data-neat="1"]) #btn-skip-day,
+:where(html[data-neat="1"]) #btn-share-day,
+:where(html[data-neat="1"]) .pt-dayimp-list,
+:where(html[data-neat="1"]) .pt-pickrow,
+:where(html[data-neat="1"]) #side-drawer .pt-dcard,
+:where(html[data-neat="1"]) #side-drawer .pt-dq,
+:where(html[data-neat="1"]) .pt-pcfold,
+:where(html[data-neat="1"]) #pt-wtools button,
+:where(html[data-neat="1"]) .pt-tset,
+:where(html[data-neat="1"]) #pt-prog-tools button,
+:where(html[data-neat="1"]) .pt-ud,
+:where(html[data-neat="1"]) #pt-pb-name,
+:where(html[data-neat="1"]) #pt-paste-text,
+:where(html[data-neat="1"]) .pt-pg,
+:where(html[data-neat="1"]) .pt-badge,
+:where(html[data-neat="1"]) .pt-ucard,
+:where(html[data-neat="1"]) .pt-heat-tile,
+:where(html[data-neat="1"]) .pt-cm,
+:where(html[data-neat="1"]) #btn-copy-day,
+:where(html[data-neat="1"]) #pt-wk-more,
+:where(html[data-neat="1"]) .pt-morerow,
+:where(html[data-neat="1"]) .pt-frame,
+:where(html[data-neat="1"]) .pt-qrow,
+:where(html[data-neat="1"]) .pt-rk,
+:where(html[data-neat="1"]) .pt-tile,
+:where(html[data-neat="1"]) .pt-sbar-in,
+:where(html[data-neat="1"]) .pt-g-chip,
+:where(html[data-neat="1"]) .pt-g-setctl button,
+:where(html[data-neat="1"]) .pt-g-ghost,
+:where(html[data-neat="1"]) .pt-gb-o,
+:where(html[data-neat="1"]) .pt-chal,
+:where(html[data-neat="1"]) .pt-shopit,
+:where(html[data-neat="1"]) .pt-mrow,
+:where(html[data-neat="1"]) .pt-wall,
+:where(html[data-neat="1"]) #pt-nudge,
+:where(html[data-neat="1"]) .pt-lv-row,
+:where(html[data-neat="1"]) .pt-lv-t,
+:where(html[data-neat="1"]) #pt-lv-q,
+:where(html[data-neat="1"]) .pt-dl-head,
+:where(html[data-neat="1"]) .pt-setup,
+:where(html[data-neat="1"]) .pt-setup.has,
+:where(html[data-neat="1"]) .pt-su-else,
+:where(html[data-neat="1"]) .pt-mob-card,
+:where(html[data-neat="1"]) .pt-at-banner,
+:where(html[data-neat="1"]) .pt-at-day,
+:where(html[data-neat="1"]) .pt-at-rung,
+:where(html[data-neat="1"]) #pgx-hero.pgx-none,
+:where(html[data-neat="1"]) .pgx-chip,
+:where(html[data-neat="1"]) .pgx-pr,
+:where(html[data-neat="1"]) .pgx-tc,
+:where(html[data-neat="1"]) .pgx-empty,
+:where(html[data-neat="1"]) .pt-side-lbl,
+:where(html[data-neat="1"]) .pt-rep-lbl,
+:where(html[data-neat="1"]) .pt-side-opt,
+:where(html[data-neat="1"]) .pt-side-reset,
+:where(html[data-neat="1"]) .pt-st-row,
+:where(html[data-neat="1"]) .pt-st-ex,
+:where(html[data-neat="1"]) .pt-pl-row,
+:where(html[data-neat="1"]) .pt-pl-list > li,
+:where(html[data-neat="1"]) #pt-pl-strip,
+:where(html[data-neat="1"]) .pt-bp-row,
+:where(html[data-neat="1"]) .pt-bp-wt > div,
+:where(html[data-neat="1"]) .pt-md-row,
+:where(html[data-neat="1"]) .pt-md-st,
+:where(html[data-neat="1"]) .pt-md-help,
+:where(html[data-neat="1"]) #pt-home-fuel,
+:where(html[data-neat="1"]) .pt-fu-step,
+:where(html[data-neat="1"]) .pt-fu-sum,
+:where(html[data-neat="1"]) .pt-hy,
+:where(html[data-neat="1"]) .pt-stl-i,
+:where(html[data-neat="1"]) .pt-bar-tiles div,
+:where(html[data-neat="1"]) .pt-bar-rep,
+:where(html[data-neat="1"]) .pt-bar-row,
+:where(html[data-neat="1"]) .pt-co-chip.add,
+:where(html[data-neat="1"]) .pt-co-card,
+:where(html[data-neat="1"]) .pt-co-att,
+:where(html[data-neat="1"]) .pt-co-tools button,
+:where(html[data-neat="1"]) .pt-co-li,
+:where(html[data-neat="1"]) .pt-co-ta,
+:where(html[data-neat="1"]) .pt-co-cnt,
+:where(html[data-neat="1"]) .pt-co-pre,
+:where(html[data-neat="1"]) #pt-tidy-chip,
+:where(html[data-neat="1"]) .pt-fold-bar.pt-open,
+:where(html[data-neat="1"]) .pt-f2row,
+:where(html[data-neat="1"]) .pt-f2box,
+:where(html[data-neat="1"]) .pt-wk-toggle,
+:where(html[data-neat="1"]) .pt-typo-b,
+:where(html[data-neat="1"]) .pt-fx-row,
+:where(html[data-neat="1"]) .pt-cal-sum,
+:where(html[data-neat="1"]) #pt-ptabs.pt-tabbar,
+:where(html[data-neat="1"]) .pt-tab-icon,
+:where(html[data-neat="1"]) .pt-tab-sq,
+:where(html[data-neat="1"]) .pt-tab-presets button,
+:where(html[data-neat="1"]) details.pt-acc,
+:where(html[data-neat="1"]) .pt-sel-bar.pt-sel-no,
+:where(html[data-neat="1"]) .btn-use-prog {
+  border-color: var(--nt-hair);
+}
+
+:where(html[data-neat="1"]) .pt-sin,
+:where(html[data-neat="1"]) .pt-pg input[type="text"],
+:where(html[data-neat="1"]) .pt-pg input[type="number"],
+:where(html[data-neat="1"]) .pt-pg select,
+:where(html[data-neat="1"]) #pt-goal-sheet input,
+:where(html[data-neat="1"]) #pt-goal-sheet select,
+:where(html[data-neat="1"]) .pt-g-fld input,
+:where(html[data-neat="1"]) .pt-gb-fld input,
+:where(html[data-neat="1"]) #pt-pg-buddy input[type="text"],
+:where(html[data-neat="1"]) .pt-st-find input,
+:where(html[data-neat="1"]) .pt-bp-f input,
+:where(html[data-neat="1"]) .pt-bp-s input,
+:where(html[data-neat="1"]) .pt-md-f input,
+:where(html[data-neat="1"]) .pt-md-f textarea,
+:where(html[data-neat="1"]) .pt-fu-er input,
+:where(html[data-neat="1"]) .pt-fu-lt input,
+:where(html[data-neat="1"]) .pt-hy-row input[type="text"],
+:where(html[data-neat="1"]) .pt-stl-f input,
+:where(html[data-neat="1"]) .pt-co-fields input,
+:where(html[data-neat="1"]) .pt-co-cnt input,
+:where(html[data-neat="1"]) .pt-cal-row input,
+:where(html[data-neat="1"]) .pt-cal-row select {
+  border-color: var(--nt-edge);
+}
+
+:where(html[data-neat="1"]) .pt-ssj button,
+:where(html[data-neat="1"]) .pt-gb-o,
+:where(html[data-neat="1"]) .pt-setup,
+:where(html[data-neat="1"]) #pgx-hero.pgx-none,
+:where(html[data-neat="1"]) .pgx-empty,
+:where(html[data-neat="1"]) .pt-side-lbl,
+:where(html[data-neat="1"]) .pt-rep-lbl,
+:where(html[data-neat="1"]) .pt-co-chip.add,
+:where(html[data-neat="1"]) #pt-tidy-chip,
+:where(html[data-neat="1"]) .pt-wk-toggle,
+:where(html[data-neat="1"]) .pt-sel-bar.pt-sel-no {
+  border-style: solid;
+}
+
+:where(html[data-neat="1"]) #pt-prog-tools > button,
+:where(html[data-neat="1"]) #view-programs #pt-prog-tools > button {
+  border-color: var(--nt-hair) !important;
+}
+</style>
+  <style id="pt-neat">/* =====================================================================
+ * PulseTrack 2.69.0: the Neater look (Settings -> Appearance -> Neater look, on by default).
+ *  One calm surface style: cards are filled, not outlined; the header and tab bar lose their boxes; dashed and
+ *  coloured outlines go away; small controls go quiet. Everything uses the theme's own colour variables, so it
+ *  follows every theme, light or dark. In dark themes the card fill is set in applyTheme (--z900 takes the
+ *  lighter z850 shade). The outline swaps for module-made cards are in 10-pt-neat-borders.css (tools/neat_borders.py).
+ * ===================================================================== */
+html[data-neat="1"] {
+  --nt-hair: transparent;
+  --nt-edge: rgb(var(--z700) / .38);
+  --nt-ctl: rgb(var(--z800) / .7);
+  --nt-line: rgb(var(--z800) / .55);
+}
+html[data-neat="1"][data-mode="light"] {
+  --nt-hair: rgb(var(--z800) / .7);
+  --nt-edge: rgb(var(--z700) / .6);
+  --nt-ctl: rgb(var(--z850));
+  --nt-line: rgb(var(--z800) / .8);
+}
+
+/* ---- header and tab bar ---- */
+html[data-neat="1"] header.sticky { background: rgb(var(--z950) / .92); border-bottom: 0; box-shadow: 0 1px 0 var(--nt-line); }
+html[data-neat="1"] header.sticky button.bg-zinc-800 { background: transparent; }
+html[data-neat="1"] body.pt-tabs #pt-tabbar { background: rgb(var(--z950) / .95); border-top: 0; box-shadow: 0 -1px 0 var(--nt-line); }
+
+/* ---- Tailwind-made cards and controls ---- */
+html[data-neat="1"] main .bg-gradient-to-br { background-image: none; background-color: rgb(var(--z900)); }
+html[data-neat="1"] .border-zinc-800, html[data-neat="1"] .border-zinc-700, html[data-neat="1"] .border-zinc-700\/60, html[data-neat="1"] .border-zinc-800\/80 { border-color: var(--nt-hair); }
+html[data-neat="1"] main .border-zinc-800\/50 { border-color: var(--nt-line); }
+html[data-neat="1"] main .border-dashed { border-style: solid; }
+html[data-neat="1"] main .shadow-xl, html[data-neat="1"] main .shadow-lg, html[data-neat="1"] main .shadow-2xl { box-shadow: none; }
+html[data-neat="1"] main button.bg-zinc-800, html[data-neat="1"] main .bg-zinc-800 { background-color: var(--nt-ctl); }
+html[data-neat="1"] main [class*="border-amber-"], html[data-neat="1"] main [class*="border-emerald-"], html[data-neat="1"] main [class*="border-sky-"],
+html[data-neat="1"] main [class*="border-red-"], html[data-neat="1"] main [class*="border-rose-"], html[data-neat="1"] main [class*="border-violet-"] { border-color: transparent; }
+html[data-neat="1"] main input:not([type=checkbox]):not([type=radio]):not([type=range]), html[data-neat="1"] main select, html[data-neat="1"] main textarea { border-color: var(--nt-edge); }
+
+/* ---- Home ---- */
+html[data-neat="1"] #home-banners [data-banner] { background: rgb(var(--z900)); border: 0; box-shadow: inset 3px 0 0 rgb(var(--a500)); }
+html[data-neat="1"] #pt-tidy-chip { border: 0; color: rgb(var(--z500)); }
+html[data-neat="1"] #pt-checkin, html[data-neat="1"] #pt-home-fuel { border: 0; }
+
+/* ---- screens that repeat the page title inside a card: a quiet line instead ---- */
+html[data-neat="1"] #view-history > div:first-child, html[data-neat="1"] #view-library > div:first-child { background: transparent; border: 0; padding: .1rem .15rem; }
+html[data-neat="1"] #view-history > div:first-child h2, html[data-neat="1"] #view-library > div:first-child h2 { display: none; }
+
+/* ---- Workout: quieter helpers, calmer exercise cards ---- */
+html[data-neat="1"] #pt-wtools { gap: .5rem; }
+html[data-neat="1"] #pt-wtools button { border: 0; background: transparent; color: rgb(var(--z400)); font-weight: 600; }
+html[data-neat="1"] #pt-sbar .pt-sbar-in { border: 0; }
+html[data-neat="1"] [data-ex-card] .btn-mv { opacity: .55; }
+html[data-neat="1"] [data-ex-card] .btn-rest-edit { border: 0; background: transparent; padding-left: 0; }
+html[data-neat="1"] [data-ex-card] .pt-acts button { border: 0; }
+html[data-neat="1"] [data-ex-card] .btn-check-set { border-color: transparent; }
+html[data-neat="1"] [data-ex-card] .btn-cycle-tag { border-color: transparent; background: var(--nt-ctl); }
+html[data-neat="1"] [data-ex-card] .set-row { border-color: transparent; }
+html[data-neat="1"] [data-ex-card] .pt-hdr { opacity: .65; }
+
+/* ---- Programs: the tool buttons are quiet (only Build me a program is filled) ---- */
+html[data-neat="1"] #view-programs #pt-prog-tools > button:not(#pt-prog-build) { background: transparent !important; color: rgb(var(--z300)) !important; }
+
+/* ---- Day list: a long description shows two lines and a More button ---- */
+#pt-desc-more { display: none; }
+html[data-neat="1"] #pt-desc-more:not([hidden]) { display: inline-block; margin-top: .25rem; font-size: .7rem; font-weight: 700; color: rgb(var(--a400)); }
+html[data-neat="1"] #days-view-program-desc:not(.pt-open) { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+</style>
 </body>
 </html>

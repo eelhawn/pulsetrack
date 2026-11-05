@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.68.0*
+*Version 2.69.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **58 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **645 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -703,6 +703,7 @@ Settings is a short list of ten groups: **Workout**; **Workout Screen**; **Gyms 
 |---|---|
 | **Theme** | 13 one-tap looks: nine dark (Classic, Midnight, Crimson, Neon, Sunset, Royal, Ocean, Forest, Iron) and four light (Paper, Daylight, Sandy, Bloom). A theme sets mode, colour, background, effect and font together; change any one afterwards and the rest stays. |
 | **Mode** | **Dark**, **Light**, or **Auto** (follows your phone and switches live). |
+| **Neater look** (2.69.0) | **On** (the default) or **Off**. On: cards are filled instead of outlined, the header and tab bar lose their boxes, dashed and coloured outlines go away, helper buttons go quiet, and a long program description folds to two lines with a **More** button. Off brings back the boxed look exactly as it was. It works with every theme, light or dark, and a theme change keeps your choice. |
 | **Accent colour** | 18 ready-made colours, or the rainbow circle for your own: type a **hex code** like `#FF3366` or drag the three sliders. Colours are adjusted per mode so text stays readable. |
 | **Background** | Dark: Classic, True black, Midnight, Slate, Forest, Plum, Ember, Wine. Light: Paper, Snow, Cloud, Sand, Mint, Blush, Lavender, Stone. Or a **custom hex** for either (adjusted to suit the mode). Dark and light remember their own. |
 | **Background effect** | **Solid**, **Glow**, **Fade**, **Aurora**, or **Gradient** (two colours of your own). |
@@ -743,7 +744,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.68.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.69.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -787,8 +788,8 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 9 style blocks (`css/`), its 91 scripts (`js/`) and `VERSION` (new in 2.68.0) |
-| `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 11 style files (`css/`), its 92 scripts (`js/`) and `VERSION` (new in 2.68.0) |
+| `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0) and `neat_borders.py` (2.69.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
 **Update steps:** upload the changed files on GitHub → open the app online → close and reopen.
@@ -802,7 +803,8 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.69.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.69.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
 ### How program changes reach phones
@@ -822,6 +824,13 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.69.0**
+- **A neater look, on by default.** The app was a lot of outlined boxes in different styles. Cards are now filled surfaces with no outline (in dark themes they take a slightly lighter shade so they still stand out), the header's buttons and the tab bar lose their boxes, dashed and coloured outlines are gone (a notice keeps a thin accent bar on its left edge), helper buttons such as Gym mode, Say a set and the Programs tools are quiet text, set rows in a workout have fewer lines, and History and Library no longer repeat their page title in a card. It follows every theme, light or dark.
+- **Long program descriptions fold.** On the day list a long description shows two lines and a **More** button, so the days start higher on the screen.
+- **A switch to go back.** **Settings → Appearance → Neater look**: **On** or **Off**. Off brings back the boxed look exactly as it was. **Reset look** turns it on again. Choosing a theme does not change it.
+- New `tests/looks.py`: the switch, the reset, the description button, and no sideways overflow on any of the nine screens in dark and light with the look on and off.
+- The 58 programs and the 645 exercises are unchanged.
 
 **2.68.0**
 - **Add your training to your phone's calendar.** **⋯** on a program → **Add to my calendar**. Pick the first workout date, the time, a reminder (none, at the start, 15 or 30 minutes, or 1 hour before), how many weeks and which weekdays. It saves a calendar file (`.ics`) with one event per workout: the day's name as the title, and the program, week, day and every exercise with its sets and reps in the notes. Programs that name their weekdays keep them; two-a-day programs put the morning session at 7:00 AM and the evening one at 5:00 PM on the same day. Adding the same program again updates the events instead of doubling them. Your choices are remembered.

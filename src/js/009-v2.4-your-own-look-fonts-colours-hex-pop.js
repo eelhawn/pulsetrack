@@ -387,6 +387,7 @@
         theme:   { title: "Mode", def: "dark", opts: [{ id: "dark", label: "Dark" }, { id: "light", label: "Light" }, { id: "auto", label: "Auto" }], note: "Auto follows your phone's dark / light setting." },
         bgfx:    { title: "Background effect", def: "solid", opts: FX },
         round:   { title: "Corners", def: "normal", opts: [{ id: "sharp", label: "Sharp" }, { id: "normal", label: "Normal" }, { id: "round", label: "Round" }] },
+        neat:    { title: "Neater look", def: "on", opts: [{ id: "on", label: "On" }, { id: "off", label: "Off" }], note: "Filled cards instead of outlined boxes, a quieter header and fewer lines everywhere. Off brings back the boxed look." },
         density: { title: "Row size", def: "normal", opts: [{ id: "compact", label: "Compact" }, { id: "normal", label: "Normal" }, { id: "roomy", label: "Roomy" }], note: "Sets and buttons in your workout. Roomy is easier to hit with sweaty thumbs." }
       };
 
@@ -399,11 +400,13 @@
           const tx = mode === "light" ? LIGHT_TEXT : DARK_TEXT;
           Object.keys(tx).forEach(k => { vars["--z" + k] = tx[k]; });
           ["950", "900", "850", "800", "700"].forEach((k, i) => { vars["--z" + k] = triple(bg[i]); });
+          const neat = s.neat !== "off";
+          if (neat && mode === "dark") vars["--z900"] = triple(bg[2]);        // Neater look: cards take the lighter shade, so they stand out without an outline
           const f = FONTS.find(x => x.id === s.font) || FONTS[0];
           vars["--pt-font"] = f.stack;
           vars["--pt-fx"] = fxCss(s, mode, ac, bg);
           Object.keys(vars).forEach(k => root.style.setProperty(k, vars[k]));
-          const attrs = { "data-mode": mode, "data-round": ["sharp", "round"].includes(s.round) ? s.round : "normal", "data-density": ["compact", "roomy"].includes(s.density) ? s.density : "normal" };
+          const attrs = { "data-mode": mode, "data-round": ["sharp", "round"].includes(s.round) ? s.round : "normal", "data-density": ["compact", "roomy"].includes(s.density) ? s.density : "normal", "data-neat": neat ? "1" : "0" };
           Object.keys(attrs).forEach(k => root.setAttribute(k, attrs[k]));
           if (ac.light) root.setAttribute("data-accent-light", "1"); else root.removeAttribute("data-accent-light");
           const meta = document.querySelector('meta[name="theme-color"]'); if (meta) meta.setAttribute("content", bg[0]);
@@ -418,7 +421,7 @@
           this.saveAppearance();
         },
         resetLook() {
-          APPEARANCE_KEYS.forEach(k => { delete this.settings[k]; }); delete this.settings.density;
+          APPEARANCE_KEYS.forEach(k => { delete this.settings[k]; }); delete this.settings.density; delete this.settings.neat;
           this.saveAppearance();
         },
 
@@ -454,6 +457,7 @@
           host.innerHTML =
             sec("Themes", `<div class="flex gap-2.5 overflow-x-auto hide-scrollbar pb-1 -mx-1 px-1">${PRESETS.map(presetCard).join("")}</div>`, "One tap sets the colours, background, font and mode together. You can still change anything after.", "preset") +
             sec(SEGS.theme.title, seg("theme"), SEGS.theme.note, "theme") +
+            sec(SEGS.neat.title, seg("neat"), SEGS.neat.note, "neat") +
             sec("Accent colour", `<div class="flex flex-wrap gap-x-3 gap-y-3.5 pt-0.5">${ACCENTS.map(a => sw("accent", a.id, a.label, a.s[2])).join("")}${custom("accent")}</div>${panel("accent")}`, null, "accent") +
             sec('<span id="pt-bg-title">Background</span>', `<div id="pt-bg-sw" class="flex flex-wrap gap-x-3 gap-y-3.5 pt-0.5"></div>${panel("bg")}`, null, "bg") +
             sec(SEGS.bgfx.title, `${seg("bgfx")}<div id="pt-grad-box" class="hidden space-y-2.5 pt-1"><span class="text-[11px] text-zinc-400 block">Second colour</span><div class="flex flex-wrap gap-2">${quick}</div>${panel("grad")}</div>`, null, "bgfx") +
@@ -540,6 +544,7 @@
           set("bg", dotc(bg[0]) + (bk === "custom" ? "Custom" : esc((b || bl[0]).label)));
           set("bgfx", esc((FX.find(x => x.id === s.bgfx) || FX[0]).label));
           set("font", esc((FONTS.find(x => x.id === s.font) || FONTS[0]).label));
+          set("neat", s.neat === "off" ? "Off" : "On");
           set("round", esc(({ sharp: "Sharp", round: "Round" })[s.round] || "Normal"));
           set("density", esc(({ compact: "Compact", roomy: "Roomy" })[s.density] || "Normal"));
         },
