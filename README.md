@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.66.0*
+*Version 2.67.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **58 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **645 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -90,7 +90,7 @@ The list used to be a tall stack of buttons and big cards. It is now built to be
 - **Search** by program name, athlete, tag, workout name or **exercise**. Typing "hack squat" lists every program that has one; "zane" lists his three; "mentzer pullover" narrows to the one program that has both. Every word has to match, and the match is highlighted.
 - **Filter chips with counts:** **All**, **Pro plans** (tied to a named athlete), **Two-a-day** (any program with morning and evening sessions), **Mass**, **Cutting**, **Strength**, **Beginner** and **Mine** (programs you made or imported).
 - **One slim row per program:** a coloured badge with the athlete's initials (the same colour for every program of one athlete), the title, and one line of facts, like **Mass · 6 days/wk · 12 weeks · Advanced**. Two-a-day programs also carry a small gold **☀ ☾ AM+PM** tag (**☀ wk 10–12** when only some weeks train twice a day). Rows are grouped as **Your programs**, **Pro programs** (by athlete) and **More programs**. The current program's row says **✓ Current**.
-- **Tap a row to open it. Tap ⋯ for the rest:** **Open program**, **Steal a day from it** (2.43.0), **Make it my current program**, **Share** and **Delete from this phone** (still asks first; a built-in program can be added back later).
+- **Tap a row to open it. Tap ⋯ for the rest:** **Open program**, **Steal a day from it** (2.43.0), **Make it my current program**, **Share** and **Delete from this phone** (asks first in the app's own dialog, then offers **Undo** for 10 seconds; a built-in program can also be added back later).
 - The labels (athlete, goal, level, days a week) come from `programs.js`. Programs you made yourself get a guess from their title and tags.
 
 #### How a two-a-day program looks inside (new in 2.40.0)
@@ -729,7 +729,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.66.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.67.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -793,6 +793,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.67.0**
+- **Deleting a program is tidy.** **Delete from this phone** used to open the grey browser pop-up ("eelhawn.github.io says..."). It now asks in the app's own dialog, like the rest of the app: **Delete this program?**, the program's name, what happens to it (a built-in one can be added back with **Add Back a Built-in Program**; one you made or imported cannot be added back later), and that saved workouts in History are kept. The buttons are **Keep it** and a red **Delete**.
+- **Undo.** Right after a delete, a toast says **Deleted "..."** with an **Undo** button for 10 seconds. Undo puts the program back in the same place in the list, with the week and days you had done, and as your current program again if it was (unless you picked another one in the meantime). This works for every way of deleting a program.
+- The 58 programs and the 645 exercises are unchanged.
 
 **2.66.0**
 - **Arnold's Blueprint, Phase 1 and Phase 2 in one program.** "Arnold Blueprint to Mass: Phase 1" and "Arnold Blueprint to Cuts: Phase 2" are now one 8-week program: weeks 1-4 are Phase 1 and weeks 5-8 are Phase 2, six days a week. Every exercise, set, rep and rest is exactly as it was. Day titles start with "Phase 1 -" or "Phase 2 -", and Phase 2's "Monday & Thursday" days are now named one day each. The description says that Phase 2 comes from his Blueprint to Cut, so the program builds first and then leans out; the Blueprint to Mass has a Phase 2 of its own that is not in the app.

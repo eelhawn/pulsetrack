@@ -395,7 +395,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.66.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.67.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3779,7 +3779,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.66.0";
+    const APP_VERSION = "2.67.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -21766,16 +21766,17 @@ const PTSIM = (function () {
         else if (act === "steal") { if (PT.steal) PT.steal.open({ program: p }); }
         else if (act === "select") a.selectProgram(p);
         else if (act === "share") a.shareProgram(p);
-        else if (act === "delete") {
-          const isBuiltin = builtinMapHas(p.id);
-          if (confirm(isBuiltin
-            ? `Delete "${p.title}" from this phone?\n\nYou can add it back any time with "Add Back a Built-in Program". Saved workouts in History are kept.`
-            : `Delete "${p.title}"? This cannot be undone. Saved workouts in History are kept.`)) a.deleteProgram(p.id);
-        }
+        else if (act === "delete") askDelete(a, p);
       }, 120);
     }));
   }
   const builtinMapHas = id => { if (!BM) BM = builtinMap(); return BM.has(id); };
+  /** 2.67.0: "Delete from this phone" asks in the app's own dialog (it used to be the grey browser pop-up) and says what happens to this kind of program. */
+  async function askDelete(a, p) {
+    const own = !builtinMapHas(p.id);
+    const body = `"${p.title}" goes off this phone. ${own ? "It is one you made or imported, so it cannot be added back later." : 'You can add it back any time with "Add Back a Built-in Program".'} Saved workouts in History are kept.`;
+    if (await PT.confirm("Delete this program?\n\n" + body, { title: "Delete this program?", body, ok: "Delete", cancel: "Keep it", danger: true })) a.deleteProgram(p.id);
+  }
 
   /* ================================================================ styles */
   const css = document.createElement("style"); css.id = "pt-v237-prog-css";
@@ -28746,6 +28747,51 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const out = oSeed.apply(this, arguments);
     try { if (refresh(out)) this.setData(out); } catch (e) { console.warn("PulseTrack: program refresh skipped", e); }
     return out;
+  };
+})();
+  </script>
+  <script>
+/* =====================================================================
+ * PulseTrack 2.67.0: deleting a program is tidy, and you can take it back.
+ *  The question is now the app's own dialog (in m63a.js), not the grey browser pop-up.
+ *  Right after a program is deleted, a toast says so and offers Undo for 10 seconds: the program comes back in the same place in the list,
+ *  with the week and day you were on, and as your current program again if it was. Saved workouts in History were never touched.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || typeof WorkoutStorage === "undefined") return;
+  const proto = ApplicationUI.prototype, oDel = proto.deleteProgram;
+  if (typeof oDel !== "function") return;
+  const clone = x => { try { return JSON.parse(JSON.stringify(x)); } catch (e) { return undefined; } };
+
+  function restore(a, snap) {
+    const progs = a.data.programs = a.data.programs || [];
+    if (progs.some(p => p && p.id === snap.prog.id)) { a.toast("It is already back"); return; }
+    progs.splice(Math.min(snap.i, progs.length), 0, snap.prog);
+    WorkoutStorage.setData(a.data);
+    if (snap.st !== undefined) { a.progState = a.progState || {}; a.progState[snap.prog.id] = snap.st; try { a.saveProgState(); } catch (e) { } }
+    // the program that was your current one, and the one you had open, only go back if you have not picked something else in the meantime
+    const day = (snap.prog.days || []).find(d => d.dayNumber === snap.dayNo) || null;
+    if (snap.wasCurrent && typeof a.selectProgram === "function" && !(PT.currentProgramId && PT.currentProgramId())) a.selectProgram(snap.prog, day, true);
+    else if (snap.wasActive && a.activeProgram === snap.afterActive) { a.activeProgram = snap.prog; a.activeDay = day || (snap.prog.days || [])[0] || null; }
+    try { a.renderProgramsView(); } catch (e) { }
+    try { a.updateDrawerStatus(); } catch (e) { }
+    try { a.renderHomeView && a.renderHomeView(); } catch (e) { }
+    a.toast("Brought back “" + snap.prog.title + "”");
+  }
+
+  proto.deleteProgram = function (id) {
+    const a = this, progs = (a.data && a.data.programs) || [], i = progs.findIndex(p => p && p.id === id);
+    if (i < 0) return oDel.apply(this, arguments);
+    const snap = {
+      i, prog: progs[i], st: a.progState && a.progState[id] ? clone(a.progState[id]) : undefined,
+      wasActive: !!(a.activeProgram && a.activeProgram.id === id), dayNo: a.activeDay ? a.activeDay.dayNumber : null,
+      wasCurrent: !!(PT.currentProgramId && PT.currentProgramId() === id)
+    };
+    const r = oDel.apply(this, arguments);
+    snap.afterActive = a.activeProgram;
+    try { a.toast("Deleted “" + snap.prog.title + "”", "Undo", () => restore(a, snap), 10000); } catch (e) { }
+    return r;
   };
 })();
   </script>
