@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.65.0*
+*Version 2.65.1*
 
 PulseTrack installs to your home screen like a normal app. It comes with **56 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **645 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -137,7 +137,7 @@ The two **collections** are not weekly plans. Each "day" is one athlete's signat
 | Flex Wheeler | Super Hypertrophy | Same layout, quad-first legs and cable crossovers (Week 1 of his published program) | Boostcamp coach page |
 | Lee Priest | Full Body + Arm Day | Three full-body days plus his superset arm workout | BarBend, Set For Set |
 | Ronnie Coleman | Back & Leg Specialization | Thickness and width back days, two leg days | Fitness Volt |
-| Ronnie Coleman | 6-On, 1-Off Split | His own week: back + biceps, chest + triceps, legs, shoulders, back + biceps, chest + triceps, rest. The split is his; the exercises are our pick from his documented lifts, 12 weeks, same week repeated | Men's Health UK (his Instagram video with Jeremy Ethier), Fitness Volt, Built for Athletes |
+| Ronnie Coleman | 6-On, 1-Off Split | His own week: back + biceps, chest + triceps, legs, shoulders, back + biceps, chest + triceps, rest. The split is his; the 54 exercises are our pick from his documented lifts, 12 weeks, same week repeated | Men's Health UK (his Instagram video with Jeremy Ethier), Generation Iron, Built for Athletes, Fitness Volt, Iron Man magazine, Hunt Fitness |
 | Nick Walker | Weekly Split | Legs, push, pull, legs, mixed; the source lists exercises only, so sets and reps are ours | Fitness Volt |
 | Kai Greene | 5-Day Body-Part Split | High volume, calves twice a week | Lift Vault |
 | Vince Gironda | 10-8-6-15 Method | Upper/lower; 4 sets at 10, 8, 6 and 15 reps off your 6-rep max | Lift Vault (Iron and Grit) |
@@ -725,7 +725,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.65.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.65.1 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -748,7 +748,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 - Mountain Dog: one week repeats for 12 weeks.
 - Phil Heath Phase 3: cardio has no time listed.
 - Ronnie Coleman: crunches have no sets or reps listed.
-- Ronnie Coleman 6-On, 1-Off Split: the video report names the muscle groups only, so the exercises, sets and reps come from Fitness Volt and Built for Athletes. Rear-delt flyes (Thursday) and the seated EZ-bar extension (Saturday) are not in those sources, so their 3 x 12 is ours, and the 12 weeks are our choice.
+- Ronnie Coleman 6-On, 1-Off Split: the video report names the muscle groups only, so the exercises, sets and reps come from other write-ups of his training (Generation Iron, Built for Athletes, Fitness Volt, Iron Man magazine, Hunt Fitness). Only the 20 steps on the walking lunges (the sources say about 30 meters a set) and the 12 weeks are ours. Calves sit on his leg day here; in the write-ups they were on Saturday.
 
 ---
 
@@ -786,6 +786,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.65.1**
+- **More of Ronnie Coleman's own exercises in the 6-On, 1-Off Split.** I searched out what he is documented doing and worked it into the week: 54 exercises now, up from 41. Back days add behind-the-neck pulldowns, pullovers, hammer curls and more curls; chest days add dumbbell flyes on the flat bench, decline dumbbell presses and pushdowns; legs become one full day (leg extension warm-up, a 12-10-8-4-2 squat pyramid, leg press, hack squat, walking lunges, three hamstring lifts, standing and seated calf raises); shoulders now have his machine lateral raise and press superset, rear-delt cable flyes and behind-the-back shrugs. Sources: Generation Iron, Built for Athletes, Fitness Volt, Iron Man magazine (2005) and Hunt Fitness. A phone that already has the 2.65.0 copy gets the new list by itself the next time the app starts online, as long as you have not edited that program; a copy you edited is left alone.
+- Built-in programs are copied to a phone once, so this is the first time a built-in program's exercises can be refreshed on a phone that already has it. It only replaces a copy that is still exactly the old one (same exercises, sets and reps), keeps the day numbers so the week and day you are on stay valid, and leaves anything you edited alone.
+- The 56 programs and the 645 exercises are unchanged in number.
 
 **2.65.0**
 - **New program: Ronnie Coleman, 6-On, 1-Off Split.** Ronnie's own week, as he described it in an Instagram video with Jeremy Ethier (reported by Men's Health UK): Monday back + biceps, Tuesday chest + triceps, Wednesday legs, Thursday shoulders, Friday back + biceps, Saturday chest + triceps, Sunday rest. "Always six days on, one day off." That report only names the muscle groups, so the exercises are our pick from the lifts he is documented using (back and leg days from Fitness Volt, chest, triceps, biceps and shoulders from Built for Athletes, mostly 4-5 sets of 12), and the program says so in its description. It runs 12 weeks with the same week repeated, and adds the weight whenever you hit all the reps. Phones that already have the older programs get it by themselves the next time the app starts online.
