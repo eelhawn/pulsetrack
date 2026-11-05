@@ -293,6 +293,7 @@
       const HOME = [
         { id: "banners", label: "Monthly recap banner", el: () => document.getElementById("home-banners") },
         { id: "routine", label: "Today's workout", el: () => closestChild("btn-home-resume") },
+        { id: "fuel", label: "Pre-workout protocol", after: "routine", el: () => document.getElementById("pt-home-fuel") },
         { id: "build", label: "Start training (Build, Empty, Cardio)", el: () => document.getElementById("home-build") },
         { id: "week", label: "This week", el: () => document.getElementById("home-week") },
         { id: "work", label: "Work check-in", el: () => document.getElementById("home-work") },
@@ -323,6 +324,9 @@
           e.style.order = String(i); e.style.display = it.show ? "" : "none";
         });
       }
+      // 2.72.0: the Pre-workout row is created later by its own module, so it asks here whether it is wanted and takes its place in the order.
+      PT.homeShown = id => { const app = A(); if (!app) return true; const it = homeLayout(app).find(x => x.id === id); return !it || it.show !== false; };
+      PT.homePlace = () => { const app = A(); if (app) applyHomeLayout(app); };
       function drawHomeLayout(app) {
         const box = document.getElementById("pt-home-layout"); if (!box) return;
         const lay = homeLayout(app);
@@ -350,6 +354,7 @@
         app.settings.homeLayout = lay;
         WorkoutStorage.saveSettings(app.settings);
         applyHomeLayout(app); drawHomeLayout(app);
+        try { if (PT.fuel && PT.fuel.refresh) PT.fuel.refresh(); } catch (er) { }
       });
 
       /* ============================================================ 1RM calculator */

@@ -238,9 +238,14 @@
     const d = a.activeDay; if (d && a.isRestDay && a.isRestDay(d)) return false;
     return true;
   }
+  function homeWanted(a) {
+    if (a.settings.fuelRow === false) return false;
+    try { if (PT.homeShown && PT.homeShown("fuel") === false) return false; } catch (e) { }     // Settings → Home screen → Pre-workout protocol: Shown / Hidden
+    return true;
+  }
   function homeRow(a) {
     const host = $("home-routine") || $("home-work"); let b = $("pt-home-fuel");     // right under today's workout, where you are about to start
-    if (!host) { if (b) b.remove(); return; }
+    if (!host || !homeWanted(a)) { if (b) b.remove(); return; }
     const t = homeText(a), idle = !t && showIdleRow(a);
     if (!t && !idle) { if (b) b.remove(); return; }
     if (!b) { b = document.createElement("button"); b.type = "button"; b.id = "pt-home-fuel"; b.className = "tap-active"; b.dataset.fuOpen = "1"; }
@@ -248,6 +253,7 @@
     if (b.innerHTML !== html) b.innerHTML = html;
     b.classList.toggle("run", !!t);
     if (host.nextElementSibling !== b) host.insertAdjacentElement("afterend", b);
+    if (!b.style.order && PT.homePlace) PT.homePlace();     // sit right under Today's workout in the Home screen order
   }
   let started = false;
   const boot = () => { const a = A(); if (a && a.settings && !started) { started = true; schedule(a); tick(a); } };
@@ -303,7 +309,7 @@
   const oRW = proto.renderWorkoutView;
   proto.renderWorkoutView = function () { const r = oRW.apply(this, arguments); try { ensureReal(); } catch (e) { } return r; };
 
-  PT.fuel = { status: () => status(A()), start: t => start(A(), t), stop: () => stop(A()), take: (id, ago) => take(A(), id, ago), tick: () => tick(A()), steps: () => steps(A()), run: () => run(A()), ics: () => icsText(A()), open, targetTs, readyTime: () => readyTime(A()) };
+  PT.fuel = { refresh: () => { const a = A(); if (a) homeRow(a); }, status: () => status(A()), start: t => start(A(), t), stop: () => stop(A()), take: (id, ago) => take(A(), id, ago), tick: () => tick(A()), steps: () => steps(A()), run: () => run(A()), ics: () => icsText(A()), open, targetTs, readyTime: () => readyTime(A()) };
 
   const css = document.createElement("style");
   css.id = "pt-v245-fuel-css";
