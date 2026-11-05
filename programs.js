@@ -107093,5 +107093,453 @@ const BUILTIN_PROGRAMS = [
     ]
    }
   ]
+ },
+ {
+  "id": "ronnie_coleman_6on1off_split",
+  "title": "Ronnie Coleman: 6-On, 1-Off Split",
+  "description": "Ronnie Coleman's own weekly split, as he described it in an Instagram video with Jeremy Ethier (reported by Men's Health UK, November 2026): Monday back and biceps, Tuesday chest and triceps, Wednesday legs, Thursday shoulders, Friday back and biceps, Saturday chest and triceps, Sunday off. His words: 'Always six days on, one day off.' That report only names the muscle groups, so the exercises are PulseTrack's pick from the lifts Coleman is documented using, not a list from the video. Back days follow Fitness Volt (a thickness day with deadlifts and rows, a width day with rows and pulldowns). Biceps, chest, triceps and shoulders follow Built for Athletes' write-up of his program (most lifts are 4-5 sets of 12). With one leg day a week, Wednesday is the squat day from Fitness Volt plus the hack squat and walking lunges from his second leg day. Where a source gives a range for sets ('3-5 sets of 8-20') the lower set count is used. Sources: Men's Health UK (via Yahoo Life UK), Fitness Volt ('Ronnie Coleman's Legendary Back Workout', 'Ronnie Coleman's Leg Workout For Building Monster Wheels') and Built for Athletes ('How Did Ronnie Coleman Train'). Runs 12 weeks (the length is our choice): the same workouts every week, adding weight whenever you hit all the reps.",
+  "tags": [
+   "Ronnie Coleman",
+   "Mr. Olympia",
+   "Mass Building",
+   "Classic Bodybuilding",
+   "6 Days",
+   "High Volume",
+   "12 Weeks"
+  ],
+  "weeks": 12,
+  "pro": "Ronnie Coleman",
+  "goal": "mass",
+  "level": "advanced",
+  "perWeek": 6,
+  "baseDays": 7,
+  "weekPlan": [
+   {
+    "weeks": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7,
+     8,
+     9,
+     10,
+     11,
+     12
+    ],
+    "days": [
+     1,
+     2,
+     3,
+     4,
+     5,
+     6,
+     7
+    ]
+   }
+  ],
+  "days": [
+   {
+    "dayNumber": 1,
+    "title": "Monday: Back & Biceps",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "ronnie_coleman_6on1off_split_d1_e1",
+      "name": "Deadlift",
+      "sets": 4,
+      "reps": "6-12",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "Thickness day. Heavy first sets, then lighter sets for more reps."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d1_e2",
+      "name": "Barbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d1_e3",
+      "name": "T-Bar Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d1_e4",
+      "name": "Dumbbell Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "One arm at a time."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d1_e5",
+      "name": "Barbell Curls",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d1_e6",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Seated."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d1_e7",
+      "name": "EZ-Bar Preacher Curls",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "The source says an EZ-bar curl on a bench."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d1_e8",
+      "name": "Cable Curls",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Low cable, bar attachment."
+     }
+    ]
+   },
+   {
+    "dayNumber": 2,
+    "title": "Tuesday: Chest & Triceps",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "ronnie_coleman_6on1off_split_d2_e1",
+      "name": "Bench Press",
+      "sets": 5,
+      "reps": "12",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d2_e2",
+      "name": "Incline Bench Press",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d2_e3",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d2_e4",
+      "name": "EZ-Bar Skull Crushers",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "The source says an EZ-bar triceps extension."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d2_e5",
+      "name": "Seated Overhead Dumbbell Extension",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d2_e6",
+      "name": "Close-Grip Bench Press",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 120,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 3,
+    "title": "Wednesday: Legs",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "ronnie_coleman_6on1off_split_d3_e1",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "30",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Warm-up: pyramid up in weight, 4 sets of 30."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d3_e2",
+      "name": "Squat",
+      "sets": 3,
+      "reps": "5-15",
+      "restSeconds": 180,
+      "type": "standard",
+      "notes": "No pause at the top of each rep. The source says 3-5 sets; the lower number is used."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d3_e3",
+      "name": "Leg Press",
+      "sets": 3,
+      "reps": "8-20",
+      "restSeconds": 150,
+      "type": "dropset",
+      "notes": "Pyramid to the heaviest set, then strip plates and keep going to failure."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d3_e4",
+      "name": "Hack Squat",
+      "sets": 3,
+      "reps": "8-20",
+      "restSeconds": 150,
+      "type": "dropset",
+      "notes": "From his second leg day. Pyramid up, then strip plates and keep going."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d3_e5",
+      "name": "Walking Lunges",
+      "sets": 3,
+      "reps": "8-20",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "From his second leg day. High intensity."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d3_e6",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "8-20",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "To failure, hard squeeze."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d3_e7",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 3,
+      "reps": "8-20",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "To failure."
+     }
+    ]
+   },
+   {
+    "dayNumber": 4,
+    "title": "Thursday: Shoulders",
+    "estimatedMinutes": 45,
+    "exercises": [
+     {
+      "id": "ronnie_coleman_6on1off_split_d4_e1",
+      "name": "Seated Barbell Overhead Press",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d4_e2",
+      "name": "Seated Dumbbell Press",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d4_e3",
+      "name": "Front Raises",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Dumbbells."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d4_e4",
+      "name": "Lateral Raises",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Built for Athletes lists these on his chest day; they sit here because this split has a shoulder day."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d4_e5",
+      "name": "Dumbbell Reverse Flyes",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Rear delts. The source does not list these, so the sets and reps are ours."
+     }
+    ]
+   },
+   {
+    "dayNumber": 5,
+    "title": "Friday: Back & Biceps",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "ronnie_coleman_6on1off_split_d5_e1",
+      "name": "Barbell Row",
+      "sets": 5,
+      "reps": "10-12",
+      "restSeconds": 120,
+      "type": "standard",
+      "notes": "Width day."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d5_e2",
+      "name": "Seated Cable Row",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Low pulley row."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d5_e3",
+      "name": "Close-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d5_e4",
+      "name": "Wide-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d5_e5",
+      "name": "Alternating Dumbbell Curls",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Seated."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d5_e6",
+      "name": "Machine Preacher Curls",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d5_e7",
+      "name": "Barbell Curls",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d5_e8",
+      "name": "Cable Curls",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Low cable, bar attachment."
+     }
+    ]
+   },
+   {
+    "dayNumber": 6,
+    "title": "Saturday: Chest & Triceps",
+    "estimatedMinutes": 55,
+    "exercises": [
+     {
+      "id": "ronnie_coleman_6on1off_split_d6_e1",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d6_e2",
+      "name": "Decline Bench Press",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d6_e3",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d6_e4",
+      "name": "Decline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d6_e5",
+      "name": "Lying French Press",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "The source says an EZ-bar French press."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d6_e6",
+      "name": "Triceps Dips",
+      "sets": 4,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Parallel bars."
+     },
+     {
+      "id": "ronnie_coleman_6on1off_split_d6_e7",
+      "name": "Overhead EZ-Bar Extension",
+      "sets": 3,
+      "reps": "12",
+      "restSeconds": 90,
+      "type": "standard",
+      "notes": "Seated. The source gives no sets or reps for this one, so 3 x 12 is ours."
+     }
+    ]
+   },
+   {
+    "dayNumber": 7,
+    "title": "Sunday: Rest",
+    "estimatedMinutes": 0,
+    "exercises": []
+   }
+  ]
  }
 ];
