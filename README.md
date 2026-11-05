@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.69.0*
+*Version 2.70.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **58 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **645 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
 
@@ -701,19 +701,35 @@ Settings is a short list of ten groups: **Workout**; **Workout Screen**; **Gyms 
 
 | Setting | Choices |
 |---|---|
-| **Theme** | 13 one-tap looks: nine dark (Classic, Midnight, Crimson, Neon, Sunset, Royal, Ocean, Forest, Iron) and four light (Paper, Daylight, Sandy, Bloom). A theme sets mode, colour, background, effect and font together; change any one afterwards and the rest stays. |
+| **Theme** (65 since 2.70.0) | 65 one-tap looks in eight groups: **Dark** (Classic, Midnight, Iron, Graphite, Obsidian, Charcoal, Noir, Slate blue, Ink), **Colour** (Crimson, Royal, Candy, Lagoon, Grape, Tangerine, Citrus, Berry, Bubblegum), **Neon** (Neon, Cyberpunk, Synthwave, Toxic, Ultraviolet, Matrix, Electric), **Warm** (Sunset, Ember, Mocha, Cocoa, Gold rush, Rosewood), **Nature** (Ocean, Forest, Pine, Moss, Desert, Canyon, Tide, Glacier, Meadow), **Light** (Paper, Daylight, Sandy, Bloom, Ivory, Linen, Mist, Peachy, Lilac, Seafoam, Butter, Sage), **Retro** (Arcade, Terminal, Handheld, Newspaper, Blueprint, Vaporwave) and **Seasons** (Halloween, Christmas, Valentine, Spring, Summer, Autumn, Winter). A theme sets mode, colour, background, effect, font and style together; change any one afterwards and the rest stays. **All 65 themes** opens the gallery (below). |
 | **Mode** | **Dark**, **Light**, or **Auto** (follows your phone and switches live). |
 | **Neater look** (2.69.0) | **On** (the default) or **Off**. On: cards are filled instead of outlined, the header and tab bar lose their boxes, dashed and coloured outlines go away, helper buttons go quiet, and a long program description folds to two lines with a **More** button. Off brings back the boxed look exactly as it was. It works with every theme, light or dark, and a theme change keeps your choice. |
-| **Accent colour** | 18 ready-made colours, or the rainbow circle for your own: type a **hex code** like `#FF3366` or drag the three sliders. Colours are adjusted per mode so text stays readable. |
-| **Background** | Dark: Classic, True black, Midnight, Slate, Forest, Plum, Ember, Wine. Light: Paper, Snow, Cloud, Sand, Mint, Blush, Lavender, Stone. Or a **custom hex** for either (adjusted to suit the mode). Dark and light remember their own. |
-| **Background effect** | **Solid**, **Glow**, **Fade**, **Aurora**, or **Gradient** (two colours of your own). |
-| **Font** | System, Poppins, Outfit, Work Sans, Big Shoulders, Tektur, Lora, JetBrains Mono. They are built in, so they work offline. |
+| **Accent colour** | 42 ready-made colours (24 more in 2.70.0), or the rainbow circle for your own: type a **hex code** like `#FF3366` or drag the three sliders. Colours are adjusted per mode so text stays readable. |
+| **Background** | 28 dark (Classic, True black, Midnight, Slate, Forest, Plum, Ember, Wine, Graphite, Obsidian, Navy, Deep sea, Pine, Moss, Mocha, Espresso, Rust, Indigo night, Violet night, Cherry, Steel, Warm charcoal, Mauve, Ink, Teal night, Bordeaux, Cocoa, Dusk) and 18 light (Paper, Snow, Cloud, Sand, Mint, Blush, Lavender, Stone, Ivory, Linen, Sky, Seafoam, Peach, Lilac, Butter, Mist, Rosewater, Sage). Or a **custom hex** for either (adjusted to suit the mode). Dark and light remember their own. |
+| **Background effect** | 14: **Solid**, **Glow**, **Fade**, **Aurora**, **Gradient** (two colours of your own), and from 2.70.0 **Spotlight**, **Horizon**, **Mesh**, **Dusk**, **Vignette**, **Stripes**, **Dots**, **Grid** and **Stars**. They use your accent colour. |
+| **Font** | System, Poppins, Outfit, Work Sans, Big Shoulders, Tektur, Lora and JetBrains Mono are built in and work offline. Since 2.70.0 there are six more that use the fonts already on your phone: **Condensed**, **Rounded**, **Serif**, **Mono**, **Typewriter** and **Humanist**. They cost no download, and how they look depends on the phone (they fall back to the normal font if it lacks them). |
 | **Corners** | **Sharp**, **Normal** or **Round**. |
+| **Card style** (2.70.0) | **Filled** (the default), **Outlined** (a thin line round every card), **Raised** (a soft shadow) or **Glass** (see-through cards that blur the background; best with a background effect). |
+| **Buttons** (2.70.0) | The main accent buttons (Start Workout, Save and so on): **Solid**, **Gradient**, **Soft** (a tint with coloured text) or **Outline**. |
+| **Tab bar** (2.70.0) | **Labels** (the default), **Icons** (bigger icons, no words) or **Floating** (a rounded bar that hovers above the bottom edge). Under 768 px wide in portrait only; the side rail on wide screens and landscape phones is unchanged. |
+| **Text contrast** (2.70.0) | **Soft**, **Normal** or **High**. High makes the small grey text easier to read. |
+| **Spacing** (2.70.0) | **Tight**, **Normal** or **Airy**: the gaps between cards and the padding inside them. |
+| **Motion** (2.70.0) | **Phone** (follows your phone's reduce-motion setting), **Full**, **Less** (short fades, no confetti) or **Off** (nothing slides or pulses). |
+| **Top bar** (2.70.0) | **Full** or **Simple** (hides the small line under each page title). |
 | **Row size** | **Compact**, **Normal** or **Roomy** for set rows and check buttons. Roomy is easier with sweaty hands. |
 
 In Light mode the muscle map keeps its dark body figure so the muscles stay easy to see.
 
-**Reset look** puts colours, background, effect, font and corners back to the original. It does not touch your Home layout, your own exercises or your data.
+**Readable on any colour (2.70.0).** Whatever accent and background you choose, custom hex colours included, accent text and the main buttons are nudged just enough to keep a readable contrast (about 4.5 to 1). The test suite checks every theme at every contrast level, and a few hundred random combinations.
+
+**The theme gallery (2.70.0).** Settings → Appearance → **All 65 themes**.
+- **Browse:** group buttons across the top (All, Dark, Light, Colour, Neon, Nature, Warm, Retro, Seasons, Mine), two small previews per row, a ✓ on the one in use. Tap one to use it.
+- **🎲 Surprise:** a random look (colours, font, corners, card, button and effect). **Surprise me** is also on the Themes row in Appearance. Tap **Save** in the message to keep one you like.
+- **💾 Save:** names and keeps the look you have made now (up to 40). They show under **Mine**, with a ✕ to delete one. Saved looks are in your settings, so they are in backups and move to a new phone.
+- **🔗 Code:** your look as a short code starting `PT1.` to copy and send to anyone with PulseTrack (colours, font and style only, nothing private), and a box to paste a code someone sent you. A code with anything unknown in it is refused.
+- **🌗 Day/night:** pick a look for the day and one for the night and the time each starts (for example Paper at 07:00 and Midnight at 19:30). The app switches by itself when the time comes, when you open it and while it is open. A theme you pick in between stays until the next switch. Turning it off, or **Reset look**, keeps your times.
+
+**Reset look** puts colours, background, effect, font, corners, card, button and tab bar styles, contrast, spacing, motion and top bar back to the original. It keeps your saved looks and day/night times. It does not touch your Home layout, your own exercises or your data.
 
 **Home layout** (Settings → Appearance → Home screen): use ▲ ▼ to move a card and **Shown / Hidden** to show or hide it. The cards are the monthly recap banner, today's workout, Start training, This week and Work check-in (all shown by default), then Last workout, PRs this month, the Search bar, Train / Track / Tools, the 1RM Trophy Room and Consistency (all hidden by default since 2.22.0). **Put the cards back the way they were** resets it to the short Home. When a phone updates to 2.22.0 it gets the short Home once, with a short note saying where things went; any change you make after that is kept.
 
@@ -744,7 +760,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.69.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.70.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -788,7 +804,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 11 style files (`css/`), its 92 scripts (`js/`) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 12 style files (`css/`), its 93 scripts (`js/`) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0) and `neat_borders.py` (2.69.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -801,9 +817,9 @@ Upload these to your GitHub repo, all in the same folder:
 - **`src/index.template.html`** is the page. Wherever it says `{{file:js/...}}` or `{{file:css/...}}` inside a `<script>` or `<style>` tag, the build puts that file's text there. The order of the lines is the order the scripts run. `{{VERSION}}` is replaced by `src/VERSION`.
 - **`src/js/NNN-*.js`** are the scripts, in order. `004-app-core.js` is the app itself; each `v2.xx.x` file is one feature, added on top. The `999-` file always stays last.
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
-- **New feature:** `python3 tools/new_module.py 2.69.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
-- **New release:** `python3 tools/bump.py 2.69.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **New feature:** `python3 tools/new_module.py 2.70.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
+- **New release:** `python3 tools/bump.py 2.70.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -824,6 +840,14 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.70.0**
+- **Many more themes: 65 in eight groups** (Dark, Colour, Neon, Warm, Nature, Light, Retro, Seasons), up from 13. Plus 42 accent colours (was 18), 28 dark and 18 light backgrounds (was 8 and 8), 14 background effects (was 5; new: Spotlight, Horizon, Mesh, Dusk, Vignette, Stripes, Dots, Grid, Stars) and six more fonts that use the fonts already on your phone (Condensed, Rounded, Serif, Mono, Typewriter, Humanist).
+- **A theme gallery.** Settings → Appearance → **All 65 themes**: browse by group, tap to use, **Surprise** for a random look, **Save** a look you made (up to 40, in backups), share a look as a short **code** and use a code someone sent you, and **Day/night** to switch between two looks at set times.
+- **More ways to make it yours.** New Appearance rows: **Card style** (Filled, Outlined, Raised, Glass), **Buttons** (Solid, Gradient, Soft, Outline), **Tab bar** (Labels, Icons, Floating), **Text contrast** (Soft, Normal, High), **Spacing** (Tight, Normal, Airy), **Motion** (Phone, Full, Less, Off) and **Top bar** (Full, Simple). **Reset look** puts all of them back.
+- **Readable on any colour.** Accent text and the main buttons are nudged just enough to stay readable on whatever accent and background you pick, custom colours included.
+- New `tests/themes.py`: every theme at every contrast level, every button style in light and dark, all the new options, no sideways overflow, the gallery (browse, use, save, delete, code round trip, wrong code refused, Surprise), 160 random Surprise looks, and the day/night times.
+- Not added: extra downloaded web fonts. They could not be fetched while building this version, so the new fonts use what is already on the phone. The 58 programs and the 645 exercises are unchanged.
 
 **2.69.0**
 - **A neater look, on by default.** The app was a lot of outlined boxes in different styles. Cards are now filled surfaces with no outline (in dark themes they take a slightly lighter shade so they still stand out), the header's buttons and the tab bar lose their boxes, dashed and coloured outlines are gone (a notice keeps a thin accent bar on its left edge), helper buttons such as Gym mode, Say a set and the Programs tools are quiet text, set rows in a workout have fewer lines, and History and Library no longer repeat their page title in a card. It follows every theme, light or dark.

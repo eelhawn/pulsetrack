@@ -159,7 +159,7 @@
     .pt-ico { flex: none; width: 2.3rem; height: 2.3rem; border-radius: .8rem; display: flex; align-items: center; justify-content: center; font-size: 1.1rem; line-height: 1; background: rgb(var(--a600) / .13); border: 1px solid rgb(var(--a600) / .26); }
     .pt-ttl { flex: 1; min-width: 0; display: block; }
     .pt-ttl > span:first-child { display: block; font-size: .8125rem; line-height: 1.2; }
-    .pt-sub { display: block; margin-top: .18rem; font-size: .6875rem; line-height: 1.2; color: rgb(var(--z500)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    span.pt-sub { display: block; margin-top: .18rem; font-size: .6875rem; line-height: 1.2; color: rgb(var(--z500)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
     #progress-body .pt-pg > summary > .pt-chev { margin-left: .1rem; }
     #progress-body .pt-pcfold { border-radius: 1.1rem; padding: 0 .9rem; }
     #progress-body .pt-pcfold > summary { display: flex; align-items: center; gap: .75rem; padding: .7rem 0; min-height: 3.5rem; }

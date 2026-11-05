@@ -1,0 +1,113 @@
+/* ===== 2.70.0 looks: card style, buttons, tab bar, spacing, motion, top bar, theme gallery =====
+ * Each option is a data-* attribute on <html> (set by applyTheme). The default value of each changes nothing. */
+
+/* ---------------- card style ---------------- */
+/* Outlined: a visible thin line round every card (the Neater look keeps the fill) */
+html[data-neat="1"][data-card="outlined"] { --nt-hair: rgb(var(--z700) / .85); --nt-card: rgb(var(--z900)); }
+html[data-neat="1"][data-card="outlined"][data-mode="light"] { --nt-hair: rgb(var(--z700) / .9); --nt-card: rgb(var(--z950)); }
+html[data-neat="1"][data-card="outlined"] #pt-checkin, html[data-neat="1"][data-card="outlined"] #pt-home-fuel { border: 1px solid var(--nt-hair); }
+
+/* Raised and Glass: the same list of "cards" (anything that is a box on a screen) */
+html[data-card="raised"] main :is(.bg-zinc-900, .bg-gradient-to-br, .pgx-pr, .pgx-tc, .pt-pg, .pt-pcfold, .pt-co-card, .pt-ucard, #pt-you-card, [data-ex-card]) {
+  box-shadow: 0 1px 0 rgb(255 255 255 / .05) inset, 0 8px 18px -10px rgb(0 0 0 / .65);
+}
+html[data-card="raised"][data-mode="light"] main :is(.bg-zinc-900, .bg-gradient-to-br, .pgx-pr, .pgx-tc, .pt-pg, .pt-pcfold, .pt-co-card, .pt-ucard, #pt-you-card, [data-ex-card]) {
+  box-shadow: 0 1px 2px rgb(0 0 0 / .08), 0 10px 20px -12px rgb(0 0 0 / .3);
+}
+html[data-card="glass"] main :is(.bg-zinc-900, .bg-gradient-to-br, .pgx-pr, .pgx-tc, .pt-pg, .pt-pcfold, .pt-co-card, .pt-ucard, #pt-you-card, [data-ex-card]) {
+  background: rgb(var(--z900) / .5); background-image: none; border-color: rgb(var(--z100) / .12);
+  -webkit-backdrop-filter: blur(10px) saturate(140%); backdrop-filter: blur(10px) saturate(140%);
+  box-shadow: 0 1px 0 rgb(255 255 255 / .06) inset;
+}
+html[data-card="glass"][data-mode="light"] main :is(.bg-zinc-900, .bg-gradient-to-br, .pgx-pr, .pgx-tc, .pt-pg, .pt-pcfold, .pt-co-card, .pt-ucard, #pt-you-card, [data-ex-card]) {
+  background: rgb(var(--z950) / .6); border-color: rgb(var(--z100) / .1);
+}
+/* a card inside a card stays flat, so nothing gets heavy */
+html[data-card="raised"] main :is(.bg-zinc-900, .pgx-pr, .pgx-tc, .pt-pg, .pt-pcfold, .pt-co-card, .pt-ucard, #pt-you-card, [data-ex-card]) :is(.bg-zinc-900, .pgx-pr, .pgx-tc, .pt-pg, .pt-pcfold, .pt-co-card, .pt-ucard, [data-ex-card]) { box-shadow: none; }
+html[data-card="glass"] main :is(.bg-zinc-900, .pgx-pr, .pgx-tc, .pt-pg, .pt-pcfold, .pt-co-card, .pt-ucard, #pt-you-card, [data-ex-card]) :is(.bg-zinc-900, .pgx-pr, .pgx-tc, .pt-pg, .pt-pcfold, .pt-co-card, .pt-ucard, [data-ex-card]) { -webkit-backdrop-filter: none; backdrop-filter: none; background: rgb(var(--z800) / .45); box-shadow: none; }
+
+/* ---------------- buttons (the main accent-coloured ones) ----------------
+ * Accent shades: a300/a400 are the text shades (bright on dark pages, dark on light pages), a600 is the fill,
+ * a800/a950 are dark tints on a dark page and pale tints on a light page. */
+html[data-btn="gradient"] :is(button, a).bg-emerald-600, html[data-btn="gradient"] :is(button, a).bg-emerald-500 {
+  background-image: linear-gradient(135deg, rgb(var(--a600)), rgb(var(--a800)));
+  box-shadow: 0 6px 14px -8px rgb(var(--a600) / .9);
+}
+html[data-btn="gradient"][data-accent-light="1"] :is(button, a).bg-emerald-600, html[data-btn="gradient"][data-accent-light="1"] :is(button, a).bg-emerald-500 {
+  background-image: linear-gradient(135deg, rgb(var(--a400)), rgb(var(--a600)));
+}
+html[data-btn="gradient"][data-mode="light"] :is(button, a).bg-emerald-600, html[data-btn="gradient"][data-mode="light"] :is(button, a).bg-emerald-500 {
+  background-image: linear-gradient(135deg, rgb(var(--a600)), rgb(var(--a400)));
+}
+html[data-btn="gradient"][data-mode="light"][data-accent-light="1"] :is(button, a).bg-emerald-600, html[data-btn="gradient"][data-mode="light"][data-accent-light="1"] :is(button, a).bg-emerald-500 {
+  background-image: linear-gradient(135deg, rgb(var(--a500)), rgb(var(--a600)));
+}
+html[data-btn="soft"][data-mode] :is(button, a).bg-emerald-600, html[data-btn="soft"][data-mode] :is(button, a).bg-emerald-500 {
+  background-color: rgb(var(--a500) / .18); color: rgb(var(--a300)); box-shadow: none;
+}
+html[data-btn="outline"][data-mode] :is(button, a).bg-emerald-600, html[data-btn="outline"][data-mode] :is(button, a).bg-emerald-500 {
+  background-color: transparent; color: rgb(var(--a300)); box-shadow: inset 0 0 0 1.5px rgb(var(--a500));
+}
+html[data-btn="outline"][data-mode="light"] :is(button, a).bg-emerald-600, html[data-btn="outline"][data-mode="light"] :is(button, a).bg-emerald-500 { box-shadow: inset 0 0 0 1.5px rgb(var(--a600)); }
+html[data-btn="soft"][data-mode] :is(button, a).bg-emerald-600:active, html[data-btn="outline"][data-mode] :is(button, a).bg-emerald-600:active { background-color: rgb(var(--a500) / .3); }
+
+/* ---------------- tab bar ---------------- */
+html[data-nav="icons"] #pt-tabbar button span { display: none; }
+html[data-nav="icons"] #pt-tabbar button svg { width: 1.6rem; height: 1.6rem; }
+/* Floating: a rounded bar that hovers above the bottom edge (on a phone held upright; the side rail is left alone) */
+@media (max-width: 767.98px) and (orientation: portrait), (max-width: 767.98px) and (min-height: 521px) {
+  html[data-nav="floating"] body.pt-tabs:not(.pt-kb) #pt-tabbar {
+    left: .75rem; right: .75rem; bottom: calc(.55rem + env(safe-area-inset-bottom, 0px)); height: 3.4rem; padding-bottom: 0;
+    border: 1px solid rgb(var(--z100) / .1); border-radius: 1.4rem; background: rgb(var(--z900) / .88);
+    box-shadow: 0 12px 28px -10px rgb(0 0 0 / .7);
+  }
+  html[data-nav="floating"][data-mode="light"] body.pt-tabs:not(.pt-kb) #pt-tabbar { border-color: rgb(var(--z100) / .14); box-shadow: 0 10px 24px -12px rgb(0 0 0 / .35); }
+  html[data-nav="floating"] body.pt-tabs:not(.pt-kb) #pt-tabbar button { border-radius: 1.1rem; margin: .25rem .15rem; }
+  html[data-nav="floating"] body.pt-tabs:not(.pt-kb) #pt-tabbar button[aria-current="page"] { background: rgb(var(--a500) / .16); }
+  html[data-nav="floating"] body.pt-tabs:not(.pt-kb)::after { content: ""; position: fixed; left: 0; right: 0; bottom: 0; height: calc(4.2rem + env(safe-area-inset-bottom, 0px)); z-index: 29; pointer-events: none; background: linear-gradient(to top, rgb(var(--z950)) 30%, rgb(var(--z950) / 0)); }
+  html[data-nav="floating"] body.pt-tabs:not(.pt-kb) main { padding-bottom: calc(10.5rem + env(safe-area-inset-bottom, 0px)); }
+  html[data-nav="floating"] body.pt-tabs:not(.pt-kb) #finish-bar { bottom: calc(4.35rem + env(safe-area-inset-bottom, 0px)) !important; }
+  html[data-nav="floating"] body.pt-tabs:not(.pt-kb) #floating-rest-timer { bottom: calc(5.5rem + env(safe-area-inset-bottom, 0px)) !important; }
+  html[data-nav="floating"] body.pt-tabs:not(.pt-kb):has(#finish-bar:not(.hidden)) #floating-rest-timer { bottom: calc(10rem + env(safe-area-inset-bottom, 0px)) !important; }
+}
+
+/* ---------------- spacing ---------------- */
+html[data-space="tight"] main > [id^="view-"].space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: .6rem; }
+html[data-space="airy"] main > [id^="view-"].space-y-4 > :not([hidden]) ~ :not([hidden]) { margin-top: 1.5rem; }
+html[data-space="tight"] #view-home:not(.hidden) { gap: .6rem; }
+html[data-space="airy"] #view-home:not(.hidden) { gap: 1.5rem; }
+html[data-space="tight"] main .bg-zinc-900.p-4 { padding: .8rem; }
+html[data-space="airy"] main .bg-zinc-900.p-4 { padding: 1.25rem; }
+
+/* ---------------- top bar ---------------- */
+html[data-header="simple"] #header-breadcrumb { display: none; }
+
+/* ---------------- motion ---------------- */
+html[data-motion="less"] *, html[data-motion="less"] *::before, html[data-motion="less"] *::after {
+  transition-duration: .1s !important; animation-duration: .25s !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important;
+}
+html[data-motion="off"] *, html[data-motion="off"] *::before, html[data-motion="off"] *::after {
+  transition-duration: .001ms !important; transition-delay: 0s !important; animation-duration: .001ms !important; animation-delay: 0s !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important;
+}
+html[data-motion="less"] .pt-conf, html[data-motion="off"] .pt-conf, html[data-motion="less"] .pt-spark, html[data-motion="off"] .pt-spark, html[data-motion="off"] .pt-rays { display: none !important; }
+
+/* ---------------- theme gallery ---------------- */
+#pt-gal .pt-gal-chips { display: flex; gap: .4rem; overflow-x: auto; padding: .1rem .1rem .5rem; margin: 0 -.1rem; scrollbar-width: none; }
+#pt-gal .pt-gal-chips::-webkit-scrollbar { display: none; }
+#pt-gal .pt-gal-chip { flex: 0 0 auto; padding: .4rem .8rem; border-radius: 999px; font-size: .75rem; font-weight: 700; color: rgb(var(--z300)); background: rgb(var(--z800) / .7); }
+#pt-gal .pt-gal-chip[aria-pressed="true"] { background: rgb(var(--a600)); color: #fff; }
+html[data-accent-light="1"] #pt-gal .pt-gal-chip[aria-pressed="true"] { color: #0a0a0a; }
+#pt-gal .pt-gal-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .6rem; }
+#pt-gal .pt-gal-cell { position: relative; }
+#pt-gal .pt-gal-it { display: block; width: 100%; text-align: left; padding: .35rem; border-radius: 1rem; background: rgb(var(--z900)); border: 1.5px solid transparent; color: rgb(var(--z100)); }
+#pt-gal .pt-gal-it[aria-current="true"] { border-color: rgb(var(--a500)); }
+#pt-gal .pt-gal-tick { position: absolute; top: .65rem; right: .65rem; width: 1.25rem; height: 1.25rem; border-radius: 999px; background: rgb(var(--a600)); color: #fff; font-size: .7rem; font-weight: 800; display: none; align-items: center; justify-content: center; pointer-events: none; }
+html[data-accent-light="1"] #pt-gal .pt-gal-tick { color: #0a0a0a; }
+#pt-gal .pt-gal-it[aria-current="true"] + .pt-gal-tick { display: flex; }
+#pt-gal .pt-gal-x { position: absolute; top: .55rem; left: .55rem; width: 1.6rem; height: 1.6rem; border-radius: 999px; background: rgb(0 0 0 / .55); color: #fff; font-size: .8rem; line-height: 1; display: flex; align-items: center; justify-content: center; }
+#pt-gal .pt-gal-bar { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .5rem; }
+#pt-gal .pt-gal-act { padding: .7rem .5rem; border-radius: .9rem; font-size: .8rem; font-weight: 700; background: rgb(var(--z800) / .8); color: rgb(var(--z100)); }
+#pt-gal .pt-gal-act.pt-main { background: rgb(var(--a600)); color: #fff; }
+html[data-accent-light="1"] #pt-gal .pt-gal-act.pt-main { color: #0a0a0a; }
+#pt-gal .pt-gal-empty { padding: 1.5rem .5rem; text-align: center; font-size: .8rem; color: rgb(var(--z400)); }
+#pt-gal textarea, #pt-gal input[type=text], #pt-gal input[type=time], #pt-gal select { width: 100%; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); border-radius: .75rem; padding: .6rem .75rem; color: rgb(var(--z100)); font-size: 1rem; }

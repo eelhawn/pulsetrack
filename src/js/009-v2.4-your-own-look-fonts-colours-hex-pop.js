@@ -313,7 +313,99 @@
         { id: "sandy",    label: "Sandy",    s: { theme: "light", accent: "orange",   bgL: "sand",    font: "lora",         bgfx: "glow" } },
         { id: "bloom",    label: "Bloom",    s: { theme: "light", accent: "pink",     bgL: "blush",   font: "poppins",      bgfx: "aurora" } }
       ];
-      const APPEARANCE_KEYS = ["theme", "accent", "accentHex", "bg", "bgHex", "bgL", "bgLHex", "font", "bgfx", "gradHex", "round", "preset"];
+
+      /* ---------------------------------------------------------------- 2.70.0: many more colours, backgrounds, effects and looks
+       * New colours are made from one base colour the way a custom colour is, so every one of them keeps text readable. */
+      const scaleOf = hex => {
+        const base = hx(hex), [h, sat, l] = rgb2hsl(base), mk = (dl, sa) => hsl2rgb([h, sa == null ? sat : sa, Math.max(4, Math.min(94, l + dl))]);
+        return [mk(+24), mk(+12), base, mk(-6), mk(-28), hsl2rgb([h, Math.min(sat, 60), 11])].map(toHex);
+      };
+      const darkBgOf = hex => { const [h, sat0, l0] = rgb2hsl(hx(hex)), sat = Math.min(sat0, 60), l = Math.min(l0, 14), at = d => hsl2rgb([h, sat, Math.min(40, l + d)]); return [hsl2rgb([h, sat, l]), at(3.5), at(6.5), at(11.5), at(21)].map(toHex); };
+      const lightBgOf = hex => { const [h, sat0, l0] = rgb2hsl(hx(hex)), sat = Math.min(sat0, 70), l = Math.max(88, Math.min(98, l0)), at = d => hsl2rgb([h, sat, Math.max(60, Math.min(100, l + d))]); return [at(0), at(+3.5), at(+1.5), at(-7), at(-14)].map(toHex); };
+      [["coral", "Coral", "#ff6b5e"], ["tangerine", "Tangerine", "#ff8a1f"], ["peach", "Peach", "#ff9e7a"], ["sunflower", "Sunflower", "#ffc933"], ["chartreuse", "Chartreuse", "#a8e02f"],
+       ["mint", "Mint", "#3ee0a0"], ["seafoam", "Seafoam", "#4fd1c5"], ["aqua", "Aqua", "#19d3da"], ["electric", "Electric", "#00e5ff"], ["azure", "Azure", "#2f8bff"],
+       ["cobalt", "Cobalt", "#3d5afe"], ["slateblue", "Slate blue", "#6d7ae0"], ["violet", "Violet", "#7c4dff"], ["orchid", "Orchid", "#c25bff"], ["lilac", "Lilac", "#b9a2ff"],
+       ["magenta", "Magenta", "#ff2fa0"], ["berry", "Berry", "#c2257a"], ["ruby", "Ruby", "#e0114f"], ["brick", "Brick", "#c8553d"], ["copper", "Copper", "#c77d4a"],
+       ["rosegold", "Rose gold", "#e0a39a"], ["olive", "Olive", "#8f9b3a"], ["sage", "Sage", "#8fae8b"], ["ice", "Ice", "#a8d8ff"]
+      ].forEach(a => ACCENTS.push({ id: a[0], label: a[1], s: scaleOf(a[2]) }));
+      [["graphite", "Graphite", "#0e0f11"], ["obsidian", "Obsidian", "#050507"], ["navy", "Navy", "#060d1f"], ["deepsea", "Deep sea", "#04141a"], ["pine", "Pine", "#06140e"],
+       ["moss", "Moss", "#0c120a"], ["mocha", "Mocha", "#140d09"], ["espresso", "Espresso", "#100a07"], ["rust", "Rust", "#170a06"], ["indigonight", "Indigo night", "#0a0818"],
+       ["violetnight", "Violet night", "#0f0a1c"], ["cherry", "Cherry", "#140508"], ["steel", "Steel", "#0a1018"], ["warmcharcoal", "Warm charcoal", "#121110"], ["mauve", "Mauve", "#130b12"],
+       ["ink", "Ink", "#070a12"], ["tealnight", "Teal night", "#04120f"], ["bordeaux", "Bordeaux", "#12060a"], ["cocoa", "Cocoa", "#150d0c"], ["dusk", "Dusk", "#0e0a17"]
+      ].forEach(b => BGS.push({ id: b[0], label: b[1], s: darkBgOf(b[2]) }));
+      [["ivory", "Ivory", "#f7f3e8"], ["linen", "Linen", "#f3ede4"], ["sky", "Sky", "#e8f1fb"], ["seafoamL", "Seafoam", "#e6f4f1"], ["peach", "Peach", "#fbeee6"],
+       ["lilac", "Lilac", "#efe9f7"], ["butter", "Butter", "#faf3d9"], ["mist", "Mist", "#eef1f4"], ["rosewater", "Rosewater", "#f9ece9"], ["sagelight", "Sage", "#ecf1e6"]
+      ].forEach(b => LBGS.push({ id: b[0], label: b[1], s: lightBgOf(b[2]) }));
+      // Device fonts: these use the fonts the phone already has (Roboto, Noto and so on), so they cost nothing to carry and how they look depends on the phone
+      FONTS.push({ id: "condensed", label: "Condensed (phone)", stack: '"Roboto Condensed", "Arial Narrow", sans-serif-condensed, "Helvetica Neue Condensed", Roboto, sans-serif' },
+        { id: "rounded", label: "Rounded (phone)", stack: 'ui-rounded, "SF Pro Rounded", "Varela Round", "Nunito", "Google Sans", system-ui, sans-serif' },
+        { id: "serif", label: "Serif (phone)", stack: 'Georgia, "Noto Serif", "Times New Roman", serif' },
+        { id: "mono", label: "Mono (phone)", stack: 'ui-monospace, "Roboto Mono", "Droid Sans Mono", Menlo, Consolas, monospace' },
+        { id: "typewriter", label: "Typewriter (phone)", stack: '"Courier New", "Courier Prime", Courier, monospace' },
+        { id: "humanist", label: "Humanist (phone)", stack: 'Seravek, "Gill Sans", "Gill Sans MT", Calibri, "Noto Sans", "Segoe UI", sans-serif' });
+      FX.push({ id: "spotlight", label: "Spotlight" }, { id: "horizon", label: "Horizon" }, { id: "mesh", label: "Mesh" }, { id: "dusk", label: "Dusk" }, { id: "vignette", label: "Vignette" },
+        { id: "stripes", label: "Stripes" }, { id: "dots", label: "Dots" }, { id: "grid", label: "Grid" }, { id: "stars", label: "Stars" });
+      // Themes: category, then the settings it sets. Dark ones use bg, light ones use bgL.
+      const T = (id, label, cat, o) => PRESETS.push({ id, label, cat, s: Object.assign({ font: "system", bgfx: "solid" }, o) });
+      const CAT = { classic: "dark", midnight: "dark", iron: "dark", crimson: "color", royal: "color", neon: "neon", sunset: "warm", ocean: "nature", forest: "nature", paper: "light", daylight: "light", sandy: "light", bloom: "light" };
+      PRESETS.forEach(p => { p.cat = CAT[p.id] || "dark"; });
+      T("graphite", "Graphite", "dark", { theme: "dark", accent: "ice", bg: "graphite" });
+      T("obsidian", "Obsidian", "dark", { theme: "dark", accent: "violet", bg: "obsidian", bgfx: "spotlight" });
+      T("charcoal", "Charcoal", "dark", { theme: "dark", accent: "gold", bg: "warmcharcoal" });
+      T("noir", "Noir", "dark", { theme: "dark", accent: "ruby", bg: "amoled", bgfx: "vignette" });
+      T("slate-blue", "Slate blue", "dark", { theme: "dark", accent: "slateblue", bg: "steel", bgfx: "fade" });
+      T("ink", "Ink", "dark", { theme: "dark", accent: "azure", bg: "ink", bgfx: "grid" });
+      T("candy", "Candy", "color", { theme: "dark", accent: "magenta", bg: "plum", bgfx: "mesh", font: "outfit", round: "round" });
+      T("lagoon", "Lagoon", "color", { theme: "dark", accent: "aqua", bg: "deepsea", bgfx: "aurora", font: "worksans" });
+      T("grape", "Grape", "color", { theme: "dark", accent: "orchid", bg: "violetnight", bgfx: "aurora" });
+      T("tangerine", "Tangerine", "color", { theme: "dark", accent: "tangerine", bg: "rust", bgfx: "glow", font: "poppins" });
+      T("citrus", "Citrus", "color", { theme: "dark", accent: "chartreuse", bg: "moss", bgfx: "stripes", font: "outfit" });
+      T("berry", "Berry", "color", { theme: "dark", accent: "berry", bg: "cherry", bgfx: "mesh" });
+      T("bubblegum", "Bubblegum", "color", { theme: "light", accent: "pink", bgL: "rosewater", bgfx: "dots", font: "poppins", round: "round" });
+      T("cyberpunk", "Cyberpunk", "neon", { theme: "dark", accent: "magenta", bg: "obsidian", bgfx: "grid", font: "tektur", round: "sharp" });
+      T("synthwave", "Synthwave", "neon", { theme: "dark", accent: "pink", bg: "indigonight", bgfx: "horizon", font: "tektur" });
+      T("toxic", "Toxic", "neon", { theme: "dark", accent: "chartreuse", bg: "amoled", bgfx: "glow", font: "jetbrains", round: "sharp" });
+      T("ultraviolet", "Ultraviolet", "neon", { theme: "dark", accent: "violet", bg: "indigonight", bgfx: "spotlight", font: "outfit" });
+      T("matrix", "Matrix", "neon", { theme: "dark", accent: "green", bg: "amoled", bgfx: "dots", font: "jetbrains", round: "sharp" });
+      T("electric", "Electric", "neon", { theme: "dark", accent: "electric", bg: "navy", bgfx: "grid", font: "tektur" });
+      T("pine", "Pine", "nature", { theme: "dark", accent: "mint", bg: "pine", bgfx: "fade" });
+      T("moss", "Moss", "nature", { theme: "dark", accent: "olive", bg: "moss", font: "worksans" });
+      T("desert", "Desert", "nature", { theme: "dark", accent: "copper", bg: "mocha", bgfx: "horizon", font: "lora" });
+      T("canyon", "Canyon", "nature", { theme: "dark", accent: "brick", bg: "rust", bgfx: "dusk" });
+      T("tide", "Tide", "nature", { theme: "dark", accent: "seafoam", bg: "tealnight", bgfx: "aurora" });
+      T("glacier", "Glacier", "nature", { theme: "light", accent: "azure", bgL: "sky", bgfx: "fade", font: "outfit" });
+      T("meadow", "Meadow", "nature", { theme: "light", accent: "green", bgL: "sagelight", bgfx: "glow" });
+      T("ember", "Ember", "warm", { theme: "dark", accent: "tangerine", bg: "ember", bgfx: "glow" });
+      T("mocha", "Mocha", "warm", { theme: "dark", accent: "peach", bg: "espresso", font: "lora" });
+      T("cocoa", "Cocoa", "warm", { theme: "dark", accent: "rosegold", bg: "cocoa", bgfx: "spotlight" });
+      T("goldrush", "Gold rush", "warm", { theme: "dark", accent: "gold", bg: "amoled", bgfx: "glow", font: "bigshoulders" });
+      T("rosewood", "Rosewood", "warm", { theme: "dark", accent: "coral", bg: "bordeaux", bgfx: "dusk" });
+      T("ivory", "Ivory", "light", { theme: "light", accent: "copper", bgL: "ivory", font: "lora" });
+      T("linen", "Linen", "light", { theme: "light", accent: "olive", bgL: "linen" });
+      T("mist", "Mist", "light", { theme: "light", accent: "slateblue", bgL: "mist", bgfx: "fade" });
+      T("peachy", "Peachy", "light", { theme: "light", accent: "coral", bgL: "peach", bgfx: "glow", font: "poppins" });
+      T("lilac", "Lilac", "light", { theme: "light", accent: "violet", bgL: "lilac", bgfx: "aurora" });
+      T("seafoam", "Seafoam", "light", { theme: "light", accent: "seafoam", bgL: "seafoamL", bgfx: "fade" });
+      T("butter", "Butter", "light", { theme: "light", accent: "tangerine", bgL: "butter" });
+      T("sage", "Sage", "light", { theme: "light", accent: "sage", bgL: "sagelight", font: "worksans" });
+      T("arcade", "Arcade", "retro", { theme: "dark", accent: "sunflower", bg: "indigonight", bgfx: "stars", font: "tektur", round: "sharp" });
+      T("terminal", "Terminal", "retro", { theme: "dark", accent: "green", bg: "amoled", font: "jetbrains", round: "sharp", card: "outlined" });
+      T("gameboy", "Handheld", "retro", { theme: "dark", accent: "lime", bg: "moss", bgfx: "dots", font: "jetbrains", round: "sharp" });
+      T("newspaper", "Newspaper", "retro", { theme: "light", accent: "ruby", bgL: "paper", font: "lora", round: "sharp", card: "outlined" });
+      T("blueprint", "Blueprint", "retro", { theme: "dark", accent: "azure", bg: "navy", bgfx: "grid", font: "jetbrains", round: "sharp", card: "outlined" });
+      T("vaporwave", "Vaporwave", "retro", { theme: "dark", accent: "lilac", bg: "violetnight", bgfx: "mesh", font: "outfit" });
+      T("halloween", "Halloween", "season", { theme: "dark", accent: "tangerine", bg: "obsidian", bgfx: "vignette" });
+      T("christmas", "Christmas", "season", { theme: "dark", accent: "ruby", bg: "pine", bgfx: "stars" });
+      T("valentine", "Valentine", "season", { theme: "light", accent: "magenta", bgL: "rosewater", bgfx: "dots" });
+      T("spring", "Spring", "season", { theme: "light", accent: "mint", bgL: "seafoamL", bgfx: "glow" });
+      T("summer", "Summer", "season", { theme: "light", accent: "sunflower", bgL: "butter", bgfx: "horizon" });
+      T("autumn", "Autumn", "season", { theme: "dark", accent: "copper", bg: "rust", bgfx: "dusk" });
+      T("winter", "Winter", "season", { theme: "dark", accent: "ice", bg: "navy", bgfx: "stars" });
+
+      const CATS = [["all", "All"], ["dark", "Dark"], ["light", "Light"], ["color", "Colour"], ["neon", "Neon"], ["nature", "Nature"], ["warm", "Warm"], ["retro", "Retro"], ["season", "Seasons"]];
+      const APPEARANCE_KEYS = ["theme", "accent", "accentHex", "bg", "bgHex", "bgL", "bgLHex", "font", "bgfx", "gradHex", "round", "card", "btn", "nav", "preset"];
+      // Choices that belong to the person, not to a theme: picking a theme leaves these alone (Reset look clears them)
+      const PREF_KEYS = ["density", "neat", "contrast", "space", "motion", "header"];
 
       const effMode = s => (s && s.theme === "light") ? "light"
         : (s && s.theme === "auto") ? ((window.matchMedia && matchMedia("(prefers-color-scheme: light)").matches) ? "light" : "dark") : "dark";
@@ -373,6 +465,21 @@
           const g = lt ? hsl2rgb([h, Math.min(sat, 80), Math.max(l, 78)]) : hsl2rgb([h, Math.min(sat, 85), Math.min(l, 26)]);
           return `linear-gradient(165deg, ${bg[0]} 0%, ${toHex(g)} 100%)`;
         }
+        if (s.bgfx === "spotlight") return `radial-gradient(62% 42% at 50% 0%, rgb(${c500} / ${lt ? .26 : .3}), transparent 72%), radial-gradient(90% 55% at 50% 118%, rgb(${c500} / ${lt ? .1 : .12}), transparent 70%)`;
+        if (s.bgfx === "horizon") return `linear-gradient(180deg, transparent 52%, rgb(${c500} / ${lt ? .2 : .22}) 100%)`;
+        if (s.bgfx === "mesh" || s.bgfx === "dusk") {
+          const [h, sat, l] = rgb2hsl(ac.sh[2]), tone = d => hsl2rgb([(h + d) % 360, Math.max(40, Math.min(sat, 90)), Math.max(35, Math.min(l, 62))]).map(Math.round).join(" ");
+          if (s.bgfx === "dusk") return `linear-gradient(180deg, rgb(${tone(200)} / ${lt ? .22 : .3}) 0%, transparent 42%, rgb(${c500} / ${lt ? .16 : .2}) 100%)`;
+          return `radial-gradient(60% 40% at 8% 6%, rgb(${c500} / ${lt ? .24 : .32}), transparent 70%), radial-gradient(55% 38% at 96% 30%, rgb(${tone(45)} / ${lt ? .2 : .26}), transparent 70%), radial-gradient(60% 40% at 20% 96%, rgb(${tone(-45)} / ${lt ? .18 : .24}), transparent 70%)`;
+        }
+        if (s.bgfx === "vignette") return `radial-gradient(120% 90% at 50% 38%, transparent 52%, rgb(0 0 0 / ${lt ? .1 : .55}) 100%)`;
+        if (s.bgfx === "stripes") return `repeating-linear-gradient(135deg, rgb(${c500} / ${lt ? .09 : .08}) 0 2px, transparent 2px 15px)`;
+        if (s.bgfx === "dots") return `radial-gradient(rgb(${c500} / ${lt ? .3 : .24}) 1.2px, transparent 1.7px) 0 0 / 18px 18px`;
+        if (s.bgfx === "grid") return `linear-gradient(rgb(${c500} / ${lt ? .12 : .09}) 1px, transparent 1px) 0 0 / 28px 28px, linear-gradient(90deg, rgb(${c500} / ${lt ? .12 : .09}) 1px, transparent 1px) 0 0 / 28px 28px`;
+        if (s.bgfx === "stars") {
+          const col = lt ? `rgb(${c500} / .5)` : "rgb(255 255 255 / .8)", at = [[12, 8], [31, 22], [47, 6], [66, 18], [88, 10], [8, 38], [24, 52], [58, 40], [79, 34], [93, 48], [16, 70], [40, 82], [63, 64], [85, 76], [51, 94], [95, 90], [72, 55], [5, 92]];
+          return at.map((p, i) => `radial-gradient(${i % 3 ? 1 : 1.6}px ${i % 3 ? 1 : 1.6}px at ${p[0]}% ${p[1]}%, ${col}, transparent)`).join(", ");
+        }
         return "none";
       }
       // Where each custom-colour panel keeps its value, and what range its sliders may use
@@ -383,30 +490,124 @@
           ? { hex: "bgLHex", mode: "bgL", lmin: 88, lmax: 98, smax: 70, label: "Lightness (light shades only, so text stays readable)" }
           : { hex: "bgHex", mode: "bg", lmin: 0, lmax: 14, smax: 60, label: "Darkness (dark shades only, so text stays readable)" };
       }
+      const CHOICES = { card: ["filled", "outlined", "raised", "glass"], btn: ["solid", "gradient", "soft", "outline"], nav: ["labels", "icons", "floating"],
+        space: ["tight", "normal", "airy"], header: ["normal", "simple"], motion: ["auto", "full", "less", "off"], contrast: ["soft", "normal", "high"] };
+      // Text greys for softer or sharper contrast (the "normal" ones are DARK_TEXT and LIGHT_TEXT above)
+      const CONTRAST = {
+        dark: { soft: { 100: "228 228 231", 200: "212 212 216", 300: "190 190 196", 400: "142 142 152", 500: "128 128 138" }, high: { 100: "255 255 255", 200: "244 244 245", 300: "228 228 231", 400: "198 198 206", 500: "174 174 184", 600: "120 120 130" } },
+        light: { soft: { 100: "39 39 42", 200: "63 63 70", 300: "82 82 91", 400: "100 100 110" }, high: { 100: "9 9 11", 200: "24 24 27", 300: "39 39 42", 400: "55 55 62", 500: "82 82 91", 600: "113 113 122" } }
+      };
       const SEGS = {
         theme:   { title: "Mode", def: "dark", opts: [{ id: "dark", label: "Dark" }, { id: "light", label: "Light" }, { id: "auto", label: "Auto" }], note: "Auto follows your phone's dark / light setting." },
         bgfx:    { title: "Background effect", def: "solid", opts: FX },
         round:   { title: "Corners", def: "normal", opts: [{ id: "sharp", label: "Sharp" }, { id: "normal", label: "Normal" }, { id: "round", label: "Round" }] },
         neat:    { title: "Neater look", def: "on", opts: [{ id: "on", label: "On" }, { id: "off", label: "Off" }], note: "Filled cards instead of outlined boxes, a quieter header and fewer lines everywhere. Off brings back the boxed look." },
+        card:    { title: "Card style", def: "filled", opts: [{ id: "filled", label: "Filled" }, { id: "outlined", label: "Outlined" }, { id: "raised", label: "Raised" }, { id: "glass", label: "Glass" }], note: "How boxes on every screen look. Glass looks best with a background effect." },
+        btn:     { title: "Buttons", def: "solid", opts: [{ id: "solid", label: "Solid" }, { id: "gradient", label: "Gradient" }, { id: "soft", label: "Soft" }, { id: "outline", label: "Outline" }], note: "The main green (or your colour) buttons: Start Workout, Save, Add." },
+        nav:     { title: "Tab bar", def: "labels", opts: [{ id: "labels", label: "Labels" }, { id: "icons", label: "Icons" }, { id: "floating", label: "Floating" }], note: "The Home, Workout, History and Progress bar at the bottom." },
+        contrast:{ title: "Text contrast", def: "normal", opts: [{ id: "soft", label: "Soft" }, { id: "normal", label: "Normal" }, { id: "high", label: "High" }], note: "High makes small grey text easier to read, Soft is calmer." },
+        space:   { title: "Spacing", def: "normal", opts: [{ id: "tight", label: "Tight" }, { id: "normal", label: "Normal" }, { id: "airy", label: "Airy" }], note: "The gaps between cards. Tight fits more on the screen." },
+        motion:  { title: "Motion", def: "auto", opts: [{ id: "auto", label: "Phone" }, { id: "full", label: "Full" }, { id: "less", label: "Less" }, { id: "off", label: "Off" }], note: "Phone follows your phone's reduce-motion setting. Off stops every slide, fade and pulse." },
+        header:  { title: "Top bar", def: "normal", opts: [{ id: "normal", label: "Full" }, { id: "simple", label: "Simple" }], note: "Simple hides the small line under each page title." },
         density: { title: "Row size", def: "normal", opts: [{ id: "compact", label: "Compact" }, { id: "normal", label: "Normal" }, { id: "roomy", label: "Roomy" }], note: "Sets and buttons in your workout. Roomy is easier to hit with sweaty thumbs." }
       };
 
+      /* ---------------------------------------------------------------- 2.70.0: looks you can keep, share and swap (used by the theme gallery, module 093) */
+      const LOOK_KEYS = APPEARANCE_KEYS.filter(k => k !== "preset");
+      const lookOf = st => { const o = {}; LOOK_KEYS.forEach(k => { if (st[k] != null && st[k] !== "") o[k] = st[k]; }); return o; };
+      /** a look from outside (a pasted code, an old backup) cut down to values this app knows, so nothing odd can get in */
+      function cleanLook(o) {
+        const out = {}; if (!o || typeof o !== "object") return out;
+        const has = (list, id) => list.some(x => x.id === id);
+        if (["dark", "light", "auto"].includes(o.theme)) out.theme = o.theme;
+        ["accentHex", "bgHex", "bgLHex", "gradHex"].forEach(k => { if (validHex(o[k])) out[k] = normHex(o[k]); });
+        if (o.accent === "custom" ? out.accentHex : has(ACCENTS, o.accent)) out.accent = o.accent;
+        if (o.bg === "custom" ? out.bgHex : has(BGS, o.bg)) out.bg = o.bg;
+        if (o.bgL === "custom" ? out.bgLHex : has(LBGS, o.bgL)) out.bgL = o.bgL;
+        if (has(FONTS, o.font)) out.font = o.font;
+        if (has(FX, o.bgfx)) out.bgfx = o.bgfx;
+        if (["sharp", "normal", "round"].includes(o.round)) out.round = o.round;
+        ["card", "btn", "nav"].forEach(k => { if (CHOICES[k].includes(o[k])) out[k] = o[k]; });
+        return out;
+      }
+      const b64 = { enc: t => btoa(unescape(encodeURIComponent(t))).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, ""), dec: t => decodeURIComponent(escape(atob(String(t).replace(/-/g, "+").replace(/_/g, "/")))) };
+      const codeOf = st => "PT1." + b64.enc(JSON.stringify(lookOf(st)));
+      function fromCode(text) {
+        try { const t = String(text || "").trim().replace(/\s+/g, ""), m = /^(?:PT1\.)?([A-Za-z0-9_-]{8,})$/.exec(t); if (!m) return null; const o = cleanLook(JSON.parse(b64.dec(m[1]))); return Object.keys(o).length ? o : null; } catch (e) { return null; }
+      }
+      /** the small picture of a theme (page, card, text, accent and the background effect) */
+      function previewOf(p, big) {
+        const st = p.s || p, mode = effMode(st), ac = accentShades(st, mode), bg = bgShades(st, mode), fx = fxCss(st, mode, ac, bg);
+        const f = FONTS.find(x => x.id === st.font) || FONTS[0], c = i => "rgb(" + ac.sh[i].map(Math.round).join(",") + ")", r = st.round === "sharp" ? "2px" : st.round === "round" ? "12px" : "7px";
+        const card = st.card === "outlined" ? `border:1px solid ${bg[4]}` : `box-shadow:${st.card === "raised" ? "0 2px 6px rgb(0 0 0 / .35)" : "none"};border:1px solid ${bg[3]}`;
+        return `<span class="block overflow-hidden relative" style="height:${big ? 78 : 64}px;border-radius:${big ? 12 : 10}px;background:${bg[0]}"><span class="absolute inset-0" style="background:${fx}"></span>
+          <span class="absolute left-2 right-2 top-2 h-5" style="border-radius:${r};background:${mode === "light" ? bg[1] : bg[2]};${card}"></span>
+          <span class="absolute left-3 top-[1.15rem] h-1.5 w-10 rounded-full" style="background:${mode === "light" ? "rgb(63 63 70 / .55)" : "rgb(228 228 231 / .55)"}"></span>
+          <span class="absolute left-2 top-9 h-2 w-9 rounded-full" style="background:${c(1)}"></span>
+          <span class="absolute left-2 right-2 bottom-2 h-4" style="border-radius:${r};background:${c(3)}"></span></span>
+          <span class="block mt-1.5 px-0.5 text-[11px] font-bold truncate" style="font-family:${esc(f.stack)};color:inherit">${esc(p.label || p.name || "")}</span>`;
+      }
+      const MINE_MAX = 40;
+      const mine = () => { const a = window.app; return a && a.settings && Array.isArray(a.settings.myLooks) ? a.settings.myLooks : []; };
+      const lookById = id => PRESETS.find(x => x.id === id) || mine().find(x => x.id === id) || null;
+      Object.assign(ApplicationUI.prototype, {
+        /** set the whole look from a plain settings object (a theme, one of your saved looks, or a pasted code) */
+        applyLook(look, id) {
+          APPEARANCE_KEYS.forEach(k => { delete this.settings[k]; });
+          Object.assign(this.settings, cleanLook(look));
+          if (id) this.settings.preset = id;
+          this.saveAppearance();
+        }
+      });
+      PT.look = {
+        PRESETS, CATS, ACCENTS, BGS, LBGS, FONTS, FX, LOOK_KEYS, PREF_KEYS, MINE_MAX, mine, byId: lookById,
+        get SEGS() { return SEGS; }, get CHOICES() { return CHOICES; }, get CONTRAST() { return CONTRAST; },
+        accentShades, bgShades, fxCss, effMode, previewOf, cleanLook, lookOf, codeOf, fromCode,
+        saveMine(name) {
+          const a = window.app; if (!a) return null;
+          if (!Array.isArray(a.settings.myLooks)) a.settings.myLooks = [];
+          if (a.settings.myLooks.length >= MINE_MAX) return null;
+          const m = { id: "my-" + Date.now().toString(36) + Math.random().toString(36).slice(2, 5), label: String(name || "My look").trim().slice(0, 24) || "My look", cat: "mine", s: lookOf(a.settings) };
+          a.settings.myLooks.push(m); a.settings.preset = m.id; WorkoutStorage.saveSettings(a.settings); return m;
+        },
+        removeMine(id) {
+          const a = window.app; if (!a || !Array.isArray(a.settings.myLooks)) return;
+          a.settings.myLooks = a.settings.myLooks.filter(x => x.id !== id);
+          if (a.settings.preset === id) delete a.settings.preset;
+          WorkoutStorage.saveSettings(a.settings);
+        },
+        apply(id) { const a = window.app, p = lookById(id); if (!a || !p) return false; a.applyLook(p.s, p.id); return true; }
+      };
       Object.assign(ApplicationUI.prototype, {
         applyTheme() {
           const s = this.settings || {}, root = document.documentElement;
           const mode = effMode(s), ac = accentShades(s, mode), bg = bgShades(s, mode);
           const vars = {};
           ["300", "400", "500", "600", "800", "950"].forEach((k, i) => { vars["--a" + k] = ac.sh[i].map(v => Math.round(k === "600" ? v * 0.82 : v)).join(" "); });
-          const tx = mode === "light" ? LIGHT_TEXT : DARK_TEXT;
+          const tx = Object.assign({}, mode === "light" ? LIGHT_TEXT : DARK_TEXT, (CONTRAST[mode] || {})[s.contrast] || {});
           Object.keys(tx).forEach(k => { vars["--z" + k] = tx[k]; });
           ["950", "900", "850", "800", "700"].forEach((k, i) => { vars["--z" + k] = triple(bg[i]); });
           const neat = s.neat !== "off";
           if (neat && mode === "dark") vars["--z900"] = triple(bg[2]);        // Neater look: cards take the lighter shade, so they stand out without an outline
+          // 2.70.0: whatever accent and background are chosen (custom colours too), accent text and the main buttons stay readable
+          {
+            const crOf = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
+            const nums = k => String(vars[k]).split(" ").map(Number), beds = ["--z950", "--z900", "--z850"].map(nums), toward = mode === "light" ? [0, 0, 0] : [255, 255, 255];
+            ["--a300", "--a400"].forEach(k => {
+              let c = nums(k), n = 0;
+              while (n++ < 24 && Math.min(...beds.map(b => crOf(c, b))) < 4.6) c = c.map((v, i) => v + (toward[i] - v) * .1);
+              vars[k] = c.map(Math.round).join(" ");
+            });
+            if (!ac.light) { let c = nums("--a600"), n = 0; while (n++ < 24 && crOf(c, [255, 255, 255]) < 4.6) c = c.map(v => v * .96); vars["--a600"] = c.map(Math.round).join(" "); }
+          }
           const f = FONTS.find(x => x.id === s.font) || FONTS[0];
           vars["--pt-font"] = f.stack;
           vars["--pt-fx"] = fxCss(s, mode, ac, bg);
           Object.keys(vars).forEach(k => root.style.setProperty(k, vars[k]));
-          const attrs = { "data-mode": mode, "data-round": ["sharp", "round"].includes(s.round) ? s.round : "normal", "data-density": ["compact", "roomy"].includes(s.density) ? s.density : "normal", "data-neat": neat ? "1" : "0" };
+          const attrs = { "data-mode": mode, "data-round": ["sharp", "round"].includes(s.round) ? s.round : "normal", "data-density": ["compact", "roomy"].includes(s.density) ? s.density : "normal", "data-neat": neat ? "1" : "0",
+            "data-card": CHOICES.card.includes(s.card) ? s.card : "filled", "data-btn": CHOICES.btn.includes(s.btn) ? s.btn : "solid", "data-nav": CHOICES.nav.includes(s.nav) ? s.nav : "labels",
+            "data-space": CHOICES.space.includes(s.space) ? s.space : "normal", "data-header": CHOICES.header.includes(s.header) ? s.header : "normal",
+            "data-motion": CHOICES.motion.includes(s.motion) && s.motion !== "auto" ? s.motion : ((window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) ? "less" : "full") };
           Object.keys(attrs).forEach(k => root.setAttribute(k, attrs[k]));
           if (ac.light) root.setAttribute("data-accent-light", "1"); else root.removeAttribute("data-accent-light");
           const meta = document.querySelector('meta[name="theme-color"]'); if (meta) meta.setAttribute("content", bg[0]);
@@ -421,7 +622,7 @@
           this.saveAppearance();
         },
         resetLook() {
-          APPEARANCE_KEYS.forEach(k => { delete this.settings[k]; }); delete this.settings.density; delete this.settings.neat;
+          APPEARANCE_KEYS.forEach(k => { delete this.settings[k]; }); PREF_KEYS.forEach(k => { delete this.settings[k]; });
           this.saveAppearance();
         },
 
@@ -455,7 +656,7 @@
           };
           const quick = GRAD_QUICK.map(id => { const a = ACCENTS.find(x => x.id === id); return `<button type="button" data-k="grad" data-id="${a.s[2]}" aria-label="${esc(a.label)}" class="w-8 h-8 rounded-full tap-active border border-zinc-700" style="background:${a.s[2]}"></button>`; }).join("");
           host.innerHTML =
-            sec("Themes", `<div class="flex gap-2.5 overflow-x-auto hide-scrollbar pb-1 -mx-1 px-1">${PRESETS.map(presetCard).join("")}</div>`, "One tap sets the colours, background, font and mode together. You can still change anything after.", "preset") +
+            sec("Themes", `<div class="flex gap-2.5 overflow-x-auto hide-scrollbar pb-1 -mx-1 px-1">${PRESETS.slice(0, 13).map(presetCard).join("")}</div><div class="grid grid-cols-2 gap-2 pt-2"><button type="button" id="pt-theme-gallery" class="py-2.5 rounded-xl bg-emerald-600 text-white text-xs font-bold tap-active">🎨 All ${PRESETS.length} themes</button><button type="button" id="pt-theme-surprise" class="py-2.5 rounded-xl bg-zinc-800 text-zinc-200 text-xs font-bold tap-active">🎲 Surprise me</button></div>`, "One tap sets the colours, background, font and mode together. You can still change anything after.", "preset") +
             sec(SEGS.theme.title, seg("theme"), SEGS.theme.note, "theme") +
             sec(SEGS.neat.title, seg("neat"), SEGS.neat.note, "neat") +
             sec("Accent colour", `<div class="flex flex-wrap gap-x-3 gap-y-3.5 pt-0.5">${ACCENTS.map(a => sw("accent", a.id, a.label, a.s[2])).join("")}${custom("accent")}</div>${panel("accent")}`, null, "accent") +
@@ -463,12 +664,21 @@
             sec(SEGS.bgfx.title, `${seg("bgfx")}<div id="pt-grad-box" class="hidden space-y-2.5 pt-1"><span class="text-[11px] text-zinc-400 block">Second colour</span><div class="flex flex-wrap gap-2">${quick}</div>${panel("grad")}</div>`, null, "bgfx") +
             sec("Font", `<div class="grid grid-cols-2 gap-2">${FONTS.map(f => `<button type="button" data-k="font" data-id="${f.id}" class="pt-font tap-active rounded-xl border border-zinc-800 bg-zinc-900 px-3 py-2.5 text-left" ><span class="block text-xl text-white leading-tight" style="font-family:${esc(f.stack)};font-weight:700">Aa 135</span><span class="block text-[11px] text-zinc-400 mt-0.5" style="font-family:${esc(f.stack)}">${esc(f.label)}</span></button>`).join("")}</div>`, null, "font") +
             sec(SEGS.round.title, seg("round"), null, "round") +
+            sec(SEGS.card.title, seg("card"), SEGS.card.note, "card") +
+            sec(SEGS.btn.title, seg("btn"), SEGS.btn.note, "btn") +
+            sec(SEGS.nav.title, seg("nav"), SEGS.nav.note, "nav") +
+            sec(SEGS.header.title, seg("header"), SEGS.header.note, "header") +
+            sec(SEGS.contrast.title, seg("contrast"), SEGS.contrast.note, "contrast") +
+            sec(SEGS.space.title, seg("space"), SEGS.space.note, "space") +
+            sec(SEGS.motion.title, seg("motion"), SEGS.motion.note, "motion") +
             sec(SEGS.density.title, seg("density"), SEGS.density.note, "density") +
             `<div id="pt-home-layout"></div>` +
             `<div class="p-3.5"><button type="button" id="pt-appearance-reset" class="w-full py-2.5 rounded-xl bg-zinc-800 text-zinc-200 text-xs font-bold tap-active">Reset look to default</button></div>`;
           host.addEventListener("click", e => {
             const b = e.target.closest("button"); if (!b) return;
             if (b.id === "pt-appearance-reset") { this.resetLook(); this.toast && this.toast("Look reset"); return; }
+            if (b.id === "pt-theme-gallery") { if (PT.look && PT.look.openGallery) PT.look.openGallery(); return; }
+            if (b.id === "pt-theme-surprise") { if (PT.look && PT.look.surprise) PT.look.surprise(); return; }
             if (b.dataset.preset) { const p = PRESETS.find(x => x.id === b.dataset.preset); if (p) { this.applyPreset(p); this.toast && this.toast(p.label + " theme applied"); } return; }
             if (b.dataset.seg) { this.settings[b.dataset.seg] = b.dataset.id; delete this.settings.preset; this.saveAppearance(); return; }
             const k = b.dataset.k, id = b.dataset.id; if (!k) return;
@@ -535,8 +745,8 @@
         syncAppearanceSummaries(host, s, mode, ac, bg) {
           const set = (key, html) => { const e = host.querySelector('[data-sec="' + key + '"] .pt-sum'); if (e) e.innerHTML = html; };
           const dotc = c => `<i class="pt-dot" style="background:${c}"></i>`;
-          const p = PRESETS.find(x => x.id === s.preset);
-          set("preset", p ? esc(p.label) : "Custom");
+          const p = lookById(s.preset);
+          set("preset", p ? esc(p.label) : (LOOK_KEYS.some(k => s[k] != null && s[k] !== "") ? "Custom" : "Classic"));
           set("theme", ({ dark: "Dark", light: "Light", auto: "Auto" })[s.theme] || "Dark");
           const a = ACCENTS.find(x => x.id === s.accent);
           set("accent", dotc("rgb(" + ac.sh[2].map(Math.round).join(",") + ")") + (s.accent === "custom" ? "Custom" : esc((a || ACCENTS[0]).label)));
@@ -545,6 +755,7 @@
           set("bgfx", esc((FX.find(x => x.id === s.bgfx) || FX[0]).label));
           set("font", esc((FONTS.find(x => x.id === s.font) || FONTS[0]).label));
           set("neat", s.neat === "off" ? "Off" : "On");
+          ["card", "btn", "nav", "header", "contrast", "space", "motion"].forEach(k => { const d = SEGS[k], o = d.opts.find(x => x.id === s[k]) || d.opts.find(x => x.id === d.def); set(k, esc(o.label)); });
           set("round", esc(({ sharp: "Sharp", round: "Round" })[s.round] || "Normal"));
           set("density", esc(({ compact: "Compact", roomy: "Roomy" })[s.density] || "Normal"));
         },
