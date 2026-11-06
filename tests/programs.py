@@ -1,4 +1,4 @@
-"""Programs: delete asks in the app's own dialog (2.67.0) and Undo brings it back; the merged Arnold and Ronnie Coleman programs (2.66.0)."""
+"""Programs: the 6-day personal split (2.73.0); delete asks in the app's own dialog (2.67.0) and Undo brings it back; the merged Arnold and Ronnie Coleman programs (2.66.0)."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import Checks, page
@@ -12,6 +12,26 @@ with page() as p:
     c.eq(p.evaluate('app.data.programs.find(x => x.id === "arnold_blueprint_8wk").days.length'), 12, 'Arnold Blueprint has 12 days')
     c.eq(p.evaluate('PT.weeks.planOf(app.data.programs.find(x => x.id === "arnold_blueprint_8wk")).W'), 8, 'Arnold Blueprint runs 8 weeks')
     c.eq(p.evaluate('app.data.programs.find(x => x.id === "ronnie_coleman_6on1off_split").days.reduce((n, d) => n + d.exercises.length, 0)'), 54, 'Ronnie 6-on-1-off has 54 exercises')
+
+    # ---- my own 6-day split (2.73.0): 6 weeks, 7 days, exactly the exercises and sets and reps given, every name known to the library
+    mine = 'my_6day_chest_back_legs_sharms'
+    c.ok(mine in ids, 'my 6-day split is on a fresh phone')
+    prog = p.evaluate('(id) => app.data.programs.find(x => x.id === id)', mine)
+    c.eq(prog['weeks'], 6, 'it runs 6 weeks')
+    c.eq(p.evaluate('(id) => PT.weeks.planOf(app.data.programs.find(x => x.id === id)).W', mine), 6, 'the week plan says 6 weeks')
+    c.eq(len(prog['days']), 7, '7 days, the last one rest')
+    c.eq([len(d['exercises']) for d in prog['days']], [9, 10, 12, 10, 10, 12, 0], 'exercises per day')
+    c.eq([sum(e['sets'] for e in d['exercises']) for d in prog['days']], [29, 34, 40, 32, 34, 39, 0], 'sets per day')
+    c.eq([[e['name'] for e in d['exercises']][i] for d, i in zip(prog['days'][:6], [0, 0, 0, 0, 0, 0])], ['Incline Barbell Press', 'Seated Leg Curls', 'Dumbbell Shoulder Press', 'Lat Pulldown', 'Leg Extensions', 'Smith Machine Shoulder Press'], 'each day opens with the right lift')
+    c.eq([[e['name'] for e in d['exercises']][-1] for d in prog['days'][:6]], ['Pec Deck', 'Decline Sit-Ups', 'Cable Wrist Curls', 'Incline Dumbbell Flyes', 'Russian Twists', 'Behind-the-Back Barbell Wrist Curls'], 'each day ends with the right lift')
+    c.eq(prog['days'][4]['exercises'][1]['reps'], '6-8', 'back squats are 6-8')
+    c.eq(prog['days'][3]['exercises'][2]['reps'], '5-6', 'deadlift is 5-6')
+    known = p.evaluate('() => { const m = new Set(); EXERCISE_DATABASE.forEach(e => { m.add(e.name.toLowerCase()); (e.aka || []).forEach(a => m.add(a.toLowerCase())); }); return [...m]; }')
+    known = set(known)
+    miss = sorted({e['name'] for d in prog['days'] for e in d['exercises'] if e['name'].lower() not in known})
+    c.eq(miss, [], 'every exercise is in the library (by name or other name)')
+    c.ok('Machine Chest Dips' in p.evaluate('EXERCISE_DATABASE.map(e => e.name)'), 'Machine Chest Dips was added to the library')
+    c.eq(len({e['id'] for d in prog['days'] for e in d['exercises']}), 63, 'every exercise id is unique')
 
     # ---- delete: Keep it leaves everything; Delete removes, with an Undo toast that puts it back in the same place
     target = 'ronnie_coleman_highrep_6day'

@@ -33,7 +33,7 @@ with page() as p:
                  dates: pl.evs.map(e => e.date.getFullYear() * 10000 + (e.date.getMonth() + 1) * 100 + e.date.getDate()) };
       } catch (e) { return { id: prog.id, err: String(e) }; }
     })''')
-    c.eq(len(res), 59, 'every program was planned')
+    c.eq(len(res), 60, 'every program was planned')
     for r in res:
         if 'err' in r:
             c.ok(False, '%s: %s' % (r['id'], r['err'])); continue

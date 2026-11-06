@@ -3,9 +3,9 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.72.0*
+*Version 2.73.0*
 
-PulseTrack installs to your home screen like a normal app. It comes with **58 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **645 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 13 themes, any colour, 8 fonts).
+PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
 ## Contents
 
@@ -761,7 +761,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.72.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.73.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -800,8 +800,8 @@ Upload these to your GitHub repo, all in the same folder:
 | File | What it does |
 |---|---|
 | `index.html` | The whole app (about 3 MB, including fonts and themes). Built from `src/` since 2.68.0 |
-| `programs.js` | The 58 built-in programs |
-| `exercises.js` | The 645 exercises, each with its own form tips and the muscle it trains |
+| `programs.js` | The 59 built-in programs |
+| `exercises.js` | The 646 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `README.md` | This file |
@@ -841,6 +841,12 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.73.0**
+- **New program: My 6-Day Split: Chest & Back, Legs, Sharms.** A 6-week, 6-days-a-week split with Day 7 off, added exactly as written: **Day 1** Chest & Back (antagonist power and volume, 9 exercises), **Day 2** Legs, Abs & Calves (hamstring pre-exhaust, 10), **Day 3** Sharms (shoulders, traps, arms and forearms, 12), **Day 4** Chest & Back (lat pulldown lead and deadlifts, 10), **Day 5** Legs, Abs & Calves (quad pre-exhaust and squats, 10), **Day 6** Sharms (Smith machine heavy, isolated delts and arms, 12) and **Day 7** full rest. 63 exercises, with every set and rep range as given and "per side" / "per leg" in the notes. Rest times were not given, so they are PulseTrack's usual guess (150 to 180 seconds for the heavy compounds, 45 to 90 for the rest). It is the same workouts for all 6 weeks: add weight whenever you hit the top of the reps. It shows up under **Workout → Programs → More programs** on every phone that updates.
+- **One new exercise: Machine Chest Dips** (Chest), with a description and form tips. Fourteen exercises also learned the names used in the program, so they count as the same lift in Done before, history and swaps: Incline Barbell Press, Flat Bench Dumbbell Press, V-Bar Pulldown, Hip Adductor, Hip Abductor, Glute Kickback, Dumbbell Rear Delt Flyes, Front Raise, Smith Machine Flat Bench Press, Iso-Lateral Low Row, Wide-Bar Low Cable Row, Straight-Arm Pulldowns, Spider Front Raise and Iso-Lateral Shrug Machine.
+- The program count goes from 58 to 59 and the exercises from 645 to 646. The tests check the new program (weeks, days, sets per day, rep ranges, every exercise known to the library); `tests/smoke.py` has the new counts.
+- The first paragraph of this README said 13 themes and 8 fonts; it now says 304 themes and 40 fonts.
 
 **2.72.0**
 - **The Pre-workout protocol on Home is now your choice.** Settings → Appearance → Home screen has a new **Pre-workout protocol** line with **Shown / Hidden** (and ▲ ▼ to move it). Hidden removes the row from Home completely, including the "running" countdown. Workout → ⋯ More → Pre-workout protocol is still there if you ever want it. It stays shown by default for everyone else, and **Put the cards back the way they were** turns it back on.
