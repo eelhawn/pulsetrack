@@ -54,6 +54,7 @@
     sMemo = { key, v }; return v;
   }
   PT.seasons = seasons;
+  PT.seasonTierXp = TIER_XP;
 
   /* ============================================================== daily check-in */
   const activeDays = a => { const set = new Set(arr(a, "checkins")); S(a).forEach(s => set.add(s.date)); return set; };
@@ -105,16 +106,21 @@
     { id: "x_gold", kind: "fx", name: "Gold rain", style: "gold", icon: "🪙", price: 150 }, { id: "x_fire", kind: "fx", name: "Fire", style: "fire", icon: "🔥", price: 250 },
     { id: "x_bolt", kind: "fx", name: "Lightning", style: "bolt", icon: "⚡", price: 250 }, { id: "x_stars", kind: "fx", name: "Stars", style: "stars", icon: "⭐", price: 300 }
   ];
+  PT.SHOP = SHOP;                                                           // later modules add items of their own
+  PT.shopKinds = [["color", "Accent colors"], ["frame", "Profile frames"], ["fx", "Confetti styles"]];   // [kind, heading]; more are added
+  PT.shopHooks = {};                                                        // kind -> { equip(a, item), equipped(a, item), preview(item), cols }
   const owned = a => arr(a, "shopOwned");
   const spent = a => owned(a).reduce((n, id) => n + ((SHOP.find(x => x.id === id) || { price: 0 }).price), 0);
-  PT.coins = a => { a = a || A(); return Math.max(0, Math.floor(PT.rewards(a).xp / 10) + seasons(a).coins - spent(a)); };
+  PT.coinsRaw = a => { a = a || A(); return Math.floor(PT.rewards(a).xp / 10) + seasons(a).coins - spent(a); };   // can dip below 0 before other coin sources are added
+  PT.coins = a => Math.max(0, PT.coinsRaw(a));
   function equip(a, it) {
     const st = a.settings;
     if (it.kind === "color") { if (st.accent !== "custom") st.accentPrev = st.accent || "emerald"; st.accent = "custom"; st.accentHex = it.hex; save(); try { a.applyTheme(); } catch (e) { } }
     else if (it.kind === "frame") { st.frame = it.id; save(); }
     else if (it.kind === "fx") { st.fxStyle = it.style; save(); if (PT.confetti) PT.confetti(36); }
+    else if (PT.shopHooks[it.kind] && PT.shopHooks[it.kind].equip) PT.shopHooks[it.kind].equip(a, it);
   }
-  const equipped = (a, it) => (it.kind === "color" ? a.settings.accent === "custom" && String(a.settings.accentHex || "").toLowerCase() === it.hex : it.kind === "frame" ? a.settings.frame === it.id : a.settings.fxStyle === it.style);
+  const equipped = (a, it) => (it.kind === "color" ? a.settings.accent === "custom" && String(a.settings.accentHex || "").toLowerCase() === it.hex : it.kind === "frame" ? a.settings.frame === it.id : it.kind === "fx" ? a.settings.fxStyle === it.style : !!(PT.shopHooks[it.kind] && PT.shopHooks[it.kind].equipped && PT.shopHooks[it.kind].equipped(a, it)));
 
   /* ============================================================== hooks into the rest of the rewards */
   PT.xpKey = a => arr(a, "checkins").length + "," + arr(a, "challengesDone").length;
@@ -188,15 +194,29 @@
     return `<div class="flex items-center justify-between gap-2"><div><span class="block text-sm font-black text-white">🌱 ${n} day${n === 1 ? "" : "s"} in a row</span><span class="block text-[11px] text-zinc-400">Best ${st.best} · training or checking in both count</span></div>${done ? '<span class="text-xs font-bold text-emerald-400">Done today</span>' : '<button type="button" class="pt-b go" id="pt-checkin-go">✋ I\'m in today</button>'}</div><div class="pt-dots">${cells}</div>
       <p class="text-[11px] text-zinc-400 leading-snug">Rest days count too. Tap "I'm in today" so the streak keeps going. Each check-in is worth 10 XP.</p>`;
   }
+  let shopCat = "all";
+  const shopPrev = x => {
+    const h = PT.shopHooks[x.kind]; if (h && h.preview) return h.preview(x);
+    return x.kind === "color" ? `<i class="pt-sw" style="background:${x.hex}"></i>` : x.kind === "frame" ? `<i class="pt-sw" style="background:linear-gradient(135deg,${x.c.join(",")})"></i>` : `<span class="text-xl leading-none">${x.icon}</span>`;
+  };
   function shopHtml(a) {
-    const coins = PT.coins(a), own = owned(a);
-    const grp = (kind, title) => `<span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 mt-1">${title}</span><div class="pt-shopgrid">${SHOP.filter(x => x.kind === kind).map(x => {
-      const has = own.includes(x.id), eq = has && equipped(a, x);
-      const prev = x.kind === "color" ? `<i class="pt-sw" style="background:${x.hex}"></i>` : x.kind === "frame" ? `<i class="pt-sw" style="background:linear-gradient(135deg,${x.c.join(",")})"></i>` : `<span class="text-xl leading-none">${x.icon}</span>`;
-      return `<button type="button" class="pt-shopit tap-active ${eq ? "eq" : ""}" data-shop="${x.id}" aria-label="${esc(x.name)}, ${has ? (eq ? "equipped" : "owned") : x.price + " coins"}">${prev}<span class="pt-sn">${esc(x.name)}</span><span class="pt-sp">${eq ? "Equipped" : has ? "Equip" : "🪙 " + x.price}</span></button>`;
-    }).join("")}</div>`;
+    const coins = PT.coins(a), own = owned(a), kinds = PT.shopKinds;
+    if (shopCat !== "all" && !kinds.some(k => k[0] === shopCat)) shopCat = "all";
+    const item = x => {
+      const has = own.includes(x.id), eq = has && equipped(a, x), h = PT.shopHooks[x.kind];
+      return `<button type="button" class="pt-shopit tap-active ${eq ? "eq" : ""} ${!has && coins < x.price ? "short" : ""}" data-shop="${x.id}" aria-label="${esc(x.name)}, ${has ? (eq ? "equipped" : "owned") : x.price + " coins"}">${shopPrev(x)}<span class="pt-sn">${esc(x.name)}</span><span class="pt-sp">${eq ? "Equipped" : has ? "Equip" : "🪙 " + x.price}</span></button>`;
+    };
+    const grp = ([kind, title]) => {
+      const list = SHOP.filter(x => x.kind === kind); if (!list.length) return "";
+      const h = PT.shopHooks[kind], more = h && h.extra ? h.extra(a) : "";
+      return `<span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 mt-1">${title}</span><div class="pt-shopgrid ${h && h.cols === 2 ? "two" : ""}">${list.map(item).join("")}</div>${more}`;
+    };
+    const chips = [["all", "All"]].concat(kinds).map(([k, t]) => `<button type="button" class="pt-schip tap-active ${shopCat === k ? "on" : ""}" data-shopcat="${k}" aria-pressed="${shopCat === k}">${esc(({ color: "Colors", frame: "Frames", fx: "Confetti", title: "Titles", banner: "Banners" })[k] || t)}</button>`).join("");
+    const next = SHOP.filter(x => !own.includes(x.id) && x.price > coins).sort((x, y) => x.price - y.price)[0];
     const reset = a.settings.accent === "custom" && a.settings.accentPrev ? '<button type="button" class="pt-b" id="pt-shop-resetcol">Back to my old color</button>' : "";
-    return `<div class="flex items-center justify-between"><span class="text-sm font-black text-amber-300">🪙 ${fmt(coins)} coins</span><span class="text-[10px] text-zinc-500">1 coin per 10 XP, plus season rewards</span></div>${grp("color", "Accent colors")}${grp("frame", "Profile frames")}${grp("fx", "Confetti styles")}
+    return `<div class="flex items-center justify-between"><span class="text-sm font-black text-amber-300">🪙 ${fmt(coins)} coins</span><span class="text-[10px] text-zinc-500">${SHOP.filter(x => own.includes(x.id)).length} of ${SHOP.length} owned</span></div>
+      ${next ? `<span class="block text-[11px] text-zinc-400">Next: ${esc(next.name)} · ${fmt(next.price - coins)} coins to go</span>` : ""}
+      <div class="pt-schips wrap" role="group" aria-label="Shop sections">${chips}</div>${(shopCat === "all" ? kinds : kinds.filter(k => k[0] === shopCat)).map(grp).join("")}
       <div class="flex gap-2 flex-wrap">${a.settings.fxStyle && a.settings.fxStyle !== "classic" ? '<button type="button" class="pt-b" id="pt-shop-fxclassic">Classic confetti</button>' : ""}${reset}</div>`;
   }
   function drawRew2(a) {
@@ -232,6 +252,8 @@
     if (cs) { const p = presets(a).find(x => x.id === cs.dataset.cstart); if (p) { a.settings.challenge = { id: p.id, title: p.title, icon: p.icon, desc: p.desc, stat: p.stat, goal: p.goal, start: Date.now(), end: Date.now() + p.days * DAY, done: false }; save(); OPEN.chal = true; a.toast("Challenge started. Go get it"); a.renderProgressView(); } return; }
     if (t("pt-c-giveup")) { if (await PT.confirm("Give up this challenge?")) { a.settings.challenge = null; save(); a.renderProgressView(); } return; }
     if (t("pt-c-clear")) { a.settings.challenge = null; save(); a.renderProgressView(); return; }
+    const sc = on("[data-shopcat]");
+    if (sc) { shopCat = sc.dataset.shopcat; OPEN.shop = true; a.renderProgressView(); return; }
     const sh = on("[data-shop]");
     if (sh) {
       const it = SHOP.find(x => x.id === sh.dataset.shop); if (!it) return; OPEN.shop = true;
@@ -258,6 +280,12 @@
     .pt-dot { flex: 1; height: .9rem; border-radius: .3rem; background: rgb(var(--z800)); }
     .pt-dot.on { background: rgb(52 211 153); }
     .pt-shopgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .45rem; }
+    .pt-shopgrid.two { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .pt-schips { display: flex; gap: .35rem; overflow-x: auto; padding-bottom: .15rem; scrollbar-width: none; }
+    .pt-schips::-webkit-scrollbar { display: none; }
+    .pt-schip { flex: 0 0 auto; padding: .3rem .7rem; border-radius: 999px; border: 1px solid rgb(var(--z800)); background: rgb(var(--z950)); color: rgb(var(--z400)); font-size: .7rem; font-weight: 800; }
+    .pt-schip.on { border-color: rgb(var(--a500) / .7); color: rgb(var(--a400)); }
+    .pt-shopit.short .pt-sp { opacity: .55; }
     .pt-shopit { display: flex; flex-direction: column; align-items: center; gap: .25rem; padding: .6rem .3rem; border-radius: .85rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); min-width: 0; }
     .pt-shopit.eq { border-color: rgb(var(--a500)); }
     .pt-sw { width: 1.6rem; height: 1.6rem; border-radius: 50%; display: block; }

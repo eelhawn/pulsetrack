@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.76.0*
+*Version 2.77.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -482,7 +482,7 @@ The **Progress** screen has six tabs, and every card lives under the tab where y
 | **Muscles** | Weekly sets per muscle and the recovery map; balance check; physique map |
 | **Strength** | Big 3 strength level and the 1,000 lb club; closest to leveling up; strength levels for every exercise; weak points; lift ranks; lift goals; PR attempt planner |
 | **History** | Monthly recap; weekly and monthly report cards; year in review; training year calendar; PR timeline |
-| **Rewards** | Level and XP; season; weekly quests; challenge; daily check-in; badges; rewards shop |
+| **Rewards** | Today card (coins, daily chest, what you are closest to); level and XP; season; weekly quests; challenge; daily check-in; badges; rewards shop; my real rewards |
 | **Social** | Family board; buddies; wall of fame; family challenge |
 
 Rows that open and close have an icon and a one-line description, so you can see what is inside before you tap.
@@ -516,7 +516,7 @@ Rows that open and close have an icon and a one-line description, so you can see
 
 ### Rewards and Social
 
-- **Rewards:** your level and XP, the season, weekly quests, challenges, the daily check-in, badges and the rewards shop.
+- **Rewards:** a **Today** card (your coins, the **daily chest**, what you are closest to, how coins are earned), your level and XP, the season, weekly quests, challenges, the daily check-in, badges, the **rewards shop** (colors, frames, confetti, titles and Home card banners) and **My real rewards** (prizes you set yourself and save coins for).
 - **Social:** the family board, buddies, the wall of fame and the family challenge. See **Family board** below.
 
 ### Muscles
@@ -761,7 +761,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.76.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.77.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -805,7 +805,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 97 scripts (`js/`) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 98 scripts (`js/`) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0) and `make_fonts.py` (2.71.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -820,7 +820,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -841,6 +841,15 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.77.0**
+- **Rewards has a Today card at the top.** It shows your coins, your level, goal streak and day streak, the **daily chest**, the things you are closest to (the next season tier, the next level, the next shop item or real reward, your weekly quests) and a **How coins work** list with the exact numbers.
+- **Daily chest.** Once you have trained or checked in, you can open one chest a day. The prize is a surprise: mostly small coin prizes (15 to 30), sometimes bigger (40 to 70, 90 to 140), very rarely a legendary one (250 coins and 100 XP). Odds: common 70%, rare 22%, epic 7%, legendary 1%. A streak of 7, 30 or 100 days multiplies the prize by 1.25, 1.5 or 2. The prize for a day is fixed, so reopening the app never rerolls it. A small strip shows this week's chests. On Home, a 🎁 shows next to your streak while a chest is waiting, and after a workout a note tells you it is ready. Tapping the level card on Home now opens the Rewards tab.
+- **More coins, so the shop does not run dry.** On top of 1 coin per 10 XP and the season tiers: a new record gives 10 coins, a weekly quest 25, a goal week 20, a finished challenge 100, a badge 10 to 75 (by its tier) and each chest its prize. These are worked out from what you already have saved, so you get coins for your past records, quests, goal weeks and badges once, and a one-time note tells you how many.
+- **A bigger shop (50 things, was 13)** with sections: Colors (5 new), Frames (4 new: Candy, Toxic, Rose gold, Regal), Confetti (6 new: Gains, Cheat meal, Money, Skulls, Hearts, Iron), **Titles** (14, for example Sharm Lord, Leg Day Survivor, Built Different, Mass Monster) and **Home card banners** (8 colored backgrounds for the level card on Home). A title replaces your level title on Home, in Level and on share pictures. A row of **earned titles** lets you pick any level title you have reached (or go back to Automatic) and the new **season titles**: tier 6 gives "<season> Veteran" and tier 8 "<season> Champion" (tier 6 used to say Title but gave nothing).
+- **My real rewards.** Set a prize you actually want (a cheat meal, a rest day, new gear) with a coin price. A bar shows how close you are; when you have enough, tap **Claim** and the coins are spent. Five ideas are one tap to add, a price can be changed, and claimed prizes stay in a list (with "again"). It is on the honor system.
+- Fixed: the coin balance was held at zero before bonuses were added (a purchase made while you had no earned coins would not have been charged); the balance now adds everything first.
+- `tests/rewards.py` (80 checks): the Today card, the chest (locked, once a day, odds, streak bonus, XP), the coin sources and the ledger, buying and equipping titles, banners, confetti and frames, My real rewards (add, price, claim, again, remove), the Home gift, and a phone with none of it saved.
 
 **2.76.0**
 - **Every day of My 6-Day Split that has a Lat Pulldown now opens with it.** Only Week A's Day 1 changed: it was the third exercise there and is now the first, with the V-Bar Lat Pulldown right after it and then Incline and Decline Bench Press, as before. Days 4, 8 and 11 already opened with the Lat Pulldown, and the other days have none. Sets, reps, rest and the exercises themselves are unchanged.

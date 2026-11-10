@@ -76,6 +76,7 @@
   const TITLES = [[1, "Rookie"], [5, "Regular"], [10, "Grinder"], [15, "Iron Hand"], [20, "Veteran"], [30, "Beast"], [40, "Legend"], [50, "Immortal"]];
   const titleOf = L => { let t = TITLES[0][1]; TITLES.forEach(x => { if (L >= x[0]) t = x[1]; }); return t; };
   const nextTitle = L => TITLES.find(x => x[0] > L);
+  PT.levelTitles = TITLES;
   const FRAMES = [
     { id: "classic", lvl: 1, name: "Classic", c: ["#d4d4d8", "#52525b"] },
     { id: "ember", lvl: 5, name: "Ember", c: ["#fdba74", "#ea580c"] },
@@ -103,7 +104,7 @@
     const parts = { workouts: w * 50, sets: sets * 3, prs: prs * 60, volume: vol, weeks: hits * 50, badges: badges.filter(b => b.got).reduce((n, b) => n + TIER_XP[b.tier], 0), quests: quests * QUEST_XP };
     if (PT.xpExtras) try { Object.assign(parts, PT.xpExtras(a)); } catch (e) { }
     const total = Object.keys(parts).reduce((n, k) => n + parts[k], 0), lv = levelOf(total);
-    const v = { W, streak: st, xp: total, parts, lv, title: titleOf(lv.L), badges };
+    const v = { W, streak: st, xp: total, parts, lv, title: (PT.customTitle && PT.customTitle(a, lv.L)) || titleOf(lv.L), badges };
     memo = { key, v }; return v;
   }
   PT.rewards = state;
@@ -272,7 +273,7 @@
     try {
       if (window.matchMedia && matchMedia("(prefers-reduced-motion: reduce)").matches) return;
       const box = document.createElement("div"); box.className = "pt-conf"; box.setAttribute("aria-hidden", "true");
-      const sty = (A() && A().settings.fxStyle) || "classic", EM = { fire: "🔥", bolt: "⚡", stars: "⭐" }[sty];
+      const sty = (A() && A().settings.fxStyle) || "classic", EM = { fire: "🔥", bolt: "⚡", stars: "⭐" }[sty] || (PT.fxEmoji && PT.fxEmoji[sty]);
       const cols = sty === "gold" ? ["#fde68a", "#fbbf24", "#f59e0b", "#d97706", "#fff7ed"] : sty === "fire" ? ["#fb923c", "#f97316", "#ef4444", "#fbbf24"] : ["#fbbf24", "#34d399", "#60a5fa", "#f472b6", "#a78bfa", "#fb923c"];
       for (let i = 0; i < (n || 60); i++) {
         const p = document.createElement("i"), em = EM && i % 2 === 0;
