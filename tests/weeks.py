@@ -36,7 +36,8 @@ with page() as p:
     c.eq(p.evaluate(f'() => {PROG}.days.filter(d => d.exercises.some(e => e.name === "Lat Pulldown")).map(d => [d.dayNumber, d.exercises[0].name])'), [[1, 'Lat Pulldown'], [4, 'Lat Pulldown'], [8, 'Lat Pulldown'], [11, 'Lat Pulldown']], 'every day that has a lat pulldown opens with it')
     c.eq(p.evaluate(NAMES(1))[:4], ['Lat Pulldown', 'Neutral-Grip (V-Bar) Lat Pulldown', 'Incline Bench Press', 'Decline Bench Press'], 'Week A day 1 opens with both pulldowns, then the two barbell presses')
     c.ok(adj(1, 'Incline Bench Press', 'Decline Bench Press'), 'Week A day 1: the two barbell presses are together')
-    c.ok(adj(4, 'Lat Pulldown', 'Straight-Arm Pulldown'), 'Week A day 4: lat pulldown and straight-arm pulldown are together')
+    c.eq(p.evaluate(f'() => {PROG}.days.filter(d => d.exercises.some(e => e.name === "Straight-Arm Pulldown")).map(d => [d.dayNumber, d.exercises[d.exercises.length - 1].name])'), [[4, 'Straight-Arm Pulldown']], 'every day with a straight-arm pulldown ends with it')
+    c.eq(p.evaluate(NAMES(4))[:2], ['Lat Pulldown', 'Incline Dumbbell Press'], 'Week A day 4 still opens with the lat pulldown, then the incline dumbbell press')
     c.ok(adj(8, 'Lat Pulldown', 'Reverse-Grip Lat Pulldown'), 'Week B day 1: lat pulldown and reverse-grip pulldown are together')
     c.ok(adj(11, 'Deadlift', 'Barbell Row') and adj(11, 'Incline Dumbbell Press', 'Dumbbell Bench Press'), 'Week B day 4: deadlift next to barbell row, the two dumbbell presses together')
     c.ok(adj(10, 'V-Bar Pushdown', 'Cable Overhead Extension') and adj(10, 'Cable Curls (EZ-Bar Attachment)', 'V-Bar Pushdown'), 'Week B day 3: the cable arm exercises are together')
@@ -177,6 +178,22 @@ with page() as p:
     }}''')
     c.eq(p.evaluate('() => PT.latFirst.upgrade().done'), False, 'a day 1 with a swap is left alone')
     c.eq(p.evaluate(NAMES(1))[0], 'Incline Bench Press', 'in its own order')
+    c.eq(p.errors, [], 'no page errors')
+
+# ---------------------------------------------------------------- 2.75.0 to 2.77.0: a copy whose day 4 still has the straight-arm pulldown second
+D4 = ['Lat Pulldown', 'Straight-Arm Pulldown', 'Incline Dumbbell Press', 'Deadlift', 'Smith Machine Flat Press', 'Iso-Lateral Plate-Loaded Low Row', 'Decline Bench Press', 'Cable Seated Rows (Wide Bar)', 'Machine Chest Dips', 'Incline Dumbbell Flyes']
+with page() as p:
+    p.evaluate(f'''() => {{
+      const d = {PROG}.days[3], by = new Map(d.exercises.map(e => [e.name, e]));
+      d.exercises = {D4}.map(n => by.get(n));
+      app.logs["{ID}_d4_{ID}_d4_straight-arm-pulldown_s0"] = {{ weight: "40", reps: "12", completed: true }};
+      WorkoutStorage.setData(app.data); WorkoutStorage.saveLogs(app.logs);
+    }}''')
+    res = p.evaluate('() => PT.latFirst.upgrade()')
+    c.eq(res['days'], [4], 'a copy with the old day 4 order is moved')
+    c.eq(p.evaluate(NAMES(4))[-1], 'Straight-Arm Pulldown', 'the straight-arm pulldown is last')
+    c.eq(p.evaluate(f'() => app.logs["{ID}_d4_{ID}_d4_straight-arm-pulldown_s0"].weight'), '40', 'a ticked set stays with its exercise')
+    c.eq(p.evaluate('() => PT.latFirst.upgrade().done'), False, 'and it only happens once')
     c.eq(p.errors, [], 'no page errors')
 
 # ---------------------------------------------------------------- 2.74.0: an even older copy: old spellings, no switch, weights stored under the old names

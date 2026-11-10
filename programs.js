@@ -109093,14 +109093,6 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_straight-arm-pulldown",
-      "name": "Straight-Arm Pulldown",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
       "id": "my_6day_chest_back_legs_sharms_d4_incline-dumbbell-press",
       "name": "Incline Dumbbell Press",
       "sets": 4,
@@ -109160,6 +109152,14 @@ const BUILTIN_PROGRAMS = [
      {
       "id": "my_6day_chest_back_legs_sharms_d4_incline-dumbbell-flyes",
       "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d4_straight-arm-pulldown",
+      "name": "Straight-Arm Pulldown",
       "sets": 3,
       "reps": "12-15",
       "restSeconds": 60,
