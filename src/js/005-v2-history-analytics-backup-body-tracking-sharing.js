@@ -502,9 +502,10 @@
           const st = this.getProgState(this.activeProgram);
           const isFree = this.activeProgram.id === FREESTYLE_ID;
           this.dom.homeActiveDayBadge.innerText = isFree ? "Freestyle" : this.weekBadge(this.activeProgram, this.activeDay);
-          upNext.innerHTML = `<span class="text-zinc-500 font-semibold uppercase tracking-wider text-[10px] block">Up next</span>
-            <span class="text-white font-bold">${PT.esc(this.shortDayTitle(this.activeProgram, this.activeDay))}</span>
-            <span class="text-zinc-500"> · ${(this.activeDay.exercises || []).length} exercises</span>`;
+          const exCount = (this.activeDay.exercises || []).length;
+          upNext.innerHTML = `<span class="pt-un-top">Up next · <b>${exCount} ${exCount === 1 ? "exercise" : "exercises"}</b></span>
+            ${(() => { const t = this.shortDayTitle(this.activeProgram, this.activeDay), q = PT.dayTitleParts ? PT.dayTitleParts(t) : { main: t, sub: "" };
+              return `<span class="pt-un-name text-white">${PT.esc(q.main)}</span>${q.sub ? `<span class="pt-un-sub">${PT.esc(q.sub)}</span>` : ""}`; })()}`;
           upNext.classList.remove("hidden");
           resumeLbl.innerText = (this.activeDay.exercises || []).length ? "Start Workout" : "Open Day";
           const chip = document.getElementById("home-chip"); if (chip) chip.innerText = "ACTIVE ROUTINE";
@@ -565,7 +566,7 @@
         const every = PT.backupEveryDays ? PT.backupEveryDays(this) : 7;      // days between reminders; 0 = never (Settings → Data & Backup)
         if (every > 0 && this.sessions.length >= 1 && now > snooze && (!last || now - last > every * 86400000)) {
           const age = last ? Math.floor((now - last) / 86400000) + " days ago" : "never";
-          items.push({ id: "backup", color: "border-amber-800/60 bg-amber-950/30", html: `<b class="text-white">Back up your data.</b> Last backup: ${age}. Everything lives only on this phone.`, action: "Back up" });
+          items.push({ id: "backup", color: "border-amber-800/60 bg-amber-950/30", html: `<b class="text-white">Back up your data.</b> Last backup: ${age}. Saved only on this phone.`, action: "Back up" });
         }
         const recap = this.recapBanner();
         if (recap) items.push(recap);

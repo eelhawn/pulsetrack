@@ -2195,6 +2195,7 @@
                   ${ssLabel ? `<span class="px-2 py-0.5 rounded bg-purple-600 text-white text-[10px] font-black">${ssLabel}</span>` : ""}
                   ${exercise.type && exercise.type !== "standard" ? `<span class="px-2 py-0.5 rounded border text-[10px] font-bold uppercase tracking-wide ${badgeColor}">${this.esc(exercise.type)}</span>` : ""}
                   <button class="btn-rest-edit whitespace-nowrap text-[11px] text-zinc-400 font-mono px-1.5 py-0.5 rounded-md bg-zinc-800/80 border border-zinc-700/60 tap-active" data-exindex="${exIndex}" title="Change rest time" aria-label="Rest ${PT.fmtRest(restSec)}, tap to change">Rest ${PT.fmtRest(restSec)} ✎</button>
+                  ${PT.takenChip ? PT.takenChip(this, exercise, exIndex) : ""}
                 </div>
                 <button class="btn-ex-info block text-left mt-1 tap-active" data-exindex="${exIndex}" title="Charts, records &amp; notes">
                   <span class="text-base font-bold text-white">${this.esc(exercise.name)}</span>
@@ -2232,7 +2233,6 @@
                   ${showLogger && (this.lastPerf[exercise.name] || []).length ? `<button class="btn-copy-last px-2 py-1 bg-zinc-800/70 text-zinc-300 font-semibold rounded-lg tap-active" data-exindex="${exIndex}" title="Fill weights and reps from last time">↺ Last</button>` : ""}
                   ${this.exNotes[exercise.name] ? "" : `<button class="btn-note-ex px-2 py-1 bg-zinc-800/70 text-zinc-300 font-semibold rounded-lg tap-active" data-exindex="${exIndex}" title="Add a note for this exercise">📝</button>`}
                   ${/squat|bench press|deadlift/i.test(exercise.name) && exercise.type !== "tabata" ? `<button class="btn-warmup px-2 py-1 bg-amber-950/60 border border-amber-800/60 text-amber-300 font-semibold rounded-lg tap-active" data-exindex="${exIndex}">🔥 Warm-up</button>` : ''}
-                  ${PT.takenChip ? PT.takenChip(this, exercise, exIndex) : ""}
                 </div>
                 <button class="btn-remove-set px-2 py-1 bg-zinc-800/70 hover:bg-zinc-800 text-zinc-400 hover:text-rose-400 rounded-lg tap-active" data-exindex="${exIndex}" aria-label="Remove set">
                   − Set
