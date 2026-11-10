@@ -381,6 +381,7 @@
     if (ws) {
       const t = (k, title, sub) => ROW(title, sub, SW(`data-opt="${k}"`, O(k)));
       ws.innerHTML = t("nextHint", "Suggested weight", "Shows what you did last time and what to try next, with a button that fills it in.")
+        + t("autoPrefill", "Pre-fill the whole workout", "The first time you open a day each week, every set gets the suggested weight and reps. A \"Fill in suggested weights\" button is also at the top of the workout. Nothing is checked off for you, and you can change any number.")
         + t("autoFill", "Fill in the next set", "When you check off a set, the next empty set gets the same weight and reps.")
         + t("timerFirstSet", "Timer starts on your first set", "The workout timer waits until you log a set instead of starting when you open the day.")
         + t("finishReview", "Look over before saving", "A short screen with time, volume compared to last time, and new records. Turned off, you still get a quick \"Finish workout?\" question.")
