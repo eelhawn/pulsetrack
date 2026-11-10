@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.73.0*
+*Version 2.74.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -761,7 +761,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.73.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.74.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -805,7 +805,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 94 scripts (`js/`) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 95 scripts (`js/`) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0) and `make_fonts.py` (2.71.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -820,7 +820,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -841,6 +841,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.74.0**
+- **Each new week of My 6-Day Split starts with the original exercises.** Finishing the last workout of a week, **Switch week**, or starting over after week 6 puts every day of the new week back the way the program has it: swapped exercises come back, deleted ones come back, ones you added go, and sets or reps you changed return to the program's. Inside a week nothing is touched, so a swap you make on Monday is still there on Friday. A new week also starts with empty sets (unless "Finish keeps logged sets" is on). This is a setting of the program itself (`weekReset`), so other programs behave as before.
+- **The split now uses the exact names from the exercise database** (Incline Bench Press, Dumbbell Bench Press, Leg Extension, Squat, Triceps Pushdown, Lateral Raises and so on, 25 changes in all), because PulseTrack remembers last time's weight per exercise name. If your phone already has the split under the old names, the first start after this update renames them once and moves your history, PRs, notes and last-time weights with them, the same way **Clean Up Exercise Names** does it (a weight already saved under the standard name is never overwritten), and says so in a message. Phones that never had the old copy just get the right names.
+- **Fixed: on Mondays and Tuesdays the "Family recap is ready" banner failed to draw when the app opened** (an error was written to the log and the banner only came after you left Home and came back). It is now drawn a moment after start-up. `tests/home.py` checks it, and `tests/weeks.py` (new, 42 checks) covers the new-week reset, the rename and the "only once" rule.
 
 **2.73.0**
 - **New program: My 6-Day Split: Chest & Back, Legs, Sharms.** A 6-week, 6-days-a-week split with Day 7 off, added exactly as written: **Day 1** Chest & Back (antagonist power and volume, 9 exercises), **Day 2** Legs, Abs & Calves (hamstring pre-exhaust, 10), **Day 3** Sharms (shoulders, traps, arms and forearms, 12), **Day 4** Chest & Back (lat pulldown lead and deadlifts, 10), **Day 5** Legs, Abs & Calves (quad pre-exhaust and squats, 10), **Day 6** Sharms (Smith machine heavy, isolated delts and arms, 12) and **Day 7** full rest. 63 exercises, with every set and rep range as given and "per side" / "per leg" in the notes. Rest times were not given, so they are PulseTrack's usual guess (150 to 180 seconds for the heavy compounds, 45 to 90 for the rest). It is the same workouts for all 6 weeks: add weight whenever you hit the top of the reps. It shows up under **Workout → Programs → More programs** on every phone that updates.

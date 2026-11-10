@@ -62,5 +62,8 @@ with page() as p:
     # "Put the cards back" restores it
     p.evaluate('() => { const l = app.settings.homeLayout; l.find(x => x.id === "fuel").show = false; PT.applyHomeLayout(); const b = document.querySelector("#pt-home-layout [data-act=reset]"); if (b) b.click(); }')
     c.eq(p.evaluate('() => PT.homeShown("fuel")'), True, 'reset puts it back')
-    c.eq(p.errors, [], 'no page errors or console errors')
+    # on a Monday or Tuesday the family recap banner is drawn at start-up, before window.app exists: no error, and it is drawn again afterwards
+    p.evaluate('() => { const a = window.app, g = Date.prototype.getDay; Date.prototype.getDay = () => 1; try { window.app = undefined; a.renderHomeBanners(); } finally { window.app = a; Date.prototype.getDay = g; } }')
+    p.wait_for_timeout(100)
+    c.eq(p.errors, [], 'no page errors or console errors (also for the Monday/Tuesday family recap at start-up)')
 c.done()

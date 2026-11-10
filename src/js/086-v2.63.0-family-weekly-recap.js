@@ -125,6 +125,8 @@
   const oBan = proto.renderHomeBanners;
   if (typeof oBan === "function") proto.renderHomeBanners = function () {
     const r = oBan.apply(this, arguments);
+    // while the app is still being built (the first Home draw) window.app does not exist yet and the recap reads it: draw again a moment later
+    if (!window.app) { setTimeout(() => { try { if (window.app) this.renderHomeBanners(); } catch (e) { } }, 0); return r; }
     try {
       const a = this, box = $("home-banners"), dow = new Date().getDay();
       if (!box || (dow !== 1 && dow !== 2) || a.settings.famRecapSeen === K.dsOf(K.wkMon(1))) return r;

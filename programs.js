@@ -108765,6 +108765,7 @@ const BUILTIN_PROGRAMS = [
    "6 Weeks"
   ],
   "weeks": 6,
+  "weekReset": true,
   "pro": "",
   "goal": "mass",
   "level": "advanced",
@@ -108799,7 +108800,7 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d1_e1",
-      "name": "Incline Barbell Press",
+      "name": "Incline Bench Press",
       "sets": 4,
       "reps": "6-8",
       "restSeconds": 150,
@@ -108815,7 +108816,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d1_e3",
-      "name": "Flat Bench Dumbbell Press",
+      "name": "Dumbbell Bench Press",
       "sets": 3,
       "reps": "8-10",
       "restSeconds": 90,
@@ -108832,7 +108833,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d1_e5",
-      "name": "Decline Barbell Press",
+      "name": "Decline Bench Press",
       "sets": 3,
       "reps": "8-10",
       "restSeconds": 90,
@@ -108840,7 +108841,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d1_e6",
-      "name": "V-Bar Pulldown",
+      "name": "Neutral-Grip (V-Bar) Lat Pulldown",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 75,
@@ -108903,7 +108904,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d2_e4",
-      "name": "Leg Extensions",
+      "name": "Leg Extension",
       "sets": 3,
       "reps": "12-15",
       "restSeconds": 60,
@@ -108911,7 +108912,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d2_e5",
-      "name": "Hip Adductor",
+      "name": "Hip Adductor Machine",
       "sets": 3,
       "reps": "12-15",
       "restSeconds": 60,
@@ -108919,7 +108920,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d2_e6",
-      "name": "Glute Kickback",
+      "name": "Glute Kickbacks",
       "sets": 3,
       "reps": "12-15",
       "restSeconds": 60,
@@ -108975,7 +108976,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d3_e2",
-      "name": "Dumbbell Lateral Raise",
+      "name": "Lateral Raises",
       "sets": 4,
       "reps": "12-15",
       "restSeconds": 60,
@@ -108983,7 +108984,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d3_e3",
-      "name": "Dumbbell Rear Delt Flyes",
+      "name": "Dumbbell Reverse Flyes",
       "sets": 3,
       "reps": "12-15",
       "restSeconds": 60,
@@ -108991,7 +108992,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d3_e4",
-      "name": "Front Raise",
+      "name": "Front Raises",
       "sets": 3,
       "reps": "12-15",
       "restSeconds": 60,
@@ -109015,7 +109016,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d3_e7",
-      "name": "Tricep Pushdown",
+      "name": "Triceps Pushdown",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 60,
@@ -109094,7 +109095,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d4_e4",
-      "name": "Smith Machine Flat Bench Press",
+      "name": "Smith Machine Flat Press",
       "sets": 3,
       "reps": "8-10",
       "restSeconds": 90,
@@ -109102,7 +109103,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d4_e5",
-      "name": "Iso-Lateral Low Row",
+      "name": "Iso-Lateral Plate-Loaded Low Row",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 75,
@@ -109119,7 +109120,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d4_e7",
-      "name": "Wide-Bar Low Cable Row",
+      "name": "Cable Seated Rows (Wide Bar)",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 75,
@@ -109135,7 +109136,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d4_e9",
-      "name": "Straight-Arm Pulldowns",
+      "name": "Straight-Arm Pulldown",
       "sets": 3,
       "reps": "12-15",
       "restSeconds": 60,
@@ -109158,7 +109159,7 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d5_e1",
-      "name": "Leg Extensions",
+      "name": "Leg Extension",
       "sets": 4,
       "reps": "12-15",
       "restSeconds": 60,
@@ -109166,7 +109167,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d5_e2",
-      "name": "Barbell Back Squats",
+      "name": "Squat",
       "sets": 4,
       "reps": "6-8",
       "restSeconds": 150,
@@ -109190,7 +109191,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d5_e5",
-      "name": "Hip Adductor",
+      "name": "Hip Adductor Machine",
       "sets": 3,
       "reps": "12-15",
       "restSeconds": 60,
@@ -109198,7 +109199,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d5_e6",
-      "name": "Hip Abductor",
+      "name": "Hip Abductor Machine",
       "sets": 3,
       "reps": "12-15",
       "restSeconds": 60,
@@ -109246,7 +109247,7 @@ const BUILTIN_PROGRAMS = [
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d6_e1",
-      "name": "Smith Machine Shoulder Press",
+      "name": "Smith Machine Overhead Press",
       "sets": 4,
       "reps": "6-8",
       "restSeconds": 120,
@@ -109270,7 +109271,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d6_e4",
-      "name": "Spider Front Raise",
+      "name": "Chest-Supported Dumbbell Front Raises",
       "sets": 3,
       "reps": "12-15",
       "restSeconds": 60,
@@ -109278,7 +109279,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d6_e5",
-      "name": "Iso-Lateral Shrug Machine",
+      "name": "Iso-Lateral Plate-Loaded Shrug Machine",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 75,
@@ -109302,7 +109303,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d6_e8",
-      "name": "Tricep Pushdown",
+      "name": "Triceps Pushdown",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 60,
@@ -109326,7 +109327,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d6_e11",
-      "name": "Cable Hammer Curls",
+      "name": "Cable Rope Hammer Curls",
       "sets": 3,
       "reps": "12-15",
       "restSeconds": 60,
@@ -109334,7 +109335,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d6_e12",
-      "name": "Behind-the-Back Barbell Wrist Curls",
+      "name": "Behind-The-Back Barbell Wrist Curls",
       "sets": 4,
       "reps": "15-20",
       "restSeconds": 45,
