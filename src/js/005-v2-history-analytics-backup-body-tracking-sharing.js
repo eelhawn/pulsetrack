@@ -1800,7 +1800,7 @@
         const c = JSON.parse(JSON.stringify(p));
         (c.days || []).forEach(d => {
           delete d.removed; delete d.orig;
-          (d.exercises || []).forEach(e => { delete e.origName; delete e.origSets; delete e.added; });
+          (d.exercises || []).forEach(e => { delete e.origName; delete e.origSets; delete e.added; delete e.takenOn; });
         });
         return c;
       },

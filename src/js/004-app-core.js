@@ -2232,6 +2232,7 @@
                   ${showLogger && (this.lastPerf[exercise.name] || []).length ? `<button class="btn-copy-last px-2 py-1 bg-zinc-800/70 text-zinc-300 font-semibold rounded-lg tap-active" data-exindex="${exIndex}" title="Fill weights and reps from last time">↺ Last</button>` : ""}
                   ${this.exNotes[exercise.name] ? "" : `<button class="btn-note-ex px-2 py-1 bg-zinc-800/70 text-zinc-300 font-semibold rounded-lg tap-active" data-exindex="${exIndex}" title="Add a note for this exercise">📝</button>`}
                   ${/squat|bench press|deadlift/i.test(exercise.name) && exercise.type !== "tabata" ? `<button class="btn-warmup px-2 py-1 bg-amber-950/60 border border-amber-800/60 text-amber-300 font-semibold rounded-lg tap-active" data-exindex="${exIndex}">🔥 Warm-up</button>` : ''}
+                  ${PT.takenChip ? PT.takenChip(this, exercise, exIndex) : ""}
                 </div>
                 <button class="btn-remove-set px-2 py-1 bg-zinc-800/70 hover:bg-zinc-800 text-zinc-400 hover:text-rose-400 rounded-lg tap-active" data-exindex="${exIndex}" aria-label="Remove set">
                   − Set
@@ -2457,7 +2458,7 @@
         const c = JSON.parse(JSON.stringify(ex));
         if (c.origName) c.name = c.origName;
         if (c.origSets) c.sets = c.origSets;
-        delete c.origName; delete c.origSets; delete c.added;
+        delete c.origName; delete c.origSets; delete c.added; delete c.takenOn;
         return c;
       }
 

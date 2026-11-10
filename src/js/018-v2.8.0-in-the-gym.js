@@ -19,7 +19,7 @@
   const blank = v => v === undefined || v === null || String(v).trim() === "";
 
   /* ------------------------------------------------------------ options */
-  const DEF = { nextHint: true, autoFill: true, autoPrefill: true, timerFirstSet: true, finishReview: true, colPrev: false, colTag: true, col1rm: false, lefty: false, workEase: true };
+  const DEF = { nextHint: true, autoFill: true, autoPrefill: true, takenBtn: true, timerFirstSet: true, finishReview: true, colPrev: false, colTag: true, col1rm: false, lefty: false, workEase: true };
   const opt = k => { const a = A(), v = a && a.settings ? a.settings[k] : undefined; return v === undefined ? DEF[k] : !!v; };
   PT.opt = opt;
   PT.setOpt = (k, v) => { const a = A(); if (!a) return; a.settings[k] = !!v; WorkoutStorage.saveSettings(a.settings); };
