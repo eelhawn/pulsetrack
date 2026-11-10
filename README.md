@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.81.0*
+*Version 2.82.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -484,7 +484,7 @@ The **Progress** screen has six tabs, and every card lives under the tab where y
 | **Strength** | Big 3 strength level and the 1,000 lb club; closest to leveling up; strength levels for every exercise; weak points; lift ranks; lift goals; PR attempt planner |
 | **History** | Monthly recap; weekly and monthly report cards; year in review; training year calendar; PR timeline |
 | **Rewards** | Today card (coins, daily chest, what you are closest to); level and XP; season; weekly quests; challenge; daily check-in; badges; rewards shop; my real rewards |
-| **Social** | Family board; buddies; wall of fame; family challenge |
+| **Social** | Boss fight; family board; buddies; wall of fame; family challenge |
 
 Rows that open and close have an icon and a one-line description, so you can see what is inside before you tap.
 
@@ -584,6 +584,7 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
   - **Progress:** how much your main lifts went up over 4 weeks, in percent. A beginner adding 10 lb and an advanced lifter adding 20 lb are compared by percent, not pounds.
   - **Strength:** your StrengthLevel rating out of 100 for your body weight and sex (the average level of your 5 best exercises).
 - **Weekly crowns and a season.** The top score of each week earns a 👑, and a table shows crowns and points over the last 8 weeks that had two or more people. **This week / Last week** switches the view.
+- **Boss fight (new in 2.82.0):** Progress → Social → Family → **Boss fight**. Every week a new boss shows up (12 rotate, the same for everybody with nothing to send) and the family beats it together. It is worked out from the update codes that already make the board, so **every update anyone sends also hits the boss**. Each day you train hits for **100** (one day over your own weekly goal counts too) and each new record is a **50 critical hit** (up to 3). The boss has **100 HP for every day of everyone's weekly goal**, so it is fair when people train different amounts, and one person doing a day extra can carry someone who had a bad week. Someone who has not sent an update yet still counts in the health and shows as **waiting**, so the bar drops as updates arrive. **Rally the family** shares the boss's health with your update. Every boss you beat in a row makes the next one **10% tougher** (up to +50%); a missed week resets it. A win you landed a hit on is kept, pays **40 coins plus 10 for each other person who hit it** (up to 100), shows in How coins work, and unlocks the titles **Boss Slayer** (1 win), **Boss Hunter** (5) and **Boss Legend** (15). A toast and confetti mark the win. Past bosses show as small ✓ / ✗ tiles.
 - **Family recap (new in 2.63.0):** a **Family recap** card sits above the board. It shows who won last week (or this week), everyone's days against their own goal, records and points, a few highlights (most records, longest streak, best progress over 4 weeks, the workouts you did together) and who has not sent an update yet, with the board's **Ask** button. **Share as picture** makes a 1080 × 1350 image for the family chat; **Copy as text** copies the same recap as plain lines. It uses the updates the board already has, so nobody has to send anything new. On Monday and Tuesday Home shows one line when last week's recap is ready (**Open** or **Later**, once per week).
 - **Family challenge:** pick a contest for the week (highest score, best consistency or most records), tap **Start a challenge** and **Share challenge + my update**. Challenges started before 2.53.0 (most workouts, volume, sets) still finish and show.
 - **Everyone needs 2.53.0 to read the new update.** Old codes (weekly codes, buddy workouts, reactions, wall cards) still work in both directions, but the new update code only shows on phones that have updated. Open the app online once, then close and reopen it.
@@ -763,7 +764,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.81.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.82.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -807,7 +808,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 101 scripts (`js/`) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 102 scripts (`js/`) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0) and `make_fonts.py` (2.71.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -822,7 +823,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -843,6 +844,10 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.82.0**
+- **Family boss fight** (new): a weekly boss the family beats together, in Progress → Social → Family. It reads the same update codes as the family board (days trained, records and each person's own weekly goal), so nothing new has to be sent and every update also hits the boss. Damage is 100 per training day (one day over your goal counts) plus 50 per new record (up to 3); health is 100 for each day of everyone's weekly goal, so it is fair between people who train different amounts. People who have not sent yet show as waiting. Wins in a row make the next boss up to 50% tougher; a win you landed a hit on is kept, pays 40 coins (+10 for each other person who hit it, up to 100) and unlocks the titles Boss Slayer, Boss Hunter and Boss Legend. **Rally the family** shares the boss's health and your update. How coins work lists boss wins.
+- `tests/boss.py` (52 checks): the weekly boss, damage and health, waiting people, the day-over-goal and record caps, carrying the family, wins kept once and only if you took part, coins and titles, the celebration, the boss level and its reset, the card in Social, Rally, and a small phone.
 
 **2.81.0**
 - **"Machine's taken" button** (new): a small **🔁 Taken?** on machine, cable, barbell and Smith machine exercises swaps in the closest match in one tap (not already in the day, on different equipment when there is one; same spot, sets and reps), refills the numbers from the new exercise's history, and offers **Undo**. **🔁** tries the next closest, **↩ (original)** goes back, and the next day the original comes back by itself unless a set was ticked on the swap. A swap with the normal swap button is permanent and cancels the switch back. Settings → Workout screen → **Machine taken? button** (on by default).

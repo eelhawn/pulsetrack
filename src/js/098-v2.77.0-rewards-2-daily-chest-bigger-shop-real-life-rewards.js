@@ -64,9 +64,10 @@
       records: Math.round((p.prs || 0) / 60) * 10, quests: Math.round((p.quests || 0) / 100) * 25, weeks: Math.round((p.weeks || 0) / 50) * 20,
       challenges: Math.round((p.challenges || 0) / 300) * 100,
       badges: (r.badges || []).filter(b => b.got).reduce((n, b) => n + (BADGE_COINS[b.tier] || 10), 0),
-      chests: arr(a, "chests").reduce((n, c) => n + ((c && c.coins) || 0), 0)
+      chests: arr(a, "chests").reduce((n, c) => n + ((c && c.coins) || 0), 0),
+      boss: PT.bossCoins ? PT.bossCoins(a) : 0                                  // 2.82.0: family boss fights you helped win
     };
-    o.bonus = o.records + o.quests + o.weeks + o.challenges + o.badges + o.chests;
+    o.bonus = o.records + o.quests + o.weeks + o.challenges + o.badges + o.chests + o.boss;
     return o;
   }
   PT.coins = a => { a = a || A(); return Math.max(0, PT.coinsRaw(a) + income(a).bonus - redeemed(a)); };
@@ -77,7 +78,9 @@
   function titleEntries(a, L) {
     const lv = (PT.levelTitles || []).map(x => ({ id: "lv" + x[0], text: x[1], have: L >= x[0], req: "Level " + x[0] }));
     const shop = PT.SHOP.filter(x => x.kind === "title").map(x => ({ id: x.id, text: x.text, have: owned(a).includes(x.id), req: "In the shop" }));
-    return lv.concat(seasonTitles(a), shop);
+    const bw = PT.bossWins ? PT.bossWins(a) : 0;
+    const boss = [[1, "Boss Slayer"], [5, "Boss Hunter"], [15, "Boss Legend"]].map(([n, t]) => ({ id: "boss" + n, text: t, have: bw >= n, req: n === 1 ? "Beat a family boss" : `Beat ${n} family bosses` }));
+    return lv.concat(seasonTitles(a), boss, shop);
   }
   /** the title you picked, shown instead of the level title (Home card, Level, share pictures) */
   PT.customTitle = (a, L) => {
@@ -179,7 +182,7 @@
   function howHtml(a) {
     const o = income(a), sp = PT.SHOP.filter(x => owned(a).includes(x.id)).reduce((n, x) => n + x.price, 0), rd = redeemed(a);
     const L = (k, v) => `<span>${k}</span><b class="text-white">${v < 0 ? "−" + fmt(-v) : fmt(v)}</b>`;
-    return `<details class="pt-how"><summary>How coins work</summary><div class="pt-howg">${L("Workouts and sets (1 per 10 XP)", o.xp)}${L("Season tiers", o.season)}${L("Records (10 each)", o.records)}${L("Weekly quests (25 each)", o.quests)}${L("Goal weeks (20 each)", o.weeks)}${L("Challenges (100 each)", o.challenges)}${L("Badges (10 to 75 each)", o.badges)}${L("Daily chests", o.chests)}${L("Spent in the shop", -sp)}${L("Spent on real rewards", -rd)}</div>
+    return `<details class="pt-how"><summary>How coins work</summary><div class="pt-howg">${L("Workouts and sets (1 per 10 XP)", o.xp)}${L("Season tiers", o.season)}${L("Records (10 each)", o.records)}${L("Weekly quests (25 each)", o.quests)}${L("Goal weeks (20 each)", o.weeks)}${L("Challenges (100 each)", o.challenges)}${L("Badges (10 to 75 each)", o.badges)}${L("Daily chests", o.chests)}${L("Family boss wins", o.boss)}${L("Spent in the shop", -sp)}${L("Spent on real rewards", -rd)}</div>
       <p class="text-[11px] text-zinc-400 leading-snug mt-1">Chest odds: common 70%, rare 22%, epic 7%, legendary 1%. Check-in or training streaks of 7, 30 and 100 days add ×1.25, ×1.5 and ×2 to the prize.</p></details>`;
   }
   function hubHtml(a) {
