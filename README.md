@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.83.0*
+*Version 2.83.1*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -765,7 +765,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.83.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.83.1 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -846,6 +846,9 @@ Keep every `id` unique. New programs reach phones on the next update.
 
 ## Version history
 
+**2.83.1**
+- **The automatic fill is now off by default.** Opening a day no longer fills every set on its own. The **⚡ Fill in suggested weights** button at the top of the workout still does it when you tap it, and **Settings → Workout screen → Pre-fill the whole workout** turns the automatic version back on. "Machine taken?" only refills the swapped card when that switch is on. (The "Fill in the next set" switch, which fills the next set after you check one off, is separate and unchanged.)
+
 **2.83.0**
 - **Streak shields** (new): your days-in-a-row streak (training or checking in, the 🌱 number) no longer breaks on one bad day. Buy shields with coins (**150 each, hold up to 3**) in Progress → Rewards → **Daily check-in**. After a missed day, the next time you open the app a shield is used on its own when the streak it saves was **3 days or more** (up to 3 missed days in a row, and only when you hold enough shields to save the whole streak). On a sick day, **Protect today** uses one by hand and Home stops asking you to check in; if you train or check in on that day after all, the shield comes back. A shield keeps the streak going but **never adds a day** to it, and the 7, 30, 100 and 365 day badges still need real days. Covered days show in amber in the 14 day strip, and the shields you hold show next to the 🌱 on Home and in the Rewards card. How coins work lists the spend. The weekly goal streak is unchanged (it already has its monthly freezes).
 - `tests/shield.py` (52 checks): the streak maths (a shield bridges and never adds), using one on its own and the cases where it is not used, by hand and getting it back, buying, the cap, the coin balance, the screen, Home, and a small phone.
@@ -856,7 +859,7 @@ Keep every `id` unique. New programs reach phones on the next update.
 
 **2.81.0**
 - **"Machine's taken" button** (new): a small **🔁 Taken?** on machine, cable, barbell and Smith machine exercises swaps in the closest match in one tap (not already in the day, on different equipment when there is one; same spot, sets and reps), refills the numbers from the new exercise's history, and offers **Undo**. **🔁** tries the next closest, **↩ (original)** goes back, and the next day the original comes back by itself unless a set was ticked on the swap. A swap with the normal swap button is permanent and cancels the switch back. Settings → Workout screen → **Machine taken? button** (on by default).
-- `tests/taken.py` (42 checks): which cards get the button, the swap and what stays the same, Undo, Another and Back, the next-day switch back, a ticked set, a normal swap, the switch, and no ideas.
+- `tests/taken.py` (44 checks): which cards get the button, the swap and what stays the same, Undo, Another and Back, the next-day switch back, a ticked set, a normal swap, the switch, and no ideas.
 
 **2.80.0**
 - **Backups are easier to save and safer to restore.** Settings → Data & Backup: the main button is now **☁ Back up to Drive / Files** (the phone's share sheet: choose Drive or Files and tap Save; the app is offline, so it cannot upload to Google Drive itself). **Save to Downloads** saves the file straight to the phone. The status line has a colour dot (green up to 7 days, amber up to 30, red after that or never) and says how many workouts and programs, and how big, the backup will be.
@@ -866,9 +869,9 @@ Keep every `id` unique. New programs reach phones on the next update.
 - `tests/backup.py` (41 checks): the status line, Save to Downloads, checking a good, a cut-off and a wrong file, the restore question, the safety copy, and the reminders.
 
 **2.79.0**
-- **The whole workout can be filled in with the suggested weights.** Every exercise already showed "Last time ... try ..." with a **Fill in** button. Now the first time you open a day in a week, every set is pre-filled with that suggestion (the weight and reps), so each week starts from last time's numbers plus the usual step up (the step is your Settings increment; going up only happens when you hit the top of the rep range on every top set, a missed set keeps the weight, and deload weeks and heavy work days are respected). With your A/B split, Week A comes round again in week 3 and is pre-filled from the last time you did each lift. Nothing is checked off for you, numbers you already typed or ticked are never changed, and a toast with **Undo** tells you what was filled.
+- **The whole workout can be filled in with the suggested weights.** Every exercise already showed "Last time ... try ..." with a **Fill in** button. Now, with the switch on (it is off by default since 2.83.1), the first time you open a day in a week every set is pre-filled with that suggestion (the weight and reps), so each week starts from last time's numbers plus the usual step up (the step is your Settings increment; going up only happens when you hit the top of the rep range on every top set, a missed set keeps the weight, and deload weeks and heavy work days are respected). With your A/B split, Week A comes round again in week 3 and is pre-filled from the last time you did each lift. Nothing is checked off for you, numbers you already typed or ticked are never changed, and a toast with **Undo** tells you what was filled.
 - **A "Fill in suggested weights" button at the top of the workout** (it says how many exercises) fills in whatever is still empty, with Undo. It goes away when everything is filled. A day you clear on purpose is not pre-filled again that week; the button is still there.
-- **Settings → Workout screen → Pre-fill the whole workout** (on by default) turns the automatic part off. The button stays.
+- **Settings → Workout screen → Pre-fill the whole workout** turns the automatic part on or off. It is **off by default since 2.83.1**; the button stays either way.
 - It uses exactly the suggestion on each exercise card, which is based on the last time you did that exercise anywhere (so Lat Pulldown on Day 1 and Day 4 share their history).
 - `tests/fill.py` (27 checks): the first open, the numbers, typed and ticked sets, a cleared day, the button, Undo, week 3, the switch, no history, and a rest day.
 

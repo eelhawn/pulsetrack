@@ -10,8 +10,9 @@ DAY = lambda n: f'{PROG}.days.find(d => d.dayNumber === {n})'
 KEY = lambda day, exid, s: f'"{ID}_d{day}_" + {DAY(day)}.exercises.find(e => e.name === "{exid}").id + "_s{s}"'
 
 
-def setup(p):
+def setup(p, auto=True):
     p.evaluate(f'() => app.selectProgram({PROG}, null, true)')
+    p.evaluate(f'() => PT.setOpt("autoPrefill", {"true" if auto else "false"})')
     p.evaluate('''() => {
       app.lastPerf["Lat Pulldown"] = [1, 2, 3, 4].map(() => ({ weight: "100", reps: "10" }));      // hit the top of 8-10 on every set
       app.lastPerf["Neutral-Grip (V-Bar) Lat Pulldown"] = [1, 2, 3].map(() => ({ weight: "80", reps: "10" }));   // 10-12: one more rep
@@ -64,8 +65,20 @@ with page() as p:
     c.eq(p.errors, [], 'no page errors')
 
 with page() as p:
-    setup(p)
-    p.evaluate('() => PT.setOpt("autoPrefill", false)')
+    # the default: off (since 2.83.1), so nothing is filled until you tap the button
+    p.evaluate(f'() => app.selectProgram({PROG}, null, true)')
+    p.evaluate("""() => { app.lastPerf["Lat Pulldown"] = [1, 2, 3, 4].map(() => ({ weight: "100", reps: "10" })); WorkoutStorage.saveLastPerf(app.lastPerf); }""")
+    c.eq(p.evaluate('() => PT.opt("autoPrefill")'), False, 'the automatic fill is off by default')
+    open_day(p, 1)
+    c.eq(p.evaluate(f'() => app.logs[{KEY(1, "Lat Pulldown", 0)}] || null'), None, 'by default nothing is filled on its own')
+    c.eq(p.evaluate('() => !!document.getElementById("pt-fillall")'), True, 'and the button is there')
+    p.evaluate('() => document.getElementById("pt-fillall").click()')
+    p.wait_for_timeout(300)
+    c.eq(p.evaluate(f'() => app.logs[{KEY(1, "Lat Pulldown", 0)}].weight'), '105', 'the button fills it when you ask')
+    c.eq(p.errors, [], 'no page errors')
+
+with page() as p:
+    setup(p, False)
     open_day(p, 1)
     c.eq(p.evaluate(f'() => app.logs[{KEY(1, "Lat Pulldown", 0)}] || null'), None, 'with the switch off nothing is filled on its own')
     c.eq(p.evaluate('() => !!document.getElementById("pt-fillall")'), True, 'the button is still there')
@@ -78,6 +91,7 @@ with page() as p:
 with page() as p:
     # a program with no history at all, and a rest day: nothing happens, nothing breaks
     p.evaluate(f'() => app.selectProgram({PROG}, null, true)')
+    p.evaluate('() => PT.setOpt("autoPrefill", true)')
     open_day(p, 1)
     c.eq(p.evaluate('() => !!document.getElementById("pt-fillall")'), False, 'no history: no button')
     c.eq(p.evaluate('() => Object.keys(app.settings.prefilled || {}).length'), 0, 'and no stamp (it tries again once there is history)')

@@ -434,7 +434,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.83.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.83.1</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3819,7 +3819,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.83.0";
+    const APP_VERSION = "2.83.1";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -11055,7 +11055,7 @@ const PTSIM = (function () {
   const blank = v => v === undefined || v === null || String(v).trim() === "";
 
   /* ------------------------------------------------------------ options */
-  const DEF = { nextHint: true, autoFill: true, autoPrefill: true, takenBtn: true, timerFirstSet: true, finishReview: true, colPrev: false, colTag: true, col1rm: false, lefty: false, workEase: true };
+  const DEF = { nextHint: true, autoFill: true, autoPrefill: false, takenBtn: true, timerFirstSet: true, finishReview: true, colPrev: false, colTag: true, col1rm: false, lefty: false, workEase: true };
   const opt = k => { const a = A(), v = a && a.settings ? a.settings[k] : undefined; return v === undefined ? DEF[k] : !!v; };
   PT.opt = opt;
   PT.setOpt = (k, v) => { const a = A(); if (!a) return; a.settings[k] = !!v; WorkoutStorage.saveSettings(a.settings); };
@@ -12004,7 +12004,7 @@ const PTSIM = (function () {
     if (ws) {
       const t = (k, title, sub) => ROW(title, sub, SW(`data-opt="${k}"`, O(k)));
       ws.innerHTML = t("nextHint", "Suggested weight", "Shows what you did last time and what to try next, with a button that fills it in.")
-        + t("autoPrefill", "Pre-fill the whole workout", "The first time you open a day each week, every set gets the suggested weight and reps. A \"Fill in suggested weights\" button is also at the top of the workout. Nothing is checked off for you, and you can change any number.")
+        + t("autoPrefill", "Pre-fill the whole workout", "Off by default. When on, the first time you open a day each week every set gets the suggested weight and reps on its own. With it off, the \"Fill in suggested weights\" button at the top of the workout does it when you tap it. Nothing is checked off for you, and you can change any number.")
         + t("takenBtn", "Machine taken? button", "A small \"🔁 Taken?\" button on machines, cables and barbells swaps in the closest match in one tap. It goes back by itself the next day.")
         + t("autoFill", "Fill in the next set", "When you check off a set, the next empty set gets the same weight and reps.")
         + t("timerFirstSet", "Timer starts on your first set", "The workout timer waits until you log a set instead of starting when you open the day.")
@@ -30496,10 +30496,10 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   <script>/* =====================================================================
  * PulseTrack 2.79.0: fill in the whole workout with the suggested weights.
  *  Every exercise already shows "Last time ... try ..." with a Fill in button. Now:
- *  - the first time you open a day in a week, every set is filled in with that suggestion (weight and reps), so a repeating week
- *    (your A/B weeks, or any program) starts from last time's numbers plus the usual step up. Nothing is checked off for you.
+ *  - with the switch on (it is OFF by default since 2.83.1), the first time you open a day in a week every set is filled in with that suggestion
+ *    (weight and reps), so a repeating week (your A/B weeks, or any program) starts from last time's numbers plus the usual step up. Nothing is checked off for you.
  *  - a "Fill in suggested weights" button at the top of the workout does it on demand, with Undo.
- *  - Settings → Workout screen has a switch: "Pre-fill the whole workout" (on by default).
+ *  - Settings → Workout screen has a switch: "Pre-fill the whole workout" (off by default).
  *  Numbers you already typed or checked off are never changed. The suggestion is exactly the one on each exercise card
  *  (same step up, deload week and heavy-work-day rules).
  * ===================================================================== */

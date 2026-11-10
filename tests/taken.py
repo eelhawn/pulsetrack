@@ -30,6 +30,7 @@ def setup(p):
 
 with page() as p:
     setup(p)
+    p.evaluate('() => PT.setOpt("autoPrefill", true)')       # the swap refills the card only when the automatic fill is on
     before = names(p)
     c.eq(before[0], 'Lat Pulldown', 'day 1 starts with the lat pulldown')
     c.ok(len(chips(p)) >= 5, 'the button shows on machines, cables and barbells (%d)' % len(chips(p)))
@@ -139,5 +140,14 @@ with page() as p:
     p.evaluate("() => { app.openSettings(); }")
     p.wait_for_timeout(300)
     c.ok(p.evaluate('() => !!document.querySelector("[data-opt=takenBtn]")'), 'Settings → Workout screen has the switch')
+    c.eq(p.errors, [], 'no page errors')
+with page() as p:
+    # the automatic fill is off by default: the swap clears the old exercise's numbers and leaves the card empty
+    setup(p)
+    first = p.evaluate(f'() => PT.taken.candidates({EX(1, "Lat Pulldown")}).map(s => s.name)[0]')
+    p.evaluate(f'() => {{ app.lastPerf["{first}"] = [1, 2, 3, 4].map(() => ({{ weight: "60", reps: "10" }})); WorkoutStorage.saveLastPerf(app.lastPerf); app.logs["{ID}_d1_" + {EX(1, "Lat Pulldown")}.id + "_s0"] = {{ completed: false, weight: "140", reps: "9", tag: "R" }}; }}')
+    p.evaluate('() => document.querySelector(".pt-taken").click()')
+    p.wait_for_timeout(400)
+    c.eq(p.evaluate(f'() => app.logs["{ID}_d1_" + {DAY(1)}.exercises[0].id + "_s0"] || null'), None, 'with the automatic fill off the old numbers are cleared and nothing is filled in')
     c.eq(p.errors, [], 'no page errors')
 c.done()

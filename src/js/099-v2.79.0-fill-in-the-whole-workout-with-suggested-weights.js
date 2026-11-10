@@ -1,10 +1,10 @@
 /* =====================================================================
  * PulseTrack 2.79.0: fill in the whole workout with the suggested weights.
  *  Every exercise already shows "Last time ... try ..." with a Fill in button. Now:
- *  - the first time you open a day in a week, every set is filled in with that suggestion (weight and reps), so a repeating week
- *    (your A/B weeks, or any program) starts from last time's numbers plus the usual step up. Nothing is checked off for you.
+ *  - with the switch on (it is OFF by default since 2.83.1), the first time you open a day in a week every set is filled in with that suggestion
+ *    (weight and reps), so a repeating week (your A/B weeks, or any program) starts from last time's numbers plus the usual step up. Nothing is checked off for you.
  *  - a "Fill in suggested weights" button at the top of the workout does it on demand, with Undo.
- *  - Settings → Workout screen has a switch: "Pre-fill the whole workout" (on by default).
+ *  - Settings → Workout screen has a switch: "Pre-fill the whole workout" (off by default).
  *  Numbers you already typed or checked off are never changed. The suggestion is exactly the one on each exercise card
  *  (same step up, deload week and heavy-work-day rules).
  * ===================================================================== */
