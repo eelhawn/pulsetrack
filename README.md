@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.79.0*
+*Version 2.80.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -669,6 +669,7 @@ Some of the built-in programs spell exercises differently from the standard list
 > 💡 **Back up now and then.** Everything lives on your phone. If you clear browser data or get a new phone, a backup file is how you keep it all.
 
 - **Backup and Restore:** save all your data to a file (workouts, programs, body entries, your cardio and sports log and your Coach mode teams, results and gear), and load it back on this phone or a new one. Form clips, progress photos and the hype track song are big files that stay on the phone and are not in the backup.
+- **Back up to Drive or Files (2.80.0):** the main button is **☁ Back up to Drive / Files**. It opens your phone's share sheet: pick **Drive** (or **Files**) and tap Save. PulseTrack works offline and has no Google sign-in, so it cannot upload by itself; the share sheet is how the file gets to Drive. **Save to Downloads** puts the file straight in the Downloads folder instead. The status line shows the last backup (green up to a week, amber up to a month, red after that or never), the number of workouts and programs, and the size. **Check a backup file** opens a file and tells you whether it is complete and how it compares with this phone (for example "This phone has 3 workouts more than the file"), without changing anything. **Restore Backup** now shows the same comparison, warns when this phone has newer workouts than the file, and saves a safety copy of the phone first (so a wrong file can be undone from **Automatic safety copies**). **Remind me to back up** can be every 3 days, week (default), 2 weeks, month or never; with **Also remind me after a workout** on, a note with a Back up button shows after a workout when one is due, at most once a day.
 - **Automatic safety copies (2.24.0):** the first time you open the app each day (after you have a workout saved), PulseTrack keeps a copy of everything on the phone. The newest 8 are kept. **Settings → Data & Backup → Automatic safety copies** lists them (date, number of workouts, version) with **Restore** next to each, and **Make one now**. Going back first saves a copy of how things are right now, so you can undo it. They live on the phone, so they protect against a mistake or a bad update, but clearing the browser's data removes them: a backup file is still the real safety net. The backup reminder on Home now appears after 7 days.
 - **Repeat last workout (2.25.0):** **Repeat last workout** in the menu, and **Do this workout again** on the finish screen, fill today's day with the weights and reps from your most recent saved workout.
 - **Undo delete (2.24.0):** deleting a workout from History or a body entry shows **Undo** for 10 seconds.
@@ -761,7 +762,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.79.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.80.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -805,7 +806,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 99 scripts (`js/`) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 100 scripts (`js/`) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0) and `make_fonts.py` (2.71.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -820,7 +821,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -841,6 +842,13 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.80.0**
+- **Backups are easier to save and safer to restore.** Settings → Data & Backup: the main button is now **☁ Back up to Drive / Files** (the phone's share sheet: choose Drive or Files and tap Save; the app is offline, so it cannot upload to Google Drive itself). **Save to Downloads** saves the file straight to the phone. The status line has a colour dot (green up to 7 days, amber up to 30, red after that or never) and says how many workouts and programs, and how big, the backup will be.
+- **Check a backup file** (new): opens a backup without changing anything and says if it is complete or damaged, when it was made, what is in it and how it compares with this phone.
+- **Restoring a file is safer:** the question now shows what is in the file against what is on the phone, warns in plain words when the phone has newer workouts than the file, and first saves a safety copy of the phone (before, restoring a file replaced everything with no way back). A damaged file asks again before going on.
+- **Reminders you can set:** every 3 days, week (as before), 2 weeks, month or never. A note after a finished workout offers a Back up button when one is due (once a day at most); it can be turned off.
+- `tests/backup.py` (41 checks): the status line, Save to Downloads, checking a good, a cut-off and a wrong file, the restore question, the safety copy, and the reminders.
 
 **2.79.0**
 - **The whole workout can be filled in with the suggested weights.** Every exercise already showed "Last time ... try ..." with a **Fill in** button. Now the first time you open a day in a week, every set is pre-filled with that suggestion (the weight and reps), so each week starts from last time's numbers plus the usual step up (the step is your Settings increment; going up only happens when you hit the top of the rep range on every top set, a missed set keeps the weight, and deload weeks and heavy work days are respected). With your A/B split, Week A comes round again in week 3 and is pre-filled from the last time you did each lift. Nothing is checked off for you, numbers you already typed or ticked are never changed, and a toast with **Undo** tells you what was filled.

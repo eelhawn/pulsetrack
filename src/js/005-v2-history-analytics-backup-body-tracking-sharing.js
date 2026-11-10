@@ -562,7 +562,8 @@
         }
         const last = this.settings.lastBackupAt;
         const snooze = this.settings.backupSnoozeUntil || 0;
-        if (this.sessions.length >= 1 && now > snooze && (!last || now - last > 7 * 86400000)) {
+        const every = PT.backupEveryDays ? PT.backupEveryDays(this) : 7;      // days between reminders; 0 = never (Settings → Data & Backup)
+        if (every > 0 && this.sessions.length >= 1 && now > snooze && (!last || now - last > every * 86400000)) {
           const age = last ? Math.floor((now - last) / 86400000) + " days ago" : "never";
           items.push({ id: "backup", color: "border-amber-800/60 bg-amber-950/30", html: `<b class="text-white">Back up your data.</b> Last backup: ${age}. Everything lives only on this phone.`, action: "Back up" });
         }
