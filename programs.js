@@ -108752,7 +108752,7 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "my_6day_chest_back_legs_sharms",
   "title": "My 6-Day Split: Chest & Back, Legs, Sharms",
-  "description": "A six-day bodybuilding split, each muscle group twice a week, Day 7 off. Chest & Back (Days 1 and 4) pairs a push with a pull so each rests while the other works: Day 1 leads with incline presses and a lat pulldown, Day 4 leads with the lat pulldown and adds deadlifts. Legs, Abs & Calves (Days 2 and 5) pre-exhaust the hamstrings on Day 2 (leg curls first) and the quads on Day 5 (leg extensions first), with adductors, abductors or glutes, both calf raises and abs. Sharms (Days 3 and 6) is shoulders, traps, arms and forearms: heavy dumbbell presses on Day 3, the Smith machine and machines on Day 6. The exercises, sets and reps are exactly as written; the rest times are PulseTrack's usual guess (longer for heavy lifts, shorter for isolation work), so change them if you like. It runs 6 weeks: the same workouts every week, adding weight whenever you hit the top of the reps.",
+  "description": "A six-day bodybuilding split that runs 6 weeks with two alternating weeks: Week A (weeks 1, 3 and 5) and Week B (weeks 2, 4 and 6), Day 7 off. Every muscle group is trained twice a week. Chest & Back (Days 1 and 4) mixes pressing and pulling; Legs, Abs & Calves (Days 2 and 5) pre-exhausts the hamstrings on Day 2 (leg curls first) and the quads on Day 5 (leg extensions first); Sharms (Days 3 and 6) is shoulders, traps, arms and forearms. Week A leans on free weights and the Smith machine, Week B on machines and cables. Exercises that use the same machine, bar or bench sit next to each other so you do not walk back and forth. Sets and reps are as written; the rest times are PulseTrack's usual guess (longer for heavy lifts, shorter for isolation work), so change them if you like. Each new week starts with the original exercises again, whatever you swapped the week before.",
   "tags": [
    "My Program",
    "6 Days",
@@ -108775,11 +108775,8 @@ const BUILTIN_PROGRAMS = [
    {
     "weeks": [
      1,
-     2,
      3,
-     4,
-     5,
-     6
+     5
     ],
     "days": [
      1,
@@ -108789,17 +108786,35 @@ const BUILTIN_PROGRAMS = [
      5,
      6,
      7
-    ]
+    ],
+    "name": "Week A"
+   },
+   {
+    "weeks": [
+     2,
+     4,
+     6
+    ],
+    "days": [
+     8,
+     9,
+     10,
+     11,
+     12,
+     13,
+     14
+    ],
+    "name": "Week B"
    }
   ],
   "days": [
    {
     "dayNumber": 1,
-    "title": "Day 1: Chest & Back (Antagonist Power & Volume)",
+    "title": "W1 & W3 & W5 - Day 1: Chest & Back (Antagonist Power & Volume)",
     "estimatedMinutes": 65,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d1_e1",
+      "id": "my_6day_chest_back_legs_sharms_d1_incline-bench-press",
       "name": "Incline Bench Press",
       "sets": 4,
       "reps": "6-8",
@@ -108807,7 +108822,15 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d1_e2",
+      "id": "my_6day_chest_back_legs_sharms_d1_decline-bench-press",
+      "name": "Decline Bench Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d1_lat-pulldown",
       "name": "Lat Pulldown",
       "sets": 4,
       "reps": "8-10",
@@ -108815,7 +108838,15 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d1_e3",
+      "id": "my_6day_chest_back_legs_sharms_d1_neutral-grip-v-bar-lat-pulldown",
+      "name": "Neutral-Grip (V-Bar) Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d1_dumbbell-bench-press",
       "name": "Dumbbell Bench Press",
       "sets": 3,
       "reps": "8-10",
@@ -108823,7 +108854,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d1_e4",
+      "id": "my_6day_chest_back_legs_sharms_d1_dumbbell-row",
       "name": "Dumbbell Row",
       "sets": 3,
       "reps": "8-10",
@@ -108832,23 +108863,7 @@ const BUILTIN_PROGRAMS = [
       "notes": "Per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d1_e5",
-      "name": "Decline Bench Press",
-      "sets": 3,
-      "reps": "8-10",
-      "restSeconds": 90,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d1_e6",
-      "name": "Neutral-Grip (V-Bar) Lat Pulldown",
-      "sets": 3,
-      "reps": "10-12",
-      "restSeconds": 75,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d1_e7",
+      "id": "my_6day_chest_back_legs_sharms_d1_chest-dips",
       "name": "Chest Dips",
       "sets": 3,
       "reps": "10-12",
@@ -108856,7 +108871,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d1_e8",
+      "id": "my_6day_chest_back_legs_sharms_d1_barbell-row",
       "name": "Barbell Row",
       "sets": 3,
       "reps": "8-10",
@@ -108864,7 +108879,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d1_e9",
+      "id": "my_6day_chest_back_legs_sharms_d1_pec-deck",
       "name": "Pec Deck",
       "sets": 3,
       "reps": "10-12",
@@ -108875,11 +108890,11 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 2,
-    "title": "Day 2: Legs, Abs & Calves (Hamstring Pre-Exhaust)",
+    "title": "W1 & W3 & W5 - Day 2: Legs, Abs & Calves (Hamstring Pre-Exhaust)",
     "estimatedMinutes": 65,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d2_e1",
+      "id": "my_6day_chest_back_legs_sharms_d2_seated-leg-curls",
       "name": "Seated Leg Curls",
       "sets": 4,
       "reps": "8-12",
@@ -108887,7 +108902,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d2_e2",
+      "id": "my_6day_chest_back_legs_sharms_d2_leg-press",
       "name": "Leg Press",
       "sets": 4,
       "reps": "8-10",
@@ -108895,7 +108910,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d2_e3",
+      "id": "my_6day_chest_back_legs_sharms_d2_stiff-legged-deadlift",
       "name": "Stiff-Legged Deadlift",
       "sets": 4,
       "reps": "8-10",
@@ -108903,7 +108918,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d2_e4",
+      "id": "my_6day_chest_back_legs_sharms_d2_leg-extension",
       "name": "Leg Extension",
       "sets": 3,
       "reps": "12-15",
@@ -108911,7 +108926,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d2_e5",
+      "id": "my_6day_chest_back_legs_sharms_d2_hip-adductor-machine",
       "name": "Hip Adductor Machine",
       "sets": 3,
       "reps": "12-15",
@@ -108919,7 +108934,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d2_e6",
+      "id": "my_6day_chest_back_legs_sharms_d2_glute-kickbacks",
       "name": "Glute Kickbacks",
       "sets": 3,
       "reps": "12-15",
@@ -108928,7 +108943,7 @@ const BUILTIN_PROGRAMS = [
       "notes": "Per leg."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d2_e7",
+      "id": "my_6day_chest_back_legs_sharms_d2_standing-calf-raises",
       "name": "Standing Calf Raises",
       "sets": 4,
       "reps": "10-12",
@@ -108936,7 +108951,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d2_e8",
+      "id": "my_6day_chest_back_legs_sharms_d2_seated-calf-raises",
       "name": "Seated Calf Raises",
       "sets": 3,
       "reps": "15-20",
@@ -108944,7 +108959,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d2_e9",
+      "id": "my_6day_chest_back_legs_sharms_d2_hanging-leg-raises",
       "name": "Hanging Leg Raises",
       "sets": 3,
       "reps": "12-15",
@@ -108952,7 +108967,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d2_e10",
+      "id": "my_6day_chest_back_legs_sharms_d2_decline-sit-ups",
       "name": "Decline Sit-Ups",
       "sets": 3,
       "reps": "15-20",
@@ -108963,11 +108978,11 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 3,
-    "title": "Day 3: Sharms (Shoulders, Traps, Arms & Forearms)",
+    "title": "W1 & W3 & W5 - Day 3: Sharms (Shoulders, Traps, Arms & Forearms)",
     "estimatedMinutes": 75,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_e1",
+      "id": "my_6day_chest_back_legs_sharms_d3_dumbbell-shoulder-press",
       "name": "Dumbbell Shoulder Press",
       "sets": 4,
       "reps": "6-8",
@@ -108975,7 +108990,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_e2",
+      "id": "my_6day_chest_back_legs_sharms_d3_lateral-raises",
       "name": "Lateral Raises",
       "sets": 4,
       "reps": "12-15",
@@ -108983,7 +108998,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_e3",
+      "id": "my_6day_chest_back_legs_sharms_d3_dumbbell-reverse-flyes",
       "name": "Dumbbell Reverse Flyes",
       "sets": 3,
       "reps": "12-15",
@@ -108991,7 +109006,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_e4",
+      "id": "my_6day_chest_back_legs_sharms_d3_front-raises",
       "name": "Front Raises",
       "sets": 3,
       "reps": "12-15",
@@ -108999,7 +109014,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_e5",
+      "id": "my_6day_chest_back_legs_sharms_d3_barbell-shrugs",
       "name": "Barbell Shrugs",
       "sets": 4,
       "reps": "8-10",
@@ -109007,7 +109022,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_e6",
+      "id": "my_6day_chest_back_legs_sharms_d3_machine-preacher-curls",
       "name": "Machine Preacher Curls",
       "sets": 3,
       "reps": "8-10",
@@ -109015,7 +109030,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_e7",
+      "id": "my_6day_chest_back_legs_sharms_d3_triceps-pushdown",
       "name": "Triceps Pushdown",
       "sets": 3,
       "reps": "10-12",
@@ -109023,7 +109038,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_e8",
+      "id": "my_6day_chest_back_legs_sharms_d3_incline-dumbbell-curls",
       "name": "Incline Dumbbell Curls",
       "sets": 3,
       "reps": "10-12",
@@ -109031,7 +109046,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_e9",
+      "id": "my_6day_chest_back_legs_sharms_d3_overhead-triceps-extension",
       "name": "Overhead Triceps Extension",
       "sets": 3,
       "reps": "10-12",
@@ -109039,7 +109054,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_e10",
+      "id": "my_6day_chest_back_legs_sharms_d3_hammer-curls",
       "name": "Hammer Curls",
       "sets": 3,
       "reps": "12-15",
@@ -109047,7 +109062,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_e11",
+      "id": "my_6day_chest_back_legs_sharms_d3_triceps-dips",
       "name": "Triceps Dips",
       "sets": 3,
       "reps": "10-12",
@@ -109055,7 +109070,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_e12",
+      "id": "my_6day_chest_back_legs_sharms_d3_cable-wrist-curls",
       "name": "Cable Wrist Curls",
       "sets": 4,
       "reps": "15-20",
@@ -109066,11 +109081,11 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 4,
-    "title": "Day 4: Chest & Back (Lat Pulldown Lead & Deadlifts)",
+    "title": "W1 & W3 & W5 - Day 4: Chest & Back (Lat Pulldown Lead & Deadlifts)",
     "estimatedMinutes": 75,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_e1",
+      "id": "my_6day_chest_back_legs_sharms_d4_lat-pulldown",
       "name": "Lat Pulldown",
       "sets": 4,
       "reps": "10-12",
@@ -109078,7 +109093,15 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_e2",
+      "id": "my_6day_chest_back_legs_sharms_d4_straight-arm-pulldown",
+      "name": "Straight-Arm Pulldown",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d4_incline-dumbbell-press",
       "name": "Incline Dumbbell Press",
       "sets": 4,
       "reps": "6-8",
@@ -109086,7 +109109,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_e3",
+      "id": "my_6day_chest_back_legs_sharms_d4_deadlift",
       "name": "Deadlift",
       "sets": 3,
       "reps": "5-6",
@@ -109094,7 +109117,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_e4",
+      "id": "my_6day_chest_back_legs_sharms_d4_smith-machine-flat-press",
       "name": "Smith Machine Flat Press",
       "sets": 3,
       "reps": "8-10",
@@ -109102,7 +109125,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_e5",
+      "id": "my_6day_chest_back_legs_sharms_d4_iso-lateral-plate-loaded-low-row",
       "name": "Iso-Lateral Plate-Loaded Low Row",
       "sets": 3,
       "reps": "10-12",
@@ -109111,7 +109134,7 @@ const BUILTIN_PROGRAMS = [
       "notes": "Per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_e6",
+      "id": "my_6day_chest_back_legs_sharms_d4_decline-bench-press",
       "name": "Decline Bench Press",
       "sets": 3,
       "reps": "8-10",
@@ -109119,7 +109142,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_e7",
+      "id": "my_6day_chest_back_legs_sharms_d4_cable-seated-rows-wide-bar",
       "name": "Cable Seated Rows (Wide Bar)",
       "sets": 3,
       "reps": "10-12",
@@ -109127,7 +109150,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_e8",
+      "id": "my_6day_chest_back_legs_sharms_d4_machine-chest-dips",
       "name": "Machine Chest Dips",
       "sets": 3,
       "reps": "10-12",
@@ -109135,15 +109158,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_e9",
-      "name": "Straight-Arm Pulldown",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d4_e10",
+      "id": "my_6day_chest_back_legs_sharms_d4_incline-dumbbell-flyes",
       "name": "Incline Dumbbell Flyes",
       "sets": 3,
       "reps": "12-15",
@@ -109154,11 +109169,11 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 5,
-    "title": "Day 5: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
+    "title": "W1 & W3 & W5 - Day 5: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
     "estimatedMinutes": 70,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d5_e1",
+      "id": "my_6day_chest_back_legs_sharms_d5_leg-extension",
       "name": "Leg Extension",
       "sets": 4,
       "reps": "12-15",
@@ -109166,7 +109181,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d5_e2",
+      "id": "my_6day_chest_back_legs_sharms_d5_squat",
       "name": "Squat",
       "sets": 4,
       "reps": "6-8",
@@ -109174,7 +109189,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d5_e3",
+      "id": "my_6day_chest_back_legs_sharms_d5_stiff-legged-deadlift",
       "name": "Stiff-Legged Deadlift",
       "sets": 4,
       "reps": "8-10",
@@ -109182,7 +109197,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d5_e4",
+      "id": "my_6day_chest_back_legs_sharms_d5_lying-leg-curls",
       "name": "Lying Leg Curls",
       "sets": 3,
       "reps": "12-15",
@@ -109190,7 +109205,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d5_e5",
+      "id": "my_6day_chest_back_legs_sharms_d5_hip-adductor-machine",
       "name": "Hip Adductor Machine",
       "sets": 3,
       "reps": "12-15",
@@ -109198,7 +109213,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d5_e6",
+      "id": "my_6day_chest_back_legs_sharms_d5_hip-abductor-machine",
       "name": "Hip Abductor Machine",
       "sets": 3,
       "reps": "12-15",
@@ -109206,7 +109221,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d5_e7",
+      "id": "my_6day_chest_back_legs_sharms_d5_standing-calf-raises",
       "name": "Standing Calf Raises",
       "sets": 4,
       "reps": "10-12",
@@ -109214,7 +109229,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d5_e8",
+      "id": "my_6day_chest_back_legs_sharms_d5_seated-calf-raises",
       "name": "Seated Calf Raises",
       "sets": 3,
       "reps": "15-20",
@@ -109222,7 +109237,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d5_e9",
+      "id": "my_6day_chest_back_legs_sharms_d5_hanging-leg-raises",
       "name": "Hanging Leg Raises",
       "sets": 3,
       "reps": "12-15",
@@ -109230,7 +109245,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d5_e10",
+      "id": "my_6day_chest_back_legs_sharms_d5_russian-twists",
       "name": "Russian Twists",
       "sets": 3,
       "reps": "20",
@@ -109242,11 +109257,11 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 6,
-    "title": "Day 6: Sharms (Smith Machine Heavy, Isolated Delts & Arms)",
+    "title": "W1 & W3 & W5 - Day 6: Sharms (Smith Machine Heavy, Isolated Delts & Arms)",
     "estimatedMinutes": 75,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d6_e1",
+      "id": "my_6day_chest_back_legs_sharms_d6_smith-machine-overhead-press",
       "name": "Smith Machine Overhead Press",
       "sets": 4,
       "reps": "6-8",
@@ -109254,7 +109269,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d6_e2",
+      "id": "my_6day_chest_back_legs_sharms_d6_machine-lateral-raises",
       "name": "Machine Lateral Raises",
       "sets": 4,
       "reps": "12-15",
@@ -109262,7 +109277,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d6_e3",
+      "id": "my_6day_chest_back_legs_sharms_d6_cable-rear-delt-flyes",
       "name": "Cable Rear Delt Flyes",
       "sets": 3,
       "reps": "12-15",
@@ -109270,7 +109285,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d6_e4",
+      "id": "my_6day_chest_back_legs_sharms_d6_chest-supported-dumbbell-front-raises",
       "name": "Chest-Supported Dumbbell Front Raises",
       "sets": 3,
       "reps": "12-15",
@@ -109278,7 +109293,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d6_e5",
+      "id": "my_6day_chest_back_legs_sharms_d6_iso-lateral-plate-loaded-shrug-machine",
       "name": "Iso-Lateral Plate-Loaded Shrug Machine",
       "sets": 3,
       "reps": "10-12",
@@ -109286,7 +109301,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d6_e6",
+      "id": "my_6day_chest_back_legs_sharms_d6_close-grip-bench-press",
       "name": "Close-Grip Bench Press",
       "sets": 3,
       "reps": "8-12",
@@ -109294,7 +109309,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d6_e7",
+      "id": "my_6day_chest_back_legs_sharms_d6_spider-curls",
       "name": "Spider Curls",
       "sets": 3,
       "reps": "10-12",
@@ -109302,15 +109317,7 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d6_e8",
-      "name": "Triceps Pushdown",
-      "sets": 3,
-      "reps": "10-12",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d6_e9",
+      "id": "my_6day_chest_back_legs_sharms_d6_incline-dumbbell-curls",
       "name": "Incline Dumbbell Curls",
       "sets": 3,
       "reps": "10-12",
@@ -109318,15 +109325,15 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d6_e10",
-      "name": "Overhead Triceps Extension",
+      "id": "my_6day_chest_back_legs_sharms_d6_triceps-pushdown",
+      "name": "Triceps Pushdown",
       "sets": 3,
-      "reps": "12-15",
+      "reps": "10-12",
       "restSeconds": 60,
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d6_e11",
+      "id": "my_6day_chest_back_legs_sharms_d6_cable-rope-hammer-curls",
       "name": "Cable Rope Hammer Curls",
       "sets": 3,
       "reps": "12-15",
@@ -109334,7 +109341,15 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d6_e12",
+      "id": "my_6day_chest_back_legs_sharms_d6_overhead-triceps-extension",
+      "name": "Overhead Triceps Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d6_behind-the-back-barbell-wrist-curls",
       "name": "Behind-The-Back Barbell Wrist Curls",
       "sets": 4,
       "reps": "15-20",
@@ -109345,7 +109360,540 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 7,
-    "title": "Day 7: Full Rest & Recovery",
+    "title": "W1 & W3 & W5 - Day 7: Full Rest & Recovery",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
+    "dayNumber": 8,
+    "title": "W2 & W4 & W6 - Day 8: Chest & Back (Machine & Isolation Flow)",
+    "estimatedMinutes": 60,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d8_lat-pulldown",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d8_reverse-grip-lat-pulldown",
+      "name": "Reverse-Grip Lat Pulldown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d8_hammer-strength-incline-press",
+      "name": "Hammer Strength Incline Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d8_machine-chest-press",
+      "name": "Machine Chest Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d8_iso-lateral-plate-loaded-decline-press",
+      "name": "Iso-Lateral Plate-Loaded Decline Press",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d8_reverse-grip-barbell-rows",
+      "name": "Reverse-Grip Barbell Rows",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d8_iso-lateral-plate-loaded-high-row-hammer-strength",
+      "name": "Iso-Lateral Plate-Loaded High Row (Hammer Strength)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard",
+      "notes": "Per side."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d8_cable-crossovers",
+      "name": "Cable Crossovers",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 9,
+    "title": "W2 & W4 & W6 - Day 9: Legs, Abs & Calves (Hamstring Pre-Exhaust & Mass)",
+    "estimatedMinutes": 65,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d9_seated-leg-curls",
+      "name": "Seated Leg Curls",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d9_leg-press",
+      "name": "Leg Press",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d9_stiff-legged-deadlift",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d9_leg-extension",
+      "name": "Leg Extension",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d9_hip-adductor-machine",
+      "name": "Hip Adductor Machine",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d9_glute-kickbacks",
+      "name": "Glute Kickbacks",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Per leg."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d9_standing-calf-raises",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d9_seated-calf-raises",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d9_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d9_decline-sit-ups",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 10,
+    "title": "W2 & W4 & W6 - Day 10: Sharms (Cable & Machine Overload)",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d10_machine-shoulder-press",
+      "name": "Machine Shoulder Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d10_cable-lateral-raises",
+      "name": "Cable Lateral Raises",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d10_reverse-pec-deck",
+      "name": "Reverse Pec Deck",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d10_front-raises",
+      "name": "Front Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d10_smith-machine-shrugs",
+      "name": "Smith Machine Shrugs",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d10_cable-curls-ez-bar-attachment",
+      "name": "Cable Curls (EZ-Bar Attachment)",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d10_v-bar-pushdown",
+      "name": "V-Bar Pushdown",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d10_cable-overhead-extension",
+      "name": "Cable Overhead Extension",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d10_cable-rope-hammer-curls",
+      "name": "Cable Rope Hammer Curls",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d10_incline-dumbbell-curls",
+      "name": "Incline Dumbbell Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d10_machine-triceps-dips",
+      "name": "Machine Triceps Dips",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d10_dumbbell-wrist-curls",
+      "name": "Dumbbell Wrist Curls",
+      "sets": 4,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "Palms up (supinated) and palms down (pronated)."
+     }
+    ]
+   },
+   {
+    "dayNumber": 11,
+    "title": "W2 & W4 & W6 - Day 11: Chest & Back (Free Weight Power Flow)",
+    "estimatedMinutes": 75,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d11_lat-pulldown",
+      "name": "Lat Pulldown",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d11_incline-dumbbell-press",
+      "name": "Incline Dumbbell Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d11_dumbbell-bench-press",
+      "name": "Dumbbell Bench Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d11_deadlift",
+      "name": "Deadlift",
+      "sets": 4,
+      "reps": "5-6",
+      "restSeconds": 180,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d11_barbell-row",
+      "name": "Barbell Row",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d11_smith-machine-decline-press",
+      "name": "Smith Machine Decline Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d11_neutral-grip-seated-cable-row",
+      "name": "Neutral-Grip Seated Cable Row",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d11_incline-dumbbell-flyes",
+      "name": "Incline Dumbbell Flyes",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d11_dumbbell-pullover",
+      "name": "Dumbbell Pullover",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 12,
+    "title": "W2 & W4 & W6 - Day 12: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_leg-extension",
+      "name": "Leg Extension",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_squat",
+      "name": "Squat",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_stiff-legged-deadlift",
+      "name": "Stiff-Legged Deadlift",
+      "sets": 4,
+      "reps": "8-10",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_lying-leg-curls",
+      "name": "Lying Leg Curls",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_hip-adductor-machine",
+      "name": "Hip Adductor Machine",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_hip-abductor-machine",
+      "name": "Hip Abductor Machine",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_standing-calf-raises",
+      "name": "Standing Calf Raises",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_seated-calf-raises",
+      "name": "Seated Calf Raises",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_russian-twists",
+      "name": "Russian Twists",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "20 total twists, 10 per side."
+     }
+    ]
+   },
+   {
+    "dayNumber": 13,
+    "title": "W2 & W4 & W6 - Day 13: Sharms (Shoulders, Traps & Alternating Arms)",
+    "estimatedMinutes": 70,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d13_dumbbell-shoulder-press",
+      "name": "Dumbbell Shoulder Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d13_machine-lateral-raises",
+      "name": "Machine Lateral Raises",
+      "sets": 4,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d13_cable-rear-delt-flyes",
+      "name": "Cable Rear Delt Flyes",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d13_dumbbell-shrugs",
+      "name": "Dumbbell Shrugs",
+      "sets": 4,
+      "reps": "10-12",
+      "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d13_close-grip-bench-press",
+      "name": "Close-Grip Bench Press",
+      "sets": 3,
+      "reps": "6-8",
+      "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d13_skull-crushers",
+      "name": "Skull Crushers",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d13_machine-preacher-curls",
+      "name": "Machine Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d13_preacher-curls",
+      "name": "Preacher Curls",
+      "sets": 3,
+      "reps": "10-12",
+      "restSeconds": 60,
+      "type": "standard",
+      "notes": "Vertical pad."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d13_rope-pushdown",
+      "name": "Rope Pushdown",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d13_hammer-curls",
+      "name": "Hammer Curls",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d13_ez-bar-reverse-curls",
+      "name": "EZ-Bar Reverse Curls",
+      "sets": 4,
+      "reps": "15",
+      "restSeconds": 45,
+      "type": "standard"
+     }
+    ]
+   },
+   {
+    "dayNumber": 14,
+    "title": "W2 & W4 & W6 - Day 14: Full Rest & Recovery",
     "estimatedMinutes": 0,
     "exercises": []
    }

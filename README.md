@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.74.0*
+*Version 2.75.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -761,7 +761,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.74.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.75.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -805,7 +805,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 95 scripts (`js/`) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 96 scripts (`js/`) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0) and `make_fonts.py` (2.71.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -841,6 +841,13 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.75.0**
+- **My 6-Day Split is now two alternating weeks.** **Week A** (weeks 1, 3 and 5) is the original six workouts plus the rest day (Days 1 to 7). **Week B** (weeks 2, 4 and 6) is the new set you sent (Days 8 to 14): Chest & Back (Machine & Isolation Flow), Legs, Abs & Calves (Hamstring Pre-Exhaust & Mass), Sharms (Cable & Machine Overload), Chest & Back (Free Weight Power Flow), Legs, Abs & Calves (Quad Pre-Exhaust & Squats), Sharms (Shoulders, Traps & Alternating Arms) and a rest day. 123 exercises in all; every set and rep range is as you wrote it. The Days screen shows "Weeks 1, 3 & 5 · Week A" and "Weeks 2, 4 & 6 · Week B", **Switch week** works as before, and the original exercises come back whenever a week starts (2.74.0).
+- **Exercises on the same machine, bar or bench now sit next to each other** (in both weeks). Week A: Day 1 has both barbell presses together and Lat Pulldown right before the V-Bar Pulldown; Day 4 has the Straight-Arm Pulldown right after the Lat Pulldown; Day 6 has the two incline-bench curls together and the cable Pushdown next to the cable Hammer Curls. Week B: Day 8 has the two pulldowns together and the three chest machines together; Day 10 has the four cable arm exercises together; Day 11 has the Deadlift next to the Barbell Row and the two dumbbell presses together; Day 13 has the two preacher curls together and Close-Grip Bench next to Skull Crushers. Everything else stays in the order you wrote it, and heavy lifts still come before finishers.
+- **Every Week B exercise uses the exact name from the database**, so last time's weight is found: Hammer Strength Incline Press, Machine Chest Press, Iso-Lateral Plate-Loaded Decline Press, Reverse-Grip Lat Pulldown, Reverse-Grip Barbell Rows, Cable Crossovers, Iso-Lateral Plate-Loaded High Row (Hammer Strength), Machine Shoulder Press, Cable Lateral Raises, Reverse Pec Deck, Front Raises, Smith Machine Shrugs, Cable Curls (EZ-Bar Attachment), V-Bar Pushdown, Cable Overhead Extension, Cable Rope Hammer Curls, Machine Triceps Dips, Dumbbell Wrist Curls, Smith Machine Decline Press, Neutral-Grip Seated Cable Row, Incline Dumbbell Flyes, Dumbbell Pullover, Dumbbell Shrugs, Skull Crushers, Preacher Curls, Rope Pushdown, EZ-Bar Reverse Curls. Eight of your names are now also "other names" of those exercises (for example Incline Hammer Strength Machine Press, Hammer Strength / Machine Shoulder Press, Incline Flyes, Vertical Pad Preacher Curls), so searching for them works. No new exercises were needed: the exercises are still 646 and the programs 59. Two notes: Vertical Pad Preacher Curls is the database's Preacher Curls (marked "Vertical pad." in the notes), and Dumbbell Wrist Curls has "Palms up (supinated) and palms down (pronated)." in its notes.
+- **A copy already on your phone is brought up to date once** at the first start after this update: days you never changed take the new order (sets you had already ticked on them move with their exercise), days you changed are left exactly as they are until their week comes round and puts them back, Week B is added and the week plan switched on. Exercise ids in the program now come from the exercise name (so they no longer shift when the order changes). If you were already in week 2, its ticks start over because week 2 is now Week B.
+- `tests/weeks.py` now has 84 checks: the two-week plan, the database names, the same-machine order, the new-week reset in Week A and Week B, the wrap-around after week 6, and the update of an old copy.
 
 **2.74.0**
 - **Each new week of My 6-Day Split starts with the original exercises.** Finishing the last workout of a week, **Switch week**, or starting over after week 6 puts every day of the new week back the way the program has it: swapped exercises come back, deleted ones come back, ones you added go, and sets or reps you changed return to the program's. Inside a week nothing is touched, so a swap you make on Monday is still there on Friday. A new week also starts with empty sets (unless "Finish keeps logged sets" is on). This is a setting of the program itself (`weekReset`), so other programs behave as before.
