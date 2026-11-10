@@ -434,7 +434,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.82.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.83.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3819,7 +3819,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.82.0";
+    const APP_VERSION = "2.83.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -18415,13 +18415,23 @@ const PTSIM = (function () {
 
   /* ============================================================== daily check-in */
   const activeDays = a => { const set = new Set(arr(a, "checkins")); S(a).forEach(s => set.add(s.date)); return set; };
-  function dayStreak(a) { const set = activeDays(a); const d = new Date(); d.setHours(0, 0, 0, 0); let n = 0; if (!set.has(PT.ds(d))) d.setDate(d.getDate() - 1); while (set.has(PT.ds(d))) { n++; d.setDate(d.getDate() - 1); } return n; }
+  /* 2.83.0: a day covered by a streak shield (settings.shielded) keeps the streak going but never adds a day to it */
+  const shieldSet = a => new Set(arr(a, "shielded"));
+  /** the run of days ending on `start` (a Date at midnight): days you showed up, bridged over shielded days */
+  function runFrom(a, start, set, sh) {
+    set = set || activeDays(a); sh = sh || shieldSet(a);
+    const d = new Date(start); d.setHours(0, 0, 0, 0); let n = 0;
+    for (let i = 0; i < 4000; i++) { const k = PT.ds(d); if (set.has(k)) n++; else if (!sh.has(k)) break; d.setDate(d.getDate() - 1); }
+    return n;
+  }
+  function dayStreak(a) { const set = activeDays(a), sh = shieldSet(a), d = new Date(); d.setHours(0, 0, 0, 0); if (!set.has(PT.ds(d))) d.setDate(d.getDate() - 1); return runFrom(a, d, set, sh); }
   function dayStats(a) {
-    const days = [...activeDays(a)].sort(), when = {}; let run = 0, best = 0, prev = null;
-    days.forEach(ds => { const t = PT.fromDs(ds); if (!t) return; run = prev && Math.round((t.getTime() - prev) / DAY) === 1 ? run + 1 : 1; prev = t.getTime(); if (run > best) best = run; [7, 30, 100, 365].forEach(m => { if (run >= m && !when["showup" + m]) when["showup" + m] = ds; }); });
+    const days = [...activeDays(a)].sort(), when = {}, sh = shieldSet(a); let run = 0, best = 0, prev = null;
+    const bridged = (t0, t1) => { const n = Math.round((t1 - t0) / DAY), d = new Date(t0); for (let i = 1; i < n; i++) { d.setDate(d.getDate() + 1); if (!sh.has(PT.ds(d))) return false; } return true; };       // every day in between is shielded
+    days.forEach(ds => { const t = PT.fromDs(ds); if (!t) return; run = prev && (Math.round((t.getTime() - prev) / DAY) === 1 || bridged(prev, t.getTime())) ? run + 1 : 1; prev = t.getTime(); if (run > best) best = run; [7, 30, 100, 365].forEach(m => { if (run >= m && !when["showup" + m]) when["showup" + m] = ds; }); });
     return { best, when };
   }
-  PT.dayStreak = dayStreak;
+  PT.dayStreak = dayStreak; PT.dayRunFrom = (a, start) => runFrom(a, start); PT.activeDaySet = activeDays;
   const checkedToday = a => arr(a, "checkins").includes(PT.ds());
 
   /* ============================================================== challenges */
@@ -18503,11 +18513,11 @@ const PTSIM = (function () {
   /* ============================================================== Home: check-in chip */
   function homeChip(a) {
     const box = $("pt-home-extra"), you = $("pt-you-card"); if (!box || !you) return;
-    let b = $("pt-checkin"); const need = !checkedToday(a) && !S(a).some(s => s.date === PT.ds());
+    let b = $("pt-checkin"); const need = !checkedToday(a) && !S(a).some(s => s.date === PT.ds()) && !shieldSet(a).has(PT.ds());
     if (!need) { if (b) b.remove(); return; }
     if (!b) { b = document.createElement("button"); b.type = "button"; b.id = "pt-checkin"; b.className = "tap-active"; }
     const n = dayStreak(a);
-    b.innerHTML = `✋ I'm in today <span>${n ? "🌱 " + n + " day" + (n === 1 ? "" : "s") : "start a streak"}</span>`;
+    b.innerHTML = `✋ I'm in today <span>${n ? "🌱 " + n + " day" + (n === 1 ? "" : "s") : "start a streak"}${PT.shieldTag ? PT.shieldTag(a) : ""}</span>`;
     if (you.nextElementSibling !== b) you.insertAdjacentElement("afterend", b);
   }
   const oHome = proto.renderHomeView;
@@ -18546,10 +18556,10 @@ const PTSIM = (function () {
     return `<p class="text-[11px] text-zinc-400">Pick one goal and go for it. Finish it for a trophy and +300 XP.</p>` + presets(a).map(p => `<button type="button" class="pt-chal tap-active" data-cstart="${p.id}"><span class="text-2xl">${p.icon}</span><span class="min-w-0 flex-1 text-left"><span class="block text-xs font-black text-white">${esc(p.title)}</span><span class="block text-[11px] text-zinc-400">${esc(p.desc)}</span></span><span class="text-[11px] font-bold text-emerald-400">Start</span></button>`).join("") + shelf;
   }
   function checkinHtml(a) {
-    const n = dayStreak(a), st = dayStats(a), done = checkedToday(a) || S(a).some(s => s.date === PT.ds());
-    const cells = Array.from({ length: 14 }, (_, i) => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (13 - i)); const on = activeDays(a).has(PT.ds(d)); return `<i class="pt-dot ${on ? "on" : ""}" title="${esc(PT.ds(d))}"></i>`; }).join("");
-    return `<div class="flex items-center justify-between gap-2"><div><span class="block text-sm font-black text-white">🌱 ${n} day${n === 1 ? "" : "s"} in a row</span><span class="block text-[11px] text-zinc-400">Best ${st.best} · training or checking in both count</span></div>${done ? '<span class="text-xs font-bold text-emerald-400">Done today</span>' : '<button type="button" class="pt-b go" id="pt-checkin-go">✋ I\'m in today</button>'}</div><div class="pt-dots">${cells}</div>
-      <p class="text-[11px] text-zinc-400 leading-snug">Rest days count too. Tap "I'm in today" so the streak keeps going. Each check-in is worth 10 XP.</p>`;
+    const n = dayStreak(a), st = dayStats(a), done = checkedToday(a) || S(a).some(s => s.date === PT.ds()), prot = !done && shieldSet(a).has(PT.ds());
+    const cells = Array.from({ length: 14 }, (_, i) => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (13 - i)); const k = PT.ds(d), on = activeDays(a).has(k), sh = !on && shieldSet(a).has(k); return `<i class="pt-dot ${on ? "on" : sh ? "sh" : ""}" title="${esc(k)}${sh ? " · protected by a streak shield" : ""}"></i>`; }).join("");
+    return `<div class="flex items-center justify-between gap-2"><div><span class="block text-sm font-black text-white">🌱 ${n} day${n === 1 ? "" : "s"} in a row</span><span class="block text-[11px] text-zinc-400">Best ${st.best} · training or checking in both count</span></div>${done ? '<span class="text-xs font-bold text-emerald-400">Done today</span>' : prot ? '<span class="text-xs font-bold text-amber-300">🛡 Protected</span>' : '<button type="button" class="pt-b go" id="pt-checkin-go">✋ I\'m in today</button>'}</div><div class="pt-dots">${cells}</div>
+      <p class="text-[11px] text-zinc-400 leading-snug">Rest days count too. Tap "I'm in today" so the streak keeps going. Each check-in is worth 10 XP.</p>${PT.shieldHtml ? PT.shieldHtml(a) : ""}`;
   }
   let shopCat = "all";
   const shopPrev = x => {
@@ -30206,7 +30216,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     o.bonus = o.records + o.quests + o.weeks + o.challenges + o.badges + o.chests + o.boss;
     return o;
   }
-  PT.coins = a => { a = a || A(); return Math.max(0, PT.coinsRaw(a) + income(a).bonus - redeemed(a)); };
+  const shieldCost = a => (PT.shieldSpent ? PT.shieldSpent(a) : 0);                // 2.83.0: streak shields bought with coins
+  PT.coins = a => { a = a || A(); return Math.max(0, PT.coinsRaw(a) + income(a).bonus - redeemed(a) - shieldCost(a)); };
   PT.coinIncome = income;
 
   /* ============================================================== titles */
@@ -30318,7 +30329,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   function howHtml(a) {
     const o = income(a), sp = PT.SHOP.filter(x => owned(a).includes(x.id)).reduce((n, x) => n + x.price, 0), rd = redeemed(a);
     const L = (k, v) => `<span>${k}</span><b class="text-white">${v < 0 ? "−" + fmt(-v) : fmt(v)}</b>`;
-    return `<details class="pt-how"><summary>How coins work</summary><div class="pt-howg">${L("Workouts and sets (1 per 10 XP)", o.xp)}${L("Season tiers", o.season)}${L("Records (10 each)", o.records)}${L("Weekly quests (25 each)", o.quests)}${L("Goal weeks (20 each)", o.weeks)}${L("Challenges (100 each)", o.challenges)}${L("Badges (10 to 75 each)", o.badges)}${L("Daily chests", o.chests)}${L("Family boss wins", o.boss)}${L("Spent in the shop", -sp)}${L("Spent on real rewards", -rd)}</div>
+    return `<details class="pt-how"><summary>How coins work</summary><div class="pt-howg">${L("Workouts and sets (1 per 10 XP)", o.xp)}${L("Season tiers", o.season)}${L("Records (10 each)", o.records)}${L("Weekly quests (25 each)", o.quests)}${L("Goal weeks (20 each)", o.weeks)}${L("Challenges (100 each)", o.challenges)}${L("Badges (10 to 75 each)", o.badges)}${L("Daily chests", o.chests)}${L("Family boss wins", o.boss)}${L("Spent in the shop", -sp)}${L("Spent on real rewards", -rd)}${shieldCost(a) ? L("Spent on streak shields", -shieldCost(a)) : ""}</div>
       <p class="text-[11px] text-zinc-400 leading-snug mt-1">Chest odds: common 70%, rare 22%, epic 7%, legendary 1%. Check-in or training streaks of 7, 30 and 100 days add ×1.25, ×1.5 and ×2 to the prize.</p></details>`;
   }
   function hubHtml(a) {
@@ -30326,7 +30337,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const next = nextRows(a, coins, r).map(x => `<div class="pt-nx"><span class="pt-nx-i">${x.i}</span><div class="min-w-0 flex-1"><div class="flex items-baseline justify-between gap-2"><span class="text-xs font-bold text-white truncate">${esc(x.t)}</span><span class="shrink-0 text-[10px] text-zinc-400">${esc(x.s)}</span></div>${bar(x.p)}</div></div>`).join("");
     return `<div id="pt-pg-hub" class="pt-hub ${card}">
       <div class="flex items-center justify-between gap-2"><div><span class="block text-2xl font-black text-amber-300 leading-none">🪙 ${fmt(coins)}</span><span class="block text-[11px] text-zinc-400 mt-1">coins to spend</span></div>
-        <div class="flex gap-1.5 flex-wrap justify-end"><span class="pt-pill" title="Level">⚡ ${r.lv.L}</span><span class="pt-pill" title="Weeks in a row you hit your goal">🔥 ${sk.cur}</span><span class="pt-pill" title="Days in a row">🌱 ${ds}</span></div></div>
+        <div class="flex gap-1.5 flex-wrap justify-end"><span class="pt-pill" title="Level">⚡ ${r.lv.L}</span><span class="pt-pill" title="Weeks in a row you hit your goal">🔥 ${sk.cur}</span><span class="pt-pill" title="Days in a row">🌱 ${ds}</span>${PT.shieldPill ? PT.shieldPill(a) : ""}</div></div>
       ${chestHtml(a)}
       <div class="pt-nxs"><span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500">Closest to you</span>${next}</div>
       ${howHtml(a)}</div>`;
@@ -31146,6 +31157,120 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     #pt-pg-boss .pt-b.go { background: rgb(var(--a600)); color: #fff; }
     html[data-mode="light"] .pt-bossdmg { color: #dc2626; }
     html[data-mode="light"] .pt-bh.won { color: #047857; }
+  `;
+  document.head.appendChild(css);
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 2.83.0: streak shield.
+ *  Your "days in a row" streak (training or checking in, the 🌱 number) used to break on any missed day. Now you can buy streak shields
+ *  with coins (150 each, hold up to 3) in Progress → Rewards → Daily check-in:
+ *  - After a missed day, the next time you open the app a shield is used on its own, as long as the streak it protects was 3 days or more
+ *    and you hold enough shields for every missed day in a row (up to 3). Nothing is used when the streak could not be saved anyway.
+ *  - Sick day, or you know you cannot make it: "Protect today" uses a shield for today by hand and hides the "I'm in today" prompt.
+ *    If you train or check in on that day after all, the shield comes back.
+ *  - A shield keeps the streak alive but never adds a day to it, and the milestone badges (7, 30, 100, 365 days) count real days only.
+ *  - Days a shield covers show in amber in the 14 day strip. Shields held show next to the 🌱 on Home and in the Rewards card.
+ *  The streak maths lives in module 046 (settings.shielded = the covered days); this module is buying, using and the screen.
+ *  settings: shields (held), shieldBuys (bought in all, for the coin balance), shielded (days covered).
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.dayRunFrom || !PT.activeDaySet || !PT.coins) return;
+  const proto = ApplicationUI.prototype;
+  const A = () => window.app;
+  const $ = id => document.getElementById(id);
+  const PRICE = 150, CAP = 3, MIN_STREAK = 3, MAX_GAP = 3;
+  const save = a => { try { WorkoutStorage.saveSettings(a.settings); } catch (e) { } };
+  const held = a => Math.max(0, parseInt(a.settings.shields, 10) || 0);
+  const covered = a => (Array.isArray(a.settings.shielded) ? a.settings.shielded : []);
+  const midnight = () => { const d = new Date(); d.setHours(0, 0, 0, 0); return d; };
+  const fmt = n => Math.round(n).toLocaleString();
+
+  PT.shieldSpent = a => Math.max(0, parseInt((a || A()).settings.shieldBuys, 10) || 0) * PRICE;
+  PT.shieldCount = a => held(a || A());
+  PT.shieldTag = a => (held(a) > 0 ? ` · 🛡 ${held(a)}` : "");
+  PT.shieldPill = a => (held(a) > 0 ? `<span class="pt-pill" title="Streak shields">🛡 ${held(a)}</span>` : "");
+
+  /* ============================================================== using them */
+  /** the shield moves: a day you showed up on after all gives its shield back, then a run of missed days after a streak worth keeping is covered */
+  function auto(a) {
+    const out = { back: 0, used: [], kept: 0 };
+    const act = PT.activeDaySet(a), cur = covered(a);
+    const real = cur.filter(k => act.has(k));
+    if (real.length) { a.settings.shielded = cur.filter(k => !act.has(k)); a.settings.shields = held(a) + real.length; out.back = real.length; }
+    const sh = new Set(covered(a));
+    const d = midnight(); d.setDate(d.getDate() - 1);
+    const gap = [];
+    while (gap.length <= MAX_GAP && !act.has(PT.ds(d)) && !sh.has(PT.ds(d))) { gap.push(PT.ds(d)); d.setDate(d.getDate() - 1); }
+    if (gap.length && gap.length <= MAX_GAP && gap.length <= held(a)) {
+      const before = PT.dayRunFrom(a, d);                                  // the streak that ends the day before the first missed day
+      if (before >= MIN_STREAK) {
+        a.settings.shielded = covered(a).concat(gap).slice(-400); a.settings.shields = held(a) - gap.length;
+        out.used = gap; out.kept = before;
+      }
+    }
+    if (out.back || out.used.length) save(a);
+    return out;
+  }
+  function protect(a) {
+    const today = PT.ds(), act = PT.activeDaySet(a);
+    if (held(a) < 1) { a.toast("No streak shield to use"); return false; }
+    if (act.has(today) || covered(a).includes(today)) { a.toast(act.has(today) ? "You already showed up today" : "Today is already protected"); return false; }
+    a.settings.shielded = covered(a).concat(today).slice(-400); a.settings.shields = held(a) - 1; save(a);
+    a.toast("🛡 Today is protected. Rest up, your streak is safe");
+    return true;
+  }
+  async function buy(a) {
+    if (held(a) >= CAP) { a.toast(`You can hold ${CAP} shields`); return false; }
+    const coins = PT.coins(a); if (coins < PRICE) { a.toast(`You need ${fmt(PRICE - coins)} more coins`); return false; }
+    if (!(await PT.confirm(`Buy a streak shield for ${PRICE} coins?\n\nIt keeps your days-in-a-row streak alive on a day you miss.`))) return false;
+    a.settings.shields = held(a) + 1; a.settings.shieldBuys = (parseInt(a.settings.shieldBuys, 10) || 0) + 1; save(a);
+    a.toast("🛡 Streak shield added");
+    return true;
+  }
+  PT.shield = { auto: () => auto(A()), protect: () => protect(A()), buy: () => buy(A()), PRICE, CAP, MIN_STREAK, MAX_GAP };
+
+  /* ============================================================== the screen */
+  PT.shieldHtml = a => {
+    const n = held(a), today = PT.ds(), act = PT.activeDaySet(a), can = n > 0 && !act.has(today) && !covered(a).includes(today), coins = PT.coins(a), full = n >= CAP;
+    return `<div class="pt-shield">
+      <div class="flex items-center justify-between gap-2"><div class="min-w-0"><span class="block text-sm font-black text-white">🛡 Streak shields · ${n} of ${CAP}</span><span class="block text-[11px] text-zinc-400">Keep your days in a row on a day you miss</span></div>
+        <button type="button" class="pt-b ${!full && coins >= PRICE ? "go" : ""}" id="pt-shield-buy" ${full ? "disabled" : ""}>${full ? "Full" : "Buy · 🪙 " + PRICE}</button></div>
+      ${can ? `<div><button type="button" class="pt-b" id="pt-shield-use">🤒 Sick day? Protect today</button></div>` : ""}
+      <p class="text-[11px] text-zinc-400 leading-snug">After a missed day, the next time you open the app a shield is used on its own when your streak was ${MIN_STREAK} days or more (up to ${MAX_GAP} missed days in a row). If you show up on a protected day, the shield comes back. A shield keeps the streak going but never adds a day, so the 7, 30, 100 and 365 day badges still need real days.</p></div>`;
+  };
+  const refresh = a => {
+    try { a.renderHomeView(); } catch (e) { }
+    try { if ($("progress-body") && $("view-progress") && !$("view-progress").classList.contains("hidden")) a.renderProgressView(); } catch (e) { }
+  };
+  document.addEventListener("click", async e => {
+    const a = A(); if (!a || !e.target.closest) return;
+    if (e.target.closest("#pt-shield-buy")) { e.preventDefault(); if (await buy(a)) refresh(a); return; }
+    if (e.target.closest("#pt-shield-use")) { e.preventDefault(); if (protect(a)) refresh(a); }
+  });
+
+  /* ============================================================== when it happens: before Home and Progress draw */
+  function run(app) {
+    try {
+      const r = auto(app);
+      if (r.used.length) setTimeout(() => { try { app.toast(`🛡 A streak shield kept your ${r.kept}-day streak alive${r.used.length > 1 ? " (" + r.used.length + " missed days)" : ""}`, undefined, undefined, 6000); } catch (e) { } }, 500);
+      else if (r.back) setTimeout(() => { try { app.toast("🛡 Your shield is back, you showed up"); } catch (e) { } }, 500);
+    } catch (e) { console.error("PulseTrack streak shield", e); }
+  }
+  const oHome = proto.renderHomeView;
+  proto.renderHomeView = function () { run(this); return oHome.apply(this, arguments); };
+  const oPV = proto.renderProgressView;
+  proto.renderProgressView = function () { run(this); return oPV.apply(this, arguments); };
+
+  const css = document.createElement("style"); css.id = "pt-v283-css";
+  css.textContent = `
+    .pt-shield { display: flex; flex-direction: column; gap: .5rem; margin-top: .6rem; padding-top: .65rem; border-top: 1px solid rgb(var(--z800)); }
+    .pt-dot.sh { background: rgb(251 191 36 / .85); }
+    #pt-pg-chk .pt-shield .pt-b { padding: .5rem .85rem; border-radius: .65rem; font-size: .75rem; font-weight: 700; background: rgb(var(--z800)); color: rgb(var(--z100)); }
+    #pt-pg-chk .pt-shield .pt-b.go { background: rgb(var(--a600)); color: #fff; }
+    #pt-pg-chk .pt-shield .pt-b:disabled { opacity: .5; }
+    #pt-pg-chk .pt-shield #pt-shield-buy { white-space: nowrap; flex: none; }
   `;
   document.head.appendChild(css);
 })();

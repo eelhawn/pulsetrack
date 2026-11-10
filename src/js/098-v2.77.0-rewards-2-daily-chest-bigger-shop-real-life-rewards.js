@@ -70,7 +70,8 @@
     o.bonus = o.records + o.quests + o.weeks + o.challenges + o.badges + o.chests + o.boss;
     return o;
   }
-  PT.coins = a => { a = a || A(); return Math.max(0, PT.coinsRaw(a) + income(a).bonus - redeemed(a)); };
+  const shieldCost = a => (PT.shieldSpent ? PT.shieldSpent(a) : 0);                // 2.83.0: streak shields bought with coins
+  PT.coins = a => { a = a || A(); return Math.max(0, PT.coinsRaw(a) + income(a).bonus - redeemed(a) - shieldCost(a)); };
   PT.coinIncome = income;
 
   /* ============================================================== titles */
@@ -182,7 +183,7 @@
   function howHtml(a) {
     const o = income(a), sp = PT.SHOP.filter(x => owned(a).includes(x.id)).reduce((n, x) => n + x.price, 0), rd = redeemed(a);
     const L = (k, v) => `<span>${k}</span><b class="text-white">${v < 0 ? "−" + fmt(-v) : fmt(v)}</b>`;
-    return `<details class="pt-how"><summary>How coins work</summary><div class="pt-howg">${L("Workouts and sets (1 per 10 XP)", o.xp)}${L("Season tiers", o.season)}${L("Records (10 each)", o.records)}${L("Weekly quests (25 each)", o.quests)}${L("Goal weeks (20 each)", o.weeks)}${L("Challenges (100 each)", o.challenges)}${L("Badges (10 to 75 each)", o.badges)}${L("Daily chests", o.chests)}${L("Family boss wins", o.boss)}${L("Spent in the shop", -sp)}${L("Spent on real rewards", -rd)}</div>
+    return `<details class="pt-how"><summary>How coins work</summary><div class="pt-howg">${L("Workouts and sets (1 per 10 XP)", o.xp)}${L("Season tiers", o.season)}${L("Records (10 each)", o.records)}${L("Weekly quests (25 each)", o.quests)}${L("Goal weeks (20 each)", o.weeks)}${L("Challenges (100 each)", o.challenges)}${L("Badges (10 to 75 each)", o.badges)}${L("Daily chests", o.chests)}${L("Family boss wins", o.boss)}${L("Spent in the shop", -sp)}${L("Spent on real rewards", -rd)}${shieldCost(a) ? L("Spent on streak shields", -shieldCost(a)) : ""}</div>
       <p class="text-[11px] text-zinc-400 leading-snug mt-1">Chest odds: common 70%, rare 22%, epic 7%, legendary 1%. Check-in or training streaks of 7, 30 and 100 days add ×1.25, ×1.5 and ×2 to the prize.</p></details>`;
   }
   function hubHtml(a) {
@@ -190,7 +191,7 @@
     const next = nextRows(a, coins, r).map(x => `<div class="pt-nx"><span class="pt-nx-i">${x.i}</span><div class="min-w-0 flex-1"><div class="flex items-baseline justify-between gap-2"><span class="text-xs font-bold text-white truncate">${esc(x.t)}</span><span class="shrink-0 text-[10px] text-zinc-400">${esc(x.s)}</span></div>${bar(x.p)}</div></div>`).join("");
     return `<div id="pt-pg-hub" class="pt-hub ${card}">
       <div class="flex items-center justify-between gap-2"><div><span class="block text-2xl font-black text-amber-300 leading-none">🪙 ${fmt(coins)}</span><span class="block text-[11px] text-zinc-400 mt-1">coins to spend</span></div>
-        <div class="flex gap-1.5 flex-wrap justify-end"><span class="pt-pill" title="Level">⚡ ${r.lv.L}</span><span class="pt-pill" title="Weeks in a row you hit your goal">🔥 ${sk.cur}</span><span class="pt-pill" title="Days in a row">🌱 ${ds}</span></div></div>
+        <div class="flex gap-1.5 flex-wrap justify-end"><span class="pt-pill" title="Level">⚡ ${r.lv.L}</span><span class="pt-pill" title="Weeks in a row you hit your goal">🔥 ${sk.cur}</span><span class="pt-pill" title="Days in a row">🌱 ${ds}</span>${PT.shieldPill ? PT.shieldPill(a) : ""}</div></div>
       ${chestHtml(a)}
       <div class="pt-nxs"><span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500">Closest to you</span>${next}</div>
       ${howHtml(a)}</div>`;

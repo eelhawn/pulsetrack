@@ -58,13 +58,23 @@
 
   /* ============================================================== daily check-in */
   const activeDays = a => { const set = new Set(arr(a, "checkins")); S(a).forEach(s => set.add(s.date)); return set; };
-  function dayStreak(a) { const set = activeDays(a); const d = new Date(); d.setHours(0, 0, 0, 0); let n = 0; if (!set.has(PT.ds(d))) d.setDate(d.getDate() - 1); while (set.has(PT.ds(d))) { n++; d.setDate(d.getDate() - 1); } return n; }
+  /* 2.83.0: a day covered by a streak shield (settings.shielded) keeps the streak going but never adds a day to it */
+  const shieldSet = a => new Set(arr(a, "shielded"));
+  /** the run of days ending on `start` (a Date at midnight): days you showed up, bridged over shielded days */
+  function runFrom(a, start, set, sh) {
+    set = set || activeDays(a); sh = sh || shieldSet(a);
+    const d = new Date(start); d.setHours(0, 0, 0, 0); let n = 0;
+    for (let i = 0; i < 4000; i++) { const k = PT.ds(d); if (set.has(k)) n++; else if (!sh.has(k)) break; d.setDate(d.getDate() - 1); }
+    return n;
+  }
+  function dayStreak(a) { const set = activeDays(a), sh = shieldSet(a), d = new Date(); d.setHours(0, 0, 0, 0); if (!set.has(PT.ds(d))) d.setDate(d.getDate() - 1); return runFrom(a, d, set, sh); }
   function dayStats(a) {
-    const days = [...activeDays(a)].sort(), when = {}; let run = 0, best = 0, prev = null;
-    days.forEach(ds => { const t = PT.fromDs(ds); if (!t) return; run = prev && Math.round((t.getTime() - prev) / DAY) === 1 ? run + 1 : 1; prev = t.getTime(); if (run > best) best = run; [7, 30, 100, 365].forEach(m => { if (run >= m && !when["showup" + m]) when["showup" + m] = ds; }); });
+    const days = [...activeDays(a)].sort(), when = {}, sh = shieldSet(a); let run = 0, best = 0, prev = null;
+    const bridged = (t0, t1) => { const n = Math.round((t1 - t0) / DAY), d = new Date(t0); for (let i = 1; i < n; i++) { d.setDate(d.getDate() + 1); if (!sh.has(PT.ds(d))) return false; } return true; };       // every day in between is shielded
+    days.forEach(ds => { const t = PT.fromDs(ds); if (!t) return; run = prev && (Math.round((t.getTime() - prev) / DAY) === 1 || bridged(prev, t.getTime())) ? run + 1 : 1; prev = t.getTime(); if (run > best) best = run; [7, 30, 100, 365].forEach(m => { if (run >= m && !when["showup" + m]) when["showup" + m] = ds; }); });
     return { best, when };
   }
-  PT.dayStreak = dayStreak;
+  PT.dayStreak = dayStreak; PT.dayRunFrom = (a, start) => runFrom(a, start); PT.activeDaySet = activeDays;
   const checkedToday = a => arr(a, "checkins").includes(PT.ds());
 
   /* ============================================================== challenges */
@@ -146,11 +156,11 @@
   /* ============================================================== Home: check-in chip */
   function homeChip(a) {
     const box = $("pt-home-extra"), you = $("pt-you-card"); if (!box || !you) return;
-    let b = $("pt-checkin"); const need = !checkedToday(a) && !S(a).some(s => s.date === PT.ds());
+    let b = $("pt-checkin"); const need = !checkedToday(a) && !S(a).some(s => s.date === PT.ds()) && !shieldSet(a).has(PT.ds());
     if (!need) { if (b) b.remove(); return; }
     if (!b) { b = document.createElement("button"); b.type = "button"; b.id = "pt-checkin"; b.className = "tap-active"; }
     const n = dayStreak(a);
-    b.innerHTML = `✋ I'm in today <span>${n ? "🌱 " + n + " day" + (n === 1 ? "" : "s") : "start a streak"}</span>`;
+    b.innerHTML = `✋ I'm in today <span>${n ? "🌱 " + n + " day" + (n === 1 ? "" : "s") : "start a streak"}${PT.shieldTag ? PT.shieldTag(a) : ""}</span>`;
     if (you.nextElementSibling !== b) you.insertAdjacentElement("afterend", b);
   }
   const oHome = proto.renderHomeView;
@@ -189,10 +199,10 @@
     return `<p class="text-[11px] text-zinc-400">Pick one goal and go for it. Finish it for a trophy and +300 XP.</p>` + presets(a).map(p => `<button type="button" class="pt-chal tap-active" data-cstart="${p.id}"><span class="text-2xl">${p.icon}</span><span class="min-w-0 flex-1 text-left"><span class="block text-xs font-black text-white">${esc(p.title)}</span><span class="block text-[11px] text-zinc-400">${esc(p.desc)}</span></span><span class="text-[11px] font-bold text-emerald-400">Start</span></button>`).join("") + shelf;
   }
   function checkinHtml(a) {
-    const n = dayStreak(a), st = dayStats(a), done = checkedToday(a) || S(a).some(s => s.date === PT.ds());
-    const cells = Array.from({ length: 14 }, (_, i) => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (13 - i)); const on = activeDays(a).has(PT.ds(d)); return `<i class="pt-dot ${on ? "on" : ""}" title="${esc(PT.ds(d))}"></i>`; }).join("");
-    return `<div class="flex items-center justify-between gap-2"><div><span class="block text-sm font-black text-white">🌱 ${n} day${n === 1 ? "" : "s"} in a row</span><span class="block text-[11px] text-zinc-400">Best ${st.best} · training or checking in both count</span></div>${done ? '<span class="text-xs font-bold text-emerald-400">Done today</span>' : '<button type="button" class="pt-b go" id="pt-checkin-go">✋ I\'m in today</button>'}</div><div class="pt-dots">${cells}</div>
-      <p class="text-[11px] text-zinc-400 leading-snug">Rest days count too. Tap "I'm in today" so the streak keeps going. Each check-in is worth 10 XP.</p>`;
+    const n = dayStreak(a), st = dayStats(a), done = checkedToday(a) || S(a).some(s => s.date === PT.ds()), prot = !done && shieldSet(a).has(PT.ds());
+    const cells = Array.from({ length: 14 }, (_, i) => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (13 - i)); const k = PT.ds(d), on = activeDays(a).has(k), sh = !on && shieldSet(a).has(k); return `<i class="pt-dot ${on ? "on" : sh ? "sh" : ""}" title="${esc(k)}${sh ? " · protected by a streak shield" : ""}"></i>`; }).join("");
+    return `<div class="flex items-center justify-between gap-2"><div><span class="block text-sm font-black text-white">🌱 ${n} day${n === 1 ? "" : "s"} in a row</span><span class="block text-[11px] text-zinc-400">Best ${st.best} · training or checking in both count</span></div>${done ? '<span class="text-xs font-bold text-emerald-400">Done today</span>' : prot ? '<span class="text-xs font-bold text-amber-300">🛡 Protected</span>' : '<button type="button" class="pt-b go" id="pt-checkin-go">✋ I\'m in today</button>'}</div><div class="pt-dots">${cells}</div>
+      <p class="text-[11px] text-zinc-400 leading-snug">Rest days count too. Tap "I'm in today" so the streak keeps going. Each check-in is worth 10 XP.</p>${PT.shieldHtml ? PT.shieldHtml(a) : ""}`;
   }
   let shopCat = "all";
   const shopPrev = x => {
