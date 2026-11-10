@@ -108814,22 +108814,6 @@ const BUILTIN_PROGRAMS = [
     "estimatedMinutes": 65,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d1_incline-bench-press",
-      "name": "Incline Bench Press",
-      "sets": 4,
-      "reps": "6-8",
-      "restSeconds": 150,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d1_decline-bench-press",
-      "name": "Decline Bench Press",
-      "sets": 3,
-      "reps": "8-10",
-      "restSeconds": 90,
-      "type": "standard"
-     },
-     {
       "id": "my_6day_chest_back_legs_sharms_d1_lat-pulldown",
       "name": "Lat Pulldown",
       "sets": 4,
@@ -108843,6 +108827,22 @@ const BUILTIN_PROGRAMS = [
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 75,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d1_incline-bench-press",
+      "name": "Incline Bench Press",
+      "sets": 4,
+      "reps": "6-8",
+      "restSeconds": 150,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d1_decline-bench-press",
+      "name": "Decline Bench Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
       "type": "standard"
      },
      {

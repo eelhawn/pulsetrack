@@ -33,6 +33,8 @@ with page() as p:
     # same machine / bar / bench: next to each other
     adj = lambda day, a, b: abs(p.evaluate(NAMES(day)).index(a) - p.evaluate(NAMES(day)).index(b)) == 1
     c.ok(adj(1, 'Lat Pulldown', 'Neutral-Grip (V-Bar) Lat Pulldown'), 'Week A day 1: lat pulldown and V-bar pulldown are together')
+    c.eq(p.evaluate(f'() => {PROG}.days.filter(d => d.exercises.some(e => e.name === "Lat Pulldown")).map(d => [d.dayNumber, d.exercises[0].name])'), [[1, 'Lat Pulldown'], [4, 'Lat Pulldown'], [8, 'Lat Pulldown'], [11, 'Lat Pulldown']], 'every day that has a lat pulldown opens with it')
+    c.eq(p.evaluate(NAMES(1))[:4], ['Lat Pulldown', 'Neutral-Grip (V-Bar) Lat Pulldown', 'Incline Bench Press', 'Decline Bench Press'], 'Week A day 1 opens with both pulldowns, then the two barbell presses')
     c.ok(adj(1, 'Incline Bench Press', 'Decline Bench Press'), 'Week A day 1: the two barbell presses are together')
     c.ok(adj(4, 'Lat Pulldown', 'Straight-Arm Pulldown'), 'Week A day 4: lat pulldown and straight-arm pulldown are together')
     c.ok(adj(8, 'Lat Pulldown', 'Reverse-Grip Lat Pulldown'), 'Week B day 1: lat pulldown and reverse-grip pulldown are together')
@@ -149,6 +151,34 @@ with page() as p:
     c.eq(p.evaluate(NAMES(3)), p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days[2].exercises.map(e => e.name)'), 'at week 3 the swapped day is back to the program\'s')
     c.eq(p.errors, [], 'no page errors')
 
+# ---------------------------------------------------------------- 2.75.0: a copy that already has the old Day 1 order (lat pulldown third)
+V275 = ['Incline Bench Press', 'Decline Bench Press', 'Lat Pulldown', 'Neutral-Grip (V-Bar) Lat Pulldown', 'Dumbbell Bench Press', 'Dumbbell Row', 'Chest Dips', 'Barbell Row', 'Pec Deck']
+with page() as p:
+    p.evaluate(f'''() => {{
+      const d = {PROG}.days[0], by = new Map(d.exercises.map(e => [e.name, e]));
+      d.exercises = {V275}.map(n => by.get(n));
+      app.logs["{ID}_d1_{ID}_d1_lat-pulldown_s0"] = {{ weight: "100", reps: "9", completed: true }};
+      WorkoutStorage.setData(app.data); WorkoutStorage.saveLogs(app.logs);
+    }}''')
+    ids = p.evaluate(f'() => {PROG}.days[0].exercises.map(e => e.id)')
+    res = p.evaluate('() => PT.latFirst.upgrade()')
+    c.eq(res['done'], True, 'a copy with the 2.75.0 order is moved')
+    c.eq(p.evaluate(NAMES(1)), p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days[0].exercises.map(e => e.name)'), 'day 1 now opens with the lat pulldown')
+    c.eq(sorted(p.evaluate(f'() => {PROG}.days[0].exercises.map(e => e.id)')), sorted(ids), 'the exercises keep their ids')
+    c.eq(p.evaluate(f'() => app.logs["{ID}_d1_{ID}_d1_lat-pulldown_s0"].weight'), '100', 'a ticked set stays with its exercise')
+    c.eq(p.evaluate('() => PT.latFirst.upgrade().done'), False, 'and it only happens once')
+    c.eq(p.errors, [], 'no page errors')
+with page() as p:
+    p.evaluate(f'''() => {{
+      const d = {PROG}.days[0], by = new Map(d.exercises.map(e => [e.name, e]));
+      d.exercises = {V275}.map(n => by.get(n));
+      d.exercises[1].origName = d.exercises[1].name; d.exercises[1].name = "Hammer Strength Decline Press";
+      WorkoutStorage.setData(app.data);
+    }}''')
+    c.eq(p.evaluate('() => PT.latFirst.upgrade().done'), False, 'a day 1 with a swap is left alone')
+    c.eq(p.evaluate(NAMES(1))[0], 'Incline Bench Press', 'in its own order')
+    c.eq(p.errors, [], 'no page errors')
+
 # ---------------------------------------------------------------- 2.74.0: an even older copy: old spellings, no switch, weights stored under the old names
 with page() as p:
     p.evaluate(f'''() => {{
@@ -166,7 +196,7 @@ with page() as p:
     c.ok(res['renamed'] >= 4, 'the old spellings are found and renamed')
     c.eq(res['flag'], True, 'the switch is turned on for the copy that was already there')
     c.eq(p.evaluate(f'() => {PROG}.weekReset'), True, 'and kept')
-    c.eq(p.evaluate(NAMES(1))[0], 'Incline Bench Press', 'Incline Barbell Press is now Incline Bench Press')
+    c.ok(p.evaluate(NAMES(1)).count('Incline Bench Press') == 1 and 'Incline Barbell Press' not in p.evaluate(NAMES(1)), 'Incline Barbell Press is now Incline Bench Press')
     c.eq(p.evaluate('() => (app.lastPerf["Incline Bench Press"] || []).map(x => [String(x.weight), String(x.reps)])'), [['80', '8'], ['80', '7']], 'last time\'s weights followed the rename')
     c.eq(p.evaluate('() => app.lastPerf["Incline Barbell Press"]'), None, 'and the old name is gone')
     c.eq(p.evaluate('() => app.lastPerf["Squat"][0].weight'), '90', 'a weight already stored under the new name is not overwritten')

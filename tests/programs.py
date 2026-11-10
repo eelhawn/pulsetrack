@@ -22,7 +22,7 @@ with page() as p:
     c.eq(len(prog['days']), 14, '14 days: Week A (1-7) and Week B (8-14), each ending in a rest day')
     c.eq([len(d['exercises']) for d in prog['days']], [9, 10, 12, 10, 10, 12, 0, 8, 10, 12, 9, 10, 11, 0], 'exercises per day')
     c.eq([sum(e['sets'] for e in d['exercises']) for d in prog['days']], [29, 34, 40, 32, 34, 39, 0, 27, 34, 40, 31, 34, 37, 0], 'sets per day')
-    c.eq([[e['name'] for e in d['exercises']][i] for d, i in zip(prog['days'][:6], [0, 0, 0, 0, 0, 0])], ['Incline Bench Press', 'Seated Leg Curls', 'Dumbbell Shoulder Press', 'Lat Pulldown', 'Leg Extension', 'Smith Machine Overhead Press'], 'each day opens with the right lift')
+    c.eq([[e['name'] for e in d['exercises']][i] for d, i in zip(prog['days'][:6], [0, 0, 0, 0, 0, 0])], ['Lat Pulldown', 'Seated Leg Curls', 'Dumbbell Shoulder Press', 'Lat Pulldown', 'Leg Extension', 'Smith Machine Overhead Press'], 'each day opens with the right lift')
     c.eq([[e['name'] for e in d['exercises']][-1] for d in prog['days'][:6]], ['Pec Deck', 'Decline Sit-Ups', 'Cable Wrist Curls', 'Incline Dumbbell Flyes', 'Russian Twists', 'Behind-The-Back Barbell Wrist Curls'], 'each day ends with the right lift')
     c.eq(prog['days'][4]['exercises'][1]['reps'], '6-8', 'back squats are 6-8')
     c.eq(prog['days'][3]['exercises'][3]['reps'], '5-6', 'deadlift is 5-6')

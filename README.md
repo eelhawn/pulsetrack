@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.75.0*
+*Version 2.76.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -761,7 +761,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.75.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.76.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -805,7 +805,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 96 scripts (`js/`) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 97 scripts (`js/`) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0) and `make_fonts.py` (2.71.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -841,6 +841,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.76.0**
+- **Every day of My 6-Day Split that has a Lat Pulldown now opens with it.** Only Week A's Day 1 changed: it was the third exercise there and is now the first, with the V-Bar Lat Pulldown right after it and then Incline and Decline Bench Press, as before. Days 4, 8 and 11 already opened with the Lat Pulldown, and the other days have none. Sets, reps, rest and the exercises themselves are unchanged.
+- **A copy already on your phone is moved once.** If Day 1 still has exactly the 2.75.0 exercises in the 2.75.0 order, they are re-ordered (the exercises keep their ids, so a set you already ticked stays with its exercise). A Day 1 you have changed is left exactly as it is until its week comes round and puts it back. A copy that was never updated to 2.75.0 gets the new order from that update.
+- `tests/weeks.py` now has 95 checks: it also checks that every day with a Lat Pulldown opens with it, and the one-time re-order of a copy with the old order.
 
 **2.75.0**
 - **My 6-Day Split is now two alternating weeks.** **Week A** (weeks 1, 3 and 5) is the original six workouts plus the rest day (Days 1 to 7). **Week B** (weeks 2, 4 and 6) is the new set you sent (Days 8 to 14): Chest & Back (Machine & Isolation Flow), Legs, Abs & Calves (Hamstring Pre-Exhaust & Mass), Sharms (Cable & Machine Overload), Chest & Back (Free Weight Power Flow), Legs, Abs & Calves (Quad Pre-Exhaust & Squats), Sharms (Shoulders, Traps & Alternating Arms) and a rest day. 123 exercises in all; every set and rep range is as you wrote it. The Days screen shows "Weeks 1, 3 & 5 · Week A" and "Weeks 2, 4 & 6 · Week B", **Switch week** works as before, and the original exercises come back whenever a week starts (2.74.0).
