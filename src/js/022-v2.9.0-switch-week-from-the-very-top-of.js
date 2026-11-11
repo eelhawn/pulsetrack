@@ -45,8 +45,12 @@
   }
   const dayObj = (prog, n) => (prog.days || []).find(d => d.dayNumber === n);
   const weekDays = (prog, P, w) => P.byWeek[w].days.map(n => dayObj(prog, n)).filter(Boolean);
+  // st.byWeek = { week: [dayNumbers finished in it] } for the weeks you stepped out of with "Switch week" (2.87.0): going back finds your
+  // finished days again. A week you finish, or a new round, starts clean.
   const advance = (st, P) => {
-    if (st.week < P.W) st.week += 1; else { st.week = 1; st.round = (st.round || 1) + 1; }
+    const was = st.week;
+    if (st.week < P.W) st.week += 1; else { st.week = 1; st.round = (st.round || 1) + 1; st.byWeek = {}; }
+    if (st.byWeek) { delete st.byWeek[was]; delete st.byWeek[st.week]; }
     st.done = [];
   };
   function weeksLabel(weeks) {
@@ -204,9 +208,31 @@
     const P = planOf(prog);
     if (!P) return oJump.apply(this, arguments);
     week = Math.max(1, Math.min(P.W, parseInt(week, 10) || 1));
-    const st = this.getProgState(prog); st.week = week; st.done = []; if (week === 1) st.round = st.round || 1;
+    const st = this.getProgState(prog);
+    let keep = st.done.slice();                                  // the workouts already finished in the week we land in
+    if (week !== st.week) {
+      // stepping out of a week: remember what was finished in it (even nothing, which also says "I was here"), bring back the new week's
+      st.byWeek = st.byWeek || {};
+      st.byWeek[st.week] = st.done.slice();
+      const back = st.byWeek[week];
+      keep = back ? back.slice() : [];
+      delete st.byWeek[week];
+      st.week = week;
+      // a week you were already in this round is not a new week: its swaps and logged sets stay (see 095)
+      if (back && prog.weekReset && st.rw !== undefined) st.rw = week + ":" + (st.round || 1);
+    }
+    if (week === 1) st.round = st.round || 1;
+    st.done = keep;
     this.__listJump = true;
-    try { return oJump.apply(this, arguments); } finally { this.__listJump = false; }
+    let r;
+    try { r = oJump.apply(this, arguments); } finally { this.__listJump = false; }
+    // the original jump starts the week from nothing: put the finished days back and pick "up next" again
+    const s2 = this.getProgState(prog);
+    if (s2.week === week) { s2.done = keep; this.saveProgState(); }
+    const nd = this.nextDayOf(prog);
+    if (nd) { this.activeDay = nd; try { AppStateMemory.saveActive(prog.id, nd.dayNumber); } catch (e) { } }
+    try { this.updateDrawerStatus(); } catch (e) { }
+    return r;
   };
 
   // "Reset All Days" starts a list-type program over from week 1
@@ -219,7 +245,7 @@
     this.saveProgState = function () { confirmed = true; return oSave.apply(this, arguments); };
     try { await oReset.apply(this, arguments); } finally { delete this.saveProgState; }
     if (!confirmed) return;
-    const st = this.getProgState(prog); st.week = 1; st.round = 1; st.done = [];
+    const st = this.getProgState(prog); st.week = 1; st.round = 1; st.done = []; st.byWeek = {};
     this.saveProgState();
     this.activeDay = this.nextDayOf(prog) || this.activeDay;
     this.renderDaysView();
@@ -293,7 +319,15 @@
     let cur;
     if (P) cur = st.week; else cur = app.dayWeek(prog, app.nextDayOf(prog)) || 1;
     for (let w = 1; w <= W; w++) {
-      if (P) { out.push({ w, state: w < cur ? "done" : w === cur ? "now" : "todo", note: w < cur ? "✓" : w === cur ? "now" : "" }); continue; }
+      if (P) {
+        // a week you stepped out of keeps its count (2/6); weeks before the one you are on count as done unless you left them half-way
+        const mem = st.byWeek && st.byWeek[w], work = weekDays(prog, P, w).filter(d => !app.isRestDay(d));
+        const n = mem ? work.filter(d => mem.includes(d.dayNumber)).length : 0, part = !!mem && n < work.length;
+        if (w === cur) out.push({ w, state: "now", note: "now" });
+        else if (part) out.push({ w, state: "todo", note: n ? `${n}/${work.length}` : "" });
+        else out.push({ w, state: w < cur ? "done" : "todo", note: w < cur ? "✓" : "" });
+        continue;
+      }
       const days = (prog.days || []).filter(d => app.dayWeek(prog, d) === w && !app.isRestDay(d));
       const n = days.filter(d => st.done.includes(d.dayNumber)).length;
       const all = days.length && n === days.length;
@@ -303,9 +337,9 @@
   }
 
   function openWeekSheet(app, prog) {
-    const K = PT.kit, el = K.sheet("pt-wks", 66), S = weekStatus(app, prog);
+    const K = PT.kit, el = K.sheet("pt-wks", 66), S = weekStatus(app, prog), P0 = planOf(prog);
     const notCurrent = typeof PT.currentProgramId === "function" && PT.currentProgramId() !== prog.id;
-    const card = K.openSheet(el, `${K.head("Switch week", "Tap the week you're on. Weeks before it count as done.")}
+    const card = K.openSheet(el, `${K.head("Switch week", P0 ? "Tap a week to go there. Each week keeps the workouts you finished in it." : "Tap the week you're on. Weeks before it count as done.")}
       <div class="pt-wkg">${S.list.map(x => `<button type="button" data-w="${x.w}" class="pt-wkb tap-active ${x.state}"><b>${x.w}</b><small>${esc(x.note) || "&nbsp;"}</small></button>`).join("")}</div>
       <p class="pt-wk-note">Your saved workouts and PRs are never changed.${notCurrent ? " Switching week also makes this your current program." : ""}</p>`);
     card.addEventListener("click", e => {

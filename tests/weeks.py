@@ -1,4 +1,5 @@
-"""My 6-day split: two alternating weeks, database names, same-machine order, and every new week starts with the program's own exercises (2.74.0 / 2.75.0)."""
+"""My 6-day split: two alternating weeks, database names, same-machine order, every new week starts with the program's own exercises (2.74.0 / 2.75.0),
+and Switch week keeps what you finished in each week (2.87.0)."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import Checks, page
@@ -220,4 +221,69 @@ with page() as p:
     c.eq(p.evaluate('() => app.sessions.find(s => s.id === "t1").ex[0].name'), 'Incline Bench Press', 'saved workouts follow too')
     c.eq(p.evaluate('() => PT.split.upgrade().renamed'), 0, 'and it only happens once')
     c.eq(p.errors, [], 'no page errors')
+
+# ---------------------------------------------------------------- 2.87.0: Switch week keeps what you finished in each week
+def tap_week(p, w):                      # open the Switch week sheet and tap a week, like a finger
+    p.evaluate('() => PT.weeks.openWeekSheet()'); p.wait_for_timeout(250)
+    p.evaluate('(w) => document.querySelector(`#pt-wks [data-w="${w}"]`).click()', w); p.wait_for_timeout(450)
+GRID = '() => Object.fromEntries([...document.querySelectorAll("#pt-wks [data-w]")].map(b => [b.dataset.w, [(b.className.match(/\\b(done|now|todo)\\b/) || [])[1], b.querySelector("small").textContent.trim()]]))'
+with page() as p:
+    SNAP = f'() => {{ const d3 = {PROG}.days.find(d => d.dayNumber === 3), s = app.getProgState({PROG}); return {{ week: s.week, round: s.round || 1, done: s.done.slice(), d3logs: Object.keys(app.logs).filter(k => k.startsWith("{ID}_d3_")).length, d3first: d3.exercises[0].name, up: app.nextDayOf({PROG}).dayNumber, active: app.activeDay && app.activeDay.dayNumber }}; }}'
+    p.evaluate(f'() => {{ app.selectProgram({PROG}, null, true); app.activeProgram = {PROG}; app.showView("days"); }}')
+    # Day 1 and Day 2 are finished, Day 3 has three logged sets and a swapped exercise
+    p.evaluate(f'() => {{ app.markDayDone({PROG}, 1); app.markDayDone({PROG}, 2); const d3 = {PROG}.days.find(d => d.dayNumber === 3), a = d3.exercises[0], b = d3.exercises[1]; a.name = "My Own Swap"; app.logs["{ID}_d3_" + a.id + "_s1"] = {{ weight: "100", reps: "10", done: true }}; app.logs["{ID}_d3_" + a.id + "_s2"] = {{ weight: "100", reps: "9", done: true }}; app.logs["{ID}_d3_" + b.id + "_s1"] = {{ weight: "50", reps: "12", done: true }}; WorkoutStorage.saveLogs(app.logs); WorkoutStorage.setData(app.data); }}')
+    mine = {'week': 1, 'round': 1, 'done': [1, 2], 'd3logs': 3, 'd3first': 'My Own Swap', 'up': 3}
+    got = lambda: {k: v for k, v in p.evaluate(SNAP).items() if k in mine}
+    c.eq(got(), mine, 'start: week 1, Day 1 and Day 2 finished, Day 3 has 3 logged sets and a swap, up next is Day 3')
+    tap_week(p, 1)
+    c.eq(got(), mine, 'tapping the week you are on changes nothing')
+    tap_week(p, 2)
+    c.eq(p.evaluate(SNAP)['week'], 2, 'tapping week 2 goes to week 2')
+    c.eq(p.evaluate(SNAP)['done'], [], 'week 2 starts with nothing finished')
+    c.eq(p.evaluate(SNAP)['active'], 8, 'and its first workout is up next')
+    p.evaluate('() => PT.weeks.openWeekSheet()'); p.wait_for_timeout(250)
+    g = p.evaluate(GRID)
+    c.eq(g['1'], ['todo', '2/6'], 'the grid shows week 1 as 2/6 (not as "done") while you are on week 2')
+    c.eq(g['2'], ['now', 'now'], 'and week 2 as the week you are on')
+    p.evaluate('() => document.querySelector("#pt-wks [data-w=\\"1\\"]").click()'); p.wait_for_timeout(450)
+    c.eq(got(), mine, 'back on week 1: Day 1 and Day 2 are still finished, the 3 sets and the swap are still there, and Day 3 is up next')
+    c.eq(p.evaluate(SNAP)['active'], 3, 'and Day 3 is the workout it opens')
+    tap_week(p, 1); tap_week(p, 2); tap_week(p, 1); tap_week(p, 1)
+    c.eq(got(), mine, 'going back and forth never skips ahead or resets anything')
+    # a program you are only looking at: tapping its own week must not wipe it, and it becomes your current program
+    other = p.evaluate(f'() => app.data.programs.find(x => x.id !== "{ID}" && x.id !== "freestyle").id')
+    p.evaluate(f'() => {{ const o = app.data.programs.find(x => x.id === "{other}"); app.selectProgram(o, null, true); app.activeProgram = {PROG}; app.showView("days"); }}')
+    c.eq(p.evaluate('() => PT.currentProgramId()'), other, 'another program is the current one, this one is only being looked at')
+    tap_week(p, 1)
+    c.eq(got(), mine, 'tapping the week you are on in a program you are only looking at keeps Day 1 and Day 2')
+    c.eq(p.evaluate('() => PT.currentProgramId()'), ID, 'and makes it your current program')
+    # a week you were already in keeps its edits; a week you never were in starts with the original exercises
+    p.evaluate(f'() => {{ app.jumpToWeek({PROG}, 4); app.getProgState({PROG}); }}')
+    p.evaluate(f'() => {{ const e = {PROG}.days.find(d => d.dayNumber === 11).exercises[0]; e.origName = e.name; e.name = "Week 4 Swap"; WorkoutStorage.setData(app.data); }}')
+    tap_week(p, 1); tap_week(p, 4)
+    c.eq(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 11).exercises[0].name'), 'Week 4 Swap', 'a swap made in week 4 is still there when you come back to week 4')
+    c.eq(p.evaluate(SNAP)['week'], 4, 'and you are on week 4')
+    p.evaluate(f'() => {{ const e = {PROG}.days.find(d => d.dayNumber === 12).exercises[0]; e.origName = e.name; e.name = "Never Visited Swap"; WorkoutStorage.setData(app.data); }}')
+    tap_week(p, 6)
+    c.ok(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 12).exercises[0].name') != 'Never Visited Swap', 'a week you were never in this round (week 6) still starts with the original exercises')
+    # finishing a week clears its memory: it does not come back half done, and it does not skip on by itself
+    tap_week(p, 1); tap_week(p, 2)
+    p.evaluate(f'() => {{ [8, 9, 10, 11, 12, 13].forEach(n => app.markDayDone({PROG}, n)); }}')
+    c.eq(p.evaluate(SNAP)['week'], 3, 'finishing all of week 2 moves on to week 3')
+    tap_week(p, 2)
+    c.eq([p.evaluate(SNAP)['week'], p.evaluate(SNAP)['done']], [2, []], 'going back to a week you finished starts it fresh and stays there (no skipping on)')
+    # it is saved: after closing and reopening the app, each week still has its finished days
+    tap_week(p, 1)
+    # (weeks 1, 3 and 5 are the same seven days: going into week 3 for the first time put those days back to the original exercises, as it should)
+    c.eq([p.evaluate(SNAP)['week'], p.evaluate(SNAP)['done']], [1, [1, 2]], 'week 1 again: Day 1 and Day 2 still finished')
+    tap_week(p, 3)
+    p.reload(); p.wait_for_timeout(1500)
+    c.eq(p.evaluate(f'() => {{ const s = app.getProgState({PROG}); return [s.week, s.byWeek && s.byWeek["1"]]; }}'), [3, [1, 2]], 'after closing and reopening the app, week 1 still remembers Day 1 and Day 2')
+    tap_week(p, 1)
+    c.eq(p.evaluate(f'() => app.getProgState({PROG}).done'), [1, 2], 'and going back to it brings them back')
+    # a new round starts clean
+    p.evaluate(f'() => {{ app.jumpToWeek({PROG}, 6); app.getProgState({PROG}); [8, 9, 10, 11, 12, 13].forEach(n => app.markDayDone({PROG}, n)); }}')
+    c.eq(p.evaluate(f'() => {{ const s = app.getProgState({PROG}); return [s.week, s.round, s.done, s.byWeek]; }}'), [1, 2, [], {}], 'finishing week 6 starts round 2 with nothing remembered')
+    c.eq(p.errors, [], 'no page errors')
+
 c.done()

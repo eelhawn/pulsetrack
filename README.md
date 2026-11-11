@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.86.1*
+*Version 2.87.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -765,7 +765,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.86.1 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.87.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -845,6 +845,12 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.87.0**
+- **Switch week no longer wipes your progress.** Before, the app only remembered the week you were on: switching to another week and back (or tapping the week you were already on in a program marked "Just looking") cleared the workouts you had finished, and coming back to a week put its exercises and logged sets back to the original. **Now every week remembers what you finished in it.** Finish Day 1 and Day 2 of week 1, tap **Switch week → 2**, tap **1** again: Day 1 and Day 2 are still done, **Day 3 is up next**, and the sets you logged and the exercises you swapped on Day 3 are still there. Tapping the week you are on changes nothing.
+- **The week grid is honest.** A week you stepped out of shows how far you got (**2/6**) instead of a tick, the week you are on says **now**, and the sheet says "Each week keeps the workouts you finished in it."
+- **What still starts fresh:** a week you have not been in this round (it begins with the program's original exercises, as since 2.74.0), a week you finish (it does not come back half done, and going back to it does not skip ahead), and a new round after week 6. Weeks 1, 3 and 5 are the same seven days (and 2, 4, 6 the same other seven), so the first time you go into week 3 those days are put back to the original exercises.
+- `tests/weeks.py` now has 124 checks: finished days, logged sets and swaps kept across a switch, tapping your own week (also in "Just looking", which then becomes your current program), the 2/6 in the grid, a week's swaps kept on return, a never-visited week still reset, finishing a week and a new round starting clean, no skipping ahead, and the memory surviving closing and reopening the app.
 
 **2.86.1**
 - **The install icons are small again.** With 2.86.0 Chrome only made a home-screen **shortcut**, not the installed app. The one thing that had changed since the install that worked (2.85.2) was the icon size: 2.86.0's icons were 15 KB and 56 KB, 2.85.2's were about 1 KB. The new logo's PNG icons are now **2 KB and 7 KB** (flat dark background, no glow, 24 colours) and `manifest.json` went from 94 KB to 12 KB. It is the same logo: the green ring with the white heartbeat line through it.
