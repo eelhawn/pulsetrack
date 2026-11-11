@@ -1,6 +1,7 @@
 """The app icon and installing (2.86.0): one logo (src/logo/) feeds the PNG icons in manifest.json (Chrome on Android builds the installed app from
 PNG), the tab icon, the home-screen icon and the mark in the side menu. The picture fills its whole square, keeps inside the round-icon safe zone,
-is centred, and Chrome (Chromium here) finds nothing in the way of installing the app."""
+is centred, the icons stay SMALL (Chrome only made a shortcut from 75 KB icons and built the real app from 1 KB ones), and Chrome (Chromium here)
+finds nothing in the way of installing the app."""
 import base64, functools, http.server, json, os, socketserver, struct, subprocess, sys, threading
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import Checks, page
@@ -24,7 +25,12 @@ for i in man['icons']:
     w, h = struct.unpack('>II', raw[16:24])
     c.ok(raw[:8] == b'\x89PNG\r\n\x1a\n' and '%dx%d' % (w, h) == i['sizes'], 'the %s icon is a real PNG of exactly that size (%d bytes)' % (i['sizes'], len(raw)))
 c.ok(not any(os.path.exists(os.path.join(ROOT, n)) for n in ('icon-512.png', 'icon-192.png')), 'no separate icon files were added')
-c.ok(b'viewBox="0 0 512 512"' in svg and len(svg) < 3000 and not any(t in svg.lower() for t in (b'<script', b'<image', b'<text')), 'the master drawing is a small 512 x 512 SVG with no script, picture or text')
+for name in ('logo.svg', 'icon.svg'):
+    s = open(os.path.join(ROOT, 'src', 'logo', name), 'rb').read()
+    c.ok(b'viewBox="0 0 512 512"' in s and len(s) < 3000 and not any(t in s.lower() for t in (b'<script', b'<image', b'<text')), '%s is a small 512 x 512 SVG with no script, picture or text' % name)
+sizes = [len(base64.b64decode(b64[s])) for s in (192, 512)]
+c.ok(sizes[0] < 4000 and sizes[1] < 12000, 'the install icons are small (%d and %d bytes of PNG)' % tuple(sizes))
+c.ok(len(json.dumps(man)) < 20000, 'manifest.json is small (%d bytes)' % len(json.dumps(man)))
 c.ok('<link rel="icon" type="image/svg+xml" href="%s">' % svg_uri in html, 'the browser tab icon is the logo')
 c.ok('<link rel="apple-touch-icon" href="data:image/png;base64,%s">' % b64[192] in html, 'the home-screen icon is the logo')
 mv = html.split('manifest.json?v=')[1].split('"')[0]
