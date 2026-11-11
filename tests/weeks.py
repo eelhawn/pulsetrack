@@ -1,5 +1,5 @@
 """My 6-day split: two alternating weeks, database names, same-machine order, every new week starts with the program's own exercises (2.74.0 / 2.75.0),
-and Switch week keeps what you finished in each week (2.87.0)."""
+Switch week keeps what you finished in each week (2.87.0), and the days list shows only the week you are on (2.88.0)."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import Checks, page
@@ -284,6 +284,31 @@ with page() as p:
     # a new round starts clean
     p.evaluate(f'() => {{ app.jumpToWeek({PROG}, 6); app.getProgState({PROG}); [8, 9, 10, 11, 12, 13].forEach(n => app.markDayDone({PROG}, n)); }}')
     c.eq(p.evaluate(f'() => {{ const s = app.getProgState({PROG}); return [s.week, s.round, s.done, s.byWeek]; }}'), [1, 2, [], {}], 'finishing week 6 starts round 2 with nothing remembered')
+    c.eq(p.errors, [], 'no page errors')
+
+# ---------------------------------------------------------------- 2.88.0: the days list shows only the week you are on (Week A = weeks 1, 3, 5; Week B = weeks 2, 4, 6)
+with page() as p:
+    VIS = '() => { const l = app.dom.daysList, shown = e => getComputedStyle(e).display !== "none"; return { days: [...l.children].filter(c => c.dataset.day && shown(c)).map(c => +c.dataset.day), headers: [...l.children].filter(c => c.dataset.weekHeader && shown(c)).map(c => c.textContent.replace(/\\s+/g, " ").trim()) }; }'
+    p.evaluate(f'() => {{ app.selectProgram({PROG}, null, true); app.activeProgram = {PROG}; app.showView("days"); app.renderDaysView(); }}'); p.wait_for_timeout(400)
+    v = p.evaluate(VIS)
+    c.eq(v['days'], [1, 2, 3, 4, 5, 6, 7], 'week 1: only Week A\'s days (1-7) are listed, Week B is hidden')
+    c.eq(len(v['headers']), 1, 'and there is only one week heading')
+    c.ok(v['headers'][0].startswith('Weeks 1, 3 & 5') and 'now: week 1' in v['headers'][0], 'it is the Weeks 1, 3 & 5 heading, marked as now')
+    for w, days, head in [(2, list(range(8, 15)), 'Weeks 2, 4 & 6'), (3, list(range(1, 8)), 'Weeks 1, 3 & 5'), (4, list(range(8, 15)), 'Weeks 2, 4 & 6'), (5, list(range(1, 8)), 'Weeks 1, 3 & 5'), (6, list(range(8, 15)), 'Weeks 2, 4 & 6')]:
+        tap_week(p, w)
+        v = p.evaluate(VIS)
+        c.eq(v['days'], days, 'week %d: only %s are listed' % (w, 'Week B\'s days (8-14)' if w % 2 == 0 else 'Week A\'s days (1-7)'))
+        c.ok(len(v['headers']) == 1 and v['headers'][0].startswith(head) and 'now: week %d' % w in v['headers'][0], 'week %d: one heading, %s' % (w, head))
+    c.eq(p.evaluate('() => document.documentElement.scrollWidth <= innerWidth'), True, 'no sideways scroll')
+    # the "up next" workout is always one of the listed days, and finishing a week flips the list to the other set of days
+    c.ok(p.evaluate(f'() => app.nextDayOf({PROG}).dayNumber') in p.evaluate(VIS)['days'], 'the up-next workout is one of the listed days')
+    p.evaluate(f'() => {{ [8, 9, 10, 11, 12, 13].forEach(n => app.markDayDone({PROG}, n)); app.renderDaysView(); }}'); p.wait_for_timeout(300)
+    c.eq(p.evaluate(VIS)['days'], list(range(1, 8)), 'finishing week 6 starts the next round on week 1 and lists Week A again')
+    # other programs with weeks keep listing every group
+    other = p.evaluate('() => (app.data.programs.find(x => Array.isArray(x.weekPlan) && !x.weekReset) || {}).id')
+    p.evaluate('(id) => { const o = app.data.programs.find(x => x.id === id); app.activeProgram = o; app.activeDay = o.days[0]; app.showView("days"); app.renderDaysView(); }', other); p.wait_for_timeout(400)
+    c.eq(p.evaluate('() => [...app.dom.daysList.querySelectorAll("[data-pt-away]")].length'), 0, 'a program that is not the alternating split hides nothing')
+    c.eq(p.evaluate('() => [...app.dom.daysList.querySelectorAll("[data-week-header]")].length'), 2, 'and still shows both of its week headings')
     c.eq(p.errors, [], 'no page errors')
 
 c.done()

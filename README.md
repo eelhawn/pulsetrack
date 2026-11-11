@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.87.0*
+*Version 2.88.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -765,7 +765,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.87.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.88.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -845,6 +845,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.88.0**
+- **My 6-Day Split now shows only the week you are on.** On a Week A week (**1, 3 or 5**) the Days list shows only Days 1-7 under **Weeks 1, 3 & 5 · Week A**, and the Week B days are hidden. On a Week B week (**2, 4 or 6**) it shows only Days 8-14 under **Weeks 2, 4 & 6 · Week B**, and Week A is hidden. Finishing a week (or **Switch week**) flips the list to the other set by itself. The week bar at the top still says **Week 6 of 6 · Week B · 0/6 done**, and **Switch week** still lets you go to any week.
+- Other programs with weeks (like the 6-week programs that show **Weeks 1-3** and **Weeks 4-6**) are not changed: they still list every group.
+- `tests/weeks.py` now has 143 checks: week 1 to 6 each list only their own seven days and one heading marked "now", the up-next workout is always in the list, finishing week 6 flips back to Week A, other programs hide nothing, and no sideways scroll.
 
 **2.87.0**
 - **Switch week no longer wipes your progress.** Before, the app only remembered the week you were on: switching to another week and back (or tapping the week you were already on in a program marked "Just looking") cleared the workouts you had finished, and coming back to a week put its exercises and logged sets back to the original. **Now every week remembers what you finished in it.** Finish Day 1 and Day 2 of week 1, tap **Switch week → 2**, tap **1** again: Day 1 and Day 2 are still done, **Day 3 is up next**, and the sets you logged and the exercises you swapped on Day 3 are still there. Tapping the week you are on changes nothing.

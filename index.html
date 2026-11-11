@@ -435,7 +435,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.87.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.88.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3820,7 +3820,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.87.0";
+    const APP_VERSION = "2.88.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -13040,6 +13040,7 @@ const PTSIM = (function () {
     .pt-wkb.now { border-color: rgb(var(--a500) / .65); background: rgb(var(--a500) / .14); color: #fff; }
     .pt-wkb.now small { color: rgb(var(--a300)); }
     .pt-wk-note { font-size: .7rem; color: rgb(var(--z500)); margin-top: .75rem; line-height: 1.35; }
+    [data-pt-away="1"] { display: none !important; }
   `;
   document.head.appendChild(css);
 
@@ -13138,14 +13139,18 @@ const PTSIM = (function () {
     const prog = this.activeProgram, P = planOf(prog), list = this.dom.daysList;
     if (!P || !list) return oDec.apply(this, arguments);
     const st = this.getProgState(prog), next = this.nextDayOf(prog), curG = P.byWeek[st.week].gi;
+    // 2.88.0: a program whose weeks alternate between two sets of days (weekReset: My 6-Day Split) shows only the days of the week you are on
+    const only = !!prog.weekReset;
     let last = -2;
     [...list.children].forEach(card => {
       const dn = parseInt(card.dataset.day, 10), day = dayObj(prog, dn);
       if (!day) return;
       const g = P.groups.findIndex(G => G.days.includes(dn));
+      const away = only && g >= 0 && g !== curG;               // a day of the other set of weeks
+      if (away) card.dataset.ptAway = "1"; else delete card.dataset.ptAway;
       if (g !== last) {
         last = g;
-        if (g >= 0) {
+        if (g >= 0 && !away) {
           const G = P.groups[g], isCur = g === curG;
           const work = weekDays(prog, P, st.week).filter(d => !this.isRestDay(d));
           const done = work.filter(d => st.done.includes(d.dayNumber)).length;

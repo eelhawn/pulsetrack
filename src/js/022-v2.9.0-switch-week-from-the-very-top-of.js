@@ -294,6 +294,7 @@
     .pt-wkb.now { border-color: rgb(var(--a500) / .65); background: rgb(var(--a500) / .14); color: #fff; }
     .pt-wkb.now small { color: rgb(var(--a300)); }
     .pt-wk-note { font-size: .7rem; color: rgb(var(--z500)); margin-top: .75rem; line-height: 1.35; }
+    [data-pt-away="1"] { display: none !important; }
   `;
   document.head.appendChild(css);
 
@@ -392,14 +393,18 @@
     const prog = this.activeProgram, P = planOf(prog), list = this.dom.daysList;
     if (!P || !list) return oDec.apply(this, arguments);
     const st = this.getProgState(prog), next = this.nextDayOf(prog), curG = P.byWeek[st.week].gi;
+    // 2.88.0: a program whose weeks alternate between two sets of days (weekReset: My 6-Day Split) shows only the days of the week you are on
+    const only = !!prog.weekReset;
     let last = -2;
     [...list.children].forEach(card => {
       const dn = parseInt(card.dataset.day, 10), day = dayObj(prog, dn);
       if (!day) return;
       const g = P.groups.findIndex(G => G.days.includes(dn));
+      const away = only && g >= 0 && g !== curG;               // a day of the other set of weeks
+      if (away) card.dataset.ptAway = "1"; else delete card.dataset.ptAway;
       if (g !== last) {
         last = g;
-        if (g >= 0) {
+        if (g >= 0 && !away) {
           const G = P.groups[g], isCur = g === curG;
           const work = weekDays(prog, P, st.week).filter(d => !this.isRestDay(d));
           const done = work.filter(d => st.done.includes(d.dayNumber)).length;
