@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone (the optional live family board, off until you start or join one, sends only a small scrambled update).
 
-*Version 2.90.0*
+*Version 2.91.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -324,6 +324,8 @@ Each of these can be switched off in **Settings → Workout Screen**.
 - **Suggested weight.** Under an exercise that has a rep range (like 8-12) and a last time, a small card shows what you did and what to try today, with a **Fill in** button (and an Undo). The rule is the usual one: hit the top of the range on every working set and it suggests a heavier weight; miss the bottom of the range on a set and it keeps the weight; otherwise it asks for one more rep. "Heavier" means the next weight you can really load. A barbell uses the plates from your gym profile, and dumbbells use that gym's dumbbell range, so at the heaviest dumbbell it says to add reps instead. It stays quiet when there is nothing to compare (first time, AMRAP, pyramids, timed sets). **Pre-fill (2.79.0):** the first time you open a day each week, every set is filled in with that suggestion, and a **Fill in suggested weights** button at the top of the workout does the whole day in one tap (with Undo). Settings → Workout screen → **Pre-fill the whole workout** turns the automatic part off.
 - **Machine taken? (2.81.0).** Someone is on the lat pulldown? Tap the small **🔁 Taken?** next to the rest time at the top of the exercise (it shows on machines, cables, barbells and the Smith machine). It swaps in the closest match from Similar exercises, one that is not already in the day and, when there is one, on different equipment, in the same spot with the same sets and reps. The card is refilled from the new exercise's own history, and the toast has **Undo**. **🔁** next to it tries the next closest, and **↩ (the original)** goes back. It is a loan for one day: the next day you open the app the original is back by itself, unless you already ticked a set on the swap. The normal swap button stays permanent. Settings → Workout screen → **Machine taken? button** turns it off.
 - **Fill in the next set.** Check off a set and the next empty set gets the same weight and reps. Warm-up sets are skipped.
+- **One-tap log (new in 2.91.0).** Tap ✓ on a set whose boxes are still empty and it is logged with the grey numbers in the boxes, which are what you did on that set last time (a set past last time's count uses last time's last set). A box you already typed in keeps your number. Warm-up sets only copy a warm-up from last time, and cardio rows are left alone. With no last time, ✓ works as before. **One-tap log** turns it off.
+- **Quick +/− buttons (new in 2.91.0).** While you type in a weight or reps box, a slim row under that set has **−5 / +5** (your weight step from Settings) and **−1 / +1** reps. They start from the number in the box, or the grey one, and the keyboard stays open. **Quick +/− buttons** turns them off.
 - **Timer starts on your first set.** The workout timer shows **Ready** until you check off a set, so opening a day and getting a coffee doesn't count. Tap the pill to start it early.
 - **Look over before saving.** **Finish Workout** shows a short summary first: time, sets, volume compared with the last time you did that day, any new records, and a note if some sets aren't checked off. **Keep going** or **Save workout**. This screen is also the "are you sure?" step: Finish Workout never saves straight away, and **Save workout** ignores taps for the first moment so an accidental double-tap can't save it. Turn the look-over off and Finish Workout asks a plain **Finish workout?** question instead.
 - **Favorites and Recent.** In the exercise picker, tap the ☆ next to any exercise to pin it. **★ Favorites** and **Recent** sit at the top of the picker, and the ☆ is also on the exercise's page.
@@ -511,7 +513,8 @@ Rows that open and close have an icon and a one-line description, so you can see
 
 ### History
 
-- **Monthly recap:** a card summarising your month (workouts, volume, top muscles, PRs) that you can share as an image. A banner shows on Home in the first 10 days of each month.
+- **Monthly recap:** a card summarising your month (workouts, volume, top muscles, PRs) that you can share as an image.
+- **Monthly Wrapped (new in 2.91.0):** your month as a full-screen story, one thing per slide: workouts and days (compared with the month before), weeks on your weekly goal, what you moved (as things you haul), new records and your biggest jump, your go-to lift and most worked muscle, your training style (early bird to night owl, from when your workouts start, and your favourite day), boss fights and battle damage, loot chests, and your group's days together with who won weeks. Slides with nothing to show are left out. Tap the right side to go on, the left side to go back, hold to pause. The last slide sums it up with **Share picture** (a story-size image) and **Done**. In the first 10 days of a month the Home banner says **Your October Wrapped is ready** with **Play**; **▶ Play Wrapped** on the monthly recap card plays any month.
 - **Weekly and monthly report cards, year in review and PR timeline.**
 - **Training year calendar (bigger in 2.35.0):** opens as a **month calendar** with large day squares: green for trained days (darker means more volume, ×2 when you trained twice), a ring on today, and arrows to go back and forward. Above it, tiles show your **active days**, **longest run** and **best month**. Switch to **Year** for the full 53 weeks with month and weekday labels; the squares are 20 px, so they are easy to tap, and the strip scrolls sideways and starts on the latest weeks. Tap any day to see what you did, and tap the note (or the day if you did one workout) to open that workout. If you trained twice that day a short list lets you pick one.
 
@@ -777,7 +780,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.90.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.91.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -821,7 +824,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen. Its icons are the logo (written by `tools/build.py`) |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 107 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 109 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0), `make_fonts.py` (2.71.0) and `make_logo.py` (2.86.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -836,7 +839,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `battle.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `battle.py`, `fast.py`, `wrapped.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -857,6 +860,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.91.0**
+- **Monthly Wrapped.** Your month as a full-screen story with one big number per slide: workouts, goal weeks, what you moved, records, your go-to lift, your training style, boss fights, chests and your group, then a summary with a story-size share picture. The Home banner early in the month now plays it (it used to scroll to the recap card), and the monthly recap card in Progress → History has **▶ Play Wrapped** for any month.
+- **Faster set entry.** **One-tap log:** ✓ on an empty set logs last time's numbers (the grey ones) instead of saving an empty set. **Quick +/− buttons:** while you type a weight or reps, −/+ your weight step and −/+ 1 rep sit right under the set, and the keyboard stays open. Both are on by default and can be turned off in Settings → Workout screen.
+- New tests: `tests/fast.py` (46 checks at 390 and 360 px: one-tap log from last time, typed boxes kept, sets past last time's count, no history, warm-ups and bodyweight, the switch, the quick buttons and the focus, Settings) and `tests/wrapped.py` (58 checks: the month's numbers, which slides show, tap, back, hold, keys and auto-play, every slide fitting at 390 and 360 px, the share picture, closing, the recap card button and the Home banner).
 
 **2.90.0**
 - **Family is now Group** everywhere in the app (Group board, Live group board, Group challenge, Group recap, Rally the group). Nothing you saved changes.
