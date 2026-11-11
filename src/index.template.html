@@ -23,8 +23,9 @@
   <style>{{file:css/03-base-theme.css}}</style>
 
   <!-- Direct Embedded Manifest & Icon -->
-  <link rel="manifest" href="manifest.json?v=9">
-  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIiB3aWR0aD0iNTEyIiBoZWlnaHQ9IjUxMiI+PHJlY3Qgd2lkdGg9IjUxMiIgaGVpZ2h0PSI1MTIiIGZpbGw9IiMxMGI5ODEiLz48dGV4dCB4PSIyNTYiIHk9IjMwMCIgZm9udC1mYW1pbHk9InNhbnMtc2VyaWYiIGZvbnQtc2l6ZT0iMjAwIiBmb250LXdlaWdodD0iYm9sZCIgZmlsbD0iIzA5MDkwYiIgdGV4dC1hbmNob3I9Im1pZGRsZSI+UFQ8L3RleHQ+PC9zdmc+">
+  <link rel="manifest" href="manifest.json?v=10">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,{{logo_b64}}">
+  <link rel="apple-touch-icon" href="data:image/svg+xml;base64,{{logo_b64}}">
 
   <!-- Register the Service Worker -->
   <script>{{file:js/003-service-worker-register.js}}</script>
@@ -77,7 +78,7 @@
       <!-- Drawer Header -->
       <div class="flex items-center justify-between pb-3 border-b border-zinc-800">
         <div class="flex items-center space-x-2.5">
-          <span class="w-8 h-8 rounded-xl bg-emerald-600 flex items-center justify-center font-black text-white text-base">P</span>
+          <img id="pt-logo" src="data:image/svg+xml;base64,{{logo_b64}}" alt="" width="32" height="32" class="w-8 h-8 rounded-xl shrink-0">
           <div>
             <h2 class="text-sm font-bold text-white leading-tight">PulseTrack Pro</h2>
             <span class="text-[11px] text-zinc-400">Athletic Training Suite</span>
