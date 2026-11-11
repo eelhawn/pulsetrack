@@ -60,8 +60,8 @@
   }
   async function buy(a) {
     if (held(a) >= CAP) { a.toast(`You can hold ${CAP} shields`); return false; }
-    const coins = PT.coins(a); if (coins < PRICE) { a.toast(`You need ${fmt(PRICE - coins)} more coins`); return false; }
-    if (!(await PT.confirm(`Buy a streak shield for ${PRICE} coins?\n\nIt keeps your days-in-a-row streak alive on a day you miss.`))) return false;
+    const coins = PT.coins(a); if (coins < PRICE) { a.toast(`You need ${fmt(PRICE - coins)} more dumbbells`); return false; }
+    if (!(await PT.confirm(`Buy a streak shield for ${PRICE} dumbbells?\n\nIt keeps your days-in-a-row streak alive on a day you miss.`))) return false;
     a.settings.shields = held(a) + 1; a.settings.shieldBuys = (parseInt(a.settings.shieldBuys, 10) || 0) + 1; save(a);
     a.toast("🛡 Streak shield added");
     return true;
@@ -73,7 +73,7 @@
     const n = held(a), today = PT.ds(), act = PT.activeDaySet(a), can = n > 0 && !act.has(today) && !covered(a).includes(today), coins = PT.coins(a), full = n >= CAP;
     return `<div class="pt-shield">
       <div class="flex items-center justify-between gap-2"><div class="min-w-0"><span class="block text-sm font-black text-white">🛡 Streak shields · ${n} of ${CAP}</span><span class="block text-[11px] text-zinc-400">Keep your days in a row on a day you miss</span></div>
-        <button type="button" class="pt-b ${!full && coins >= PRICE ? "go" : ""}" id="pt-shield-buy" ${full ? "disabled" : ""}>${full ? "Full" : "Buy · 🪙 " + PRICE}</button></div>
+        <button type="button" class="pt-b ${!full && coins >= PRICE ? "go" : ""}" id="pt-shield-buy" ${full ? "disabled" : ""}>${full ? "Full" : "Buy · " + PT.DBI + " " + PRICE}</button></div>
       ${can ? `<div><button type="button" class="pt-b" id="pt-shield-use">🤒 Sick day? Protect today</button></div>` : ""}
       <p class="text-[11px] text-zinc-400 leading-snug">After a missed day, the next time you open the app a shield is used on its own when your streak was ${MIN_STREAK} days or more (up to ${MAX_GAP} missed days in a row). If you show up on a protected day, the shield comes back. A shield keeps the streak going but never adds a day, so the 7, 30, 100 and 365 day badges still need real days.</p></div>`;
   };

@@ -49,7 +49,7 @@
   async function ensureName(a) {
     if (myName(a)) return myName(a);
     const i = $("pt-f2-name"); if (i && i.value.trim()) { a.settings.myName = clip(i.value.trim(), 24); save(); return a.settings.myName; }
-    const v = await PT.prompt("What name should your family see?", "", { title: "Your name", ok: "Save", maxlength: 24 });
+    const v = await PT.prompt("What name should your group see?", "", { title: "Your name", ok: "Save", maxlength: 24 });
     const n = clip(String(v || "").trim(), 24); if (!n) return ""; a.settings.myName = n; save(); return n;
   }
 
@@ -104,6 +104,7 @@
   function code(a) {
     const r = myRec(a, 4), o = { v: 2, n: r.n, t: Date.now(), lv: r.lv, b: r.b, st: r.st, l: r.l, wk: r.wk.map(x => [x.w, x.d, x.g, x.p]) };
     if (r.sr != null) { o.sr = r.sr; o.sl = r.sl; } if (r.pg != null) o.pg = r.pg;
+    try { const bx = PT.bossBonusOut ? PT.bossBonusOut(a) : null; if (bx && bx.length) o.bx = bx; } catch (e) { }   // 2.90.0: boss battle damage, per week
     return enc("PTF2", o);
   }
   PT.famUpdateCode = a => code(a || A());
@@ -125,8 +126,10 @@
       const wk = Object.assign({}, old ? old.wk : {});
       (Array.isArray(o.wk) ? o.wk : []).slice(0, 8).forEach(x => { if (Array.isArray(x) && /^\d{4}-\d{2}-\d{2}$/.test(String(x[0]))) wk[x[0]] = { d: Math.max(0, Math.min(7, num(x[1]))), g: Math.max(1, Math.min(7, num(x[2]) || 3)), p: Math.max(0, Math.min(99, num(x[3]))) }; });
       const kept = {}; Object.keys(wk).sort().slice(-14).forEach(k => { kept[k] = wk[k]; });
+      const bx0 = Object.assign({}, old && old.bx ? old.bx : {}); (Array.isArray(o.bx) ? o.bx : []).slice(0, 4).forEach(x => { if (Array.isArray(x) && /^\d{4}-\d{2}-\d{2}$/.test(String(x[0]))) bx0[x[0]] = Math.max(0, Math.min(5000, Math.round(num(x[1])))); });
+      const bx = {}; Object.keys(bx0).sort().slice(-6).forEach(k => { bx[k] = bx0[k]; });
       const l = { bench: num(o.l && o.l.bench), squat: num(o.l && o.l.squat), dead: num(o.l && o.l.dead), ohp: num(o.l && o.l.ohp) };
-      f2[key] = { n, t, rx: Date.now(), lv: num(o.lv), b: num(o.b), st: num(o.st), l, sr: o.sr != null ? num(o.sr) : null, sl: o.sl != null ? Math.max(0, Math.min(4, num(o.sl))) : null, pg: o.pg != null ? num(o.pg) : null, wk: kept };
+      f2[key] = { n, t, rx: Date.now(), lv: num(o.lv), b: num(o.b), st: num(o.st), l, sr: o.sr != null ? num(o.sr) : null, sl: o.sl != null ? Math.max(0, Math.min(4, num(o.sl))) : null, pg: o.pg != null ? num(o.pg) : null, wk: kept, bx };
       const w = a.settings.wall && typeof a.settings.wall === "object" ? a.settings.wall : (a.settings.wall = {}); w[n] = { n, lv: num(o.lv), b: num(o.b), st: num(o.st), l, ts: Date.now() };
       names.push(n);
     });
@@ -154,7 +157,7 @@
     const get = n => { const k = String(n).toLowerCase(); return out[k] || (out[k] = { n: String(n), wk: {}, t: 0 }); };
     arr(a, "family").forEach(x => { if (!x || !x.n || String(x.n).toLowerCase() === mk) return; const p = get(x.n); if (!p.wk[x.w]) p.wk[x.w] = { d: num(x.k), g: 4, p: num(x.p), old: true }; });
     Object.values(a.settings.wall && typeof a.settings.wall === "object" ? a.settings.wall : {}).forEach(x => { if (!x || !x.n || String(x.n).toLowerCase() === mk) return; const p = get(x.n); if (p.lv == null) { p.lv = x.lv; p.b = x.b; p.st = x.st; p.l = x.l; } if (!p.t && x.ts) p.t = x.ts; });
-    Object.values(fam2(a)).forEach(x => { if (!x || !x.n || String(x.n).toLowerCase() === mk) return; const p = get(x.n); Object.assign(p, { t: x.t, lv: x.lv, b: x.b, st: x.st, l: x.l, sr: x.sr, sl: x.sl, pg: x.pg }); Object.assign(p.wk, x.wk || {}); p.fresh = true; });
+    Object.values(fam2(a)).forEach(x => { if (!x || !x.n || String(x.n).toLowerCase() === mk) return; const p = get(x.n); Object.assign(p, { t: x.t, lv: x.lv, b: x.b, st: x.st, l: x.l, sr: x.sr, sl: x.sl, pg: x.pg, bx: x.bx || {} }); Object.assign(p.wk, x.wk || {}); p.fresh = true; });
     return out;
   }
   const ago = t => {
@@ -233,11 +236,11 @@
   const fmtV = (a, lb) => { const kg = a.unit() === "kg"; return Math.round(kg ? lb / 2.2046226 : lb).toLocaleString() + (kg ? " kg" : " lb"); };
   function chalHtml(a, ppl) {
     const c = a.settings.famChal, pick = a.__f2cs || "sc";
-    if (!c) return `<div class="pt-f2box"><span class="pt-f2h">Family challenge</span><p class="text-[11px] text-zinc-400 leading-snug">Pick one contest for the week. Everyone pastes the message and the standings show up here.</p>
+    if (!c) return `<div class="pt-f2box"><span class="pt-f2h">Group challenge</span><p class="text-[11px] text-zinc-400 leading-snug">Pick one contest for the week. Everyone pastes the message and the standings show up here.</p>
       <div class="flex flex-wrap gap-1.5">${Object.keys(CH).map(k => chip(`data-f2cs="${k}"`, CH[k], pick === k)).join("")}</div><div><button type="button" class="pt-b go" id="pt-f2-chal-new">Start a challenge</button></div></div>`;
     const cur = dsOf(wkMon(0)), past = c.w < cur, rows = Object.values(ppl).map(p => ({ p, v: chalVal(a, ppl, p, c) })).sort((x, y) => y.v - x.v || (x.p.me ? -1 : 1)), top = Math.max(1, ...rows.map(r => r.v));
     const left = Math.max(0, Math.ceil((mondayOf(PT.fromDs(c.w).getTime()) + 7 * DAY - Date.now()) / DAY)), lead = rows[0];
-    return `<div class="pt-f2box"><div class="flex items-center justify-between"><span class="pt-f2h">Family challenge</span><span class="text-[10px] font-bold ${past ? "text-amber-300" : "text-zinc-400"}">${past ? "Finished" : left + " day" + (left === 1 ? "" : "s") + " left"}</span></div>
+    return `<div class="pt-f2box"><div class="flex items-center justify-between"><span class="pt-f2h">Group challenge</span><span class="text-[10px] font-bold ${past ? "text-amber-300" : "text-zinc-400"}">${past ? "Finished" : left + " day" + (left === 1 ? "" : "s") + " left"}</span></div>
       <span class="text-sm font-black text-white">${esc(c.t || CH_ALL[c.s] || "Challenge")}</span>
       ${rows.map((r, i) => `<div class="space-y-1"><div class="flex items-center justify-between text-xs"><span class="${r.p.me ? "font-black text-white" : "text-zinc-300"}">${i === 0 && r.v > 0 ? "👑 " : ""}${esc(r.p.n)}</span><span class="font-mono ${i === 0 && r.v > 0 ? "text-amber-300" : "text-zinc-400"}">${esc(chalTxt(a, c, r.v))}</span></div><div class="pt-bar"><span style="width:${Math.round(r.v / top * 100)}%"></span></div></div>`).join("")}
       ${lead && lead.v > 0 ? `<p class="text-[11px] font-bold ${lead.p.me ? "text-emerald-400" : "text-zinc-400"}">${lead.p.me ? (past ? "You won this one 🏆" : "You are in the lead") : esc(lead.p.n) + (past ? " won" : " leads") + " this " + (past ? "round" : "week")}</p>` : ""}
@@ -250,7 +253,7 @@
     const others = Object.values(ppl).filter(p => !p.me).length, sent = num(a.settings.famSent), since = sent ? S(a).filter(s => sessTime(s) > sent).length : S(a).length;
     const due = !sent || since > 0, S8 = season(a, ppl);
     const named = !!myName(a);
-    const head = !named ? `<div class="pt-f2box"><span class="pt-f2h">First, your name</span><p class="text-[11px] text-zinc-400 leading-snug">This is what the family sees next to your score.</p><input type="text" id="pt-f2-name" placeholder="Your name" maxlength="24" aria-label="Your name"></div>` : "";
+    const head = !named ? `<div class="pt-f2box"><span class="pt-f2h">First, your name</span><p class="text-[11px] text-zinc-400 leading-snug">This is what the group sees next to your score.</p><input type="text" id="pt-f2-name" placeholder="Your name" maxlength="24" aria-label="Your name"></div>` : "";
     const list = R.have.map((r, i) => rowHtml(r, i, cat, wid, ppl)).join("") + R.none.map(r => rowHtml(r, 0, cat, wid, ppl)).join("");
     const seas = S8.rounds ? `<div class="pt-f2box"><span class="pt-f2h">Last ${S8.rounds} week${S8.rounds === 1 ? "" : "s"} with 2 or more people</span>${S8.rows.map((r, i) => `<div class="flex items-center justify-between gap-2 text-xs"><span class="min-w-0 truncate ${r.me ? "font-black text-white" : "text-zinc-300"}">${i === 0 && r.crowns ? "👑 " : ""}${esc(r.n)}${r.me ? " (you)" : ""}</span><span class="shrink-0 font-mono text-zinc-400">${r.crowns} 👑 · ${r.pts} pts</span></div>`).join("")}<p class="text-[10px] text-zinc-500 leading-snug">A crown is the top score of a week. Points add up each week's score.</p></div>` : `<p class="text-[10px] text-zinc-500 leading-snug">After a full week with 2 or more people on the board, weekly crowns and a season table show up here.</p>`;
     return `${head}
@@ -260,7 +263,7 @@
       <div class="space-y-1.5">${list}</div>
       <p class="text-[10px] text-zinc-500 leading-snug">${esc(C.how)}${C.wk ? "" : " Shows the latest from each phone, not a single week."}</p>
       <div class="pt-f2box"><span class="pt-f2h">Keep it fresh</span>
-        <p class="text-[11px] text-zinc-400 leading-snug">${sent ? `You last sent your update ${esc(ago(sent))}${since ? ` · ${since} workout${since === 1 ? "" : "s"} since` : ""}.` : "You haven't sent your update yet."} ${others ? "" : "Send it to the family chat, and ask them to send theirs."} Every workout you send to your buddies updates the board too.</p>
+        <p class="text-[11px] text-zinc-400 leading-snug">${sent ? `You last sent your update ${esc(ago(sent))}${since ? ` · ${since} workout${since === 1 ? "" : "s"} since` : ""}.` : "You haven't sent your update yet."} ${others ? "" : "Send it to the group chat, and ask them to send theirs."} Every workout you send to your buddies updates the board too.</p>
         <div class="flex flex-wrap gap-2"><button type="button" class="pt-b ${due ? "go" : ""}" id="pt-f2-send">📣 Send my update</button><button type="button" class="pt-b" id="pt-f2-paste">📋 Paste update</button></div>
         <input type="text" id="pt-f2-text" placeholder="Or paste a message or code here" aria-label="Paste a code"><button type="button" class="pt-b" id="pt-f2-add">Add</button>
         ${named ? `<span class="text-[10px] text-zinc-500">Your name on the board</span><input type="text" id="pt-f2-name" placeholder="Your name for the board" value="${esc(myName(a))}" maxlength="24" aria-label="Your name">` : ""}</div>
@@ -274,14 +277,14 @@
   const oPV = proto.renderProgressView;
   proto.renderProgressView = function () {
     const r = oPV.apply(this, arguments);
-    try { drawFam(this); } catch (e) { console.error("PulseTrack family board 2.53", e); }
+    try { drawFam(this); } catch (e) { console.error("PulseTrack group board 2.53", e); }
     return r;
   };
 
   /* ============================================================== sharing */
   async function deliver(a, title, text) {
     try { if (navigator.share) { await navigator.share({ title, text }); PT.famMarkSent(); return true; } } catch (e) { if (e && e.name === "AbortError") return false; }
-    try { await navigator.clipboard.writeText(text); a.toast("Copied. Paste it in your family chat"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
+    try { await navigator.clipboard.writeText(text); a.toast("Copied. Paste it in your group chat"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
     PT.famMarkSent(); return true;
   }
   const summaryLine = a => { const r = myRec(a, 1), w = r.wk[0]; return `${score(w)} pts this week · ${w.d} of ${effG(w.g)} days${r.st ? " · " + r.st + " week streak 🔥" : ""}`; };
@@ -294,8 +297,8 @@
   }
   async function shareChallenge(a) {
     const c = a.settings.famChal; if (!c) return; if (!(await ensureName(a))) return;
-    const text = `PulseTrack family challenge: ${c.t}. In PulseTrack: Progress > Social > Paste update.\n${enc("PTC1", c)}\n${code(a)}`;
-    await deliver(a, "Family challenge", text);
+    const text = `PulseTrack group challenge: ${c.t}. In PulseTrack: Progress > Social > Paste update.\n${enc("PTC1", c)}\n${code(a)}`;
+    await deliver(a, "Group challenge", text);
   }
   async function pasteClipboard(a) {
     let txt = ""; try { txt = await navigator.clipboard.readText(); } catch (e) { txt = ""; }
@@ -339,7 +342,7 @@
   /* ============================================================== the finish screen: say it is for the family too */
   function polishSummaryBtn() {
     const b = $("pt-summary-send"); if (!b) return; const a = A();
-    b.textContent = "🤝 Send to family & buddies";
+    b.textContent = "🤝 Send to group & buddies";
     if (PT.famDue && PT.famDue(a)) b.className = "w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl tap-active text-sm";
   }
   const oFin = proto.finishWorkoutV2;

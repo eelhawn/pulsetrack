@@ -315,7 +315,7 @@
       if (!first || k < first) first = k;
     });
     timeOff(a).forEach(o => { const k = PT.ds(PT.weekStart(PT.fromDs(o.from))); if (!first || k < first) first = k; });
-    const need = k => Math.max(0, goal - offInWeek(a, PT.fromDs(k)));
+    const need = k => Math.max(0, (PT.weeklyGoalAt ? PT.weeklyGoalAt(a, k) : goal) - offInWeek(a, PT.fromDs(k)));   // 2.90.0: each week its own goal
     const thisWeek = PT.weekStart(new Date()), thisKey = PT.ds(thisWeek);
     const thisCount = perWeek[thisKey] || 0, thisNeed = need(thisKey);
     let streak = 0;

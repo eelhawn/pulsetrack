@@ -65,13 +65,32 @@
       challenges: Math.round((p.challenges || 0) / 300) * 100,
       badges: (r.badges || []).filter(b => b.got).reduce((n, b) => n + (BADGE_COINS[b.tier] || 10), 0),
       chests: arr(a, "chests").reduce((n, c) => n + ((c && c.coins) || 0), 0),
-      boss: PT.bossCoins ? PT.bossCoins(a) : 0                                  // 2.82.0: family boss fights you helped win
+      boss: PT.bossCoins ? PT.bossCoins(a) : 0                                  // 2.82.0: group boss fights you helped win
     };
     o.bonus = o.records + o.quests + o.weeks + o.challenges + o.badges + o.chests + o.boss;
     return o;
   }
   const shieldCost = a => (PT.shieldSpent ? PT.shieldSpent(a) : 0);                // 2.83.0: streak shields bought with coins
-  PT.coins = a => { a = a || A(); return Math.max(0, PT.coinsRaw(a) + income(a).bonus - redeemed(a) - shieldCost(a)); };
+  /* 2.90.0: coins became DUMBBELLS. Everybody started again at 0 (settings.dbBase = what had been earned and spent until then), and
+     everything the old sources pay now counts half. Loot chests (module 106) pay dumbbells of their own, and shop items won from a chest
+     (settings.shopGifts) cost nothing. */
+  const gifts = a => arr(a, "shopGifts");
+  const earnedOld = a => { const o = income(a); return o.xp + o.season + o.bonus; };
+  const shopPaid = a => PT.SHOP.filter(x => owned(a).includes(x.id) && !gifts(a).includes(x.id)).reduce((n, x) => n + x.price, 0);
+  const spendAll = a => shopPaid(a) + redeemed(a) + shieldCost(a);
+  function dbBaseNow(a) { const o = income(a), p = {}; Object.keys(o).forEach(k => { p[k] = o[k]; }); return { e: o.xp + o.season + o.bonus, s: spendAll(a), t: Date.now(), p }; }
+  /** what each source has paid since the switch, in dumbbells (half the old amount) */
+  PT.dbSince = (a, k) => { const b = a.settings.dbBase, o = income(a); return b && b.p ? Math.max(0, Math.floor((o[k] - (b.p[k] || 0)) / 2)) : 0; };
+  PT.dbSpent = a => { const b = a.settings.dbBase; return b ? Math.max(0, spendAll(a) - b.s) : 0; };
+  PT.coins = a => {
+    a = a || A(); const b = a.settings.dbBase; if (!b) return 0;
+    return Math.max(0, Math.floor(Math.max(0, earnedOld(a) - b.e) / 2) + (PT.lootDb ? PT.lootDb(a) : 0) - (spendAll(a) - b.s));
+  };
+  PT.dbStart = a => {
+    if (a.settings.dbBase) return false;
+    try { if (PT.boss && PT.boss.record) PT.boss.record(); } catch (e) { }   // boss wins from past weeks belong to the old coins, not the new start
+    a.settings.dbBase = dbBaseNow(a); save(); return true;
+  };
   PT.coinIncome = income;
 
   /* ============================================================== titles */
@@ -80,7 +99,7 @@
     const lv = (PT.levelTitles || []).map(x => ({ id: "lv" + x[0], text: x[1], have: L >= x[0], req: "Level " + x[0] }));
     const shop = PT.SHOP.filter(x => x.kind === "title").map(x => ({ id: x.id, text: x.text, have: owned(a).includes(x.id), req: "In the shop" }));
     const bw = PT.bossWins ? PT.bossWins(a) : 0;
-    const boss = [[1, "Boss Slayer"], [5, "Boss Hunter"], [15, "Boss Legend"]].map(([n, t]) => ({ id: "boss" + n, text: t, have: bw >= n, req: n === 1 ? "Beat a family boss" : `Beat ${n} family bosses` }));
+    const boss = [[1, "Boss Slayer"], [5, "Boss Hunter"], [15, "Boss Legend"]].map(([n, t]) => ({ id: "boss" + n, text: t, have: bw >= n, req: n === 1 ? "Beat a group boss" : `Beat ${n} group bosses` }));
     return lv.concat(seasonTitles(a), boss, shop);
   }
   /** the title you picked, shown instead of the level title (Home card, Level, share pictures) */
@@ -156,7 +175,7 @@
     rows.push({ i: "⚡", t: `Level ${r.lv.L + 1}`, s: `${fmt(r.lv.nxt - r.xp)} XP to go`, p: r.lv.pct });
     const want = wishes(a).map(w => ({ n: w.name, price: w.price, real: true })).concat(PT.SHOP.filter(x => !owned(a).includes(x.id)).map(x => ({ n: x.name, price: x.price })));
     const near = want.filter(x => x.price > coins).sort((x, y) => (y.price ? coins / y.price : 0) - (x.price ? coins / x.price : 0) || x.price - y.price)[0];
-    if (near) rows.push({ i: near.real ? "🎁" : "🛍", t: near.n, s: `${fmt(near.price - coins)} coins to go`, p: coins / near.price });
+    if (near) rows.push({ i: near.real ? "🎁" : "🛍", t: near.n, s: `${fmt(near.price - coins)} dumbbells to go`, p: coins / near.price });
     const qs = PT.quests ? PT.quests(a) : [], qd = qs.filter(q => q.done).length;
     if (qs.length) rows.push({ i: "🎯", t: "Weekly quests", s: `${qd} of ${qs.length} done`, p: qd / qs.length });
     return rows;
@@ -164,7 +183,7 @@
   function chestStrip(a) {
     return Array.from({ length: 7 }, (_, k) => {
       const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (6 - k)); const c = chestOf(a, PT.ds(d));
-      return `<span class="pt-cd"><i class="${c ? "on " + c.tier : ""}" title="${esc(PT.ds(d))}">${c ? c.coins : ""}</i><em>${"SMTWTFS"[d.getDay()]}</em></span>`;
+      return `<span class="pt-cd"><i class="${c ? "on " + c.tier : ""}" title="${esc(PT.ds(d))}">${c ? Math.floor(c.coins / 2) : ""}</i><em>${"SMTWTFS"[d.getDay()]}</em></span>`;
     }).join("");
   }
   function chestHtml(a) {
@@ -172,9 +191,9 @@
     let main;
     if (done) {
       const t = TIERS[done.tier] || TIERS.common;
-      main = `<div class="pt-chest open" style="--tc:${t[1]}"><span class="pt-chest-i">🎁</span><div class="min-w-0"><b class="text-white">${t[0]} chest opened</b><span>+${fmt(done.coins)} coins${done.xp ? " · +" + done.xp + " XP" : ""}${done.mult > 1 ? " · ×" + done.mult + " streak bonus" : ""}</span><small>Back tomorrow for the next one.</small></div></div>`;
+      main = `<div class="pt-chest open" style="--tc:${t[1]}"><span class="pt-chest-i">🎁</span><div class="min-w-0"><b class="text-white">${t[0]} chest opened</b><span>+${fmt(Math.floor(done.coins / 2))} dumbbells${done.xp ? " · +" + done.xp + " XP" : ""}${done.mult > 1 ? " · ×" + done.mult + " streak bonus" : ""}</span><small>Back tomorrow for the next one.</small></div></div>`;
     } else if (rdy) {
-      main = `<button type="button" class="pt-chest ready tap-active" id="pt-chest-open"><span class="pt-chest-i">🎁</span><div class="min-w-0"><b class="text-white">Open today's chest</b><span>${m > 1 ? "×" + m + " streak bonus on today's prize" : "A surprise: coins, sometimes XP"}</span></div></button>`;
+      main = `<button type="button" class="pt-chest ready tap-active" id="pt-chest-open"><span class="pt-chest-i">🎁</span><div class="min-w-0"><b class="text-white">Open today's chest</b><span>${m > 1 ? "×" + m + " streak bonus on today's prize" : "A surprise: dumbbells, sometimes XP"}</span></div></button>`;
     } else {
       main = `<div class="pt-chest locked"><span class="pt-chest-i">🔒</span><div class="min-w-0"><b class="text-white">Daily chest</b><span>Train or check in to unlock today's chest.</span></div></div><button type="button" class="pt-b go" id="pt-checkin-go">✋ I'm in today</button>`;
     }
@@ -183,14 +202,15 @@
   function howHtml(a) {
     const o = income(a), sp = PT.SHOP.filter(x => owned(a).includes(x.id)).reduce((n, x) => n + x.price, 0), rd = redeemed(a);
     const L = (k, v) => `<span>${k}</span><b class="text-white">${v < 0 ? "−" + fmt(-v) : fmt(v)}</b>`;
-    return `<details class="pt-how"><summary>How coins work</summary><div class="pt-howg">${L("Workouts and sets (1 per 10 XP)", o.xp)}${L("Season tiers", o.season)}${L("Records (10 each)", o.records)}${L("Weekly quests (25 each)", o.quests)}${L("Goal weeks (20 each)", o.weeks)}${L("Challenges (100 each)", o.challenges)}${L("Badges (10 to 75 each)", o.badges)}${L("Daily chests", o.chests)}${L("Family boss wins", o.boss)}${L("Spent in the shop", -sp)}${L("Spent on real rewards", -rd)}${shieldCost(a) ? L("Spent on streak shields", -shieldCost(a)) : ""}</div>
-      <p class="text-[11px] text-zinc-400 leading-snug mt-1">Chest odds: common 70%, rare 22%, epic 7%, legendary 1%. Check-in or training streaks of 7, 30 and 100 days add ×1.25, ×1.5 and ×2 to the prize.</p></details>`;
+    const H = k => PT.dbSince(a, k), loot = PT.lootDb ? PT.lootDb(a) : 0; void o; void sp; void rd;
+    return `<details class="pt-how"><summary>How dumbbells work</summary><div class="pt-howg">${L("Workouts and sets (1 per 20 XP)", H("xp"))}${L("Season tiers", H("season"))}${L("Records (5 each)", H("records"))}${L("Weekly quests (12 each)", H("quests"))}${L("Goal weeks (10 each)", H("weeks"))}${L("Challenges (50 each)", H("challenges"))}${L("Badges (5 to 37 each)", H("badges"))}${L("Daily chests", H("chests"))}${L("Group boss wins", H("boss"))}${L("Loot chests", loot)}${L("Spent since the switch", -PT.dbSpent(a))}${shieldCost(a) ? L("Spent on streak shields (all time)", -shieldCost(a)) : ""}</div>
+      <p class="text-[11px] text-zinc-400 leading-snug mt-1">Since 2.90.0 coins are dumbbells: everyone started again at 0, everything above pays half of what it used to, and loot chests pay the big prizes. Daily chest odds: common 70%, rare 22%, epic 7%, legendary 1%. Check-in or training streaks of 7, 30 and 100 days add ×1.25, ×1.5 and ×2 to the prize.</p></details>`;
   }
   function hubHtml(a) {
     const coins = PT.coins(a), r = PT.rewards(a), sk = r.streak, ds = PT.dayStreak ? PT.dayStreak(a) : 0;
     const next = nextRows(a, coins, r).map(x => `<div class="pt-nx"><span class="pt-nx-i">${x.i}</span><div class="min-w-0 flex-1"><div class="flex items-baseline justify-between gap-2"><span class="text-xs font-bold text-white truncate">${esc(x.t)}</span><span class="shrink-0 text-[10px] text-zinc-400">${esc(x.s)}</span></div>${bar(x.p)}</div></div>`).join("");
     return `<div id="pt-pg-hub" class="pt-hub ${card}">
-      <div class="flex items-center justify-between gap-2"><div><span class="block text-2xl font-black text-amber-300 leading-none">🪙 ${fmt(coins)}</span><span class="block text-[11px] text-zinc-400 mt-1">coins to spend</span></div>
+      <div class="flex items-center justify-between gap-2"><div><span class="block text-2xl font-black text-amber-300 leading-none">${PT.DBI} ${fmt(coins)}</span><span class="block text-[11px] text-zinc-400 mt-1">dumbbells to spend</span></div>
         <div class="flex gap-1.5 flex-wrap justify-end"><span class="pt-pill" title="Level">⚡ ${r.lv.L}</span><span class="pt-pill" title="Weeks in a row you hit your goal">🔥 ${sk.cur}</span><span class="pt-pill" title="Days in a row">🌱 ${ds}</span>${PT.shieldPill ? PT.shieldPill(a) : ""}</div></div>
       ${chestHtml(a)}
       <div class="pt-nxs"><span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500">Closest to you</span>${next}</div>
@@ -203,9 +223,9 @@
         <div class="flex items-center justify-between gap-2"><span class="text-[11px] ${can ? "text-emerald-400 font-bold" : "text-zinc-400"}">${can ? "You can claim this" : fmt(w.price - coins) + " coins to go"}</span>
         <span class="flex gap-1.5"><button type="button" class="pt-b ${can ? "go" : ""}" data-wclaim="${w.id}" ${can ? "" : "disabled"}>Claim</button><button type="button" class="pt-b" data-wedit="${w.id}" aria-label="Change the price of ${esc(w.name)}">Price</button><button type="button" class="pt-b" data-wdel="${w.id}" aria-label="Remove ${esc(w.name)}">✕</button></span></div></div>`; }).join("");
     const ideas = IDEAS.filter(x => !have.has(x[1].toLowerCase())).map((x, i) => `<button type="button" class="pt-schip tap-active" data-widea="${i}">${x[0]} ${esc(x[1])} · ${fmt(x[2])}</button>`).join("");
-    const hist = done.slice(0, 5).map(w => `<div class="flex items-center justify-between gap-2 text-[11px]"><span class="text-zinc-300 min-w-0 truncate">✅ ${esc(w.name)}</span><span class="shrink-0 text-zinc-500">${esc(new Date(w.claimed).toLocaleDateString(undefined, { month: "short", day: "numeric" }))} · 🪙 ${fmt(w.paid || w.price || 0)} <button type="button" class="pt-link" data-wagain="${w.id}">again</button></span></div>`).join("");
+    const hist = done.slice(0, 5).map(w => `<div class="flex items-center justify-between gap-2 text-[11px]"><span class="text-zinc-300 min-w-0 truncate">✅ ${esc(w.name)}</span><span class="shrink-0 text-zinc-500">${esc(new Date(w.claimed).toLocaleDateString(undefined, { month: "short", day: "numeric" }))} · ${PT.DBI} ${fmt(w.paid || w.price || 0)} <button type="button" class="pt-link" data-wagain="${w.id}">again</button></span></div>`).join("");
     return `<details class="pt-pg" id="pt-pg-wish" ${OPEN.wish ? "open" : ""}><summary><span class="text-xs font-bold text-white">🎁 My real rewards</span><span class="pt-chev">›</span></summary><div>
-      <p class="text-[11px] text-zinc-400 leading-snug">Pick a prize you really want and save your coins for it. Claim it when you have enough, then go enjoy it. Your call, on the honor system.</p>
+      <p class="text-[11px] text-zinc-400 leading-snug">Pick a prize you really want and save your dumbbells for it. Claim it when you have enough, then go enjoy it. Your call, on the honor system.</p>
       ${rows || '<p class="text-[11px] text-zinc-500">No prizes yet. Add one below.</p>'}
       <div class="flex gap-2 flex-wrap"><button type="button" class="pt-b go" id="pt-wish-add">+ Add a reward</button></div>
       ${ideas ? `<span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 mt-1">Ideas (tap to add)</span><div class="pt-schips wrap">${ideas}</div>` : ""}
@@ -258,15 +278,15 @@
       const c = openChest(a); if (!c) return;
       const nm = (TIERS[c.tier] || TIERS.common)[0];
       if (PT.confetti) PT.confetti(c.tier === "common" ? 40 : c.tier === "rare" ? 60 : 90);
-      a.toast(`${nm} chest: +${c.coins} coins${c.xp ? " and +" + c.xp + " XP" : ""}`);
+      a.toast(`${nm} chest: +${Math.floor(c.coins / 2)} dumbbells${c.xp ? " and +" + c.xp + " XP" : ""}`);
       OPEN.chest = true; refresh(a); return;
     }
     const tt = on("[data-title2]");
     if (tt && !tt.disabled) { a.settings.titleSel = tt.dataset.title2 || ""; save(); refresh(a); return; }
     if (t("pt-wish-add")) {
       const name = await PT.prompt("What is the reward? (a cheat meal, new gear...)", ""); if (!name || !String(name).trim()) return;
-      const price = parseInt(await PT.prompt("How many coins should it cost?", "500"), 10);
-      if (!(price >= 10)) { a.toast("Enter a price of at least 10 coins"); return; }
+      const price = parseInt(await PT.prompt("How many dumbbells should it cost?", "300"), 10);
+      if (!(price >= 10)) { a.toast("Enter a price of at least 10 dumbbells"); return; }
       addWish(a, name, price); OPEN.wish = true; refresh(a); return;
     }
     const wi = on("[data-widea]");
@@ -274,15 +294,15 @@
     const wc = on("[data-wclaim]");
     if (wc) {
       const w = arr(a, "myRewards").find(x => x && x.id === wc.dataset.wclaim); if (!w || w.claimed) return;
-      if (PT.coins(a) < w.price) { a.toast(`You need ${fmt(w.price - PT.coins(a))} more coins`); return; }
-      if (!(await PT.confirm(`Claim "${w.name}" for ${fmt(w.price)} coins?`))) return;
+      if (PT.coins(a) < w.price) { a.toast(`You need ${fmt(w.price - PT.coins(a))} more dumbbells`); return; }
+      if (!(await PT.confirm(`Claim "${w.name}" for ${fmt(w.price)} dumbbells?`))) return;
       if (PT.coins(a) < w.price) return;
       w.claimed = Date.now(); w.paid = w.price; save();
       if (PT.confetti) PT.confetti(80); a.toast(`Claimed: ${w.name}. Enjoy it, you earned it`, null, null, 5000);
       OPEN.wish = true; refresh(a); return;
     }
     const we = on("[data-wedit]");
-    if (we) { const w = arr(a, "myRewards").find(x => x && x.id === we.dataset.wedit); if (!w) return; const v = parseInt(await PT.prompt(`New price in coins for "${w.name}"?`, String(w.price)), 10); if (v >= 10) { w.price = Math.min(100000, v); save(); OPEN.wish = true; refresh(a); } return; }
+    if (we) { const w = arr(a, "myRewards").find(x => x && x.id === we.dataset.wedit); if (!w) return; const v = parseInt(await PT.prompt(`New price in dumbbells for "${w.name}"?`, String(w.price)), 10); if (v >= 10) { w.price = Math.min(100000, v); save(); OPEN.wish = true; refresh(a); } return; }
     const wd = on("[data-wdel]");
     if (wd) { const l = arr(a, "myRewards"), w = l.find(x => x && x.id === wd.dataset.wdel); if (!w) return; if (!(await PT.confirm(`Remove "${w.name}"?`))) return; a.settings.myRewards = l.filter(x => x !== w); save(); OPEN.wish = true; refresh(a); return; }
     const wa = on("[data-wagain]");
@@ -296,9 +316,10 @@
     const r = oInit ? oInit.apply(this, arguments) : undefined;
     setTimeout(() => {
       try {
+        if (PT.dbStart) PT.dbStart(this);                         // 2.90.0: the dumbbell restart point (once)
         if (this.settings.rw2Seen) return;
         this.settings.rw2Seen = true; save();
-        const o = income(this), n = o.records + o.quests + o.weeks + o.challenges + o.badges;
+        const o = income(this), n = 0 * (o.records + o.quests + o.weeks + o.challenges + o.badges);   // 2.90.0: no old bonus to announce any more
         if (n > 0 && (this.sessions || []).length) setTimeout(() => { try { this.toast(`Rewards 2.0: +${fmt(n)} bonus coins for your records, quests, goal weeks and badges`, "Open", () => { this._progTab = "rewards"; this.showView("progress"); }, 7000); } catch (e) { } }, 3200);
       } catch (e) { console.error("PulseTrack rewards 2 intro", e); }
     }, 0);

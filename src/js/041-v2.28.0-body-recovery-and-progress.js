@@ -610,7 +610,7 @@
     let box = $("pt-pg-extra");
     if (!box) { box = document.createElement("div"); box.id = "pt-pg-extra"; box.className = "space-y-3"; root.appendChild(box); }
     box.innerHTML = section("report", "📊", "Weekly report card", reportHtml(a)) + section("badges", "🏅", "Badges", badgesHtml(a)) + section("goals", "🎯", "Lift goals", goalsHtml(a))
-      + section("heat", "🗓", "Training year", heatHtml(a)) + section("prs", "📈", "PR timeline", prsHtml(a)) + section("fam", "👨‍👩‍👦", "Family board", familyHtml(a));
+      + section("heat", "🗓", "Training year", heatHtml(a)) + section("prs", "📈", "PR timeline", prsHtml(a)) + section("fam", "👨‍👩‍👦", "Group board", familyHtml(a));
     box.querySelectorAll("details").forEach(d => d.addEventListener("toggle", () => { OPEN[d.id.replace("pt-pg-", "")] = d.open; }));
     pinHeat(box);
   }
@@ -654,7 +654,7 @@
     if (t("pt-fam-copy") || t("pt-fam-share")) {
       nm(); const code = PT.familyCode(a, a.__famWeek === "last" ? Date.now() - 7 * DAY : Date.now());
       if (t("pt-fam-share") && navigator.share) { try { await navigator.share({ title: "PulseTrack code", text: code }); return; } catch (x) { if (x && x.name === "AbortError") return; } }
-      try { await navigator.clipboard.writeText(code); a.toast("Code copied. Send it to your family."); } catch (x) { await PT.alert("Copy this code:\n\n" + code); }
+      try { await navigator.clipboard.writeText(code); a.toast("Code copied. Send it to your group."); } catch (x) { await PT.alert("Copy this code:\n\n" + code); }
       a.renderProgressView(); return;
     }
     if (t("pt-fam-add")) { nm(); const n = PT.familyAdd(($("pt-fam-paste") || {}).value, a); a.toast(n ? `Added ${n} ${n === 1 ? "person" : "people"}` : "That doesn't look like a PulseTrack code"); a.renderProgressView(); }

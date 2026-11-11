@@ -32,7 +32,9 @@
   const SEASON_NAMES = ["Winter Forge", "Spring Surge", "Summer Heat", "Autumn Grind"];
   const SEASON_COL = [["#bae6fd", "#3b82f6"], ["#bbf7d0", "#16a34a"], ["#fde68a", "#ea580c"], ["#fdba74", "#b45309"]];
   const SEASON_COINS = { 1: 50, 3: 100, 4: 150, 5: 200, 7: 250, 8: 400 };
-  const TIER_REWARD = { 1: "🪙 50", 2: "🖼 Frame", 3: "🪙 100", 4: "🪙 150", 5: "🪙 200", 6: "🏷 Title", 7: "🪙 250", 8: "🏆 Trophy" };
+  const TIER_REWARD = { 1: "@25", 2: "🖼 Frame", 3: "@50", 4: "@75", 5: "@100", 6: "🏷 Title", 7: "@125", 8: "🏆 Trophy" };   // 2.90.0: dumbbells (half the old coins), "@" = the dumbbell icon
+  /** 2.90.0: the currency is dumbbells; this is its icon */
+  PT.DBI = '<svg class="pt-dbi" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M1 9.5h2v5H1zM21 9.5h2v5h-2zM3 5.5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1zM17 5.5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v13a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM7 7.5h2v9H7zM15 7.5h2v9h-2zM9 11h6v2H9z"/></svg>';
   const seasonOf = t => Math.floor(Math.round((mondayOf(t) - EPOCH) / (7 * DAY)) / 12);
   const seasonStart = i => { const d = new Date(EPOCH); d.setDate(d.getDate() + i * SEASON_DAYS); return d.getTime(); };
   const seasonName = i => SEASON_NAMES[((i % 4) + 4) % 4];
@@ -137,7 +139,7 @@
   PT.xpExtras = a => ({ checkins: arr(a, "checkins").length * 10, challenges: arr(a, "challengesDone").length * 300 });
   PT.extraFrames = a => {
     const out = [];
-    SHOP.filter(x => x.kind === "frame").forEach(x => out.push({ id: x.id, name: x.name, c: x.c, have: owned(a).includes(x.id), req: `🪙 ${x.price} in the shop` }));
+    SHOP.filter(x => x.kind === "frame").forEach(x => out.push({ id: x.id, name: x.name, c: x.c, have: owned(a).includes(x.id), req: `${x.price} dumbbells in the shop` }));
     seasons(a).list.forEach(s => { if (s.tier >= 2 || s.cur) out.push({ id: "s" + s.i, name: `${s.name} S${s.n}`, c: SEASON_COL[((s.i % 4) + 4) % 4], have: s.tier >= 2, req: "Season tier 2" }); });
     return out;
   };
@@ -180,7 +182,7 @@
   const section = (id, icon, title, body) => `<details class="pt-pg" id="pt-pg-${id}" ${OPEN[id] ? "open" : ""}><summary><span class="text-xs font-bold text-white">${icon} ${title}</span><span class="pt-chev">›</span></summary><div>${body}</div></details>`;
   function seasonHtml(a) {
     const sv = seasons(a), c = sv.cur, nextAt = (c.tier + 1) * TIER_XP, left = Math.max(1, Math.ceil((c.end - Date.now()) / DAY));
-    const ladder = Array.from({ length: 8 }, (_, i) => { const t = i + 1, got = c.tier >= t; return `<div class="pt-tier ${got ? "got" : ""}" title="Tier ${t}"><b>${t}</b><span>${TIER_REWARD[t]}</span></div>`; }).join("");
+    const ladder = Array.from({ length: 8 }, (_, i) => { const t = i + 1, got = c.tier >= t; return `<div class="pt-tier ${got ? "got" : ""}" title="Tier ${t}"><b>${t}</b><span>${TIER_REWARD[t].replace("@", PT.DBI + " ")}</span></div>`; }).join("");
     const trophies = sv.trophies.length ? `<div class="flex flex-wrap gap-1.5">${sv.trophies.map(s => `<span class="pt-frame">🏆 ${esc(s.name)} S${s.n}</span>`).join("")}</div>` : "";
     return `<div class="flex items-center justify-between gap-2"><div class="min-w-0"><span class="block text-sm font-black text-white">${esc(c.name)} · Season ${c.n}</span><span class="block text-[11px] text-zinc-400">${left} day${left === 1 ? "" : "s"} left · ${fmt(c.xp)} season XP</span></div><span class="text-2xl">${c.tier >= 8 ? "🏆" : "🏟"}</span></div>
       ${c.tier >= 8 ? '<p class="text-xs font-bold text-emerald-400">Season complete. Trophy earned.</p>' : `${bar((c.xp - c.tier * TIER_XP) / TIER_XP)}<span class="block text-[11px] text-zinc-300">${fmt(nextAt - c.xp)} XP to tier ${c.tier + 1} · reward ${esc(TIER_REWARD[c.tier + 1])}</span>`}
@@ -214,18 +216,18 @@
     if (shopCat !== "all" && !kinds.some(k => k[0] === shopCat)) shopCat = "all";
     const item = x => {
       const has = own.includes(x.id), eq = has && equipped(a, x), h = PT.shopHooks[x.kind];
-      return `<button type="button" class="pt-shopit tap-active ${eq ? "eq" : ""} ${!has && coins < x.price ? "short" : ""}" data-shop="${x.id}" aria-label="${esc(x.name)}, ${has ? (eq ? "equipped" : "owned") : x.price + " coins"}">${shopPrev(x)}<span class="pt-sn">${esc(x.name)}</span><span class="pt-sp">${eq ? "Equipped" : has ? "Equip" : "🪙 " + x.price}</span></button>`;
+      return `<button type="button" class="pt-shopit tap-active ${eq ? "eq" : ""} ${!has && coins < x.price ? "short" : ""}" data-shop="${x.id}" aria-label="${esc(x.name)}, ${has ? (eq ? "equipped" : "owned") : x.price + " dumbbells"}">${shopPrev(x)}<span class="pt-sn">${esc(x.name)}</span><span class="pt-sp">${eq ? "Equipped" : has ? "Equip" : PT.DBI + " " + x.price}</span></button>`;
     };
     const grp = ([kind, title]) => {
       const list = SHOP.filter(x => x.kind === kind); if (!list.length) return "";
       const h = PT.shopHooks[kind], more = h && h.extra ? h.extra(a) : "";
       return `<span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 mt-1">${title}</span><div class="pt-shopgrid ${h && h.cols === 2 ? "two" : ""}">${list.map(item).join("")}</div>${more}`;
     };
-    const chips = [["all", "All"]].concat(kinds).map(([k, t]) => `<button type="button" class="pt-schip tap-active ${shopCat === k ? "on" : ""}" data-shopcat="${k}" aria-pressed="${shopCat === k}">${esc(({ color: "Colors", frame: "Frames", fx: "Confetti", title: "Titles", banner: "Banners" })[k] || t)}</button>`).join("");
+    const chips = [["all", "All"]].concat(kinds).map(([k, t]) => `<button type="button" class="pt-schip tap-active ${shopCat === k ? "on" : ""}" data-shopcat="${k}" aria-pressed="${shopCat === k}">${esc(({ color: "Colors", frame: "Frames", fx: "Confetti", title: "Titles", banner: "Banners", weapon: "Weapons" })[k] || t)}</button>`).join("");
     const next = SHOP.filter(x => !own.includes(x.id) && x.price > coins).sort((x, y) => x.price - y.price)[0];
     const reset = a.settings.accent === "custom" && a.settings.accentPrev ? '<button type="button" class="pt-b" id="pt-shop-resetcol">Back to my old color</button>' : "";
-    return `<div class="flex items-center justify-between"><span class="text-sm font-black text-amber-300">🪙 ${fmt(coins)} coins</span><span class="text-[10px] text-zinc-500">${SHOP.filter(x => own.includes(x.id)).length} of ${SHOP.length} owned</span></div>
-      ${next ? `<span class="block text-[11px] text-zinc-400">Next: ${esc(next.name)} · ${fmt(next.price - coins)} coins to go</span>` : ""}
+    return `<div class="flex items-center justify-between"><span class="text-sm font-black text-amber-300">${PT.DBI} ${fmt(coins)} dumbbells</span><span class="text-[10px] text-zinc-500">${SHOP.filter(x => own.includes(x.id)).length} of ${SHOP.length} owned</span></div>
+      ${next ? `<span class="block text-[11px] text-zinc-400">Next: ${esc(next.name)} · ${fmt(next.price - coins)} dumbbells to go</span>` : ""}
       <div class="pt-schips wrap" role="group" aria-label="Shop sections">${chips}</div>${(shopCat === "all" ? kinds : kinds.filter(k => k[0] === shopCat)).map(grp).join("")}
       <div class="flex gap-2 flex-wrap">${a.settings.fxStyle && a.settings.fxStyle !== "classic" ? '<button type="button" class="pt-b" id="pt-shop-fxclassic">Classic confetti</button>' : ""}${reset}</div>`;
   }
@@ -242,7 +244,7 @@
   /* ============================================================== after a workout */
   function afterFinish(a) {
     const items = [], st = a.settings, c = checkChallenge(a); if (c) items.push(chalItem(c));
-    const sv = seasons(a).cur; if (st.seasonSeen && st.seasonSeen.i === sv.i && sv.tier > st.seasonSeen.t) { const t = sv.tier; items.push({ custom: true, label: "Season reward", name: `Tier ${t}`, desc: `${sv.name} · ${TIER_REWARD[t].replace(/^\S+ /, "")} unlocked${SEASON_COINS[t] ? " (+" + SEASON_COINS[t] + " coins)" : ""}`, big: `<div style="font-size:96px;line-height:1">${t >= 8 ? "🏆" : "🏟"}</div>`, glow: "rgb(96 165 250 / .6)", a: "#93c5fd", b: "#2563eb", confetti: t >= 6 }); }
+    const sv = seasons(a).cur; if (st.seasonSeen && st.seasonSeen.i === sv.i && sv.tier > st.seasonSeen.t) { const t = sv.tier; items.push({ custom: true, label: "Season reward", name: `Tier ${t}`, desc: `${sv.name} · ${TIER_REWARD[t].replace(/^\S+ /, "").replace(/^@(\d+)$/, "$1 dumbbells")} unlocked${SEASON_COINS[t] ? " (+" + Math.floor(SEASON_COINS[t] / 2) + " dumbbells)" : ""}`, big: `<div style="font-size:96px;line-height:1">${t >= 8 ? "🏆" : "🏟"}</div>`, glow: "rgb(96 165 250 / .6)", a: "#93c5fd", b: "#2563eb", confetti: t >= 6 }); }
     st.seasonSeen = { i: sv.i, t: sv.tier }; save();
     if (items.length && PT.showBadgeUnlock) setTimeout(() => PT.showBadgeUnlock(items), 1500);
   }
@@ -267,7 +269,7 @@
     const sh = on("[data-shop]");
     if (sh) {
       const it = SHOP.find(x => x.id === sh.dataset.shop); if (!it) return; OPEN.shop = true;
-      if (!owned(a).includes(it.id)) { if (PT.coins(a) < it.price) { a.toast(`You need ${it.price - PT.coins(a)} more coins`); return; } if (!(await PT.confirm(`Buy ${it.name} for ${it.price} coins?`))) return; a.settings.shopOwned = owned(a).concat(it.id); save(); memo2(); }
+      if (!owned(a).includes(it.id)) { if (PT.coins(a) < it.price) { a.toast(`You need ${it.price - PT.coins(a)} more dumbbells`); return; } if (!(await PT.confirm(`Buy ${it.name} for ${it.price} dumbbells?`))) return; a.settings.shopOwned = owned(a).concat(it.id); save(); memo2(); }
       equip(a, it); a.renderProgressView(); try { a.renderHomeView(); } catch (x) { } return;
     }
     if (t("pt-shop-fxclassic")) { a.settings.fxStyle = "classic"; save(); a.renderProgressView(); return; }

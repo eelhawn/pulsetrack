@@ -74,7 +74,7 @@ with page() as p:
     c.eq(p.evaluate('() => PT.coins(app)'), coins0 - 450, 'and no coins are taken')
     p.evaluate('() => { reset(); app.settings.chests = []; app.settings.myRewards = []; app.settings.shopOwned = []; WorkoutStorage.saveSettings(app.settings); }')
     c.eq(p.evaluate('() => PT.shield.buy()'), False, 'without the coins it will not sell')
-    c.ok(any('more coins' in m for m in p.evaluate('() => window.__t')), 'and says how many more are needed')
+    c.ok(any('more dumbbells' in m for m in p.evaluate('() => window.__t')), 'and says how many more are needed')
     c.eq(p.errors, [], 'no page errors')
 
 with page() as p:

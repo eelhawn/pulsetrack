@@ -51,7 +51,7 @@
   }
   function textOf(R) {
     const hl = headline(R), L = lines(R);
-    return [`PulseTrack family recap · ${range(R)}`, hl, ...R.rows.map((r, i) => `${i + 1}. ${r.n}: ${r.sc} pts · ${dayTxt(r)}${prTxt(K.num(r.w.p))}`), ...L, R.missing.length ? `No update yet: ${list(R.missing.map(p => p.n))}` : ""].filter(Boolean).join("\n");
+    return [`PulseTrack group recap · ${range(R)}`, hl, ...R.rows.map((r, i) => `${i + 1}. ${r.n}: ${r.sc} pts · ${dayTxt(r)}${prTxt(K.num(r.w.p))}`), ...L, R.missing.length ? `No update yet: ${list(R.missing.map(p => p.n))}` : ""].filter(Boolean).join("\n");
   }
 
   /* ================================================================ the card */
@@ -72,7 +72,7 @@
     const old = $("pt-pg-famrecap"); if (old) old.remove();
     const d = document.createElement("details");
     d.className = "pt-pg"; d.id = "pt-pg-famrecap"; if (view.open) d.open = true;
-    d.innerHTML = `<summary><span class="text-xs font-bold text-white">🗓️ Family recap</span><span class="pt-chev">›</span></summary><div class="space-y-2.5">${cardInner(a)}</div>`;
+    d.innerHTML = `<summary><span class="text-xs font-bold text-white">🗓️ Group recap</span><span class="pt-chev">›</span></summary><div class="space-y-2.5">${cardInner(a)}</div>`;
     d.addEventListener("toggle", () => { view.open = d.open; if (d.open) markSeen(a); });
     root.appendChild(d);
   }
@@ -80,7 +80,7 @@
   const oPV = proto.renderProgressView;
   proto.renderProgressView = function () {
     const r = oPV.apply(this, arguments);
-    try { draw(this); } catch (e) { console.error("PulseTrack family recap", e); }
+    try { draw(this); } catch (e) { console.error("PulseTrack group recap", e); }
     return r;
   };
 
@@ -92,7 +92,7 @@
     g.fillStyle = acc; g.fillRect(0, 0, W, 14);
     const fit = (t, max, w, s) => { g.font = font(w, s); let x = String(t); while (g.measureText(x).width > max && x.length > 4) x = x.slice(0, -2); return x === String(t) ? x : x + "…"; };
     g.fillStyle = acc; g.font = font(900, 44); g.fillText("PULSETRACK", 80, 120);
-    g.fillStyle = "#ffffff"; g.font = font(900, 84); g.fillText("Family recap", 80, 245);
+    g.fillStyle = "#ffffff"; g.font = font(900, 84); g.fillText("Group recap", 80, 245);
     g.fillStyle = "#a1a1aa"; g.font = font(600, 34); g.fillText(range(R), 80, 305);
     let y = 400; const hl = headline(R);
     if (hl) { g.fillStyle = "#fbbf24"; g.font = font(900, 50); g.fillText(fit(hl, W - 160, 900, 50), 80, y); y += 40; }
@@ -110,13 +110,13 @@
     g.fillStyle = "#52525b"; g.font = font(600, 26); g.fillText("Tracked with PulseTrack", 80, H - 60);
     try {
       const blob = await new Promise((res, rej) => cv.toBlob(b => b ? res(b) : rej(new Error("toBlob")), "image/png"));
-      await a.shareFile(new File([blob], `pulsetrack-family-${R.wid}.png`, { type: "image/png" }), "PulseTrack family recap");
+      await a.shareFile(new File([blob], `pulsetrack-family-${R.wid}.png`, { type: "image/png" }), "PulseTrack group recap");
     } catch (e) { a.toast("Could not create the picture"); }
   }
   async function shareText(a) {
     const text = textOf(recap(a, view.w));
-    try { if (navigator.share) { await navigator.share({ title: "PulseTrack family recap", text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
-    try { await navigator.clipboard.writeText(text); a.toast("Copied. Paste it in your family chat"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
+    try { if (navigator.share) { await navigator.share({ title: "PulseTrack group recap", text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+    try { await navigator.clipboard.writeText(text); a.toast("Copied. Paste it in your group chat"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
   }
   PT.famRecapText = (a, which) => textOf(recap(a || A(), which || "last"));
 
@@ -133,7 +133,7 @@
       const R = recap(a, "last"); if (R.rows.length < 2) return r;
       const el = document.createElement("div");
       el.className = "border border-emerald-800/60 bg-emerald-950/30 rounded-xl p-3 text-xs text-zinc-300 flex items-start gap-3"; el.setAttribute("data-banner", "famrecap");
-      el.innerHTML = `<div class="flex-grow leading-relaxed"><b class="text-white">Family recap is ready.</b> ${esc(headline(R) || "See how last week went.")}</div>
+      el.innerHTML = `<div class="flex-grow leading-relaxed"><b class="text-white">Group recap is ready.</b> ${esc(headline(R) || "See how last week went.")}</div>
         <div class="flex flex-col gap-1.5 shrink-0"><button type="button" class="pt-frb-go px-2.5 py-1.5 bg-emerald-600 text-white font-bold rounded-lg tap-active">Open</button><button type="button" class="pt-frb-no px-2.5 py-1.5 bg-zinc-800 text-zinc-300 rounded-lg tap-active">Later</button></div>`;
       box.insertBefore(el, box.firstChild);
       el.querySelector(".pt-frb-no").addEventListener("click", () => { markSeen(a); a.renderHomeBanners(); });
@@ -141,7 +141,7 @@
         markSeen(a); view.w = "last"; view.open = true; a.showView("progress");
         setTimeout(() => { try { const t = document.querySelector(".pt-ptab[data-tab=social]"); if (t) t.click(); const d = $("pt-pg-famrecap"); if (d) { d.open = true; d.scrollIntoView({ block: "start" }); } } catch (e) { } }, 350);
       });
-    } catch (e) { console.error("PulseTrack family recap banner", e); }
+    } catch (e) { console.error("PulseTrack group recap banner", e); }
     return r;
   };
 

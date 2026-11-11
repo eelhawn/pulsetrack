@@ -29,15 +29,15 @@
     muscles: [[null, ["muscle", "balance", "pmap"]]],
     strength: [[null, ["big3", "next", "lvls"]], ["Find your gaps", ["weak"]], ["Ranks and goals", ["rank", "goals", "attempt"]]],
     history: [["Recaps", ["recap", "report", "month", "year"]], ["Over time", ["heat", "prs"]]],
-    rewards: [[null, ["hub"]], ["Level and season", ["lvl", "season"]], ["Challenges", ["qst", "chal", "chk"]], ["Collection", ["badges", "shop", "wish"]]],
-    social: [["Friends", ["buddy", "wall"]], ["Family", ["boss", "famrecap", "fam"]]]
+    rewards: [[null, ["hub", "loot"]], ["Level and season", ["lvl", "season"]], ["Challenges", ["qst", "chal", "chk"]], ["Collection", ["badges", "shop", "wish"]]],
+    social: [["Friends", ["buddy", "wall"]], ["Group", ["boss", "grprew", "famrecap", "fam"]]]
   };
-  const ID = { hub: "pt-pg-hub", wish: "pt-pg-wish", wk: "pt-pg-wk", report: "pt-pg-report", month: "pt-pg-month", year: "pt-pg-recap", heat: "pt-pg-heat", prs: "pt-pg-prs", pmap: "pt-pg-pmap", rank: "pt-pg-rank", goals: "pt-pg-goals", lvl: "pt-pg-lvl", season: "pt-pg-season", qst: "pt-pg-qst", chal: "pt-pg-chal", chk: "pt-pg-chk", badges: "pt-pg-badges", shop: "pt-pg-shop", buddy: "pt-pg-buddy", boss: "pt-pg-boss", wall: "pt-pg-wall", fam: "pt-pg-fam", famrecap: "pt-pg-famrecap", muscle: "pt-muscle-card", next: "pt-next-card", weak: "pt-weak-card", deload: "pt-dlcheck-card", attempt: "pt-attempt-card", balance: "pt-balance-card", big3: "strength-card", lvls: "pt-lvls-card", recap: "recap-card" };
+  const ID = { loot: "pt-pg-loot", grprew: "pt-pg-grprew", hub: "pt-pg-hub", wish: "pt-pg-wish", wk: "pt-pg-wk", report: "pt-pg-report", month: "pt-pg-month", year: "pt-pg-recap", heat: "pt-pg-heat", prs: "pt-pg-prs", pmap: "pt-pg-pmap", rank: "pt-pg-rank", goals: "pt-pg-goals", lvl: "pt-pg-lvl", season: "pt-pg-season", qst: "pt-pg-qst", chal: "pt-pg-chal", chk: "pt-pg-chk", badges: "pt-pg-badges", shop: "pt-pg-shop", buddy: "pt-pg-buddy", boss: "pt-pg-boss", wall: "pt-pg-wall", fam: "pt-pg-fam", famrecap: "pt-pg-famrecap", muscle: "pt-muscle-card", next: "pt-next-card", weak: "pt-weak-card", deload: "pt-dlcheck-card", attempt: "pt-attempt-card", balance: "pt-balance-card", big3: "strength-card", lvls: "pt-lvls-card", recap: "recap-card" };
   const SUB = {
     lvl: "XP, level and profile frames", wk: "Your goal and your streak", qst: "New quests every week", rank: "Where your big lifts rank", recap: "Your year in numbers",
     season: "Tiers and rewards", chal: "Take on a challenge", chk: "A quick daily check-in", shop: "Colors, frames, titles and more", wish: "Set your own prizes", pmap: "What you train, on a body map",
     buddy: "Share workouts with friends", wall: "Best lifts on the board", month: "Your month, graded", report: "Last 7 days vs the week before",
-    badges: "Milestones you have earned", goals: "Targets for your lifts", heat: "Every day you trained", prs: "Your records over time", fam: "Compare with family", boss: "Beat the weekly boss together", famrecap: "Who won the week, and how"
+    badges: "Milestones you have earned", goals: "Targets for your lifts", heat: "Every day you trained", prs: "Your records over time", fam: "Compare with group", boss: "Beat the weekly boss together", famrecap: "Who won the week, and how", loot: "Earned chests to open", grprew: "Prizes the group unlocks together"
   };
   const EMOJI = /^(?:\p{Extended_Pictographic}️?(?:‍\p{Extended_Pictographic}️?)*)\s*/u;
 

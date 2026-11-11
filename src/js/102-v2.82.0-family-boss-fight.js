@@ -47,7 +47,8 @@
     ppl.forEach(p => {
       const w = p.wk && p.wk[wid]; if (!w && !cur) return;
       const g = K.effG(w ? w.g : goalOf(p)), d = w ? K.num(w.d) : 0, pr = w ? K.num(w.p) : 0, hits = Math.min(d, g + 1), crits = Math.min(pr, CRITMAX);
-      rows.push({ n: p.n || "Me", me: !!p.me, g, d, pr, hits, crits, dmg: hits * HIT + crits * CRIT, share: g * HIT, wait: !w, t: p.t || 0 });
+      const base = hits * HIT + crits * CRIT, bx = PT.bossBonus ? PT.bossBonus(a, p, wid, base) : 0;   // 2.90.0: what the battle game added (capped)
+      rows.push({ n: p.n || "Me", me: !!p.me, g, d, pr, hits, crits, bx, dmg: base + bx, share: g * HIT, wait: !w, t: p.t || 0 });
     });
     return { wid, rows, base: rows.reduce((t, r) => t + r.share, 0), dmg: rows.reduce((t, r) => t + r.dmg, 0) };
   }
@@ -59,7 +60,7 @@
   /** this week's fight and the last weeks, oldest first, with the boss level going into each */
   function state(a) {
     const key = [(a.sessions || []).length, (a.sessions || []).reduce((m, s) => Math.max(m, s.upd || s.ts || 0), 0), Object.values(a.settings.fam2 || {}).map(x => x && x.t).join(","),
-      (a.settings.family || []).length, Object.keys(a.settings.wall || {}).length, a.settings.myName || "", Object.keys(wins(a)).length, PT.ds()].join("|");
+      (a.settings.family || []).length, Object.keys(a.settings.wall || {}).length, a.settings.myName || "", Object.keys(wins(a)).length, PT.ds(), JSON.stringify(a.settings.bossGame || {})].join("|");
     if (memo && memo.key === key) return memo.v;
     const ppl = Object.values(K.people(a)), past = []; let lvl = 0;
     for (let i = BACK; i >= 1; i--) {
@@ -95,7 +96,7 @@
     const f = fresh[fresh.length - 1], cur = f.wid === K.dsOf(K.wkMon(0));
     setTimeout(() => {
       try {
-        a.toast(cur ? `${f.e} You beat the ${f.b} together! +${f.c} coins` : `${f.e} The ${f.b} from ${PT.fmtDate ? PT.fmtDate(f.wid, { month: "short", day: "numeric" }) : f.wid} went down too. +${f.c} coins`, undefined, undefined, 6000);
+        a.toast(cur ? `${f.e} You beat the ${f.b} together! +${Math.floor(f.c / 2)} dumbbells and an epic chest` : `${f.e} The ${f.b} from ${PT.fmtDate ? PT.fmtDate(f.wid, { month: "short", day: "numeric" }) : f.wid} went down too. +${Math.floor(f.c / 2)} dumbbells`, undefined, undefined, 6000);
         if (cur) PT.confetti && PT.confetti(70);
         a.renderHomeView && a.renderHomeView();
       } catch (e) { }
@@ -106,7 +107,7 @@
   const pips = (d, g) => { const t = g + 1, on = Math.min(d, t); return "▮".repeat(on) + "▯".repeat(Math.max(0, g - on)) + (d > g ? " +" : ""); };
   function rowHtml(r) {
     const hurt = r.dmg > 0 ? `−${fmt(r.dmg)}` : "0";
-    const sub = r.wait ? `<span class="pt-f2stale">waiting for an update</span>` : `${r.d} of ${r.g} days${r.crits ? ` · ${r.crits} critical hit${r.crits === 1 ? "" : "s"}` : ""}`;
+    const sub = r.wait ? `<span class="pt-f2stale">waiting for an update</span>` : `${r.d} of ${r.g} days${r.crits ? ` · ${r.crits} critical hit${r.crits === 1 ? "" : "s"}` : ""}${r.bx ? ` · ⚔️ +${fmt(r.bx)} in battle` : ""}`;
     return `<div class="pt-bossrow ${r.me ? "me" : ""}"><div class="min-w-0 flex-1"><span class="block text-xs font-black text-white truncate">${esc(r.n)}${r.me ? " (you)" : ""}</span><span class="block pt-f2sub">${sub}</span></div>
       <span class="pt-bosspips" aria-hidden="true">${r.wait ? "·" : pips(r.d, r.g)}</span><span class="pt-bossdmg">${hurt}</span></div>`;
   }
@@ -114,9 +115,9 @@
     const solo = st.rows.length <= 1, wait = st.rows.filter(r => r.wait && !r.me).map(r => r.n);
     if (st.won) return `<p class="text-[11px] font-bold text-emerald-400">Defeated 🏆 with ${fmt(st.dmg - st.hp)} damage to spare.</p>`;
     const days = Math.max(1, Math.ceil(st.left / HIT)), left = Math.max(0, Math.ceil((K.wkMon(0) + 7 * DAY - Date.now()) / DAY));
-    const need = `<p class="text-[11px] text-zinc-300"><b class="text-white">${fmt(st.left)} HP</b> to go, about ${days} training day${days === 1 ? "" : "s"} for the family${left > 0 ? " with " + left + " day" + (left === 1 ? "" : "s") + " left" : ""}.</p>`;
+    const need = `<p class="text-[11px] text-zinc-300"><b class="text-white">${fmt(st.left)} HP</b> to go, about ${days} training day${days === 1 ? "" : "s"} for the group${left > 0 ? " with " + left + " day" + (left === 1 ? "" : "s") + " left" : ""}.</p>`;
     const w = wait.length ? `<p class="text-[11px] text-amber-300">Waiting for ${esc(wait.slice(0, 2).join(" and "))}${wait.length > 2 ? " and " + (wait.length - 2) + " more" : ""}. Their update hits the boss too.</p>` : "";
-    const s = solo ? `<p class="text-[11px] text-zinc-400">Fighting alone. Paste your family's updates (Progress → Social → Family) to take on a bigger boss together.</p>` : "";
+    const s = solo ? `<p class="text-[11px] text-zinc-400">Fighting alone. Paste your group's updates (Progress → Social → Group) to take on a bigger boss together.</p>` : "";
     return need + w + s;
   }
   function pastHtml(a, st) {
@@ -134,8 +135,9 @@
       <div>${bar(pct)}<div class="flex items-center justify-between text-[10px] text-zinc-400 mt-1"><span>${st.won ? "0" : fmt(st.left)} / ${fmt(st.hp)} HP</span><span>${Math.round((1 - pct) * 100)}% down</span></div></div>
       ${statusLine(st)}
       <div class="space-y-1.5">${st.rows.map(rowHtml).join("")}</div>
-      <div class="flex flex-wrap gap-2"><button type="button" class="pt-b go" id="pt-boss-rally">⚔️ ${st.won ? "Share the win" : "Rally the family"}</button></div>
-      <p class="text-[10px] text-zinc-500 leading-snug">Each day you train hits for 100 (one day over your weekly goal counts too), each new record is a 50 critical hit. The boss has 100 HP for every day of everyone's weekly goal, so it is fair when people train different amounts. Beating it together pays 40 coins, plus 10 for each other person who landed a hit.</p>
+      ${PT.battleCardHtml ? PT.battleCardHtml(a, st) : ""}
+      <div class="flex flex-wrap gap-2"><button type="button" class="pt-b go" id="pt-boss-rally">⚔️ ${st.won ? "Share the win" : "Rally the group"}</button></div>
+      <p class="text-[10px] text-zinc-500 leading-snug">Each day you train hits for 100 (one day over your weekly goal counts too), each new record is a 50 critical hit, and the battle adds up to half of that again. The boss has 100 HP for every day of everyone's weekly goal, so it is fair when people train different amounts. Beating it together pays 20 dumbbells, plus 5 for each other person who landed a hit, and an epic loot chest.</p>
       ${pastHtml(a, st)}</div>`;
   }
   const OPEN = { v: false };
@@ -166,15 +168,15 @@
   async function rally() {
     const a = A(); if (!a) return;
     if (!K.myName(a)) {
-      const v = await PT.prompt("What name should your family see?", "", { title: "Your name", ok: "Save", maxlength: 24 });
+      const v = await PT.prompt("What name should your group see?", "", { title: "Your name", ok: "Save", maxlength: 24 });
       const n = String(v || "").trim().slice(0, 24); if (!n) return; a.settings.myName = n; save(a); memo = null;
     }
     const st = state(a), me = st.rows.find(r => r.me), who = K.myName(a), tail = PT.famUpdateCode ? "\n" + PT.famUpdateCode(a) : "";
     const text = st.won
       ? `${st.boss.e} We beat the ${st.boss.n}! ${st.rows.filter(r => r.dmg > 0).length} of us landed hits this week 🏆 In PulseTrack: Progress > Social > Paste update.${tail}`
       : `⚔️ The ${st.boss.e} ${st.boss.n} has ${fmt(st.left)} of ${fmt(st.hp)} HP left this week. ${who} has dealt ${fmt(me ? me.dmg : 0)}. Who is in? In PulseTrack: Progress > Social > Paste update.${tail}`;
-    try { if (navigator.share) { await navigator.share({ title: "Family boss fight", text }); if (PT.famMarkSent) PT.famMarkSent(); return; } } catch (e) { if (e && e.name === "AbortError") return; }
-    try { await navigator.clipboard.writeText(text); a.toast("Copied. Paste it in your family chat"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
+    try { if (navigator.share) { await navigator.share({ title: "Group boss fight", text }); if (PT.famMarkSent) PT.famMarkSent(); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+    try { await navigator.clipboard.writeText(text); a.toast("Copied. Paste it in your group chat"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
     if (PT.famMarkSent) PT.famMarkSent();
   }
   document.addEventListener("click", e => { if (e.target.closest && e.target.closest("#pt-boss-rally")) { e.preventDefault(); rally(); } });

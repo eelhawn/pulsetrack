@@ -82,11 +82,11 @@
   }
   function chalHtml(a) {
     const c = a.settings.famChal, st = a.__chalStat || "k", cur = thisWeekId();
-    const pick = `<div class="flex flex-wrap gap-1.5">${Object.keys(STATS).map(k => chip(`data-cstat="${k}"`, STATS[k].label, st === k)).join("")}</div><div><button type="button" class="pt-b go" id="pt-chal-new">Start a family challenge</button></div>`;
-    if (!c) return `<div class="pt-chalcard"><span class="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Family challenge</span><p class="text-[11px] text-zinc-400 leading-snug">Pick one stat for the week. Everyone adds the code and the standings show up here.</p>${pick}</div>`;
+    const pick = `<div class="flex flex-wrap gap-1.5">${Object.keys(STATS).map(k => chip(`data-cstat="${k}"`, STATS[k].label, st === k)).join("")}</div><div><button type="button" class="pt-b go" id="pt-chal-new">Start a group challenge</button></div>`;
+    if (!c) return `<div class="pt-chalcard"><span class="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Group challenge</span><p class="text-[11px] text-zinc-400 leading-snug">Pick one stat for the week. Everyone adds the code and the standings show up here.</p>${pick}</div>`;
     const rows = chalRows(a, c), S0 = STATS[c.s] || STATS.k, past = c.w < cur, lead = rows[0], top = Math.max(1, ...rows.map(r => r.val));
     const left = Math.max(0, Math.ceil((mondayOf(PT.fromDs(c.w).getTime()) + 7 * DAY - Date.now()) / DAY));
-    return `<div class="pt-chalcard"><div class="flex items-center justify-between"><span class="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Family challenge</span><span class="text-[10px] font-bold ${past ? "text-amber-300" : "text-zinc-400"}">${past ? "Finished" : left + " day" + (left === 1 ? "" : "s") + " left"}</span></div>
+    return `<div class="pt-chalcard"><div class="flex items-center justify-between"><span class="text-[10px] font-bold uppercase tracking-wider text-zinc-500">Group challenge</span><span class="text-[10px] font-bold ${past ? "text-amber-300" : "text-zinc-400"}">${past ? "Finished" : left + " day" + (left === 1 ? "" : "s") + " left"}</span></div>
       <span class="text-sm font-black text-white">${esc(c.t)}</span>
       ${rows.map((r, i) => `<div class="space-y-1"><div class="flex items-center justify-between text-xs"><span class="${r.me ? "font-black text-white" : "text-zinc-300"}">${i === 0 && r.val > 0 ? "👑 " : ""}${esc(r.n)}</span><span class="font-mono ${i === 0 && r.val > 0 ? "text-amber-300" : "text-zinc-400"}">${esc(S0.f(r.val))}</span></div>${bar(r.val / top)}</div>`).join("")}
       ${lead && lead.val > 0 ? `<p class="text-[11px] ${lead.me ? "text-emerald-400" : "text-zinc-400"} font-bold">${lead.me ? (past ? "You won this one 🏆" : "You are in the lead") : esc(lead.n) + (past ? " won" : " leads") + " this " + (past ? "round" : "week")}</p>` : ""}
@@ -95,9 +95,9 @@
   async function shareChal() {
     const a = A(), c = a.settings.famChal; if (!c) return; await ensureName(a);
     const mineCode = PT.familyCode ? PT.familyCode(a, PT.fromDs(c.w).getTime() + 3 * DAY).split("\n")[0] : "";
-    const text = `PulseTrack family challenge: ${c.t}. Paste this in PulseTrack > Progress > Family board.\n${enc("PTC1", c)}\n${mineCode}`;
-    try { if (navigator.share) { await navigator.share({ title: "Family challenge", text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
-    try { await navigator.clipboard.writeText(text); a.toast("Copied. Send it to your family"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
+    const text = `PulseTrack group challenge: ${c.t}. Paste this in PulseTrack > Progress > Group board.\n${enc("PTC1", c)}\n${mineCode}`;
+    try { if (navigator.share) { await navigator.share({ title: "Group challenge", text }); return; } } catch (e) { if (e && e.name === "AbortError") return; }
+    try { await navigator.clipboard.writeText(text); a.toast("Copied. Send it to your group"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
   }
 
   /* ============================================================== buddies */
@@ -159,7 +159,7 @@
     const a = A(); if (!(await ensureName(a))) return; const c = myCard(a);
     const text = `${c.n}: Level ${c.lv}, ${c.b} badges, ${c.st} week streak 💪\n${enc("PTW1", c)}${famTail(a)}`;
     try { if (navigator.share) { await navigator.share({ title: "My PulseTrack card", text }); sent(); return; } } catch (e) { if (e && e.name === "AbortError") return; }
-    try { await navigator.clipboard.writeText(text); a.toast("Copied. Send it to your family"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
+    try { await navigator.clipboard.writeText(text); a.toast("Copied. Send it to your group"); } catch (e) { await PT.alert("Copy this:\n\n" + text); }
     sent();
   }
 
@@ -181,7 +181,7 @@
   /* finish screen button */
   function ensureSummaryBtn() {
     if ($("pt-summary-send")) return; const t = $("btn-summary-template"); if (!t || !t.parentElement) return;
-    const b = document.createElement("button"); b.id = "pt-summary-send"; b.type = "button"; b.className = "w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-bold rounded-xl tap-active text-sm"; b.textContent = "🤝 Send to family & buddies"; t.parentElement.insertBefore(b, t);
+    const b = document.createElement("button"); b.id = "pt-summary-send"; b.type = "button"; b.className = "w-full py-3 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-bold rounded-xl tap-active text-sm"; b.textContent = "🤝 Send to group & buddies"; t.parentElement.insertBefore(b, t);
   }
   const oFin = proto.finishWorkoutV2;
   proto.finishWorkoutV2 = async function () { const r = await oFin.apply(this, arguments); try { ensureSummaryBtn(); } catch (e) { } return r; };

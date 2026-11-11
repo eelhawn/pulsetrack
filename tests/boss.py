@@ -9,6 +9,7 @@ TAB = '() => { app.showView("progress"); app._progTab = "social"; app.renderProg
 SETUP = '''() => {
   PT.confirm = async () => true; PT.alert = async () => {}; PT.prompt = async () => "Me";
   app.settings.myName = "Me"; app.settings.fam2 = {}; app.settings.bossWins = {}; app.sessions.length = 0;
+  PT.setGoalBoth(app, 3); app.settings.weekGoalLog = [{ t: 0, g: 3 }]; app.settings.weeklyGoalLog = [{ t: 0, g: 3 }];   // these checks were written for a 3 day goal
   window.__t = []; app.toast = m => { window.__t.push(String(m)); };
   window.WID = i => PT.famKit.dsOf(PT.famKit.wkMon(i));
   window.addDay = (i, k) => { const t = PT.famKit.wkMon(i) + k * 86400000 + 12 * 3600000; app.sessions.push({ id: "b" + i + "_" + k, date: PT.ds(new Date(t)), ts: t, name: "Day", ex: [], vol: 1000, sets: 3, unit: "lb", prs: [], dur: 3000 }); };
@@ -68,7 +69,7 @@ with page() as p:
     # ------------------------------------------------------------ the celebration (once)
     p.evaluate('() => { addToday(); app.settings.bossWins = {}; window.__t.length = 0; PT.boss.reset(); PT.boss.check(); }')
     p.wait_for_timeout(700)
-    c.ok(any('beat the' in m and 'coins' in m for m in p.evaluate('() => window.__t')), 'a toast says you beat it together and what it paid')
+    c.ok(any('beat the' in m and 'dumbbells' in m for m in p.evaluate('() => window.__t')), 'a toast says you beat it together and what it paid')
     p.evaluate('() => { window.__t.length = 0; PT.boss.check(); }')
     p.wait_for_timeout(600)
     c.eq(p.evaluate('() => window.__t.length'), 0, 'and it does not say it again')
@@ -90,14 +91,14 @@ with page() as p:
     p.evaluate(TAB)
     p.wait_for_timeout(400)
     c.ok(p.evaluate('() => !!document.querySelector("[data-ptab=social] #pt-pg-boss")'), 'the boss fight is in Progress → Social')
-    c.eq(p.evaluate('() => document.querySelector("#pt-pg-boss").closest(".pt-grpbox").querySelector(".pt-grp").textContent.trim()'), 'Family', 'under Family')
+    c.eq(p.evaluate('() => document.querySelector("#pt-pg-boss").closest(".pt-grpbox").querySelector(".pt-grp").textContent.trim()'), 'Group', 'under Group')
     c.eq(p.evaluate('() => document.querySelector("#pt-pg-boss").closest(".pt-grpbox").children[1].id'), 'pt-pg-boss', 'and first in it')
     p.evaluate('() => { document.getElementById("pt-pg-boss").open = true; }')
     txt = p.evaluate('() => document.getElementById("pt-pg-boss").textContent')
     boss = p.evaluate('() => PT.boss.state().boss')
     c.ok(boss['n'] in txt, 'the boss is named')
     c.ok('HP' in txt and 'Dad' in txt and '(you)' in txt, 'health and both people show')
-    c.ok('Rally the family' in txt, 'the Rally button')
+    c.ok('Rally the group' in txt, 'the Rally button')
     c.eq(p.evaluate('() => document.querySelectorAll("#pt-pg-boss .pt-bossrow").length'), 2, 'one row each')
     c.eq(p.evaluate('() => !!document.querySelector("#pt-pg-boss .pt-bosshp span")'), True, 'a health bar')
     # Rally sends the health and my update
@@ -115,7 +116,7 @@ with page() as p:
     # it is a ranked part of the Rewards screens: the coin breakdown has it
     p.evaluate('() => { app._progTab = "rewards"; app.renderProgressView(); }')
     p.wait_for_timeout(300)
-    c.ok('Family boss wins' in p.evaluate('() => document.getElementById("pt-pg-hub").textContent'), 'How coins work lists boss wins')
+    c.ok('Group boss wins' in p.evaluate('() => document.getElementById("pt-pg-hub").textContent'), 'How coins work lists boss wins')
     c.eq(p.errors, [], 'no page errors')
 
 with page(w=360, h=740) as p:

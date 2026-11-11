@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone (the optional live family board, off until you start or join one, sends only a small scrambled update).
 
-*Version 2.89.1*
+*Version 2.90.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -517,9 +517,15 @@ Rows that open and close have an icon and a one-line description, so you can see
 
 ### Rewards and Social
 
+- **2.90.0: coins are now dumbbells, and there are loot chests.** Everyone started again at 0 dumbbells when they updated (what you already bought stays yours), and every old source pays half of what it used to: about 1 dumbbell per 20 XP, 5 per record, 12 per weekly quest, 10 per goal week, 50 per challenge, half the daily chest. The big prizes are now **loot chests** (Progress → Rewards → **Loot chests**), earned and opened by hand:
+  - **Common:** each week you hit your goal. **Rare:** every 10 new records, a goal streak of 4 or 8 weeks, or the group training 4 days a head in a week. **Epic:** beating the weekly boss, a goal streak of 12 or 26 weeks, or everybody in the group hitting their goal. **Legendary:** a 52 week goal streak, or the group beating 3 bosses in a row.
+  - A chest holds dumbbells (common 20 to 40, rare 60 to 100, epic 150 to 250, legendary 500), a streak shield, or a shop item you do not own yet (bigger chests hold pricier items; a legendary chest holds one of the 4 legendary items: the Comet weapon, the Prismatic frame, and the titles Legend of Iron and Unbreakable). The prize is fixed by the chest, so it cannot be re-rolled. Items won from a chest never count as spent. Only things that happened after the switch count.
+  - **The shop is bigger:** 7 **boss battle weapons** (🔨 🪓 🗡️ 🔱 ⚡ 🔥 ☄️, shown on every hit in the battle), and high-end frames, banners, titles and colors up to 2,500 dumbbells.
+  - **Group rewards** (Progress → Social → Group → **Group rewards**): everybody hits their goal (epic), group grind of 4 days a head (rare), 3 bosses in a row (legendary). Everybody who trained that week gets the chest on their own phone.
+- **2.90.0: the weekly goal is 5 days.** Everyone moved to 5 days from the week they updated; past weeks keep the goal they had, so no streak breaks. Change it any time in **Settings → Weekly Goal** or in Progress (both now move together, and both remember the goal per week).
 - **Rewards:** a **Today** card (your coins, the **daily chest**, what you are closest to, how coins are earned), your level and XP, the season, weekly quests, challenges, the daily check-in, badges, the **rewards shop** (colors, frames, confetti, titles and Home card banners) and **My real rewards** (prizes you set yourself and save coins for).
 - **Streak shields (2.83.0):** in Rewards → Daily check-in. Buy up to 3 shields for 150 coins each. A shield keeps your days-in-a-row streak alive on a day you miss: it is used on its own after a missed day when the streak it saves was 3 days or more, or by hand with **Protect today** on a sick day (it comes back if you show up anyway). It never adds a day, so the milestone badges still need real days.
-- **Social:** the family board, buddies, the wall of fame and the family challenge. See **Family board** below.
+- **Social:** the group board (called the family board before 2.90.0), buddies, the wall of fame and the group challenge. See **Group board** below.
 
 ### Muscles
 
@@ -570,7 +576,7 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 
 ---
 
-### Family board (rebuilt in 2.53.0)
+### Group board (rebuilt in 2.53.0, called the family board until 2.90.0)
 
 **Progress → Social.** There is no server of ours, so the board runs either on codes that travel in any chat, or, since 2.89.0, live through a free public relay. The old board only changed when somebody sent a fresh code, and people who had not sent one that week fell off it. Now:
 
@@ -771,7 +777,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.89.1 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.90.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -815,7 +821,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen. Its icons are the logo (written by `tools/build.py`) |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 105 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 107 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0), `make_fonts.py` (2.71.0) and `make_logo.py` (2.86.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -830,7 +836,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`, `live.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `battle.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -851,6 +857,14 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.90.0**
+- **Family is now Group** everywhere in the app (Group board, Live group board, Group challenge, Group recap, Rally the group). Nothing you saved changes.
+- **Weekly goal: 5 days for everyone**, with the option to switch in Settings → Weekly Goal (or the goal picker in Progress; they now stay in sync). Past weeks keep the goal they had, so streaks are safe: the Settings streak now remembers the goal per week too.
+- **Boss battle mini game.** Progress → Social → Boss fight → **Fight**. Each training day this week gives 3 swings and each record 2 (up to 3). A marker sweeps across a bar: tap **HIT** in the green for a PERFECT (20, a critical), yellow for GOOD (10), red is a MISS and the boss hits back (you lose a heart; 3 hearts a day). Perfect hits in a row build a combo up to ×2, every 4th swing the boss charges (faster, a perfect hit is a COUNTER for double), below 30% health it is enraged (faster, smaller green zone), and tougher bosses are faster. Floating damage numbers, shake, sounds (with a mute button) and a vibration on hits. What the battle adds counts for the whole group, capped at half your workout damage that week, so training still matters most; it travels in your group update (older versions ignore it).
+- **Coins are now dumbbells** (with a dumbbell icon). Everyone starts again at 0 and every old source pays half. A one-time "What's new" sheet explains it.
+- **Loot chests, a bigger shop and group rewards**: see Rewards and Social. Beating the boss now also gives an epic chest.
+- New tests: `tests/group.py` (66 checks: the goal switch keeps streaks, settings in sync, Group wording, the dumbbell restart and half rate, gifts cost nothing, chest sources and prizes, the shop weapons, group rewards, the What's new sheet) and `tests/battle.py` (48 checks: swings, perfect/good/miss, combos, counter, cap, hearts, the damage on the boss and on another phone, the battle screen at 390 and 360 px). `boss.py`, `rewards.py` and `shield.py` were updated for dumbbells and the 5 day goal.
 
 **2.89.1**
 - **Live family board: updates now last longer than the relay's 12 hours.** ntfy.sh forgets messages after about 12 hours and that cannot be changed from the app, so the phones now carry the memory themselves. Each phone remembers when it last saw each person in the mailbox. When somebody it knows has had nothing there for 6 hours, it puts the latest update it has of them back (still scrambled, same time stamp, so it never counts as newer than the real one). Whoever opens the app tops the mailbox up, so a person's update outlives the 12 hours as long as somebody opens the app now and then, and a new member sees everybody right away.

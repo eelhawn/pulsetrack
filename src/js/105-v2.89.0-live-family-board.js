@@ -112,6 +112,7 @@
     const wk = Object.keys(r.wk || {}).sort().slice(-4).map(k => [k, r.wk[k].d, r.wk[k].g, r.wk[k].p]);
     const o = { v: 2, n: r.n, t: r.t, lv: r.lv, b: r.b, st: r.st, l: r.l || {}, wk };
     if (r.sr != null) { o.sr = r.sr; if (r.sl != null) o.sl = r.sl; } if (r.pg != null) o.pg = r.pg;
+    if (r.bx && typeof r.bx === "object") { const bx = Object.keys(r.bx).sort().slice(-2).map(k => [k, r.bx[k]]); if (bx.length) o.bx = bx; }   // 2.90.0
     return "PTF2." + btoa(unescape(encodeURIComponent(JSON.stringify(o))));
   }
   const live = a => { const s = a && a.settings && a.settings.live; return s && typeof s === "object" && valid(s.code) ? s : null; };
@@ -201,13 +202,13 @@
   };
   function cardHtml(a) {
     const L = live(a);
-    if (!L) return `<span class="pt-f2h">Live family board</span>
-      <p class="text-[11px] text-zinc-400 leading-snug">Scores update on their own. One of you starts a board and shares the family code. Everyone else types it in once.</p>
+    if (!L) return `<span class="pt-f2h">Live group board</span>
+      <p class="text-[11px] text-zinc-400 leading-snug">Scores update on their own. One of you starts a board and shares the group code. Everyone else types it in once.</p>
       <div class="flex flex-wrap gap-2"><button type="button" class="pt-b go" id="pt-live-start">Start a board</button><button type="button" class="pt-b" id="pt-live-join">Join with a code</button></div>
       <p class="text-[10px] text-zinc-500 leading-snug">Needs internet. Updates are scrambled on your phone before they are sent, so only people with the code can read them.</p>`;
     const [txt, cls] = statusOf();
-    return `<div class="flex items-center justify-between gap-2"><span class="pt-f2h">Live family board</span><span id="pt-live-st" class="text-[11px] font-bold whitespace-nowrap ${cls}">${esc(txt)}</span></div>
-      <div class="flex flex-wrap gap-2"><button type="button" class="pt-b" id="pt-live-now">Refresh</button><button type="button" class="pt-b" id="pt-live-code">Family code</button><button type="button" class="pt-b" id="pt-live-leave">Leave</button></div>`;
+    return `<div class="flex items-center justify-between gap-2"><span class="pt-f2h">Live group board</span><span id="pt-live-st" class="text-[11px] font-bold whitespace-nowrap ${cls}">${esc(txt)}</span></div>
+      <div class="flex flex-wrap gap-2"><button type="button" class="pt-b" id="pt-live-now">Refresh</button><button type="button" class="pt-b" id="pt-live-code">Group code</button><button type="button" class="pt-b" id="pt-live-leave">Leave</button></div>`;
   }
   /** only the status line, in place */
   function paint(a) {
@@ -250,16 +251,16 @@
   /* ============================================================== start, join, show the code, leave */
   async function needName(a) {
     if (a.settings.myName) return a.settings.myName;
-    const v = await PT.prompt("What name should your family see?", "", { title: "Your name", ok: "Save", maxlength: 24 });
+    const v = await PT.prompt("What name should your group see?", "", { title: "Your name", ok: "Save", maxlength: 24 });
     const n = String(v || "").trim().slice(0, 24); if (!n) return ""; a.settings.myName = n; save(a); return n;
   }
-  const shareText = code => `Join my PulseTrack family board 💪 In PulseTrack open Progress > Social > Family board and tap "Join with a code". Code: ${pretty(code)}`;
+  const shareText = code => `Join my PulseTrack group board 💪 In PulseTrack open Progress > Social > Group board and tap "Join with a code". Code: ${pretty(code)}`;
   function showCode(a, fresh) {
     const L = live(a); if (!L) return;
     const kit = PT.kit, el = kit.sheet("pt-live", 70);
-    const card = kit.openSheet(el, `${kit.head(fresh ? "Your family code" : "Family code", fresh ? "Send it to everyone. They tap Join with a code and type it once." : "Anyone with this code sees everybody's updates.")}
-      <div class="pt-livecode" id="pt-live-codebox" aria-label="Family code">${esc(pretty(L.code))}</div>
-      <div class="space-y-2 pt-3"><button type="button" id="pt-live-share" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl tap-active text-sm">Send to the family</button>
+    const card = kit.openSheet(el, `${kit.head(fresh ? "Your group code" : "Group code", fresh ? "Send it to everyone. They tap Join with a code and type it once." : "Anyone with this code sees everybody's updates.")}
+      <div class="pt-livecode" id="pt-live-codebox" aria-label="Group code">${esc(pretty(L.code))}</div>
+      <div class="space-y-2 pt-3"><button type="button" id="pt-live-share" class="w-full py-3 bg-emerald-600 hover:bg-emerald-500 text-white font-bold rounded-xl tap-active text-sm">Send to the group</button>
         <div class="grid grid-cols-2 gap-2"><button type="button" id="pt-live-copy" class="py-2.5 rounded-xl bg-zinc-800/70 text-zinc-300 text-xs font-bold tap-active">Copy code</button><button type="button" data-live-close="1" class="py-2.5 rounded-xl bg-zinc-800/70 text-zinc-300 text-xs font-bold tap-active">Done</button></div></div>
       <p class="text-[10px] text-zinc-500 leading-snug pt-3">Only share it with people you want on the board. Anyone who has it can read and post updates.</p>`);
     card.addEventListener("click", async e => {
@@ -267,8 +268,8 @@
       if (e.target.closest("#pt-live-copy")) { try { await navigator.clipboard.writeText(pretty(L.code)); a.toast("Code copied"); } catch (er) { await PT.alert("Your code:\n\n" + pretty(L.code)); } return; }
       if (e.target.closest("#pt-live-share")) {
         const text = shareText(L.code);
-        try { if (navigator.share) { await navigator.share({ title: "PulseTrack family board", text }); return; } } catch (er) { if (er && er.name === "AbortError") return; }
-        try { await navigator.clipboard.writeText(text); a.toast("Copied. Paste it in your family chat"); } catch (er) { await PT.alert("Send this:\n\n" + text); }
+        try { if (navigator.share) { await navigator.share({ title: "PulseTrack group board", text }); return; } } catch (er) { if (er && er.name === "AbortError") return; }
+        try { await navigator.clipboard.writeText(text); a.toast("Copied. Paste it in your group chat"); } catch (er) { await PT.alert("Send this:\n\n" + text); }
       }
     });
   }
@@ -284,7 +285,7 @@
     if (live(a)) return;
     if (!supported()) { await PT.alert("This browser can't join a live board. Update Chrome, or keep using the update codes."); return; }
     if (!(await needName(a))) return;
-    const raw = typed != null ? typed : await PT.prompt("Type the family code", "", { title: "Join the family board", ok: "Join", maxlength: 80 });
+    const raw = typed != null ? typed : await PT.prompt("Type the group code", "", { title: "Join the group board", ok: "Join", maxlength: 80 });
     if (raw == null || !String(raw).trim()) return;
     const code = parseCode(raw);
     if (!code) { a.toast("That code doesn't look right. It is 16 letters and numbers, like ABCD-EFGH-JKLM-NPQR"); return; }
@@ -294,7 +295,7 @@
   }
   async function leave(a) {
     if (!live(a)) return;
-    if (!(await PT.confirm("Leave the live family board? This phone stops sending and receiving. The people already on your board stay until you remove them."))) return;
+    if (!(await PT.confirm("Leave the live group board? This phone stops sending and receiving. The people already on your board stay until you remove them."))) return;
     delete a.settings.live; save(a); ctxMemo = null; S.ok = 0; S.err = ""; S.found = [];
     a.toast("Left the live board"); a.renderProgressView();
   }
