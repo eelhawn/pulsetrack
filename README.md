@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
 
-*Version 2.85.2*
+*Version 2.86.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -765,7 +765,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.85.2 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.86.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -807,10 +807,10 @@ Upload these to your GitHub repo, all in the same folder:
 | `programs.js` | The 59 built-in programs |
 | `exercises.js` | The 646 exercises, each with its own form tips and the muscle it trains |
 | `sw.js` | Makes it work offline and update |
-| `manifest.json` | Lets it install to your home screen |
+| `manifest.json` | Lets it install to your home screen. Its icons are the logo (written by `tools/build.py`) |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 104 scripts (`js/`) and `VERSION` (new in 2.68.0) |
-| `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0) and `make_fonts.py` (2.71.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 104 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
+| `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0), `make_fonts.py` (2.71.0) and `make_logo.py` (2.86.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
 **Update steps:** upload the changed files on GitHub → open the app online → close and reopen.
@@ -845,6 +845,13 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.86.0**
+- **A new logo.** A glowing green ring (like a weight plate) with a white heartbeat line cutting straight through it, on a deep green-black background. It is bold enough to read at the tiny size of the side menu and still looks good as a big home-screen icon. It replaces the green "PT" square as the **install icon**, the **home-screen icon**, the **browser tab icon** and the mark at the top of the **side menu** (where the green "P" tile was).
+- **Made so Chrome installs it as a real app.** The icons in `manifest.json` are real PNG pictures (192 and 512 px, built into the file, no extra files to upload), because that is what made the real install (the one in your Apps list with **Uninstall**) work in 2.85.2. The picture fills its whole square and keeps everything inside the middle 80%, so Samsung's round or rounded-square shape never cuts into it.
+- **To see it:** an app that is already installed gets the new icon by itself in a day or two (Chrome rebuilds it when the manifest changes). To get it now: uninstall PulseTrack, open the site in Chrome online, tap **⋮ → Install app → Install**. Your workouts stay either way.
+- **One place for the logo:** `src/logo/logo.svg` is the drawing. `python3 tools/make_logo.py` turns it into the two PNGs (`png192.b64`, `png512.b64`, only needed when the drawing changes), and `python3 tools/build.py` puts them into `index.html` and `manifest.json`; `--check` fails if anything differs.
+- `tests/install.py` (31 checks): name, standalone display and start page; both icons are PNG, the right size, and the logo; no icon files added; the tab and home-screen icons are the logo; the picture fills its square, keeps inside the round-icon safe zone, and is centred (both sizes); the menu mark is 32 x 32 and loads; and Chrome's own install check finds nothing in the way and the offline service worker is registered.
 
 **2.85.2**
 - **Real PNG icons for installing.** The icon is the same green "PT" square, but `manifest.json` now lists it as two PNG pictures (192 and 512 px, built into the file, no extra files to upload) instead of one drawn SVG. Chrome on Android builds the real installed app (the one in your **Apps list** with **Uninstall**) more reliably from PNG icons than from SVG. If Chrome cannot build it, it falls back to a home-screen shortcut that opens in Chrome.
