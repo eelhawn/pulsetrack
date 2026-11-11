@@ -1,9 +1,9 @@
 # PulseTrack 💪
 
 **A free workout tracker that lives on your phone and works with no internet.**
-Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone.
+Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone (the optional live family board, off until you start or join one, sends only a small scrambled update).
 
-*Version 2.88.0*
+*Version 2.89.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -572,7 +572,13 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 
 ### Family board (rebuilt in 2.53.0)
 
-**Progress → Social.** There is no server, so the board runs on codes that travel in any chat. The old board only changed when somebody sent a fresh code, and people who had not sent one that week fell off it. Now:
+**Progress → Social.** There is no server of ours, so the board runs either on codes that travel in any chat, or, since 2.89.0, live through a free public relay. The old board only changed when somebody sent a fresh code, and people who had not sent one that week fell off it. Now:
+
+- **Live family board (new in 2.89.0).** Progress → Social → **Family board** now starts with a **Live family board** card. One person taps **Start a board** and sends the **family code** (16 letters and numbers like `K7QM-2XPD-9TRA-HW4C`, with a **Send to the family** button). Everyone else taps **Join with a code** and types it once (small letters, spaces or a whole pasted message are fine). After that everybody's update arrives on its own: when you open the app, when you come back to it, about every 40 seconds while the board is on screen and every 4 minutes otherwise, and your own update goes out after a workout or when something changed (at most once a minute, and again about every 6 hours). The card shows **Live · 2 min ago**, **Can't connect · retrying** or **Offline**, with **Refresh**, **Family code** (shows it again) and **Leave** (forgets the code; the people already on your board stay).
+  - **It is off until somebody starts or joins a board.** Until then the app makes no network request for it at all. Offline it does nothing and the old buttons below it (**Send my update**, **Paste update**) keep working; they are now called **Or send by message** when the live board is on, for someone who is not on it.
+  - **No accounts and no server of ours.** Phones swap small messages through the free public relay **ntfy.sh**. The family code is never sent: two things are worked out from it on the phone (PBKDF2, 100,000 rounds), a long random-looking mailbox name and an AES-256-GCM key, and every message is encrypted with that key before it leaves the phone. The relay only sees scrambled text, the mailbox name, message sizes, timing and phone network addresses, not names or numbers. A message that does not decrypt (another family, rubbish) is ignored. **Anyone who has the code can read and post updates, so share it only with your family.** A code has 80 bits, which cannot be guessed.
+  - **What is sent** is the same update code the board always used (name, level, streak, last 4 weeks, lift bests), so the rankings, **Boss fight** and **Family recap** follow it without changes. Challenges and Buddies workouts still travel by message.
+  - **Limits.** The relay keeps messages about 12 hours, so each phone keeps what it has seen and the board shows "updated 3 days ago" for people who have not opened the app lately. ntfy.sh is a free community service with no promise it stays up; if it is down or blocked the card says so and everything else carries on. Live sync needs a current Chrome (it uses the browser's built-in encryption). It could only be tested here against a fake relay that follows ntfy's documented behaviour, so it is the first thing to try on the real phones.
 
 - **One update code carries everything.** Your last four weeks, streak, progress and strength rating are in a single update. **Send my update** shares it in one tap, and **Paste update** reads the one in your clipboard. You can also paste a whole message into the box and tap **Add**.
 - **Every workout you send also updates the board.** Sending a finished workout, a card or a challenge to buddies adds your update to the same message, so the messages you already send keep the board current without extra steps.
@@ -589,7 +595,7 @@ The tip shows on the Overview tab, on the exercise card in your workout, and on 
 - **Family recap (new in 2.63.0):** a **Family recap** card sits above the board. It shows who won last week (or this week), everyone's days against their own goal, records and points, a few highlights (most records, longest streak, best progress over 4 weeks, the workouts you did together) and who has not sent an update yet, with the board's **Ask** button. **Share as picture** makes a 1080 × 1350 image for the family chat; **Copy as text** copies the same recap as plain lines. It uses the updates the board already has, so nobody has to send anything new. On Monday and Tuesday Home shows one line when last week's recap is ready (**Open** or **Later**, once per week).
 - **Family challenge:** pick a contest for the week (highest score, best consistency or most records), tap **Start a challenge** and **Share challenge + my update**. Challenges started before 2.53.0 (most workouts, volume, sets) still finish and show.
 - **Everyone needs 2.53.0 to read the new update.** Old codes (weekly codes, buddy workouts, reactions, wall cards) still work in both directions, but the new update code only shows on phones that have updated. Open the app online once, then close and reopen it.
-- Codes only hold names, week totals and ratings. Nothing is stored online.
+- Codes only hold names, week totals and ratings. Nothing is stored online unless you start or join a live board; then the relay holds your scrambled updates for about 12 hours.
 
 ### Seasons, buddies and report card
 
@@ -760,12 +766,12 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 
 ## Good to know
 
-**Works offline.** After the first load, everything (programs, exercises, charts, styling, fonts) is stored in the app. Only the YouTube "How to do it" links, getting updates and voice logging on most phones need internet. The family board works offline too: it is made of codes you send each other, with no server behind it. Close the app and reopen it in airplane mode, or refresh the page offline, and it opens with every feature.
+**Works offline.** After the first load, everything (programs, exercises, charts, styling, fonts) is stored in the app. Only the YouTube "How to do it" links, getting updates and voice logging on most phones need internet. The family board works offline too: it is made of codes you send each other, with no server of ours behind it, and the optional live board simply waits until you are online again. Close the app and reopen it in airplane mode, or refresh the page offline, and it opens with every feature.
 
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.88.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.89.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole, so you never end up with half of an update.
 
@@ -809,7 +815,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen. Its icons are the logo (written by `tools/build.py`) |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 104 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 105 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0), `make_fonts.py` (2.71.0) and `make_logo.py` (2.86.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -824,7 +830,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`, `live.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -845,6 +851,12 @@ Keep every `id` unique. New programs reach phones on the next update.
 ---
 
 ## Version history
+
+**2.89.0**
+- **The family board can now update on its own.** Progress → Social → Family board has a new **Live family board** card. One person taps **Start a board** and sends the family code; everyone else taps **Join with a code** and types it once. After that everybody's scores, streaks and the boss fight update without pasting anything, and your own update goes out after a workout.
+- **Private and optional.** It is off until somebody starts or joins one (nothing is sent before that). There are no accounts: phones swap messages through the free public relay ntfy.sh, and every message is scrambled on the phone with a key made from the family code, so the relay cannot read names or numbers. **Leave** forgets the code. Offline, nothing breaks and the old **Send my update** and **Paste update** buttons still work.
+- Hardening: a pasted update from a family member can no longer carry a name that is a JavaScript internal (`__proto__`, `constructor`).
+- New `tests/live.py` (93 checks) runs three phones against a fake relay: code format and reading, the scrambling (same code = same mailbox, wrong key, tampered or rubbish messages refused), off by default with no requests, start, join, updates arriving by themselves, nothing resent when nothing changed, other families and forged messages ignored, offline and back, leave, and the card at 360 px and in the light theme. The real ntfy.sh could not be reached from where the app is built, so a real-phone check is still worth doing.
 
 **2.88.0**
 - **My 6-Day Split now shows only the week you are on.** On a Week A week (**1, 3 or 5**) the Days list shows only Days 1-7 under **Weeks 1, 3 & 5 · Week A**, and the Week B days are hidden. On a Week B week (**2, 4 or 6**) it shows only Days 8-14 under **Weeks 2, 4 & 6 · Week B**, and Week A is hidden. Finishing a week (or **Switch week**) flips the list to the other set by itself. The week bar at the top still says **Week 6 of 6 · Week B · 0/6 done**, and **Switch week** still lets you go to any week.

@@ -119,7 +119,7 @@
     const names = [], f2 = fam2(a), me = myName(a).toLowerCase(); let same = 0, self = 0;
     (String(text || "").match(/PTF2\.[A-Za-z0-9+/=_-]+/g) || []).forEach(tok => {
       const d = dec(tok); if (!d || d.tag !== "PTF2" || !d.o || d.o.v !== 2 || !d.o.n) return; const o = d.o;
-      const n = clip(o.n, 24); if (me && n.toLowerCase() === me) { self++; return; }
+      const n = clip(o.n, 24); if (/^(__proto__|constructor|prototype)$/i.test(n)) return; if (me && n.toLowerCase() === me) { self++; return; }
       const key = Object.keys(f2).find(k => k.toLowerCase() === n.toLowerCase()) || n, old = f2[key], t = Math.min(num(o.t) || Date.now(), Date.now() + HOUR);
       if (old && num(old.t) >= t) { same++; return; }
       const wk = Object.assign({}, old ? old.wk : {});
@@ -346,6 +346,7 @@
   if (oFin) proto.finishWorkoutV2 = async function () { const r = await oFin.apply(this, arguments); try { polishSummaryBtn(); } catch (e) { } return r; };
 
   /** 2.63.0: what the family recap (m90a) reads */
+  PT.famReceive = receive;   // 2.89.0: the live board feeds what it receives through here too
   PT.famKit = { people, season, score, cons, effG, wkMon, dsOf, myName, ago, CATS, num };
 
   const css = document.createElement("style"); css.id = "pt-v253-fam-css";
