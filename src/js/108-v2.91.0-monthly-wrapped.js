@@ -7,6 +7,7 @@
  *  - Tap the right side for the next slide, the left side to go back, hold to pause. Arrow keys and Escape work too.
  *  - Opens from the Home banner in the first 10 days of a month ("Your October Wrapped is ready", which used to scroll to the
  *    monthly recap), and from a "Play Wrapped" button on the monthly recap card in Progress → History, for any month.
+ *  Big numbers and titles shrink to fit the screen, so very wide fonts and huge months stay on screen (2.91.1).
  *  Nothing new is stored except settings.recapSeen (as before) once you open it from the banner.
  * ===================================================================== */
 (function () {
@@ -140,6 +141,18 @@
       el.textContent = f(0); requestAnimationFrame(step);
     });
   }
+  /** shrinks the big text until it fits the width, so any font (some are very wide) and any number stay on screen */
+  function fit(root) {
+    root.querySelectorAll(".pt-wr-month, .pt-wr-big, .pt-wr-name, .pt-wr-unit").forEach(el => {
+      el.style.fontSize = "";
+      const n = el.querySelector(".pt-wr-n"), keep = n ? n.textContent : null;
+      if (n) n.textContent = el.dataset.max || n.textContent;
+      let px = parseFloat(getComputedStyle(el).fontSize) || 16, guard = 40;
+      const room = () => Math.max(1, (root.clientWidth || el.clientWidth));
+      while (guard-- > 0 && px > 14 && el.scrollWidth > room() + 1) { px = Math.floor(px * 0.92); el.style.fontSize = px + "px"; }
+      if (n) n.textContent = keep;
+    });
+  }
   function show(i) {
     if (!P) return;
     if (i < 0) i = 0;
@@ -151,6 +164,8 @@
     st.innerHTML = `<div class="pt-wr-slide">${s.html}</div>`;
     el.querySelectorAll(".pt-wr-bars > i").forEach((b, j) => { b.className = j < i ? "done" : j === i ? (s.end ? "done" : "now") : ""; const f = b.firstChild; f.style.animation = "none"; void f.offsetWidth; f.style.animation = ""; });
     el.classList.toggle("paused", false);
+    fit(st.firstElementChild);
+    try { if (document.fonts && document.fonts.status !== "loaded") document.fonts.ready.then(() => { if (P && P.i === i && st.firstElementChild) fit(st.firstElementChild); }); } catch (e) { }
     countUp(st);
   }
   function close() {
@@ -202,6 +217,7 @@
       if (sh && P) { sh.disabled = true; try { const f = await picture(a, P.D); await a.shareFile(f, "My " + P.D.monthName + " Wrapped"); } catch (err) { a.toast("Could not make the picture"); } sh.disabled = false; }
     });
     document.addEventListener("keydown", onKey, true);
+    el.addEventListener("pt-wr-refit", () => { const sl = el.querySelector(".pt-wr-slide"); if (sl) fit(sl); });
     show(0);
     setTimeout(() => { try { el.querySelector(".pt-wr-x").focus({ preventScroll: true }); } catch (e) { } }, 50);
     return true;
@@ -269,6 +285,7 @@
     open(A(), fromKey(b.dataset.m));
   });
 
+  window.addEventListener("resize", () => { if (P) P.el.dispatchEvent(new Event("pt-wr-refit")); });
   PT.wrapped = { open: (m0, a) => open(a || A(), m0), close, data: (m0, a) => data(a || A(), m0), slides: (m0, a) => { const D = data(a || A(), m0); return D ? slides(D) : []; }, picture: (m0, a) => picture(a || A(), data(a || A(), m0)), at: () => (P ? P.i : -1), next: () => P && show(P.i + 1), prev: () => P && show(P.i - 1) };
 
   /* ============================================================== the look */
@@ -300,6 +317,9 @@
     .pt-wr-month { font-size: clamp(3.4rem, 17vw, 5.6rem); font-weight: 900; line-height: .92; letter-spacing: -.04em; word-break: break-word; }
     .pt-wr-sub { font-size: 1.15rem; font-weight: 600; margin-top: .9rem; color: rgb(255 255 255 / .9); }
     .pt-wr-hint { font-size: .78rem; color: rgb(255 255 255 / .55); margin-top: 2.5rem; }
+    .pt-wr-slide > * { max-width: 100%; }
+    .pt-wr-month, .pt-wr-big, .pt-wr-unit { white-space: nowrap; }
+    .pt-wr-line, .pt-wr-sub, .pt-wr-kick { overflow-wrap: anywhere; }
     .pt-wr-big { font-size: clamp(4.6rem, 26vw, 8rem); font-weight: 900; line-height: .9; letter-spacing: -.05em; font-variant-numeric: tabular-nums; }
     .pt-wr-big small { font-size: .38em; letter-spacing: -.02em; color: rgb(255 255 255 / .7); }
     .pt-wr-unit { font-size: 1.3rem; font-weight: 800; margin-top: .35rem; }

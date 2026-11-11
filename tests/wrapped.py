@@ -49,6 +49,11 @@ with page() as p:
     k2 = p.evaluate('() => { const f2 = app.settings.fam2, bw = app.settings.bossWins, bg = app.settings.bossGame; app.settings.fam2 = {}; app.settings.bossWins = {}; app.settings.bossGame = {}; PT.boss.reset(); PT.loot.reset(); const k = PT.wrapped.slides(M0).map(s => s.k); app.settings.fam2 = f2; app.settings.bossWins = bw; app.settings.bossGame = bg; PT.boss.reset(); PT.loot.reset(); return k; }')
     c.ok('group' not in k2 and 'boss' not in k2, 'slides with nothing to show are left out (%r)' % k2)
 
+# the slide, and every piece of text in it, inside the screen
+FITS = """() => { const s = document.querySelector(".pt-wr-slide"), r = s.getBoundingClientRect(), st = document.querySelector(".pt-wr-stage").getBoundingClientRect();
+  if (!(r.left >= -1 && r.right <= innerWidth + 1 && r.top >= st.top - 1 && r.bottom <= st.bottom + 1)) return false;
+  return [...s.querySelectorAll("*")].every(e => { const b = e.getBoundingClientRect(); return e.scrollWidth <= e.clientWidth + 1 || getComputedStyle(e).textOverflow === "ellipsis" ? b.right <= innerWidth + 1 && b.left >= -1 : false; }); }"""
+
 for w in (390, 360):
     with page(w=w, h=800) as p:
         p.evaluate(SEED)
@@ -92,7 +97,7 @@ for w in (390, 360):
         for i in range(11):
             p.evaluate('(i) => { while (PT.wrapped.at() < i) PT.wrapped.next(); while (PT.wrapped.at() > i) PT.wrapped.prev(); document.getElementById("pt-wr").classList.add("paused"); }', i)
             p.wait_for_timeout(500)
-            f = p.evaluate('() => { const s = document.querySelector(".pt-wr-slide").getBoundingClientRect(), st = document.querySelector(".pt-wr-stage").getBoundingClientRect(); return s.left >= -1 && s.right <= innerWidth + 1 && s.top >= st.top - 1 && s.bottom <= st.bottom + 1; }')
+            f = p.evaluate(FITS)
             if not f: bad.append(i)
             if w == 360 and i in (4, 7, 9, 10): p.screenshot(path=SHOTS + 'wr360-%d.png' % i)
             if w == 390 and i in (8, 10): p.screenshot(path=SHOTS + 'wr390-%d.png' % i)
@@ -108,6 +113,24 @@ for w in (390, 360):
         p.click('#pt-wr-play'); p.wait_for_selector('#pt-wr'); p.click('.pt-wr-x'); p.wait_for_timeout(300)
         c.eq(p.evaluate('() => !!document.getElementById("pt-wr")'), False, '%dpx: and the ✕' % w)
         c.eq(p.errors, [], '%dpx: no page errors' % w)
+
+# ---------------------------------------------------------------- a very wide font and a huge month still fit
+with page(w=360, h=740) as p:
+    p.evaluate(SEED)
+    p.evaluate('() => { app.sessions.forEach(x => { x.vol = 95000; if (x.ex[0]) x.ex[0].name = "Single-Arm Dumbbell Overhead Triceps Extension"; }); }')
+    p.add_style_tag(content='#pt-wr, #pt-wr * { font-family: monospace !important; letter-spacing: .12em !important; font-weight: 300 !important; }')
+    vol = p.evaluate('() => PT.wrapped.data(M0).S.vol')
+    c.ok(vol > 1000000, 'the big month moved over a million (%r)' % vol)
+    p.evaluate('() => PT.wrapped.open(M0)')
+    bad = []
+    for i in range(p.evaluate('() => document.querySelectorAll(".pt-wr-bars > i").length')):
+        p.evaluate('(i) => { while (PT.wrapped.at() < i) PT.wrapped.next(); document.getElementById("pt-wr").classList.add("paused"); }', i)
+        p.wait_for_timeout(1000)
+        if not p.evaluate(FITS): bad.append(p.evaluate('() => document.getElementById("pt-wr").dataset.k'))
+        if p.evaluate('() => document.getElementById("pt-wr").dataset.k') == 'moved':
+            p.screenshot(path=SHOTS + 'wr-wide.png')
+    c.eq(bad, [], 'wide font: every slide fits, numbers shrink to fit')
+    c.eq(p.errors, [], 'wide font: no page errors')
 
 # ---------------------------------------------------------------- the Home banner, early in the month
 with page() as p:
