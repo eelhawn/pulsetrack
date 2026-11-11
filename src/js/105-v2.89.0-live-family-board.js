@@ -17,7 +17,13 @@
  *    Receiving: on opening the app, when you come back to it, every ~40 s while the family board is on screen and every ~4 minutes
  *    otherwise. The relay keeps messages about 12 hours, so each phone keeps what it has seen (settings.fam2) and the board shows
  *    "updated 3 days ago" for people who have not opened the app lately.
- *  settings.live = { code, last (newest relay time seen), pub (when I last sent), fp (what I last sent) }.
+ *  2.89.1: the relay forgets after about 12 hours and that is its own setting, so the phones carry the memory instead. Each phone
+ *    remembers when it last saw a message from each person in the mailbox (settings.live.mb). When somebody it knows has nothing recent
+ *    there (6 hours), it posts the latest update it has of them again, unchanged (same time stamp, so a receiver keeps only the newest).
+ *    Anyone who opens the app tops the mailbox up, so a person's update outlives the relay's 12 hours as long as somebody opens the app
+ *    now and then, and a new member sees everybody at once. When a name shows up that this phone has never seen, it sends its own update
+ *    again so the newcomer gets it.
+ *  settings.live = { code, last (newest relay time seen), pub (when I last sent), fp (what I last sent), mb (person -> newest relay time seen), pulled (looked at the mailbox once), hello (a newcomer is waiting for my update) }.
  * ===================================================================== */
 (function () {
   "use strict";
@@ -30,7 +36,7 @@
   const RELAY = "https://ntfy.sh/";
   const ALPHA = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";   // 32 symbols with no 0 O 1 I, so a code read out loud or typed on a phone is hard to get wrong
   const CODE_LEN = 16, HOUR = 3600000, MIN = 60000;
-  const RESEND = 6 * HOUR, MIN_GAP = MIN, GAP_OPEN = 40 * 1000, GAP_AWAY = 4 * MIN, MAX_LINES = 300, MAX_MSG = 4096;
+  const DAY = 24 * HOUR, RESEND = 6 * HOUR, MIN_GAP = MIN, FWD_MAX = 4, FWD_AGE = 45 * DAY, GAP_OPEN = 40 * 1000, GAP_AWAY = 4 * MIN, MAX_LINES = 300, MAX_MSG = 4096;
   const save = a => { try { WorkoutStorage.saveSettings((a || A()).settings); } catch (e) { } };
   const num = v => { const n = parseFloat(v); return isFinite(n) ? n : 0; };
   const te = new TextEncoder(), td = new TextDecoder();
@@ -95,21 +101,34 @@
   function fingerprint(tok) {
     try { const o = JSON.parse(decodeURIComponent(escape(atob(String(tok).split(".")[1])))); delete o.t; return JSON.stringify(o); } catch (e) { return String(tok); }
   }
+  const BADNAME = /^(__proto__|constructor|prototype)$/i;
+  /** who an update code is from, "" when it is not one */
+  function nameOf(text) {
+    const m = String(text || "").match(/PTF2\.([A-Za-z0-9+/=_-]+)/); if (!m) return "";
+    try { const o = JSON.parse(decodeURIComponent(escape(atob(m[1])))), n = String((o && o.n) || "").slice(0, 24); return BADNAME.test(n) ? "" : n; } catch (e) { return ""; }
+  }
+  /** an update code made again from what this phone has of somebody (their own time stamp stays, so it never counts as newer than the real one) */
+  function tokenOf(r) {
+    const wk = Object.keys(r.wk || {}).sort().slice(-4).map(k => [k, r.wk[k].d, r.wk[k].g, r.wk[k].p]);
+    const o = { v: 2, n: r.n, t: r.t, lv: r.lv, b: r.b, st: r.st, l: r.l || {}, wk };
+    if (r.sr != null) { o.sr = r.sr; if (r.sl != null) o.sl = r.sl; } if (r.pg != null) o.pg = r.pg;
+    return "PTF2." + btoa(unescape(encodeURIComponent(JSON.stringify(o))));
+  }
   const live = a => { const s = a && a.settings && a.settings.live; return s && typeof s === "object" && valid(s.code) ? s : null; };
 
   const S = { busy: false, last: 0, ok: 0, err: "", found: [] };     // this session only: the status line
   const famVisible = () => { const e = $("pt-pg-fam"); return !!(e && e.open !== false && e.getClientRects().length && !document.hidden); };
 
-  async function publish(a, L, c, force) {
+  async function publish(a, L, c, force, hello) {
     if (!a.settings.myName) return false;
     const tok = PT.famUpdateCode(a), fp = fingerprint(tok), now = Date.now();
-    if (fp === L.fp && now - num(L.pub) < RESEND) return false;     // nothing new (a Refresh does not send the same thing again)
+    if (!hello && fp === L.fp && now - num(L.pub) < RESEND) return false;     // nothing new (a Refresh does not send the same thing again); a newcomer is the exception
     if (!force && now - num(L.pub) < MIN_GAP) return false;         // at most once a minute on its own
     const msg = await encrypt(c.key, tok);
     if (msg.length > MAX_MSG) return false;
     const res = await http(RELAY + c.topic, { method: "POST", body: msg });
     if (!res.ok) throw new Error("relay " + res.status);
-    L.pub = now; L.fp = fp; try { PT.famMarkSent(); } catch (e) { }
+    L.pub = now; L.fp = fp; L.hello = 0; try { PT.famMarkSent(); } catch (e) { }
     return true;
   }
   /** read what arrived since last time and feed it to the same receiver the pasted codes use */
@@ -117,17 +136,39 @@
     const since = num(L.last) ? Math.max(1, Math.floor(num(L.last)) - 60) : "all";   // a minute of overlap is harmless: the receiver keeps only the newest
     const res = await http(RELAY + c.topic + "/json?poll=1&since=" + since);
     if (!res.ok) throw new Error("relay " + res.status);
-    const lines = (await res.text()).split("\n").slice(-MAX_LINES), names = []; let max = num(L.last);
+    const lines = (await res.text()).split("\n").slice(-MAX_LINES), names = [], fresh = []; let max = num(L.last);
+    const mb = L.mb = L.mb && typeof L.mb === "object" && !Array.isArray(L.mb) ? L.mb : {}, first = !L.pulled, mine = String(a.settings.myName || "").toLowerCase();
+    const had = new Set(Object.keys(a.settings.fam2 || {}).map(k => k.toLowerCase()));
     for (const line of lines) {
       if (!line || line.length > MAX_MSG * 2) continue;
       let m; try { m = JSON.parse(line); } catch (e) { continue; }
       if (!m || m.event !== "message" || typeof m.message !== "string" || m.message.length > MAX_MSG) continue;
-      max = Math.max(max, Math.min(num(m.time), Date.now() / 1000 + 3600));
+      const mt = Math.min(num(m.time), Date.now() / 1000 + 3600); max = Math.max(max, mt);
       const plain = await decrypt(c.key, m.message); if (!plain) continue;
+      const who = nameOf(plain), k = who.toLowerCase();
+      if (who && k !== mine) { mb[k] = Math.max(num(mb[k]), mt); if (!had.has(k)) { had.add(k); fresh.push(who); } }
       const r = PT.famReceive(plain, a); (r.names || []).forEach(n => { if (names.indexOf(n) < 0) names.push(n); });
     }
     if (max !== num(L.last)) { L.last = max; save(a); }
+    L.pulled = 1;
+    if (!first && fresh.length) L.hello = 1;      // kept until it has really been sent (it may have to wait out the one-minute gap)
     return names;
+  }
+
+  /** the relay forgets after ~12 hours: when somebody this phone knows has nothing recent in the mailbox, put the latest we have of them back */
+  async function forward(a, L, c) {
+    const now = Date.now(), me = String(a.settings.myName || "").toLowerCase(), f2 = a.settings.fam2 || {}, mb = L.mb || (L.mb = {}); let sent = 0;
+    for (const key of Object.keys(f2)) {
+      if (sent >= FWD_MAX) break;
+      const r = f2[key], low = r && r.n ? String(r.n).toLowerCase() : "";
+      if (!low || low === me || BADNAME.test(low) || !num(r.t) || now - num(r.t) > FWD_AGE) continue;
+      if (now / 1000 - num(mb[low]) < RESEND / 1000) continue;          // somebody already has a recent copy in the mailbox
+      const msg = await encrypt(c.key, tokenOf(r)); if (msg.length > MAX_MSG) continue;
+      const res = await http(RELAY + c.topic, { method: "POST", body: msg });
+      if (!res.ok) throw new Error("relay " + res.status);
+      mb[low] = now / 1000; sent++;
+    }
+    return sent;
   }
 
   /** one round: read, then send if there is something new. Never throws. */
@@ -140,7 +181,8 @@
     try {
       const c = await derive(L.code);
       names = await pull(a, L, c);
-      await publish(a, L, c, !!opt.force); save(a);
+      await publish(a, L, c, !!opt.force, !!L.hello);
+      await forward(a, L, c); save(a);
       S.ok = Date.now(); S.err = ""; ok = true;
     } catch (e) { S.err = e && e.name === "AbortError" ? "slow" : "net"; }
     S.busy = false;
@@ -282,7 +324,7 @@
     return r;
   };
 
-  PT.live = { newCode, parseCode, valid, derive, encrypt, decrypt, sync, start, join, leave, isOn: a => !!live(a || A()), status: () => Object.assign({}, S), relay: RELAY };
+  PT.live = { newCode, parseCode, valid, derive, encrypt, decrypt, nameOf, tokenOf, sync, start, join, leave, isOn: a => !!live(a || A()), status: () => Object.assign({}, S), relay: RELAY };
 
   const css = document.createElement("style"); css.id = "pt-v289-live-css";
   css.textContent = `

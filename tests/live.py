@@ -337,6 +337,55 @@ with phones(2, relay) as (A, B):
     c.eq(len(relay.posts()), posts + 1, 'a forced one does')
     c.eq(A.errors + B.errors, [], 'no page errors')
 
+# ============================================================== the relay forgets after 12 hours: the phones carry the memory
+relay = FakeRelay()
+with phones(3, relay) as (A, B, C):
+    A.evaluate(SETUP, 'Ilhaan'); B.evaluate(SETUP, 'Sam'); C.evaluate(SETUP, 'Dad')
+    A.evaluate('() => { addToday(); addToday(); }'); B.evaluate('() => { addToday(); }'); C.evaluate('() => { addToday(); }')
+    A.evaluate('() => { PT.live.start(app); }')
+    A.wait_for_function(WAIT_OK)
+    code = A.evaluate('() => app.settings.live.code')
+    B.evaluate('(c) => { PT.live.join(app, c); }', code)
+    B.wait_for_function(WAIT_OK)
+    topic = list(relay.topics)[0]
+    A.evaluate(SYNC_PLAIN)   # A has seen Sam too
+    ta = B.evaluate('() => app.settings.fam2.Ilhaan.t')
+    c.eq(B.evaluate('() => Object.keys(app.settings.live.mb)'), ['ilhaan'], 'a phone remembers when it last saw each person in the mailbox')
+    # 7 hours go by for B and the relay has dropped everything (it keeps messages 12 hours, and A only posted 13 hours ago)
+    relay.topics[topic] = []
+    B.evaluate('() => { const mb = app.settings.live.mb; Object.keys(mb).forEach(k => { mb[k] -= 7 * 3600; }); }')
+    n = len(relay.posts())
+    B.evaluate(SYNC_PLAIN)
+    c.eq(len(relay.posts()), n + 1, 'B puts the latest it has of Ilhaan back in the mailbox (nothing recent there)')
+    B.evaluate(SYNC_PLAIN)
+    c.eq(len(relay.posts()), n + 1, 'and only once: the mailbox has a recent copy now')
+    c.ok('Ilhaan' not in json.dumps(relay.topics) and 'PTF2' not in json.dumps(relay.topics), 'it is scrambled like everything else')
+    # D joins later and sees Ilhaan although Ilhaan has not opened the app since
+    C.evaluate('(c) => { PT.live.join(app, c); }', code)
+    C.wait_for_function(WAIT_OK)
+    c.eq(C.evaluate(FAM), ['Ilhaan'], 'a newcomer sees Ilhaan, whose own phone has been closed')
+    c.eq(C.evaluate('() => app.settings.fam2.Ilhaan.t'), ta, 'with the original time stamp, so it never pretends to be newer than the real thing')
+    c.eq(C.evaluate('() => app.settings.fam2.Ilhaan.lv'), B.evaluate('() => app.settings.fam2.Ilhaan.lv'), 'and the same numbers')
+    # a phone that sees a new name sends its own update again, so the newcomer gets it
+    A.evaluate(SYNC_PLAIN)   # A sees Dad appear (this may already have happened by itself: it is remembered until sent)
+    c.ok(A.evaluate('() => app.settings.live.hello === 1 || (Date.now() - app.settings.live.pub) < 5000'), 'Ilhaan has noticed a newcomer')
+    A.evaluate('() => { app.settings.live.pub -= 120000; app.settings.live.mb.sam -= 7 * 3600; }')   # a minute has passed, and Sam has been quiet in the mailbox for 7 hours
+    n = len(relay.posts())
+    A.evaluate(SYNC_PLAIN)
+    c.eq(len(relay.posts()), n + 2, 'Ilhaan sends Ilhaan\'s update again although nothing changed, and puts Sam back (7 quiet hours)')
+    c.eq(A.evaluate('() => app.settings.live.hello'), 0, 'and that is done')
+    A.evaluate('() => { app.settings.live.pub -= 120000; }')
+    A.evaluate(SYNC_PLAIN)
+    c.eq(len(relay.posts()), n + 2, 'but not again: only a newcomer causes it')
+    C.evaluate(SYNC_PLAIN)
+    c.eq(sorted(C.evaluate(FAM)), ['Ilhaan', 'Sam'], 'and now Dad sees Sam too')
+    # somebody who has not been seen for 50 days is not carried around any more
+    B.evaluate('() => { app.settings.fam2.Ilhaan.t = Date.now() - 50 * 86400000; const mb = app.settings.live.mb; Object.keys(mb).forEach(k => { mb[k] -= 8 * 3600; }); }')
+    n = len(relay.posts())
+    B.evaluate(SYNC_PLAIN)
+    c.eq(len(relay.posts()), n, 'an update older than 45 days is not put back')
+    c.eq(A.errors + B.errors + C.errors, [], 'no page errors')
+
 # ============================================================== light theme and a small phone
 relay = FakeRelay()
 with phones(1, relay, w=360, h=740) as (p,):
