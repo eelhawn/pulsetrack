@@ -30,7 +30,7 @@ with page() as p:
     known = set(known)
     miss = sorted({e['name'] for d in prog['days'] for e in d['exercises'] if e['name'].lower() not in known})
     c.eq(miss, [], 'every exercise is in the library (by name or other name)')
-    c.ok('Machine Chest Dips' in p.evaluate('EXERCISE_DATABASE.map(e => e.name)'), 'Machine Chest Dips was added to the library')
+    c.ok('Iso-Lateral Plate-Loaded Machine Dip' in p.evaluate('EXERCISE_DATABASE.map(e => e.name)'), 'the machine dip is in the library under its new name')
     c.eq(len({e['id'] for d in prog['days'] for e in d['exercises']}), 120, 'every exercise id is unique')
 
     # ---- delete: Keep it leaves everything; Delete removes, with an Undo toast that puts it back in the same place

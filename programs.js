@@ -109135,7 +109135,7 @@ const BUILTIN_PROGRAMS = [
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d4_machine-chest-dips",
-      "name": "Machine Chest Dips",
+      "name": "Iso-Lateral Plate-Loaded Machine Dip",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 75,

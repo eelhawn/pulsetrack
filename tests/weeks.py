@@ -116,7 +116,7 @@ with page() as p:
 
 # ---------------------------------------------------------------- a copy already on a phone (2.73.0 / 2.74.0): 7 days, old order, old names, one week group
 OLD1 = ['Incline Bench Press', 'Lat Pulldown', 'Dumbbell Bench Press', 'Dumbbell Row', 'Decline Bench Press', 'Neutral-Grip (V-Bar) Lat Pulldown', 'Chest Dips', 'Barbell Row', 'Pec Deck']
-OLD4 = ['Lat Pulldown', 'Incline Dumbbell Press', 'Deadlift', 'Smith Machine Flat Press', 'Iso-Lateral Plate-Loaded Low Row', 'Decline Bench Press', 'Cable Seated Rows (Wide Bar)', 'Machine Chest Dips', 'Straight-Arm Pulldown', 'Incline Dumbbell Flyes']
+OLD4 = ['Lat Pulldown', 'Incline Dumbbell Press', 'Deadlift', 'Smith Machine Flat Press', 'Iso-Lateral Plate-Loaded Low Row', 'Decline Bench Press', 'Cable Seated Rows (Wide Bar)', 'Iso-Lateral Plate-Loaded Machine Dip', 'Straight-Arm Pulldown', 'Incline Dumbbell Flyes']
 with page() as p:
     p.evaluate(f'''() => {{
       const pr = {PROG}, b = JSON.parse(JSON.stringify(pr));
@@ -182,7 +182,7 @@ with page() as p:
     c.eq(p.errors, [], 'no page errors')
 
 # ---------------------------------------------------------------- 2.75.0 to 2.77.0: a copy whose day 4 still has the straight-arm pulldown second
-D4 = ['Lat Pulldown', 'Straight-Arm Pulldown', 'Incline Dumbbell Press', 'Deadlift', 'Smith Machine Flat Press', 'Iso-Lateral Plate-Loaded Low Row', 'Decline Bench Press', 'Cable Seated Rows (Wide Bar)', 'Machine Chest Dips', 'Incline Dumbbell Flyes']
+D4 = ['Lat Pulldown', 'Straight-Arm Pulldown', 'Incline Dumbbell Press', 'Deadlift', 'Smith Machine Flat Press', 'Iso-Lateral Plate-Loaded Low Row', 'Decline Bench Press', 'Cable Seated Rows (Wide Bar)', 'Iso-Lateral Plate-Loaded Machine Dip', 'Incline Dumbbell Flyes']
 with page() as p:
     p.evaluate(f'''() => {{
       const d = {PROG}.days[3], by = new Map(d.exercises.map(e => [e.name, e]));

@@ -18,17 +18,19 @@
     { day: 4, from: ["Lat Pulldown", "Straight-Arm Pulldown", "Incline Dumbbell Press", "Deadlift", "Smith Machine Flat Press", "Iso-Lateral Plate-Loaded Low Row", "Decline Bench Press", "Cable Seated Rows (Wide Bar)", "Machine Chest Dips", "Incline Dumbbell Flyes"] }
   ];
 
+  // 2.91.3: Machine Chest Dips is now Iso-Lateral Plate-Loaded Machine Dip: a copy with either name counts as the old order
+  const norm = n => n === "Machine Chest Dips" ? "Iso-Lateral Plate-Loaded Machine Dip" : n;
   function reorder(app, p, b, mv) {
     const d = p.days.find(x => x && x.dayNumber === mv.day), bd = b.days.find(x => x && x.dayNumber === mv.day);
     if (!d || !bd || d.removed || d.sharedFrom || !Array.isArray(d.exercises)) return false;
     const want = bd.exercises.map(e => e.name);
-    if (d.exercises.length !== want.length || d.exercises.map(e => e && e.name).join("|") !== mv.from.join("|")) return false;   // already new, or changed by hand
+    if (d.exercises.length !== want.length || d.exercises.map(e => e && norm(e.name)).join("|") !== mv.from.map(norm).join("|")) return false;   // already new, or changed by hand
     const by = new Map(bd.exercises.map(e => [e.name, e]));
     // nothing swapped, added, deleted or edited: same sets and reps as the program
     const clean = d.exercises.every(e => e && !e.origName && !e.added && e.origSets === undefined && !/^custom_/.test(String(e.id || ""))
-      && by.has(e.name) && String(e.sets) === String(by.get(e.name).sets) && String(e.reps) === String(by.get(e.name).reps));
+      && by.has(norm(e.name)) && String(e.sets) === String(by.get(norm(e.name)).sets) && String(e.reps) === String(by.get(norm(e.name)).reps));
     if (!clean) return false;
-    const mine = new Map(d.exercises.map(e => [e.name, e]));
+    const mine = new Map(d.exercises.map(e => [norm(e.name), e]));
     d.exercises = want.map(n => mine.get(n));
     return true;
   }

@@ -435,7 +435,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.91.2</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.91.3</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3820,7 +3820,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.91.2";
+    const APP_VERSION = "2.91.3";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -30152,17 +30152,19 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     { day: 4, from: ["Lat Pulldown", "Straight-Arm Pulldown", "Incline Dumbbell Press", "Deadlift", "Smith Machine Flat Press", "Iso-Lateral Plate-Loaded Low Row", "Decline Bench Press", "Cable Seated Rows (Wide Bar)", "Machine Chest Dips", "Incline Dumbbell Flyes"] }
   ];
 
+  // 2.91.3: Machine Chest Dips is now Iso-Lateral Plate-Loaded Machine Dip: a copy with either name counts as the old order
+  const norm = n => n === "Machine Chest Dips" ? "Iso-Lateral Plate-Loaded Machine Dip" : n;
   function reorder(app, p, b, mv) {
     const d = p.days.find(x => x && x.dayNumber === mv.day), bd = b.days.find(x => x && x.dayNumber === mv.day);
     if (!d || !bd || d.removed || d.sharedFrom || !Array.isArray(d.exercises)) return false;
     const want = bd.exercises.map(e => e.name);
-    if (d.exercises.length !== want.length || d.exercises.map(e => e && e.name).join("|") !== mv.from.join("|")) return false;   // already new, or changed by hand
+    if (d.exercises.length !== want.length || d.exercises.map(e => e && norm(e.name)).join("|") !== mv.from.map(norm).join("|")) return false;   // already new, or changed by hand
     const by = new Map(bd.exercises.map(e => [e.name, e]));
     // nothing swapped, added, deleted or edited: same sets and reps as the program
     const clean = d.exercises.every(e => e && !e.origName && !e.added && e.origSets === undefined && !/^custom_/.test(String(e.id || ""))
-      && by.has(e.name) && String(e.sets) === String(by.get(e.name).sets) && String(e.reps) === String(by.get(e.name).reps));
+      && by.has(norm(e.name)) && String(e.sets) === String(by.get(norm(e.name)).sets) && String(e.reps) === String(by.get(norm(e.name)).reps));
     if (!clean) return false;
-    const mine = new Map(d.exercises.map(e => [e.name, e]));
+    const mine = new Map(d.exercises.map(e => [norm(e.name), e]));
     d.exercises = want.map(n => mine.get(n));
     return true;
   }
@@ -32912,6 +32914,42 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   proto.initExtras = function () {
     const r = oInit ? oInit.apply(this, arguments) : undefined;
     setTimeout(() => { try { run(this); } catch (e) { console.error("PulseTrack: front raise clean-up skipped", e); } }, 0);
+    return r;
+  };
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 2.91.3: "Machine Chest Dips" is now "Iso-Lateral Plate-Loaded Machine Dip".
+ *  The exercise library has the new name (Chest, with a description and tips) and still knows the old names (Machine Chest Dips,
+ *  Chest Dip Machine, Seated Chest Dip Machine) so they count as the same lift. My 6-Day Split's Day 4 uses it.
+ *  A workout, program or history that still says "Machine Chest Dips" is renamed once, here: saved programs and swapped exercises,
+ *  saved workouts, PRs, notes and last-time weights all move over to the new name, the same way Settings → Clean Up Exercise Names does.
+ *  Runs once (settings.isoDip). Other exercise names are not touched.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const FROM = "Machine Chest Dips", TO = "Iso-Lateral Plate-Loaded Machine Dip";
+
+  function run(app) {
+    if (app.settings.isoDip || !PT.cleanup || !PT.cleanup.scan || !PT.cleanup.apply) return 0;
+    let n = 0;
+    try {
+      const row = PT.cleanup.scan().rows.find(r => r.from === FROM && r.to === TO);
+      if (row) { PT.cleanup.apply({ [FROM]: TO }); n = 1; }
+    } catch (e) { console.error("PulseTrack: machine dip rename skipped", e); return 0; }
+    app.settings.isoDip = Date.now();
+    try { WorkoutStorage.saveSettings(app.settings); } catch (e) { }
+    if (n) try { ["renderHomeView", "renderDaysView", "renderWorkoutView", "renderLibraryView", "renderHistoryView"].forEach(f => { if (typeof app[f] === "function") { const el = document.getElementById("view-" + f.replace(/^render|View$/g, "").toLowerCase()); if (el && !el.classList.contains("hidden")) app[f](); } }); } catch (e) { }
+    return n;
+  }
+  PT.isoDip = { run: () => run(window.app), FROM, TO };
+
+  const oInit = proto.initExtras;
+  proto.initExtras = function () {
+    const r = oInit ? oInit.apply(this, arguments) : undefined;
+    setTimeout(() => { try { run(this); } catch (e) { console.error("PulseTrack: machine dip rename skipped", e); } }, 50);
     return r;
   };
 })();
