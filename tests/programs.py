@@ -20,8 +20,8 @@ with page() as p:
     c.eq(prog['weeks'], 6, 'it runs 6 weeks')
     c.eq(p.evaluate('(id) => PT.weeks.planOf(app.data.programs.find(x => x.id === id)).W', mine), 6, 'the week plan says 6 weeks')
     c.eq(len(prog['days']), 14, '14 days: Week A (1-7) and Week B (8-14), each ending in a rest day')
-    c.eq([len(d['exercises']) for d in prog['days']], [9, 10, 12, 10, 10, 12, 0, 8, 10, 12, 9, 10, 11, 0], 'exercises per day')
-    c.eq([sum(e['sets'] for e in d['exercises']) for d in prog['days']], [29, 34, 40, 32, 34, 39, 0, 27, 34, 40, 31, 34, 37, 0], 'sets per day')
+    c.eq([len(d['exercises']) for d in prog['days']], [9, 10, 11, 10, 10, 11, 0, 8, 10, 11, 9, 10, 11, 0], 'exercises per day')
+    c.eq([sum(e['sets'] for e in d['exercises']) for d in prog['days']], [29, 34, 37, 32, 34, 36, 0, 27, 34, 37, 31, 34, 37, 0], 'sets per day')
     c.eq([[e['name'] for e in d['exercises']][i] for d, i in zip(prog['days'][:6], [0, 0, 0, 0, 0, 0])], ['Lat Pulldown', 'Seated Leg Curls', 'Dumbbell Shoulder Press', 'Lat Pulldown', 'Leg Extension', 'Smith Machine Overhead Press'], 'each day opens with the right lift')
     c.eq([[e['name'] for e in d['exercises']][-1] for d in prog['days'][:6]], ['Pec Deck', 'Decline Sit-Ups', 'Cable Wrist Curls', 'Straight-Arm Pulldown', 'Russian Twists', 'Behind-The-Back Barbell Wrist Curls'], 'each day ends with the right lift')
     c.eq(prog['days'][4]['exercises'][1]['reps'], '6-8', 'back squats are 6-8')
@@ -31,7 +31,7 @@ with page() as p:
     miss = sorted({e['name'] for d in prog['days'] for e in d['exercises'] if e['name'].lower() not in known})
     c.eq(miss, [], 'every exercise is in the library (by name or other name)')
     c.ok('Machine Chest Dips' in p.evaluate('EXERCISE_DATABASE.map(e => e.name)'), 'Machine Chest Dips was added to the library')
-    c.eq(len({e['id'] for d in prog['days'] for e in d['exercises']}), 123, 'every exercise id is unique')
+    c.eq(len({e['id'] for d in prog['days'] for e in d['exercises']}), 120, 'every exercise id is unique')
 
     # ---- delete: Keep it leaves everything; Delete removes, with an Undo toast that puts it back in the same place
     target = 'ronnie_coleman_highrep_6day'

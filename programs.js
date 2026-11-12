@@ -109006,14 +109006,6 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d3_front-raises",
-      "name": "Front Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
       "id": "my_6day_chest_back_legs_sharms_d3_barbell-shrugs",
       "name": "Barbell Shrugs",
       "sets": 4,
@@ -109285,14 +109277,6 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d6_chest-supported-dumbbell-front-raises",
-      "name": "Chest-Supported Dumbbell Front Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
       "id": "my_6day_chest_back_legs_sharms_d6_iso-lateral-plate-loaded-shrug-machine",
       "name": "Iso-Lateral Plate-Loaded Shrug Machine",
       "sets": 3,
@@ -109548,14 +109532,6 @@ const BUILTIN_PROGRAMS = [
      {
       "id": "my_6day_chest_back_legs_sharms_d10_reverse-pec-deck",
       "name": "Reverse Pec Deck",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d10_front-raises",
-      "name": "Front Raises",
       "sets": 3,
       "reps": "12-15",
       "restSeconds": 60,
