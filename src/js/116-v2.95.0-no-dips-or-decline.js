@@ -2,7 +2,7 @@
  * PulseTrack 2.95.0: one of dips / decline on every Chest & Back day of My 6-Day Split.
  *  The first Chest & Back day of each free-weight block (Day 1, 17, 33, 49) has no Chest Dips; the second (Day 5, 21, 37, 53) has no
  *  Decline Bench Press. The machine blocks (Day 9, 25, 41, 57 / Day 13, 29, 45, 61): Day 9 and its copies never had dips, so they keep their
- *  decline press; on Day 13 and its copies the Smith Machine Decline Press is gone, as asked, so they have neither.
+ *  decline press, and since 2.99.0 Day 13 and its copies keep their Smith Machine Decline Press too.
  *  A copy already on a phone is cleaned once: the exercise is taken out of the day (and out of its "put it back" copy and the deleted list).
  *  If you already ticked sets of that exercise on that day, it stays so your logged workout is not changed. Logged history, records and
  *  last-time weights are not touched, and you can still add either lift by hand. Runs once (settings.noDipsDecline).
@@ -15,7 +15,7 @@
   const LIST = [];
   for (let k = 0; k < 8; k++) {
     if (k % 2 === 0) LIST.push([8 * k + 1, "Chest Dips"], [8 * k + 5, "Decline Bench Press"]);
-    else LIST.push([8 * k + 5, "Smith Machine Decline Press"]);
+    // 2.99.0: the Smith Machine Decline Press stays on Day 13 and its repeats (module 120 puts it back where this took it out)
   }
   const hasTicked = (app, day, ex) => { for (let s = 0; s < (ex.sets || 0); s++) { const e = app.logs[app.getLogKey(MINE, day.dayNumber, ex.id, s)]; if (e && e.completed) return true; } return false; };
 

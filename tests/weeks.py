@@ -29,9 +29,9 @@ with page() as p:
     bad = p.evaluate(f'() => [...new Set({PROG}.days.flatMap(d => d.exercises.map(e => e.name)))].filter(n => {{ const e = PT.exCanon(n); return !e || e.name !== n; }})')
     c.eq(bad, [], 'every exercise is spelled exactly like the exercise database (so last time\'s weight is found)')
     c.eq(p.evaluate(f'() => app.data.programs.filter(x => x.id !== "{ID}" && x.weekReset).length'), 0, 'no other program has the new-week reset')
-    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.length)'), [8, 10, 11, 0, 9, 10, 11, 0, 8, 10, 11, 0, 8, 10, 11, 0], 'exercises per day in list order: 3 on, rest, 3 on, rest (Week B as sent)')
-    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.reduce((n, e) => n + e.sets, 0))'), [26, 34, 37, 0, 29, 34, 36, 0, 27, 34, 37, 0, 28, 34, 37, 0], 'sets per day')
-    c.eq(p.evaluate(f'() => new Set({PROG}.days.flatMap(d => d.exercises.map(e => e.id))).size'), 117, 'every exercise has its own id')
+    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.length)'), [8, 10, 11, 0, 9, 10, 11, 0, 8, 10, 11, 0, 9, 10, 11, 0], 'exercises per day in list order: 3 on, rest, 3 on, rest (Week B as sent)')
+    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.reduce((n, e) => n + e.sets, 0))'), [26, 34, 37, 0, 29, 34, 36, 0, 27, 34, 37, 0, 31, 34, 37, 0], 'sets per day')
+    c.eq(p.evaluate(f'() => new Set({PROG}.days.flatMap(d => d.exercises.map(e => e.id))).size'), 118, 'every exercise has its own id')
     # same machine / bar / bench: next to each other
     adj = lambda day, a, b: abs(p.evaluate(NAMES(day)).index(a) - p.evaluate(NAMES(day)).index(b)) == 1
     c.ok(adj(1, 'Lat Pulldown', 'Neutral-Grip (V-Bar) Lat Pulldown'), 'Week A day 1: lat pulldown and V-bar pulldown are together')

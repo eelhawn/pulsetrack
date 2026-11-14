@@ -23,7 +23,7 @@ with page() as p:
     c.eq([d['title'].split(':')[0] for d in prog['days']][:9], ['Day %d' % i for i in range(1, 10)], 'the names count Day 1, 2, 3 ... too')
     c.eq(len(prog['days']), 64, '64 days: 8 blocks of 8, each 3 on, rest, 3 on, rest')
     c.eq([bool(d['exercises']) for d in prog['days']], ([True] * 3 + [False] + [True] * 3 + [False]) * 8, 'rest on the 4th and 8th day of every block')
-    c.eq(len({e['id'] for d in prog['days'] for e in d['exercises']}), 468, 'every one of the 468 exercise ids is unique')
+    c.eq(len({e['id'] for d in prog['days'] for e in d['exercises']}), 472, 'every one of the 472 exercise ids is unique')
     c.ok(all(e['id'].startswith('%s_d%d_' % (mine, d['dayNumber'])) for d in prog['days'] for e in d['exercises']), 'each id carries its own day number')
     blocks = [[[e['name'] for e in d['exercises']] for d in prog['days'][8 * k:8 * k + 8]] for k in range(8)]
     c.ok(all(blocks[k] == blocks[k % 2] for k in range(8)), 'the odd blocks repeat the free-weight days and the even blocks the machine days')
@@ -31,8 +31,8 @@ with page() as p:
     prog['days'] = prog['days'][:16]
     W = [d for d in prog['days'] if d['exercises']]
     c.eq([len(d['exercises']) for d in prog['days']][3::4], [0, 0, 0, 0], 'the 4th and 8th day of each week are rest days')
-    c.eq([len(d['exercises']) for d in prog['days']], [8, 10, 11, 0, 9, 10, 11, 0, 8, 10, 11, 0, 8, 10, 11, 0], 'exercises per day')
-    c.eq([sum(e['sets'] for e in d['exercises']) for d in prog['days']], [26, 34, 37, 0, 29, 34, 36, 0, 27, 34, 37, 0, 28, 34, 37, 0], 'sets per day')
+    c.eq([len(d['exercises']) for d in prog['days']], [8, 10, 11, 0, 9, 10, 11, 0, 8, 10, 11, 0, 9, 10, 11, 0], 'exercises per day')
+    c.eq([sum(e['sets'] for e in d['exercises']) for d in prog['days']], [26, 34, 37, 0, 29, 34, 36, 0, 27, 34, 37, 0, 31, 34, 37, 0], 'sets per day')
     c.eq([[e['name'] for e in d['exercises']][i] for d, i in zip(W[:6], [0, 0, 0, 0, 0, 0])], ['Lat Pulldown', 'Seated Leg Curls', 'Dumbbell Shoulder Press', 'Lat Pulldown', 'Leg Extension', 'Smith Machine Overhead Press'], 'each day opens with the right lift')
     c.eq([[e['name'] for e in d['exercises']][-1] for d in W[:6]], ['Pec Deck', 'Decline Sit-Ups', 'Cable Wrist Curls', 'Straight-Arm Pulldown', 'Russian Twists', 'Behind-The-Back Barbell Wrist Curls'], 'each day ends with the right lift')
     c.eq(W[4]['exercises'][1]['reps'], '6-8', 'back squats are 6-8')

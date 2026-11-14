@@ -435,7 +435,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.98.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.99.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3822,7 +3822,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.98.0";
+    const APP_VERSION = "2.99.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -33274,7 +33274,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
  * PulseTrack 2.95.0: one of dips / decline on every Chest & Back day of My 6-Day Split.
  *  The first Chest & Back day of each free-weight block (Day 1, 17, 33, 49) has no Chest Dips; the second (Day 5, 21, 37, 53) has no
  *  Decline Bench Press. The machine blocks (Day 9, 25, 41, 57 / Day 13, 29, 45, 61): Day 9 and its copies never had dips, so they keep their
- *  decline press; on Day 13 and its copies the Smith Machine Decline Press is gone, as asked, so they have neither.
+ *  decline press, and since 2.99.0 Day 13 and its copies keep their Smith Machine Decline Press too.
  *  A copy already on a phone is cleaned once: the exercise is taken out of the day (and out of its "put it back" copy and the deleted list).
  *  If you already ticked sets of that exercise on that day, it stays so your logged workout is not changed. Logged history, records and
  *  last-time weights are not touched, and you can still add either lift by hand. Runs once (settings.noDipsDecline).
@@ -33287,7 +33287,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   const LIST = [];
   for (let k = 0; k < 8; k++) {
     if (k % 2 === 0) LIST.push([8 * k + 1, "Chest Dips"], [8 * k + 5, "Decline Bench Press"]);
-    else LIST.push([8 * k + 5, "Smith Machine Decline Press"]);
+    // 2.99.0: the Smith Machine Decline Press stays on Day 13 and its repeats (module 120 puts it back where this took it out)
   }
   const hasTicked = (app, day, ex) => { for (let s = 0; s < (ex.sets || 0); s++) { const e = app.logs[app.getLogKey(MINE, day.dayNumber, ex.id, s)]; if (e && e.completed) return true; } return false; };
 
@@ -33811,6 +33811,51 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   });
 
   PT.importApps = { parseCsv, read, when, secs, toSessions: (res, unit) => toSessions(A(), res, unit || res.unit || A().unit()), save: s => save(A(), s), openFile, preview: res => preview(A(), res) };
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 2.99.0: the Smith Machine Decline Press is back on Day 13 of My 6-Day Split and on its repeats (Day 29, 45 and 61).
+ *  2.95.0 took it out; a copy already on a phone gets it back once, in its old place (after the Barbell Row, or at the end if that isn't
+ *  there), with 3 sets of 8-10. A day that already has it (you added it back by hand) is left alone. Runs once (settings.smithDeclineBack).
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const MINE = "my_6day_chest_back_legs_sharms", NAME = "Smith Machine Decline Press", DAYS = [13, 29, 45, 61];
+
+  function add(app) {
+    const p = app && app.data && Array.isArray(app.data.programs) ? app.data.programs.find(x => x && x.id === MINE) : null;
+    if (!p || p.weekPlan || !Array.isArray(p.days) || p.days.length < 64) return 0;
+    let n = 0;
+    DAYS.forEach(dn => {
+      const d = p.days.find(x => x && x.dayNumber === dn); if (!d || !Array.isArray(d.exercises)) return;
+      if (d.exercises.some(e => e && (e.name === NAME || (PT.sameEx && PT.sameEx(e.name, NAME))))) return;
+      const ex = { id: `${MINE}_d${dn}_smith-machine-decline-press`, name: NAME, sets: 3, reps: "8-10", restSeconds: 90, type: "standard" };
+      const at = d.exercises.findIndex(e => e && e.name === "Barbell Row");
+      d.exercises.splice(at >= 0 ? at + 1 : d.exercises.length, 0, ex);
+      if (Array.isArray(d.orig) && !d.orig.some(e => e && e.name === NAME)) { const j = d.orig.findIndex(e => e && e.name === "Barbell Row"); d.orig.splice(j >= 0 ? j + 1 : d.orig.length, 0, JSON.parse(JSON.stringify(ex))); }
+      if (Array.isArray(d.removed)) { d.removed = d.removed.filter(r => !(r && r.ex && r.ex.name === NAME)); if (!d.removed.length) delete d.removed; }
+      n++;
+    });
+    return n;
+  }
+  function run(app) {
+    if (app.settings.smithDeclineBack) return 0;
+    const n = add(app);
+    app.settings.smithDeclineBack = Date.now();
+    try { if (n) WorkoutStorage.setData(app.data); WorkoutStorage.saveSettings(app.settings); } catch (e) { }
+    try { if (n && app.activeProgram && app.activeProgram.id === MINE) { app.activeDay = (app.activeProgram.days || []).find(d => app.activeDay && d.dayNumber === app.activeDay.dayNumber) || app.activeDay; app.renderWorkoutView && app.renderWorkoutView(); } } catch (e) { }
+    return n;
+  }
+  PT.smithBack = { run: () => run(window.app) };
+
+  const oInit = proto.initExtras;
+  proto.initExtras = function () {
+    const r = oInit ? oInit.apply(this, arguments) : undefined;
+    setTimeout(() => { try { run(this); } catch (e) { console.error("PulseTrack: Smith decline put-back skipped", e); } }, 150);   // after 116 (130)
+    return r;
+  };
 })();
 </script>
   <script>

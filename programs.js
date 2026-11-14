@@ -109609,6 +109609,14 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
+      "id": "my_6day_chest_back_legs_sharms_d13_smith-machine-decline-press",
+      "name": "Smith Machine Decline Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
       "id": "my_6day_chest_back_legs_sharms_d13_neutral-grip-seated-cable-row",
       "name": "Neutral-Grip Seated Cable Row",
       "sets": 3,
@@ -110659,6 +110667,14 @@ const BUILTIN_PROGRAMS = [
       "sets": 4,
       "reps": "6-8",
       "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d29_smith-machine-decline-press",
+      "name": "Smith Machine Decline Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
       "type": "standard"
      },
      {
@@ -111715,6 +111731,14 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
+      "id": "my_6day_chest_back_legs_sharms_d45_smith-machine-decline-press",
+      "name": "Smith Machine Decline Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
+      "type": "standard"
+     },
+     {
       "id": "my_6day_chest_back_legs_sharms_d45_neutral-grip-seated-cable-row",
       "name": "Neutral-Grip Seated Cable Row",
       "sets": 3,
@@ -112765,6 +112789,14 @@ const BUILTIN_PROGRAMS = [
       "sets": 4,
       "reps": "6-8",
       "restSeconds": 120,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d61_smith-machine-decline-press",
+      "name": "Smith Machine Decline Press",
+      "sets": 3,
+      "reps": "8-10",
+      "restSeconds": 90,
       "type": "standard"
      },
      {
