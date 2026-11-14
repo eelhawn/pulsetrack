@@ -435,7 +435,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.96.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.97.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3820,7 +3820,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.96.0";
+    const APP_VERSION = "2.97.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -11674,6 +11674,7 @@ const PTSIM = (function () {
   const EQUIP = [["barbell", "Barbell"], ["ezbar", "EZ-bar"], ["dumbbell", "Dumbbells"], ["machine", "Machines"], ["cable", "Cables"], ["smith", "Smith machine"], ["kettlebell", "Kettlebells"], ["band", "Bands"], ["bodyweight", "Bodyweight"]];
   const EQMAP = { barbell: "barbell", trapbar: "barbell", landmine: "barbell", plate: "barbell", ezbar: "ezbar", dumbbell: "dumbbell", machine: "machine", cable: "cable", smith: "smith", kettlebell: "kettlebell", band: "band", bodyweight: "bodyweight" };
   const DB_DEF = { lb: { min: 5, max: 150, step: 5 }, kg: { min: 2.5, max: 70, step: 2.5 } };
+  PT.EQUIP = EQUIP; PT.EQMAP = EQMAP;   // 2.97.0: more kit is added to these lists (bench, pull-up bar, TRX ...)
   const TEMPLATES = [
     { id: "home", label: "Home gym", db: { lb: { min: 5, max: 50, step: 5 }, kg: { min: 2.5, max: 25, step: 2.5 } }, off: ["machine", "cable", "smith", "ezbar"],
       platesLb: [45, 25, 10, 5, 2.5], platesKg: [20, 10, 5, 2.5, 1.25] },
@@ -11907,7 +11908,7 @@ const PTSIM = (function () {
     try {
       const g = realGym(this);
       if (g && g.equip && ex && ex.name && !PT.gymAllows(ex.name)) {
-        const k = PT.equipKey(ex.name), lbl = (EQUIP.find(x => x[0] === k) || [k, k])[1].toLowerCase();
+        const k = (PT.gymLacks && PT.gymLacks(ex.name)) || PT.equipKey(ex.name), lbl = (EQUIP.find(x => x[0] === k) || [k, k])[1].toLowerCase();
         html += `<p class="pt-tip-line pt-tip-warn">No ${esc(lbl)} at ${esc(g.name)}. <button type="button" class="pt-gym-swap font-extrabold underline tap-active" data-exindex="${i}">Find a swap</button></p>`;
       }
     } catch (e) { }
@@ -33516,6 +33517,69 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     setTimeout(() => { load(); }, 1500);   // after the app is up
     return r;
   };
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 2.97.0: equipment filter, more kit.
+ *  Each gym (Settings → Gyms → edit) already says which equipment it has, and the exercise picker leaves out what it can't do. Now:
+ *  - More kit to tick: Bench, Pull-up bar, Suspension trainer (TRX), Stability ball, Medicine ball, Foam roller and Sled.
+ *  - Bench and pull-up bar are kit an exercise needs on top of its weights: a dumbbell bench press needs dumbbells AND a bench, a hanging
+ *    leg raise a pull-up bar. Read off the name (bench, incline, decline, pull-up, chin-up, hanging, muscle-up) as openGym does, or from
+ *    openGym's own "needs". Machines bring their own seat or handles, so they don't need one (a Smith or cable incline press still does).
+ *  - openGym exercises use openGym's exact equipment (resistance band, suspension trainer, stability ball ...), not a guess from the name.
+ *  - "Show all" in the picker still shows everything, and the workout card says what is missing ("No bench at Home gym").
+ *  Nothing is switched off by itself: new kit counts as there until you untick it.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !Array.isArray(PT.EQUIP) || typeof PT.gymAllows !== "function") return;
+  const NEW = [["bench", "Bench"], ["pullup", "Pull-up bar"], ["suspension", "Suspension trainer (TRX)"], ["ball", "Stability ball"], ["medball", "Medicine ball"], ["roller", "Foam roller"], ["sled", "Sled"]];
+  NEW.forEach(x => { if (!PT.EQUIP.some(y => y[0] === x[0])) PT.EQUIP.push(x); });
+  // openGym's equipment words → a gym's kit ("none" = needs no kit)
+  const OGMAP = {
+    "body weight": "bodyweight", "weighted": "bodyweight", "assisted": "machine",
+    "dumbbell": "dumbbell", "cable": "cable", "barbell": "barbell", "olympic barbell": "barbell", "trap bar": "barbell", "landmine": "barbell", "weight plate": "barbell",
+    "ez barbell": "ezbar", "leverage machine": "machine", "smith machine": "smith", "kettlebell": "kettlebell", "band": "band", "resistance band": "band",
+    "suspension trainer": "suspension", "stability ball": "ball", "bosu ball": "ball", "medicine ball": "medball", "roller": "roller", "massage ball": "roller", "wheel roller": "roller",
+    "sled machine": "sled", "elliptical machine": "machine", "stationary bike": "machine", "stepmill machine": "machine", "skierg machine": "machine", "upper body ergometer": "machine",
+    "rope": "none", "sandbag": "none", "tire": "none", "hammer": "none", "macebell": "none"
+  };
+  const entryOf = name => { let e = null; try { e = PT.exCanon(String(name || "")); } catch (err) { } return e || (PT.og && PT.og.get ? PT.og.get(name) : null); };
+
+  const oKey = PT.equipKey;
+  PT.equipKey = function (name) {
+    const e = entryOf(name);
+    if (e && e.eq && OGMAP[e.eq]) return OGMAP[e.eq];
+    return oKey.apply(this, arguments);
+  };
+  /** extra kit the exercise needs besides its weights: "bench", "pullup" */
+  PT.equipNeeds = function (name) {
+    const e = entryOf(name), out = new Set(), n = String((e && e.name) || name || "").toLowerCase(), k = PT.equipKey(name);
+    ((e && e.needs) || []).forEach(x => out.add(x === "pull-up bar" ? "pullup" : x));
+    const ownSeat = k === "machine" || (/machine|hammer strength|leverage/.test(n) && !/smith/.test(n));   // a machine has its own seat; a Smith or cable incline still needs a bench
+    if (!ownSeat && /\bbench\b|\bincline\b|\bdecline\b/.test(n) && !/bench dip|off bench|bench jump|bench hop|step[- ]up/.test(n)) out.add("bench");
+    if (/pull[- ]?ups?\b|chin[- ]?ups?\b|\bhanging\b|muscle[- ]?ups?\b|toes[- ]to[- ]bar|dead hang/.test(n) && !ownSeat && !/band assisted|lat pulldown/.test(n)) out.add("pullup");
+    return [...out];
+  };
+  const gymNow = () => { try { return PT.gym(); } catch (e) { return null; } };
+  const pickerOpen = () => { const m = document.getElementById("modal-ex-selector"); return !!m && !m.classList.contains("hidden"); };
+  /** the kit this gym lacks for the exercise (its own kit first, then a bench / bar), or "" */
+  PT.gymLacks = function (name) {
+    const g = gymNow(); if (!g || !g.equip) return "";
+    if (PT.isCustomEx && PT.isCustomEx(name)) return "";
+    const k = PT.equipKey(name);
+    if (k !== "none" && g.equip[k] === false) return k;
+    return PT.equipNeeds(name).find(x => g.equip[x] === false) || "";
+  };
+  const oAllows = PT.gymAllows;
+  PT.gymAllows = function (name) {
+    if (!oAllows.apply(this, arguments)) return false;
+    if (PT._gymOff && pickerOpen()) return true;
+    const g = gymNow(); if (!g || !g.equip || (PT.isCustomEx && PT.isCustomEx(name))) return true;
+    return !PT.equipNeeds(name).some(x => g.equip[x] === false);
+  };
+  /** for an openGym entry not in the list yet (the picker's openGym results) */
+  PT.eqAllows = e => !e || PT.gymAllows(e.name);
 })();
 </script>
   <script>

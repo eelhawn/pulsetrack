@@ -49,6 +49,7 @@
   const EQUIP = [["barbell", "Barbell"], ["ezbar", "EZ-bar"], ["dumbbell", "Dumbbells"], ["machine", "Machines"], ["cable", "Cables"], ["smith", "Smith machine"], ["kettlebell", "Kettlebells"], ["band", "Bands"], ["bodyweight", "Bodyweight"]];
   const EQMAP = { barbell: "barbell", trapbar: "barbell", landmine: "barbell", plate: "barbell", ezbar: "ezbar", dumbbell: "dumbbell", machine: "machine", cable: "cable", smith: "smith", kettlebell: "kettlebell", band: "band", bodyweight: "bodyweight" };
   const DB_DEF = { lb: { min: 5, max: 150, step: 5 }, kg: { min: 2.5, max: 70, step: 2.5 } };
+  PT.EQUIP = EQUIP; PT.EQMAP = EQMAP;   // 2.97.0: more kit is added to these lists (bench, pull-up bar, TRX ...)
   const TEMPLATES = [
     { id: "home", label: "Home gym", db: { lb: { min: 5, max: 50, step: 5 }, kg: { min: 2.5, max: 25, step: 2.5 } }, off: ["machine", "cable", "smith", "ezbar"],
       platesLb: [45, 25, 10, 5, 2.5], platesKg: [20, 10, 5, 2.5, 1.25] },
@@ -282,7 +283,7 @@
     try {
       const g = realGym(this);
       if (g && g.equip && ex && ex.name && !PT.gymAllows(ex.name)) {
-        const k = PT.equipKey(ex.name), lbl = (EQUIP.find(x => x[0] === k) || [k, k])[1].toLowerCase();
+        const k = (PT.gymLacks && PT.gymLacks(ex.name)) || PT.equipKey(ex.name), lbl = (EQUIP.find(x => x[0] === k) || [k, k])[1].toLowerCase();
         html += `<p class="pt-tip-line pt-tip-warn">No ${esc(lbl)} at ${esc(g.name)}. <button type="button" class="pt-gym-swap font-extrabold underline tap-active" data-exindex="${i}">Find a swap</button></p>`;
       }
     } catch (e) { }

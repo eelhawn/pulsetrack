@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone (the optional live family board, off until you start or join one, sends only a small scrambled update).
 
-*Version 2.96.0*
+*Version 2.97.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -335,7 +335,7 @@ Each of these can be switched off in **Settings → Workout Screen**.
 
 ### Gyms and equipment (new in 2.8.0)
 
-**Settings → Gyms & Equipment.** Add a profile for each place you train: your home garage, a commercial gym, a hotel gym or bodyweight only. Each one has its own **bar weight, plates and dumbbell range** (smallest, heaviest and step), and a list of **equipment it has** (barbell, EZ-bar, dumbbells, machines, cables, Smith machine, kettlebells, bands, bodyweight).
+**Settings → Gyms & Equipment.** Add a profile for each place you train: your home garage, a commercial gym, a hotel gym or bodyweight only. Each one has its own **bar weight, plates and dumbbell range** (smallest, heaviest and step), and a list of **equipment it has** (barbell, EZ-bar, dumbbells, machines, cables, Smith machine, kettlebells, bands, bodyweight and, since 2.97.0, **bench, pull-up bar, suspension trainer (TRX), stability ball, medicine ball, foam roller and sled**). An exercise that needs a bench (bench, incline and decline work, unless it is a machine) or a pull-up bar (pull-ups, chin-ups, hanging work) is left out when the gym has none, even if it has the dumbbells. openGym exercises use openGym's own equipment field rather than a guess from the name.
 
 - The **exercise picker** and the **swap ideas** leave out what the active gym can't do. The picker says what it left out and has **Show all**. Your own exercises are never hidden.
 - If a workout has an exercise the active gym can't do, its card says so with **Find a swap**.
@@ -783,7 +783,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.96.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.97.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole (the openGym library, `opengym-exercises.js`, is saved too but never holds an update back), so you never end up with half of an update.
 
@@ -829,7 +829,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen. Its icons are the logo (written by `tools/build.py`) |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 117 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 118 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0), `make_fonts.py` (2.71.0) and `make_logo.py` (2.86.0), `opengym_import.py` (2.96.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -844,7 +844,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `battle.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `battle.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -869,6 +869,10 @@ Keep every `id` unique. New programs reach phones on the next update.
 PulseTrack is free software under the **GNU Affero General Public License v3.0** (see [`LICENSE`](LICENSE)) since 2.96.0. You may use, change and share it; if you share a changed version, or run one for others over a network, share its source under the same licence. The openGym exercise library and its credits are described in [`NOTICE.md`](NOTICE.md).
 
 ## Version history
+
+**2.97.0**
+- **Equipment filter: more kit.** Each gym (Settings → Gyms & Equipment → Edit) can now also tick **Bench, Pull-up bar, Suspension trainer (TRX), Stability ball, Medicine ball, Foam roller and Sled**. Exercises that need a bench (bench, incline and decline work, not machines) or a pull-up bar (pull-ups, chin-ups, hanging work) are left out of the picker and swap ideas when the gym has none, and a workout card says what is missing ("No bench at Home gym"). openGym library exercises use openGym's exact equipment (resistance band, TRX, stability ball ...). **Show all** in the picker still shows everything. New kit counts as there until you untick it, so nothing changes by itself.
+- New test: `tests/equipment.py` (28 checks).
 
 **2.96.0**
 - **5,520 more exercises: the openGym library.** The exercise picker also searches the exercise catalogue of [openGym](https://github.com/DuarteSantos8/openGym) (names, muscles, equipment, a description and the steps; no pictures). Matches come after PulseTrack's own, and a last chip, **openGym**, browses the whole library by body part. Picking one makes it a normal exercise (muscle, Similar exercises, records, and its steps under Form tips). The 98 exercises PulseTrack already had are left out. The file, `opengym-exercises.js` (about 3 MB), loads in the background after start-up, and the offline copy saves it without ever letting it hold an update back.
