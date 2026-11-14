@@ -1721,6 +1721,7 @@
 
           const exList = day.exercises || [];
           exList.forEach(ex => {
+            if (typeof PT !== "undefined" && PT.cardioApart && PT.cardioApart(this, ex) && exList.some(x => !PT.cardioApart(this, x))) return;   // 2.102.0: cardio counts as cardio, not sets
             totalSets += (ex.sets || 0);
             for (let s = 0; s < (ex.sets || 0); s++) {
               const key = this.getLogKey(this.activeProgram.id, day.dayNumber, ex.id, s);

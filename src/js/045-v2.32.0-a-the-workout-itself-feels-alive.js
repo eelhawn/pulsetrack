@@ -107,7 +107,7 @@
   }
   function sbar(a) {
     const list = a.dom && a.dom.exercisesList; if (!list || !a.activeDay || !a.activeProgram) return;
-    const ps = planned(a), done = ps.filter(p => { const e = a.logs[p.key]; return e && e.completed; }).length;
+    const ps = planned(a).filter(p => !(PT.cardioApart && PT.cardioApart(a, p.ex))), done = ps.filter(p => { const e = a.logs[p.key]; return e && e.completed; }).length;   // 2.102.0: cardio rows count as cardio, not sets
     let el = $("pt-sbar");
     if (!ps.length) { if (el) el.remove(); return; }
     if (!el) { el = document.createElement("div"); el.id = "pt-sbar"; list.parentElement.insertBefore(el, list); } else if (el.nextElementSibling !== list) list.parentElement.insertBefore(el, list);

@@ -768,6 +768,6 @@
       if (origInitX) proto.initExtras = function () { CUR = this; const r = origInitX.apply(this, arguments); try { ensureTile(); renderHome(); ensureTick(); } catch (e) { console.error("PulseTrack cardio tile", e); } return r; };
       const origHome = proto.renderHomeView;
       proto.renderHomeView = function () { CUR = this; const r = origHome.apply(this, arguments); try { renderHome(); ensureTick(); } catch (e) { console.error("PulseTrack cardio card", e); } return r; };
-      PT.cardio = { data: () => ensure(), actOf, paceOf, estKcal, weekStats, openLog, startTimer, getTimer, BUILTIN, bestTimes, monthDist, shoeM, goal: () => goalInfo() };
+      PT.cardio = { data: () => ensure(), BUILTIN_ACTS: () => allActs(), addLog: log => { if (!valid(log)) return false; ensure().logs.push(log); return save(); }, actOf, paceOf, estKcal, weekStats, openLog, startTimer, getTimer, BUILTIN, bestTimes, monthDist, shoeM, goal: () => goalInfo() };
     })();
   

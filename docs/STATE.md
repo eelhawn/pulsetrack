@@ -1,6 +1,7 @@
 # Where we left off (2026-11-13)
 
 ## Released
+- 2.102.0 cardio rows in a workout go to Cardio & Sports on finish and are left out of the workout's sets (setting cardioApart, on).
 - 2.101.0 renamed to Ilhaan's 3 Day Split; abs moved from leg days to Core & Cardio days (old rest days) + Incline Treadmill Walk; band exercises removed (openGym ones + Band Curls / Band Chest Press).
 - 2.100.0 openGym exercises merged into the muscle groups (no openGym chip), trimmed to ~2,860 useful ones; picker draws in chunks.
 - 2.96.0 openGym exercise library (5,520 exercises, text only) in the picker; PulseTrack is now AGPL-3.0. User asked for "all the features" of openGym too; they chose Equipment filter (2.97.0) and Hevy/FitNotes import (2.98.0, Strong added too). Hevy column names were written from memory of its export format and tested with a hand-made sample; check against a real Hevy export if the user reports a problem. Not wanted: smarter progression, strength ratios.

@@ -332,6 +332,7 @@
     let vol = 0, sets = 0, total = 0, exN = 0;
     const prs = [];
     (day.exercises || []).forEach(ex => {
+      if (PT.cardioApart && PT.cardioApart(app, ex)) return;   // 2.102.0: cardio rows go to Cardio & Sports, not the workout's sets
       total += ex.sets || 0;
       const done = [];
       for (let s = 0; s < (ex.sets || 0); s++) {
