@@ -253,7 +253,10 @@
         if (kind.dbn === 2) return "Each hand · Reps";
         return "Weight · Reps";
       },
-      cardioInputsHtml(key, entry, prev, kind) {
+      cardioInputsHtml(key, entry, prev, kind, ex) {
+        // 2.103.0: a row that asks for an exact time ("25 min") shows that time in the box, not last time's
+        const target = ex && /^\s*(\d+(?:\.\d+)?)\s*min\s*$/i.exec(String(ex.reps || ""));
+        if (target) prev = Object.assign({}, prev || {}, { min: target[1] });
         const cls = "input-set-field w-14 bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500";
         const dl = this.distLabel();
         const v = x => (x === undefined || x === null ? "" : PT.esc(String(x)));

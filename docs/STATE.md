@@ -1,6 +1,7 @@
 # Where we left off (2026-11-13)
 
 ## Released
+- 2.103.0 StairMaster on Core & Cardio days: 20 min Day 4, +2.5 per Core & Cardio day, 57.5 min Day 64 (read as every cardio day, not every day: every day would reach 177.5 min).
 - 2.102.0 cardio rows in a workout go to Cardio & Sports on finish and are left out of the workout's sets (setting cardioApart, on).
 - 2.101.0 renamed to Ilhaan's 3 Day Split; abs moved from leg days to Core & Cardio days (old rest days) + Incline Treadmill Walk; band exercises removed (openGym ones + Band Curls / Band Chest Press).
 - 2.100.0 openGym exercises merged into the muscle groups (no openGym chip), trimmed to ~2,860 useful ones; picker draws in chunks.

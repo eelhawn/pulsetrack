@@ -30,9 +30,9 @@ with page() as p:
     c.eq(p.evaluate(f'() => {b}.title'), "Ilhaan's 3 Day Split", "the program is called Ilhaan's 3 Day Split")
     c.eq(p.evaluate(f'() => {b}.days.filter(d => /Core & Cardio/.test(d.title)).map(d => d.dayNumber)'), list(range(4, 65, 4)), 'Day 4, 8, 12 ... 64 are Core & Cardio days')
     c.eq(p.evaluate(f'() => {b}.days.filter(d => !d.exercises.length).length'), 0, 'no plain rest days left')
-    c.eq(p.evaluate(f'() => {b}.days.find(d => d.dayNumber === 8).exercises.map(e => [e.name, e.sets, e.reps])'), [['Hanging Leg Raises', 3, '12-15'], ['Russian Twists', 3, '20 (10 per side)'] if False else ['Russian Twists', 3, p.evaluate(f'() => {b}.days.find(d => d.dayNumber === 8).exercises[1].reps')], ['Incline Treadmill Walk', 1, '20-30 min']], 'Day 8: the abs from Day 6, then 20-30 min of incline treadmill walk')
+    c.eq(p.evaluate(f'() => {b}.days.find(d => d.dayNumber === 8).exercises.map(e => [e.name, e.sets, e.reps])'), [['Hanging Leg Raises', 3, '12-15'], ['Russian Twists', 3, '20 (10 per side)'] if False else ['Russian Twists', 3, p.evaluate(f'() => {b}.days.find(d => d.dayNumber === 8).exercises[1].reps')], ['Stairmaster', 1, '22.5 min']], 'Day 8: the abs from Day 6, then the StairMaster (22.5 min since 2.103.0)')
     c.eq(p.evaluate(f'() => {b}.days.filter(d => /Legs/.test(d.title)).every(d => /Legs & Calves/.test(d.title) && d.exercises.every(e => PT.category(e.name) !== "Core"))'), True, 'the leg days are "Legs & Calves", with no ab work')
-    c.eq(p.evaluate(f'() => {{ const k = app.exKind({b}.days[3].exercises[2]); return !!(k.cardio || k.dist); }}'), True, 'the walk is a cardio row (time and distance)')
+    c.eq(p.evaluate(f'() => {{ const k = app.exKind({b}.days[3].exercises[2]); return !!(k.cardio || k.dist); }}'), True, 'the StairMaster is a cardio row')
 
 with page(w=390, h=800) as p:
     p.wait_for_function('() => !!app.settings.coreCardio')   # the app's own one-time change has run at start-up
@@ -51,8 +51,8 @@ with page(w=390, h=800) as p:
     c.eq(p.evaluate(f'() => {PROG}.title'), "Ilhaan's 3 Day Split", 'renamed')
     c.ok(p.evaluate(f'() => {PROG}.tags.includes("3 Day Split") && !{PROG}.tags.includes("6 Training Days")'), 'with the new tags')
     c.eq(p.evaluate('() => ' + NAMES(2))[-2:], ['Seated Calf Raises', 'Hanging Leg Raises'], 'Day 2 keeps the Hanging Leg Raises you ticked; its other ab exercise moves')
-    c.eq(p.evaluate('() => ' + NAMES(4)), ['Decline Sit-Ups', 'Incline Treadmill Walk'], 'Day 4: Decline Sit-Ups and the treadmill walk')
-    c.eq(p.evaluate('() => ' + NAMES(8)), ['Hanging Leg Raises', 'Russian Twists', 'Incline Treadmill Walk'], 'Day 8: both of Day 6\'s ab exercises and the walk')
+    c.eq(p.evaluate('() => ' + NAMES(4)), ['Decline Sit-Ups', 'Stairmaster'], 'Day 4: Decline Sit-Ups and the cardio')
+    c.eq(p.evaluate('() => ' + NAMES(8)), ['Hanging Leg Raises', 'Russian Twists', 'Stairmaster'], 'Day 8: both of Day 6\'s ab exercises and the cardio')
     c.eq(p.evaluate(f'() => {PROG}.days[7].exercises[0].id'), ID + '_d8_hanging-leg-raises', 'moved exercises get ids of their new day')
     c.eq(p.evaluate(f'() => [{PROG}.days[3].title, {PROG}.days[5].title.split(" (")[0]]'), ['Day 4: Core & Cardio', 'Day 6: Legs & Calves'], 'the day names follow')
     c.eq(p.evaluate('() => Object.keys(app.logs).filter(k => k.startsWith("%s_d6_") && k.includes("hanging-leg-raises")).length' % ID), 0, 'the empty box of a moved exercise is cleared')
@@ -71,7 +71,7 @@ with page() as p:   # a name you gave it stays
     p.evaluate(OLD, 'My Split')
     p.evaluate('() => PT.coreCardio.upgrade()')
     c.eq(p.evaluate(f'() => {PROG}.title'), 'My Split', 'a name you gave the program stays')
-    c.eq(p.evaluate('() => ' + NAMES(4)), ['Hanging Leg Raises', 'Decline Sit-Ups', 'Incline Treadmill Walk'], 'Day 4 gets both of Day 2\'s ab exercises and the walk')
+    c.eq(p.evaluate('() => ' + NAMES(4)), ['Hanging Leg Raises', 'Decline Sit-Ups', 'Stairmaster'], 'Day 4 gets both of Day 2\'s ab exercises and the cardio')
     c.eq(p.errors, [], 'no page errors')
 
 c.done()

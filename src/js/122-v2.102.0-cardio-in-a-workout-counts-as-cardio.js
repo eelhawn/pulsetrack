@@ -44,7 +44,7 @@
       if (!(sec > 0)) { skipped.push(r.ex.name); return; }
       const act = actFor(r.ex.name);
       const log = { id: PT.uid(), date: session.date, ts: session.ts, act: act.id, name: act.id === "other" ? r.ex.name : act.name, cat: "cardio", sec, int: 2, wid: session.id, note: "From your workout: " + (session.dtitle || "workout") };
-      if (r.dist > 0) log.dist = Math.round(r.dist * (a.unit() === "kg" ? 1000 : MI) * 10) / 10;
+      if (r.dist > 0 && (act.dist || act.id === "other")) log.dist = Math.round(r.dist * (a.unit() === "kg" ? 1000 : MI) * 10) / 10;
       try { const k = PT.cardio.estKcal(act.met ? act : { met: 6 }, 2, sec); if (k) { log.kcal = k; log.kest = true; } } catch (e) { }
       if (PT.cardio.addLog(log)) made.push(log);
     });

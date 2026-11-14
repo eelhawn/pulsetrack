@@ -2148,7 +2148,7 @@
             const prevSet = prevHistory[s] || null;
             const prevHint = prevSet ? (kind.cardio ? `${prevSet.min || 0} min` : `${prevSet.bz && !(parseFloat(prevSet.weight) > 0) ? "BW" : prevSet.weight}×${prevSet.reps}`) : ``;
 
-            const inputsHtml = showLogger && kind.cardio ? this.cardioInputsHtml(key, logEntry, prevSet, kind) : showLogger ? `
+            const inputsHtml = showLogger && kind.cardio ? this.cardioInputsHtml(key, logEntry, prevSet, kind, exercise) : showLogger ? `
               <div class="flex items-center space-x-1.5 flex-grow justify-end pr-2">
                 ${prevHint ? `<span class="text-[10px] text-zinc-500 font-mono hidden sm:inline">Prev: ${prevHint}</span>` : ''}
                 <div class="flex items-center space-x-1">

@@ -108752,7 +108752,7 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "my_6day_chest_back_legs_sharms",
   "title": "Ilhaan's 3 Day Split",
-  "description": "A three-day bodybuilding split run as one long program of 64 days, Day 1 to Day 64, with no weeks: Chest & Back, Legs & Calves, Sharms, then a Core & Cardio day, and round again. Every 8 days each muscle group is trained twice. Chest & Back (Days 1 and 5 of each 8) mixes pressing and pulling; Legs & Calves (Days 2 and 6) pre-exhausts the hamstrings first and the quads second (leg curls, then leg extensions, come first); Sharms (Days 3 and 7) is shoulders, traps, arms and forearms. Days 4 and 8 of each 8 are Core & Cardio: the ab work from the leg day before, then 20-30 minutes on the incline treadmill. The first 8 days lean on free weights and the Smith machine, the next 8 on machines and cables, and it alternates like that to Day 64. Exercises that use the same machine, bar or bench sit next to each other so you do not walk back and forth. Sets and reps are as written; the rest times are PulseTrack's usual guess, so change them if you like.",
+  "description": "A three-day bodybuilding split run as one long program of 64 days, Day 1 to Day 64, with no weeks: Chest & Back, Legs & Calves, Sharms, then a Core & Cardio day, and round again. Every 8 days each muscle group is trained twice. Chest & Back (Days 1 and 5 of each 8) mixes pressing and pulling; Legs & Calves (Days 2 and 6) pre-exhausts the hamstrings first and the quads second (leg curls, then leg extensions, come first); Sharms (Days 3 and 7) is shoulders, traps, arms and forearms. Days 4 and 8 of each 8 are Core & Cardio: the ab work from the leg day before, then the StairMaster: 20 minutes on Day 4, 2.5 minutes more on every Core & Cardio day after it, up to 57.5 minutes on Day 64. The first 8 days lean on free weights and the Smith machine, the next 8 on machines and cables, and it alternates like that to Day 64. Exercises that use the same machine, bar or bench sit next to each other so you do not walk back and forth. Sets and reps are as written; the rest times are PulseTrack's usual guess, so change them if you like.",
   "tags": [
    "My Program",
    "3 Day Split",
@@ -109013,7 +109013,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 4,
     "title": "Day 4: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 35,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d4_hanging-leg-raises",
@@ -109032,10 +109032,10 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d4_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "20 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -109290,7 +109290,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 8,
     "title": "Day 8: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 37,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d8_hanging-leg-raises",
@@ -109310,10 +109310,10 @@ const BUILTIN_PROGRAMS = [
       "notes": "20 total twists, 10 per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d8_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d8_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "22.5 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -109581,10 +109581,10 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d12_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d12_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "25 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -109839,7 +109839,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 16,
     "title": "Day 16: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 42,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d16_hanging-leg-raises",
@@ -109859,10 +109859,10 @@ const BUILTIN_PROGRAMS = [
       "notes": "20 total twists, 10 per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d16_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d16_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "27.5 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -110110,7 +110110,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 20,
     "title": "Day 20: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 45,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d20_hanging-leg-raises",
@@ -110129,10 +110129,10 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d20_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d20_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "30 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -110387,7 +110387,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 24,
     "title": "Day 24: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 47,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d24_hanging-leg-raises",
@@ -110407,10 +110407,10 @@ const BUILTIN_PROGRAMS = [
       "notes": "20 total twists, 10 per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d24_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d24_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "32.5 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -110659,7 +110659,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 28,
     "title": "Day 28: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 50,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d28_hanging-leg-raises",
@@ -110678,10 +110678,10 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d28_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d28_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "35 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -110936,7 +110936,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 32,
     "title": "Day 32: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 52,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d32_hanging-leg-raises",
@@ -110956,10 +110956,10 @@ const BUILTIN_PROGRAMS = [
       "notes": "20 total twists, 10 per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d32_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d32_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "37.5 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -111207,7 +111207,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 36,
     "title": "Day 36: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 55,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d36_hanging-leg-raises",
@@ -111226,10 +111226,10 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d36_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d36_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "40 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -111484,7 +111484,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 40,
     "title": "Day 40: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 57,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d40_hanging-leg-raises",
@@ -111504,10 +111504,10 @@ const BUILTIN_PROGRAMS = [
       "notes": "20 total twists, 10 per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d40_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d40_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "42.5 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -111756,7 +111756,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 44,
     "title": "Day 44: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 60,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d44_hanging-leg-raises",
@@ -111775,10 +111775,10 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d44_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d44_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "45 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -112033,7 +112033,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 48,
     "title": "Day 48: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 62,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d48_hanging-leg-raises",
@@ -112053,10 +112053,10 @@ const BUILTIN_PROGRAMS = [
       "notes": "20 total twists, 10 per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d48_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d48_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "47.5 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -112304,7 +112304,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 52,
     "title": "Day 52: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 65,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d52_hanging-leg-raises",
@@ -112323,10 +112323,10 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d52_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d52_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "50 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -112581,7 +112581,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 56,
     "title": "Day 56: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 67,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d56_hanging-leg-raises",
@@ -112601,10 +112601,10 @@ const BUILTIN_PROGRAMS = [
       "notes": "20 total twists, 10 per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d56_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d56_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "52.5 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -112853,7 +112853,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 60,
     "title": "Day 60: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 70,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d60_hanging-leg-raises",
@@ -112872,10 +112872,10 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d60_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d60_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "55 min",
       "restSeconds": 60,
       "type": "cardio"
      }
@@ -113130,7 +113130,7 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 64,
     "title": "Day 64: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 72,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d64_hanging-leg-raises",
@@ -113150,10 +113150,10 @@ const BUILTIN_PROGRAMS = [
       "notes": "20 total twists, 10 per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d64_incline-treadmill-walk",
-      "name": "Incline Treadmill Walk",
+      "id": "my_6day_chest_back_legs_sharms_d64_stairmaster",
+      "name": "Stairmaster",
       "sets": 1,
-      "reps": "20-30 min",
+      "reps": "57.5 min",
       "restSeconds": 60,
       "type": "cardio"
      }

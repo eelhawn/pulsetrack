@@ -29,9 +29,10 @@ with page() as p:
     blocks = [[[e['name'] for e in d['exercises']] for d in prog['days'][8 * k:8 * k + 8]] for k in range(8)]
     c.ok(all(blocks[k] == blocks[k % 2] for k in range(8)), 'the odd blocks repeat the free-weight days and the even blocks the machine days')
     c.ok('64 days' in prog['description'] and 'Core & Cardio' in prog['description'], 'the description says 64 days and Core & Cardio')
+    c.eq([e['reps'] for d in prog['days'] for e in d['exercises'] if e['name'] == 'Stairmaster'], ['%s min' % (('%g' % (20 + 2.5 * k))) for k in range(16)], 'the StairMaster climbs from 20 min (Day 4) by 2.5 min a Core & Cardio day to 57.5 min (Day 64)')
     prog['days'] = prog['days'][:16]
     W = [d for d in prog['days'] if d['exercises'] and 'Core & Cardio' not in d['title']]
-    c.eq([[e['name'] for e in d['exercises']] for d in prog['days']][3::4], [['Hanging Leg Raises', 'Decline Sit-Ups', 'Incline Treadmill Walk'], ['Hanging Leg Raises', 'Russian Twists', 'Incline Treadmill Walk']] * 2, 'each Core & Cardio day: the leg day\'s two ab exercises, then the incline treadmill walk')
+    c.eq([[e['name'] for e in d['exercises']] for d in prog['days']][3::4], [['Hanging Leg Raises', 'Decline Sit-Ups', 'Stairmaster'], ['Hanging Leg Raises', 'Russian Twists', 'Stairmaster']] * 2, 'each Core & Cardio day: the leg day\'s two ab exercises, then the StairMaster')
     c.ok(not any('Core' == p.evaluate('(n) => PT.category(n)', e['name']) for d in prog['days'] if 'Legs' in d['title'] for e in d['exercises']), 'no ab work left on the leg days')
     c.eq([len(d['exercises']) for d in prog['days']], [8, 8, 11, 3, 9, 8, 11, 3, 8, 8, 11, 3, 9, 8, 11, 3], 'exercises per day')
     c.eq([sum(e['sets'] for e in d['exercises']) for d in prog['days']], [26, 28, 37, 7, 29, 28, 36, 7, 27, 28, 37, 7, 31, 28, 37, 7], 'sets per day')
