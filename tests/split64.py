@@ -82,7 +82,7 @@ with page() as p:
     c.eq(p.evaluate('() => app.dayNotes["%s_d6"]' % ID), 'felt strong', 'the note on old Day 5 is now on Day 6')
     c.eq(p.evaluate(f'() => {{ const s = app.getProgState({PROG}); return [s.week, s.done.slice().sort((a, b) => a - b), (s.skipped || []).length]; }}'), [1, [1, 2, 3], 0], 'progress: Day 1-3 finished (the skipped list of a week group is cleared)')
     c.eq(p.evaluate(f'() => app.nextDayOf({PROG}).dayNumber'), 5, 'up next is Day 5')
-    c.eq(len(set(p.evaluate(f'() => {PROG}.days.flatMap(d => d.exercises.map(e => e.id))'))), 480, 'all 480 exercise ids are unique')
+    c.eq(len(set(p.evaluate(f'() => {PROG}.days.flatMap(d => d.exercises.map(e => e.id))'))), 468, 'all 468 exercise ids are unique')
     c.eq(p.evaluate('() => PT.split64.upgrade().done'), False, 'running it again changes nothing')
     c.ok(p.evaluate('() => !!app.settings.split64'), 'and it remembers it ran')
     c.ok(p.evaluate(f'() => /64 days/.test({PROG}.description)'), 'the description that came with the program is replaced')

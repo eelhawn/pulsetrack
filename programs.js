@@ -108826,14 +108826,6 @@ const BUILTIN_PROGRAMS = [
       "notes": "Per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d1_chest-dips",
-      "name": "Chest Dips",
-      "sets": 3,
-      "reps": "10-12",
-      "restSeconds": 75,
-      "type": "standard"
-     },
-     {
       "id": "my_6day_chest_back_legs_sharms_d1_barbell-row",
       "name": "Barbell Row",
       "sets": 3,
@@ -109085,14 +109077,6 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 75,
       "type": "standard",
       "notes": "Per side."
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d5_decline-bench-press",
-      "name": "Decline Bench Press",
-      "sets": 3,
-      "reps": "8-10",
-      "restSeconds": 90,
-      "type": "standard"
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d5_cable-seated-rows-wide-bar",
@@ -109625,14 +109609,6 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d13_smith-machine-decline-press",
-      "name": "Smith Machine Decline Press",
-      "sets": 3,
-      "reps": "8-10",
-      "restSeconds": 90,
-      "type": "standard"
-     },
-     {
       "id": "my_6day_chest_back_legs_sharms_d13_neutral-grip-seated-cable-row",
       "name": "Neutral-Grip Seated Cable Row",
       "sets": 3,
@@ -109903,14 +109879,6 @@ const BUILTIN_PROGRAMS = [
       "notes": "Per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d17_chest-dips",
-      "name": "Chest Dips",
-      "sets": 3,
-      "reps": "10-12",
-      "restSeconds": 75,
-      "type": "standard"
-     },
-     {
       "id": "my_6day_chest_back_legs_sharms_d17_barbell-row",
       "name": "Barbell Row",
       "sets": 3,
@@ -110162,14 +110130,6 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 75,
       "type": "standard",
       "notes": "Per side."
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d21_decline-bench-press",
-      "name": "Decline Bench Press",
-      "sets": 3,
-      "reps": "8-10",
-      "restSeconds": 90,
-      "type": "standard"
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d21_cable-seated-rows-wide-bar",
@@ -110702,14 +110662,6 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d29_smith-machine-decline-press",
-      "name": "Smith Machine Decline Press",
-      "sets": 3,
-      "reps": "8-10",
-      "restSeconds": 90,
-      "type": "standard"
-     },
-     {
       "id": "my_6day_chest_back_legs_sharms_d29_neutral-grip-seated-cable-row",
       "name": "Neutral-Grip Seated Cable Row",
       "sets": 3,
@@ -110980,14 +110932,6 @@ const BUILTIN_PROGRAMS = [
       "notes": "Per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d33_chest-dips",
-      "name": "Chest Dips",
-      "sets": 3,
-      "reps": "10-12",
-      "restSeconds": 75,
-      "type": "standard"
-     },
-     {
       "id": "my_6day_chest_back_legs_sharms_d33_barbell-row",
       "name": "Barbell Row",
       "sets": 3,
@@ -111239,14 +111183,6 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 75,
       "type": "standard",
       "notes": "Per side."
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d37_decline-bench-press",
-      "name": "Decline Bench Press",
-      "sets": 3,
-      "reps": "8-10",
-      "restSeconds": 90,
-      "type": "standard"
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d37_cable-seated-rows-wide-bar",
@@ -111779,14 +111715,6 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d45_smith-machine-decline-press",
-      "name": "Smith Machine Decline Press",
-      "sets": 3,
-      "reps": "8-10",
-      "restSeconds": 90,
-      "type": "standard"
-     },
-     {
       "id": "my_6day_chest_back_legs_sharms_d45_neutral-grip-seated-cable-row",
       "name": "Neutral-Grip Seated Cable Row",
       "sets": 3,
@@ -112057,14 +111985,6 @@ const BUILTIN_PROGRAMS = [
       "notes": "Per side."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d49_chest-dips",
-      "name": "Chest Dips",
-      "sets": 3,
-      "reps": "10-12",
-      "restSeconds": 75,
-      "type": "standard"
-     },
-     {
       "id": "my_6day_chest_back_legs_sharms_d49_barbell-row",
       "name": "Barbell Row",
       "sets": 3,
@@ -112316,14 +112236,6 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 75,
       "type": "standard",
       "notes": "Per side."
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d53_decline-bench-press",
-      "name": "Decline Bench Press",
-      "sets": 3,
-      "reps": "8-10",
-      "restSeconds": 90,
-      "type": "standard"
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d53_cable-seated-rows-wide-bar",
@@ -112853,14 +112765,6 @@ const BUILTIN_PROGRAMS = [
       "sets": 4,
       "reps": "6-8",
       "restSeconds": 120,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d61_smith-machine-decline-press",
-      "name": "Smith Machine Decline Press",
-      "sets": 3,
-      "reps": "8-10",
-      "restSeconds": 90,
       "type": "standard"
      },
      {
