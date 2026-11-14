@@ -435,7 +435,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.99.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.100.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -2443,6 +2443,21 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         const groups = {};
         shown.forEach(ex => { const c = ex.category || 'Other'; (groups[c] = groups[c] || []).push(ex); });
 
+        const EX_FIRST = 150, EX_CHUNK = 400, later = [];
+        let drawn = 0;
+        const myToken = this._exDrawToken = (this._exDrawToken || 0) + 1;
+        const makeRow = ex => {
+          const isCur = isSwap && PT.sameEx(ex.name, this.exCurrent);
+          const hint = q ? PT.exHint(ex, q) : '';
+          const btn = document.createElement('button');
+          btn.className = `w-full flex items-center gap-3 px-4 min-h-[52px] py-2 border-b border-zinc-800/60 border-l-2 text-left tap-active transition ${isCur ? 'border-l-emerald-500 bg-emerald-950/30' : 'border-l-transparent hover:bg-zinc-900'}`;
+          btn.innerHTML = `
+            <span class="flex-grow min-w-0"><span class="block text-sm font-semibold ${isCur ? 'text-emerald-300' : 'text-zinc-100'} leading-snug">${this.esc(ex.name)}</span>${hint ? `<span class="block text-[10px] text-zinc-500 mt-0.5">also called ${this.esc(hint)}</span>` : ''}</span>
+            ${isCur ? '<span class="shrink-0 text-[10px] font-bold uppercase tracking-wide text-emerald-400">Current</span>' : ''}
+            <svg class="w-4 h-4 shrink-0 ${isCur ? 'text-emerald-400' : 'text-zinc-600'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">${icon}</svg>`;
+          btn.addEventListener('click', () => this.handleExerciseSelection(ex.name, btn));
+          return btn;
+        };
         const frag = document.createDocumentFragment();
         if (isSwap && !q && (activeCat === 'All' || activeCat === PT.category(this.exCurrent))) {
           const sec = this.swapSuggestionsSection(this.exCurrent, (name, b) => this.handleExerciseSelection(name, b));
@@ -2468,20 +2483,21 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           }
 
           items.forEach(ex => {
-            const isCur = isSwap && PT.sameEx(ex.name, this.exCurrent);
-            const hint = q ? PT.exHint(ex, q) : '';
-            const btn = document.createElement('button');
-            btn.className = `w-full flex items-center gap-3 px-4 min-h-[52px] py-2 border-b border-zinc-800/60 border-l-2 text-left tap-active transition ${isCur ? 'border-l-emerald-500 bg-emerald-950/30' : 'border-l-transparent hover:bg-zinc-900'}`;
-            btn.innerHTML = `
-              <span class="flex-grow min-w-0"><span class="block text-sm font-semibold ${isCur ? 'text-emerald-300' : 'text-zinc-100'} leading-snug">${this.esc(ex.name)}</span>${hint ? `<span class="block text-[10px] text-zinc-500 mt-0.5">also called ${this.esc(hint)}</span>` : ''}</span>
-              ${isCur ? '<span class="shrink-0 text-[10px] font-bold uppercase tracking-wide text-emerald-400">Current</span>' : ''}
-              <svg class="w-4 h-4 shrink-0 ${isCur ? 'text-emerald-400' : 'text-zinc-600'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">${icon}</svg>`;
-            btn.addEventListener('click', () => this.handleExerciseSelection(ex.name, btn));
-            section.appendChild(btn);
+            // 2.100.0: with the openGym library the list is a few thousand long; the first rows are drawn now, the rest just after
+            if (++drawn > EX_FIRST) { later.push([section, ex]); return; }
+            section.appendChild(makeRow(ex));
           });
           frag.appendChild(section);
         });
         container.appendChild(frag);
+        if (later.length) {
+          const run = token => {
+            if (token !== this._exDrawToken) return;   // the list was drawn again in the meantime
+            later.splice(0, EX_CHUNK).forEach(([section, ex]) => section.appendChild(makeRow(ex)));
+            if (later.length) setTimeout(() => run(token), 0);
+          };
+          setTimeout(() => run(myToken), 0);
+        }
       }
 
       handleExerciseSelection(selectedName, btn) {
@@ -3822,7 +3838,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.99.0";
+    const APP_VERSION = "2.100.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -33326,30 +33342,53 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 })();
 </script>
   <script>/* =====================================================================
- * PulseTrack 2.96.0: the openGym exercise library, 5,520 more exercises in the picker.
+ * PulseTrack 2.96.0, reworked in 2.100.0: the openGym exercise library, in your exercise list.
  *  opengym-exercises.js (built by tools/opengym_import.py from openGym's catalogue, AGPL-3.0, see NOTICE.md) is loaded in the background
- *  after the app has started, so opening the app is not slower. Text only: name, muscle, equipment, what it is, and the steps (they show
- *  under Form tips). No pictures.
- *  - Searching in the exercise picker also searches the openGym library: its matches come after PulseTrack's own, under their own heading.
- *  - A last chip, "openGym", lists the whole library by body part, 100 at a time.
- *  - Picking one makes it a normal PulseTrack exercise from then on: it joins the list (with its muscle, so Similar exercises, the muscle
- *    map and records work), and it is remembered because it is in your workout, program or history. Nothing else changes until you pick one.
- *  - PulseTrack's own exercises (and their other names) win: the 98 openGym exercises it already had are not in the file.
+ *  after the app has started, so opening the app is not slower. Text only: name, muscle, equipment, what it is, and the steps. No pictures.
+ *  2.100.0: every one of them is a normal exercise in its muscle group (Chest, Back, Legs ...), with Similar exercises, Form tips (its
+ *  description and steps), the muscle map and records, like PulseTrack's own. The separate "openGym" chip is gone. The file only has the
+ *  useful ones (about 2,900): yoga, pilates, rehab, most stretches, rare kit, drawing variants and household-prop drills are left out.
+ *  PulseTrack's own exercises (and their other names) win: an openGym one that is the same exercise is not added.
  * ===================================================================== */
 (function () {
   "use strict";
   if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
   const proto = ApplicationUI.prototype;
-  const CHIP = "openGym", PAGE = 100, SEARCH_CAP = 60;
   const DBA = () => (typeof EXERCISE_DATABASE !== "undefined" && Array.isArray(EXERCISE_DATABASE)) ? EXERCISE_DATABASE : null;
   const lower = s => String(s || "").toLowerCase();
-  let OG = null, BY = null, loading = null;
+  let OG = null, BY = null, loading = null, merged = 0;
 
   const list = () => OG || [];
+  function entry(e) {
+    const o = { name: e.name, category: e.category, muscle: e.muscle, og: e.og, eq: e.eq };
+    if (e.needs) o.needs = e.needs.slice();
+    if (e.desc) o.desc = e.desc;
+    if (e.tips) o.tips = e.tips.slice();
+    if (e.hold) o.hold = 1;
+    return o;
+  }
+  /** every openGym exercise joins the list, in its muscle group, unless the list already has it (or something it calls the same) */
+  function merge() {
+    const d = DBA(); if (!d || !OG) return 0;
+    const have = new Set(d.map(x => x && lower(x.name)));
+    const add = [];
+    OG.forEach(e => {
+      const l = lower(e.name); if (have.has(l)) return;
+      let same = null; try { same = PT.exCanon ? PT.exCanon(e.name) : null; } catch (err) { same = null; }
+      if (same && !same.og) return;   // PulseTrack's own exercise under another spelling
+      add.push(entry(e)); have.add(l);
+    });
+    // in front of your own exercises (they stay last, where My Exercises keeps them)
+    const firstCustom = d.findIndex(x => x && x.custom);
+    if (firstCustom < 0) d.push(...add); else d.splice(firstCustom, 0, ...add);
+    PT._catMap = null; PT._bwList = null;
+    merged += add.length;
+    return add.length;
+  }
   function ready(arr) {
     OG = arr.filter(e => e && e.name);
     BY = new Map(); OG.forEach(e => BY.set(lower(e.name), e));
-    promoteUsed(window.app);
+    merge();
     document.dispatchEvent(new Event("pt-opengym-ready"));
   }
   function load() {
@@ -33365,130 +33404,21 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     });
     return loading;
   }
+  const promote = e => { if (!e) return false; const d = DBA(); if (!d || d.some(x => x && lower(x.name) === lower(e.name))) return false; d.push(entry(e)); PT._catMap = null; return true; };
 
-  /** an openGym exercise not in the list yet (nor something the list already calls the same) */
-  const inDb = name => { const d = DBA() || []; const l = lower(name); return d.some(e => e && lower(e.name) === l) || !!(PT.exCanon && PT.exCanon(name)); };
-  function promote(e) {
-    const d = DBA(); if (!d || !e || d.some(x => x && lower(x.name) === lower(e.name))) return false;
-    const o = { name: e.name, category: e.category, muscle: e.muscle, og: e.og, eq: e.eq };
-    if (e.needs) o.needs = e.needs.slice();
-    if (e.desc) o.desc = e.desc;
-    if (e.tips) o.tips = e.tips.slice();
-    if (e.hold) o.hold = 1;
-    d.push(o);
-    PT._catMap = null; PT._bwList = null;
-    return true;
-  }
-  /** every exercise name the app has a use for: workout days, programs, history, last-time weights */
-  function usedNames(a) {
-    const s = new Set();
-    if (!a) return s;
-    try { ((a.data && a.data.programs) || []).forEach(p => (p.days || []).forEach(d => (d.exercises || []).forEach(x => x && s.add(lower(x.name))))); } catch (e) { }
-    try { (a.sessions || []).forEach(x => (x.ex || []).forEach(e => e && s.add(lower(e.name)))); } catch (e) { }
-    try { Object.keys(a.lastPerf || {}).forEach(n => s.add(lower(n))); } catch (e) { }
-    return s;
-  }
-  function promoteUsed(a) {
-    if (!BY || !a) return 0;
-    let n = 0;
-    usedNames(a).forEach(l => { const e = BY.get(l); if (e && promote(e)) n++; });
-    return n;
-  }
-
-  /* ---------------------------------------------------------------- the picker */
-  const icon = swap => swap
-    ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4M16 17H4m0 0l4-4m-4 4l4 4"/>'
-    : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 5v14m7-7H5"/>';
-  function row(app, e, swap) {
-    const b = document.createElement("button");
-    b.className = "w-full flex items-center gap-3 px-4 min-h-[52px] py-2 border-b border-zinc-800/60 border-l-2 border-l-transparent text-left tap-active transition";
-    b.dataset.og = e.og;
-    b.innerHTML = `<span class="flex-grow min-w-0"><span class="block text-sm font-semibold text-zinc-100 leading-snug">${app.esc(e.name)}</span><span class="block text-[11px] text-zinc-500 mt-0.5 truncate">${app.esc(e.muscle)} · ${app.esc(e.eq)}</span></span>
-      <svg class="w-4 h-4 shrink-0 text-zinc-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">${icon(swap)}</svg>`;
-    b.addEventListener("click", () => { promote(e); app.handleExerciseSelection(e.name, b); });
-    return b;
-  }
-  const head = (txt, n, note) => {
-    const h = document.createElement("div");
-    h.className = "sticky top-0 z-10 px-4 py-1.5 bg-zinc-900/95 backdrop-blur border-b border-zinc-800 flex items-center justify-between gap-2";
-    h.innerHTML = `<span class="text-[11px] font-black uppercase tracking-widest text-emerald-400 truncate">${txt}</span><span class="text-[10px] font-bold text-zinc-500 shrink-0">${n}${note ? " · " + note : ""}</span>`;
-    return h;
-  };
-  function moreBtn(label, fn) {
-    const b = document.createElement("button");
-    b.className = "pt-og-more w-full py-3 text-xs font-bold text-emerald-400 border-b border-zinc-800/60 tap-active";
-    b.textContent = label; b.addEventListener("click", fn);
-    return b;
-  }
-  const credit = () => {
-    const p = document.createElement("p");
-    p.className = "pt-og-credit px-4 py-3 text-[10px] text-zinc-500 leading-snug";
-    p.textContent = "Exercises from openGym (github.com/DuarteSantos8/openGym), AGPL-3.0. Text only, no pictures.";
-    return p;
-  };
-  const matchesOf = (q, swap) => {
-    const allow = e => (!PT.gymAllows || PT.gymAllows(e.name)) && (!PT.eqAllows || PT.eqAllows(e));
-    const m = list().filter(e => !inDb(e.name) && allow(e) && (!q || PT.exMatch(e, q)));
-    if (q) m.sort((a, b) => PT.exRank(a, q) - PT.exRank(b, q) || a.name.localeCompare(b.name));
-    return m;
-  };
-
+  /* the picker: opened before the library has loaded, it shows what it has and fills in when the library arrives */
   const oRender = proto.renderExerciseList;
   proto.renderExerciseList = function (query) {
     const r = oRender.apply(this, arguments);
     try {
-      const q = String(query || "").trim(), swap = !!(this.exerciseModalTarget && this.exerciseModalTarget.action === "swap");
-      const chips = this.dom.exChips, box = this.dom.exListContainer;
-      if (!chips || !box) return r;
-      if (!OG) { load().then(() => { if (!this.dom.modalExSelector.classList.contains("hidden")) this.renderExerciseList(this.dom.exSearchInput.value); }); return r; }
-      const all = matchesOf(q, swap);
-      try { const n = (DBA() || []).length + list().filter(e => !inDb(e.name)).length; this.dom.exSearchInput.placeholder = `Search ${n.toLocaleString()} exercises...`; } catch (e) { }
-      if (!all.length && !q) return r;
-      // the chip
-      const on = !q && this.exCat === CHIP;
-      chips.insertAdjacentHTML("beforeend", `<button data-cat="${CHIP}" data-og-chip="1" class="ex-chip shrink-0 px-3 py-1.5 rounded-full text-xs font-bold border tap-active transition whitespace-nowrap ${on ? "bg-emerald-500 border-emerald-500 text-zinc-950" : "bg-zinc-950 border-zinc-800 text-zinc-300"}">${CHIP} <span class="${on ? "text-zinc-800" : "text-zinc-500"} font-semibold">${all.length}</span></button>`);
-      const chip = chips.querySelector("[data-og-chip]");
-      chip.addEventListener("click", () => { this.exCat = CHIP; this.renderExerciseList(this.dom.exSearchInput.value); });
-      if (on) {
-        chips.querySelectorAll(".ex-chip.bg-emerald-500:not([data-og-chip])").forEach(b => { b.classList.remove("bg-emerald-500", "border-emerald-500", "text-zinc-950"); b.classList.add("bg-zinc-950", "border-zinc-800", "text-zinc-300"); });
-        if (chip.scrollIntoView) chip.scrollIntoView({ inline: "center", block: "nearest" });
-        // the whole library, by body part, a page at a time
-        box.innerHTML = ""; box.scrollTop = 0;
-        const sorted = all.slice().sort((a, b) => a.category.localeCompare(b.category) || a.name.localeCompare(b.name));
-        let shown = 0, cur = "";
-        const sec = document.createElement("div"); box.appendChild(sec);
-        const page = () => {
-          const old = box.querySelector(".pt-og-more"); if (old) old.remove();
-          const end = Math.min(sorted.length, shown + PAGE);
-          for (; shown < end; shown++) {
-            const e = sorted[shown];
-            if (e.category !== cur) { cur = e.category; sec.appendChild(head(this.esc(cur), sorted.filter(x => x.category === cur).length)); }
-            sec.appendChild(row(this, e, swap));
-          }
-          if (shown < sorted.length) sec.appendChild(moreBtn(`Show ${Math.min(PAGE, sorted.length - shown)} more (${sorted.length - shown} left)`, page));
-          else sec.appendChild(credit());
-        };
-        page();
-        return r;
-      }
-      if (!q) return r;
-      // searching: openGym matches after PulseTrack's own
-      const none = box.querySelector("p.text-zinc-500.text-center");
-      if (none && /No exercises found/.test(none.textContent)) none.remove();
-      const sec = document.createElement("div"); sec.className = "pt-og-results";
-      sec.appendChild(head("openGym library", all.length, all.length > SEARCH_CAP ? `first ${SEARCH_CAP}` : ""));
-      let shown = 0;
-      const more = () => {
-        const old = sec.querySelector(".pt-og-more"); if (old) old.remove();
-        const end = Math.min(all.length, shown + SEARCH_CAP);
-        for (; shown < end; shown++) sec.appendChild(row(this, all[shown], swap));
-        if (shown < all.length) sec.appendChild(moreBtn(`Show ${Math.min(SEARCH_CAP, all.length - shown)} more`, more)); else sec.appendChild(credit());
-      };
-      more();
-      box.appendChild(sec);
+      const n = (DBA() || []).length; if (this.dom.exSearchInput) this.dom.exSearchInput.placeholder = `Search ${n.toLocaleString()} exercises...`;
+      if (!OG) load().then(() => { if (this.dom.modalExSelector && !this.dom.modalExSelector.classList.contains("hidden")) { this.dom.exSearchInput.placeholder = `Search ${(DBA() || []).length.toLocaleString()} exercises...`; this.renderExerciseList(this.dom.exSearchInput.value); } });
     } catch (e) { console.error("PulseTrack openGym picker", e); }
     return r;
   };
+  // 2.96.0 had its own chip; a picker left on it goes back to All
+  const oOpen = proto.openExerciseSelector;
+  proto.openExerciseSelector = function () { if (this.exCat === "openGym") this.exCat = "All"; return oOpen.apply(this, arguments); };
 
   /* ---------------------------------------------------------------- Form tips: an openGym exercise shows its own description and steps */
   const made = new WeakMap();
@@ -33511,7 +33441,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     return h;
   };
 
-  PT.og = { load, list, promote: name => { const e = BY && BY.get(lower(name)); return e ? promote(e) : false; }, promoteUsed: () => promoteUsed(window.app), get: name => (BY && BY.get(lower(name))) || null };
+  PT.og = { load, list, merged: () => merged, promote: name => { const e = BY && BY.get(lower(name)); return e ? promote(e) : false; }, get: name => (BY && BY.get(lower(name))) || null };
 
   const oInit = proto.initExtras;
   proto.initExtras = function () {

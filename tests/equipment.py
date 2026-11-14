@@ -12,6 +12,7 @@ def classify(p, names):
     return p.evaluate('(ns) => ns.map(n => [PT.equipKey(n), PT.equipNeeds(n).sort().join("+")])', names)
 
 def visible(p):
+    p.wait_for_timeout(300)
     return p.evaluate('() => [...document.querySelectorAll("#ex-list-container button")].map(b => (b.querySelector("span span") || b).textContent.trim())')
 
 with page() as p:
@@ -19,14 +20,14 @@ with page() as p:
     got = classify(p, ['Dumbbell Bench Press', 'Incline Dumbbell Press', 'Hammer Strength Incline Press', 'Smith Machine Incline Press', 'Pull-ups', 'Hanging Leg Raise', 'Assisted Pull-up Machine', 'Push-ups', 'Lat Pulldown', 'Bench Dips'])
     c.eq(got, [['dumbbell', 'bench'], ['dumbbell', 'bench'], ['machine', ''], ['smith', 'bench'], ['bodyweight', 'pullup'], ['bodyweight', 'pullup'], ['machine', ''], ['bodyweight', ''], ['cable', ''], ['bodyweight', '']],
          'what each exercise needs: a bench for bench and incline work (not on a machine), a bar for pull-ups and hanging')
-    p.evaluate('() => PT.og.load()'); p.wait_for_function('() => PT.og.list().length > 5000', timeout=15000)
+    p.evaluate('() => PT.og.load()'); p.wait_for_function('() => PT.og.list().length > 2500', timeout=15000)
     og = p.evaluate('() => { const f = k => PT.og.list().find(e => e.eq === k).name; return ["suspension trainer", "stability ball", "medicine ball", "resistance band", "sled machine", "leverage machine"].map(f); }')
     c.eq([x[0] for x in classify(p, og)], ['suspension', 'ball', 'medball', 'band', 'sled', 'machine'], 'openGym exercises use openGym\'s own equipment')
     c.eq(p.evaluate('() => PT.gymLacks("Dumbbell Bench Press")'), '', 'a gym with everything lacks nothing')
 
 for w in (390, 360):
     with page(w=w, h=800) as p:
-        p.evaluate('() => PT.og.load()'); p.wait_for_function('() => PT.og.list().length > 5000', timeout=15000)
+        p.evaluate('() => PT.og.load()'); p.wait_for_function('() => PT.og.list().length > 2500', timeout=15000)
         # the gym editor shows the new kit; untick bench and suspension trainer and save
         p.evaluate('() => PT.openGyms()'); p.wait_for_timeout(250)
         p.click('#pt-gmg [data-ed]'); p.wait_for_timeout(300)
@@ -48,12 +49,14 @@ for w in (390, 360):
         c.ok('Dumbbell Bench Press' not in names and 'Bench Press' not in names, '%dpx: searching "bench press" leaves the bench presses out' % w)
         c.ok(p.evaluate('() => /bench/i.test((document.querySelector("[data-pt-gymbar]") || {}).textContent || "")'), '%dpx: and the bar says it is leaving out what needs a bench' % w)
         p.fill('#ex-search-input', 'suspension'); p.wait_for_timeout(250)
-        c.eq(p.evaluate('() => [...document.querySelectorAll(".pt-og-results [data-og]")].filter(b => PT.og.list().find(e => e.og === b.dataset.og).eq === "suspension trainer").length'), 0, '%dpx: no TRX exercises from the openGym library (a cable "suspension" stretch can stay)' % w)
+        p.wait_for_timeout(300)
+        c.eq(p.evaluate('() => [...document.querySelectorAll("#ex-list-container button")].filter(b => b.querySelector("span span")).map(b => EXERCISE_DATABASE.find(e => e.name === b.querySelector("span span").textContent.trim())).filter(e => e && e.eq === "suspension trainer").length'), 0, '%dpx: no TRX exercises from the openGym library' % w)
         p.fill('#ex-search-input', 'bench press'); p.wait_for_timeout(200)
         p.evaluate('() => document.querySelector("[data-pt-gymbar] button").click()'); p.wait_for_timeout(250)
         c.ok('Bench Press' in visible(p), '%dpx: Show all brings them back' % w)
         p.fill('#ex-search-input', 'suspension'); p.wait_for_timeout(250)
-        c.ok(p.evaluate('() => [...document.querySelectorAll(".pt-og-results [data-og]")].filter(b => PT.og.list().find(e => e.og === b.dataset.og).eq === "suspension trainer").length') > 5, '%dpx: the openGym TRX ones too' % w)
+        p.wait_for_timeout(300)
+        c.ok(p.evaluate('() => [...document.querySelectorAll("#ex-list-container button")].filter(b => b.querySelector("span span")).map(b => EXERCISE_DATABASE.find(e => e.name === b.querySelector("span span").textContent.trim())).filter(e => e && e.eq === "suspension trainer").length') > 5, '%dpx: the openGym TRX ones too' % w)
         p.evaluate('() => document.getElementById("modal-ex-selector").classList.add("hidden")')
         # the workout card
         p.evaluate(f'() => {{ const pr = app.data.programs.find(x => x.id === "{ID}"); app.activeDay = pr.days[0]; app.renderWorkoutView(); }}'); p.wait_for_timeout(200)

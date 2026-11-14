@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone (the optional live family board, off until you start or join one, sends only a small scrambled update).
 
-*Version 2.99.0*
+*Version 2.100.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -658,7 +658,7 @@ For running a practice from one phone: a team, a class, a group of friends. Open
 
 ## Search and name clean-up
 
-**The openGym library (new in 2.96.0).** Besides PulseTrack's own 646 exercises, the exercise picker can search **5,520 more** from the open-source [openGym](https://github.com/DuarteSantos8/openGym) app: stretches, yoga, band, cable, kettlebell, suspension and machine variations. Search as usual: its matches come after PulseTrack's own under an **openGym library** heading (60 at a time, **Show more** for the rest), or tap the last chip, **openGym**, to browse it all by body part, 100 at a time. Each one shows its muscle and equipment. Pick one and it becomes a normal exercise from then on, with its muscle (Similar exercises, the muscle map and records work) and its own steps under **Form tips**. Text only: openGym's pictures and animations are licensed separately and are not included. The library loads in the background after the app opens, so start-up is not slower; offline it works once it has been saved.
+**The openGym library (new in 2.96.0, merged in 2.100.0).** Besides PulseTrack's own 646 exercises, the list has **2,863 more** from the open-source [openGym](https://github.com/DuarteSantos8/openGym) app: band, cable, kettlebell, TRX, machine, Smith and bodyweight variations. Each one sits in its muscle group (Chest, Back, Legs, Shoulders, Biceps ...) next to PulseTrack's own, with **Similar exercises**, its muscle, and a description and steps under **Form tips**. Only useful ones are kept: yoga, pilates, rehab and most stretches, rare kit (tyres, mace bells, sandbags), drawing variants ("V. 2", left/right copies), drills with household props, and near-duplicate spellings are left out. Text only: openGym's pictures and animations are licensed separately and are not included. The library loads in the background after the app opens, so start-up is not slower; offline it works once it has been saved.
 
 ### Search (new in 2.8.0)
 
@@ -784,7 +784,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.99.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.100.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole (the openGym library, `opengym-exercises.js`, is saved too but never holds an update back), so you never end up with half of an update.
 
@@ -825,7 +825,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `index.html` | The whole app (about 3 MB, including fonts and themes). Built from `src/` since 2.68.0 |
 | `programs.js` | The 59 built-in programs |
 | `exercises.js` | The 646 exercises, each with its own form tips and the muscle it trains |
-| `opengym-exercises.js` | 5,520 more exercises from the openGym library (text only, about 3 MB, new in 2.96.0). Built by `tools/opengym_import.py`; don't edit by hand |
+| `opengym-exercises.js` | 2,863 more exercises from the openGym library, filed in PulseTrack's muscle groups (text only, about 1.6 MB, new in 2.96.0). Built by `tools/opengym_import.py`; don't edit by hand |
 | `LICENSE`, `NOTICE.md` | The licence (GNU AGPL v3.0 since 2.96.0) and the credits for the openGym exercises |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen. Its icons are the logo (written by `tools/build.py`) |
@@ -870,6 +870,12 @@ Keep every `id` unique. New programs reach phones on the next update.
 PulseTrack is free software under the **GNU Affero General Public License v3.0** (see [`LICENSE`](LICENSE)) since 2.96.0. You may use, change and share it; if you share a changed version, or run one for others over a network, share its source under the same licence. The openGym exercise library and its credits are described in [`NOTICE.md`](NOTICE.md).
 
 ## Version history
+
+**2.100.0**
+- **The openGym exercises are now part of your exercise list.** No separate openGym chip: each exercise sits in its muscle group (Chest, Back, Legs ...) next to PulseTrack's own, with Similar exercises, its muscle, and its description and steps under Form tips. Full-body lifts (cleans, snatches, thrusters) go in the group of the muscle they mainly train.
+- **Only the useful ones.** The library went from 5,520 to 2,863: yoga, pilates, rehab and most stretches, rare kit (tyres, mace bells, sandbags, BOSU), drawing variants ("V. 2", "POV", left/right copies), drills with household props (towels, chairs, bottles), over-long variations, and near-duplicate spellings ("Alternating Biceps Curls" = "Alternate Bicep Curl") are left out. The file is about 1.6 MB instead of 3 MB.
+- The exercise picker draws its first rows at once and the rest just after, so the bigger list still opens quickly.
+- `tests/opengym.py` rewritten (47 checks); `tests/equipment.py` updated; `tests/live.py` no longer trips when the other phone polls at the same moment.
 
 **2.99.0**
 - **The Smith Machine Decline Press is back on Day 13 of My 6-Day Split** and on its repeats (Day 29, 45 and 61), in its old place after the Barbell Row, 3 sets of 8-10. A copy already on your phone gets it back once; a day where you had already added it back by hand is left as it is.

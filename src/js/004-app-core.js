@@ -1219,6 +1219,21 @@
         const groups = {};
         shown.forEach(ex => { const c = ex.category || 'Other'; (groups[c] = groups[c] || []).push(ex); });
 
+        const EX_FIRST = 150, EX_CHUNK = 400, later = [];
+        let drawn = 0;
+        const myToken = this._exDrawToken = (this._exDrawToken || 0) + 1;
+        const makeRow = ex => {
+          const isCur = isSwap && PT.sameEx(ex.name, this.exCurrent);
+          const hint = q ? PT.exHint(ex, q) : '';
+          const btn = document.createElement('button');
+          btn.className = `w-full flex items-center gap-3 px-4 min-h-[52px] py-2 border-b border-zinc-800/60 border-l-2 text-left tap-active transition ${isCur ? 'border-l-emerald-500 bg-emerald-950/30' : 'border-l-transparent hover:bg-zinc-900'}`;
+          btn.innerHTML = `
+            <span class="flex-grow min-w-0"><span class="block text-sm font-semibold ${isCur ? 'text-emerald-300' : 'text-zinc-100'} leading-snug">${this.esc(ex.name)}</span>${hint ? `<span class="block text-[10px] text-zinc-500 mt-0.5">also called ${this.esc(hint)}</span>` : ''}</span>
+            ${isCur ? '<span class="shrink-0 text-[10px] font-bold uppercase tracking-wide text-emerald-400">Current</span>' : ''}
+            <svg class="w-4 h-4 shrink-0 ${isCur ? 'text-emerald-400' : 'text-zinc-600'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">${icon}</svg>`;
+          btn.addEventListener('click', () => this.handleExerciseSelection(ex.name, btn));
+          return btn;
+        };
         const frag = document.createDocumentFragment();
         if (isSwap && !q && (activeCat === 'All' || activeCat === PT.category(this.exCurrent))) {
           const sec = this.swapSuggestionsSection(this.exCurrent, (name, b) => this.handleExerciseSelection(name, b));
@@ -1244,20 +1259,21 @@
           }
 
           items.forEach(ex => {
-            const isCur = isSwap && PT.sameEx(ex.name, this.exCurrent);
-            const hint = q ? PT.exHint(ex, q) : '';
-            const btn = document.createElement('button');
-            btn.className = `w-full flex items-center gap-3 px-4 min-h-[52px] py-2 border-b border-zinc-800/60 border-l-2 text-left tap-active transition ${isCur ? 'border-l-emerald-500 bg-emerald-950/30' : 'border-l-transparent hover:bg-zinc-900'}`;
-            btn.innerHTML = `
-              <span class="flex-grow min-w-0"><span class="block text-sm font-semibold ${isCur ? 'text-emerald-300' : 'text-zinc-100'} leading-snug">${this.esc(ex.name)}</span>${hint ? `<span class="block text-[10px] text-zinc-500 mt-0.5">also called ${this.esc(hint)}</span>` : ''}</span>
-              ${isCur ? '<span class="shrink-0 text-[10px] font-bold uppercase tracking-wide text-emerald-400">Current</span>' : ''}
-              <svg class="w-4 h-4 shrink-0 ${isCur ? 'text-emerald-400' : 'text-zinc-600'}" fill="none" stroke="currentColor" viewBox="0 0 24 24">${icon}</svg>`;
-            btn.addEventListener('click', () => this.handleExerciseSelection(ex.name, btn));
-            section.appendChild(btn);
+            // 2.100.0: with the openGym library the list is a few thousand long; the first rows are drawn now, the rest just after
+            if (++drawn > EX_FIRST) { later.push([section, ex]); return; }
+            section.appendChild(makeRow(ex));
           });
           frag.appendChild(section);
         });
         container.appendChild(frag);
+        if (later.length) {
+          const run = token => {
+            if (token !== this._exDrawToken) return;   // the list was drawn again in the meantime
+            later.splice(0, EX_CHUNK).forEach(([section, ex]) => section.appendChild(makeRow(ex)));
+            if (later.length) setTimeout(() => run(token), 0);
+          };
+          setTimeout(() => run(myToken), 0);
+        }
       }
 
       handleExerciseSelection(selectedName, btn) {

@@ -5,10 +5,11 @@ version 3** (see [LICENSE](LICENSE)). It became AGPL-3.0 in version 2.96.0, when
 
 ## openGym exercise library (`opengym-exercises.js`)
 
-The 5,520 extra exercises in the exercise picker come from the catalogue of **openGym**
+The 2,863 extra exercises in the exercise list come from the catalogue of **openGym**
 (<https://github.com/DuarteSantos8/openGym>, `catalogue/exercises/`), converted by `tools/opengym_import.py`.
 Only the text is used: names, body part, equipment, muscles, descriptions and steps. Names were capitalised and the body part and
-muscle were mapped to PulseTrack's own categories; nothing else was changed. Exercises PulseTrack already had were left out.
+muscle were mapped to PulseTrack's own categories; nothing else was changed. Exercises PulseTrack already had were left out, and so
+were rare or niche ones (see `rare()` in the tool).
 
 > openGym, Copyright (C) 2026 Duarte Santos and the openGym contributors. Licensed under the GNU AGPL v3.0.
 

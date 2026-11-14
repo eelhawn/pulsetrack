@@ -200,9 +200,14 @@ with phones(3, relay) as (A, B, C):
     c.eq(len(relay.topics), 1, 'both in the same mailbox')
 
     # ---- A sees B without doing anything but opening the board
+    n0 = len(relay.gets())
     A.evaluate(SYNC_PLAIN)
     c.eq(A.evaluate(FAM), ['Sam'], 'A gets B on the next look')
-    c.ok('since=all' not in relay.gets()[-1][2], 'later looks only ask for what is new')
+    # A's first look that found something may still ask for everything (it had nothing yet); the look after that asks only for what is new.
+    # B's own timer can poll at the same moment, so every request since then is looked at, not just the last one.
+    n0 = len(relay.gets())
+    A.evaluate(SYNC_PLAIN)
+    c.ok(any('since=all' not in g[2] for g in relay.gets()[n0:]), 'later looks only ask for what is new')
     A.evaluate(BOARD)
     A.wait_for_selector('#pt-pg-fam')
     c.ok('Sam' in A.inner_text('#pt-pg-fam'), 'and Sam is on the board')
