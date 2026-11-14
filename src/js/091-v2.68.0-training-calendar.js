@@ -127,7 +127,7 @@
   }
   function notes(prog, e) {
     const wk = e.weeks ? `Week ${e.week} of ${e.weeks}` : `Week ${e.week}`;
-    const L = [`${prog.title} · ${wk} · Day ${e.day.dayNumber}`, ""];
+    const L = [`${prog.title} · ${wk} · Day ${PT.dayNo(prog, e.day)}`, ""];
     const ex = (e.day.exercises || []).filter(x => x && x.name);
     ex.slice(0, MAX_LINES).forEach(x => L.push(`${x.name}${x.sets && x.reps ? "  " + x.sets + " x " + x.reps : ""}`));
     if (ex.length > MAX_LINES) L.push(`+ ${ex.length - MAX_LINES} more`);

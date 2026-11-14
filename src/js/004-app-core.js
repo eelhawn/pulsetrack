@@ -1536,7 +1536,7 @@
         if (this.activeProgram) {
           this.dom.homeProgramTitle.innerText = this.activeProgram.title;
           this.dom.homeProgramDesc.innerText = this.activeProgram.description;
-          this.dom.homeActiveDayBadge.innerText = this.activeDay ? `Day ${this.activeDay.dayNumber}` : "Day 1";
+          this.dom.homeActiveDayBadge.innerText = this.activeDay ? `Day ${(typeof PT !== "undefined" && PT.dayNo ? PT.dayNo(this.activeProgram, this.activeDay) : this.activeDay.dayNumber)}` : "Day 1";
         } else {
           this.dom.homeProgramTitle.innerText = "No Active Program";
           this.dom.homeProgramDesc.innerText = "Pick a program or start an empty workout.";
@@ -1721,7 +1721,7 @@
 
           card.innerHTML = `
             <div class="flex flex-col pr-3">
-              <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Day ${day.dayNumber}</span>
+              <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Day ${(typeof PT !== "undefined" && PT.dayNo ? PT.dayNo(this.activeProgram, day) : day.dayNumber)}</span>
               <h4 class="text-sm font-bold text-white mt-0.5">${this.esc(this.shortDayTitle(this.activeProgram, day))}</h4>
               <span class="text-xs text-zinc-400 mt-1">${exList.length} Exercises</span>
             </div>

@@ -435,7 +435,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.91.3</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.92.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -2758,7 +2758,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         if (this.activeProgram) {
           this.dom.homeProgramTitle.innerText = this.activeProgram.title;
           this.dom.homeProgramDesc.innerText = this.activeProgram.description;
-          this.dom.homeActiveDayBadge.innerText = this.activeDay ? `Day ${this.activeDay.dayNumber}` : "Day 1";
+          this.dom.homeActiveDayBadge.innerText = this.activeDay ? `Day ${(typeof PT !== "undefined" && PT.dayNo ? PT.dayNo(this.activeProgram, this.activeDay) : this.activeDay.dayNumber)}` : "Day 1";
         } else {
           this.dom.homeProgramTitle.innerText = "No Active Program";
           this.dom.homeProgramDesc.innerText = "Pick a program or start an empty workout.";
@@ -2943,7 +2943,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
           card.innerHTML = `
             <div class="flex flex-col pr-3">
-              <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Day ${day.dayNumber}</span>
+              <span class="text-[10px] font-bold text-zinc-500 uppercase tracking-wider">Day ${(typeof PT !== "undefined" && PT.dayNo ? PT.dayNo(this.activeProgram, day) : day.dayNumber)}</span>
               <h4 class="text-sm font-bold text-white mt-0.5">${this.esc(this.shortDayTitle(this.activeProgram, day))}</h4>
               <span class="text-xs text-zinc-400 mt-1">${exList.length} Exercises</span>
             </div>
@@ -3820,7 +3820,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.91.3";
+    const APP_VERSION = "2.92.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -12789,6 +12789,15 @@ const PTSIM = (function () {
     cache.set(prog, { sig, plan });
     return plan;
   }
+  /** The number shown as "Day N". Usually the day's own number. A program with dayLabels "week" (My 6-Day Split since 2.92.0) counts the days of
+   *  each week from 1 (Day 1-8, 3 on, 1 off), whatever the day's stored number is, so the list reads Day 1, 2, 3, 4 (rest), 5, 6, 7, 8 (rest). */
+  PT.dayNo = (prog, day) => {
+    if (!day) return "";
+    try {
+      if (prog && prog.dayLabels === "week") { const P = planOf(prog), G = P && P.groups.find(g => g.days.includes(day.dayNumber)); if (G) return G.days.indexOf(day.dayNumber) + 1; }
+    } catch (e) { }
+    return day.dayNumber;
+  };
   const dayObj = (prog, n) => (prog.days || []).find(d => d.dayNumber === n);
   const weekDays = (prog, P, w) => P.byWeek[w].days.map(n => dayObj(prog, n)).filter(Boolean);
   // st.byWeek = { week: [dayNumbers finished in it] } for the weeks you stepped out of with "Switch week" (2.87.0): going back finds your
@@ -13002,7 +13011,7 @@ const PTSIM = (function () {
   proto.weekBadge = function (prog, day) {
     const P = planOf(prog);
     if (!P || !day) return oBadge.apply(this, arguments);
-    return `Week ${this.getProgState(prog).week} of ${P.W} · Day ${day.dayNumber}`;
+    return `Week ${this.getProgState(prog).week} of ${P.W} · Day ${PT.dayNo(prog, day)}`;
   };
   const oUp = proto.upNextText;
   proto.upNextText = function (prog, day) {
@@ -13942,7 +13951,7 @@ const PTSIM = (function () {
     const t = app.shortDayTitle ? app.shortDayTitle(prog, day) : (day.title || "");
     let w = 0;
     try { w = app.progWeeks(prog) ? app.dayWeek(prog, day) : 0; } catch (e) { w = 0; }
-    return `${w ? `Week ${w} · ` : ""}Day ${day.dayNumber}: ${t}${(day.exercises || []).length ? "" : " (rest day)"}`;
+    return `${w ? `Week ${w} · ` : ""}Day ${PT.dayNo(prog, day)}: ${t}${(day.exercises || []).length ? "" : " (rest day)"}`;
   }
   function defaultTarget(app, sd) {
     const progs = ((app.data && app.data.programs) || []).filter(p => p && p.id !== FREE && Array.isArray(p.days) && p.days.length);
@@ -14000,7 +14009,7 @@ const PTSIM = (function () {
             target = { prog, day: d }; draw();
           });
           q("#pt-di-go").addEventListener("click", async () => {
-            if (!await PT.confirm(`Replace "${app.shortDayTitle(prog, day)}" (Day ${day.dayNumber}) in "${prog.title}" with "${sd.title}"?`, { ok: "Replace" })) return;
+            if (!await PT.confirm(`Replace "${app.shortDayTitle(prog, day)}" (Day ${PT.dayNo(prog, day)}) in "${prog.title}" with "${sd.title}"?`, { ok: "Replace" })) return;
             done(true); k.closeSheet(el);
             await app.applySharedDay(prog, day, sd);
           });
@@ -14037,7 +14046,7 @@ const PTSIM = (function () {
     try { AppStateMemory.saveActive(prog.id, day.dayNumber); } catch (e) { }
     this.showView("workout");
     try { this.renderWorkoutView(); } catch (e) { }
-    this.toast(`Day ${day.dayNumber} is now "${sd.title}". Clear Progress puts yours back.`, null, null, 6000);
+    this.toast(`Day ${PT.dayNo(prog, day)} is now "${sd.title}". Clear Progress puts yours back.`, null, null, 6000);
   };
 
   // Clear Progress / Reset All Days: a shared day goes back to the person's own
@@ -29288,7 +29297,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   }
   function notes(prog, e) {
     const wk = e.weeks ? `Week ${e.week} of ${e.weeks}` : `Week ${e.week}`;
-    const L = [`${prog.title} · ${wk} · Day ${e.day.dayNumber}`, ""];
+    const L = [`${prog.title} · ${wk} · Day ${PT.dayNo(prog, e.day)}`, ""];
     const ex = (e.day.exercises || []).filter(x => x && x.name);
     ex.slice(0, MAX_LINES).forEach(x => L.push(`${x.name}${x.sets && x.reps ? "  " + x.sets + " x " + x.reps : ""}`));
     if (ex.length > MAX_LINES) L.push(`+ ${ex.length - MAX_LINES} more`);
@@ -30069,7 +30078,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const b = builtin(MINE);
     if (!p || !b || !Array.isArray(b.weekPlan) || b.weekPlan.length < 2 || !Array.isArray(p.days) || !Array.isArray(b.days)) return { done: false };
     if (Array.isArray(p.weekPlan) && p.weekPlan.length >= 2) return { done: false };              // already two weeks
-    const base = b.baseDays || 7;
+    const base = 7;   // the old copy has the 7 days of one week (the program itself has 8-day weeks since 2.92.0)
     if (p.days.length !== base || !p.days.every((d, i) => d && d.dayNumber === i + 1)) return { done: false };   // rebuilt by hand: leave alone
     const bd = n => b.days.find(d => d.dayNumber === n);
 
@@ -32950,6 +32959,72 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   proto.initExtras = function () {
     const r = oInit ? oInit.apply(this, arguments) : undefined;
     setTimeout(() => { try { run(this); } catch (e) { console.error("PulseTrack: machine dip rename skipped", e); } }, 50);
+    return r;
+  };
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 2.92.0: My 6-Day Split runs as 3 days on, 1 day off, all in one program.
+ *  Every week is now 8 days: Day 1-3 train, Day 4 rest, Day 5-7 train, Day 8 rest. It still runs 6 weeks with Week A (1, 3, 5) and
+ *  Week B (2, 4, 6), so you do the same 36 workouts as before, with two rest days in every week instead of one.
+ *  - The program has two new rest days (15 and 16) and Day 7 / Day 14 moved to the middle of the week (the 4th day).
+ *  - Each week is labelled Day 1 to Day 8 (the program's dayLabels), also on the Home card, the week badge, sharing and the calendar.
+ *  - A copy of the program already on a phone is brought up to date once: the week plan, the two new rest days, the new day names and the
+ *    description. Your exercises, swaps, sets and reps, ticked sets, history and records are not touched. Day names you changed by hand
+ *    stay as you wrote them. Progress ("week 3, 2 days done") carries on from where it was.
+ *  Runs once (settings.split3on1). Only My 6-Day Split is changed.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const MINE = "my_6day_chest_back_legs_sharms";
+  const clone = o => JSON.parse(JSON.stringify(o));
+  const builtin = id => (typeof BUILTIN_PROGRAMS !== "undefined" && Array.isArray(BUILTIN_PROGRAMS)) ? BUILTIN_PROGRAMS.find(x => x && x.id === id) : null;
+
+  function upgrade(app) {
+    const p = app && app.data && Array.isArray(app.data.programs) ? app.data.programs.find(x => x && x.id === MINE) : null;
+    const b = builtin(MINE);
+    if (!p || !b || !Array.isArray(p.days) || !Array.isArray(b.days) || !Array.isArray(b.weekPlan)) return { done: false };
+    if (!Array.isArray(p.weekPlan) || p.weekPlan.length < 2) return { done: false };           // still the 7-day copy: 096 brings it up first
+    if (p.days.some(d => d && d.dayNumber === 15) && p.baseDays === b.baseDays) return { done: false };   // already 3 on, 1 off
+    let titles = 0, added = 0;
+    b.days.forEach(nd => {
+      const d = p.days.find(x => x && x.dayNumber === nd.dayNumber);
+      if (!d) { p.days.push(clone(nd)); added++; return; }
+      // the day name in the new numbering, unless you renamed the day yourself
+      if (/^W\d[W\d &]* - Day \d+: /.test(String(d.title || "")) && d.title !== nd.title) { d.title = nd.title; titles++; }
+    });
+    // the days list shows the days in the order of the array, a week after the other: Week A's 8 days, then Week B's 8
+    const order = [].concat(...b.weekPlan.map(g => g.days)), at = n => { const i = order.indexOf(n); return i < 0 ? 999 + n : i; };
+    p.days.sort((x, y) => at(x.dayNumber) - at(y.dayNumber));
+    p.weekPlan = clone(b.weekPlan);
+    p.baseDays = b.baseDays;
+    p.dayLabels = b.dayLabels;                    // "Day 1" to "Day 8" in each week, whatever the stored number
+    if (Array.isArray(b.tags)) p.tags = clone(b.tags);
+    // the new description only while it is still the one that came with the program
+    if (/two alternating weeks/.test(String(p.description || "")) && !/3 days|three training days/.test(String(p.description || ""))) p.description = b.description;
+    app.settings.split3on1 = Date.now();
+    WorkoutStorage.setData(app.data);
+    try { WorkoutStorage.saveSettings(app.settings); } catch (e) { }
+    try { app.saveProgState(); } catch (e) { }
+    return { done: true, added, titles };
+  }
+  PT.split3 = { upgrade: () => upgrade(window.app) };
+
+  const oInit = proto.initExtras;
+  proto.initExtras = function () {
+    const r = oInit ? oInit.apply(this, arguments) : undefined;
+    setTimeout(() => {   // after 096 has added Week B to an old copy
+      try {
+        if (this.settings.split3on1) return;
+        const res = upgrade(this);
+        if (res.done) {
+          try { if (this.activeProgram && this.activeProgram.id === MINE) { this.activeDay = this.nextDayOf(this.activeProgram) || this.activeDay; } } catch (e) { }
+          setTimeout(() => { try { this.toast("Your 6-day split is now 3 days on, 1 day off", null, null, 6000); } catch (e) { } }, 3200);
+        }
+      } catch (e) { console.error("PulseTrack: 3 on 1 off skipped", e); }
+    }, 20);
     return r;
   };
 })();

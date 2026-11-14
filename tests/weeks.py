@@ -21,15 +21,15 @@ with page() as p:
     # ---------------------------------------------------------------- the program itself
     c.eq(p.evaluate(f'() => {PROG}.weekReset'), True, 'the split is marked "original exercises back each week"')
     c.eq(p.evaluate(f'() => {PROG}.weeks'), 6, 'it runs 6 weeks')
-    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.dayNumber)'), list(range(1, 15)), '14 days: Week A is days 1-7, Week B is days 8-14')
+    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.dayNumber)'), [1, 2, 3, 7, 4, 5, 6, 15, 8, 9, 10, 14, 11, 12, 13, 16], '16 days, in list order: Week A is days 1-7 and 15, Week B is days 8-14 and 16 (each week is 8 days with two rest days)')
     plan = p.evaluate(f'() => {{ const P = PT.weeks.planOf({PROG}); return P && [P.W, [1, 2, 3, 4, 5, 6].map(w => P.byWeek[w].days[0])]; }}')
     c.eq(plan, [6, [1, 8, 1, 8, 1, 8]], 'weeks 1, 3, 5 use days 1-7 and weeks 2, 4, 6 use days 8-14')
     c.eq(p.evaluate(f'() => {PROG}.weekPlan.map(g => g.weeks)'), [[1, 3, 5], [2, 4, 6]], 'the week plan has the two groups')
     bad = p.evaluate(f'() => [...new Set({PROG}.days.flatMap(d => d.exercises.map(e => e.name)))].filter(n => {{ const e = PT.exCanon(n); return !e || e.name !== n; }})')
     c.eq(bad, [], 'every exercise is spelled exactly like the exercise database (so last time\'s weight is found)')
     c.eq(p.evaluate(f'() => app.data.programs.filter(x => x.id !== "{ID}" && x.weekReset).length'), 0, 'no other program has the new-week reset')
-    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.length)'), [9, 10, 11, 10, 10, 11, 0, 8, 10, 11, 9, 10, 11, 0], 'exercises per day (Week B as sent)')
-    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.reduce((n, e) => n + e.sets, 0))'), [29, 34, 37, 32, 34, 36, 0, 27, 34, 37, 31, 34, 37, 0], 'sets per day')
+    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.length)'), [9, 10, 11, 0, 10, 10, 11, 0, 8, 10, 11, 0, 9, 10, 11, 0], 'exercises per day in list order: 3 on, rest, 3 on, rest (Week B as sent)')
+    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.reduce((n, e) => n + e.sets, 0))'), [29, 34, 37, 0, 32, 34, 36, 0, 27, 34, 37, 0, 31, 34, 37, 0], 'sets per day')
     c.eq(p.evaluate(f'() => new Set({PROG}.days.flatMap(d => d.exercises.map(e => e.id))).size'), 120, 'every exercise has its own id')
     # same machine / bar / bench: next to each other
     adj = lambda day, a, b: abs(p.evaluate(NAMES(day)).index(a) - p.evaluate(NAMES(day)).index(b)) == 1
@@ -85,7 +85,7 @@ with page() as p:
     c.eq(p.evaluate(f'() => {PROG}.days[2].exercises[0].origName'), None, 'no leftover "swapped from" note')
 
     # ---------------------------------------------------------------- Switch week
-    p.evaluate(f'() => {{ const e = {PROG}.days[3].exercises[0]; e.origName = e.name; e.name = "Pull-Ups"; app.getProgState({PROG}); WorkoutStorage.setData(app.data); }}')
+    p.evaluate(f'() => {{ const e = {PROG}.days.find(d => d.dayNumber === 4).exercises[0]; e.origName = e.name; e.name = "Pull-Ups"; app.getProgState({PROG}); WorkoutStorage.setData(app.data); }}')
     p.evaluate(f'() => app.jumpToWeek({PROG}, 3)'); p.evaluate(f'() => app.getProgState({PROG})')
     c.eq(p.evaluate(NAMES(4))[0], 'Pull-Ups', 'jumping to the week you are already in leaves it alone')
     p.evaluate(f'() => app.jumpToWeek({PROG}, 5)'); p.evaluate(f'() => app.getProgState({PROG})')
@@ -121,7 +121,7 @@ with page() as p:
     p.evaluate(f'''() => {{
       const pr = {PROG}, b = JSON.parse(JSON.stringify(pr));
       const old = (n, order) => {{ const d = b.days.find(x => x.dayNumber === n); const by = new Map(d.exercises.map(e => [e.name, e])); return order.map((nm, i) => Object.assign({{}}, by.get(nm), {{ id: "{ID}_d" + n + "_e" + (i + 1) }})); }};
-      pr.days = b.days.filter(d => d.dayNumber <= 7).map(d => JSON.parse(JSON.stringify(d)));
+      pr.days = b.days.filter(d => d.dayNumber <= 7).sort((x, y) => x.dayNumber - y.dayNumber).map(d => JSON.parse(JSON.stringify(d)));
       pr.days[0].exercises = old(1, {OLD1}); pr.days[3].exercises = old(4, {OLD4});
       pr.days.forEach(d => {{ if (d.dayNumber !== 1 && d.dayNumber !== 4) d.exercises.forEach((e, i) => {{ e.id = "{ID}_d" + d.dayNumber + "_e" + (i + 1); }}); d.title = d.title.replace(/^W\\d( & W\\d)* - /, ""); }});
       pr.weekPlan = [{{ weeks: [1, 2, 3, 4, 5, 6], days: [1, 2, 3, 4, 5, 6, 7] }}];
@@ -136,10 +136,10 @@ with page() as p:
     c.eq(p.evaluate(f'() => {PROG}.days.length'), 7, 'set up: the old 7-day copy')
     res = p.evaluate('() => PT.split2.upgrade()')
     c.eq(res['done'], True, 'the old copy is brought up to date')
-    c.eq(p.evaluate(f'() => {PROG}.days.length'), 14, 'Week B was added: 14 days')
+    c.eq(p.evaluate(f'() => {PROG}.days.length'), 16, 'Week B and the two new rest days were added: 16 days')
     c.eq(p.evaluate(f'() => {PROG}.weekPlan.map(g => g.weeks)'), [[1, 3, 5], [2, 4, 6]], 'with the two-group week plan')
     c.eq(p.evaluate(NAMES(1)), p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days[0].exercises.map(e => e.name)'), 'day 1 (never changed) takes the new order')
-    c.eq(p.evaluate(NAMES(4)), p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days[3].exercises.map(e => e.name)'), 'day 4 (never changed) takes the new order')
+    c.eq(p.evaluate(NAMES(4)), p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days.find(d => d.dayNumber === 4).exercises.map(e => e.name)'), 'day 4 (never changed) takes the new order')
     c.eq(p.evaluate(NAMES(3))[0], 'Arnold Press', 'day 3 (swapped) is left exactly as it was')
     c.eq(res['kept'], 1, 'one day was left alone')
     c.eq(p.evaluate(f'() => Object.keys(app.logs).filter(k => k.startsWith("{ID}_d1_")).sort()'), [f'{ID}_d1_{ID}_d1_incline-bench-press_s0', f'{ID}_d1_{ID}_d1_lat-pulldown_s0'], 'ticked sets followed their exercise to its new place')
@@ -185,7 +185,7 @@ with page() as p:
 D4 = ['Lat Pulldown', 'Straight-Arm Pulldown', 'Incline Dumbbell Press', 'Deadlift', 'Smith Machine Flat Press', 'Iso-Lateral Plate-Loaded Low Row', 'Decline Bench Press', 'Cable Seated Rows (Wide Bar)', 'Iso-Lateral Plate-Loaded Machine Dip', 'Incline Dumbbell Flyes']
 with page() as p:
     p.evaluate(f'''() => {{
-      const d = {PROG}.days[3], by = new Map(d.exercises.map(e => [e.name, e]));
+      const d = {PROG}.days.find(x => x.dayNumber === 4), by = new Map(d.exercises.map(e => [e.name, e]));
       d.exercises = {D4}.map(n => by.get(n));
       app.logs["{ID}_d4_{ID}_d4_straight-arm-pulldown_s0"] = {{ weight: "40", reps: "12", completed: true }};
       WorkoutStorage.setData(app.data); WorkoutStorage.saveLogs(app.logs);
@@ -286,24 +286,25 @@ with page() as p:
     c.eq(p.evaluate(f'() => {{ const s = app.getProgState({PROG}); return [s.week, s.round, s.done, s.byWeek]; }}'), [1, 2, [], {}], 'finishing week 6 starts round 2 with nothing remembered')
     c.eq(p.errors, [], 'no page errors')
 
+A8, B8 = [1, 2, 3, 7, 4, 5, 6, 15], [8, 9, 10, 14, 11, 12, 13, 16]
 # ---------------------------------------------------------------- 2.88.0: the days list shows only the week you are on (Week A = weeks 1, 3, 5; Week B = weeks 2, 4, 6)
 with page() as p:
     VIS = '() => { const l = app.dom.daysList, shown = e => getComputedStyle(e).display !== "none"; return { days: [...l.children].filter(c => c.dataset.day && shown(c)).map(c => +c.dataset.day), headers: [...l.children].filter(c => c.dataset.weekHeader && shown(c)).map(c => c.textContent.replace(/\\s+/g, " ").trim()) }; }'
     p.evaluate(f'() => {{ app.selectProgram({PROG}, null, true); app.activeProgram = {PROG}; app.showView("days"); app.renderDaysView(); }}'); p.wait_for_timeout(400)
     v = p.evaluate(VIS)
-    c.eq(v['days'], [1, 2, 3, 4, 5, 6, 7], 'week 1: only Week A\'s days (1-7) are listed, Week B is hidden')
+    c.eq(v['days'], A8, 'week 1: only Week A\'s 8 days are listed in order (3 on, rest, 3 on, rest), Week B is hidden')
     c.eq(len(v['headers']), 1, 'and there is only one week heading')
     c.ok(v['headers'][0].startswith('Weeks 1, 3 & 5') and 'now: week 1' in v['headers'][0], 'it is the Weeks 1, 3 & 5 heading, marked as now')
-    for w, days, head in [(2, list(range(8, 15)), 'Weeks 2, 4 & 6'), (3, list(range(1, 8)), 'Weeks 1, 3 & 5'), (4, list(range(8, 15)), 'Weeks 2, 4 & 6'), (5, list(range(1, 8)), 'Weeks 1, 3 & 5'), (6, list(range(8, 15)), 'Weeks 2, 4 & 6')]:
+    for w, days, head in [(2, B8, 'Weeks 2, 4 & 6'), (3, A8, 'Weeks 1, 3 & 5'), (4, B8, 'Weeks 2, 4 & 6'), (5, A8, 'Weeks 1, 3 & 5'), (6, B8, 'Weeks 2, 4 & 6')]:
         tap_week(p, w)
         v = p.evaluate(VIS)
-        c.eq(v['days'], days, 'week %d: only %s are listed' % (w, 'Week B\'s days (8-14)' if w % 2 == 0 else 'Week A\'s days (1-7)'))
+        c.eq(v['days'], days, 'week %d: only %s are listed' % (w, 'Week B\'s 8 days' if w % 2 == 0 else 'Week A\'s 8 days'))
         c.ok(len(v['headers']) == 1 and v['headers'][0].startswith(head) and 'now: week %d' % w in v['headers'][0], 'week %d: one heading, %s' % (w, head))
     c.eq(p.evaluate('() => document.documentElement.scrollWidth <= innerWidth'), True, 'no sideways scroll')
     # the "up next" workout is always one of the listed days, and finishing a week flips the list to the other set of days
     c.ok(p.evaluate(f'() => app.nextDayOf({PROG}).dayNumber') in p.evaluate(VIS)['days'], 'the up-next workout is one of the listed days')
     p.evaluate(f'() => {{ [8, 9, 10, 11, 12, 13].forEach(n => app.markDayDone({PROG}, n)); app.renderDaysView(); }}'); p.wait_for_timeout(300)
-    c.eq(p.evaluate(VIS)['days'], list(range(1, 8)), 'finishing week 6 starts the next round on week 1 and lists Week A again')
+    c.eq(p.evaluate(VIS)['days'], A8, 'finishing week 6 starts the next round on week 1 and lists Week A again')
     # other programs with weeks keep listing every group
     other = p.evaluate('() => (app.data.programs.find(x => Array.isArray(x.weekPlan) && !x.weekReset) || {}).id')
     p.evaluate('(id) => { const o = app.data.programs.find(x => x.id === id); app.activeProgram = o; app.activeDay = o.days[0]; app.showView("days"); app.renderDaysView(); }', other); p.wait_for_timeout(400)

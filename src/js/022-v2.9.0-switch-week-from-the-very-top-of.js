@@ -43,6 +43,15 @@
     cache.set(prog, { sig, plan });
     return plan;
   }
+  /** The number shown as "Day N". Usually the day's own number. A program with dayLabels "week" (My 6-Day Split since 2.92.0) counts the days of
+   *  each week from 1 (Day 1-8, 3 on, 1 off), whatever the day's stored number is, so the list reads Day 1, 2, 3, 4 (rest), 5, 6, 7, 8 (rest). */
+  PT.dayNo = (prog, day) => {
+    if (!day) return "";
+    try {
+      if (prog && prog.dayLabels === "week") { const P = planOf(prog), G = P && P.groups.find(g => g.days.includes(day.dayNumber)); if (G) return G.days.indexOf(day.dayNumber) + 1; }
+    } catch (e) { }
+    return day.dayNumber;
+  };
   const dayObj = (prog, n) => (prog.days || []).find(d => d.dayNumber === n);
   const weekDays = (prog, P, w) => P.byWeek[w].days.map(n => dayObj(prog, n)).filter(Boolean);
   // st.byWeek = { week: [dayNumbers finished in it] } for the weeks you stepped out of with "Switch week" (2.87.0): going back finds your
@@ -256,7 +265,7 @@
   proto.weekBadge = function (prog, day) {
     const P = planOf(prog);
     if (!P || !day) return oBadge.apply(this, arguments);
-    return `Week ${this.getProgState(prog).week} of ${P.W} · Day ${day.dayNumber}`;
+    return `Week ${this.getProgState(prog).week} of ${P.W} · Day ${PT.dayNo(prog, day)}`;
   };
   const oUp = proto.upNextText;
   proto.upNextText = function (prog, day) {

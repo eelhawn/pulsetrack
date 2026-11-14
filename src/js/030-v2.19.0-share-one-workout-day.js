@@ -138,7 +138,7 @@
     const t = app.shortDayTitle ? app.shortDayTitle(prog, day) : (day.title || "");
     let w = 0;
     try { w = app.progWeeks(prog) ? app.dayWeek(prog, day) : 0; } catch (e) { w = 0; }
-    return `${w ? `Week ${w} · ` : ""}Day ${day.dayNumber}: ${t}${(day.exercises || []).length ? "" : " (rest day)"}`;
+    return `${w ? `Week ${w} · ` : ""}Day ${PT.dayNo(prog, day)}: ${t}${(day.exercises || []).length ? "" : " (rest day)"}`;
   }
   function defaultTarget(app, sd) {
     const progs = ((app.data && app.data.programs) || []).filter(p => p && p.id !== FREE && Array.isArray(p.days) && p.days.length);
@@ -196,7 +196,7 @@
             target = { prog, day: d }; draw();
           });
           q("#pt-di-go").addEventListener("click", async () => {
-            if (!await PT.confirm(`Replace "${app.shortDayTitle(prog, day)}" (Day ${day.dayNumber}) in "${prog.title}" with "${sd.title}"?`, { ok: "Replace" })) return;
+            if (!await PT.confirm(`Replace "${app.shortDayTitle(prog, day)}" (Day ${PT.dayNo(prog, day)}) in "${prog.title}" with "${sd.title}"?`, { ok: "Replace" })) return;
             done(true); k.closeSheet(el);
             await app.applySharedDay(prog, day, sd);
           });
@@ -233,7 +233,7 @@
     try { AppStateMemory.saveActive(prog.id, day.dayNumber); } catch (e) { }
     this.showView("workout");
     try { this.renderWorkoutView(); } catch (e) { }
-    this.toast(`Day ${day.dayNumber} is now "${sd.title}". Clear Progress puts yours back.`, null, null, 6000);
+    this.toast(`Day ${PT.dayNo(prog, day)} is now "${sd.title}". Clear Progress puts yours back.`, null, null, 6000);
   };
 
   // Clear Progress / Reset All Days: a shared day goes back to the person's own

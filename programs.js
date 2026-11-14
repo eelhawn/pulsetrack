@@ -108752,10 +108752,11 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "my_6day_chest_back_legs_sharms",
   "title": "My 6-Day Split: Chest & Back, Legs, Sharms",
-  "description": "A six-day bodybuilding split that runs 6 weeks with two alternating weeks: Week A (weeks 1, 3 and 5) and Week B (weeks 2, 4 and 6), Day 7 off. Every muscle group is trained twice a week. Chest & Back (Days 1 and 4) mixes pressing and pulling; Legs, Abs & Calves (Days 2 and 5) pre-exhausts the hamstrings on Day 2 (leg curls first) and the quads on Day 5 (leg extensions first); Sharms (Days 3 and 6) is shoulders, traps, arms and forearms. Week A leans on free weights and the Smith machine, Week B on machines and cables. Exercises that use the same machine, bar or bench sit next to each other so you do not walk back and forth. Sets and reps are as written; the rest times are PulseTrack's usual guess (longer for heavy lifts, shorter for isolation work), so change them if you like. Each new week starts with the original exercises again, whatever you swapped the week before.",
+  "description": "A six-day bodybuilding split run as one program: three training days, one rest day, three training days, one rest day, over 6 weeks of 8 days, with two alternating weeks: Week A (weeks 1, 3 and 5) and Week B (weeks 2, 4 and 6). Every muscle group is trained twice in each 8-day week. Chest & Back (Days 1 and 5) mixes pressing and pulling; Legs, Abs & Calves (Days 2 and 6) pre-exhausts the hamstrings first and the quads second (leg curls, then leg extensions, come first); Sharms (Days 3 and 7) is shoulders, traps, arms and forearms. Days 4 and 8 are rest days. Week A leans on free weights and the Smith machine, Week B on machines and cables. Exercises that use the same machine, bar or bench sit next to each other so you do not walk back and forth. Sets and reps are as written; the rest times are PulseTrack's usual guess (longer for heavy lifts, shorter for isolation work), so change them if you like. Each new week starts with the original exercises again, whatever you swapped the week before.",
   "tags": [
    "My Program",
-   "6 Days",
+   "6 Training Days",
+   "3 On 1 Off",
    "High Volume",
    "Chest & Back",
    "Legs",
@@ -108770,7 +108771,8 @@ const BUILTIN_PROGRAMS = [
   "goal": "mass",
   "level": "advanced",
   "perWeek": 6,
-  "baseDays": 7,
+  "baseDays": 8,
+  "dayLabels": "week",
   "weekPlan": [
    {
     "weeks": [
@@ -108782,10 +108784,11 @@ const BUILTIN_PROGRAMS = [
      1,
      2,
      3,
+     7,
      4,
      5,
      6,
-     7
+     15
     ],
     "name": "Week A"
    },
@@ -108799,10 +108802,11 @@ const BUILTIN_PROGRAMS = [
      8,
      9,
      10,
+     14,
      11,
      12,
      13,
-     14
+     16
     ],
     "name": "Week B"
    }
@@ -109072,8 +109076,14 @@ const BUILTIN_PROGRAMS = [
     ]
    },
    {
+    "dayNumber": 7,
+    "title": "W1 & W3 & W5 - Day 4: Rest Day (Full Recovery)",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
     "dayNumber": 4,
-    "title": "W1 & W3 & W5 - Day 4: Chest & Back (Lat Pulldown Lead & Deadlifts)",
+    "title": "W1 & W3 & W5 - Day 5: Chest & Back (Lat Pulldown Lead & Deadlifts)",
     "estimatedMinutes": 75,
     "exercises": [
      {
@@ -109161,7 +109171,7 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 5,
-    "title": "W1 & W3 & W5 - Day 5: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
+    "title": "W1 & W3 & W5 - Day 6: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
     "estimatedMinutes": 70,
     "exercises": [
      {
@@ -109249,7 +109259,7 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 6,
-    "title": "W1 & W3 & W5 - Day 6: Sharms (Smith Machine Heavy, Isolated Delts & Arms)",
+    "title": "W1 & W3 & W5 - Day 7: Sharms (Smith Machine Heavy, Isolated Delts & Arms)",
     "estimatedMinutes": 75,
     "exercises": [
      {
@@ -109343,14 +109353,14 @@ const BUILTIN_PROGRAMS = [
     ]
    },
    {
-    "dayNumber": 7,
-    "title": "W1 & W3 & W5 - Day 7: Full Rest & Recovery",
+    "dayNumber": 15,
+    "title": "W1 & W3 & W5 - Day 8: Rest Day (Full Recovery)",
     "estimatedMinutes": 0,
     "exercises": []
    },
    {
     "dayNumber": 8,
-    "title": "W2 & W4 & W6 - Day 8: Chest & Back (Machine & Isolation Flow)",
+    "title": "W2 & W4 & W6 - Day 1: Chest & Back (Machine & Isolation Flow)",
     "estimatedMinutes": 60,
     "exercises": [
      {
@@ -109422,7 +109432,7 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 9,
-    "title": "W2 & W4 & W6 - Day 9: Legs, Abs & Calves (Hamstring Pre-Exhaust & Mass)",
+    "title": "W2 & W4 & W6 - Day 2: Legs, Abs & Calves (Hamstring Pre-Exhaust & Mass)",
     "estimatedMinutes": 65,
     "exercises": [
      {
@@ -109510,7 +109520,7 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 10,
-    "title": "W2 & W4 & W6 - Day 10: Sharms (Cable & Machine Overload)",
+    "title": "W2 & W4 & W6 - Day 3: Sharms (Cable & Machine Overload)",
     "estimatedMinutes": 75,
     "exercises": [
      {
@@ -109605,8 +109615,14 @@ const BUILTIN_PROGRAMS = [
     ]
    },
    {
+    "dayNumber": 14,
+    "title": "W2 & W4 & W6 - Day 4: Rest Day (Full Recovery)",
+    "estimatedMinutes": 0,
+    "exercises": []
+   },
+   {
     "dayNumber": 11,
-    "title": "W2 & W4 & W6 - Day 11: Chest & Back (Free Weight Power Flow)",
+    "title": "W2 & W4 & W6 - Day 5: Chest & Back (Free Weight Power Flow)",
     "estimatedMinutes": 75,
     "exercises": [
      {
@@ -109685,7 +109701,7 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 12,
-    "title": "W2 & W4 & W6 - Day 12: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
+    "title": "W2 & W4 & W6 - Day 6: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
     "estimatedMinutes": 70,
     "exercises": [
      {
@@ -109773,7 +109789,7 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 13,
-    "title": "W2 & W4 & W6 - Day 13: Sharms (Shoulders, Traps & Alternating Arms)",
+    "title": "W2 & W4 & W6 - Day 7: Sharms (Shoulders, Traps & Alternating Arms)",
     "estimatedMinutes": 70,
     "exercises": [
      {
@@ -109868,8 +109884,8 @@ const BUILTIN_PROGRAMS = [
     ]
    },
    {
-    "dayNumber": 14,
-    "title": "W2 & W4 & W6 - Day 14: Full Rest & Recovery",
+    "dayNumber": 16,
+    "title": "W2 & W4 & W6 - Day 8: Rest Day (Full Recovery)",
     "estimatedMinutes": 0,
     "exercises": []
    }

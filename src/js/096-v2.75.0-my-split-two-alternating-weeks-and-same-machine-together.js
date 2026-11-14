@@ -33,7 +33,7 @@
     const b = builtin(MINE);
     if (!p || !b || !Array.isArray(b.weekPlan) || b.weekPlan.length < 2 || !Array.isArray(p.days) || !Array.isArray(b.days)) return { done: false };
     if (Array.isArray(p.weekPlan) && p.weekPlan.length >= 2) return { done: false };              // already two weeks
-    const base = b.baseDays || 7;
+    const base = 7;   // the old copy has the 7 days of one week (the program itself has 8-day weeks since 2.92.0)
     if (p.days.length !== base || !p.days.every((d, i) => d && d.dayNumber === i + 1)) return { done: false };   // rebuilt by hand: leave alone
     const bd = n => b.days.find(d => d.dayNumber === n);
 

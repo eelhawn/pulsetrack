@@ -1,0 +1,26 @@
+# Architecture
+
+## Build
+- Source: `src/index.template.html`, `src/css/*` (14 files), `src/js/NNN-vX.Y.Z-name.js` (112 modules as of 2.92.0), `src/logo/`, `src/VERSION`.
+- `tools/build.py` inlines everything into root `index.html`. Also at repo root: `exercises.js`, `programs.js`, `sw.js`, `manifest.json`, `README.md`. These are what get deployed.
+- `programs.js` holds `BUILTIN_PROGRAMS`. It is JSON round-trip safe (`json.dumps(indent=1, ensure_ascii=False)` is byte-identical), so scripts can edit it as JSON.
+- `exercises.js` is the exercise library (name, muscles, `aka` old names, description, tips).
+
+## Modules
+- Each `src/js` file is an IIFE that wraps `ApplicationUI.prototype` methods (`const o = proto.x; proto.x = function(){ const r = o.apply(this, arguments); ...; return r; }`). Load order is the filename number. `004-app-core.js` is the base app.
+- `PT` is the shared helper object (top-level `const`, so use `typeof PT !== "undefined"`, NOT `window.PT`; this bit us in 2.92.0). `PT.kit` has sheet helpers. `PT.opt/setOpt` read and write settings switches; defaults live in `PT.WSCREEN_DEFAULTS`.
+- Settings: `WorkoutStorage.saveSettings(app.settings)`. Data: `WorkoutStorage.setData(app.data)`. Logs: `saveLogs`. Last-time weights: `app.lastPerf[exerciseName]`.
+- One-time migrations set a flag in `app.settings` (e.g. `noFrontRaises`, `isoDip`, `split3on1`) and run from `initExtras` via `setTimeout`.
+- `PT.cleanup.scan/apply` (module 020) renames an exercise everywhere (programs, sessions, prBase, lastPerf, notes); uses `aka`.
+- `PT.dayNo(prog, day)` (module 022): the "Day N" label; positional per week when `prog.dayLabels === "week"`.
+
+## Tests
+- `tests/common.py`: `page(w, h)` context manager (serves the repo over local HTTP, Chromium via Playwright), `Checks` (`c.ok`, `c.eq`, `c.done()`), `p.errors` collects page errors.
+- Screenshots for your own checking go to a scratch dir, not the repo.
+
+## Main features added recently (modules)
+- 108 Monthly Wrapped (story slides, share picture 1080x1920, `fit()` shrinks text to width).
+- 109 Faster set entry (one-tap log from last time, quick +/- bar, two Settings switches).
+- 110 no front raises on the shoulder days (one-time cleanup).
+- 111 Iso-Lateral Plate-Loaded Machine Dip rename.
+- 112 3-on-1-off split migration (2.92.0).
