@@ -108751,12 +108751,12 @@ const BUILTIN_PROGRAMS = [
  },
  {
   "id": "my_6day_chest_back_legs_sharms",
-  "title": "My 6-Day Split: Chest & Back, Legs, Sharms",
-  "description": "A six-day bodybuilding split run as one long program of 64 days, Day 1 to Day 64, with no weeks: three training days, one rest day, three training days, one rest day, and round again. Every 8 days each muscle group is trained twice. Chest & Back (Days 1 and 5 of each 8) mixes pressing and pulling; Legs, Abs & Calves (Days 2 and 6) pre-exhausts the hamstrings first and the quads second (leg curls, then leg extensions, come first); Sharms (Days 3 and 7) is shoulders, traps, arms and forearms. Days 4 and 8 of each 8 are rest days. The first 8 days lean on free weights and the Smith machine, the next 8 on machines and cables, and it alternates like that to Day 64. Exercises that use the same machine, bar or bench sit next to each other so you do not walk back and forth. Sets and reps are as written; the rest times are PulseTrack's usual guess, so change them if you like. 64 days is nine weeks and a day: start on a Saturday or Sunday and the last rest day, Day 64, is a Saturday or Sunday too.",
+  "title": "Ilhaan's 3 Day Split",
+  "description": "A three-day bodybuilding split run as one long program of 64 days, Day 1 to Day 64, with no weeks: Chest & Back, Legs & Calves, Sharms, then a Core & Cardio day, and round again. Every 8 days each muscle group is trained twice. Chest & Back (Days 1 and 5 of each 8) mixes pressing and pulling; Legs & Calves (Days 2 and 6) pre-exhausts the hamstrings first and the quads second (leg curls, then leg extensions, come first); Sharms (Days 3 and 7) is shoulders, traps, arms and forearms. Days 4 and 8 of each 8 are Core & Cardio: the ab work from the leg day before, then 20-30 minutes on the incline treadmill. The first 8 days lean on free weights and the Smith machine, the next 8 on machines and cables, and it alternates like that to Day 64. Exercises that use the same machine, bar or bench sit next to each other so you do not walk back and forth. Sets and reps are as written; the rest times are PulseTrack's usual guess, so change them if you like.",
   "tags": [
    "My Program",
-   "6 Training Days",
-   "3 On 1 Off",
+   "3 Day Split",
+   "Core & Cardio",
    "High Volume",
    "Chest & Back",
    "Legs",
@@ -108845,8 +108845,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 2,
-    "title": "Day 2: Legs, Abs & Calves (Hamstring Pre-Exhaust)",
-    "estimatedMinutes": 65,
+    "title": "Day 2: Legs & Calves (Hamstring Pre-Exhaust)",
+    "estimatedMinutes": 55,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d2_seated-leg-curls",
@@ -108908,22 +108908,6 @@ const BUILTIN_PROGRAMS = [
      {
       "id": "my_6day_chest_back_legs_sharms_d2_seated-calf-raises",
       "name": "Seated Calf Raises",
-      "sets": 3,
-      "reps": "15-20",
-      "restSeconds": 45,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d2_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d2_decline-sit-ups",
-      "name": "Decline Sit-Ups",
       "sets": 3,
       "reps": "15-20",
       "restSeconds": 45,
@@ -109028,9 +109012,34 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 4,
-    "title": "Day 4: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 4: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d4_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d4_decline-sit-ups",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d4_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 5,
@@ -109114,8 +109123,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 6,
-    "title": "Day 6: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
-    "estimatedMinutes": 70,
+    "title": "Day 6: Legs & Calves (Quad Pre-Exhaust & Squats)",
+    "estimatedMinutes": 60,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d6_leg-extension",
@@ -109180,23 +109189,6 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 45,
       "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d6_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d6_russian-twists",
-      "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
-      "restSeconds": 45,
-      "type": "standard",
-      "notes": "20 total twists, 10 per side."
      }
     ]
    },
@@ -109297,9 +109289,35 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 8,
-    "title": "Day 8: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 8: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d8_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d8_russian-twists",
+      "name": "Russian Twists",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "20 total twists, 10 per side."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d8_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 9,
@@ -109375,8 +109393,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 10,
-    "title": "Day 10: Legs, Abs & Calves (Hamstring Pre-Exhaust & Mass)",
-    "estimatedMinutes": 65,
+    "title": "Day 10: Legs & Calves (Hamstring Pre-Exhaust & Mass)",
+    "estimatedMinutes": 55,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d10_seated-leg-curls",
@@ -109438,22 +109456,6 @@ const BUILTIN_PROGRAMS = [
      {
       "id": "my_6day_chest_back_legs_sharms_d10_seated-calf-raises",
       "name": "Seated Calf Raises",
-      "sets": 3,
-      "reps": "15-20",
-      "restSeconds": 45,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d10_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d10_decline-sit-ups",
-      "name": "Decline Sit-Ups",
       "sets": 3,
       "reps": "15-20",
       "restSeconds": 45,
@@ -109559,9 +109561,34 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 12,
-    "title": "Day 12: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 12: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_decline-sit-ups",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 13,
@@ -109644,8 +109671,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 14,
-    "title": "Day 14: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
-    "estimatedMinutes": 70,
+    "title": "Day 14: Legs & Calves (Quad Pre-Exhaust & Squats)",
+    "estimatedMinutes": 60,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d14_leg-extension",
@@ -109710,23 +109737,6 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 45,
       "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d14_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d14_russian-twists",
-      "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
-      "restSeconds": 45,
-      "type": "standard",
-      "notes": "20 total twists, 10 per side."
      }
     ]
    },
@@ -109828,9 +109838,35 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 16,
-    "title": "Day 16: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 16: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d16_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d16_russian-twists",
+      "name": "Russian Twists",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "20 total twists, 10 per side."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d16_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 17,
@@ -109906,8 +109942,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 18,
-    "title": "Day 18: Legs, Abs & Calves (Hamstring Pre-Exhaust)",
-    "estimatedMinutes": 65,
+    "title": "Day 18: Legs & Calves (Hamstring Pre-Exhaust)",
+    "estimatedMinutes": 55,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d18_seated-leg-curls",
@@ -109969,22 +110005,6 @@ const BUILTIN_PROGRAMS = [
      {
       "id": "my_6day_chest_back_legs_sharms_d18_seated-calf-raises",
       "name": "Seated Calf Raises",
-      "sets": 3,
-      "reps": "15-20",
-      "restSeconds": 45,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d18_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d18_decline-sit-ups",
-      "name": "Decline Sit-Ups",
       "sets": 3,
       "reps": "15-20",
       "restSeconds": 45,
@@ -110089,9 +110109,34 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 20,
-    "title": "Day 20: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 20: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d20_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d20_decline-sit-ups",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d20_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 21,
@@ -110175,8 +110220,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 22,
-    "title": "Day 22: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
-    "estimatedMinutes": 70,
+    "title": "Day 22: Legs & Calves (Quad Pre-Exhaust & Squats)",
+    "estimatedMinutes": 60,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d22_leg-extension",
@@ -110241,23 +110286,6 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 45,
       "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d22_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d22_russian-twists",
-      "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
-      "restSeconds": 45,
-      "type": "standard",
-      "notes": "20 total twists, 10 per side."
      }
     ]
    },
@@ -110358,9 +110386,35 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 24,
-    "title": "Day 24: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 24: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d24_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d24_russian-twists",
+      "name": "Russian Twists",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "20 total twists, 10 per side."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d24_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 25,
@@ -110436,8 +110490,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 26,
-    "title": "Day 26: Legs, Abs & Calves (Hamstring Pre-Exhaust & Mass)",
-    "estimatedMinutes": 65,
+    "title": "Day 26: Legs & Calves (Hamstring Pre-Exhaust & Mass)",
+    "estimatedMinutes": 55,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d26_seated-leg-curls",
@@ -110499,22 +110553,6 @@ const BUILTIN_PROGRAMS = [
      {
       "id": "my_6day_chest_back_legs_sharms_d26_seated-calf-raises",
       "name": "Seated Calf Raises",
-      "sets": 3,
-      "reps": "15-20",
-      "restSeconds": 45,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d26_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d26_decline-sit-ups",
-      "name": "Decline Sit-Ups",
       "sets": 3,
       "reps": "15-20",
       "restSeconds": 45,
@@ -110620,9 +110658,34 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 28,
-    "title": "Day 28: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 28: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d28_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d28_decline-sit-ups",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d28_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 29,
@@ -110705,8 +110768,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 30,
-    "title": "Day 30: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
-    "estimatedMinutes": 70,
+    "title": "Day 30: Legs & Calves (Quad Pre-Exhaust & Squats)",
+    "estimatedMinutes": 60,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d30_leg-extension",
@@ -110771,23 +110834,6 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 45,
       "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d30_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d30_russian-twists",
-      "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
-      "restSeconds": 45,
-      "type": "standard",
-      "notes": "20 total twists, 10 per side."
      }
     ]
    },
@@ -110889,9 +110935,35 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 32,
-    "title": "Day 32: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 32: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d32_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d32_russian-twists",
+      "name": "Russian Twists",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "20 total twists, 10 per side."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d32_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 33,
@@ -110967,8 +111039,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 34,
-    "title": "Day 34: Legs, Abs & Calves (Hamstring Pre-Exhaust)",
-    "estimatedMinutes": 65,
+    "title": "Day 34: Legs & Calves (Hamstring Pre-Exhaust)",
+    "estimatedMinutes": 55,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d34_seated-leg-curls",
@@ -111030,22 +111102,6 @@ const BUILTIN_PROGRAMS = [
      {
       "id": "my_6day_chest_back_legs_sharms_d34_seated-calf-raises",
       "name": "Seated Calf Raises",
-      "sets": 3,
-      "reps": "15-20",
-      "restSeconds": 45,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d34_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d34_decline-sit-ups",
-      "name": "Decline Sit-Ups",
       "sets": 3,
       "reps": "15-20",
       "restSeconds": 45,
@@ -111150,9 +111206,34 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 36,
-    "title": "Day 36: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 36: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d36_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d36_decline-sit-ups",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d36_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 37,
@@ -111236,8 +111317,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 38,
-    "title": "Day 38: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
-    "estimatedMinutes": 70,
+    "title": "Day 38: Legs & Calves (Quad Pre-Exhaust & Squats)",
+    "estimatedMinutes": 60,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d38_leg-extension",
@@ -111302,23 +111383,6 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 45,
       "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d38_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d38_russian-twists",
-      "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
-      "restSeconds": 45,
-      "type": "standard",
-      "notes": "20 total twists, 10 per side."
      }
     ]
    },
@@ -111419,9 +111483,35 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 40,
-    "title": "Day 40: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 40: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d40_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d40_russian-twists",
+      "name": "Russian Twists",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "20 total twists, 10 per side."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d40_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 41,
@@ -111497,8 +111587,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 42,
-    "title": "Day 42: Legs, Abs & Calves (Hamstring Pre-Exhaust & Mass)",
-    "estimatedMinutes": 65,
+    "title": "Day 42: Legs & Calves (Hamstring Pre-Exhaust & Mass)",
+    "estimatedMinutes": 55,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d42_seated-leg-curls",
@@ -111560,22 +111650,6 @@ const BUILTIN_PROGRAMS = [
      {
       "id": "my_6day_chest_back_legs_sharms_d42_seated-calf-raises",
       "name": "Seated Calf Raises",
-      "sets": 3,
-      "reps": "15-20",
-      "restSeconds": 45,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d42_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d42_decline-sit-ups",
-      "name": "Decline Sit-Ups",
       "sets": 3,
       "reps": "15-20",
       "restSeconds": 45,
@@ -111681,9 +111755,34 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 44,
-    "title": "Day 44: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 44: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d44_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d44_decline-sit-ups",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d44_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 45,
@@ -111766,8 +111865,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 46,
-    "title": "Day 46: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
-    "estimatedMinutes": 70,
+    "title": "Day 46: Legs & Calves (Quad Pre-Exhaust & Squats)",
+    "estimatedMinutes": 60,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d46_leg-extension",
@@ -111832,23 +111931,6 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 45,
       "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d46_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d46_russian-twists",
-      "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
-      "restSeconds": 45,
-      "type": "standard",
-      "notes": "20 total twists, 10 per side."
      }
     ]
    },
@@ -111950,9 +112032,35 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 48,
-    "title": "Day 48: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 48: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d48_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d48_russian-twists",
+      "name": "Russian Twists",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "20 total twists, 10 per side."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d48_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 49,
@@ -112028,8 +112136,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 50,
-    "title": "Day 50: Legs, Abs & Calves (Hamstring Pre-Exhaust)",
-    "estimatedMinutes": 65,
+    "title": "Day 50: Legs & Calves (Hamstring Pre-Exhaust)",
+    "estimatedMinutes": 55,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d50_seated-leg-curls",
@@ -112091,22 +112199,6 @@ const BUILTIN_PROGRAMS = [
      {
       "id": "my_6day_chest_back_legs_sharms_d50_seated-calf-raises",
       "name": "Seated Calf Raises",
-      "sets": 3,
-      "reps": "15-20",
-      "restSeconds": 45,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d50_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d50_decline-sit-ups",
-      "name": "Decline Sit-Ups",
       "sets": 3,
       "reps": "15-20",
       "restSeconds": 45,
@@ -112211,9 +112303,34 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 52,
-    "title": "Day 52: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 52: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d52_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d52_decline-sit-ups",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d52_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 53,
@@ -112297,8 +112414,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 54,
-    "title": "Day 54: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
-    "estimatedMinutes": 70,
+    "title": "Day 54: Legs & Calves (Quad Pre-Exhaust & Squats)",
+    "estimatedMinutes": 60,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d54_leg-extension",
@@ -112363,23 +112480,6 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 45,
       "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d54_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d54_russian-twists",
-      "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
-      "restSeconds": 45,
-      "type": "standard",
-      "notes": "20 total twists, 10 per side."
      }
     ]
    },
@@ -112480,9 +112580,35 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 56,
-    "title": "Day 56: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 56: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d56_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d56_russian-twists",
+      "name": "Russian Twists",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "20 total twists, 10 per side."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d56_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 57,
@@ -112558,8 +112684,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 58,
-    "title": "Day 58: Legs, Abs & Calves (Hamstring Pre-Exhaust & Mass)",
-    "estimatedMinutes": 65,
+    "title": "Day 58: Legs & Calves (Hamstring Pre-Exhaust & Mass)",
+    "estimatedMinutes": 55,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d58_seated-leg-curls",
@@ -112621,22 +112747,6 @@ const BUILTIN_PROGRAMS = [
      {
       "id": "my_6day_chest_back_legs_sharms_d58_seated-calf-raises",
       "name": "Seated Calf Raises",
-      "sets": 3,
-      "reps": "15-20",
-      "restSeconds": 45,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d58_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d58_decline-sit-ups",
-      "name": "Decline Sit-Ups",
       "sets": 3,
       "reps": "15-20",
       "restSeconds": 45,
@@ -112742,9 +112852,34 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 60,
-    "title": "Day 60: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 60: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d60_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d60_decline-sit-ups",
+      "name": "Decline Sit-Ups",
+      "sets": 3,
+      "reps": "15-20",
+      "restSeconds": 45,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d60_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    },
    {
     "dayNumber": 61,
@@ -112827,8 +112962,8 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 62,
-    "title": "Day 62: Legs, Abs & Calves (Quad Pre-Exhaust & Squats)",
-    "estimatedMinutes": 70,
+    "title": "Day 62: Legs & Calves (Quad Pre-Exhaust & Squats)",
+    "estimatedMinutes": 60,
     "exercises": [
      {
       "id": "my_6day_chest_back_legs_sharms_d62_leg-extension",
@@ -112893,23 +113028,6 @@ const BUILTIN_PROGRAMS = [
       "reps": "15-20",
       "restSeconds": 45,
       "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d62_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
-     },
-     {
-      "id": "my_6day_chest_back_legs_sharms_d62_russian-twists",
-      "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
-      "restSeconds": 45,
-      "type": "standard",
-      "notes": "20 total twists, 10 per side."
      }
     ]
    },
@@ -113011,9 +113129,35 @@ const BUILTIN_PROGRAMS = [
    },
    {
     "dayNumber": 64,
-    "title": "Day 64: Rest Day (Full Recovery)",
-    "estimatedMinutes": 0,
-    "exercises": []
+    "title": "Day 64: Core & Cardio",
+    "estimatedMinutes": 40,
+    "exercises": [
+     {
+      "id": "my_6day_chest_back_legs_sharms_d64_hanging-leg-raises",
+      "name": "Hanging Leg Raises",
+      "sets": 3,
+      "reps": "12-15",
+      "restSeconds": 60,
+      "type": "standard"
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d64_russian-twists",
+      "name": "Russian Twists",
+      "sets": 3,
+      "reps": "20",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "20 total twists, 10 per side."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d64_incline-treadmill-walk",
+      "name": "Incline Treadmill Walk",
+      "sets": 1,
+      "reps": "20-30 min",
+      "restSeconds": 60,
+      "type": "cardio"
+     }
+    ]
    }
   ]
  }

@@ -15,7 +15,7 @@ The owner uses it on a phone; keep the UI compact and phone-first (390px and 360
 2. Every change is a numbered release: update README, bump, run all tests, build `--check`, commit, push. See `docs/RELEASE.md`.
 3. Do NOT add `icon-512.png` or `icon-192.png`. Never copy openGym's exercise pictures/animations (licensed from Gym visual); its text is fine (AGPL, PulseTrack is AGPL since 2.96.0).
 4. Always upload (push) the files to the repo after every release. The owner said this explicitly.
-5. Do not renumber `dayNumber`s of existing programs without a migration that moves logs, notes and progress (2.94.0 did this for My 6-Day Split; see PROGRAM-DATA).
+5. Do not renumber `dayNumber`s of existing programs without a migration that moves logs, notes and progress (2.94.0 did this for My 6-Day Split, now Ilhaan's 3 Day Split; see PROGRAM-DATA).
 6. Anything that changes a program already saved on a user's phone needs a one-time migration module, not just a `programs.js` edit.
 7. After a release, tell the user which files changed (no placeholder hashes) and to open the app online once, then fully close and reopen it (service worker update).
 8. New tests go in `tests/`; `run_all.py` auto-discovers them. Verify a new test fails without the fix.

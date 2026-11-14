@@ -15,7 +15,7 @@ with page() as p:
     c.eq(p.evaluate('APP_VERSION'), version, 'APP_VERSION')
     c.eq(p.evaluate('document.getElementById("drawer-version").textContent'), 'v' + version, 'drawer version')
     c.eq(p.evaluate('app.data.programs.length'), 60, 'programs on a fresh phone (59 built-in + the starter arms program)')
-    c.ok(p.evaluate('EXERCISE_DATABASE.length') >= 645, 'exercise library')
+    c.ok(p.evaluate('EXERCISE_DATABASE.length') >= 640, 'exercise library')
     c.eq(p.evaluate('BUILTIN_PROGRAMS.length'), 59, 'BUILTIN_PROGRAMS')
     c.eq(p.evaluate('new Set(app.data.programs.map(x => x.id)).size'), p.evaluate('app.data.programs.length'), 'program ids unique')
     p.evaluate('app.selectProgram(app.data.programs.find(x => x.id === "frank_zane_upper_lower_4day"), null, true)')

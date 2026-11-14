@@ -5,7 +5,7 @@ version 3** (see [LICENSE](LICENSE)). It became AGPL-3.0 in version 2.96.0, when
 
 ## openGym exercise library (`opengym-exercises.js`)
 
-The 2,863 extra exercises in the exercise list come from the catalogue of **openGym**
+The 2,591 extra exercises in the exercise list come from the catalogue of **openGym**
 (<https://github.com/DuarteSantos8/openGym>, `catalogue/exercises/`), converted by `tools/opengym_import.py`.
 Only the text is used: names, body part, equipment, muscles, descriptions and steps. Names were capitalised and the body part and
 muscle were mapped to PulseTrack's own categories; nothing else was changed. Exercises PulseTrack already had were left out, and so

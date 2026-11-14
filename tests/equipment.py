@@ -21,8 +21,8 @@ with page() as p:
     c.eq(got, [['dumbbell', 'bench'], ['dumbbell', 'bench'], ['machine', ''], ['smith', 'bench'], ['bodyweight', 'pullup'], ['bodyweight', 'pullup'], ['machine', ''], ['bodyweight', ''], ['cable', ''], ['bodyweight', '']],
          'what each exercise needs: a bench for bench and incline work (not on a machine), a bar for pull-ups and hanging')
     p.evaluate('() => PT.og.load()'); p.wait_for_function('() => PT.og.list().length > 2500', timeout=15000)
-    og = p.evaluate('() => { const f = k => PT.og.list().find(e => e.eq === k).name; return ["suspension trainer", "stability ball", "medicine ball", "resistance band", "sled machine", "leverage machine"].map(f); }')
-    c.eq([x[0] for x in classify(p, og)], ['suspension', 'ball', 'medball', 'band', 'sled', 'machine'], 'openGym exercises use openGym\'s own equipment')
+    og = p.evaluate('() => { const f = k => PT.og.list().find(e => e.eq === k).name; return ["suspension trainer", "stability ball", "medicine ball", "kettlebell", "sled machine", "leverage machine"].map(f); }')
+    c.eq([x[0] for x in classify(p, og)], ['suspension', 'ball', 'medball', 'kettlebell', 'sled', 'machine'], 'openGym exercises use openGym\'s own equipment')
     c.eq(p.evaluate('() => PT.gymLacks("Dumbbell Bench Press")'), '', 'a gym with everything lacks nothing')
 
 for w in (390, 360):

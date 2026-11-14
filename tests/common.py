@@ -75,6 +75,13 @@ def old8(p):
       const shape = src => {
         const pr = JSON.parse(JSON.stringify(src));
         pr.days = pr.days.slice(0, 16);
+        // 2.101.0 made the rest days Core & Cardio days (the leg days' abs + a treadmill walk): put the abs back and make them rest days again
+        [3, 7, 11, 15].forEach(i => {
+          const C = pr.days[i], L = pr.days[i - 2];
+          C.exercises.filter(e => e.type !== "cardio").forEach(e => { e.id = e.id.replace("_d" + C.dayNumber + "_", "_d" + L.dayNumber + "_"); L.exercises.push(e); });
+          C.exercises = []; C.title = "Day " + C.dayNumber + ": Rest Day (Full Recovery)"; C.estimatedMinutes = 0;
+          L.title = L.title.replace("Legs & Calves", "Legs, Abs & Calves"); L.estimatedMinutes += 10;
+        });
         pr.days.forEach((d, i) => {
           const n = d.dayNumber; d.dayNumber = O[i];
           d.exercises.forEach(e => { e.id = e.id.replace("_d" + n + "_", "_d" + O[i] + "_"); });
@@ -88,6 +95,6 @@ def old8(p):
       const b = shape(BUILTIN_PROGRAMS[bi]);
       BUILTIN_PROGRAMS[bi] = b; app.data.programs[di] = JSON.parse(JSON.stringify(b));
       delete app.progState[ID];
-      app.settings.split64 = 1; app.settings.split3on1 = 1; app.settings.split8wk = 1; WorkoutStorage.saveSettings(app.settings);
+      app.settings.split64 = 1; app.settings.split3on1 = 1; app.settings.split8wk = 1; app.settings.coreCardio = 1; WorkoutStorage.saveSettings(app.settings);
       WorkoutStorage.setData(app.data);
     }''' % OLD8_ID)

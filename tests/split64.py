@@ -16,13 +16,13 @@ for w in (390, 360):
         c.eq(p.evaluate(f'() => PT.weeks.planOf({PROG})'), None, '%dpx: no week plan' % w)
         p.evaluate(f'() => {{ app.selectProgram({PROG}, null, true); app.activeProgram = {PROG}; }}')
         seq = []
-        for i in range(48):
+        for i in range(64):
             d = p.evaluate(f'() => app.nextDayOf({PROG}).dayNumber')
             seq.append(d)
             p.evaluate(f'(n) => app.markDayDone({PROG}, n)', d)
-        want = [n for n in range(1, 65) if n % 4]
-        c.eq(seq, want, '%dpx: up next goes down the list: the 48 workouts in order, rest days are skipped over' % w)
-        c.eq(p.evaluate(f'() => {{ const s = app.getProgState({PROG}); return [s.week, s.done.length]; }}'), [2, 0], '%dpx: after Day 63 the round is done and a new one starts' % w)
+        want = list(range(1, 65))
+        c.eq(seq, want, '%dpx: up next goes down the list: all 64 days in order (Day 4, 8 ... are Core & Cardio days now, not rest days)' % w)
+        c.eq(p.evaluate(f'() => {{ const s = app.getProgState({PROG}); return [s.week, s.done.length]; }}'), [2, 0], '%dpx: after Day 64 the round is done and a new one starts' % w)
         c.eq(p.evaluate(f'() => app.nextDayOf({PROG}).dayNumber'), 1, '%dpx: back to Day 1' % w)
         p.evaluate(f'() => {{ app.activeDay = {PROG}.days[4]; app.showView("home"); app.renderHomeView(); }}')
         c.eq(p.evaluate('() => app.dom.homeActiveDayBadge.innerText'), 'Day 5 of 64', '%dpx: the Home card says Day 5 of 64' % w)
@@ -72,7 +72,7 @@ with page() as p:
     c.eq(r['done'], True, 'it is brought up to date')
     c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.dayNumber)'), list(range(1, 65)), 'the days are Day 1 to Day 64')
     c.ok(p.evaluate(f'() => !{PROG}.weekPlan && {PROG}.weeks === undefined && !{PROG}.dayLabels && {PROG}.weekReset === false'), 'the weeks are gone')
-    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.length > 0)'), ([True] * 3 + [False] + [True] * 3 + [False]) * 8, '3 on, rest, 3 on, rest all the way')
+    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.length > 0)'), [True] * 64, 'every day has its workout (Core & Cardio on Day 4, 8 ...)')
     c.eq(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 3).exercises[0].name'), 'Arnold Press', 'a swap stays on its day')
     c.eq(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 5).exercises[0].id.startsWith("{ID}_d5_")'), True, 'old Day 4 is now Day 5 and its exercise ids say so')
     k = p.evaluate(f'() => Object.keys(app.logs).filter(k => k.startsWith("{ID}_d5_"))')
@@ -81,8 +81,8 @@ with page() as p:
     c.eq(p.evaluate(f'() => Object.keys(app.logs).filter(k => k.startsWith("{ID}_d4_")).length'), 0, 'and nothing is left under the old number')
     c.eq(p.evaluate('() => app.dayNotes["%s_d6"]' % ID), 'felt strong', 'the note on old Day 5 is now on Day 6')
     c.eq(p.evaluate(f'() => {{ const s = app.getProgState({PROG}); return [s.week, s.done.slice().sort((a, b) => a - b), (s.skipped || []).length]; }}'), [1, [1, 2, 3], 0], 'progress: Day 1-3 finished (the skipped list of a week group is cleared)')
-    c.eq(p.evaluate(f'() => app.nextDayOf({PROG}).dayNumber'), 5, 'up next is Day 5')
-    c.eq(len(set(p.evaluate(f'() => {PROG}.days.flatMap(d => d.exercises.map(e => e.id))'))), 472, 'all 472 exercise ids are unique')
+    c.eq(p.evaluate(f'() => app.nextDayOf({PROG}).dayNumber'), 4, 'up next is Day 4, the first Core & Cardio day')
+    c.eq(len(set(p.evaluate(f'() => {PROG}.days.flatMap(d => d.exercises.map(e => e.id))'))), 488, 'all 488 exercise ids are unique')
     c.eq(p.evaluate('() => PT.split64.upgrade().done'), False, 'running it again changes nothing')
     c.ok(p.evaluate('() => !!app.settings.split64'), 'and it remembers it ran')
     c.ok(p.evaluate(f'() => /64 days/.test({PROG}.description)'), 'the description that came with the program is replaced')
@@ -101,7 +101,7 @@ with page() as p:   # a copy with a description and tags of its own, and the 7-d
     p.evaluate('() => PT.split64.upgrade()')
     c.eq(p.evaluate(f'() => {PROG}.days.length'), 64, 'the 7-day copy gets all 64 days')
     c.eq(p.evaluate(f'() => {PROG}.description'), 'My own words about this split.', 'a description you wrote stays')
-    c.eq(p.evaluate(f'() => {PROG}.days.slice(8, 16).map(d => d.exercises.length > 0)'), [True] * 3 + [False] + [True] * 3 + [False], 'the machine days (Week B) came from the program')
+    c.eq(p.evaluate(f'() => {PROG}.days.slice(8, 16).map(d => d.exercises.length > 0)'), [True] * 8, 'the machine days (Week B) came from the program')
     c.eq(p.errors, [], 'no page errors')
 
 with page() as p:   # a fresh phone: nothing to do; no program: nothing to do

@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone (the optional live family board, off until you start or join one, sends only a small scrambled update).
 
-*Version 2.100.0*
+*Version 2.101.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -658,7 +658,7 @@ For running a practice from one phone: a team, a class, a group of friends. Open
 
 ## Search and name clean-up
 
-**The openGym library (new in 2.96.0, merged in 2.100.0).** Besides PulseTrack's own 646 exercises, the list has **2,863 more** from the open-source [openGym](https://github.com/DuarteSantos8/openGym) app: band, cable, kettlebell, TRX, machine, Smith and bodyweight variations. Each one sits in its muscle group (Chest, Back, Legs, Shoulders, Biceps ...) next to PulseTrack's own, with **Similar exercises**, its muscle, and a description and steps under **Form tips**. Only useful ones are kept: yoga, pilates, rehab and most stretches, rare kit (tyres, mace bells, sandbags), drawing variants ("V. 2", left/right copies), drills with household props, and near-duplicate spellings are left out. Text only: openGym's pictures and animations are licensed separately and are not included. The library loads in the background after the app opens, so start-up is not slower; offline it works once it has been saved.
+**The openGym library (new in 2.96.0, merged in 2.100.0).** Besides PulseTrack's own 644 exercises, the list has **2,591 more** from the open-source [openGym](https://github.com/DuarteSantos8/openGym) app: cable, kettlebell, TRX, machine, Smith and bodyweight variations. Each one sits in its muscle group (Chest, Back, Legs, Shoulders, Biceps ...) next to PulseTrack's own, with **Similar exercises**, its muscle, and a description and steps under **Form tips**. Only useful ones are kept: yoga, pilates, rehab and most stretches, band exercises, rare kit (tyres, mace bells, sandbags), drawing variants ("V. 2", left/right copies), drills with household props, and near-duplicate spellings are left out. Text only: openGym's pictures and animations are licensed separately and are not included. The library loads in the background after the app opens, so start-up is not slower; offline it works once it has been saved.
 
 ### Search (new in 2.8.0)
 
@@ -784,7 +784,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.100.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.101.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole (the openGym library, `opengym-exercises.js`, is saved too but never holds an update back), so you never end up with half of an update.
 
@@ -824,13 +824,13 @@ Upload these to your GitHub repo, all in the same folder:
 |---|---|
 | `index.html` | The whole app (about 3 MB, including fonts and themes). Built from `src/` since 2.68.0 |
 | `programs.js` | The 59 built-in programs |
-| `exercises.js` | The 646 exercises, each with its own form tips and the muscle it trains |
-| `opengym-exercises.js` | 2,863 more exercises from the openGym library, filed in PulseTrack's muscle groups (text only, about 1.6 MB, new in 2.96.0). Built by `tools/opengym_import.py`; don't edit by hand |
+| `exercises.js` | The 644 exercises, each with its own form tips and the muscle it trains |
+| `opengym-exercises.js` | 2,591 more exercises from the openGym library, filed in PulseTrack's muscle groups (text only, about 1.4 MB, new in 2.96.0). Built by `tools/opengym_import.py`; don't edit by hand |
 | `LICENSE`, `NOTICE.md` | The licence (GNU AGPL v3.0 since 2.96.0) and the credits for the openGym exercises |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen. Its icons are the logo (written by `tools/build.py`) |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 120 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 121 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0), `make_fonts.py` (2.71.0) and `make_logo.py` (2.86.0), `opengym_import.py` (2.96.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -845,7 +845,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `battle.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `importapps.py`, `smithback.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `battle.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `importapps.py`, `smithback.py`, `corecardio.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -870,6 +870,11 @@ Keep every `id` unique. New programs reach phones on the next update.
 PulseTrack is free software under the **GNU Affero General Public License v3.0** (see [`LICENSE`](LICENSE)) since 2.96.0. You may use, change and share it; if you share a changed version, or run one for others over a network, share its source under the same licence. The openGym exercise library and its credits are described in [`NOTICE.md`](NOTICE.md).
 
 ## Version history
+
+**2.101.0**
+- **My 6-Day Split is now Ilhaan's 3 Day Split, with Core & Cardio days.** The ab exercises left the leg days (now "Legs & Calves") and moved to the next rest day, which is now **Core & Cardio**: the two ab exercises from the leg day before, then 20-30 minutes of Incline Treadmill Walk. So Day 4, 8, 12 ... 64 are Core & Cardio days and there are no plain rest days left. A copy already on your phone is changed once: the name (unless you renamed it yourself), tags and description; the abs move to the Core & Cardio day (an ab exercise you already ticked sets of stays where it is); Core & Cardio days you are past stay ticked and the ones ahead come up.
+- **No band exercises.** The 272 band and resistance-band exercises from the openGym library are gone (2,591 left), and so are PulseTrack's own Band Curls and Band Chest Press. Banded Pull-Aparts and Band Shoulder Dislocates stay, because programs and the warm-ups use them.
+- New test: `tests/corecardio.py` (26 checks). `programs.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `ui.py` and `smoke.py` updated; the old-shape test fixture puts the abs back for the week-plan tests.
 
 **2.100.0**
 - **The openGym exercises are now part of your exercise list.** No separate openGym chip: each exercise sits in its muscle group (Chest, Back, Legs ...) next to PulseTrack's own, with Similar exercises, its muscle, and its description and steps under Form tips. Full-body lifts (cleans, snatches, thrusters) go in the group of the muscle they mainly train.

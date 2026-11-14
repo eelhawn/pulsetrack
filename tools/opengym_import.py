@@ -85,7 +85,7 @@ def muscle(e):
 
 # ---- what is left out as rare or not useful (2.100.0): yoga, pilates, rehab and combat drills; stretches and mobility drills except the
 # short-named ones from the original ExerciseDB set; rare kit; drawing variants ("V. 2", "POV"); household props; over-long names and long
-# bracketed variations; and anything whose name doesn't say a recognisable gym movement.
+# bracketed variations; band exercises (2.101.0); and anything whose name doesn't say a recognisable gym movement.
 RARE_EQ = {'tire', 'macebell', 'hammer', 'sandbag', 'bosu ball', 'massage ball', 'roller', 'upper body ergometer', 'stepmill machine', 'skierg machine', 'elliptical machine', 'stationary bike'}
 MOVE = re.compile(r"press|row\b|rows\b|curl|raise|fly\b|flye|squat|lunge|deadlift|pulldown|pull[- ]?down|pull[- ]?ups?\b|chin[- ]?ups?\b|push[- ]?ups?\b|\bdips?\b|"
                   r"extension|pushdown|push[- ]?down|crunch|plank|shrug|bridge|thrust|kickback|kick back|calf|step[- ]?ups?\b|swing|clean|snatch|jerk|carry|walk\b|"
@@ -99,6 +99,7 @@ def rare(e, name):
     if cat in ('yoga', 'pilates', 'rehab', 'combat'): return True
     if cat in ('stretching', 'mobility') and not (e.get('textSource') == 'exercisedb' and len(name) <= 30): return True
     if e['equipment'] in RARE_EQ: return True
+    if e['equipment'] in ('band', 'resistance band') or re.search(r'\bband(ed|s)?\b', n): return True   # 2.101.0: no band exercises
     if re.search(r'\bv\. ?\d|\bpov\b|\(male\)|\(female\)|\((?:left|right)\)|version|variation', n) or ODD.search(n): return True
     if len(name) > 40: return True
     m = re.search(r'\(([^)]*)\)', n)
