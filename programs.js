@@ -108752,7 +108752,7 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "my_6day_chest_back_legs_sharms",
   "title": "My 6-Day Split: Chest & Back, Legs, Sharms",
-  "description": "A six-day bodybuilding split run as one program: three training days, one rest day, three training days, one rest day, over 6 weeks of 8 days, with two alternating weeks: Week A (weeks 1, 3 and 5) and Week B (weeks 2, 4 and 6). Every muscle group is trained twice in each 8-day week. Chest & Back (Days 1 and 5) mixes pressing and pulling; Legs, Abs & Calves (Days 2 and 6) pre-exhausts the hamstrings first and the quads second (leg curls, then leg extensions, come first); Sharms (Days 3 and 7) is shoulders, traps, arms and forearms. Days 4 and 8 are rest days. Week A leans on free weights and the Smith machine, Week B on machines and cables. Exercises that use the same machine, bar or bench sit next to each other so you do not walk back and forth. Sets and reps are as written; the rest times are PulseTrack's usual guess (longer for heavy lifts, shorter for isolation work), so change them if you like. Each new week starts with the original exercises again, whatever you swapped the week before.",
+  "description": "A six-day bodybuilding split run as one program: three training days, one rest day, three training days, one rest day, over 8 weeks of 8 days (64 days), with two alternating weeks: Week A (weeks 1, 3, 5 and 7) and Week B (weeks 2, 4, 6 and 8). 64 days is nine weeks and a day, so start on a Saturday or Sunday and the last rest day (Day 8 of week 8) lands on a Saturday or Sunday too. Every muscle group is trained twice in each 8-day week. Chest & Back (Days 1 and 5) mixes pressing and pulling; Legs, Abs & Calves (Days 2 and 6) pre-exhausts the hamstrings first and the quads second (leg curls, then leg extensions, come first); Sharms (Days 3 and 7) is shoulders, traps, arms and forearms. Days 4 and 8 are rest days. Week A leans on free weights and the Smith machine, Week B on machines and cables. Exercises that use the same machine, bar or bench sit next to each other so you do not walk back and forth. Sets and reps are as written; the rest times are PulseTrack's usual guess (longer for heavy lifts, shorter for isolation work), so change them if you like. Each new week starts with the original exercises again, whatever you swapped the week before.",
   "tags": [
    "My Program",
    "6 Training Days",
@@ -108763,9 +108763,9 @@ const BUILTIN_PROGRAMS = [
    "Sharms",
    "Pre-Exhaust",
    "Mass Building",
-   "6 Weeks"
+   "8 Weeks"
   ],
-  "weeks": 6,
+  "weeks": 8,
   "weekReset": true,
   "pro": "",
   "goal": "mass",
@@ -108778,7 +108778,8 @@ const BUILTIN_PROGRAMS = [
     "weeks": [
      1,
      3,
-     5
+     5,
+     7
     ],
     "days": [
      1,
@@ -108796,7 +108797,8 @@ const BUILTIN_PROGRAMS = [
     "weeks": [
      2,
      4,
-     6
+     6,
+     8
     ],
     "days": [
      8,

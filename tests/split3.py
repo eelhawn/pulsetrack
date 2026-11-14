@@ -10,11 +10,11 @@ SHOTS = '/tmp/claude-0/-home-claude/395da5c4-9b49-54b4-93e4-f9926c59aa1c/scratch
 A8, B8 = [1, 2, 3, 7, 4, 5, 6, 15], [8, 9, 10, 14, 11, 12, 13, 16]
 
 with page() as p:
-    c.eq(p.evaluate(f'() => {PROG}.weekPlan.map(g => [g.weeks, g.days])'), [[[1, 3, 5], A8], [[2, 4, 6], B8]], 'Week A and Week B are 8 days: 3 on, rest, 3 on, rest')
+    c.eq(p.evaluate(f'() => {PROG}.weekPlan.map(g => [g.weeks, g.days])'), [[[1, 3, 5, 7], A8], [[2, 4, 6, 8], B8]], 'Week A and Week B are 8 days: 3 on, rest, 3 on, rest')
     c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.dayNumber)'), A8 + B8, 'the days are stored in that order')
     c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.length > 0)'), ([True] * 3 + [False] + [True] * 3 + [False]) * 2, 'rest on the 4th and 8th day of both weeks')
-    c.eq(p.evaluate(f'() => [{PROG}.weeks, {PROG}.baseDays, PT.weeks.planOf({PROG}).W]'), [6, 8, 6], 'still 6 weeks')
-    c.eq(p.evaluate(f'() => {PROG}.days.filter(d => d.exercises.length).length * 3'), 36, '12 workouts x 3 = the same 36 workouts over the 6 weeks as before')
+    c.eq(p.evaluate(f'() => [{PROG}.weeks, {PROG}.baseDays, PT.weeks.planOf({PROG}).W]'), [8, 8, 8], 'runs 8 weeks')
+    c.eq(p.evaluate(f'() => {PROG}.days.filter(d => d.exercises.length).length * 4'), 48, '12 workouts x 4 = 48 workouts over the 8 weeks')
     t = p.evaluate(f'() => {PROG}.days.map(d => (d.title.match(/ - Day (\\d+): /) || [])[1])')
     c.eq(t, [str(i) for i in range(1, 9)] * 2, 'the day names count Day 1 to Day 8 in each week')
     c.ok(p.evaluate(f'() => {PROG}.days.filter(d => !d.exercises.length).every(d => /Rest/.test(d.title))'), 'rest days are named as rest days')
@@ -77,7 +77,7 @@ for w in (390, 360):
         c.eq(p.evaluate(f'() => [PT.dayNo({PROG}, {PROG}.days.find(d => d.dayNumber === 4)), PT.dayNo({PROG}, {PROG}.days.find(d => d.dayNumber === 7)), PT.dayNo({PROG}, {PROG}.days.find(d => d.dayNumber === 11)), PT.dayNo({PROG}, {PROG}.days.find(d => d.dayNumber === 16))]'), [5, 4, 5, 8], '%dpx: Day numbers by position: 4 is Day 5, 7 is the rest Day 4, 11 is Day 5, 16 is Day 8' % w)
         c.eq(p.evaluate('() => PT.dayNo(app.data.programs.find(x => x.id === "frank_zane_upper_lower_4day"), { dayNumber: 3 })'), 3, '%dpx: other programs keep their own day numbers' % w)
         p.evaluate(f'() => {{ app.activeDay = {PROG}.days.find(d => d.dayNumber === 4); app.showView("home"); app.renderHomeView(); }}')
-        c.eq(p.evaluate('() => app.dom.homeActiveDayBadge.innerText'), 'Week 1 of 6 · Day 5', '%dpx: the Home card says Day 5 for it' % w)
+        c.eq(p.evaluate('() => app.dom.homeActiveDayBadge.innerText'), 'Week 1 of 8 · Day 5', '%dpx: the Home card says Day 5 for it' % w)
         c.ok(p.evaluate(f'() => app.weekBadge({PROG}, {PROG}.days.find(d => d.dayNumber === 4))').endswith('Day 5'), '%dpx: and so does the week badge' % w)
         c.ok(p.evaluate('() => document.documentElement.scrollWidth <= innerWidth + 1'), '%dpx: no sideways scroll' % w)
         if w == 390: p.screenshot(path=SHOTS + 'split3.png', full_page=True)

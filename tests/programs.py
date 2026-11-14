@@ -17,8 +17,8 @@ with page() as p:
     mine = 'my_6day_chest_back_legs_sharms'
     c.ok(mine in ids, 'my 6-day split is on a fresh phone')
     prog = p.evaluate('(id) => app.data.programs.find(x => x.id === id)', mine)
-    c.eq(prog['weeks'], 6, 'it runs 6 weeks')
-    c.eq(p.evaluate('(id) => PT.weeks.planOf(app.data.programs.find(x => x.id === id)).W', mine), 6, 'the week plan says 6 weeks')
+    c.eq(prog['weeks'], 8, 'it runs 8 weeks')
+    c.eq(p.evaluate('(id) => PT.weeks.planOf(app.data.programs.find(x => x.id === id)).W', mine), 8, 'the week plan says 8 weeks')
     c.eq(len(prog['days']), 16, '16 days: two weeks of 8, each 3 on, rest, 3 on, rest')
     W = [d for d in prog['days'] if d['exercises']]
     c.eq([len(d['exercises']) for d in prog['days']][3::4], [0, 0, 0, 0], 'the 4th and 8th day of each week are rest days')

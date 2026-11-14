@@ -20,11 +20,11 @@ def finish_week(p, week):
 with page() as p:
     # ---------------------------------------------------------------- the program itself
     c.eq(p.evaluate(f'() => {PROG}.weekReset'), True, 'the split is marked "original exercises back each week"')
-    c.eq(p.evaluate(f'() => {PROG}.weeks'), 6, 'it runs 6 weeks')
+    c.eq(p.evaluate(f'() => {PROG}.weeks'), 8, 'it runs 8 weeks')
     c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.dayNumber)'), [1, 2, 3, 7, 4, 5, 6, 15, 8, 9, 10, 14, 11, 12, 13, 16], '16 days, in list order: Week A is days 1-7 and 15, Week B is days 8-14 and 16 (each week is 8 days with two rest days)')
-    plan = p.evaluate(f'() => {{ const P = PT.weeks.planOf({PROG}); return P && [P.W, [1, 2, 3, 4, 5, 6].map(w => P.byWeek[w].days[0])]; }}')
-    c.eq(plan, [6, [1, 8, 1, 8, 1, 8]], 'weeks 1, 3, 5 use days 1-7 and weeks 2, 4, 6 use days 8-14')
-    c.eq(p.evaluate(f'() => {PROG}.weekPlan.map(g => g.weeks)'), [[1, 3, 5], [2, 4, 6]], 'the week plan has the two groups')
+    plan = p.evaluate(f'() => {{ const P = PT.weeks.planOf({PROG}); return P && [P.W, [1, 2, 3, 4, 5, 6, 7, 8].map(w => P.byWeek[w].days[0])]; }}')
+    c.eq(plan, [8, [1, 8, 1, 8, 1, 8, 1, 8]], 'weeks 1, 3, 5, 7 use days 1-7 and weeks 2, 4, 6, 8 use days 8-14')
+    c.eq(p.evaluate(f'() => {PROG}.weekPlan.map(g => g.weeks)'), [[1, 3, 5, 7], [2, 4, 6, 8]], 'the week plan has the two groups')
     bad = p.evaluate(f'() => [...new Set({PROG}.days.flatMap(d => d.exercises.map(e => e.name)))].filter(n => {{ const e = PT.exCanon(n); return !e || e.name !== n; }})')
     c.eq(bad, [], 'every exercise is spelled exactly like the exercise database (so last time\'s weight is found)')
     c.eq(p.evaluate(f'() => app.data.programs.filter(x => x.id !== "{ID}" && x.weekReset).length'), 0, 'no other program has the new-week reset')
@@ -93,9 +93,9 @@ with page() as p:
     c.eq(p.evaluate(NAMES(4)), base[4], 'Switch week to week 5: Week A is back the way the program has it')
 
     # ---------------------------------------------------------------- after week 6 it starts again
-    p.evaluate(f'() => {{ app.jumpToWeek({PROG}, 6); app.getProgState({PROG}); const e = {PROG}.days.find(d => d.dayNumber === 11).exercises[0]; e.origName = e.name; e.name = "Pull-Ups"; const f = {PROG}.days[4].exercises[0]; f.origName = f.name; f.name = "Hack Squat"; }}')
-    finish_week(p, 6)
-    c.eq(p.evaluate(STATE), [1, 2], 'after week 6 it goes round again (week 1, round 2)')
+    p.evaluate(f'() => {{ app.jumpToWeek({PROG}, 8); app.getProgState({PROG}); const e = {PROG}.days.find(d => d.dayNumber === 11).exercises[0]; e.origName = e.name; e.name = "Pull-Ups"; const f = {PROG}.days[4].exercises[0]; f.origName = f.name; f.name = "Hack Squat"; }}')
+    finish_week(p, 8)
+    c.eq(p.evaluate(STATE), [1, 2], 'after week 8 it goes round again (week 1, round 2)')
     c.eq(p.evaluate(NAMES(5)), base[5], 'and the originals are back')
     c.eq(p.evaluate(NAMES(11))[0], 'Pull-Ups', 'Week B keeps its swap until it comes round again')
 
@@ -137,7 +137,7 @@ with page() as p:
     res = p.evaluate('() => PT.split2.upgrade()')
     c.eq(res['done'], True, 'the old copy is brought up to date')
     c.eq(p.evaluate(f'() => {PROG}.days.length'), 16, 'Week B and the two new rest days were added: 16 days')
-    c.eq(p.evaluate(f'() => {PROG}.weekPlan.map(g => g.weeks)'), [[1, 3, 5], [2, 4, 6]], 'with the two-group week plan')
+    c.eq(p.evaluate(f'() => {PROG}.weekPlan.map(g => g.weeks)'), [[1, 3, 5, 7], [2, 4, 6, 8]], 'with the two-group week plan')
     c.eq(p.evaluate(NAMES(1)), p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days[0].exercises.map(e => e.name)'), 'day 1 (never changed) takes the new order')
     c.eq(p.evaluate(NAMES(4)), p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days.find(d => d.dayNumber === 4).exercises.map(e => e.name)'), 'day 4 (never changed) takes the new order')
     c.eq(p.evaluate(NAMES(3))[0], 'Arnold Press', 'day 3 (swapped) is left exactly as it was')
@@ -264,8 +264,8 @@ with page() as p:
     c.eq(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 11).exercises[0].name'), 'Week 4 Swap', 'a swap made in week 4 is still there when you come back to week 4')
     c.eq(p.evaluate(SNAP)['week'], 4, 'and you are on week 4')
     p.evaluate(f'() => {{ const e = {PROG}.days.find(d => d.dayNumber === 12).exercises[0]; e.origName = e.name; e.name = "Never Visited Swap"; WorkoutStorage.setData(app.data); }}')
-    tap_week(p, 6)
-    c.ok(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 12).exercises[0].name') != 'Never Visited Swap', 'a week you were never in this round (week 6) still starts with the original exercises')
+    tap_week(p, 8)
+    c.ok(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 12).exercises[0].name') != 'Never Visited Swap', 'a week you were never in this round (week 8) still starts with the original exercises')
     # finishing a week clears its memory: it does not come back half done, and it does not skip on by itself
     tap_week(p, 1); tap_week(p, 2)
     p.evaluate(f'() => {{ [8, 9, 10, 11, 12, 13].forEach(n => app.markDayDone({PROG}, n)); }}')
@@ -282,20 +282,20 @@ with page() as p:
     tap_week(p, 1)
     c.eq(p.evaluate(f'() => app.getProgState({PROG}).done'), [1, 2], 'and going back to it brings them back')
     # a new round starts clean
-    p.evaluate(f'() => {{ app.jumpToWeek({PROG}, 6); app.getProgState({PROG}); [8, 9, 10, 11, 12, 13].forEach(n => app.markDayDone({PROG}, n)); }}')
-    c.eq(p.evaluate(f'() => {{ const s = app.getProgState({PROG}); return [s.week, s.round, s.done, s.byWeek]; }}'), [1, 2, [], {}], 'finishing week 6 starts round 2 with nothing remembered')
+    p.evaluate(f'() => {{ app.jumpToWeek({PROG}, 8); app.getProgState({PROG}); [8, 9, 10, 11, 12, 13].forEach(n => app.markDayDone({PROG}, n)); }}')
+    c.eq(p.evaluate(f'() => {{ const s = app.getProgState({PROG}); return [s.week, s.round, s.done, s.byWeek]; }}'), [1, 2, [], {}], 'finishing week 8 starts round 2 with nothing remembered')
     c.eq(p.errors, [], 'no page errors')
 
 A8, B8 = [1, 2, 3, 7, 4, 5, 6, 15], [8, 9, 10, 14, 11, 12, 13, 16]
-# ---------------------------------------------------------------- 2.88.0: the days list shows only the week you are on (Week A = weeks 1, 3, 5; Week B = weeks 2, 4, 6)
+# ---------------------------------------------------------------- 2.88.0: the days list shows only the week you are on (Week A = weeks 1, 3, 5, 7; Week B = weeks 2, 4, 6, 8)
 with page() as p:
     VIS = '() => { const l = app.dom.daysList, shown = e => getComputedStyle(e).display !== "none"; return { days: [...l.children].filter(c => c.dataset.day && shown(c)).map(c => +c.dataset.day), headers: [...l.children].filter(c => c.dataset.weekHeader && shown(c)).map(c => c.textContent.replace(/\\s+/g, " ").trim()) }; }'
     p.evaluate(f'() => {{ app.selectProgram({PROG}, null, true); app.activeProgram = {PROG}; app.showView("days"); app.renderDaysView(); }}'); p.wait_for_timeout(400)
     v = p.evaluate(VIS)
     c.eq(v['days'], A8, 'week 1: only Week A\'s 8 days are listed in order (3 on, rest, 3 on, rest), Week B is hidden')
     c.eq(len(v['headers']), 1, 'and there is only one week heading')
-    c.ok(v['headers'][0].startswith('Weeks 1, 3 & 5') and 'now: week 1' in v['headers'][0], 'it is the Weeks 1, 3 & 5 heading, marked as now')
-    for w, days, head in [(2, B8, 'Weeks 2, 4 & 6'), (3, A8, 'Weeks 1, 3 & 5'), (4, B8, 'Weeks 2, 4 & 6'), (5, A8, 'Weeks 1, 3 & 5'), (6, B8, 'Weeks 2, 4 & 6')]:
+    c.ok(v['headers'][0].startswith('Weeks 1, 3, 5 & 7') and 'now: week 1' in v['headers'][0], 'it is the Weeks 1, 3, 5 & 7 heading, marked as now')
+    for w, days, head in [(2, B8, 'Weeks 2, 4, 6 & 8'), (3, A8, 'Weeks 1, 3, 5 & 7'), (4, B8, 'Weeks 2, 4, 6 & 8'), (5, A8, 'Weeks 1, 3, 5 & 7'), (6, B8, 'Weeks 2, 4, 6 & 8'), (7, A8, 'Weeks 1, 3, 5 & 7'), (8, B8, 'Weeks 2, 4, 6 & 8')]:
         tap_week(p, w)
         v = p.evaluate(VIS)
         c.eq(v['days'], days, 'week %d: only %s are listed' % (w, 'Week B\'s 8 days' if w % 2 == 0 else 'Week A\'s 8 days'))
@@ -304,7 +304,7 @@ with page() as p:
     # the "up next" workout is always one of the listed days, and finishing a week flips the list to the other set of days
     c.ok(p.evaluate(f'() => app.nextDayOf({PROG}).dayNumber') in p.evaluate(VIS)['days'], 'the up-next workout is one of the listed days')
     p.evaluate(f'() => {{ [8, 9, 10, 11, 12, 13].forEach(n => app.markDayDone({PROG}, n)); app.renderDaysView(); }}'); p.wait_for_timeout(300)
-    c.eq(p.evaluate(VIS)['days'], A8, 'finishing week 6 starts the next round on week 1 and lists Week A again')
+    c.eq(p.evaluate(VIS)['days'], A8, 'finishing week 8 starts the next round on week 1 and lists Week A again')
     # other programs with weeks keep listing every group
     other = p.evaluate('() => (app.data.programs.find(x => Array.isArray(x.weekPlan) && !x.weekReset) || {}).id')
     p.evaluate('(id) => { const o = app.data.programs.find(x => x.id === id); app.activeProgram = o; app.activeDay = o.days[0]; app.showView("days"); app.renderDaysView(); }', other); p.wait_for_timeout(400)
