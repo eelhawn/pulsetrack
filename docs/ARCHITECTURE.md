@@ -1,7 +1,7 @@
 # Architecture
 
 ## Build
-- Source: `src/index.template.html`, `src/css/*` (14 files), `src/js/NNN-vX.Y.Z-name.js` (118 modules as of 2.97.0), `src/logo/`, `src/VERSION`.
+- Source: `src/index.template.html`, `src/css/*` (14 files), `src/js/NNN-vX.Y.Z-name.js` (119 modules as of 2.98.0), `src/logo/`, `src/VERSION`.
 - `tools/build.py` inlines everything into root `index.html`. Also at repo root: `exercises.js`, `programs.js`, `sw.js`, `manifest.json`, `README.md`. These are what get deployed.
 - `programs.js` holds `BUILTIN_PROGRAMS`. It is JSON round-trip safe (`json.dumps(indent=1, ensure_ascii=False)` is byte-identical), so scripts can edit it as JSON.
 - `exercises.js` is the exercise library (name, muscles, `aka` old names, description, tips).
@@ -25,4 +25,4 @@
 - 109 Faster set entry (one-tap log from last time, quick +/- bar, two Settings switches).
 - 110 no front raises on the shoulder days (one-time cleanup).
 - 111 Iso-Lateral Plate-Loaded Machine Dip rename.
-- 112 3-on-1-off split migration (2.92.0); 113 8-week split migration (2.93.0); 114 64-day split migration (2.94.0); 115 days-done repair + Jump to day (2.94.1); 116 one of dips/decline per Chest & Back day (2.95.0); 117 openGym exercise library (2.96.0); 118 equipment filter: more kit, bench/pull-up bar needs, `PT.equipNeeds`, `PT.gymLacks` (2.97.0; 019 exports `PT.EQUIP`).
+- 112 3-on-1-off split migration (2.92.0); 113 8-week split migration (2.93.0); 114 64-day split migration (2.94.0); 115 days-done repair + Jump to day (2.94.1); 116 one of dips/decline per Chest & Back day (2.95.0); 117 openGym exercise library (2.96.0); 118 equipment filter: more kit, bench/pull-up bar needs, `PT.equipNeeds`, `PT.gymLacks` (2.97.0; 019 exports `PT.EQUIP`); 119 Hevy/Strong/FitNotes CSV import, `PT.importApps`, sessions get `pid: "import"` and an `imp` key for de-duplication (2.98.0).
