@@ -17,9 +17,18 @@ with page() as p:
     mine = 'my_6day_chest_back_legs_sharms'
     c.ok(mine in ids, 'my 6-day split is on a fresh phone')
     prog = p.evaluate('(id) => app.data.programs.find(x => x.id === id)', mine)
-    c.eq(prog['weeks'], 8, 'it runs 8 weeks')
-    c.eq(p.evaluate('(id) => PT.weeks.planOf(app.data.programs.find(x => x.id === id)).W', mine), 8, 'the week plan says 8 weeks')
-    c.eq(len(prog['days']), 16, '16 days: two weeks of 8, each 3 on, rest, 3 on, rest')
+    c.ok('weeks' not in prog and 'weekPlan' not in prog, 'it has no weeks: one long program')
+    c.eq(p.evaluate('(id) => PT.weeks.planOf(app.data.programs.find(x => x.id === id))', mine), None, 'and no week plan')
+    c.eq([d['dayNumber'] for d in prog['days']], list(range(1, 65)), 'Day 1 to Day 64, counted straight through')
+    c.eq([d['title'].split(':')[0] for d in prog['days']][:9], ['Day %d' % i for i in range(1, 10)], 'the names count Day 1, 2, 3 ... too')
+    c.eq(len(prog['days']), 64, '64 days: 8 blocks of 8, each 3 on, rest, 3 on, rest')
+    c.eq([bool(d['exercises']) for d in prog['days']], ([True] * 3 + [False] + [True] * 3 + [False]) * 8, 'rest on the 4th and 8th day of every block')
+    c.eq(len({e['id'] for d in prog['days'] for e in d['exercises']}), 480, 'every one of the 480 exercise ids is unique')
+    c.ok(all(e['id'].startswith('%s_d%d_' % (mine, d['dayNumber'])) for d in prog['days'] for e in d['exercises']), 'each id carries its own day number')
+    blocks = [[[e['name'] for e in d['exercises']] for d in prog['days'][8 * k:8 * k + 8]] for k in range(8)]
+    c.ok(all(blocks[k] == blocks[k % 2] for k in range(8)), 'the odd blocks repeat the free-weight days and the even blocks the machine days')
+    c.ok('64 days' in prog['description'] and 'Saturday or Sunday' in prog['description'], 'the description says 64 days and to start on a Saturday or Sunday')
+    prog['days'] = prog['days'][:16]
     W = [d for d in prog['days'] if d['exercises']]
     c.eq([len(d['exercises']) for d in prog['days']][3::4], [0, 0, 0, 0], 'the 4th and 8th day of each week are rest days')
     c.eq([len(d['exercises']) for d in prog['days']], [9, 10, 11, 0, 10, 10, 11, 0, 8, 10, 11, 0, 9, 10, 11, 0], 'exercises per day')
@@ -33,7 +42,7 @@ with page() as p:
     miss = sorted({e['name'] for d in prog['days'] for e in d['exercises'] if e['name'].lower() not in known})
     c.eq(miss, [], 'every exercise is in the library (by name or other name)')
     c.ok('Iso-Lateral Plate-Loaded Machine Dip' in p.evaluate('EXERCISE_DATABASE.map(e => e.name)'), 'the machine dip is in the library under its new name')
-    c.eq(len({e['id'] for d in prog['days'] for e in d['exercises']}), 120, 'every exercise id is unique')
+    
 
     # ---- delete: Keep it leaves everything; Delete removes, with an Undo toast that puts it back in the same place
     target = 'ronnie_coleman_highrep_6day'

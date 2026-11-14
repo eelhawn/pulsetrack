@@ -1,7 +1,7 @@
 """Fill in the whole workout: the first open of a day each week pre-fills the suggested weights; the button does it on demand; Undo; the switch."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import Checks, page
+from common import Checks, page, old8
 
 c = Checks('fill')
 ID = 'my_6day_chest_back_legs_sharms'
@@ -26,6 +26,7 @@ def open_day(p, n):
 
 
 with page() as p:
+    old8(p)
     setup(p)
     open_day(p, 1)
     log = lambda day, name, s: p.evaluate(f'() => {{ const e = app.logs[{KEY(day, name, s)}]; return e ? [e.weight, e.reps, !!e.completed] : null; }}')
@@ -65,6 +66,7 @@ with page() as p:
     c.eq(p.errors, [], 'no page errors')
 
 with page() as p:
+    old8(p)
     # the default: off (since 2.83.1), so nothing is filled until you tap the button
     p.evaluate(f'() => app.selectProgram({PROG}, null, true)')
     p.evaluate("""() => { app.lastPerf["Lat Pulldown"] = [1, 2, 3, 4].map(() => ({ weight: "100", reps: "10" })); WorkoutStorage.saveLastPerf(app.lastPerf); }""")
@@ -78,6 +80,7 @@ with page() as p:
     c.eq(p.errors, [], 'no page errors')
 
 with page() as p:
+    old8(p)
     setup(p, False)
     open_day(p, 1)
     c.eq(p.evaluate(f'() => app.logs[{KEY(1, "Lat Pulldown", 0)}] || null'), None, 'with the switch off nothing is filled on its own')
@@ -89,6 +92,7 @@ with page() as p:
     c.eq(p.errors, [], 'no page errors')
 
 with page() as p:
+    old8(p)
     # a program with no history at all, and a rest day: nothing happens, nothing breaks
     p.evaluate(f'() => app.selectProgram({PROG}, null, true)')
     p.evaluate('() => PT.setOpt("autoPrefill", true)')

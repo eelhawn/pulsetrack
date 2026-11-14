@@ -1,7 +1,7 @@
 """2.91.2: no front raises on the shoulder days (3, 6, 10) of My 6-Day Split: the shipped plan, the one-time clean-up of a saved copy, and the week reset."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import Checks, page
+from common import Checks, page, old8
 
 c = Checks('nofront')
 ID = 'my_6day_chest_back_legs_sharms'
@@ -10,6 +10,7 @@ FR = '(e => /front[\\s-]*raise/i.test(e.name))'
 COUNT = f'() => {P}.days.map(d => [d.dayNumber, d.exercises.filter({FR}).length, (d.orig || []).filter({FR}).length, (d.removed || []).filter(r => {FR}(r.ex)).length]).filter(x => x[1] + x[2] + x[3])'
 
 with page() as p:
+    old8(p)
     c.eq(p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days.filter(d => d.exercises.some({FR})).map(d => d.dayNumber)'), [], 'the shipped plan has no front raises on any day')
     c.eq(p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days.filter(d => [3, 6, 10, 13].includes(d.dayNumber)).map(d => d.exercises.length)'), [11, 11, 11, 11], 'the four shoulder days have 11 exercises each')
     c.eq(p.evaluate(COUNT), [], 'a fresh copy has none')
@@ -43,6 +44,7 @@ with page() as p:
     c.eq(p.errors, [], 'no page errors')
 
 with page() as p:
+    old8(p)
     # the shoulder day shows up without front raises on the Workout screen
     p.evaluate(f'() => {{ app.selectProgram({P}, null, true); app.activeDay = {P}.days.find(d => d.dayNumber === 3); app.showView("workout"); }}')
     p.wait_for_timeout(300)

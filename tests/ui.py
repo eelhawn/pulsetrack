@@ -58,7 +58,7 @@ for mode in ('dark', 'light'):
             hd = p.evaluate('''() => { const t = document.getElementById("header-title"), b = document.getElementById("header-breadcrumb");
               return { title: t.textContent, crumb: b.textContent, tCut: t.scrollWidth > t.clientWidth + 1, bCut: b.scrollWidth > b.clientWidth + 1, tAttr: t.title }; }''')
             c.eq(hd['title'], 'Chest & Back', f'{tag}: the top bar shows the short name')
-            c.eq(hd['crumb'], 'Week 1 · Day 1', f'{tag}: and the week and day under it')
+            c.eq(hd['crumb'], 'Day 1', f'{tag}: and the day under it')
             c.ok(not hd['tCut'] and not hd['bCut'], f'{tag}: neither line of the top bar is cut off ({hd})')
             c.ok('Antagonist' in hd['tAttr'], f'{tag}: the full name is still the tooltip')
             dc = p.evaluate('''() => { const h = document.getElementById("workout-day-title"), card = h.parentElement.parentElement, s = h.querySelector(".pt-daysub");

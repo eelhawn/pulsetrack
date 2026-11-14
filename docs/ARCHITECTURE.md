@@ -1,7 +1,7 @@
 # Architecture
 
 ## Build
-- Source: `src/index.template.html`, `src/css/*` (14 files), `src/js/NNN-vX.Y.Z-name.js` (113 modules as of 2.93.0), `src/logo/`, `src/VERSION`.
+- Source: `src/index.template.html`, `src/css/*` (14 files), `src/js/NNN-vX.Y.Z-name.js` (114 modules as of 2.94.0), `src/logo/`, `src/VERSION`.
 - `tools/build.py` inlines everything into root `index.html`. Also at repo root: `exercises.js`, `programs.js`, `sw.js`, `manifest.json`, `README.md`. These are what get deployed.
 - `programs.js` holds `BUILTIN_PROGRAMS`. It is JSON round-trip safe (`json.dumps(indent=1, ensure_ascii=False)` is byte-identical), so scripts can edit it as JSON.
 - `exercises.js` is the exercise library (name, muscles, `aka` old names, description, tips).
@@ -23,4 +23,4 @@
 - 109 Faster set entry (one-tap log from last time, quick +/- bar, two Settings switches).
 - 110 no front raises on the shoulder days (one-time cleanup).
 - 111 Iso-Lateral Plate-Loaded Machine Dip rename.
-- 112 3-on-1-off split migration (2.92.0); 113 8-week split migration (2.93.0).
+- 112 3-on-1-off split migration (2.92.0); 113 8-week split migration (2.93.0); 114 64-day split migration (2.94.0).

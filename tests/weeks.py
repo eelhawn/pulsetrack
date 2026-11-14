@@ -2,7 +2,7 @@
 Switch week keeps what you finished in each week (2.87.0), and the days list shows only the week you are on (2.88.0)."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import Checks, page
+from common import Checks, page, old8
 
 c = Checks('weeks')
 ID = 'my_6day_chest_back_legs_sharms'
@@ -18,6 +18,7 @@ def finish_week(p, week):
         p.evaluate(f'() => app.markDayDone({PROG}, {n})')
 
 with page() as p:
+    old8(p)
     # ---------------------------------------------------------------- the program itself
     c.eq(p.evaluate(f'() => {PROG}.weekReset'), True, 'the split is marked "original exercises back each week"')
     c.eq(p.evaluate(f'() => {PROG}.weeks'), 8, 'it runs 8 weeks')
@@ -114,120 +115,13 @@ with page() as p:
     c.eq(p.evaluate(f'() => app.data.programs.find(x => x.id === "{other}").days[0].exercises[0].name'), 'Zottman Curl', 'other programs keep their swaps')
     c.eq(p.errors, [], 'no page errors')
 
-# ---------------------------------------------------------------- a copy already on a phone (2.73.0 / 2.74.0): 7 days, old order, old names, one week group
-OLD1 = ['Incline Bench Press', 'Lat Pulldown', 'Dumbbell Bench Press', 'Dumbbell Row', 'Decline Bench Press', 'Neutral-Grip (V-Bar) Lat Pulldown', 'Chest Dips', 'Barbell Row', 'Pec Deck']
-OLD4 = ['Lat Pulldown', 'Incline Dumbbell Press', 'Deadlift', 'Smith Machine Flat Press', 'Iso-Lateral Plate-Loaded Low Row', 'Decline Bench Press', 'Cable Seated Rows (Wide Bar)', 'Iso-Lateral Plate-Loaded Machine Dip', 'Straight-Arm Pulldown', 'Incline Dumbbell Flyes']
-with page() as p:
-    p.evaluate(f'''() => {{
-      const pr = {PROG}, b = JSON.parse(JSON.stringify(pr));
-      const old = (n, order) => {{ const d = b.days.find(x => x.dayNumber === n); const by = new Map(d.exercises.map(e => [e.name, e])); return order.map((nm, i) => Object.assign({{}}, by.get(nm), {{ id: "{ID}_d" + n + "_e" + (i + 1) }})); }};
-      pr.days = b.days.filter(d => d.dayNumber <= 7).sort((x, y) => x.dayNumber - y.dayNumber).map(d => JSON.parse(JSON.stringify(d)));
-      pr.days[0].exercises = old(1, {OLD1}); pr.days[3].exercises = old(4, {OLD4});
-      pr.days.forEach(d => {{ if (d.dayNumber !== 1 && d.dayNumber !== 4) d.exercises.forEach((e, i) => {{ e.id = "{ID}_d" + d.dayNumber + "_e" + (i + 1); }}); d.title = d.title.replace(/^W\\d( & W\\d)* - /, ""); }});
-      pr.weekPlan = [{{ weeks: [1, 2, 3, 4, 5, 6], days: [1, 2, 3, 4, 5, 6, 7] }}];
-      pr.description = "A six-day split. It runs 6 weeks: the same workouts every week, adding weight.";
-      // a set already ticked on Day 1's second exercise (Lat Pulldown) and on Day 4's first (Lat Pulldown); Day 3 has a swap
-      app.logs["{ID}_d1_{ID}_d1_e2_s0"] = {{ weight: "100", reps: "9", completed: true }};
-      app.logs["{ID}_d4_{ID}_d4_e1_s1"] = {{ weight: "110", reps: "11", completed: true }};
-      app.logs["{ID}_d1_{ID}_d1_e1_s0"] = {{ weight: "60", reps: "7", completed: true }};
-      pr.days[2].exercises[0].origName = pr.days[2].exercises[0].name; pr.days[2].exercises[0].name = "Arnold Press";
-      WorkoutStorage.setData(app.data); WorkoutStorage.saveLogs(app.logs);
-    }}''')
-    c.eq(p.evaluate(f'() => {PROG}.days.length'), 7, 'set up: the old 7-day copy')
-    res = p.evaluate('() => PT.split2.upgrade()')
-    c.eq(res['done'], True, 'the old copy is brought up to date')
-    c.eq(p.evaluate(f'() => {PROG}.days.length'), 16, 'Week B and the two new rest days were added: 16 days')
-    c.eq(p.evaluate(f'() => {PROG}.weekPlan.map(g => g.weeks)'), [[1, 3, 5, 7], [2, 4, 6, 8]], 'with the two-group week plan')
-    c.eq(p.evaluate(NAMES(1)), p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days[0].exercises.map(e => e.name)'), 'day 1 (never changed) takes the new order')
-    c.eq(p.evaluate(NAMES(4)), p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days.find(d => d.dayNumber === 4).exercises.map(e => e.name)'), 'day 4 (never changed) takes the new order')
-    c.eq(p.evaluate(NAMES(3))[0], 'Arnold Press', 'day 3 (swapped) is left exactly as it was')
-    c.eq(res['kept'], 1, 'one day was left alone')
-    c.eq(p.evaluate(f'() => Object.keys(app.logs).filter(k => k.startsWith("{ID}_d1_")).sort()'), [f'{ID}_d1_{ID}_d1_incline-bench-press_s0', f'{ID}_d1_{ID}_d1_lat-pulldown_s0'], 'ticked sets followed their exercise to its new place')
-    c.eq(p.evaluate(f'() => app.logs["{ID}_d1_{ID}_d1_lat-pulldown_s0"].weight'), '100', 'with their numbers')
-    c.eq(p.evaluate(f'() => app.logs["{ID}_d4_{ID}_d4_lat-pulldown_s1"].weight'), '110', 'on day 4 too')
-    c.ok(p.evaluate(f'() => /^W1 & W3 & W5 - /.test({PROG}.days[0].title)'), 'day titles say which weeks they are for')
-    c.ok(p.evaluate(f'() => /Week A/.test(BUILTIN_PROGRAMS.find(x => x.id === "{ID}").description) && {PROG}.description.includes("two alternating weeks")'), 'the description is the new one')
-    c.eq(p.evaluate('() => PT.split2.upgrade().done'), False, 'and it only happens once')
-    # the swapped day heals itself when its week comes round
-    p.evaluate(f'() => {{ app.jumpToWeek({PROG}, 2); app.getProgState({PROG}); app.jumpToWeek({PROG}, 3); app.getProgState({PROG}); }}')
-    c.eq(p.evaluate(NAMES(3)), p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days[2].exercises.map(e => e.name)'), 'at week 3 the swapped day is back to the program\'s')
-    c.eq(p.errors, [], 'no page errors')
-
-# ---------------------------------------------------------------- 2.75.0: a copy that already has the old Day 1 order (lat pulldown third)
-V275 = ['Incline Bench Press', 'Decline Bench Press', 'Lat Pulldown', 'Neutral-Grip (V-Bar) Lat Pulldown', 'Dumbbell Bench Press', 'Dumbbell Row', 'Chest Dips', 'Barbell Row', 'Pec Deck']
-with page() as p:
-    p.evaluate(f'''() => {{
-      const d = {PROG}.days[0], by = new Map(d.exercises.map(e => [e.name, e]));
-      d.exercises = {V275}.map(n => by.get(n));
-      app.logs["{ID}_d1_{ID}_d1_lat-pulldown_s0"] = {{ weight: "100", reps: "9", completed: true }};
-      WorkoutStorage.setData(app.data); WorkoutStorage.saveLogs(app.logs);
-    }}''')
-    ids = p.evaluate(f'() => {PROG}.days[0].exercises.map(e => e.id)')
-    res = p.evaluate('() => PT.latFirst.upgrade()')
-    c.eq(res['done'], True, 'a copy with the 2.75.0 order is moved')
-    c.eq(p.evaluate(NAMES(1)), p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days[0].exercises.map(e => e.name)'), 'day 1 now opens with the lat pulldown')
-    c.eq(sorted(p.evaluate(f'() => {PROG}.days[0].exercises.map(e => e.id)')), sorted(ids), 'the exercises keep their ids')
-    c.eq(p.evaluate(f'() => app.logs["{ID}_d1_{ID}_d1_lat-pulldown_s0"].weight'), '100', 'a ticked set stays with its exercise')
-    c.eq(p.evaluate('() => PT.latFirst.upgrade().done'), False, 'and it only happens once')
-    c.eq(p.errors, [], 'no page errors')
-with page() as p:
-    p.evaluate(f'''() => {{
-      const d = {PROG}.days[0], by = new Map(d.exercises.map(e => [e.name, e]));
-      d.exercises = {V275}.map(n => by.get(n));
-      d.exercises[1].origName = d.exercises[1].name; d.exercises[1].name = "Hammer Strength Decline Press";
-      WorkoutStorage.setData(app.data);
-    }}''')
-    c.eq(p.evaluate('() => PT.latFirst.upgrade().done'), False, 'a day 1 with a swap is left alone')
-    c.eq(p.evaluate(NAMES(1))[0], 'Incline Bench Press', 'in its own order')
-    c.eq(p.errors, [], 'no page errors')
-
-# ---------------------------------------------------------------- 2.75.0 to 2.77.0: a copy whose day 4 still has the straight-arm pulldown second
-D4 = ['Lat Pulldown', 'Straight-Arm Pulldown', 'Incline Dumbbell Press', 'Deadlift', 'Smith Machine Flat Press', 'Iso-Lateral Plate-Loaded Low Row', 'Decline Bench Press', 'Cable Seated Rows (Wide Bar)', 'Iso-Lateral Plate-Loaded Machine Dip', 'Incline Dumbbell Flyes']
-with page() as p:
-    p.evaluate(f'''() => {{
-      const d = {PROG}.days.find(x => x.dayNumber === 4), by = new Map(d.exercises.map(e => [e.name, e]));
-      d.exercises = {D4}.map(n => by.get(n));
-      app.logs["{ID}_d4_{ID}_d4_straight-arm-pulldown_s0"] = {{ weight: "40", reps: "12", completed: true }};
-      WorkoutStorage.setData(app.data); WorkoutStorage.saveLogs(app.logs);
-    }}''')
-    res = p.evaluate('() => PT.latFirst.upgrade()')
-    c.eq(res['days'], [4], 'a copy with the old day 4 order is moved')
-    c.eq(p.evaluate(NAMES(4))[-1], 'Straight-Arm Pulldown', 'the straight-arm pulldown is last')
-    c.eq(p.evaluate(f'() => app.logs["{ID}_d4_{ID}_d4_straight-arm-pulldown_s0"].weight'), '40', 'a ticked set stays with its exercise')
-    c.eq(p.evaluate('() => PT.latFirst.upgrade().done'), False, 'and it only happens once')
-    c.eq(p.errors, [], 'no page errors')
-
-# ---------------------------------------------------------------- 2.74.0: an even older copy: old spellings, no switch, weights stored under the old names
-with page() as p:
-    p.evaluate(f'''() => {{
-      const pr = {PROG};
-      const alias = {{ "Incline Bench Press": "Incline Barbell Press", "Leg Extension": "Leg Extensions", "Triceps Pushdown": "Tricep Pushdown", "Squat": "Barbell Back Squats" }};
-      pr.days.forEach(d => d.exercises.forEach(e => {{ if (alias[e.name]) e.name = alias[e.name]; }}));
-      delete pr.weekReset;
-      app.lastPerf["Incline Barbell Press"] = [{{ weight: "80", reps: "8" }}, {{ weight: "80", reps: "7" }}];
-      app.lastPerf["Barbell Back Squats"] = [{{ weight: "100", reps: "6" }}];
-      app.lastPerf["Squat"] = [{{ weight: "90", reps: "5" }}];
-      app.sessions.push({{ id: "t1", date: "2026-11-08", ts: Date.parse("2026-11-08T12:00:00"), ex: [{{ id: "x", name: "Incline Barbell Press", sets: [{{ w: 80, r: 8 }}, {{ w: 80, r: 7 }}] }}] }});
-      WorkoutStorage.saveLastPerf(app.lastPerf); WorkoutStorage.setData(app.data); app.saveSessions();
-    }}''')
-    res = p.evaluate('() => PT.split.upgrade()')
-    c.ok(res['renamed'] >= 4, 'the old spellings are found and renamed')
-    c.eq(res['flag'], True, 'the switch is turned on for the copy that was already there')
-    c.eq(p.evaluate(f'() => {PROG}.weekReset'), True, 'and kept')
-    c.ok(p.evaluate(NAMES(1)).count('Incline Bench Press') == 1 and 'Incline Barbell Press' not in p.evaluate(NAMES(1)), 'Incline Barbell Press is now Incline Bench Press')
-    c.eq(p.evaluate('() => (app.lastPerf["Incline Bench Press"] || []).map(x => [String(x.weight), String(x.reps)])'), [['80', '8'], ['80', '7']], 'last time\'s weights followed the rename')
-    c.eq(p.evaluate('() => app.lastPerf["Incline Barbell Press"]'), None, 'and the old name is gone')
-    c.eq(p.evaluate('() => app.lastPerf["Squat"][0].weight'), '90', 'a weight already stored under the new name is not overwritten')
-    c.eq(p.evaluate('() => app.sessions.find(s => s.id === "t1").ex[0].name'), 'Incline Bench Press', 'saved workouts follow too')
-    c.eq(p.evaluate('() => PT.split.upgrade().renamed'), 0, 'and it only happens once')
-    c.eq(p.errors, [], 'no page errors')
-
 # ---------------------------------------------------------------- 2.87.0: Switch week keeps what you finished in each week
 def tap_week(p, w):                      # open the Switch week sheet and tap a week, like a finger
     p.evaluate('() => PT.weeks.openWeekSheet()'); p.wait_for_timeout(250)
     p.evaluate('(w) => document.querySelector(`#pt-wks [data-w="${w}"]`).click()', w); p.wait_for_timeout(450)
 GRID = '() => Object.fromEntries([...document.querySelectorAll("#pt-wks [data-w]")].map(b => [b.dataset.w, [(b.className.match(/\\b(done|now|todo)\\b/) || [])[1], b.querySelector("small").textContent.trim()]]))'
 with page() as p:
+    old8(p)
     SNAP = f'() => {{ const d3 = {PROG}.days.find(d => d.dayNumber === 3), s = app.getProgState({PROG}); return {{ week: s.week, round: s.round || 1, done: s.done.slice(), d3logs: Object.keys(app.logs).filter(k => k.startsWith("{ID}_d3_")).length, d3first: d3.exercises[0].name, up: app.nextDayOf({PROG}).dayNumber, active: app.activeDay && app.activeDay.dayNumber }}; }}'
     p.evaluate(f'() => {{ app.selectProgram({PROG}, null, true); app.activeProgram = {PROG}; app.showView("days"); }}')
     # Day 1 and Day 2 are finished, Day 3 has three logged sets and a swapped exercise
@@ -289,6 +183,7 @@ with page() as p:
 A8, B8 = [1, 2, 3, 7, 4, 5, 6, 15], [8, 9, 10, 14, 11, 12, 13, 16]
 # ---------------------------------------------------------------- 2.88.0: the days list shows only the week you are on (Week A = weeks 1, 3, 5, 7; Week B = weeks 2, 4, 6, 8)
 with page() as p:
+    old8(p)
     VIS = '() => { const l = app.dom.daysList, shown = e => getComputedStyle(e).display !== "none"; return { days: [...l.children].filter(c => c.dataset.day && shown(c)).map(c => +c.dataset.day), headers: [...l.children].filter(c => c.dataset.weekHeader && shown(c)).map(c => c.textContent.replace(/\\s+/g, " ").trim()) }; }'
     p.evaluate(f'() => {{ app.selectProgram({PROG}, null, true); app.activeProgram = {PROG}; app.showView("days"); app.renderDaysView(); }}'); p.wait_for_timeout(400)
     v = p.evaluate(VIS)
