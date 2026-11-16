@@ -39,7 +39,7 @@ LOGS = '() => PT.cardio.data().logs.map(l => ({ act: l.act, name: l.name, sec: l
 for w in (390, 360):
     with page(w=w, h=800) as p:
         setup(p)
-        c.eq(p.evaluate('() => document.querySelector(".pt-sbar-t").textContent'), '6 / 6 sets', '%dpx: the set bar counts the 6 ab sets, not the StairMaster' % w)
+        c.eq(p.evaluate('() => document.querySelector(".pt-sbar-t").textContent'), '15 / 15 sets', '%dpx: the set bar counts the 15 ab sets, not the StairMaster' % w)
         c.ok(p.evaluate('() => /Goes to Cardio & Sports/.test(document.querySelector(".pt-cardio-apart").textContent)'), '%dpx: the StairMaster card says it goes to Cardio & Sports' % w)
         c.ok(p.evaluate('() => document.documentElement.scrollWidth <= innerWidth + 1'), '%dpx: no sideways scroll' % w)
         if w == 390:
@@ -49,9 +49,9 @@ for w in (390, 360):
         p.evaluate('() => { app.showView("workout"); app.renderWorkoutView(); }')
         n0 = p.evaluate('() => app.sessions.length')
         txt = finish(p)
-        c.ok('6/6' in txt.replace(' ', ''), '%dpx: Ready to save counts 6/6 sets' % w)
+        c.ok('15/15' in txt.replace(' ', ''), '%dpx: Ready to save counts 15/15 sets' % w)
         s = p.evaluate(LAST)
-        c.eq([s['n'], s['sets'], s['ex']], [n0 + 1, 6, ['Hanging Leg Raises', 'Decline Sit-Ups']], '%dpx: the workout in History has the 6 ab sets and no StairMaster' % w)
+        c.eq([s['n'], s['sets'], s['ex']], [n0 + 1, 15, ['Weighted Decline Sit-Ups', "Captain's Chair Leg Raises", 'Russian Twists']], '%dpx: the workout in History has the 15 ab sets and no StairMaster' % w)
         logs = p.evaluate(LOGS)
         c.eq(len(logs), 1, '%dpx: one Cardio & Sports session' % w)
         c.eq([logs[0]['act'], logs[0]['name'], logs[0]['sec'], logs[0]['dist']], ['stairs', 'StairMaster / Stair Climber', 1500, 0], '%dpx: StairMaster, 25 min' % w)
@@ -70,7 +70,7 @@ with page() as p:   # no minutes: nothing sent
     setup(p, walk='')
     finish(p)
     c.eq(p.evaluate(LOGS), [], 'a StairMaster row with no minutes sends nothing')
-    c.eq(p.evaluate(LAST)['ex'], ['Hanging Leg Raises', 'Decline Sit-Ups'], 'and is still not part of the workout')
+    c.eq(p.evaluate(LAST)['ex'], ['Weighted Decline Sit-Ups', "Captain's Chair Leg Raises", 'Russian Twists'], 'and is still not part of the workout')
     c.eq(p.errors, [], 'no page errors')
 
 with page() as p:   # switched off: as before
@@ -80,10 +80,10 @@ with page() as p:   # switched off: as before
     c.eq(p.evaluate('() => app.settings.cardioApart'), False, 'and it turns it off')
     p.evaluate('() => app.closeSettings ? app.closeSettings() : null')
     setup(p)
-    c.eq(p.evaluate('() => document.querySelector(".pt-sbar-t").textContent'), '7 / 7 sets', 'off: the StairMaster counts as a set again')
+    c.eq(p.evaluate('() => document.querySelector(".pt-sbar-t").textContent'), '16 / 16 sets', 'off: the StairMaster counts as a set again')
     finish(p)
     s = p.evaluate(LAST)
-    c.eq([s['sets'], 'Stairmaster' in s['ex'], p.evaluate(LOGS)], [7, True, []], 'off: it stays in the workout and nothing goes to Cardio & Sports')
+    c.eq([s['sets'], 'Stairmaster' in s['ex'], p.evaluate(LOGS)], [16, True, []], 'off: it stays in the workout and nothing goes to Cardio & Sports')
     c.eq(p.errors, [], 'no page errors')
 
 c.done()

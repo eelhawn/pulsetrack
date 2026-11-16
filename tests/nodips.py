@@ -16,7 +16,7 @@ with page() as p:
     for k in (1, 3, 5, 7):
         c.eq(p.evaluate('() => ' + BUILT(8 * k + 1, 'Iso-Lateral Plate-Loaded Decline Press')), True, 'Day %d (machine block): keeps its decline press' % (8 * k + 1))
         c.eq(p.evaluate('() => ' + BUILT(8 * k + 5, 'Smith Machine Decline Press')), True, 'Day %d: keeps its Smith decline press (put back in 2.99.0)' % (8 * k + 5))
-    c.eq(p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days.reduce((n, d) => n + d.exercises.length, 0)'), 480 - 8 + 16, 'eight exercises fewer in all (and since 2.101.0 a treadmill walk on each of the 16 Core & Cardio days)')
+    c.eq(p.evaluate(f'() => BUILTIN_PROGRAMS.find(x => x.id === "{ID}").days.reduce((n, d) => n + d.exercises.length, 0)'), 480 - 8 + 16 + 16, 'eight exercises fewer in all (since 2.101.0 a cardio row on each of the 16 Core & Cardio days, since 2.104.0 three ab exercises instead of two)')
 
 def old(p):
     p.evaluate(f'''() => {{

@@ -72,13 +72,17 @@ def old8(p):
     is 64 plain days. The built-in copy is reshaped too: the week reset and the tests read the original days from it."""
     p.evaluate('''() => {
       const ID = "%s", O = [1, 2, 3, 7, 4, 5, 6, 15, 8, 9, 10, 14, 11, 12, 13, 16];
+      const OLD_ABS = n => { const HL = { name: "Hanging Leg Raises", sets: 3, reps: "12-15", restSeconds: 60, type: "standard" };
+        return n %% 8 === 4 ? [HL, { name: "Decline Sit-Ups", sets: 3, reps: "15-20", restSeconds: 45, type: "standard" }]
+                           : [HL, { name: "Russian Twists", sets: 3, reps: "20", restSeconds: 45, type: "standard", notes: "20 total twists, 10 per side." }]; };
       const shape = src => {
         const pr = JSON.parse(JSON.stringify(src));
         pr.days = pr.days.slice(0, 16);
         // 2.101.0 made the rest days Core & Cardio days (the leg days' abs + a treadmill walk): put the abs back and make them rest days again
         [3, 7, 11, 15].forEach(i => {
           const C = pr.days[i], L = pr.days[i - 2];
-          C.exercises.filter(e => e.type !== "cardio").forEach(e => { e.id = e.id.replace("_d" + C.dayNumber + "_", "_d" + L.dayNumber + "_"); L.exercises.push(e); });
+          // the abs the leg days had before 2.101.0 (2.104.0 gave the Core & Cardio days three high-rep exercises instead)
+          OLD_ABS(C.dayNumber).forEach(e => { e.id = "my_6day_chest_back_legs_sharms_d" + L.dayNumber + "_" + e.name.toLowerCase().replace(/[^a-z]+/g, "-"); L.exercises.push(e); });
           C.exercises = []; C.title = "Day " + C.dayNumber + ": Rest Day (Full Recovery)"; C.estimatedMinutes = 0;
           L.title = L.title.replace("Legs & Calves", "Legs, Abs & Calves"); L.estimatedMinutes += 10;
         });
@@ -95,6 +99,6 @@ def old8(p):
       const b = shape(BUILTIN_PROGRAMS[bi]);
       BUILTIN_PROGRAMS[bi] = b; app.data.programs[di] = JSON.parse(JSON.stringify(b));
       delete app.progState[ID];
-      app.settings.split64 = 1; app.settings.split3on1 = 1; app.settings.split8wk = 1; app.settings.coreCardio = 1; WorkoutStorage.saveSettings(app.settings);
+      app.settings.split64 = 1; app.settings.split3on1 = 1; app.settings.split8wk = 1; app.settings.coreCardio = 1; app.settings.coreHighRep = 1; app.settings.stairClimb = 1; WorkoutStorage.saveSettings(app.settings);
       WorkoutStorage.setData(app.data);
     }''' % OLD8_ID)

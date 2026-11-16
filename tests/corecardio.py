@@ -16,7 +16,9 @@ OLD = f'''(title) => {{
   pr.days = JSON.parse(JSON.stringify(b.days));
   for (let k = 0; k < 8; k++) [[8 * k + 2, 8 * k + 4], [8 * k + 6, 8 * k + 8]].forEach(([ln, cn]) => {{
     const L = pr.days[ln - 1], C = pr.days[cn - 1];
-    C.exercises.filter(e => e.type !== "cardio").forEach(e => {{ e.id = e.id.replace("_d" + cn + "_", "_d" + ln + "_"); L.exercises.push(e); }});
+    const HL = {{ name: "Hanging Leg Raises", sets: 3, reps: "12-15", restSeconds: 60, type: "standard" }};
+    const abs = cn % 8 === 4 ? [HL, {{ name: "Decline Sit-Ups", sets: 3, reps: "15-20", restSeconds: 45, type: "standard" }}] : [HL, {{ name: "Russian Twists", sets: 3, reps: "20", restSeconds: 45, type: "standard" }}];
+    abs.forEach(e => {{ e.id = "{ID}_d" + ln + "_" + e.name.toLowerCase().replace(/[^a-z]+/g, "-"); L.exercises.push(e); }});   // the leg days' abs before 2.101.0
     C.exercises = []; C.title = "Day " + cn + ": Rest Day (Full Recovery)"; C.estimatedMinutes = 0;
     L.title = L.title.replace("Legs & Calves", "Legs, Abs & Calves");
   }});
@@ -30,9 +32,9 @@ with page() as p:
     c.eq(p.evaluate(f'() => {b}.title'), "Ilhaan's 3 Day Split", "the program is called Ilhaan's 3 Day Split")
     c.eq(p.evaluate(f'() => {b}.days.filter(d => /Core & Cardio/.test(d.title)).map(d => d.dayNumber)'), list(range(4, 65, 4)), 'Day 4, 8, 12 ... 64 are Core & Cardio days')
     c.eq(p.evaluate(f'() => {b}.days.filter(d => !d.exercises.length).length'), 0, 'no plain rest days left')
-    c.eq(p.evaluate(f'() => {b}.days.find(d => d.dayNumber === 8).exercises.map(e => [e.name, e.sets, e.reps])'), [['Hanging Leg Raises', 3, '12-15'], ['Russian Twists', 3, '20 (10 per side)'] if False else ['Russian Twists', 3, p.evaluate(f'() => {b}.days.find(d => d.dayNumber === 8).exercises[1].reps')], ['Stairmaster', 1, '22.5 min']], 'Day 8: the abs from Day 6, then the StairMaster (22.5 min since 2.103.0)')
+    c.eq(p.evaluate(f'() => {b}.days.find(d => d.dayNumber === 8).exercises.map(e => [e.name, e.sets, e.reps])'), [['Weighted Decline Sit-Ups', 5, '40-60'], ["Captain's Chair Leg Raises", 5, '40-60'], ['Russian Twists', 5, '40-60'], ['Stairmaster', 1, '22.5 min']], 'Day 8 (since 2.104.0): 200-300 reps each of three ab exercises, then the StairMaster')
     c.eq(p.evaluate(f'() => {b}.days.filter(d => /Legs/.test(d.title)).every(d => /Legs & Calves/.test(d.title) && d.exercises.every(e => PT.category(e.name) !== "Core"))'), True, 'the leg days are "Legs & Calves", with no ab work')
-    c.eq(p.evaluate(f'() => {{ const k = app.exKind({b}.days[3].exercises[2]); return !!(k.cardio || k.dist); }}'), True, 'the StairMaster is a cardio row')
+    c.eq(p.evaluate(f'() => {{ const k = app.exKind({b}.days[3].exercises[3]); return !!(k.cardio || k.dist); }}'), True, 'the StairMaster is a cardio row')
 
 with page(w=390, h=800) as p:
     p.wait_for_function('() => !!app.settings.coreCardio')   # the app's own one-time change has run at start-up

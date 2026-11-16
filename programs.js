@@ -108752,7 +108752,7 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "my_6day_chest_back_legs_sharms",
   "title": "Ilhaan's 3 Day Split",
-  "description": "A three-day bodybuilding split run as one long program of 64 days, Day 1 to Day 64, with no weeks: Chest & Back, Legs & Calves, Sharms, then a Core & Cardio day, and round again. Every 8 days each muscle group is trained twice. Chest & Back (Days 1 and 5 of each 8) mixes pressing and pulling; Legs & Calves (Days 2 and 6) pre-exhausts the hamstrings first and the quads second (leg curls, then leg extensions, come first); Sharms (Days 3 and 7) is shoulders, traps, arms and forearms. Days 4 and 8 of each 8 are Core & Cardio: the ab work from the leg day before, then the StairMaster: 20 minutes on Day 4, 2.5 minutes more on every Core & Cardio day after it, up to 57.5 minutes on Day 64. The first 8 days lean on free weights and the Smith machine, the next 8 on machines and cables, and it alternates like that to Day 64. Exercises that use the same machine, bar or bench sit next to each other so you do not walk back and forth. Sets and reps are as written; the rest times are PulseTrack's usual guess, so change them if you like.",
+  "description": "A three-day bodybuilding split run as one long program of 64 days, Day 1 to Day 64, with no weeks: Chest & Back, Legs & Calves, Sharms, then a Core & Cardio day, and round again. Every 8 days each muscle group is trained twice. Chest & Back (Days 1 and 5 of each 8) mixes pressing and pulling; Legs & Calves (Days 2 and 6) pre-exhausts the hamstrings first and the quads second (leg curls, then leg extensions, come first); Sharms (Days 3 and 7) is shoulders, traps, arms and forearms. Days 4 and 8 of each 8 are Core & Cardio: 200-300 reps each of weighted decline sit-ups, captain's chair leg raises and Russian twists (5 sets of 40-60), then the StairMaster: 20 minutes on Day 4, 2.5 minutes more on every Core & Cardio day after it, up to 57.5 minutes on Day 64. The first 8 days lean on free weights and the Smith machine, the next 8 on machines and cables, and it alternates like that to Day 64. Exercises that use the same machine, bar or bench sit next to each other so you do not walk back and forth. Sets and reps are as written; the rest times are PulseTrack's usual guess, so change them if you like.",
   "tags": [
    "My Program",
    "3 Day Split",
@@ -109013,23 +109013,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 4,
     "title": "Day 4: Core & Cardio",
-    "estimatedMinutes": 35,
+    "estimatedMinutes": 55,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d4_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d4_decline-sit-ups",
-      "name": "Decline Sit-Ups",
-      "sets": 3,
-      "reps": "15-20",
+      "id": "my_6day_chest_back_legs_sharms_d4_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
-      "type": "standard"
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d4_russian-twists",
+      "name": "Russian Twists",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d4_stairmaster",
@@ -109290,24 +109301,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 8,
     "title": "Day 8: Core & Cardio",
-    "estimatedMinutes": 37,
+    "estimatedMinutes": 58,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d8_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d8_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d8_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d8_russian-twists",
       "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
       "type": "standard",
-      "notes": "20 total twists, 10 per side."
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d8_stairmaster",
@@ -109562,23 +109583,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 12,
     "title": "Day 12: Core & Cardio",
-    "estimatedMinutes": 40,
+    "estimatedMinutes": 60,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d12_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d12_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d12_decline-sit-ups",
-      "name": "Decline Sit-Ups",
-      "sets": 3,
-      "reps": "15-20",
+      "id": "my_6day_chest_back_legs_sharms_d12_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
-      "type": "standard"
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d12_russian-twists",
+      "name": "Russian Twists",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d12_stairmaster",
@@ -109839,24 +109871,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 16,
     "title": "Day 16: Core & Cardio",
-    "estimatedMinutes": 42,
+    "estimatedMinutes": 62,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d16_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d16_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d16_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d16_russian-twists",
       "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
       "type": "standard",
-      "notes": "20 total twists, 10 per side."
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d16_stairmaster",
@@ -110110,23 +110152,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 20,
     "title": "Day 20: Core & Cardio",
-    "estimatedMinutes": 45,
+    "estimatedMinutes": 65,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d20_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d20_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d20_decline-sit-ups",
-      "name": "Decline Sit-Ups",
-      "sets": 3,
-      "reps": "15-20",
+      "id": "my_6day_chest_back_legs_sharms_d20_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
-      "type": "standard"
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d20_russian-twists",
+      "name": "Russian Twists",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d20_stairmaster",
@@ -110387,24 +110440,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 24,
     "title": "Day 24: Core & Cardio",
-    "estimatedMinutes": 47,
+    "estimatedMinutes": 68,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d24_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d24_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d24_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d24_russian-twists",
       "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
       "type": "standard",
-      "notes": "20 total twists, 10 per side."
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d24_stairmaster",
@@ -110659,23 +110722,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 28,
     "title": "Day 28: Core & Cardio",
-    "estimatedMinutes": 50,
+    "estimatedMinutes": 70,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d28_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d28_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d28_decline-sit-ups",
-      "name": "Decline Sit-Ups",
-      "sets": 3,
-      "reps": "15-20",
+      "id": "my_6day_chest_back_legs_sharms_d28_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
-      "type": "standard"
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d28_russian-twists",
+      "name": "Russian Twists",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d28_stairmaster",
@@ -110936,24 +111010,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 32,
     "title": "Day 32: Core & Cardio",
-    "estimatedMinutes": 52,
+    "estimatedMinutes": 72,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d32_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d32_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d32_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d32_russian-twists",
       "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
       "type": "standard",
-      "notes": "20 total twists, 10 per side."
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d32_stairmaster",
@@ -111207,23 +111291,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 36,
     "title": "Day 36: Core & Cardio",
-    "estimatedMinutes": 55,
+    "estimatedMinutes": 75,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d36_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d36_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d36_decline-sit-ups",
-      "name": "Decline Sit-Ups",
-      "sets": 3,
-      "reps": "15-20",
+      "id": "my_6day_chest_back_legs_sharms_d36_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
-      "type": "standard"
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d36_russian-twists",
+      "name": "Russian Twists",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d36_stairmaster",
@@ -111484,24 +111579,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 40,
     "title": "Day 40: Core & Cardio",
-    "estimatedMinutes": 57,
+    "estimatedMinutes": 78,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d40_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d40_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d40_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d40_russian-twists",
       "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
       "type": "standard",
-      "notes": "20 total twists, 10 per side."
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d40_stairmaster",
@@ -111756,23 +111861,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 44,
     "title": "Day 44: Core & Cardio",
-    "estimatedMinutes": 60,
+    "estimatedMinutes": 80,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d44_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d44_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d44_decline-sit-ups",
-      "name": "Decline Sit-Ups",
-      "sets": 3,
-      "reps": "15-20",
+      "id": "my_6day_chest_back_legs_sharms_d44_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
-      "type": "standard"
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d44_russian-twists",
+      "name": "Russian Twists",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d44_stairmaster",
@@ -112033,24 +112149,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 48,
     "title": "Day 48: Core & Cardio",
-    "estimatedMinutes": 62,
+    "estimatedMinutes": 82,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d48_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d48_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d48_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d48_russian-twists",
       "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
       "type": "standard",
-      "notes": "20 total twists, 10 per side."
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d48_stairmaster",
@@ -112304,23 +112430,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 52,
     "title": "Day 52: Core & Cardio",
-    "estimatedMinutes": 65,
+    "estimatedMinutes": 85,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d52_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d52_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d52_decline-sit-ups",
-      "name": "Decline Sit-Ups",
-      "sets": 3,
-      "reps": "15-20",
+      "id": "my_6day_chest_back_legs_sharms_d52_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
-      "type": "standard"
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d52_russian-twists",
+      "name": "Russian Twists",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d52_stairmaster",
@@ -112581,24 +112718,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 56,
     "title": "Day 56: Core & Cardio",
-    "estimatedMinutes": 67,
+    "estimatedMinutes": 88,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d56_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d56_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d56_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d56_russian-twists",
       "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
       "type": "standard",
-      "notes": "20 total twists, 10 per side."
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d56_stairmaster",
@@ -112853,23 +113000,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 60,
     "title": "Day 60: Core & Cardio",
-    "estimatedMinutes": 70,
+    "estimatedMinutes": 90,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d60_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d60_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d60_decline-sit-ups",
-      "name": "Decline Sit-Ups",
-      "sets": 3,
-      "reps": "15-20",
+      "id": "my_6day_chest_back_legs_sharms_d60_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
-      "type": "standard"
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d60_russian-twists",
+      "name": "Russian Twists",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d60_stairmaster",
@@ -113130,24 +113288,34 @@ const BUILTIN_PROGRAMS = [
    {
     "dayNumber": 64,
     "title": "Day 64: Core & Cardio",
-    "estimatedMinutes": 72,
+    "estimatedMinutes": 92,
     "exercises": [
      {
-      "id": "my_6day_chest_back_legs_sharms_d64_hanging-leg-raises",
-      "name": "Hanging Leg Raises",
-      "sets": 3,
-      "reps": "12-15",
-      "restSeconds": 60,
-      "type": "standard"
+      "id": "my_6day_chest_back_legs_sharms_d64_weighted-decline-sit-ups",
+      "name": "Weighted Decline Sit-Ups",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60. Hold a plate or dumbbell on your chest."
+     },
+     {
+      "id": "my_6day_chest_back_legs_sharms_d64_captains-chair-leg-raises",
+      "name": "Captain's Chair Leg Raises",
+      "sets": 5,
+      "reps": "40-60",
+      "restSeconds": 45,
+      "type": "standard",
+      "notes": "200-300 reps in all: 5 sets of 40-60."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d64_russian-twists",
       "name": "Russian Twists",
-      "sets": 3,
-      "reps": "20",
+      "sets": 5,
+      "reps": "40-60",
       "restSeconds": 45,
       "type": "standard",
-      "notes": "20 total twists, 10 per side."
+      "notes": "200-300 twists in all: 5 sets of 40-60 (count each side)."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d64_stairmaster",

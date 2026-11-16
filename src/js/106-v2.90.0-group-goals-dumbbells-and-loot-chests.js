@@ -42,7 +42,7 @@
   PT.weeklyGoalAt = (a, k) => {
     const st = a.settings, log = Array.isArray(st.weeklyGoalLog) ? st.weeklyGoalLog : [], cur = Math.max(1, Math.min(7, parseInt(st.weeklyGoal, 10) || 3));
     if (!log.length) return cur;
-    const d = PT.fromDs ? PT.fromDs(k) : new Date(k), t = (d && !isNaN(d) ? d.getTime() : Date.now()) + 3 * DAY;   // mid-week, so a Sunday or Monday start both land right
+    const d = PT.fromDs ? PT.fromDs(k) : new Date(k), t0 = (d && !isNaN(d) ? d.getTime() : Date.now()) + 3 * DAY, t = Math.min(t0 + 4 * DAY - 1, Math.max(t0, Date.now()));   // 2.104.0: this week also counts a change made later in the week (Fri-Sun)   // mid-week, so a Sunday or Monday start both land right
     let g = null; log.forEach(e => { if (e.t <= t) g = e.g; });
     return Math.max(1, Math.min(7, g == null ? log[0].g : g));
   };
