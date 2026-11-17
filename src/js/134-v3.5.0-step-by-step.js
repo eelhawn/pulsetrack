@@ -68,7 +68,9 @@
     const g = PT.exGuide(name) || {}, l = g.local || {};
     let e = null; try { e = (PT.exCanon && PT.exCanon(name)) || null; } catch (er) { }
     const own = (g.steps || []).length;
-    const base = own ? g.steps : ((e && Array.isArray(e.tips) ? e.tips : []).map(t => ({ text: t })));
+    let base = own ? g.steps : ((e && Array.isArray(e.tips) ? e.tips : []).map(t => ({ text: t })));
+    // 3.8.0: no pictures of its own: the app draws the movement (module 137), the start or finish pose for each step
+    if (!own && PT.figure) { try { const drawn = PT.figure.forSteps(name, base); if (drawn) base = drawn; } catch (er) { console.warn("PulseTrack drawing", er); } }
     return base.map((st, i) => ({
       text: st.text, image: st.image || null, builtArrows: st.arrows || [],
       arrows: (l.arrows && Array.isArray(l.arrows[i])) ? l.arrows[i] : (st.arrows || []), moved: !!(l.arrows && l.arrows[i]),
@@ -104,6 +106,7 @@
     if (st.photo) return "Your photo · kept on this phone";
     if (!st.image) return "";
     const im = st.image, lic = { original: "original drawing", "public-domain": "public domain", "own-photo": "own photo" }[im.license] || im.license;
+    if (im.generated) return `Drawing: PulseTrack, ${lic} made by the app for this kind of movement (${im.movement})`;
     return `${im.author === "PulseTrack" ? "Drawing: PulseTrack" : "By " + im.author}, ${lic}${im.attribution && im.author !== "PulseTrack" ? " · " + im.attribution : ""}`;
   }
   function stepHtml() {

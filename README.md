@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone (the optional live family board, off until you start or join one, sends only a small scrambled update).
 
-*Version 3.7.0*
+*Version 3.8.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -786,7 +786,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 3.7.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 3.8.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole (the openGym library, `opengym-exercises.js`, is saved too but never holds an update back), so you never end up with half of an update.
 
@@ -830,12 +830,12 @@ Upload these to your GitHub repo, all in the same folder:
 | `opengym-exercises.js` | 2,591 more exercises from the openGym library, filed in PulseTrack's muscle groups (text only, about 1.4 MB, new in 2.96.0). Built by `tools/opengym_import.py`; don't edit by hand |
 | `LICENSE`, `NOTICE.md` | The licence (GNU AGPL v3.0 since 2.96.0) and the credits for the openGym exercises |
 | `exercise-guides.js` | The exercise guides (new in 3.4.0): for each exercise, by its exact name, the equipment and the muscles it works, where those values come from, and (from 3.5.0) its steps. Check it with `python3 tools/validate_guides.py`. `exercises.js` and `opengym-exercises.js` are never changed for it |
-| `img/ex/` | PulseTrack's own line drawings for the exercise steps (new in 3.5.0), drawn by `tools/make_guide_drawings.py`. The movement arrows aren't in the pictures: they're data in `exercise-guides.js` |
+| `img/ex/` | PulseTrack's own line drawings for the 6 hand-made exercise guides (new in 3.5.0), drawn by `tools/make_guide_drawings.py`. The movement arrows aren't in the pictures: they're data in `exercise-guides.js`. Every other exercise's drawing is made by the app itself (3.8.0, `src/js/137-...`), so there are no files for those |
 | `TERMS.md`, `PRIVACY.md` | The Terms of Service and the Privacy Policy (new in 2.109.0). `tools/build.py` puts them into the app, so edit them here only |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen. Its icons are the logo (written by `tools/build.py`) |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 133 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 134 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0), `make_fonts.py` (2.71.0) and `make_logo.py` (2.86.0), `opengym_import.py` (2.96.0), `guides_data.py` and `validate_guides.py` (3.4.0), `make_guide_drawings.py` (3.5.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -850,7 +850,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `fill.py`, `backup.py`, `taken.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `importapps.py`, `smithback.py`, `corecardio.py`, `cardioapart.py`, `stairs.py`, `corerep.py`, `speed.py`, `weekdots.py`, `plain.py`, `legal.py`, `proglist.py`, `histedit.py`, `fillmode.py`, `morethemes.py`, `norewards.py`, `guide.py`, `muscles.py`, `steps.py`, `ollama.py`, `cloud.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `fill.py`, `backup.py`, `taken.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `importapps.py`, `smithback.py`, `corecardio.py`, `cardioapart.py`, `stairs.py`, `corerep.py`, `speed.py`, `weekdots.py`, `plain.py`, `legal.py`, `proglist.py`, `histedit.py`, `fillmode.py`, `morethemes.py`, `norewards.py`, `guide.py`, `muscles.py`, `steps.py`, `ollama.py`, `cloud.py`, `drawings.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -877,6 +877,18 @@ PulseTrack is free software under the **GNU Affero General Public License v3.0**
 Using the app published at https://eelhawn.github.io/pulsetrack is covered by the [Terms of Service](TERMS.md) and the [Privacy Policy](PRIVACY.md). In short: it is a tracking tool, not medical or training advice, you train at your own risk, and nothing you log is ever sent to the developer. The Terms do not limit anything the AGPL lets you do with the source code.
 
 ## Version history
+
+**3.8.0**
+- **A drawing for almost every exercise.** Step by step now shows a picture for 3,094 of the 3,136 exercises in the app (98.7%), not just the 6 with hand-made guides. The app draws them itself: one line figure with the same proportions every time, posed for the kind of movement (82 kinds: flat, incline and decline presses, squats, deadlifts, rows, pulldowns, curls, raises, lunges, hip thrusts, planks, crunches, cardio machines and more) and holding the right kit (barbell, dumbbells, kettlebell, cable, machine, Smith machine, band, suspension straps, landmine, ball).
+  - **Two pictures per movement:** where you start and where you finish, with an arrow for the movement ("lower", "press up", "pull"). The first step shows the start; steps that begin with "Lower" or "Return" show the start again; the rest show the finish.
+  - **The kit comes from the exercise's name** ("Cable Lateral Raises" gets a cable from a low pulley), then from openGym's equipment field, then from the movement's usual kit.
+  - **Same as the hand-made ones:** **Add my photo** on every step, **Move arrows**, **Reset arrows**. Under each picture: "Drawing: PulseTrack, original drawing made by the app for this kind of movement (incline press)".
+  - **Free and offline:** nothing is downloaded and no image service is used. The drawings are made on the phone, so they work offline and cost nothing.
+  - **No drawing on purpose (42):** grip, neck, battle-rope, sled, boxing and swimming work, where a generic figure would mislead. They keep "No picture yet" and Add my photo.
+  - The 6 hand-made guides (Bench Press, Squat, Romanian Deadlift (RDL), Lat Pulldown, Seated Cable Row, Push-Ups) keep their own drawings.
+- **The guide** now offers "See the steps with pictures" for every exercise with a drawing.
+- **`python3 tools/validate_guides.py`** reports pictures too: how many exercises have a picture (their own or the app's) and which have none. It reads the very same matching rules as the app, so the report and the phone always agree.
+- New test: `tests/drawings.py` (24 checks: every movement draws inside the frame, the app and the report agree on all 3,136 exercises, 63 spot checks of movement and kit, and Step by step with the drawings). `tests/steps.py` now checks the placeholder on an exercise that gets no drawing (Hand Gripper Squeezes).
 
 **3.7.0**
 - **The guide can use a cloud AI service with your own API key (optional, off unless you turn it on).** Settings > Guide has a third choice, **Cloud AI (your key)**: Anthropic (Claude), OpenAI or Google (Gemini). The app comes with no key: you paste one from your own account with that service, and the service charges your account.

@@ -260,7 +260,7 @@
       const it = (g.equipment && g.equipment.items) || [];
       if (it.length) text += /^body ?weight$/i.test(it[0]) && it.length === 1 ? " No equipment needed." : ` You need: ${it.join(", ")}.`;
     }
-    return { kind: "form", title: e.name, text, list: steps.slice(0, 8), avoid: e.avoid || "", note: SAFE, actions: [{ label: g && g.steps && g.steps.length ? "See the steps with pictures" : "Open " + e.name, nav: "ex:" + e.name }] };
+    return { kind: "form", title: e.name, text, list: steps.slice(0, 8), avoid: e.avoid || "", note: SAFE, actions: [{ label: (g && g.steps && g.steps.length) || (PT.figure && PT.figure.classify(e.name)) ? "See the steps with pictures" : "Open " + e.name, nav: "ex:" + e.name }] };
   }
   function helpAnswer(h, more) {
     const r = { kind: "help", title: h.title, text: h.text, actions: h.nav ? [{ label: "Take me there", nav: h.nav }] : [] };

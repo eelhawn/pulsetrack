@@ -10,6 +10,10 @@ at least one primary muscle, muscle ids from the list of 26, intensities from 0 
 image (with its licence and author). Muscle values are listed as "study" only when the entry cites studies; a muscle marked
 "estimate" (or an entry with no study) is listed under estimates. Nothing is "reviewed" until a person marks it on their phone.
 
+From 3.8.0 it also reports which exercises get one of the app's own drawings (module 137 draws a movement such as a squat or a row
+for exercises without pictures of their own), using the very same matching rules as the app, and checks that every rule names a
+movement the module can draw.
+
 Gaps (exercises without guides yet) are reported, not failures. Mistakes in what is there (an unknown muscle id, an intensity of 120,
 a picture file that is missing, a guide for a name that isn't an exercise) make it exit with status 1.
 """
@@ -76,6 +80,13 @@ def main(full=False):
         if n in merged: errors.append('guide for %r, which the app shows as %r: put the guide on %r' % (n, merged[n], merged[n]))
         elif n not in known: errors.append('guide for %r, which is not a built-in exercise name' % n)
 
+    # 3.8.0: the app's drawings
+    rules, rows, pats = G.figure_rules(), G.exercise_rows(), G.figure_ids()
+    for pid, rx, crx in rules:
+        if pid != 'none' and pid not in pats: errors.append('drawing rule for %r, which module 137 does not draw' % pid)
+    drawn = {n: G.figure_of(n, rows.get(n, ''), rules) for n in names}
+    undrawn = [n for n in names if not guides.get(n, {}).get('steps') and not drawn[n]]
+
     total = len(names)
     print('Coverage')
     for k in ('no guide', 'no steps', 'no equipment', 'no primary muscle'):
@@ -83,6 +94,9 @@ def main(full=False):
         print('  %-26s %5d of %d (%.1f%%)' % ({'no guide': 'have a guide', 'no steps': 'have steps', 'no equipment': 'have equipment',
                                                'no primary muscle': 'have a primary muscle'}[k] + ':', have, total, 100.0 * have / total))
     print('  %-26s %5d' % ('steps with no picture yet:', len(gap['steps without a picture'])))
+    have_pic = sum(1 for n in names if guides.get(n, {}).get('steps') or drawn[n])
+    print('  %-26s %5d of %d (%.1f%%): %d with their own guide pictures, the rest drawn by the app (%d kinds of movement)' % (
+        'have pictures:', have_pic, total, 100.0 * have_pic / total, sum(1 for n in names if guides.get(n, {}).get('steps')), len({v for v in drawn.values() if v})))
     print('  %-26s %5d' % ('muscles from studies:', len(study)))
     print('  %-26s %5d' % ('with estimated muscles:', len(est)))
     print('  %-26s %5d (nothing is marked reviewed in the file; people mark it on their phone)' % ('reviewed:', 0))
@@ -98,6 +112,7 @@ def main(full=False):
     show('Missing a primary muscle', [x for x in gap['no primary muscle'] if x in guides])
     show('Steps with a placeholder instead of a picture', gap['steps without a picture'])
     show('Estimated muscle values, to be reviewed', est)
+    show('No picture at all (no guide, and no drawing fits)', undrawn)
     if errors:
         print('\nERRORS (%d)' % len(errors))
         for e in errors: print('  ! ' + e)

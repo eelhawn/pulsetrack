@@ -88,3 +88,44 @@ def app_names():
         if same: merged[n] = same; continue
         shown.append(n); have.add(n.lower())
     return shown, merged
+
+
+# ---- 3.8.0: the app's drawings by movement (module 137). The rules live in the module, between /*RULES*/ and /*END RULES*/,
+# as plain JSON, so this file and the app use the very same rules.
+FIGURE_JS = os.path.join(ROOT, 'src', 'js', '137-v3.8.0-drawings-for-every-exercise.js')
+
+
+def figure_rules():
+    s = open(FIGURE_JS, encoding='utf-8').read()
+    m = re.search(r'/\*RULES\*/(.*?)/\*END RULES\*/', s, re.S)
+    return [(pid, re.compile(rx, re.I), re.compile('^(%s)$' % cat, re.I) if cat else None) for pid, rx, cat in json.loads(m.group(1))]
+
+
+def exercise_rows():
+    """{name: category} for every built-in exercise (PulseTrack's own first, then openGym's)"""
+    rows = {}
+    for line in open(os.path.join(ROOT, 'exercises.js'), encoding='utf-8'):
+        m = re.match(r'\s*\{\s*name:\s*"((?:[^"\\]|\\.)*)"', line)
+        if m:
+            c = re.search(r'category:\s*"([^"]*)"', line)
+            rows[m.group(1)] = c.group(1) if c else ''
+    for line in open(os.path.join(ROOT, 'opengym-exercises.js'), encoding='utf-8'):
+        if line.startswith('{"og"'):
+            o = json.loads(line.rstrip().rstrip(','))
+            rows.setdefault(o['name'], o.get('category', ''))
+    return rows
+
+
+def figure_ids():
+    """the movement ids the module defines (the keys of PATTERNS)"""
+    s = open(FIGURE_JS, encoding='utf-8').read()
+    body = s[s.index('const PATTERNS = {'):s.index('/*RULES*/')]
+    return set(re.findall(r'^    ([a-z_]+): \{', body, re.M))
+
+
+def figure_of(name, category, rules=None):
+    """the movement drawing the app gives this exercise, or None ("none" in the rules means no drawing on purpose)"""
+    for pid, rx, crx in rules or figure_rules():
+        if rx.search(name) and (not crx or crx.search(category or '')):
+            return None if pid == 'none' else pid
+    return None

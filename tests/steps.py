@@ -1,6 +1,6 @@
 """3.5.0 step by step: each sample exercise shows its steps one at a time with PulseTrack's own line drawing (licence and author shown),
 the movement arrows drawn over it from the data, Back/Next. Every step of every exercise has "Add my photo"; exercises without a
-guide show their form tips as steps with a placeholder. Your photos and moved arrows are kept on the phone over the built-in data
+guide show their form tips as steps (3.8.0: with the app's drawing when one fits; one that fits no drawing, like grip work, keeps the placeholder). Your photos and moved arrows are kept on the phone over the built-in data
 (photos in their own IndexedDB, cleared by Reset everything). The drawings work offline. Nothing is loaded from other sites."""
 import io, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -59,9 +59,10 @@ with page(w=360, h=780) as p:
     c.eq([u for u in reqs if not u.startswith('http://localhost') and not u.startswith('http://127.0.0.1') and not u.startswith('data:') and not u.startswith('blob:')], [], 'no picture or anything else is loaded from another site')
     c.ok(p.evaluate('document.documentElement.scrollWidth <= innerWidth'), 'no sideways scroll at 360px')
 
-    # ---- an exercise without a guide: its tips as steps, a placeholder and Add my photo on every one
-    p.evaluate('() => { app.closeSheet(); app.openExerciseSheet("Incline Bench Press"); }'); p.wait_for_timeout(300)
-    tips = p.evaluate('() => PT.exCanon("Incline Bench Press").tips')
+    # ---- an exercise without a guide or a drawing: its tips as steps, a placeholder and Add my photo on every one
+    NOPIC = "Hand Gripper Squeezes"
+    p.evaluate('(n) => { app.closeSheet(); app.openExerciseSheet(n); }', NOPIC); p.wait_for_timeout(300)
+    tips = p.evaluate('(n) => PT.exCanon(n).tips', NOPIC)
     s = p.evaluate('() => { const s = document.getElementById("ex-steps"); return { open: s.open, sum: s.querySelector("summary").innerText }; }')
     c.ok(not s['open'] and ('%d steps' % len(tips)) in s['sum'] and 'no pictures yet' in s['sum'], 'no guide: Step by step is folded and says it has no pictures yet')
     p.evaluate('() => document.getElementById("ex-steps").open = true')
@@ -76,7 +77,7 @@ with page(w=360, h=780) as p:
     p.set_input_files('#pt-sv-file', files=[{'name': 'me.png', 'mimeType': 'image/png', 'buffer': PNG}]); p.wait_for_timeout(800)
     t = p.evaluate('() => { const im = document.querySelector("#pt-sv .pt-sv-photo"); return { src: im ? im.src : "", w: im ? im.naturalWidth : 0, text: document.getElementById("pt-sv").innerText }; }')
     c.ok(t['src'].startswith('blob:') and t['w'] > 0 and 'Your photo' in t['text'], 'no guide: my photo replaces the placeholder')
-    c.ok(p.evaluate('() => !!(app.settings.exGuideLocal["Incline Bench Press"].photos[%d])' % (len(tips) - 1)), 'the photo is linked to that step on the phone')
+    c.ok(p.evaluate('(n) => !!(app.settings.exGuideLocal[n].photos[%d])' % (len(tips) - 1), NOPIC), 'the photo is linked to that step on the phone')
 
     # ---- a sample: my photo on step 2, the arrows still on top, then move an arrow
     p.evaluate('() => { app.closeSheet(); app.openExerciseSheet("Lat Pulldown"); }'); p.wait_for_timeout(300)
