@@ -435,7 +435,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.108.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.109.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -1188,6 +1188,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           <button id="btn-install-app" class="hidden py-2.5 bg-emerald-600 text-white font-bold text-xs rounded-xl tap-active">Install App</button>
           <button id="btn-check-update" class="py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-semibold text-xs rounded-xl tap-active">Check for Updates</button>
         </div>
+        <button id="btn-legal" class="w-full py-2.5 bg-zinc-800 hover:bg-zinc-700 text-zinc-100 font-semibold text-xs rounded-xl tap-active">Terms and Privacy</button>
       </div>
 
       <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Danger Zone</span>
@@ -3839,7 +3840,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.108.0";
+    const APP_VERSION = "2.109.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -34083,6 +34084,210 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     #view-home > :empty { display: none !important; }
   `;
   document.head.appendChild(css);
+})();
+</script>
+  <template id="pt-legal-terms"><h2>PulseTrack Terms of Service</h2>
+<p><strong>Effective date: November 16, 2026</strong></p>
+<p>These Terms of Service ("Terms") are a legal agreement between you and the developer of PulseTrack ("Developer", "we", "us"). They cover your use of the PulseTrack web application published at <a href="https://eelhawn.github.io/pulsetrack" target="_blank" rel="noopener noreferrer">https://eelhawn.github.io/pulsetrack</a>, including any copy of it installed on your device from that address (the "App").</p>
+<p>By checking the box on the App's first screen, or by otherwise using the App, you confirm that you have read, understood and agree to be bound by these Terms and by the PulseTrack Privacy Policy. If you do not agree, do not use the App.</p>
+<h3>1. The open-source license</h3>
+<p>The App's source code is published under the GNU Affero General Public License, version 3 ("AGPL"). Nothing in these Terms limits any right the AGPL grants you to run, copy, modify or share the source code. These Terms govern your use of the App as published by the Developer. If you run a modified copy, the AGPL governs that copy, and the Developer is not responsible for it.</p>
+<h3>2. Age requirement</h3>
+<p>You must be at least 13 years old to use the App. If you are under 18, or under the age of legal majority where you live, a parent or legal guardian must read these Terms and agree to them on your behalf. That parent or guardian is responsible for your use of the App.</p>
+<h3>3. Medical and physical liability disclaimer</h3>
+<p>The App is a tool for recording and tracking workouts. It is for informational and tracking purposes only. It does not provide medical, health, nutritional, physical therapy or professional training advice, and it is not a substitute for such advice.</p>
+<p>Programs, exercises, exercise descriptions and instructions, sets, reps, weights, progressions, estimated one-rep maxes, strength levels, recovery indicators, goals, streaks, reminders and any other content in the App are general information. They are not tailored to you, may be inaccurate or incomplete, and may not be appropriate for your age, health, fitness level or circumstances. Some exercise content comes from third-party sources, and the Developer does not verify it. Using the App does not create a doctor-patient, trainer-client or any other professional relationship.</p>
+<p>Consult a physician or other qualified health professional before starting any exercise program or changing your training, especially if you are pregnant, have a medical condition or injury, or take medication. Stop exercising right away and seek medical help if you feel pain, faintness, dizziness, chest pain or shortness of breath. Never ignore professional medical advice, or delay seeking it, because of anything in the App.</p>
+<p><strong>You exercise entirely at your own risk.</strong></p>
+<h3>4. Assumption of risk</h3>
+<p>You understand that exercise and physical training carry inherent risks. These include high-volume and high-intensity programs, heavy barbell lifts, free weights, weight machines (including Smith machines and cable machines), bodyweight exercises and cardio equipment. The risks include strains, sprains, muscle and tendon tears, joint, back and spinal injuries, fractures, cardiovascular events such as heart attack or stroke, permanent disability and death.</p>
+<p>These risks can come from many sources. They include your health, fatigue, overtraining, improper form or technique, unsuitable weights or volume, training without a spotter or safety equipment, equipment failure, and the place where you train. Some of these risks cannot be removed even with care.</p>
+<p>You are solely responsible for deciding whether to exercise and which exercises, weights, volume, intensity, rest and equipment to use. You are also responsible for using spotters, safety bars, collars and other precautions. <strong>You knowingly and voluntarily assume all of these risks, known and unknown.</strong> To the maximum extent permitted by law, you release the Developer from all claims arising out of them.</p>
+<h3>5. Your data and backups</h3>
+<p>The App stores your workout history and other information only on your own device, in your browser's storage. The Developer has no access to that data and cannot view, back up, restore or recover it. Your data can be permanently lost if you clear your browser data, uninstall the App, use private browsing or lose your device, or if your browser or operating system removes stored data. You are responsible for making and keeping your own backups using the App's export and backup features.</p>
+<p>Optional features, such as the family board, sharing and exporting, send information only when you turn them on or use them. You are responsible for what you choose to share and who you share it with. Anyone who has a family code can read and post to that family board.</p>
+<h3>6. Third-party services</h3>
+<p>The App relies on services that the Developer does not control. These include GitHub Pages, which hosts the App, the public relay ntfy.sh, which the optional family board uses, YouTube, which is linked for exercise form videos, and your device's browser and share features. Those services operate under their own terms and policies. The Developer is not responsible for their availability, content, security or practices.</p>
+<h3>7. Acceptable use</h3>
+<p>You agree not to use the App in violation of any law, and not to use the App's sharing or family board features to harass anyone or to share another person's information without their consent.</p>
+<h3>8. "As is" and no warranty</h3>
+<p>THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE", WITH ALL FAULTS AND WITHOUT WARRANTY OF ANY KIND. TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE DEVELOPER DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY. THIS INCLUDES ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT AND ACCURACY, AND ANY WARRANTIES ARISING FROM COURSE OF DEALING OR USAGE OF TRADE. THE DEVELOPER DOES NOT WARRANT THAT THE APP WILL BE ACCURATE, RELIABLE, SECURE, UNINTERRUPTED OR ERROR-FREE, THAT DEFECTS WILL BE CORRECTED, OR THAT ANY DATA WILL BE PRESERVED. YOU ARE SOLELY RESPONSIBLE FOR ANY INJURY, LOSS OR DAMAGE THAT RESULTS FROM YOUR USE OF THE APP, INCLUDING ANY LOSS OF DATA.</p>
+<h3>9. Limitation of liability</h3>
+<p>TO THE MAXIMUM EXTENT PERMITTED BY LAW, IN NO EVENT WILL THE DEVELOPER BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY OR PUNITIVE DAMAGES. IN NO EVENT WILL THE DEVELOPER BE LIABLE FOR ANY DAMAGES FOR PERSONAL INJURY, DEATH, LOSS OF DATA, LOSS OF PROFITS OR LOSS OF GOODWILL. THESE LIMITS APPLY TO ANY CLAIM ARISING OUT OF OR RELATED TO THE APP OR THESE TERMS, HOWEVER CAUSED AND UNDER ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, TORT (INCLUDING NEGLIGENCE), STRICT LIABILITY OR OTHERWISE. THEY APPLY EVEN IF THE DEVELOPER HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGES.</p>
+<p>BECAUSE THE APP IS PROVIDED FREE OF CHARGE, THE DEVELOPER'S TOTAL LIABILITY FOR ALL CLAIMS ARISING OUT OF OR RELATED TO THE APP OR THESE TERMS WILL NOT EXCEED ZERO U.S. DOLLARS (US $0.00).</p>
+<p>Some jurisdictions do not allow certain warranties to be excluded or certain liability to be limited. Where that is the case, the exclusions and limits above apply to the greatest extent the law allows. The Developer's liability in that case is limited to the smallest amount the law permits. Nothing in these Terms excludes or limits any liability that cannot be excluded or limited under applicable law.</p>
+<h3>10. Indemnification</h3>
+<p>You agree to defend, indemnify and hold harmless the Developer from and against any and all claims, damages, obligations, losses, liabilities, costs or debt, and expenses (including reasonable attorneys' fees). This applies to anything arising from or related to:</p>
+<ul><li>your use of, or inability to use, the App;</li><li>any exercise or physical activity you perform, whether or not it was recorded or suggested in the App;</li><li>your violation of these Terms;</li><li>your violation of any law or of any right of a third party;</li><li>any information you choose to share through the App.</li></ul>
+<h3>11. Changes to the App and these Terms</h3>
+<p>The Developer may change, suspend or discontinue the App, or any part of it, at any time without notice. The Developer may update these Terms from time to time and will change the effective date at the top when doing so. The App may ask you to accept updated Terms. If you keep using the App after updated Terms take effect, you accept them.</p>
+<h3>12. Ending your use</h3>
+<p>You may stop using the App at any time by deleting it and its stored data from your device. Sections 3, 4, 5 and 8 through 15 survive after you stop using the App.</p>
+<h3>13. Governing law and jurisdiction</h3>
+<p>These Terms, and any dispute arising out of or related to them or to the App, are governed by the laws of the State of Washington, United States, without regard to its conflict-of-law rules. Any legal action or proceeding arising out of or related to these Terms or the App must be brought exclusively in the state or federal courts located in King County, Washington. You consent to the personal jurisdiction of those courts and waive any objection to venue there.</p>
+<h3>14. Severability</h3>
+<p>If any provision of these Terms is found by a court of competent jurisdiction to be invalid, illegal or unenforceable, that provision will be limited or modified to the minimum extent necessary to make it enforceable. If that is not possible, it will be severed. The remaining provisions of these Terms will continue in full force and effect.</p>
+<h3>15. General</h3>
+<p>These Terms and the Privacy Policy are the entire agreement between you and the Developer about the App. If the Developer does not enforce a provision, that is not a waiver of it. You may not transfer your rights under these Terms. The Developer may transfer them. Section headings are for convenience only.</p>
+<h3>16. Contact</h3>
+<p>Questions about these Terms can be raised at <a href="https://github.com/eelhawn/pulsetrack/issues" target="_blank" rel="noopener noreferrer">https://github.com/eelhawn/pulsetrack/issues</a>.</p></template>
+  <template id="pt-legal-privacy"><h2>PulseTrack Privacy Policy</h2>
+<p><strong>Effective date: November 16, 2026</strong></p>
+<p>This policy explains how the PulseTrack web application published at <a href="https://eelhawn.github.io/pulsetrack" target="_blank" rel="noopener noreferrer">https://eelhawn.github.io/pulsetrack</a> (the "App") handles your information. "Developer", "we" and "us" mean the developer of PulseTrack.</p>
+<h3>In short</h3>
+<p><strong>The Developer collects no data about you.</strong> The App has no accounts, no sign-in, no analytics, no advertising, no tracking and no cookies. It has no server of its own. Nothing you enter in the App is ever sent to the Developer. The Developer cannot see what you log, when you train or how you use the App.</p>
+<h3>Where your data lives</h3>
+<p>Everything you enter is stored only on your own device, inside your browser. This includes workouts, sets, programs, body measurements, photos, notes, settings and backups. The App keeps this data in your browser's local storage and IndexedDB, and it keeps the App's own files in an offline cache so it works without a connection. This data stays on your device and is not uploaded anywhere. The Developer has no copy of it and cannot access, recover or delete it for you.</p>
+<h3>What leaves your device, and when</h3>
+<p>The App works offline. A few things can involve a network connection, and you should know about each one:</p>
+<ul><li><strong>Downloading and updating the App.</strong> The App is hosted on GitHub Pages. When your device downloads the App or checks for an update, GitHub receives the standard information any website receives, such as your IP address, browser type and the time of the request. GitHub's privacy statement governs that information. GitHub Pages does not give the Developer access to visitor logs.</li><li><strong>Family board (optional, off unless you turn it on).</strong> If you start or join a family board, the App sends small updates through ntfy.sh, a free public relay. An update holds the name you chose, your level, your streak, a summary of your last four weeks and your lift bests. Each update is encrypted on your device with a key made from your family code before it is sent. The relay sees only scrambled text, a mailbox name and your device's IP address, and it keeps messages for about 12 hours. Anyone who has your family code can read the updates. Choosing Leave stops it. The Developer does not run ntfy.sh and does not receive these messages.</li><li><strong>Sharing, exporting and backups.</strong> When you tap share, export or back up, the App gives the text or file to your device's share sheet or downloads it. Where it goes from there is your choice.</li><li><strong>Links to other sites.</strong> Buttons such as the form-video search open YouTube or other sites in your browser. Those sites have their own privacy policies.</li><li><strong>Your own add-ons.</strong> If you write custom styles (Mods) that load files from the internet, such as web fonts, your browser fetches them from the address you entered.</li></ul>
+<h3>Health information</h3>
+<p>Workout and body data can count as health information under laws such as Washington's My Health My Data Act. The Developer does not collect, receive, share or sell any of it. It stays on your device unless you choose to share it as described above.</p>
+<h3>Children</h3>
+<p>The App does not collect personal information from anyone, including children under 13. The App is not directed to children under 13, and the Terms of Service require users to be at least 13.</p>
+<h3>Deleting your data</h3>
+<p>You can delete everything the App has stored on your device at any time. To do so, clear this site's data in your browser settings or uninstall the App. Because the Developer never has a copy, nothing needs to be deleted anywhere else, except any family board update still waiting on the ntfy.sh relay, which it removes after about 12 hours.</p>
+<h3>Changes</h3>
+<p>If this policy changes, the effective date at the top will change and the App may ask you to accept the new version.</p>
+<h3>Contact</h3>
+<p>Questions about this policy can be raised at <a href="https://github.com/eelhawn/pulsetrack/issues" target="_blank" rel="noopener noreferrer">https://github.com/eelhawn/pulsetrack/issues</a>.</p></template>
+  <script>/* =====================================================================
+ * PulseTrack 2.109.0: terms and privacy.
+ *
+ *  - On the very first launch a full-screen sheet shows the Terms of Service and the Privacy Policy in one scrolling box. It cannot be
+ *    closed: Enter App stays disabled until the box "I have read and agree to the Terms of Service and Privacy Policy" is ticked.
+ *  - The text is TERMS.md and PRIVACY.md from the repo root, turned into HTML by tools/build.py (the md slots in the template), so the app
+ *    shows exactly what the repo shows. Nothing is fetched.
+ *  - Accepting saves { v, at } under localStorage "pt-terms". It is asked again only when TERMS_V below changes (bump it when either
+ *    document changes in a way people should agree to again) or when the site's data is cleared. If storage is blocked (some private
+ *    windows) the person still gets in for that visit.
+ *  - While it is open the rest of the page is inert, so taps, the keyboard and screen readers stay in the sheet.
+ *  - Settings > App > Terms and Privacy opens the same text to read again, with a Close button and the date it was accepted.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+
+  const TERMS_V = "2026-11-16", KEY = "pt-terms";
+
+  const saved = () => { try { const o = JSON.parse(localStorage.getItem(KEY) || "null"); return o && o.v === TERMS_V ? o : null; } catch (e) { return null; } };
+
+  const css = document.createElement("style");
+  css.id = "pt-legal-css";
+  css.textContent = `
+    #pt-legal { position: fixed; inset: 0; z-index: 2147483000; display: flex; align-items: center; justify-content: center;
+      background: rgb(0 0 0 / .8); padding: env(safe-area-inset-top, 0px) 0 0; }
+    #pt-legal .lg-card { display: flex; flex-direction: column; width: 100%; max-width: 32rem; height: 100%; max-height: 100%;
+      background: rgb(var(--z900)); color: rgb(var(--z100)); border: 1px solid rgb(var(--z800));
+      padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom, 0px)); gap: .75rem; }
+    @media (min-width: 640px) { #pt-legal { padding: 1.5rem; } #pt-legal .lg-card { height: auto; max-height: min(90vh, 52rem); border-radius: 1rem; } }
+    #pt-legal h2.lg-t { font-size: 1.125rem; font-weight: 800; margin: 0; }
+    #pt-legal .lg-sub { font-size: .8125rem; line-height: 1.45; color: rgb(var(--z300)); margin: 0; }
+    #pt-legal .lg-jump { display: flex; gap: .5rem; }
+    #pt-legal .lg-jump button { font-size: .75rem; font-weight: 700; padding: .375rem .75rem; border-radius: 999px;
+      background: rgb(var(--z800)); color: rgb(var(--z100)); }
+    #pt-legal .lg-box { flex: 1 1 auto; min-height: 9rem; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch;
+      background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); border-radius: .75rem; padding: .25rem 1rem 1rem;
+      font-size: .8125rem; line-height: 1.55; color: rgb(var(--z200)); overflow-wrap: anywhere; }
+    #pt-legal .lg-box:focus-visible { outline: 2px solid rgb(var(--a400)); outline-offset: 2px; }
+    #pt-legal .lg-box h2 { font-size: 1rem; font-weight: 800; color: rgb(var(--z100)); margin: 1.25rem 0 .25rem; }
+    #pt-legal .lg-box section + section { border-top: 1px solid rgb(var(--z800)); margin-top: 1.25rem; }
+    #pt-legal .lg-box h3 { font-size: .875rem; font-weight: 700; color: rgb(var(--z100)); margin: 1rem 0 .25rem; }
+    #pt-legal .lg-box p { margin: .5rem 0; }
+    #pt-legal .lg-box ul { margin: .5rem 0; padding-left: 1.125rem; list-style: disc; }
+    #pt-legal .lg-box li { margin: .375rem 0; }
+    #pt-legal .lg-box strong { color: rgb(var(--z100)); }
+    #pt-legal .lg-box a { color: rgb(var(--z100)); text-decoration: underline; }
+    #pt-legal .lg-agree { display: flex; gap: .75rem; align-items: flex-start; font-size: .875rem; line-height: 1.4; font-weight: 600;
+      padding: .75rem; border: 1px solid rgb(var(--z800)); border-radius: .75rem; cursor: pointer; }
+    #pt-legal .lg-agree input { width: 1.25rem; height: 1.25rem; flex: none; margin-top: .05rem; accent-color: rgb(var(--a600)); }
+    #pt-legal .lg-go { width: 100%; padding: .875rem; border-radius: .75rem; font-size: .9375rem; font-weight: 800;
+      background: rgb(var(--a600)); color: #fff; }
+    #pt-legal .lg-go:disabled { background: rgb(var(--z800)); color: rgb(var(--z400)); cursor: not-allowed; }
+    #pt-legal .lg-go:focus-visible, #pt-legal .lg-agree:focus-within { outline: 2px solid rgb(var(--a400)); outline-offset: 2px; }
+    #pt-legal .lg-when { font-size: .75rem; color: rgb(var(--z400)); margin: 0; }
+  `;
+  document.head.appendChild(css);
+
+  const body = id => { const t = document.getElementById(id); return t ? t.innerHTML : ""; };
+  let open = null;
+
+  function show(readOnly) {
+    if (open) return open;
+    const prior = document.activeElement;
+    const wrap = document.createElement("div");
+    wrap.id = "pt-legal";
+    wrap.setAttribute("role", "dialog");
+    wrap.setAttribute("aria-modal", "true");
+    wrap.setAttribute("aria-labelledby", "pt-legal-t");
+    const ok = saved();
+    wrap.innerHTML = `<div class="lg-card">
+        <h2 class="lg-t" id="pt-legal-t">${readOnly ? "Terms and Privacy" : "Before you start"}</h2>
+        ${readOnly ? "" : `<p class="lg-sub">PulseTrack tracks your training. It does not give medical advice, and everything you log stays on this device. Please read the terms below.</p>`}
+        <div class="lg-jump"><button type="button" data-j="lg-terms">Terms of Service</button><button type="button" data-j="lg-privacy">Privacy Policy</button></div>
+        <div class="lg-box" id="pt-legal-box" tabindex="0" role="document" aria-label="Terms of Service and Privacy Policy">
+          <section id="lg-terms">${body("pt-legal-terms")}</section>
+          <section id="lg-privacy">${body("pt-legal-privacy")}</section>
+        </div>
+        ${readOnly
+          ? `${ok && ok.at ? `<p class="lg-when">You agreed on ${new Date(ok.at).toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" })}.</p>` : ""}
+             <button type="button" class="lg-go" id="pt-legal-go">Close</button>`
+          : `<label class="lg-agree"><input type="checkbox" id="pt-legal-ok"><span>I have read and agree to the Terms of Service and Privacy Policy</span></label>
+             <button type="button" class="lg-go" id="pt-legal-go" disabled>Enter App</button>`}
+      </div>`;
+
+    // everything else on the page is out of reach while this is open
+    const others = [...document.body.children].filter(e => e !== wrap && e.tagName !== "SCRIPT" && e.tagName !== "STYLE" && e.tagName !== "TEMPLATE" && !e.inert);
+    others.forEach(e => { e.inert = true; });
+    const lockY = document.documentElement.style.overflow;
+    document.documentElement.style.overflow = "hidden";
+    document.body.appendChild(wrap);
+
+    const box = wrap.querySelector("#pt-legal-box"), go = wrap.querySelector("#pt-legal-go"), tick = wrap.querySelector("#pt-legal-ok");
+    wrap.querySelectorAll("[data-j]").forEach(b => b.addEventListener("click", () => {
+      const s = wrap.querySelector("#" + b.dataset.j);
+      box.scrollTop = s.offsetTop - box.offsetTop;
+    }));
+    if (tick) tick.addEventListener("change", () => { go.disabled = !tick.checked; });
+
+    // keep Tab inside the sheet; Escape does nothing on the first launch
+    wrap.addEventListener("keydown", e => {
+      if (e.key === "Escape") { e.preventDefault(); e.stopPropagation(); if (readOnly) close(); return; }
+      if (e.key !== "Tab") return;
+      const f = [...wrap.querySelectorAll("button, input, [tabindex='0']")].filter(x => !x.disabled);
+      if (!f.length) return;
+      const i = f.indexOf(document.activeElement);
+      if (e.shiftKey && i <= 0) { e.preventDefault(); f[f.length - 1].focus(); }
+      else if (!e.shiftKey && i === f.length - 1) { e.preventDefault(); f[0].focus(); }
+    });
+
+    function close() {
+      others.forEach(e => { e.inert = false; });
+      document.documentElement.style.overflow = lockY;
+      wrap.remove();
+      open = null;
+      if (prior && prior.focus && document.contains(prior)) prior.focus();
+    }
+
+    go.addEventListener("click", () => {
+      if (!readOnly) {
+        if (!tick.checked) return;
+        try { localStorage.setItem(KEY, JSON.stringify({ v: TERMS_V, at: new Date().toISOString() })); } catch (e) { /* blocked storage: let them in this visit */ }
+      }
+      close();
+    });
+
+    setTimeout(() => box.focus({ preventScroll: true }), 0);
+    open = wrap;
+    return wrap;
+  }
+
+  PT.legal = { show, accepted: () => !!saved(), version: TERMS_V, key: KEY };
+
+  const btn = document.getElementById("btn-legal");
+  if (btn) btn.addEventListener("click", () => show(true));
+
+  if (!saved()) show(false);
 })();
 </script>
   <script>

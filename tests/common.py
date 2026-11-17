@@ -3,10 +3,14 @@
 Run any test with:  python3 tests/<name>.py      or all of them:  python3 tests/run_all.py
 Each test serves the repo folder on a free local port and drives the real page in Chromium.
 """
-import contextlib, functools, http.server, os, socketserver, sys, threading
+import contextlib, functools, http.server, os, re, socketserver, sys, threading
 from playwright.sync_api import sync_playwright
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+# 2.109.0: the first launch asks to agree to the Terms. Tests start as someone who already agreed, unless page(terms=False).
+TERMS_V = re.search(r'TERMS_V = "([^"]+)"', open(os.path.join(ROOT, 'src', 'js', '127-v2.109.0-terms-and-privacy.js'), encoding='utf-8').read()).group(1)
+TERMS_OK = "try { if (!localStorage.getItem('pt-terms')) localStorage.setItem('pt-terms', JSON.stringify({ v: '%s', at: '2026-01-01T00:00:00.000Z' })); } catch (e) {}" % TERMS_V
 
 
 class _Quiet(http.server.SimpleHTTPRequestHandler):
@@ -28,12 +32,14 @@ def server():
 
 
 @contextlib.contextmanager
-def page(w=390, h=844, accept_downloads=True):
+def page(w=390, h=844, accept_downloads=True, terms=True):
     """A phone-size page with errors collected in p.errors. Dialogs: PT.confirm answers are scripted via p.answers."""
     with server() as url, sync_playwright() as pw:
         b = pw.chromium.launch()
         ctx = b.new_context(viewport={'width': w, 'height': h}, accept_downloads=accept_downloads, device_scale_factor=1)
         ctx.add_init_script("try { navigator.canShare = undefined; navigator.share = undefined; } catch (e) {}")
+        if terms:
+            ctx.add_init_script(TERMS_OK)
         p = ctx.new_page()
         p.errors = []
         p.on('pageerror', lambda e: p.errors.append('pageerror: %s' % e))

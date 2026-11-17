@@ -7,6 +7,8 @@
 src/index.template.html holds the page. Every {{file:PATH}} in it is replaced by the
 contents of src/PATH, so the <script>/<style> tags stay visible in the template and the
 order of the files is the order in the template. {{VERSION}} comes from src/VERSION.
+Every {{md:PATH}} is replaced by the Markdown file ROOT/PATH turned into HTML (TERMS.md and PRIVACY.md, so the
+legal text lives in one place and the app shows exactly what the repo shows).
 The logo lives in src/logo/ (logo.svg, plus png192.b64 and png512.b64 made by tools/make_logo.py). {{logo_svg}} and {{logo_png192}} in the
 template become data addresses of it, and the icons in manifest.json are set from it too, so the logo is in one place.
 """
@@ -37,6 +39,31 @@ def manifest():
     return json.dumps(data, indent=2) + '\n'
 
 
+def md_html(text):
+    """The small Markdown subset the legal pages use: # headings, paragraphs, - lists, **bold**, bare https links."""
+    import html as H
+    def inline(t):
+        t = H.escape(t, quote=False)
+        t = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', t)
+        return re.sub(r'(https://[^\s<]+[^\s<.,;:)])', r'<a href="\1" target="_blank" rel="noopener noreferrer">\1</a>', t)
+    out, para, items = [], [], []
+    def flush():
+        if para: out.append('<p>%s</p>' % inline(' '.join(para))); para.clear()
+        if items: out.append('<ul>%s</ul>' % ''.join('<li>%s</li>' % inline(i) for i in items)); items.clear()
+    for line in text.splitlines():
+        s = line.strip()
+        m = re.match(r'(#{1,3}) (.+)', s)
+        if not s: flush()
+        elif m: flush(); n = len(m.group(1)) + 1; out.append('<h%d>%s</h%d>' % (n, inline(m.group(2)), n))
+        elif s.startswith('- '):
+            if para: flush()
+            items.append(s[2:])
+        elif items: items[-1] += ' ' + s
+        else: para.append(s)
+    flush()
+    return '\n'.join(out)
+
+
 def build():
     version = read(os.path.join(SRC, 'VERSION')).strip()
     tpl = read(os.path.join(SRC, 'index.template.html'))
@@ -50,7 +77,10 @@ def build():
             sys.exit('error: %s contains a closing script tag' % rel)
         return body.replace('{{VERSION}}', version)
 
-    html = re.sub(r'\{\{file:([^}]+)\}\}', put, tpl).replace('{{VERSION}}', version)
+    # md slots first, from the template itself, so text inside the scripts can never be mistaken for one
+    tpl = re.sub(r'\{\{md:([^}]+)\}\}', lambda m: md_html(read(os.path.join(ROOT, m.group(1)))), tpl)
+    html = re.sub(r'\{\{file:([^}]+)\}\}', put, tpl)
+    html = html.replace('{{VERSION}}', version)
     html = html.replace('{{logo_svg}}', logo_svg()).replace('{{logo_png192}}', logo_png(192))
     # every file under src/js and src/css must be used exactly once
     for d in ('js', 'css'):

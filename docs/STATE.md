@@ -1,6 +1,7 @@
 # Where we left off (2026-11-13)
 
 ## Released
+- 2.109.0 Terms of Service + Privacy Policy (TERMS.md, PRIVACY.md at repo root, built into index.html via {{md:PATH}} slots in build.py; module 127 shows an un-skippable first-launch sheet; acceptance in localStorage `pt-terms` = {v: TERMS_V, at}). Bump TERMS_V in module 127 when the documents change in a way people must re-accept. Tests pre-accept via common.TERMS_OK; `page(terms=False)` for first launch. Licence stays AGPL (owner asked for MIT; not possible while openGym's AGPL text is bundled).
 - 2.108.0 plainer design (module 126 + text edits): no glass, no left stripes, no eyebrow badge, Home quick actions as one bar, normal-case labels, contrast >= 4.5 (light z500 now 100 100 110), no em dashes, no heading emoji, no purple/teal gradients. `tests/plain.py` + `tests/fixtures/design_audit.js` guard it; keep new UI passing that audit.
 - 2.107.0 week strip dots centred again (`.pt-dot` is used by 019, 046, 009 and css/07: scope new dot styles to their container).
 - 2.106.0 speed-ups (memo of name-only exercise answers, cached accent colour, month names), openGym library loads when idle, removed no-op modules 096/112/113. Perf scripts used: a 4x CPU-throttled Playwright run with 300 seeded workouts.

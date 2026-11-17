@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone (the optional live family board, off until you start or join one, sends only a small scrambled update).
 
-*Version 2.108.0*
+*Version 2.109.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -786,7 +786,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.108.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 2.109.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole (the openGym library, `opengym-exercises.js`, is saved too but never holds an update back), so you never end up with half of an update.
 
@@ -829,10 +829,11 @@ Upload these to your GitHub repo, all in the same folder:
 | `exercises.js` | The 644 exercises, each with its own form tips and the muscle it trains |
 | `opengym-exercises.js` | 2,591 more exercises from the openGym library, filed in PulseTrack's muscle groups (text only, about 1.4 MB, new in 2.96.0). Built by `tools/opengym_import.py`; don't edit by hand |
 | `LICENSE`, `NOTICE.md` | The licence (GNU AGPL v3.0 since 2.96.0) and the credits for the openGym exercises |
+| `TERMS.md`, `PRIVACY.md` | The Terms of Service and the Privacy Policy (new in 2.109.0). `tools/build.py` puts them into the app, so edit them here only |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen. Its icons are the logo (written by `tools/build.py`) |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 123 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 124 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0), `make_fonts.py` (2.71.0) and `make_logo.py` (2.86.0), `opengym_import.py` (2.96.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -847,7 +848,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `battle.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `importapps.py`, `smithback.py`, `corecardio.py`, `cardioapart.py`, `stairs.py`, `corerep.py`, `frames.py`, `speed.py`, `weekdots.py`, `plain.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `battle.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `importapps.py`, `smithback.py`, `corecardio.py`, `cardioapart.py`, `stairs.py`, `corerep.py`, `frames.py`, `speed.py`, `weekdots.py`, `plain.py`, `legal.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -871,7 +872,17 @@ Keep every `id` unique. New programs reach phones on the next update.
 
 PulseTrack is free software under the **GNU Affero General Public License v3.0** (see [`LICENSE`](LICENSE)) since 2.96.0. You may use, change and share it; if you share a changed version, or run one for others over a network, share its source under the same licence. The openGym exercise library and its credits are described in [`NOTICE.md`](NOTICE.md).
 
+Using the app published at https://eelhawn.github.io/pulsetrack is covered by the [Terms of Service](TERMS.md) and the [Privacy Policy](PRIVACY.md). In short: it is a tracking tool, not medical or training advice, you train at your own risk, and nothing you log is ever sent to the developer. The Terms do not limit anything the AGPL lets you do with the source code.
+
 ## Version history
+
+**2.109.0**
+- **Terms of Service and Privacy Policy.** The first time the app opens it shows both in one scrolling box. **Enter App** stays greyed out until you tick "I have read and agree to the Terms of Service and Privacy Policy". The box can't be closed or skipped: Escape and taps outside do nothing, and the app behind it can't be reached. Once you agree it is remembered on the phone and not shown again. It only comes back if the terms change or the site's data is cleared.
+  - The Terms cover: not medical or training advice, assumption of risk for training (including heavy lifting and high-volume programs), indemnification, no warranty ("as is"), limitation of liability ($0), Washington law with King County courts, severability, and a minimum age of 13 (under 18 needs a parent or guardian).
+  - The Privacy Policy says the developer collects nothing and everything stays in the browser on your phone. It also lists the few things that do touch the network: GitHub Pages serving the app, the optional family board's encrypted messages through ntfy.sh, sharing, and links out to YouTube.
+  - To read them again: **Settings > App > Terms and Privacy**. It also shows the date you agreed.
+  - The text lives in `TERMS.md` and `PRIVACY.md`; `tools/build.py` turns them into HTML inside the app (new `{{md:...}}` slots), so the app and the repo always say the same thing.
+- New test: `tests/legal.py` (81 checks). The other tests start as someone who already agreed (`page(terms=False)` to see the first launch).
 
 **2.108.0**
 - **A plainer, clearer design.** The default look drops the usual "generated app" habits:

@@ -7,7 +7,7 @@ A request that needs a CORS preflight (extra headers, JSON body type) is refused
 import contextlib, json, os, random, string, sys, time
 from urllib.parse import urlparse, parse_qs
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import Checks, server
+from common import Checks, server, TERMS_OK
 from playwright.sync_api import sync_playwright
 
 c = Checks('live')
@@ -62,6 +62,7 @@ def phones(n, relay, w=390, h=844):
         for _ in range(n):
             ctx = b.new_context(viewport={'width': w, 'height': h}, device_scale_factor=1)
             ctx.add_init_script("try { navigator.canShare = undefined; navigator.share = undefined; } catch (e) {}")
+            ctx.add_init_script(TERMS_OK)
             ctx.route('https://ntfy.sh/**', relay.handle)
             p = ctx.new_page()
             p.errors = []
