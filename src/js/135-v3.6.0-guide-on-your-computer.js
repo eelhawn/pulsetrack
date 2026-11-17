@@ -78,20 +78,27 @@
       actions: has ? base.actions || [] : [], also: has ? base.also : null, score: 1, by: `Written by ${model} on your computer (Ollama), from the app's facts.` };
   }
   PT.guide.backends.ollama = { label: "Ollama on your computer", ask };
-  PT.guideOllama = { call, ask, facts, cfg };
+  PT.guideOllama = { call, ask, facts, cfg, SYSTEM, clean };
 
   /* ================================================================ Settings > Guide */
   const save = a => { try { WorkoutStorage.saveSettings(a.settings); } catch (e) { } };
+  // 3.7.0: other modules add choices here. opts: [id, label]; notes[id]: the line under the buttons; panels[id](a): the box below;
+  // gates[id](): a promise of true/false asked before switching to that choice (the cloud option's consent sheet).
+  const BOX = { opts: [["search", "On this phone"], ["ollama", "My computer (Ollama)"]], notes: {
+      search: "Answers are worked out on this phone from the app's own data. Nothing is sent anywhere.",
+      ollama: "Your question and the facts the guide found go to your own computer, which writes the answer. If it doesn't answer, the phone does." },
+    panels: {}, gates: {}, draw: () => draw(), save };
+  PT.guideBox = BOX;
   function boxHtml(a) {
-    const on = a.settings.guideBackend === "ollama", c = cfg();
+    const cur = BOX.opts.some(o => o[0] === a.settings.guideBackend) ? a.settings.guideBackend : "search", on = cur === "ollama", c = cfg();
     return `<div class="p-3.5 space-y-2 bg-zinc-950 border border-zinc-800 rounded-xl">
         <span class="text-xs font-bold text-white block">Where answers come from</span>
         <div class="flex flex-wrap gap-1.5" role="group" aria-label="Where the guide's answers come from">
-          <button type="button" class="pt-opt tap-active" data-gb="search" aria-pressed="${!on}">On this phone</button>
-          <button type="button" class="pt-opt tap-active" data-gb="ollama" aria-pressed="${on}">My computer (Ollama)</button>
+          ${BOX.opts.map(([id, label]) => `<button type="button" class="pt-opt tap-active" data-gb="${id}" aria-pressed="${cur === id}">${esc(label)}</button>`).join("")}
         </div>
-        <span class="text-[11px] text-zinc-400 block">${on ? "Your question and the facts the guide found go to your own computer, which writes the answer. If it doesn't answer, the phone does." : "Answers are worked out on this phone from the app's own data. Nothing is sent anywhere."}</span>
+        <span class="text-[11px] text-zinc-400 block">${esc(BOX.notes[cur] || "")}</span>
       </div>
+      ${BOX.panels[cur] ? BOX.panels[cur](a) : ""}
       ${on ? `<div class="p-3.5 space-y-2.5 bg-zinc-950 border border-zinc-800 rounded-xl" id="pt-gol">
         <label class="pt-gol-l">Address of Ollama<input id="pt-gol-url" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="http://192.168.1.20:11434" value="${esc(c.url)}"></label>
         <label class="pt-gol-l">Model<input id="pt-gol-model" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="for example llama3.2" value="${esc(c.model)}" list="pt-gol-models"></label>
@@ -127,7 +134,11 @@
     const t = e.target; if (!t || !t.closest) return;
     const a = A(); if (!a) return;
     const gb = t.closest("#pt-guide-box [data-gb]");
-    if (gb) { keep(a); a.settings.guideBackend = gb.dataset.gb; save(a); draw(); return; }
+    if (gb) {
+      keep(a); const want = gb.dataset.gb, gate = BOX.gates[want];
+      if (gate && a.settings.guideBackend !== want && !(await gate())) { draw(); return; }
+      a.settings.guideBackend = want; save(a); draw(); return;
+    }
     const g = t.closest("#pt-guide-box [data-gol]"); if (!g) return;
     keep(a);
     const url = cfg().url;

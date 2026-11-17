@@ -40,28 +40,54 @@ def manifest():
 
 
 def md_html(text):
-    """The small Markdown subset the legal pages use: # headings, paragraphs, - lists, **bold**, bare https links."""
+    """The small Markdown subset the legal pages use: # headings, paragraphs, - lists, **bold**, bare https links.
+    A list item can hold more: lines indented by 2 spaces under it are its own paragraphs (after a blank line) and its own - list
+    (3.7.0, for the cloud guide section). An item with only one paragraph renders as before, without a <p>."""
     import html as H
     def inline(t):
         t = H.escape(t, quote=False)
         t = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', t)
         return re.sub(r'(https://[^\s<]+[^\s<.,;:)])', r'<a href="\1" target="_blank" rel="noopener noreferrer">\1</a>', t)
-    out, para, items = [], [], []
-    def flush():
-        if para: out.append('<p>%s</p>' % inline(' '.join(para))); para.clear()
-        if items: out.append('<ul>%s</ul>' % ''.join('<li>%s</li>' % inline(i) for i in items)); items.clear()
-    for line in text.splitlines():
-        s = line.strip()
-        m = re.match(r'(#{1,3}) (.+)', s)
-        if not s: flush()
-        elif m: flush(); n = len(m.group(1)) + 1; out.append('<h%d>%s</h%d>' % (n, inline(m.group(2)), n))
-        elif s.startswith('- '):
-            if para: flush()
-            items.append(s[2:])
-        elif items: items[-1] += ' ' + s
-        else: para.append(s)
-    flush()
-    return '\n'.join(out)
+    ind = lambda l: len(l) - len(l.lstrip(' '))
+    head = lambda s: re.match(r'(#{1,3}) (.+)', s)
+
+    def item(body):
+        lines = [body[0]] + [l[2:] if ind(l) >= 2 else l for l in body[1:]]
+        if all(l.strip() for l in lines) and not any(l.strip().startswith('- ') or ind(l) for l in lines[1:]):
+            return inline(' '.join(l.strip() for l in lines))
+        return ''.join(blocks(lines))
+
+    def blocks(ls):
+        out, i, n = [], 0, len(ls)
+        while i < n:
+            s = ls[i].strip()
+            if not s: i += 1; continue
+            m = head(s)
+            if m:
+                k = len(m.group(1)) + 1; out.append('<h%d>%s</h%d>' % (k, inline(m.group(2)), k)); i += 1; continue
+            if s.startswith('- '):
+                items = []
+                while i < n and ls[i].strip().startswith('- ') and ind(ls[i]) == 0:
+                    body = [ls[i].strip()[2:]]; i += 1
+                    while i < n:
+                        l = ls[i]
+                        if not l.strip():
+                            j = i
+                            while j < n and not ls[j].strip(): j += 1
+                            if j < n and ind(ls[j]) >= 2: body.extend(ls[i:j]); i = j; continue
+                            break
+                        if ind(l) >= 2: body.append(l); i += 1; continue
+                        if l.strip().startswith('- ') or head(l.strip()): break
+                        body.append('  ' + l.strip()); i += 1      # a wrapped line of the same item
+                    items.append(item(body))
+                out.append('<ul>%s</ul>' % ''.join('<li>%s</li>' % x for x in items)); continue
+            para = []
+            while i < n and ls[i].strip() and not ls[i].strip().startswith('- ') and not head(ls[i].strip()):
+                para.append(ls[i].strip()); i += 1
+            out.append('<p>%s</p>' % inline(' '.join(para)))
+        return out
+
+    return '\n'.join(blocks(text.splitlines()))
 
 
 def build():
