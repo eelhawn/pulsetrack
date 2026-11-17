@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone (the optional live family board, off until you start or join one, sends only a small scrambled update).
 
-*Version 3.3.0*
+*Version 3.4.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -786,7 +786,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 3.3.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 3.4.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole (the openGym library, `opengym-exercises.js`, is saved too but never holds an update back), so you never end up with half of an update.
 
@@ -829,12 +829,13 @@ Upload these to your GitHub repo, all in the same folder:
 | `exercises.js` | The 644 exercises, each with its own form tips and the muscle it trains |
 | `opengym-exercises.js` | 2,591 more exercises from the openGym library, filed in PulseTrack's muscle groups (text only, about 1.4 MB, new in 2.96.0). Built by `tools/opengym_import.py`; don't edit by hand |
 | `LICENSE`, `NOTICE.md` | The licence (GNU AGPL v3.0 since 2.96.0) and the credits for the openGym exercises |
+| `exercise-guides.js` | The exercise guides (new in 3.4.0): for each exercise, by its exact name, the equipment and the muscles it works, where those values come from, and (from 3.5.0) its steps. Check it with `python3 tools/validate_guides.py`. `exercises.js` and `opengym-exercises.js` are never changed for it |
 | `TERMS.md`, `PRIVACY.md` | The Terms of Service and the Privacy Policy (new in 2.109.0). `tools/build.py` puts them into the app, so edit them here only |
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen. Its icons are the logo (written by `tools/build.py`) |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 129 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
-| `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0), `make_fonts.py` (2.71.0) and `make_logo.py` (2.86.0), `opengym_import.py` (2.96.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 130 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
+| `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0), `make_fonts.py` (2.71.0) and `make_logo.py` (2.86.0), `opengym_import.py` (2.96.0), `guides_data.py` and `validate_guides.py` (3.4.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
 **Update steps:** upload the changed files on GitHub → open the app online → close and reopen.
@@ -848,7 +849,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `fill.py`, `backup.py`, `taken.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `importapps.py`, `smithback.py`, `corecardio.py`, `cardioapart.py`, `stairs.py`, `corerep.py`, `speed.py`, `weekdots.py`, `plain.py`, `legal.py`, `proglist.py`, `histedit.py`, `fillmode.py`, `morethemes.py`, `norewards.py`, `guide.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `fill.py`, `backup.py`, `taken.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `importapps.py`, `smithback.py`, `corecardio.py`, `cardioapart.py`, `stairs.py`, `corerep.py`, `speed.py`, `weekdots.py`, `plain.py`, `legal.py`, `proglist.py`, `histedit.py`, `fillmode.py`, `morethemes.py`, `norewards.py`, `guide.py`, `muscles.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -875,6 +876,18 @@ PulseTrack is free software under the **GNU Affero General Public License v3.0**
 Using the app published at https://eelhawn.github.io/pulsetrack is covered by the [Terms of Service](TERMS.md) and the [Privacy Policy](PRIVACY.md). In short: it is a tracking tool, not medical or training advice, you train at your own risk, and nothing you log is ever sent to the developer. The Terms do not limit anything the AGPL lets you do with the source code.
 
 ## Version history
+
+**3.4.0**
+- **Muscles worked, on a body figure.** An exercise's sheet now has **Muscles worked**. It shows the front and back figure with that exercise's muscles in your theme's colour: strong for the main (primary) muscles, lighter for the helping (secondary) ones, and neutral for muscles it doesn't work, with a legend.
+  - Below the figure: the **equipment** ("Barbell, flat bench, rack or safety arms · lying on a flat bench"; for Push-Ups, "Bodyweight, no equipment needed"), the muscles by name, and where the values come from. Tap a muscle to see its name and its share of the work.
+  - **Sources:** each value comes from the EMG studies listed under Sources, or is marked **est.** (estimate) when those studies didn't measure that muscle. The 0 to 100 numbers scale the studies' relative results; they aren't measured percentages. They're approximations for a typical lifter.
+  - **"I've checked these muscles"** marks them as checked. That's kept on your phone, on top of the built-in data, so an app update never changes it.
+  - So far there are 6 exercises: Bench Press, Squat, Romanian Deadlift (RDL), Lat Pulldown, Seated Cable Row and Push-Ups. Other exercises say "Not added yet" with their main muscle. (openGym's "Push-Up" is the same exercise; the app already shows it as Push-Ups.)
+- **The body figure is now 26 muscles instead of 13 groups:** neck, traps, front, side and rear delts, upper chest, chest, serratus, biceps, brachialis, triceps, forearm flexors and extensors, abs, obliques, lats, mid back, lower back, glutes, glute medius, hip flexors, adductors, quads, hamstrings, calves and shins.
+- **The sets-per-muscle map (Progress > Muscles) changed a little.** It's the same figure, so tapping a shape now names the muscle, e.g. "Front delts (counted in Shoulders) · 6 sets this week". It still counts and colours your sets in the same 13 groups, so its colours and your weekly targets are unchanged.
+- **New file `exercise-guides.js`**, keyed by exact exercise name. It's saved for offline use like the openGym library: `sw.js` lists it and accepts it even though it's small (its 20 KB guard is for every other script).
+- **New tool `python3 tools/validate_guides.py`.** It checks every built-in exercise for a guide, steps, equipment, a primary muscle, valid muscle ids, intensities from 0 to 100, pictures that exist with their licence and author, and which values are estimates. It prints a coverage report. Today the files have 3,235 exercises and the app shows 3,136 of them (99 openGym entries are another spelling of a PulseTrack exercise and show under its name). 6 have a guide.
+- New test: `tests/muscles.py` (95 checks, including that the colours stand out in all 408 themes and that the guides load offline).
 
 **3.3.0**
 - **The guide: ask a question in Search.** The Search box (Home, or the side menu) now answers questions as well as finding things. The side menu also has **Guide**, which opens the same box with example questions. Answers come from the app's own data, worked out on the phone with no internet and no AI model:

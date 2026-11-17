@@ -1,12 +1,12 @@
-// Bump this number every time you change index.html, exercises.js, opengym-exercises.js or programs.js
-const CACHE = 'pulsetrack-offline-v157';
+// Bump this number every time you change index.html, exercises.js, opengym-exercises.js, exercise-guides.js or programs.js
+const CACHE = 'pulsetrack-offline-v158';
 // Web fonts a Mod imports (fonts.googleapis.com / fonts.gstatic.com) are kept here the first time they load, so they work offline afterwards
 const FONTS = 'pulsetrack-fonts-v1';
 // These three are the whole app (styling is built into index.html). All three must save or the install is refused and the copy you already have
 // stays in use: a half-saved app is worse than the old one. Only files that exist: if any one of them is missing nothing is saved for offline.
 const CORE = ['./', './index.html', './exercises.js', './programs.js'];
 // Nice to have, never blocks the install
-const EXTRA = ['./manifest.json', './opengym-exercises.js'];   // 2.96.0: the openGym exercise library (3 MB); the app works without it
+const EXTRA = ['./manifest.json', './opengym-exercises.js', './exercise-guides.js'];   // 2.96.0: the openGym exercise library (3 MB); 3.4.0: the exercise guides. The app works without either
 // A weak or dead connection can leave a request hanging for a minute or more without ever failing, which is not the same as being offline.
 // After this long without an answer the saved copy is opened instead (the late answer still refreshes the saved copy).
 const WAIT = 4000;
@@ -20,7 +20,7 @@ function sane(res, reqUrl, isPage) {
     const type = (res.headers.get('content-type') || '').toLowerCase();
     const len = parseInt(res.headers.get('content-length') || '0', 10) || 0;
     const path = new URL(reqUrl).pathname;
-    if (/\.js$/.test(path)) return /javascript|ecmascript/.test(type) && (!len || len > 20000);
+    if (/\.js$/.test(path)) return /javascript|ecmascript/.test(type) && (!len || len > 20000 || /\/exercise-guides\.js$/.test(path));   // 3.4.0: the guides file may be small
     if (/\.json$/.test(path)) return /json/.test(type);
     if (isPage || /\.html?$/.test(path) || /\/$/.test(path)) return /html/.test(type) && (!len || len > 20000);
     return true;
