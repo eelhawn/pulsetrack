@@ -5,6 +5,8 @@
  * under every tab. Now there are six tabs (Overview, Muscles, Strength, History, Rewards, Social) and
  * every section lives under the tab it belongs to, in labelled groups. Section rows get an icon tile
  * and a one-line description. The cards themselves are unchanged; they are only moved.
+ * 3.2.0: the Rewards tab is gone (level, XP, coins, chests, seasons, quests, challenges, check-in, shop, own prizes) and so is the
+ * boss fight and the group rewards card in Social. Badges keep their own tab. DROP lists what is taken off the page.
  * ===================================================================== */
 (function () {
   "use strict";
@@ -18,10 +20,10 @@
     muscles: '<circle cx="12" cy="5" r="2.5"/><path d="M12 8v7M6.5 10.5 12 8l5.5 2.5M9 21l3-6 3 6"/>',
     strength: '<path d="M6 7v10M18 7v10M3 9.5v5M21 9.5v5M6 12h12"/>',
     history: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>',
-    rewards: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',
+    badges: '<circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5 7 21l5-2.5 5 2.5-1.5-7.5"/>',
     social: '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.3"/><path d="M17 14c2.8 0 5 2 5 5"/>'
   };
-  const TABS = [["overview", "Overview"], ["muscles", "Muscles"], ["strength", "Strength"], ["history", "History"], ["rewards", "Rewards"], ["social", "Social"]];
+  const TABS = [["overview", "Overview"], ["muscles", "Muscles"], ["strength", "Strength"], ["history", "History"], ["badges", "Badges"], ["social", "Social"]];
 
   /* What goes where. Each item is a key that find() knows how to locate. A null label means no heading. */
   const LAYOUT = {
@@ -29,9 +31,10 @@
     muscles: [[null, ["muscle", "balance", "pmap"]]],
     strength: [[null, ["big3", "next", "lvls"]], ["Find your gaps", ["weak"]], ["Ranks and goals", ["rank", "goals", "attempt"]]],
     history: [["Recaps", ["recap", "report", "month", "year"]], ["Over time", ["heat", "prs"]]],
-    rewards: [[null, ["hub", "loot"]], ["Level and season", ["lvl", "season"]], ["Challenges", ["qst", "chal", "chk"]], ["Collection", ["badges", "shop", "wish"]]],
-    social: [["Friends", ["buddy", "wall"]], ["Group", ["boss", "grprew", "famrecap", "fam"]]]
+    badges: [[null, ["badges"]]],
+    social: [["Friends", ["buddy", "wall"]], ["Group", ["famrecap", "fam"]]]
   };
+  const DROP = ["hub", "loot", "lvl", "season", "qst", "chal", "chk", "shop", "wish", "boss", "grprew"];   // 3.2.0: rewards and the boss fight are gone
   const ID = { loot: "pt-pg-loot", grprew: "pt-pg-grprew", hub: "pt-pg-hub", wish: "pt-pg-wish", wk: "pt-pg-wk", report: "pt-pg-report", month: "pt-pg-month", year: "pt-pg-recap", heat: "pt-pg-heat", prs: "pt-pg-prs", pmap: "pt-pg-pmap", rank: "pt-pg-rank", goals: "pt-pg-goals", lvl: "pt-pg-lvl", season: "pt-pg-season", qst: "pt-pg-qst", chal: "pt-pg-chal", chk: "pt-pg-chk", badges: "pt-pg-badges", shop: "pt-pg-shop", buddy: "pt-pg-buddy", boss: "pt-pg-boss", wall: "pt-pg-wall", fam: "pt-pg-fam", famrecap: "pt-pg-famrecap", muscle: "pt-muscle-card", next: "pt-next-card", weak: "pt-weak-card", deload: "pt-dlcheck-card", attempt: "pt-attempt-card", balance: "pt-balance-card", big3: "strength-card", lvls: "pt-lvls-card", recap: "recap-card" };
   const SUB = {
     lvl: "XP, level and profile frames", wk: "Your goal and your streak", qst: "New quests every week", rank: "Where your big lifts rank", recap: "Your year in numbers",
@@ -83,6 +86,7 @@
     // find everything before anything moves
     const found = {}, used = new Set();
     Object.values(LAYOUT).forEach(gs => gs.forEach(([, keys]) => keys.forEach(k => { const e = find(root, k); if (e) { found[k] = e; used.add(e); } })));
+    DROP.forEach(k => { const e = find(root, k); if (e) e.remove(); });
     // the original three panels
     const panels = {}, leftover = [];
     TABS.forEach(([k]) => {
@@ -111,12 +115,13 @@
     });
     root.querySelectorAll("[data-ptab]").forEach(p => { if (!Object.values(panels).includes(p)) p.remove(); });
     TABS.forEach(([k]) => root.appendChild(panels[k]));
-    // first visit: Season starts closed (Level stays open at the top of Rewards), so Rewards is not a wall of cards
-    if (!inited) { inited = true; const d = $("pt-pg-season"); if (d && d.open) d.open = false; }
+    // the badges sheet starts open on its own tab
+    if (!inited) { inited = true; const d = $("pt-pg-badges"); if (d && !d.open) d.open = true; }
     // tab bar
     const nb = bar.cloneNode(false); nb.id = "pt-ptabs"; nb.className = "pt-tabbar";
     nb.innerHTML = TABS.map(([k, t]) => `<button type="button" data-tab="${k}" class="pt-ptab tap-active"><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[k]}</svg><span>${t}</span></button>`).join("");
     bar.replaceWith(nb);
+    if (want === "rewards") want = "badges";   // 3.2.0: an old link to Rewards lands on Badges
     const cur = TABS.some(([k]) => k === want) ? want : "overview";
     const show = k => {
       app._progTab = k;

@@ -89,6 +89,7 @@
 
   /* ============================================================== when it happens: before Home and Progress draw */
   function run(app) {
+    if (PT.rewardsOff) return;   // 3.2.0: no new shields used; days covered before stay covered
     try {
       const r = auto(app);
       if (r.used.length) setTimeout(() => { try { app.toast(`🛡 A streak shield kept your ${r.kept}-day streak alive${r.used.length > 1 ? " (" + r.used.length + " missed days)" : ""}`, undefined, undefined, 6000); } catch (e) { } }, 500);

@@ -17,7 +17,7 @@ Everything you enter is stored only on your own device, inside your browser. Thi
 The App works offline. A few things can involve a network connection, and you should know about each one:
 
 - **Downloading and updating the App.** The App is hosted on GitHub Pages. When your device downloads the App or checks for an update, GitHub receives the standard information any website receives, such as your IP address, browser type and the time of the request. GitHub's privacy statement governs that information. GitHub Pages does not give the Developer access to visitor logs.
-- **Family board (optional, off unless you turn it on).** If you start or join a family board, the App sends small updates through ntfy.sh, a free public relay. An update holds the name you chose, your level, your streak, a summary of your last four weeks and your lift bests. Each update is encrypted on your device with a key made from your family code before it is sent. The relay sees only scrambled text, a mailbox name and your device's IP address, and it keeps messages for about 12 hours. Anyone who has your family code can read the updates. Choosing Leave stops it. The Developer does not run ntfy.sh and does not receive these messages.
+- **Group board (optional, off unless you turn it on).** If you start or join a group board, the App sends small updates through ntfy.sh, a free public relay. An update holds the name you chose, your level, your streak, a summary of your last four weeks and your lift bests. Each update is encrypted on your device with a key made from your group code before it is sent. The relay sees only scrambled text, a mailbox name and your device's IP address, and it keeps messages for about 12 hours. Anyone who has your group code can read the updates. Choosing Leave stops it. The Developer does not run ntfy.sh and does not receive these messages.
 - **Sharing, exporting and backups.** When you tap share, export or back up, the App gives the text or file to your device's share sheet or downloads it. Where it goes from there is your choice.
 - **Links to other sites.** Buttons such as the form-video search open YouTube or other sites in your browser. Those sites have their own privacy policies.
 - **Your own add-ons.** If you write custom styles (Mods) that load files from the internet, such as web fonts, your browser fetches them from the address you entered.
@@ -32,7 +32,7 @@ The App does not collect personal information from anyone, including children un
 
 ## Deleting your data
 
-You can delete everything the App has stored on your device at any time. To do so, clear this site's data in your browser settings or uninstall the App. Because the Developer never has a copy, nothing needs to be deleted anywhere else, except any family board update still waiting on the ntfy.sh relay, which it removes after about 12 hours.
+You can delete everything the App has stored on your device at any time. To do so, clear this site's data in your browser settings or uninstall the App. Because the Developer never has a copy, nothing needs to be deleted anywhere else, except any group board update still waiting on the ntfy.sh relay, which it removes after about 12 hours.
 
 ## Changes
 

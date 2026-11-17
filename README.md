@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone (the optional live family board, off until you start or join one, sends only a small scrambled update).
 
-*Version 3.1.0*
+*Version 3.2.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -786,7 +786,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 3.1.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 3.2.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole (the openGym library, `opengym-exercises.js`, is saved too but never holds an update back), so you never end up with half of an update.
 
@@ -833,7 +833,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen. Its icons are the logo (written by `tools/build.py`) |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 126 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 128 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0), `make_fonts.py` (2.71.0) and `make_logo.py` (2.86.0), `opengym_import.py` (2.96.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -848,7 +848,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `rewards.py`, `fill.py`, `backup.py`, `taken.py`, `boss.py`, `shield.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `battle.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `importapps.py`, `smithback.py`, `corecardio.py`, `cardioapart.py`, `stairs.py`, `corerep.py`, `frames.py`, `speed.py`, `weekdots.py`, `plain.py`, `legal.py`, `proglist.py`, `histedit.py`, `fillmode.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `fill.py`, `backup.py`, `taken.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `importapps.py`, `smithback.py`, `corecardio.py`, `cardioapart.py`, `stairs.py`, `corerep.py`, `speed.py`, `weekdots.py`, `plain.py`, `legal.py`, `proglist.py`, `histedit.py`, `fillmode.py`, `morethemes.py`, `norewards.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -875,6 +875,25 @@ PulseTrack is free software under the **GNU Affero General Public License v3.0**
 Using the app published at https://eelhawn.github.io/pulsetrack is covered by the [Terms of Service](TERMS.md) and the [Privacy Policy](PRIVACY.md). In short: it is a tracking tool, not medical or training advice, you train at your own risk, and nothing you log is ever sent to the developer. The Terms do not limit anything the AGPL lets you do with the source code.
 
 ## Version history
+
+**3.2.0**
+- **104 new themes** in six new groups in the theme gallery (Settings > Appearance > Themes). Each group is a button at the top of the gallery, and every theme is readable at every contrast level, in dark and light mode.
+  - **Games:** 8-bit hero, 16-bit, Blocky world, Cave, Lava cave, Diamond, Pocket screen, Arcade racer and more.
+  - **Sports:** Basketball, Hardwood, Streetball, Race day, Pit lane, Grand Prix night, Checkered flag, Football pitch, Tennis, Hockey, Boxing, Surf and more.
+  - **Sky:** Golden hour, Pink sunset, Sunset beach, Desert sunset, Sunset drive, Thunderstorm, Snowfall, Starry night and more.
+  - **Places:** Tokyo nights, Miami, Paris, New York, London fog, Iceland and more.
+  - **Food:** Espresso, Avocado toast, Pizza night, Sushi, Protein shake and more.
+  - **Music:** Lo-fi, Vinyl, Jazz club, Heavy metal, Disco, Techno and more.
+  - **New background patterns** made for them: Pixels, Blocks, Court lines, Checkered flag, Speed lines, Pitch stripes, Rain, Net and Snow.
+  - The names describe a look. They don't use the names of games, leagues or brands.
+- **Rewards are gone, badges stay.**
+  - The Progress tab "Rewards" is now **Badges** and shows just your badges.
+  - Removed: level and XP, profile frames and titles, coins (dumbbells), the daily chest and loot chests, seasons, weekly quests, challenges, the daily check-in, the shop, your own prizes and streak shields. The boss fight, the boss battle and the group rewards card are gone from Social.
+  - Nothing pops up about them after a workout any more (+XP, level up, quest done, chest ready, season tier, boss beaten), and the Home card with your level is gone.
+  - **Still there:** badges (and the pop-up when you earn one), strength ranks, the weekly goal and its streak, the group board and weekly recap, records and everything else. Badges that only came from challenges or seasons are hidden unless you already earned them.
+  - Nothing you saved was deleted. Your old XP, coins and so on are still stored on the phone, just not shown.
+- **Neutral wording.** The group features say group, person or friend everywhere (the last "family" and "Dad" wording is gone, including in the Terms and Privacy Policy).
+- New tests: `tests/morethemes.py` (45 checks) and `tests/norewards.py` (36 checks). The tests of the removed features (`battle.py`, `boss.py`, `frames.py`, `rewards.py`, `shield.py`) were retired, and `group.py` keeps its weekly goal and wording checks.
 
 **3.1.0**
 - **Edit anything in History.** Open a workout and tap **Edit**:

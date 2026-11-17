@@ -1811,7 +1811,7 @@
         const mini = "bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1 text-right font-mono text-zinc-200 focus:outline-none focus:border-emerald-500";
         let html = `
           <div class="space-y-2">
-            <input data-f="title" value="${this.esc(b.title)}" placeholder="Program name (e.g. Dad's Friday Upper Body)" class="${field} text-sm font-bold">
+            <input data-f="title" value="${this.esc(b.title)}" placeholder="Program name (e.g. Friday Upper Body)" class="${field} text-sm font-bold">
             <input data-f="desc" value="${this.esc(b.description)}" placeholder="Short description (optional)" class="${field} text-xs">
           </div>`;
         b.days.forEach((day, di) => {

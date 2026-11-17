@@ -435,7 +435,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v3.1.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v3.2.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3037,7 +3037,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         const mini = "bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1 text-right font-mono text-zinc-200 focus:outline-none focus:border-emerald-500";
         let html = `
           <div class="space-y-2">
-            <input data-f="title" value="${this.esc(b.title)}" placeholder="Program name (e.g. Dad's Friday Upper Body)" class="${field} text-sm font-bold">
+            <input data-f="title" value="${this.esc(b.title)}" placeholder="Program name (e.g. Friday Upper Body)" class="${field} text-sm font-bold">
             <input data-f="desc" value="${this.esc(b.description)}" placeholder="Short description (optional)" class="${field} text-xs">
           </div>`;
         b.days.forEach((day, di) => {
@@ -3841,7 +3841,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "3.1.0";
+    const APP_VERSION = "3.2.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -17913,17 +17913,17 @@ const PTSIM = (function () {
   function afterFinish(a) {
     const s = a.lastSummary && a.lastSummary.session; if (!s) return;
     const q = syncQuests(a), st = state(a, true), sk = st.streak, items = [], stt = a.settings;
-    // XP line on the finish screen
-    const t = $("btn-summary-template");
+    // XP line on the finish screen (3.2.0: not with rewards off)
+    const t = PT.rewardsOff ? null : $("btn-summary-template");
     if (t && t.parentElement) {
       let l = $("pt-xp-line"); if (!l) { l = document.createElement("div"); l.id = "pt-xp-line"; l.className = "text-center text-xs font-bold text-amber-300"; t.parentElement.insertBefore(l, t.parentElement.firstChild); }
       l.textContent = `+${sessionXp(s) + q.length * QUEST_XP} XP · Level ${st.lv.L} · ${sk.k}/${sk.goal} days this week`;
     }
     // quests
-    if (q.length) a.toast(q.length === 1 ? `Quest done: ${q[0].text} (+${QUEST_XP} XP)` : `${q.length} quests done (+${q.length * QUEST_XP} XP)`);
+    if (q.length && !PT.rewardsOff) a.toast(q.length === 1 ? `Quest done: ${q[0].text} (+${QUEST_XP} XP)` : `${q.length} quests done (+${q.length * QUEST_XP} XP)`);
     // level up
     if (stt.lvlSeen === undefined) stt.lvlSeen = st.lv.L - 1;
-    if (st.lv.L > stt.lvlSeen) {
+    if (st.lv.L > stt.lvlSeen && !PT.rewardsOff) {
       const nf = FRAMES.find(f => f.lvl > stt.lvlSeen && f.lvl <= st.lv.L), nt = TITLES.find(x => x[0] > stt.lvlSeen && x[0] <= st.lv.L);
       items.push({ custom: true, label: "Level up", name: `Level ${st.lv.L}`, desc: `${st.title}${nt ? ". New title unlocked" : ""}${nf ? `. New profile frame: ${nf.name}` : ""}`, big: ringBig(a, Object.assign({}, st, { lv: Object.assign({}, st.lv, { pct: 1 }) }), nf || (unlockedFrame(a, frameOf(a)) ? frameOf(a) : FRAMES[0])), glow: "rgb(251 191 36 / .6)", a: "#fde68a", b: "#d97706", confetti: true,
         share: { icon: "⚡", kicker: "Level up", title: `Level ${st.lv.L}`, sub: st.title, lines: [["Total XP", fmt(st.xp)], ["Workouts", String(S(a).length)]], c: ["#fde68a", "#d97706"] } });
@@ -18621,6 +18621,7 @@ const PTSIM = (function () {
 
   /* ============================================================== Home: check-in chip */
   function homeChip(a) {
+    if (PT.rewardsOff) { const old = $("pt-checkin"); if (old) old.remove(); return; }   // 3.2.0
     const box = $("pt-home-extra"), you = $("pt-you-card"); if (!box || !you) return;
     let b = $("pt-checkin"); const need = !checkedToday(a) && !S(a).some(s => s.date === PT.ds()) && !shieldSet(a).has(PT.ds());
     if (!need) { if (b) b.remove(); return; }
@@ -18707,6 +18708,7 @@ const PTSIM = (function () {
 
   /* ============================================================== after a workout */
   function afterFinish(a) {
+    if (PT.rewardsOff) return;   // 3.2.0
     const items = [], st = a.settings, c = checkChallenge(a); if (c) items.push(chalItem(c));
     const sv = seasons(a).cur; if (st.seasonSeen && st.seasonSeen.i === sv.i && sv.tier > st.seasonSeen.t) { const t = sv.tier; items.push({ custom: true, label: "Season reward", name: `Tier ${t}`, desc: `${sv.name} · ${TIER_REWARD[t].replace(/^\S+ /, "").replace(/^@(\d+)$/, "$1 dumbbells")} unlocked${SEASON_COINS[t] ? " (+" + Math.floor(SEASON_COINS[t] / 2) + " dumbbells)" : ""}`, big: `<div style="font-size:96px;line-height:1">${t >= 8 ? "🏆" : "🏟"}</div>`, glow: "rgb(96 165 250 / .6)", a: "#93c5fd", b: "#2563eb", confetti: t >= 6 }); }
     st.seasonSeen = { i: sv.i, t: sv.tier }; save();
@@ -19419,7 +19421,7 @@ const PTSIM = (function () {
     if (st.streak.cur >= 2) out.push(`${st.streak.cur} weeks in a row hitting your goal. Do not break the chain.`);
     const monthPrs = S(a).filter(s => new Date(sessTime(s)).getMonth() === new Date().getMonth() && sessTime(s) > now - 31 * DAY).reduce((n, s) => n + (s.prs || []).length, 0);
     if (monthPrs >= 2) out.push(`${monthPrs} personal records this month. You are getting stronger.`);
-    if (st.lv && st.lv.span - st.lv.into <= 250) out.push(`${fmt(Math.max(0, st.lv.span - st.lv.into))} XP to Level ${st.lv.L + 1}. One good session might do it.`);
+    if (!PT.rewardsOff && st.lv && st.lv.span - st.lv.into <= 250) out.push(`${fmt(Math.max(0, st.lv.span - st.lv.into))} XP to Level ${st.lv.L + 1}. One good session might do it.`);
     if (idle !== null && idle >= 6) out.push("Welcome back. A short session today restarts the habit. Do not worry about the numbers.");
     out.push("Slow reps, full range, and write it down. That is the whole secret.", "Sleep and protein are half the work. Eat up and rest well tonight.", "Showing up on a bad day is worth more than a great day you skipped.");
     return seedPick(out, S(a).length);
@@ -19433,7 +19435,7 @@ const PTSIM = (function () {
     // new month report
     const d = new Date(); if (d.getDate() <= 5 && hasAny) { const [py, pm] = prevMonth(d.getFullYear(), d.getMonth()), g = grade(a, py, pm), id = "rep" + g.id; if (g.workouts && a.settings.reportSeen !== g.id) out.push({ id, icon: "📋", text: `Your ${g.name} report card is ready: ${g.letter}`, act: "report", cta: "See it" }); }
     // challenge ending soon
-    try { const c = a.settings.challenge; if (c && c.end && c.end > now && c.end - now <= 3 * DAY && PT.challengeProgress) { const p = PT.challengeProgress(a); if (p && !c.done && p.cur < p.goal) out.push({ id: "chal" + c.id, icon: "⚔️", text: `${Math.max(1, Math.ceil((c.end - now) / DAY))} day${(c.end - now) > DAY ? "s" : ""} left on your challenge`, act: "progress", cta: "Check it" }); } } catch (e) { }
+    try { const c = !PT.rewardsOff && a.settings.challenge; if (c && c.end && c.end > now && c.end - now <= 3 * DAY && PT.challengeProgress) { const p = PT.challengeProgress(a); if (p && !c.done && p.cur < p.goal) out.push({ id: "chal" + c.id, icon: "⚔️", text: `${Math.max(1, Math.ceil((c.end - now) / DAY))} day${(c.end - now) > DAY ? "s" : ""} left on your challenge`, act: "progress", cta: "Check it" }); } } catch (e) { }
     // one workout from the goal
     const W = PT.weeksOf(a), mon = mondayOf(now), cur = W.get(mon), goal = PT.goalFor(a, mon), got = cur ? cur.days.size : 0;
     if (got > 0 && got === goal - 1) out.push({ id: "goal" + mon, icon: "🎯", text: "One more workout and you hit your weekly goal", act: "start", cta: "Train" });
@@ -29074,7 +29076,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     g.fillStyle = "#52525b"; g.font = font(600, 26); g.fillText("Tracked with PulseTrack", 80, H - 60);
     try {
       const blob = await new Promise((res, rej) => cv.toBlob(b => b ? res(b) : rej(new Error("toBlob")), "image/png"));
-      await a.shareFile(new File([blob], `pulsetrack-family-${R.wid}.png`, { type: "image/png" }), "PulseTrack group recap");
+      await a.shareFile(new File([blob], `pulsetrack-group-${R.wid}.png`, { type: "image/png" }), "PulseTrack group recap");
     } catch (e) { a.toast("Could not create the picture"); }
   }
   async function shareText(a) {
@@ -30541,7 +30543,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   if (oFin) proto.finishWorkoutV2 = async function () {
     const n0 = (this.sessions || []).length, r = await oFin.apply(this, arguments);
     try {
-      if ((this.sessions || []).length > n0 && !chestOf(this)) setTimeout(() => { try { if (!chestOf(this)) this.toast("🎁 Your daily chest is ready", "Open", () => { this._progTab = "rewards"; this.showView("progress"); }, 5000); } catch (e) { } }, 2600);
+      if (!PT.rewardsOff && (this.sessions || []).length > n0 && !chestOf(this)) setTimeout(() => { try { if (!chestOf(this)) this.toast("🎁 Your daily chest is ready", "Open", () => { this._progTab = "rewards"; this.showView("progress"); }, 5000); } catch (e) { } }, 2600);
     } catch (e) { console.error("PulseTrack rewards 2 finish", e); }
     return r;
   };
@@ -31199,6 +31201,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     return fresh.map(wid => Object.assign({ wid }, bw[wid]));
   }
   function check(a) {
+    if (PT.rewardsOff) return;   // 3.2.0
     const fresh = record(a, state(a)); if (!fresh.length) return;
     const f = fresh[fresh.length - 1], cur = f.wid === K.dsOf(K.wkMon(0));
     setTimeout(() => {
@@ -31404,6 +31407,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 
   /* ============================================================== when it happens: before Home and Progress draw */
   function run(app) {
+    if (PT.rewardsOff) return;   // 3.2.0: no new shields used; days covered before stay covered
     try {
       const r = auto(app);
       if (r.used.length) setTimeout(() => { try { app.toast(`🛡 A streak shield kept your ${r.kept}-day streak alive${r.used.length > 1 ? " (" + r.used.length + " missed days)" : ""}`, undefined, undefined, 6000); } catch (e) { } }, 500);
@@ -32125,7 +32129,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   };
   /** a new chest: say so once */
   function announce(a) {
-    if (!a.settings.dbBase) return;
+    if (PT.rewardsOff || !a.settings.dbBase) return;
     const seen = new Set(arr(a, "lootSeen")), fresh = waiting(a).filter(c => !seen.has(c.id)); if (!fresh.length) return;
     a.settings.lootSeen = Array.from(new Set(arr(a, "lootSeen").concat(fresh.map(c => c.id)))).slice(-400); save(a);
     const best = fresh[0];
@@ -32144,7 +32148,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 
   /* ============================================================== once, after the update */
   function intro(a) {
-    if (a.settings.v290Seen) return; a.settings.v290Seen = Date.now(); save(a);
+    if (a.settings.v290Seen || PT.rewardsOff) return; a.settings.v290Seen = Date.now(); save(a);   // 3.2.0: its news was all about rewards
     if (!(a.sessions || []).length) return;
     const kit = PT.kit; if (!kit) return;
     setTimeout(() => {
@@ -34219,11 +34223,11 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 <p>You are solely responsible for deciding whether to exercise and which exercises, weights, volume, intensity, rest and equipment to use. You are also responsible for using spotters, safety bars, collars and other precautions. <strong>You knowingly and voluntarily assume all of these risks, known and unknown.</strong> To the maximum extent permitted by law, you release the Developer from all claims arising out of them.</p>
 <h3>5. Your data and backups</h3>
 <p>The App stores your workout history and other information only on your own device, in your browser's storage. The Developer has no access to that data and cannot view, back up, restore or recover it. Your data can be permanently lost if you clear your browser data, uninstall the App, use private browsing or lose your device, or if your browser or operating system removes stored data. You are responsible for making and keeping your own backups using the App's export and backup features.</p>
-<p>Optional features, such as the family board, sharing and exporting, send information only when you turn them on or use them. You are responsible for what you choose to share and who you share it with. Anyone who has a family code can read and post to that family board.</p>
+<p>Optional features, such as the group board, sharing and exporting, send information only when you turn them on or use them. You are responsible for what you choose to share and who you share it with. Anyone who has a group code can read and post to that group board.</p>
 <h3>6. Third-party services</h3>
-<p>The App relies on services that the Developer does not control. These include GitHub Pages, which hosts the App, the public relay ntfy.sh, which the optional family board uses, YouTube, which is linked for exercise form videos, and your device's browser and share features. Those services operate under their own terms and policies. The Developer is not responsible for their availability, content, security or practices.</p>
+<p>The App relies on services that the Developer does not control. These include GitHub Pages, which hosts the App, the public relay ntfy.sh, which the optional group board uses, YouTube, which is linked for exercise form videos, and your device's browser and share features. Those services operate under their own terms and policies. The Developer is not responsible for their availability, content, security or practices.</p>
 <h3>7. Acceptable use</h3>
-<p>You agree not to use the App in violation of any law, and not to use the App's sharing or family board features to harass anyone or to share another person's information without their consent.</p>
+<p>You agree not to use the App in violation of any law, and not to use the App's sharing or group board features to harass anyone or to share another person's information without their consent.</p>
 <h3>8. "As is" and no warranty</h3>
 <p>THE APP IS PROVIDED "AS IS" AND "AS AVAILABLE", WITH ALL FAULTS AND WITHOUT WARRANTY OF ANY KIND. TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE DEVELOPER DISCLAIMS ALL WARRANTIES, WHETHER EXPRESS, IMPLIED OR STATUTORY. THIS INCLUDES ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, NON-INFRINGEMENT AND ACCURACY, AND ANY WARRANTIES ARISING FROM COURSE OF DEALING OR USAGE OF TRADE. THE DEVELOPER DOES NOT WARRANT THAT THE APP WILL BE ACCURATE, RELIABLE, SECURE, UNINTERRUPTED OR ERROR-FREE, THAT DEFECTS WILL BE CORRECTED, OR THAT ANY DATA WILL BE PRESERVED. YOU ARE SOLELY RESPONSIBLE FOR ANY INJURY, LOSS OR DAMAGE THAT RESULTS FROM YOUR USE OF THE APP, INCLUDING ANY LOSS OF DATA.</p>
 <h3>9. Limitation of liability</h3>
@@ -34254,13 +34258,13 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 <p>Everything you enter is stored only on your own device, inside your browser. This includes workouts, sets, programs, body measurements, photos, notes, settings and backups. The App keeps this data in your browser's local storage and IndexedDB, and it keeps the App's own files in an offline cache so it works without a connection. This data stays on your device and is not uploaded anywhere. The Developer has no copy of it and cannot access, recover or delete it for you.</p>
 <h3>What leaves your device, and when</h3>
 <p>The App works offline. A few things can involve a network connection, and you should know about each one:</p>
-<ul><li><strong>Downloading and updating the App.</strong> The App is hosted on GitHub Pages. When your device downloads the App or checks for an update, GitHub receives the standard information any website receives, such as your IP address, browser type and the time of the request. GitHub's privacy statement governs that information. GitHub Pages does not give the Developer access to visitor logs.</li><li><strong>Family board (optional, off unless you turn it on).</strong> If you start or join a family board, the App sends small updates through ntfy.sh, a free public relay. An update holds the name you chose, your level, your streak, a summary of your last four weeks and your lift bests. Each update is encrypted on your device with a key made from your family code before it is sent. The relay sees only scrambled text, a mailbox name and your device's IP address, and it keeps messages for about 12 hours. Anyone who has your family code can read the updates. Choosing Leave stops it. The Developer does not run ntfy.sh and does not receive these messages.</li><li><strong>Sharing, exporting and backups.</strong> When you tap share, export or back up, the App gives the text or file to your device's share sheet or downloads it. Where it goes from there is your choice.</li><li><strong>Links to other sites.</strong> Buttons such as the form-video search open YouTube or other sites in your browser. Those sites have their own privacy policies.</li><li><strong>Your own add-ons.</strong> If you write custom styles (Mods) that load files from the internet, such as web fonts, your browser fetches them from the address you entered.</li></ul>
+<ul><li><strong>Downloading and updating the App.</strong> The App is hosted on GitHub Pages. When your device downloads the App or checks for an update, GitHub receives the standard information any website receives, such as your IP address, browser type and the time of the request. GitHub's privacy statement governs that information. GitHub Pages does not give the Developer access to visitor logs.</li><li><strong>Group board (optional, off unless you turn it on).</strong> If you start or join a group board, the App sends small updates through ntfy.sh, a free public relay. An update holds the name you chose, your level, your streak, a summary of your last four weeks and your lift bests. Each update is encrypted on your device with a key made from your group code before it is sent. The relay sees only scrambled text, a mailbox name and your device's IP address, and it keeps messages for about 12 hours. Anyone who has your group code can read the updates. Choosing Leave stops it. The Developer does not run ntfy.sh and does not receive these messages.</li><li><strong>Sharing, exporting and backups.</strong> When you tap share, export or back up, the App gives the text or file to your device's share sheet or downloads it. Where it goes from there is your choice.</li><li><strong>Links to other sites.</strong> Buttons such as the form-video search open YouTube or other sites in your browser. Those sites have their own privacy policies.</li><li><strong>Your own add-ons.</strong> If you write custom styles (Mods) that load files from the internet, such as web fonts, your browser fetches them from the address you entered.</li></ul>
 <h3>Health information</h3>
 <p>Workout and body data can count as health information under laws such as Washington's My Health My Data Act. The Developer does not collect, receive, share or sell any of it. It stays on your device unless you choose to share it as described above.</p>
 <h3>Children</h3>
 <p>The App does not collect personal information from anyone, including children under 13. The App is not directed to children under 13, and the Terms of Service require users to be at least 13.</p>
 <h3>Deleting your data</h3>
-<p>You can delete everything the App has stored on your device at any time. To do so, clear this site's data in your browser settings or uninstall the App. Because the Developer never has a copy, nothing needs to be deleted anywhere else, except any family board update still waiting on the ntfy.sh relay, which it removes after about 12 hours.</p>
+<p>You can delete everything the App has stored on your device at any time. To do so, clear this site's data in your browser settings or uninstall the App. Because the Developer never has a copy, nothing needs to be deleted anywhere else, except any group board update still waiting on the ntfy.sh relay, which it removes after about 12 hours.</p>
 <h3>Changes</h3>
 <p>If this policy changes, the effective date at the top will change and the App may ask you to accept the new version.</p>
 <h3>Contact</h3>
@@ -34780,6 +34784,249 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 
 })();
 </script>
+  <script>/* =====================================================================
+ * PulseTrack 3.2.0: a lot more themes.
+ *   - Six new groups in the theme gallery: Games, Sports, Sky, Places, Food and Music (104 themes)
+ *   - 9 new background patterns made for them: Pixels, Blocks, Court, Flag, Speed, Pitch, Rain, Net and Snow
+ *   - 30 new colours and 21 new backgrounds they use (all made the same way as the others, so text stays readable)
+ * Everything goes into the lists module 009 owns (PT.look.*), so the gallery, Appearance, Surprise me, theme codes and the
+ * readability test treat them like any other theme. Names are plain descriptions, not games, teams or brands.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof PT === "undefined" || !PT.look || !PT.look.util || !PT.look.FX_EXT) return;
+  const L = PT.look, U = L.util, has = (arr, id) => arr.some(x => x.id === id);
+  const hex = (h, s, l) => U.toHex(U.hsl2rgb([h, s, l]));
+
+  /* ------------------------------------------------------------ colours: [id, name, main shade] (same recipe as 2.71.0) */
+  function acc(id, label, base) {
+    if (has(L.ACCENTS, id)) return;
+    const [h, s, l] = U.rgb2hsl(U.hx(base)), mk = d => U.hsl2rgb([h, s, Math.max(4, Math.min(94, l + d))]);
+    L.ACCENTS.push({ id, label, s: [U.toHex(mk(+22)), U.toHex(mk(+11)), U.toHex(U.hx(base)), U.toHex(mk(-9)), U.toHex(U.hsl2rgb([h, Math.min(s, 85), Math.max(10, Math.min(l - 26, 32))])), U.toHex(U.hsl2rgb([h, Math.min(s, 60), 11]))] });
+  }
+  [
+    ["grassc", "Grass", "#5dab3c"], ["dirtc", "Dirt", "#a8743f"], ["lava", "Lava", "#ff5a1f"], ["diamondc", "Diamond", "#4fe3d6"], ["pixelpink", "Pixel pink", "#ff4fa3"],
+    ["handheldc", "Handheld green", "#8bac0f"], ["coinc", "Coin", "#ffcc1a"], ["plasma", "Plasma", "#7d5cff"], ["racered", "Race red", "#e10600"], ["papaya", "Papaya", "#ff8000"],
+    ["racinggreen", "Racing green", "#14a06a"], ["ballorange", "Ball orange", "#ee6730"], ["hardwoodc", "Hardwood", "#c8925a"], ["turfc", "Turf", "#3fa34d"], ["tennisc", "Tennis ball", "#d4f230"],
+    ["stitch", "Stitch red", "#d2232a"], ["poolc", "Pool", "#1ca3ec"], ["rinkc", "Rink", "#7cc8ff"], ["sunsetpink", "Sunset pink", "#ff5e78"], ["goldenhour", "Golden hour", "#ffad42"],
+    ["skyc", "Sky", "#4fb3ff"], ["stormc", "Storm", "#8b9db5"], ["auroragreen", "Aurora green", "#3dfc9a"], ["neonsign", "Neon sign", "#ff2bd6"], ["tacoc", "Taco", "#f2b134"],
+    ["avocadoc", "Avocado", "#7fb239"], ["salmonroe", "Sushi", "#ff7a59"], ["vinylc", "Vinyl", "#e4572e"], ["jazzc", "Jazz", "#c9a227"], ["reggaec", "Reggae", "#2fb344"]
+  ].forEach(a => acc(a[0], a[1], a[2]));
+
+  /* ------------------------------------------------------------ backgrounds */
+  function dbg(id, label, h, s, v) {
+    if (has(L.BGS, id)) return;
+    const ls = v === "deep" ? [2.5, 5.5, 8, 13.5, 22] : v === "lift" ? [7, 11, 14, 20, 30] : [4, 7.5, 10, 16, 25];
+    L.BGS.push({ id, label, s: ls.map(l => hex(h, s, l)) });
+  }
+  function lbg(id, label, h, s) {
+    if (has(L.LBGS, id)) return;
+    L.LBGS.push({ id, label, s: [95, 99.4, 97.4, 90, 83].map(l => hex(h, s, l)) });
+  }
+  [
+    ["pixelnight", "Pixel night", 235, 45, "deep"], ["dirtnight", "Dirt", 28, 35], ["cave", "Cave", 210, 6], ["handheldnight", "Handheld", 85, 40, "deep"], ["asphalt", "Asphalt", 220, 6, "deep"],
+    ["hardwoodnight", "Hardwood night", 28, 45], ["turfnight", "Turf night", 135, 40, "deep"], ["rinknight", "Rink night", 205, 45, "deep"], ["sunsetnight", "Sunset night", 335, 40],
+    ["stormnight", "Storm night", 215, 22], ["desertnight", "Desert night", 25, 40], ["neoncity", "Neon city", 285, 45, "deep"], ["rainforest", "Rainforest", 150, 45, "deep"],
+    ["espressonight", "Espresso", 20, 35, "deep"], ["vinylnight", "Vinyl", 0, 0, "deep"]
+  ].forEach(b => dbg(b[0], b[1], b[2], b[3], b[4]));
+  [["courtl", "Court", 33, 60], ["snowl", "Snow", 205, 40], ["sunsetl", "Sunset", 15, 85], ["handheldl", "Handheld screen", 75, 45], ["sandl", "Beach sand", 40, 55], ["paperl", "Sheet music", 45, 30]]
+    .forEach(b => lbg(b[0], b[1], b[2], b[3]));
+
+  /* ------------------------------------------------------------ background patterns */
+  const X = L.FX_EXT, FX = L.FX;
+  const alt = (ac, d) => { const [h, s, l] = U.rgb2hsl(ac.sh[2]); return U.hsl2rgb([(h + d + 360) % 360, Math.max(45, Math.min(s, 90)), Math.max(38, Math.min(l, 62))]).map(Math.round).join(" "); };
+  const svgUrl = svg => `url("data:image/svg+xml,${svg.replace(/</g, "%3C").replace(/>/g, "%3E").replace(/#/g, "%23").replace(/"/g, "'")}")`;
+  const comma = c => c.split(" ").join(",");
+  const FXN = [
+    ["pixels", "Pixels", (lt, t, c) => {
+      const cells = [[0, 0, .9], [2, 0, .5], [1, 1, .7], [3, 1, .35], [0, 2, .45], [2, 2, .8], [1, 3, .3], [3, 3, .6]];
+      const op = lt ? .1 : .085;
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='64' height='64'>${cells.map(([x, y, o]) => `<rect x='${x * 16}' y='${y * 16}' width='16' height='16' fill='rgb(${comma(c)})' fill-opacity='${(o * op).toFixed(3)}'/>`).join("")}</svg>`;
+      return `radial-gradient(110% 45% at 50% -10%, rgb(${c} / ${lt ? .16 : .2}), transparent 70%), ${svgUrl(svg)} 0 0 / 64px 64px`;
+    }],
+    ["blocks", "Blocks", (lt, t, c, ac) => {
+      const o = alt(ac, -95), a = lt ? .14 : .2, b = lt ? .1 : .14;
+      const svg = `<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96'><rect width='48' height='48' fill='rgb(${comma(c)})' fill-opacity='${a}'/><rect x='48' y='48' width='48' height='48' fill='rgb(${comma(o)})' fill-opacity='${b}'/><rect x='48' width='48' height='48' fill='rgb(${comma(c)})' fill-opacity='${(a / 3).toFixed(3)}'/></svg>`;
+      return `linear-gradient(180deg, transparent 0 55%, rgb(${c} / ${lt ? .08 : .1}) 100%), ${svgUrl(svg)} 0 100% / 96px 96px`;
+    }],
+    ["court", "Court", (lt, t, c) => {
+      const line = `rgb(${c} / ${lt ? .3 : .28})`;
+      return `radial-gradient(circle at 50% 0, transparent 0 104px, ${line} 104px 106px, transparent 106px), radial-gradient(circle at 50% 0, ${line} 0 18px, transparent 19px), repeating-linear-gradient(90deg, rgb(${c} / ${lt ? .05 : .045}) 0 2px, transparent 2px 38px)`;
+    }],
+    ["flag", "Flag", (lt, t, c, ac, bg) => {
+      const k = lt ? "rgb(0 0 0 / .09)" : "rgb(255 255 255 / .075)";
+      return `linear-gradient(180deg, transparent 0, ${bg[0]} 190px), conic-gradient(${k} 25%, transparent 0 50%, ${k} 0 75%, transparent 0) 0 0 / 28px 28px, radial-gradient(110% 40% at 50% -5%, rgb(${c} / ${lt ? .16 : .22}), transparent 70%)`;
+    }],
+    ["speed", "Speed", (lt, t, c, ac) => `repeating-linear-gradient(112deg, transparent 0 58px, rgb(${c} / ${lt ? .1 : .08}) 58px 60px, transparent 60px 96px, rgb(${alt(ac, 20)} / ${lt ? .07 : .06}) 96px 97px), radial-gradient(90% 40% at 100% 0, rgb(${c} / ${lt ? .2 : .26}), transparent 70%)`],
+    ["pitch", "Pitch", (lt, t, c) => `radial-gradient(circle at 50% 210px, transparent 0 70px, rgb(255 255 255 / ${lt ? .5 : .1}) 70px 72px, transparent 72px), repeating-linear-gradient(180deg, rgb(${c} / ${lt ? .09 : .07}) 0 52px, transparent 52px 104px)`],
+    ["rain", "Rain", (lt, t, c) => `repeating-linear-gradient(104deg, transparent 0 21px, rgb(${lt ? "40 60 90 / .07" : "180 200 230 / .06"}) 21px 22px), linear-gradient(180deg, rgb(${c} / ${lt ? .12 : .14}), transparent 55%)`],
+    ["net", "Net", (lt, t, c) => { const k = `rgb(${c} / ${lt ? .09 : .07})`; return `repeating-linear-gradient(45deg, ${k} 0 1px, transparent 1px 26px), repeating-linear-gradient(-45deg, ${k} 0 1px, transparent 1px 26px), radial-gradient(110% 40% at 50% -10%, rgb(${c} / ${lt ? .14 : .18}), transparent 70%)`; }],
+    ["snow", "Snow", (lt, t, c) => {
+      const at = [[6, 8], [19, 3], [33, 11], [47, 5], [61, 14], [75, 4], [89, 10], [12, 26], [27, 33], [41, 24], [56, 31], [70, 27], [84, 36], [96, 22], [4, 47], [22, 54], [38, 45], [52, 58], [67, 49], [81, 56], [93, 44], [10, 72], [30, 78], [46, 69], [63, 81], [78, 71], [90, 84], [17, 93], [55, 95], [72, 97]];
+      const col = lt ? `rgb(${c} / .35)` : "rgb(255 255 255 / .55)";
+      return at.map((p, i) => `radial-gradient(${1 + (i % 3) * .7}px ${1 + (i % 3) * .7}px at ${p[0]}% ${p[1]}%, ${col}, transparent)`).join(", ");
+    }]
+  ];
+  FXN.forEach(f => { if (!has(FX, f[0])) { FX.push({ id: f[0], label: f[1] }); X[f[0]] = f[2]; } });
+
+  /* ------------------------------------------------------------ groups, before the long "Pure" lists */
+  const NEW = [["games", "Games"], ["sports", "Sports"], ["sky", "Sky"], ["places", "Places"], ["food", "Food"], ["music", "Music"]].filter(c => !L.CATS.some(x => x[0] === c[0]));
+  const at = L.CATS.findIndex(c => c[0] === "pure");
+  L.CATS.splice(at < 0 ? L.CATS.length : at, 0, ...NEW);
+
+  const T = (id, label, cat, o) => { if (!has(L.PRESETS, id)) L.PRESETS.push({ id, label, cat, s: Object.assign({ font: "system", bgfx: "solid" }, o) }); };
+  const D = (id, label, cat, accent, bg, o) => T(id, label, cat, Object.assign({ theme: "dark", accent, bg }, o));
+  const Lt = (id, label, cat, accent, bgL, o) => T(id, label, cat, Object.assign({ theme: "light", accent, bgL }, o));
+
+  // Games
+  D("game-8bit", "8-bit hero", "games", "pixelpink", "pixelnight", { bgfx: "pixels", font: "silkscreen", round: "square", card: "outlined" });
+  D("game-16bit", "16-bit", "games", "plasma", "twilight", { bgfx: "pixels", font: "pixelify", round: "sharp" });
+  D("game-blocky", "Blocky world", "games", "grassc", "dirtnight", { bgfx: "blocks", font: "pixelify", round: "square", card: "outlined" });
+  D("game-cave", "Cave", "games", "diamondc", "cave", { bgfx: "blocks", font: "pixelify", round: "square" });
+  D("game-lava", "Lava cave", "games", "lava", "hotcoal", { bgfx: "blocks", font: "pixelify", round: "square", btn: "gradient" });
+  D("game-diamond", "Diamond", "games", "diamondc", "deepteal", { bgfx: "pixels", font: "silkscreen", round: "square" });
+  Lt("game-handheld", "Pocket screen", "games", "handheldc", "handheldl", { bgfx: "pixels", font: "pixelify", round: "sharp", card: "outlined" });
+  D("game-handheldnight", "Pocket night", "games", "handheldc", "handheldnight", { bgfx: "scanlines", font: "silkscreen", round: "square" });
+  D("game-coin", "Coin rush", "games", "coinc", "pixelnight", { bgfx: "pixels", font: "pixelify", round: "round", btn: "gradient" });
+  D("game-shooter", "Space shooter", "games", "neonblue", "cosmos", { bgfx: "stars", font: "silkscreen", round: "square" });
+  D("game-platformer", "Platformer", "games", "skyc", "navyink", { bgfx: "blocks", font: "pixelify", round: "sharp" });
+  D("game-dungeon", "Dungeon", "games", "mango", "cave", { bgfx: "vignette", font: "pixelify", round: "square", card: "outlined" });
+  D("game-highscore", "High score", "games", "neonsign", "obsidian", { bgfx: "scanlines", font: "silkscreen", round: "square", btn: "gradient" });
+  D("game-pinball", "Pinball", "games", "hotpink", "neoncity", { bgfx: "confetti", font: "tektur", round: "pill" });
+  D("game-puzzle", "Falling blocks", "games", "coinc", "pixelnight", { bgfx: "blocks", font: "silkscreen", round: "square" });
+  D("game-glitch", "Glitch", "games", "electric", "coal", { bgfx: "scanlines", font: "geistmono", round: "square" });
+  D("game-respawn", "Respawn", "games", "auroragreen", "cosmos", { bgfx: "grid", font: "tektur", round: "sharp" });
+  D("game-cartridge", "Cartridge", "games", "stormc", "ash", { bgfx: "pixels", font: "pixelify", round: "sharp", card: "raised" });
+  D("game-racer", "Arcade racer", "games", "papaya", "pixelnight", { bgfx: "speed", font: "tektur", round: "sharp", btn: "gradient" });
+
+  // Sports
+  D("sport-basketball", "Basketball", "sports", "ballorange", "hardwoodnight", { bgfx: "court", font: "bigshoulders", round: "round" });
+  Lt("sport-hardwood", "Hardwood", "sports", "ballorange", "courtl", { bgfx: "court", font: "bigshoulders", round: "round" });
+  D("sport-streetball", "Streetball", "sports", "ballorange", "asphalt", { bgfx: "net", font: "smooch", round: "sharp" });
+  D("sport-raceday", "Race day", "sports", "racered", "asphalt", { bgfx: "flag", font: "tektur", round: "sharp", btn: "gradient" });
+  D("sport-pitlane", "Pit lane", "sports", "papaya", "coal", { bgfx: "speed", font: "tektur", round: "sharp" });
+  D("sport-grandprix", "Grand Prix night", "sports", "racered", "pixelnight", { bgfx: "speed", font: "tektur", round: "sharp" });
+  D("sport-checkered", "Checkered flag", "sports", "silver", "coal", { bgfx: "flag", font: "bigshoulders", round: "sharp", card: "outlined" });
+  D("sport-racinggreen", "Racing green", "sports", "racinggreen", "evergreen", { bgfx: "speed", font: "tektur", round: "sharp" });
+  D("sport-football", "Football pitch", "sports", "turfc", "turfnight", { bgfx: "pitch", font: "bigshoulders", round: "round" });
+  D("sport-stadium", "Stadium lights", "sports", "silver", "turfnight", { bgfx: "spotlight", font: "bigshoulders", round: "round" });
+  Lt("sport-tennis", "Tennis", "sports", "racinggreen", "snowl", { bgfx: "net", font: "outfit", round: "round" });
+  Lt("sport-claycourt", "Clay court", "sports", "terracotta", "claylight", { bgfx: "net", font: "outfit", round: "round" });
+  D("sport-tennisnight", "Night match", "sports", "tennisc", "rinknight", { bgfx: "net", font: "outfit", round: "round" });
+  Lt("sport-baseball", "Baseball", "sports", "stitch", "pearl", { bgfx: "dots", font: "arsenal", round: "round" });
+  D("sport-hockey", "Hockey", "sports", "rinkc", "rinknight", { bgfx: "snow", font: "bigshoulders", round: "sharp" });
+  Lt("sport-golf", "Golf", "sports", "turfc", "sagelight", { bgfx: "pitch", font: "instserif", round: "round" });
+  D("sport-boxing", "Boxing", "sports", "stitch", "maroonnight", { bgfx: "spotlight", font: "erica", round: "round" });
+  D("sport-swim", "Swim", "sports", "poolc", "lagoonnight", { bgfx: "waves", font: "outfit", round: "round" });
+  D("sport-cycling", "Cycling", "sports", "coinc", "asphalt", { bgfx: "speed", font: "outfit", round: "pill" });
+  Lt("sport-surf", "Surf", "sports", "poolc", "sandl", { bgfx: "waves", font: "rounded", round: "round" });
+  Lt("sport-snowboard", "Snowboard", "sports", "neonblue", "snowl", { bgfx: "snow", font: "smooch", round: "round" });
+  D("sport-climbing", "Climbing", "sports", "tennisc", "mud", { bgfx: "dots", font: "bricolage", round: "round" });
+  Lt("sport-volleyball", "Beach volleyball", "sports", "goldenhour", "sandl", { bgfx: "net", font: "rounded", round: "round" });
+  D("sport-marathon", "Marathon", "sports", "skyc", "stormnight", { bgfx: "beams", font: "outfit", round: "pill" });
+  D("sport-skate", "Skate park", "sports", "neonsign", "asphalt", { bgfx: "grain", font: "smooch", round: "sharp" });
+
+  // Sky
+  D("sky-goldenhour", "Golden hour", "sky", "goldenhour", "desertnight", { bgfx: "sunrise", font: "poppins", round: "round" });
+  D("sky-pinksunset", "Pink sunset", "sky", "sunsetpink", "sunsetnight", { bgfx: "horizon", font: "outfit", round: "round", btn: "gradient" });
+  Lt("sky-sunsetbeach", "Sunset beach", "sky", "bloodorange", "sunsetl", { bgfx: "sunrise", font: "poppins", round: "round" });
+  D("sky-desertsunset", "Desert sunset", "sky", "papaya", "desertnight", { bgfx: "dusk", font: "bricolage", round: "round" });
+  D("sky-sunsetdrive", "Sunset drive", "sky", "sunsetpink", "neoncity", { bgfx: "sunrise", font: "tektur", round: "sharp" });
+  D("sky-afterglow", "Afterglow", "sky", "goldenhour", "twilight", { bgfx: "horizon", font: "instserif", round: "round" });
+  Lt("sky-sunriserun", "Sunrise run", "sky", "goldenhour", "creaml", { bgfx: "sunrise", font: "outfit", round: "round" });
+  D("sky-bluehour", "Blue hour", "sky", "skyc", "navyink", { bgfx: "horizon", font: "inter", round: "round" });
+  D("sky-storm", "Thunderstorm", "sky", "coinc", "stormnight", { bgfx: "rain", font: "bigshoulders", round: "sharp" });
+  D("sky-rainy", "Rainy day", "sky", "stormc", "bluesmoke", { bgfx: "rain", font: "inter", round: "round" });
+  Lt("sky-fog", "Morning fog", "sky", "stormc", "fog", { bgfx: "fade", font: "instsans", round: "round" });
+  D("sky-snowfall", "Snowfall", "sky", "rinkc", "stormnight", { bgfx: "snow", font: "outfit", round: "round" });
+  Lt("sky-snowday", "Snow day", "sky", "skyc", "snowl", { bgfx: "snow", font: "rounded", round: "round" });
+  D("sky-rainbow", "After the rain", "sky", "skyc", "twilight", { bgfx: "prism", font: "poppins", round: "round" });
+  D("sky-starry", "Starry night", "sky", "coinc", "navyink", { bgfx: "stars", font: "baskerville", round: "round" });
+  D("sky-heatwave", "Heatwave", "sky", "lava", "burnt", { bgfx: "sunrise", font: "smooch", round: "sharp" });
+  D("sky-aurora", "Aurora sky", "sky", "auroragreen", "cosmos", { bgfx: "aurora", font: "outfit", round: "round" });
+
+  // Places
+  D("place-tokyo", "Tokyo nights", "places", "neonsign", "neoncity", { bgfx: "rain", font: "inter", round: "sharp" });
+  D("place-neoncity", "Neon city", "places", "electric", "neoncity", { bgfx: "beams", font: "tektur", round: "sharp" });
+  D("place-miami", "Miami", "places", "hotpink", "lagoonnight", { bgfx: "sunrise", font: "poppins", round: "pill" });
+  Lt("place-paris", "Paris", "places", "navyblue", "linen", { bgfx: "fade", font: "italiana", round: "round" });
+  D("place-newyork", "New York", "places", "coinc", "asphalt", { bgfx: "grid", font: "bigshoulders", round: "sharp" });
+  D("place-london", "London fog", "places", "stitch", "bluesmoke", { bgfx: "rain", font: "baskerville", round: "round" });
+  D("place-desertroad", "Desert road", "places", "papaya", "desertnight", { bgfx: "speed", font: "bricolage", round: "round" });
+  D("place-rainforest", "Rainforest", "places", "auroragreen", "rainforest", { bgfx: "rain", font: "outfit", round: "round" });
+  Lt("place-alps", "Alps", "places", "royalblue", "snowl", { bgfx: "snow", font: "jura", round: "round" });
+  Lt("place-beachclub", "Beach club", "places", "poolc", "sandl", { bgfx: "waves", font: "poppins", round: "pill" });
+  D("place-iceland", "Iceland", "places", "auroragreen", "arcticnight", { bgfx: "aurora", font: "jura", round: "round" });
+  D("place-sahara", "Sahara", "places", "goldenhour", "dirtnight", { bgfx: "dusk", font: "instserif", round: "round" });
+  D("place-havana", "Havana", "places", "turquoise", "hardwoodnight", { bgfx: "sunrise", font: "youngserif", round: "round" });
+  D("place-seoul", "Seoul", "places", "pixelpink", "pixelnight", { bgfx: "beams", font: "outfit", round: "round" });
+
+  // Food
+  D("food-espresso", "Espresso", "food", "hardwoodc", "espressonight", { bgfx: "glow", font: "instserif", round: "round" });
+  Lt("food-avocado", "Avocado toast", "food", "avocadoc", "creaml", { bgfx: "dots", font: "rounded", round: "round" });
+  D("food-watermelon", "Watermelon", "food", "melon", "turfnight", { bgfx: "dots", font: "poppins", round: "round" });
+  D("food-pancakes", "Blueberry pancakes", "food", "royalblue", "tobacco", { bgfx: "glow", font: "rounded", round: "round" });
+  D("food-pizza", "Pizza night", "food", "tacoc", "hotcoal", { bgfx: "checker", font: "bricolage", round: "round" });
+  D("food-sushi", "Sushi", "food", "salmonroe", "coal", { bgfx: "dots", font: "inter", round: "round" });
+  D("food-taco", "Taco Tuesday", "food", "tacoc", "burnt", { bgfx: "confetti", font: "bricolage", round: "round" });
+  Lt("food-pb", "Peanut butter", "food", "hardwoodc", "almond", { bgfx: "glow", font: "bricolage", round: "round" });
+  Lt("food-shake", "Protein shake", "food", "mochac", "oat", { bgfx: "rings", font: "outfit", round: "pill" });
+  D("food-darkchoc", "Dark chocolate", "food", "hardwoodc", "chocolate", { bgfx: "checker", font: "gloock", round: "round" });
+  D("food-limesoda", "Lime soda", "food", "acid", "jadenight", { bgfx: "confetti", font: "rounded", round: "round" });
+  D("food-hotsauce", "Hot sauce", "food", "lava", "maroonnight", { bgfx: "sunrise", font: "erica", round: "round" });
+  Lt("food-oatmeal", "Oatmeal", "food", "cinnamon", "oat", { bgfx: "grain", font: "carlito", round: "round" });
+  D("food-berrybowl", "Berry bowl", "food", "raspberry", "grapenight", { bgfx: "dots", font: "poppins", round: "round" });
+
+  // Music
+  D("music-lofi", "Lo-fi", "music", "thistle", "purplesmoke", { bgfx: "grain", font: "dmmono", round: "round" });
+  D("music-vinyl", "Vinyl", "music", "vinylc", "vinylnight", { bgfx: "rings", font: "youngserif", round: "round" });
+  D("music-jazz", "Jazz club", "music", "jazzc", "espressonight", { bgfx: "spotlight", font: "gloock", round: "round" });
+  D("music-rock", "Rock", "music", "racered", "coal", { bgfx: "grain", font: "erica", round: "sharp" });
+  D("music-metal", "Heavy metal", "music", "silver", "vinylnight", { bgfx: "vignette", font: "bigshoulders", round: "square", card: "outlined" });
+  D("music-disco", "Disco", "music", "neonsign", "neoncity", { bgfx: "confetti", font: "poppins", round: "pill", btn: "gradient" });
+  D("music-techno", "Techno", "music", "electric", "coal", { bgfx: "grid", font: "geistmono", round: "square" });
+  D("music-hiphop", "Hip-hop", "music", "coinc", "asphalt", { bgfx: "grain", font: "bigshoulders", round: "sharp" });
+  D("music-reggae", "Reggae", "music", "reggaec", "turfnight", { bgfx: "sunrise", font: "rounded", round: "round" });
+  Lt("music-country", "Country", "music", "hardwoodc", "linen", { bgfx: "grain", font: "youngserif", round: "round" });
+  Lt("music-pop", "Pop", "music", "pixelpink", "bubblegumL", { bgfx: "confetti", font: "poppins", round: "pill" });
+  D("music-kpop", "K-pop", "music", "hotpink", "twilight", { bgfx: "prism", font: "outfit", round: "pill", btn: "gradient" });
+  D("music-punk", "Punk", "music", "acid", "coal", { bgfx: "stripes", font: "smooch", round: "square" });
+  Lt("music-classical", "Classical", "music", "burgundy", "paperl", { bgfx: "fade", font: "baskerville", round: "round" });
+  D("music-synth", "Synth", "music", "plasma", "neoncity", { bgfx: "sunrise", font: "tektur", round: "sharp" });
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 3.2.0: the rewards are gone, the badges stay.
+ *  Taken out: the Rewards tab (level and XP, profile frames and titles, coins/dumbbells, the daily chest and loot chests, seasons,
+ *  weekly quests, challenges, the daily check-in, the shop, your own prizes, streak shields), the boss fight and boss battle, and the
+ *  group rewards card. Nothing about them pops up after a workout any more ("+XP", level up, quest done, chest ready, season tier,
+ *  boss beaten), and the Home card with the level is gone.
+ *  Kept: badges (their own tab in Progress, and the pop-up when you earn one), strength ranks, the weekly goal and its streak, the
+ *  group board and weekly recap, records and everything else. Badges that only came from challenges or seasons are hidden unless you
+ *  already earned them.
+ *  Nothing saved is deleted (settings keep the old XP, coins, chests and so on), so turning this back on later would lose nothing.
+ *  How: PT.rewardsOff = true. Modules 044, 046, 049, 098, 102, 103 and 106 check it before showing anything; module 999 drops their
+ *  Progress cards; the Home card stays in the page but hidden, because the nudge line is placed after it.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  PT.rewardsOff = true;
+
+  // badges that can only be earned through removed features: shown only if already earned
+  const GONE = new Set(["chal", "seasontr"]);
+  if (typeof PT.badges === "function") {
+    const oB = PT.badges;
+    PT.badges = function () { const list = oB.apply(this, arguments) || []; return list.filter(b => !(b && GONE.has(b.series) && !b.got)); };
+  }
+
+  const css = document.createElement("style"); css.id = "pt-v330-css";
+  css.textContent = `
+    #pt-you-card, #pt-checkin, #pt-xp-line { display: none !important; }
+  `;
+  document.head.appendChild(css);
+})();
+</script>
   <script>
 /* =====================================================================
  * PulseTrack 2.34.0: Progress page, organised.
@@ -34787,6 +35034,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
  * under every tab. Now there are six tabs (Overview, Muscles, Strength, History, Rewards, Social) and
  * every section lives under the tab it belongs to, in labelled groups. Section rows get an icon tile
  * and a one-line description. The cards themselves are unchanged; they are only moved.
+ * 3.2.0: the Rewards tab is gone (level, XP, coins, chests, seasons, quests, challenges, check-in, shop, own prizes) and so is the
+ * boss fight and the group rewards card in Social. Badges keep their own tab. DROP lists what is taken off the page.
  * ===================================================================== */
 (function () {
   "use strict";
@@ -34800,10 +35049,10 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     muscles: '<circle cx="12" cy="5" r="2.5"/><path d="M12 8v7M6.5 10.5 12 8l5.5 2.5M9 21l3-6 3 6"/>',
     strength: '<path d="M6 7v10M18 7v10M3 9.5v5M21 9.5v5M6 12h12"/>',
     history: '<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/>',
-    rewards: '<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4v1a3 3 0 0 0 3 3M17 6h3v1a3 3 0 0 1-3 3"/>',
+    badges: '<circle cx="12" cy="9" r="5.5"/><path d="M8.5 13.5 7 21l5-2.5 5 2.5-1.5-7.5"/>',
     social: '<circle cx="9" cy="8" r="3"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6"/><circle cx="17" cy="9" r="2.3"/><path d="M17 14c2.8 0 5 2 5 5"/>'
   };
-  const TABS = [["overview", "Overview"], ["muscles", "Muscles"], ["strength", "Strength"], ["history", "History"], ["rewards", "Rewards"], ["social", "Social"]];
+  const TABS = [["overview", "Overview"], ["muscles", "Muscles"], ["strength", "Strength"], ["history", "History"], ["badges", "Badges"], ["social", "Social"]];
 
   /* What goes where. Each item is a key that find() knows how to locate. A null label means no heading. */
   const LAYOUT = {
@@ -34811,9 +35060,10 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     muscles: [[null, ["muscle", "balance", "pmap"]]],
     strength: [[null, ["big3", "next", "lvls"]], ["Find your gaps", ["weak"]], ["Ranks and goals", ["rank", "goals", "attempt"]]],
     history: [["Recaps", ["recap", "report", "month", "year"]], ["Over time", ["heat", "prs"]]],
-    rewards: [[null, ["hub", "loot"]], ["Level and season", ["lvl", "season"]], ["Challenges", ["qst", "chal", "chk"]], ["Collection", ["badges", "shop", "wish"]]],
-    social: [["Friends", ["buddy", "wall"]], ["Group", ["boss", "grprew", "famrecap", "fam"]]]
+    badges: [[null, ["badges"]]],
+    social: [["Friends", ["buddy", "wall"]], ["Group", ["famrecap", "fam"]]]
   };
+  const DROP = ["hub", "loot", "lvl", "season", "qst", "chal", "chk", "shop", "wish", "boss", "grprew"];   // 3.2.0: rewards and the boss fight are gone
   const ID = { loot: "pt-pg-loot", grprew: "pt-pg-grprew", hub: "pt-pg-hub", wish: "pt-pg-wish", wk: "pt-pg-wk", report: "pt-pg-report", month: "pt-pg-month", year: "pt-pg-recap", heat: "pt-pg-heat", prs: "pt-pg-prs", pmap: "pt-pg-pmap", rank: "pt-pg-rank", goals: "pt-pg-goals", lvl: "pt-pg-lvl", season: "pt-pg-season", qst: "pt-pg-qst", chal: "pt-pg-chal", chk: "pt-pg-chk", badges: "pt-pg-badges", shop: "pt-pg-shop", buddy: "pt-pg-buddy", boss: "pt-pg-boss", wall: "pt-pg-wall", fam: "pt-pg-fam", famrecap: "pt-pg-famrecap", muscle: "pt-muscle-card", next: "pt-next-card", weak: "pt-weak-card", deload: "pt-dlcheck-card", attempt: "pt-attempt-card", balance: "pt-balance-card", big3: "strength-card", lvls: "pt-lvls-card", recap: "recap-card" };
   const SUB = {
     lvl: "XP, level and profile frames", wk: "Your goal and your streak", qst: "New quests every week", rank: "Where your big lifts rank", recap: "Your year in numbers",
@@ -34865,6 +35115,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     // find everything before anything moves
     const found = {}, used = new Set();
     Object.values(LAYOUT).forEach(gs => gs.forEach(([, keys]) => keys.forEach(k => { const e = find(root, k); if (e) { found[k] = e; used.add(e); } })));
+    DROP.forEach(k => { const e = find(root, k); if (e) e.remove(); });
     // the original three panels
     const panels = {}, leftover = [];
     TABS.forEach(([k]) => {
@@ -34893,12 +35144,13 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     });
     root.querySelectorAll("[data-ptab]").forEach(p => { if (!Object.values(panels).includes(p)) p.remove(); });
     TABS.forEach(([k]) => root.appendChild(panels[k]));
-    // first visit: Season starts closed (Level stays open at the top of Rewards), so Rewards is not a wall of cards
-    if (!inited) { inited = true; const d = $("pt-pg-season"); if (d && d.open) d.open = false; }
+    // the badges sheet starts open on its own tab
+    if (!inited) { inited = true; const d = $("pt-pg-badges"); if (d && !d.open) d.open = true; }
     // tab bar
     const nb = bar.cloneNode(false); nb.id = "pt-ptabs"; nb.className = "pt-tabbar";
     nb.innerHTML = TABS.map(([k, t]) => `<button type="button" data-tab="${k}" class="pt-ptab tap-active"><svg viewBox="0 0 24 24" aria-hidden="true">${ICON[k]}</svg><span>${t}</span></button>`).join("");
     bar.replaceWith(nb);
+    if (want === "rewards") want = "badges";   // 3.2.0: an old link to Rewards lands on Badges
     const cur = TABS.some(([k]) => k === want) ? want : "overview";
     const show = k => {
       app._progTab = k;

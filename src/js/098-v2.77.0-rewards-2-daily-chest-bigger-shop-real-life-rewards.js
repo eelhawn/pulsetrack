@@ -266,7 +266,7 @@
   if (oFin) proto.finishWorkoutV2 = async function () {
     const n0 = (this.sessions || []).length, r = await oFin.apply(this, arguments);
     try {
-      if ((this.sessions || []).length > n0 && !chestOf(this)) setTimeout(() => { try { if (!chestOf(this)) this.toast("🎁 Your daily chest is ready", "Open", () => { this._progTab = "rewards"; this.showView("progress"); }, 5000); } catch (e) { } }, 2600);
+      if (!PT.rewardsOff && (this.sessions || []).length > n0 && !chestOf(this)) setTimeout(() => { try { if (!chestOf(this)) this.toast("🎁 Your daily chest is ready", "Open", () => { this._progTab = "rewards"; this.showView("progress"); }, 5000); } catch (e) { } }, 2600);
     } catch (e) { console.error("PulseTrack rewards 2 finish", e); }
     return r;
   };

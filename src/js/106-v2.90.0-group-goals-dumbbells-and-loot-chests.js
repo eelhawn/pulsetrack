@@ -258,7 +258,7 @@
   };
   /** a new chest: say so once */
   function announce(a) {
-    if (!a.settings.dbBase) return;
+    if (PT.rewardsOff || !a.settings.dbBase) return;
     const seen = new Set(arr(a, "lootSeen")), fresh = waiting(a).filter(c => !seen.has(c.id)); if (!fresh.length) return;
     a.settings.lootSeen = Array.from(new Set(arr(a, "lootSeen").concat(fresh.map(c => c.id)))).slice(-400); save(a);
     const best = fresh[0];
@@ -277,7 +277,7 @@
 
   /* ============================================================== once, after the update */
   function intro(a) {
-    if (a.settings.v290Seen) return; a.settings.v290Seen = Date.now(); save(a);
+    if (a.settings.v290Seen || PT.rewardsOff) return; a.settings.v290Seen = Date.now(); save(a);   // 3.2.0: its news was all about rewards
     if (!(a.sessions || []).length) return;
     const kit = PT.kit; if (!kit) return;
     setTimeout(() => {

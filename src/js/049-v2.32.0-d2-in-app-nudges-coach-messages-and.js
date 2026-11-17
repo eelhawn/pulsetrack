@@ -95,7 +95,7 @@
     if (st.streak.cur >= 2) out.push(`${st.streak.cur} weeks in a row hitting your goal. Do not break the chain.`);
     const monthPrs = S(a).filter(s => new Date(sessTime(s)).getMonth() === new Date().getMonth() && sessTime(s) > now - 31 * DAY).reduce((n, s) => n + (s.prs || []).length, 0);
     if (monthPrs >= 2) out.push(`${monthPrs} personal records this month. You are getting stronger.`);
-    if (st.lv && st.lv.span - st.lv.into <= 250) out.push(`${fmt(Math.max(0, st.lv.span - st.lv.into))} XP to Level ${st.lv.L + 1}. One good session might do it.`);
+    if (!PT.rewardsOff && st.lv && st.lv.span - st.lv.into <= 250) out.push(`${fmt(Math.max(0, st.lv.span - st.lv.into))} XP to Level ${st.lv.L + 1}. One good session might do it.`);
     if (idle !== null && idle >= 6) out.push("Welcome back. A short session today restarts the habit. Do not worry about the numbers.");
     out.push("Slow reps, full range, and write it down. That is the whole secret.", "Sleep and protein are half the work. Eat up and rest well tonight.", "Showing up on a bad day is worth more than a great day you skipped.");
     return seedPick(out, S(a).length);
@@ -109,7 +109,7 @@
     // new month report
     const d = new Date(); if (d.getDate() <= 5 && hasAny) { const [py, pm] = prevMonth(d.getFullYear(), d.getMonth()), g = grade(a, py, pm), id = "rep" + g.id; if (g.workouts && a.settings.reportSeen !== g.id) out.push({ id, icon: "📋", text: `Your ${g.name} report card is ready: ${g.letter}`, act: "report", cta: "See it" }); }
     // challenge ending soon
-    try { const c = a.settings.challenge; if (c && c.end && c.end > now && c.end - now <= 3 * DAY && PT.challengeProgress) { const p = PT.challengeProgress(a); if (p && !c.done && p.cur < p.goal) out.push({ id: "chal" + c.id, icon: "⚔️", text: `${Math.max(1, Math.ceil((c.end - now) / DAY))} day${(c.end - now) > DAY ? "s" : ""} left on your challenge`, act: "progress", cta: "Check it" }); } } catch (e) { }
+    try { const c = !PT.rewardsOff && a.settings.challenge; if (c && c.end && c.end > now && c.end - now <= 3 * DAY && PT.challengeProgress) { const p = PT.challengeProgress(a); if (p && !c.done && p.cur < p.goal) out.push({ id: "chal" + c.id, icon: "⚔️", text: `${Math.max(1, Math.ceil((c.end - now) / DAY))} day${(c.end - now) > DAY ? "s" : ""} left on your challenge`, act: "progress", cta: "Check it" }); } } catch (e) { }
     // one workout from the goal
     const W = PT.weeksOf(a), mon = mondayOf(now), cur = W.get(mon), goal = PT.goalFor(a, mon), got = cur ? cur.days.size : 0;
     if (got > 0 && got === goal - 1) out.push({ id: "goal" + mon, icon: "🎯", text: "One more workout and you hit your weekly goal", act: "start", cta: "Train" });

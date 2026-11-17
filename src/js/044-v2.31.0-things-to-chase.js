@@ -547,17 +547,17 @@
   function afterFinish(a) {
     const s = a.lastSummary && a.lastSummary.session; if (!s) return;
     const q = syncQuests(a), st = state(a, true), sk = st.streak, items = [], stt = a.settings;
-    // XP line on the finish screen
-    const t = $("btn-summary-template");
+    // XP line on the finish screen (3.2.0: not with rewards off)
+    const t = PT.rewardsOff ? null : $("btn-summary-template");
     if (t && t.parentElement) {
       let l = $("pt-xp-line"); if (!l) { l = document.createElement("div"); l.id = "pt-xp-line"; l.className = "text-center text-xs font-bold text-amber-300"; t.parentElement.insertBefore(l, t.parentElement.firstChild); }
       l.textContent = `+${sessionXp(s) + q.length * QUEST_XP} XP · Level ${st.lv.L} · ${sk.k}/${sk.goal} days this week`;
     }
     // quests
-    if (q.length) a.toast(q.length === 1 ? `Quest done: ${q[0].text} (+${QUEST_XP} XP)` : `${q.length} quests done (+${q.length * QUEST_XP} XP)`);
+    if (q.length && !PT.rewardsOff) a.toast(q.length === 1 ? `Quest done: ${q[0].text} (+${QUEST_XP} XP)` : `${q.length} quests done (+${q.length * QUEST_XP} XP)`);
     // level up
     if (stt.lvlSeen === undefined) stt.lvlSeen = st.lv.L - 1;
-    if (st.lv.L > stt.lvlSeen) {
+    if (st.lv.L > stt.lvlSeen && !PT.rewardsOff) {
       const nf = FRAMES.find(f => f.lvl > stt.lvlSeen && f.lvl <= st.lv.L), nt = TITLES.find(x => x[0] > stt.lvlSeen && x[0] <= st.lv.L);
       items.push({ custom: true, label: "Level up", name: `Level ${st.lv.L}`, desc: `${st.title}${nt ? ". New title unlocked" : ""}${nf ? `. New profile frame: ${nf.name}` : ""}`, big: ringBig(a, Object.assign({}, st, { lv: Object.assign({}, st.lv, { pct: 1 }) }), nf || (unlockedFrame(a, frameOf(a)) ? frameOf(a) : FRAMES[0])), glow: "rgb(251 191 36 / .6)", a: "#fde68a", b: "#d97706", confetti: true,
         share: { icon: "⚡", kicker: "Level up", title: `Level ${st.lv.L}`, sub: st.title, lines: [["Total XP", fmt(st.xp)], ["Workouts", String(S(a).length)]], c: ["#fde68a", "#d97706"] } });

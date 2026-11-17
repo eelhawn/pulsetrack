@@ -110,7 +110,7 @@
     g.fillStyle = "#52525b"; g.font = font(600, 26); g.fillText("Tracked with PulseTrack", 80, H - 60);
     try {
       const blob = await new Promise((res, rej) => cv.toBlob(b => b ? res(b) : rej(new Error("toBlob")), "image/png"));
-      await a.shareFile(new File([blob], `pulsetrack-family-${R.wid}.png`, { type: "image/png" }), "PulseTrack group recap");
+      await a.shareFile(new File([blob], `pulsetrack-group-${R.wid}.png`, { type: "image/png" }), "PulseTrack group recap");
     } catch (e) { a.toast("Could not create the picture"); }
   }
   async function shareText(a) {

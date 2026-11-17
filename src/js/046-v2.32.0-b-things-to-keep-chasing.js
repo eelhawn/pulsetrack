@@ -157,6 +157,7 @@
 
   /* ============================================================== Home: check-in chip */
   function homeChip(a) {
+    if (PT.rewardsOff) { const old = $("pt-checkin"); if (old) old.remove(); return; }   // 3.2.0
     const box = $("pt-home-extra"), you = $("pt-you-card"); if (!box || !you) return;
     let b = $("pt-checkin"); const need = !checkedToday(a) && !S(a).some(s => s.date === PT.ds()) && !shieldSet(a).has(PT.ds());
     if (!need) { if (b) b.remove(); return; }
@@ -243,6 +244,7 @@
 
   /* ============================================================== after a workout */
   function afterFinish(a) {
+    if (PT.rewardsOff) return;   // 3.2.0
     const items = [], st = a.settings, c = checkChallenge(a); if (c) items.push(chalItem(c));
     const sv = seasons(a).cur; if (st.seasonSeen && st.seasonSeen.i === sv.i && sv.tier > st.seasonSeen.t) { const t = sv.tier; items.push({ custom: true, label: "Season reward", name: `Tier ${t}`, desc: `${sv.name} · ${TIER_REWARD[t].replace(/^\S+ /, "").replace(/^@(\d+)$/, "$1 dumbbells")} unlocked${SEASON_COINS[t] ? " (+" + Math.floor(SEASON_COINS[t] / 2) + " dumbbells)" : ""}`, big: `<div style="font-size:96px;line-height:1">${t >= 8 ? "🏆" : "🏟"}</div>`, glow: "rgb(96 165 250 / .6)", a: "#93c5fd", b: "#2563eb", confetti: t >= 6 }); }
     st.seasonSeen = { i: sv.i, t: sv.tier }; save();

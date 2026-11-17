@@ -92,6 +92,7 @@
     return fresh.map(wid => Object.assign({ wid }, bw[wid]));
   }
   function check(a) {
+    if (PT.rewardsOff) return;   // 3.2.0
     const fresh = record(a, state(a)); if (!fresh.length) return;
     const f = fresh[fresh.length - 1], cur = f.wid === K.dsOf(K.wkMon(0));
     setTimeout(() => {

@@ -36,15 +36,15 @@ You are solely responsible for deciding whether to exercise and which exercises,
 
 The App stores your workout history and other information only on your own device, in your browser's storage. The Developer has no access to that data and cannot view, back up, restore or recover it. Your data can be permanently lost if you clear your browser data, uninstall the App, use private browsing or lose your device, or if your browser or operating system removes stored data. You are responsible for making and keeping your own backups using the App's export and backup features.
 
-Optional features, such as the family board, sharing and exporting, send information only when you turn them on or use them. You are responsible for what you choose to share and who you share it with. Anyone who has a family code can read and post to that family board.
+Optional features, such as the group board, sharing and exporting, send information only when you turn them on or use them. You are responsible for what you choose to share and who you share it with. Anyone who has a group code can read and post to that group board.
 
 ## 6. Third-party services
 
-The App relies on services that the Developer does not control. These include GitHub Pages, which hosts the App, the public relay ntfy.sh, which the optional family board uses, YouTube, which is linked for exercise form videos, and your device's browser and share features. Those services operate under their own terms and policies. The Developer is not responsible for their availability, content, security or practices.
+The App relies on services that the Developer does not control. These include GitHub Pages, which hosts the App, the public relay ntfy.sh, which the optional group board uses, YouTube, which is linked for exercise form videos, and your device's browser and share features. Those services operate under their own terms and policies. The Developer is not responsible for their availability, content, security or practices.
 
 ## 7. Acceptable use
 
-You agree not to use the App in violation of any law, and not to use the App's sharing or family board features to harass anyone or to share another person's information without their consent.
+You agree not to use the App in violation of any law, and not to use the App's sharing or group board features to harass anyone or to share another person's information without their consent.
 
 ## 8. "As is" and no warranty
 
