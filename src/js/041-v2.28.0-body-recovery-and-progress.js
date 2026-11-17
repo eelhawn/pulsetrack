@@ -463,7 +463,8 @@
   }
   const HOP = [0, 0.4, 0.6, 0.82, 1];
   const heatFill = L => L ? `rgb(var(--a500) / ${HOP[L]})` : "rgb(var(--z800))";
-  const monthName = (y, m, long) => new Date(y, m, 1).toLocaleString("en", { month: long ? "long" : "short" });
+  const MONTHS = { s: [], l: [] };   // 2.106.0: worked out once, not for every square of the calendar
+  const monthName = (y, m, long) => { const k = long ? "l" : "s"; return MONTHS[k][m] || (MONTHS[k][m] = new Date(2000, m, 1).toLocaleString("en", { month: long ? "long" : "short" })); };
   function heatStats(by, today) {
     let days = 0, workouts = 0, run = 0, best = 0; const months = {};
     for (let i = 364; i >= 0; i--) {

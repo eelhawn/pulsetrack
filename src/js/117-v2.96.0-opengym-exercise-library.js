@@ -103,7 +103,8 @@
   const oInit = proto.initExtras;
   proto.initExtras = function () {
     const r = oInit ? oInit.apply(this, arguments) : undefined;
-    setTimeout(() => { load(); }, 1500);   // after the app is up
+    // after the app is up, when the phone has a quiet moment (2.106.0), so reading the 1.4 MB library never gets in the way of a first tap
+    setTimeout(() => { if (window.requestIdleCallback) requestIdleCallback(() => load(), { timeout: 4000 }); else load(); }, 1500);
     return r;
   };
 })();

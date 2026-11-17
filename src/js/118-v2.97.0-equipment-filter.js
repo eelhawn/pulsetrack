@@ -57,6 +57,4 @@
     const g = gymNow(); if (!g || !g.equip || (PT.isCustomEx && PT.isCustomEx(name))) return true;
     return !PT.equipNeeds(name).some(x => g.equip[x] === false);
   };
-  /** for an openGym entry not in the list yet (the picker's openGym results) */
-  PT.eqAllows = e => !e || PT.gymAllows(e.name);
 })();

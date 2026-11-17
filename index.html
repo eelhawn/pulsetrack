@@ -435,7 +435,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.105.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.106.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3839,7 +3839,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.105.0";
+    const APP_VERSION = "2.106.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -16925,7 +16925,8 @@ const PTSIM = (function () {
   }
   const HOP = [0, 0.4, 0.6, 0.82, 1];
   const heatFill = L => L ? `rgb(var(--a500) / ${HOP[L]})` : "rgb(var(--z800))";
-  const monthName = (y, m, long) => new Date(y, m, 1).toLocaleString("en", { month: long ? "long" : "short" });
+  const MONTHS = { s: [], l: [] };   // 2.106.0: worked out once, not for every square of the calendar
+  const monthName = (y, m, long) => { const k = long ? "l" : "s"; return MONTHS[k][m] || (MONTHS[k][m] = new Date(2000, m, 1).toLocaleString("en", { month: long ? "long" : "short" })); };
   function heatStats(by, today) {
     let days = 0, workouts = 0, run = 0, best = 0; const months = {};
     for (let i = 364; i >= 0; i--) {
@@ -30095,104 +30096,6 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 })();
 </script>
   <script>/* =====================================================================
- * PulseTrack 2.75.0: My 6-Day Split runs as two alternating weeks, and exercises on the same machine sit together.
- *  - Week A (weeks 1, 3, 5) is days 1-7 and Week B (weeks 2, 4, 6) is days 8-14 (a week plan with two groups).
- *  - A copy of the split that is already on a phone has only the old 7 days. It is brought up to date once:
- *      days you never changed take the new order (and the sets you already logged on them follow their exercise),
- *      days you changed (a swap, an added or deleted exercise, other sets or reps) are left exactly as they are
- *      until the next new week puts them back, and the 7 days of Week B are added with the new week plan.
- * ===================================================================== */
-(function () {
-  "use strict";
-  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
-  const proto = ApplicationUI.prototype;
-  const MINE = "my_6day_chest_back_legs_sharms";
-  const clone = o => JSON.parse(JSON.stringify(o));
-  const builtin = id => (typeof BUILTIN_PROGRAMS !== "undefined" && Array.isArray(BUILTIN_PROGRAMS)) ? BUILTIN_PROGRAMS.find(x => x && x.id === id) : null;
-  const canon = n => { try { const e = PT.exCanon(n); return e && e.name ? e.name : n; } catch (er) { return n; } };
-
-  /** a day nobody has touched: the same exercises as the program's day (in any order), nothing swapped, added, deleted or edited */
-  function untouched(d, bd) {
-    if (!d || !bd || d.removed || d.sharedFrom) return false;
-    const a = d.exercises || [], b = bd.exercises || [];
-    if (a.length !== b.length) return false;
-    const want = new Map(b.map(e => [canon(e.name), e]));
-    return a.every(e => {
-      if (!e || e.origName || e.added || e.origSets !== undefined || /^custom_/.test(String(e.id || ""))) return false;
-      const w = want.get(canon(e.name));
-      return !!w && String(e.sets) === String(w.sets) && String(e.reps) === String(w.reps);
-    });
-  }
-
-  function upgrade(app) {
-    const p = app && app.data && Array.isArray(app.data.programs) ? app.data.programs.find(x => x && x.id === MINE) : null;
-    const b = builtin(MINE);
-    if (!p || !b || !Array.isArray(b.weekPlan) || b.weekPlan.length < 2 || !Array.isArray(p.days) || !Array.isArray(b.days)) return { done: false };
-    if (Array.isArray(p.weekPlan) && p.weekPlan.length >= 2) return { done: false };              // already two weeks
-    const base = 7;   // the old copy has the 7 days of one week (the program itself has 8-day weeks since 2.92.0)
-    if (p.days.length !== base || !p.days.every((d, i) => d && d.dayNumber === i + 1)) return { done: false };   // rebuilt by hand: leave alone
-    const bd = n => b.days.find(d => d.dayNumber === n);
-
-    let renamedLogs = 0, replaced = 0, kept = 0;
-    p.days.forEach(d => {
-      const nd = bd(d.dayNumber);
-      if (!nd) return;
-      // the day title in the new style, unless it was renamed by hand
-      if (/^Day \d+: /.test(String(d.title || ""))) d.title = nd.title;
-      if (!(d.exercises || []).length && !(nd.exercises || []).length) return;                    // the rest day
-      if (!untouched(d, nd)) { kept++; return; }
-      // sets already ticked on this day follow their exercise to its new id
-      const byName = new Map(nd.exercises.map(e => [canon(e.name), e.id]));
-      const pre = `${p.id}_d${d.dayNumber}_`, moves = [];
-      Object.keys(app.logs || {}).forEach(k => {
-        if (!k.startsWith(pre)) return;
-        const m = k.slice(pre.length).match(/^(.*)_s(\d+)$/);
-        if (!m) return;
-        const old = d.exercises.find(e => String(e.id) === m[1]);
-        const to = old && byName.get(canon(old.name));
-        if (to && to !== m[1]) moves.push([k, pre + to + "_s" + m[2]]);
-      });
-      const taken = {};
-      moves.forEach(([from]) => { taken[from] = app.logs[from]; delete app.logs[from]; });
-      moves.forEach(([from, to]) => { app.logs[to] = taken[from]; renamedLogs++; });
-      d.exercises = clone(nd.exercises);
-      d.estimatedMinutes = nd.estimatedMinutes;
-      replaced++;
-    });
-    // Week B
-    b.days.forEach(nd => { if (nd.dayNumber > base && !p.days.some(d => d.dayNumber === nd.dayNumber)) p.days.push(clone(nd)); });
-    p.weekPlan = clone(b.weekPlan);
-    p.weeks = b.weeks; p.baseDays = b.baseDays;
-    if (b.weekReset && p.weekReset === undefined) p.weekReset = true;
-    // the longer description only while it is still the one that came with the program
-    if (/the same workouts every week/.test(String(p.description || ""))) p.description = b.description;
-    if (Array.isArray(b.tags)) p.tags = clone(b.tags);
-
-    WorkoutStorage.setData(app.data);
-    if (renamedLogs) WorkoutStorage.saveLogs(app.logs);
-    try { app.saveProgState(); } catch (e) { }
-    return { done: true, replaced, kept, renamedLogs };
-  }
-  PT.split2 = { upgrade: () => upgrade(window.app) };
-
-  const oInit = proto.initExtras;
-  proto.initExtras = function () {
-    const r = oInit ? oInit.apply(this, arguments) : undefined;
-    // after the names were made standard (095) and once window.app exists
-    setTimeout(() => {
-      try {
-        const res = upgrade(this);
-        if (res.done) {
-          try { if (this.activeProgram && this.activeProgram.id === MINE) this.activeDay = this.nextDayOf(this.activeProgram) || this.activeDay; } catch (e) { }
-          setTimeout(() => { try { this.toast("Your 6-day split now has two alternating weeks (A and B)", null, null, 6000); } catch (e) { } }, 2800);
-        }
-      } catch (e) { console.error("PulseTrack: split weeks skipped", e); }
-    }, 0);
-    return r;
-  };
-})();
-</script>
-  <script>/* =====================================================================
  * PulseTrack 2.76.0: every day of My 6-Day Split that has a Lat Pulldown now opens with it. (2.78.0: the Straight-Arm Pulldown goes last on Day 4.)
  *  - Only Week A's Day 1 was different (Lat Pulldown was the third exercise); Days 4, 8 and 11 already opened with it.
  *  - A copy that already has the 2.75.0 order is moved once: if Day 1 still has exactly the 2.75.0 exercises in the 2.75.0 order
@@ -33015,120 +32918,6 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 })();
 </script>
   <script>/* =====================================================================
- * PulseTrack 2.92.0: My 6-Day Split runs as 3 days on, 1 day off, all in one program.
- *  Every week is now 8 days: Day 1-3 train, Day 4 rest, Day 5-7 train, Day 8 rest. It still runs 6 weeks with Week A (1, 3, 5) and
- *  Week B (2, 4, 6), so you do the same 36 workouts as before, with two rest days in every week instead of one.
- *  - The program has two new rest days (15 and 16) and Day 7 / Day 14 moved to the middle of the week (the 4th day).
- *  - Each week is labelled Day 1 to Day 8 (the program's dayLabels), also on the Home card, the week badge, sharing and the calendar.
- *  - A copy of the program already on a phone is brought up to date once: the week plan, the two new rest days, the new day names and the
- *    description. Your exercises, swaps, sets and reps, ticked sets, history and records are not touched. Day names you changed by hand
- *    stay as you wrote them. Progress ("week 3, 2 days done") carries on from where it was.
- *  Runs once (settings.split3on1). Only My 6-Day Split is changed.
- * ===================================================================== */
-(function () {
-  "use strict";
-  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
-  const proto = ApplicationUI.prototype;
-  const MINE = "my_6day_chest_back_legs_sharms";
-  const clone = o => JSON.parse(JSON.stringify(o));
-  const builtin = id => (typeof BUILTIN_PROGRAMS !== "undefined" && Array.isArray(BUILTIN_PROGRAMS)) ? BUILTIN_PROGRAMS.find(x => x && x.id === id) : null;
-
-  function upgrade(app) {
-    const p = app && app.data && Array.isArray(app.data.programs) ? app.data.programs.find(x => x && x.id === MINE) : null;
-    const b = builtin(MINE);
-    if (!p || !b || !Array.isArray(p.days) || !Array.isArray(b.days) || !Array.isArray(b.weekPlan)) return { done: false };
-    if (!Array.isArray(p.weekPlan) || p.weekPlan.length < 2) return { done: false };           // still the 7-day copy: 096 brings it up first
-    if (p.days.some(d => d && d.dayNumber === 15) && p.baseDays === b.baseDays) return { done: false };   // already 3 on, 1 off
-    let titles = 0, added = 0;
-    b.days.forEach(nd => {
-      const d = p.days.find(x => x && x.dayNumber === nd.dayNumber);
-      if (!d) { p.days.push(clone(nd)); added++; return; }
-      // the day name in the new numbering, unless you renamed the day yourself
-      if (/^W\d[W\d &]* - Day \d+: /.test(String(d.title || "")) && d.title !== nd.title) { d.title = nd.title; titles++; }
-    });
-    // the days list shows the days in the order of the array, a week after the other: Week A's 8 days, then Week B's 8
-    const order = [].concat(...b.weekPlan.map(g => g.days)), at = n => { const i = order.indexOf(n); return i < 0 ? 999 + n : i; };
-    p.days.sort((x, y) => at(x.dayNumber) - at(y.dayNumber));
-    p.weekPlan = clone(b.weekPlan);
-    p.baseDays = b.baseDays;
-    p.dayLabels = b.dayLabels;                    // "Day 1" to "Day 8" in each week, whatever the stored number
-    if (Array.isArray(b.tags)) p.tags = clone(b.tags);
-    // the new description only while it is still the one that came with the program
-    if (/two alternating weeks/.test(String(p.description || "")) && !/3 days|three training days/.test(String(p.description || ""))) p.description = b.description;
-    app.settings.split3on1 = Date.now();
-    WorkoutStorage.setData(app.data);
-    try { WorkoutStorage.saveSettings(app.settings); } catch (e) { }
-    try { app.saveProgState(); } catch (e) { }
-    return { done: true, added, titles };
-  }
-  PT.split3 = { upgrade: () => upgrade(window.app) };
-
-  const oInit = proto.initExtras;
-  proto.initExtras = function () {
-    const r = oInit ? oInit.apply(this, arguments) : undefined;
-    setTimeout(() => {   // after 096 has added Week B to an old copy
-      try {
-        if (this.settings.split3on1) return;
-        const res = upgrade(this);
-        if (res.done) {
-          try { if (this.activeProgram && this.activeProgram.id === MINE) { this.activeDay = this.nextDayOf(this.activeProgram) || this.activeDay; } } catch (e) { }
-          setTimeout(() => { try { this.toast("Your 6-day split is now 3 days on, 1 day off", null, null, 6000); } catch (e) { } }, 3200);
-        }
-      } catch (e) { console.error("PulseTrack: 3 on 1 off skipped", e); }
-    }, 20);
-    return r;
-  };
-})();
-</script>
-  <script>/* =====================================================================
- * PulseTrack 2.93.0: My 6-Day Split runs 8 weeks (it was 6).
- *  Week A is now weeks 1, 3, 5 and 7, Week B weeks 2, 4, 6 and 8: the same 12 workouts, 48 in all.
- *  8 weeks of 8 days is 64 days, nine weeks and a day, so the last rest day (Day 8 of week 8) falls on the same weekday you started on:
- *  start on a Saturday or Sunday and the program ends on a Saturday or Sunday. The program doesn't look at the calendar, so this is up to
- *  the day you start (the description says so).
- *  A copy already on a phone is changed once: its length, the two week groups, the tag and the description (only while the description is
- *  still the one that came with the program). Exercises, swaps, ticked sets, history and records are not touched, and your progress
- *  (week 3, 2 days done) carries on. Runs once (settings.split8wk). Only My 6-Day Split is changed.
- * ===================================================================== */
-(function () {
-  "use strict";
-  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
-  const proto = ApplicationUI.prototype;
-  const MINE = "my_6day_chest_back_legs_sharms";
-  const clone = o => JSON.parse(JSON.stringify(o));
-  const builtin = id => (typeof BUILTIN_PROGRAMS !== "undefined" && Array.isArray(BUILTIN_PROGRAMS)) ? BUILTIN_PROGRAMS.find(x => x && x.id === id) : null;
-
-  function upgrade(app) {
-    const p = app && app.data && Array.isArray(app.data.programs) ? app.data.programs.find(x => x && x.id === MINE) : null;
-    const b = builtin(MINE);
-    if (!p || !b || !Array.isArray(b.weekPlan) || !Array.isArray(p.weekPlan) || p.weekPlan.length < 2) return { done: false };   // 096 / 112 bring an old copy up first
-    if (p.weeks === b.weeks && p.weekPlan.every((g, i) => b.weekPlan[i] && String(g.weeks) === String(b.weekPlan[i].weeks))) return { done: false };
-    p.weeks = b.weeks;
-    p.weekPlan.forEach((g, i) => { if (b.weekPlan[i]) g.weeks = clone(b.weekPlan[i].weeks); });
-    if (Array.isArray(p.tags)) p.tags = p.tags.map(t => t === "6 Weeks" ? "8 Weeks" : t);
-    if (/over 6 weeks of 8 days/.test(String(p.description || ""))) p.description = b.description;
-    app.settings.split8wk = Date.now();
-    WorkoutStorage.setData(app.data);
-    try { WorkoutStorage.saveSettings(app.settings); } catch (e) { }
-    try { app.saveProgState(); } catch (e) { }
-    return { done: true };
-  }
-  PT.split8 = { upgrade: () => upgrade(window.app) };
-
-  const oInit = proto.initExtras;
-  proto.initExtras = function () {
-    const r = oInit ? oInit.apply(this, arguments) : undefined;
-    setTimeout(() => {   // after 096 and 112
-      try {
-        if (this.settings.split8wk) return;
-        if (upgrade(this).done) setTimeout(() => { try { this.toast("Your 6-day split now runs 8 weeks", null, null, 6000); } catch (e) { } }, 3600);
-      } catch (e) { console.error("PulseTrack: 8 week split skipped", e); }
-    }, 40);
-    return r;
-  };
-})();
-</script>
-  <script>/* =====================================================================
  * PulseTrack 2.94.0: My 6-Day Split is one long program: Day 1 to Day 64, no weeks.
  *  3 days on, 1 off, 3 on, 1 off, round and round for 64 days (8 blocks of 8; the odd blocks use the free-weight days, the even blocks
  *  the machine days). 64 days is nine weeks and a day: start on a Saturday or Sunday and Day 64, the last rest day, is one too.
@@ -33478,7 +33267,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   const oInit = proto.initExtras;
   proto.initExtras = function () {
     const r = oInit ? oInit.apply(this, arguments) : undefined;
-    setTimeout(() => { load(); }, 1500);   // after the app is up
+    // after the app is up, when the phone has a quiet moment (2.106.0), so reading the 1.4 MB library never gets in the way of a first tap
+    setTimeout(() => { if (window.requestIdleCallback) requestIdleCallback(() => load(), { timeout: 4000 }); else load(); }, 1500);
     return r;
   };
 })();
@@ -33542,8 +33332,6 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const g = gymNow(); if (!g || !g.equip || (PT.isCustomEx && PT.isCustomEx(name))) return true;
     return !PT.equipNeeds(name).some(x => g.equip[x] === false);
   };
-  /** for an openGym entry not in the list yet (the picker's openGym results) */
-  PT.eqAllows = e => !e || PT.gymAllows(e.name);
 })();
 </script>
   <script>/* =====================================================================
@@ -34157,6 +33945,56 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     setTimeout(() => { try { run(this); } catch (e) { console.error("PulseTrack: high-rep core days skipped", e); } }, 210);   // after 123 (190)
     return r;
   };
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 2.106.0: speed-ups.
+ *  Some questions about an exercise ("is it a bodyweight move?") only depend on its name and your exercise list, but were worked out again
+ *  for every set of every past workout each time a screen was drawn: the Progress page asked them hundreds of thousands of times. The answers
+ *  are now remembered per name and forgotten whenever your settings or the exercise list change (a new or edited exercise of your own,
+ *  the openGym library arriving), so nothing can go stale. Nothing you see changes, it is just quicker.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  let ver = 0;
+  const dbLen = () => (typeof EXERCISE_DATABASE !== "undefined" && Array.isArray(EXERCISE_DATABASE)) ? EXERCISE_DATABASE.length : 0;
+  PT.memoVer = () => ver + ":" + dbLen();
+  PT.memoForget = () => { ver++; };
+  try {
+    const oSave = WorkoutStorage.saveSettings;
+    WorkoutStorage.saveSettings = function () { ver++; return oSave.apply(this, arguments); };
+  } catch (e) { }
+  /** remembers fn(name) per name; the memory is dropped when PT.memoVer() changes */
+  PT.memoByName = function (fn) {
+    let atV = -1, atL = -1, atS = null, atX = null, m = new Map();
+    return function (name) {
+      if (arguments.length !== 1) return fn.apply(this, arguments);
+      // forgotten when settings are saved, the list grows or shrinks, or your own exercises / the settings are swapped out (a restore)
+      const l = dbLen(), st = window.app && window.app.settings, cx = st && st.customEx;
+      if (ver !== atV || l !== atL || st !== atS || cx !== atX) { atV = ver; atL = l; atS = st; atX = cx; m = new Map(); }
+      const k = String(name == null ? "" : name);
+      if (m.has(k)) return m.get(k);
+      const r = fn.call(this, name); m.set(k, r); return r;
+    };
+  };
+  // the accent colour was read from the page's styles for every point of every chart; it only changes with your settings (or theme)
+  try {
+    const P = ApplicationUI.prototype, oAcc = PT.accent;
+    if (typeof oAcc === "function") {
+      let at = -1, raw = null;
+      PT.accent = function (alpha) {
+        if (at !== ver || raw === null) { at = ver; raw = getComputedStyle(document.documentElement).getPropertyValue("--a500").trim() || "16 185 129"; }
+        const [r, g, b] = raw.split(/\s+/).map(Number);
+        return alpha === undefined ? `rgb(${r},${g},${b})` : `rgba(${r},${g},${b},${alpha})`;
+      };
+      const oTheme = P.applyTheme;
+      if (typeof oTheme === "function") P.applyTheme = function () { const r = oTheme.apply(this, arguments); ver++; return r; };
+    }
+  } catch (e) { }
+
+  // the answers that depend on the name only
+  ["isBwMove", "isBodyweightEx", "equipKey", "category", "dbCount"].forEach(k => { if (typeof PT[k] === "function") PT[k] = PT.memoByName(PT[k]); });
 })();
 </script>
   <script>
