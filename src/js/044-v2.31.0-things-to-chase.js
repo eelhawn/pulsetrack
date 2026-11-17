@@ -348,6 +348,26 @@
     .pt-frame i { width: .75rem; height: .75rem; border-radius: 50%; display: inline-block; }
     .pt-frame[aria-pressed=true] { border-color: rgb(var(--a500)); color: #fff; }
     .pt-frame.lock { opacity: .5; }
+    .pt-xpg { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .3rem; }
+    .pt-xpg span { display: flex; flex-direction: column; padding: .35rem .5rem; border-radius: .6rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); font-size: .6rem; font-weight: 700; color: rgb(var(--z500)); min-width: 0; }
+    .pt-xpg b { font-size: .78rem; font-weight: 800; color: rgb(var(--z200)); font-variant-numeric: tabular-nums; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pt-fgrid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .4rem; }
+    @media (max-width: 370px) { .pt-fgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    .pt-ftile { display: flex; flex-direction: column; align-items: center; gap: .3rem; padding: .55rem .25rem .45rem; border-radius: .8rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); min-width: 0; }
+    .pt-ftile i { width: 1.6rem; height: 1.6rem; border-radius: 50%; display: block; box-shadow: inset 0 0 0 2px rgb(0 0 0 / .25); }
+    .pt-ftile b { font-size: .66rem; font-weight: 800; color: rgb(var(--z200)); max-width: 100%; overflow: hidden; text-align: center; line-height: 1.15; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow-wrap: anywhere; }
+    .pt-ftile s { text-decoration: none; font-size: .58rem; font-weight: 700; color: rgb(var(--z500)); line-height: 1; display: inline-flex; align-items: center; gap: .15rem; }
+    .pt-ftile s .pt-dbi { width: .7rem; height: .7rem; }
+    .pt-ftile[aria-pressed=true] { border-color: rgb(var(--a500)); background: rgb(var(--a500) / .1); }
+    .pt-ftile[aria-pressed=true] b { color: #fff; }
+    .pt-ftile[aria-pressed=true] s { color: rgb(var(--a400)); }
+    .pt-ftile.lock i { filter: grayscale(.6) brightness(.7); }
+    .pt-ftile.lock b { color: rgb(var(--z500)); }
+    .pt-flock { margin-top: .45rem; }
+    .pt-flock > summary { list-style: none; cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: .45rem .1rem; font-size: .68rem; font-weight: 700; color: rgb(var(--z400)); }
+    .pt-flock > summary::-webkit-details-marker { display: none; }
+    .pt-flock[open] > summary .pt-chev { transform: rotate(90deg); }
+    .pt-flock .pt-chev { transition: transform .15s; }
     .pt-qrow { display: flex; flex-direction: column; gap: .3rem; padding: .6rem .7rem; border-radius: .8rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z800)); }
     .pt-qrow.done { border-color: rgb(52 211 153 / .5); }
     .pt-wks { display: flex; gap: .3rem; justify-content: space-between; }
@@ -389,11 +409,17 @@
 
   function levelHtml(a) {
     const st = state(a), nt = nextTitle(st.lv.L), f = frameOf(a), p = st.parts;
-    const frames = allFrames(a).map(x => { const ok = unlockedFrame(a, x); return `<button type="button" class="pt-frame tap-active ${ok ? "" : "lock"}" data-frame="${x.id}" aria-pressed="${f.id === x.id && ok}"><i style="background:linear-gradient(135deg,${x.c.join(",")})"></i>${esc(x.name)}${ok ? "" : " · " + esc(frameReq(x))}</button>`; }).join("");
+    // 2.105.0: a tidy grid of same-size tiles; the ones you have first, the rest behind "N to unlock" (short price or level on each)
+    const short = x => x.lvl ? "Lv " + x.lvl : /dumbbells/.test(x.req || "") ? (PT.DBI || "") + " " + String(x.req).replace(/\D+/g, "") : /Season/i.test(x.req || "") ? "Season" : esc(frameReq(x));
+    const tile = (x, ok) => `<button type="button" class="pt-ftile tap-active ${ok ? "" : "lock"}" data-frame="${x.id}" aria-pressed="${f.id === x.id && ok}" aria-label="${esc(x.name)}${ok ? "" : ", " + esc(frameReq(x))}"><i style="background:linear-gradient(135deg,${x.c.join(",")})"></i><b>${esc(x.name)}</b>${ok ? (f.id === x.id ? "<s>On</s>" : "") : `<s>${short(x)}</s>`}</button>`;
+    const fl = allFrames(a), mine = fl.filter(x => unlockedFrame(a, x)), locked = fl.filter(x => !unlockedFrame(a, x));
+    const need = x => x.lvl ? x.lvl * 10 : parseInt(String(x.req || "").replace(/\D+/g, ""), 10) || 99999;
+    locked.sort((p, q) => need(p) - need(q));
+    const frames = `<div class="pt-fgrid">${mine.map(x => tile(x, true)).join("")}</div>${locked.length ? `<details class="pt-flock" ${OPEN.flock ? "open" : ""}><summary>${locked.length} more to unlock<span class="pt-chev">›</span></summary><div class="pt-fgrid">${locked.map(x => tile(x, false)).join("")}</div></details>` : ""}`;
     return `<div class="pt-lvhead">${frameRing(a, st, 96)}<div class="min-w-0 flex-1"><span class="block text-base font-black text-white">${esc(st.title)}</span><span class="block text-[11px] text-zinc-400">${fmt(st.xp)} XP total</span>
       <div class="mt-1.5">${bar(st.lv.pct)}</div><span class="block text-[11px] text-zinc-300 mt-1">${fmt(st.lv.nxt - st.xp)} XP to level ${st.lv.L + 1}${nt ? ` · ${esc(nt[1])} at level ${nt[0]}` : ""}</span></div></div>
-      <p class="text-[11px] text-zinc-400 leading-snug">XP: ${fmt(p.workouts)} workouts · ${fmt(p.sets)} sets · ${fmt(p.prs)} records · ${fmt(p.weeks)} goal weeks · ${fmt(p.badges)} badges · ${fmt(p.quests)} quests${p.volume ? " · " + fmt(p.volume) + " weight" : ""}.</p>
-      <div><span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1.5">Profile frame</span><div class="pt-frames">${frames}</div></div>
+      <div><span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1.5">Where your XP came from</span><div class="pt-xpg">${[["Workouts", p.workouts], ["Sets", p.sets], ["Records", p.prs], ["Goal weeks", p.weeks], ["Badges", p.badges], ["Quests", p.quests], ["Weight", p.volume]].filter(x => x[1]).map(x => `<span><b>${fmt(x[1])}</b>${x[0]}</span>`).join("")}</div></div>
+      <div><span class="block text-[10px] font-bold uppercase tracking-wider text-zinc-500 mb-1.5">Profile frame</span>${frames}</div>
       <div><button type="button" class="pt-b" id="pt-share-lvl">Share my level</button></div>`;
   }
   function goalHtml(a) {
@@ -588,6 +614,7 @@
     const t = id => e.target.closest("#" + id), on = sel => e.target.closest(sel);
     if (t("pt-you-card")) { OPEN.lvl = true; OPEN.wk = true; a.showView("progress"); setTimeout(() => { const d = $("pt-pg-lvl"); if (d && d.scrollIntoView) d.scrollIntoView({ block: "start" }); }, 150); return; }
     const wg = on("[data-wg]"); if (wg) { PT.setWeekGoal(wg.dataset.wg, a); memo = null; a.renderProgressView(); try { a.renderHomeView(); } catch (x) { } return; }
+    const fl = on(".pt-flock > summary"); if (fl) { OPEN.flock = !fl.parentElement.open; return; }
     const fr = on("[data-frame]"); if (fr) { const f = allFrames(a).find(x => x.id === fr.dataset.frame); if (f && unlockedFrame(a, f)) { a.settings.frame = f.id; save(); a.renderProgressView(); try { a.renderHomeView(); } catch (x) { } } else if (f) a.toast(`Unlocks: ${frameReq(f)}`); return; }
     const ry = on("[data-ry]"); if (ry) { a.__recapYear = ry.dataset.ry; OPEN.recap = true; a.renderProgressView(); return; }
     const rs = on("[data-rsex]"); if (rs) { a.settings.strengthSex = rs.dataset.rsex === "w" ? "female" : "male"; a.settings.rankSex = rs.dataset.rsex; save(); OPEN.rank = true; a.renderProgressView(); return; }

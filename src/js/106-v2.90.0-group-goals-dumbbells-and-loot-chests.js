@@ -81,7 +81,7 @@
     { id: "w_bolt", kind: "weapon", name: "Lightning", icon: "⚡", price: 700 }, { id: "w_flame", kind: "weapon", name: "Flame fist", icon: "🔥", price: 900 },
     { id: "w_comet", kind: "weapon", name: "Comet", icon: "☄️", price: 2000 },
     { id: "c_volt", kind: "color", name: "Volt", hex: "#d4ff00", price: 200 }, { id: "c_peach", kind: "color", name: "Peach", hex: "#ff8a65", price: 200 },
-    { id: "f_aurora", kind: "frame", name: "Aurora", c: ["#22d3ee", "#a78bfa", "#34d399"], price: 800 }, { id: "f_obsidian", kind: "frame", name: "Obsidian", c: ["#111827", "#6b7280", "#f59e0b"], price: 1200 },
+    { id: "f_aurora", kind: "frame", name: "Borealis", c: ["#22d3ee", "#a78bfa", "#34d399"], price: 800 }, { id: "f_obsidian", kind: "frame", name: "Obsidian", c: ["#111827", "#6b7280", "#f59e0b"], price: 1200 },
     { id: "f_prism", kind: "frame", name: "Prismatic", c: ["#f43f5e", "#f59e0b", "#22c55e", "#3b82f6", "#a855f7"], price: 2000 },
     { id: "b_aurora", kind: "banner", name: "Aurora", c: ["#22d3ee", "#7c3aed"], price: 600 }, { id: "b_blood", kind: "banner", name: "Blood moon", c: ["#7f1d1d", "#ef4444"], price: 900 },
     { id: "t_breaker", kind: "title", name: "Boss Breaker", text: "Boss Breaker", price: 300 }, { id: "t_carry", kind: "title", name: "Group Carry", text: "Group Carry", price: 400 },

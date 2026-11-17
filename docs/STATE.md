@@ -1,6 +1,7 @@
 # Where we left off (2026-11-13)
 
 ## Released
+- 2.105.0 cleaner level card: frame grid (owned first, locked behind a toggle), shop Aurora renamed Borealis, XP breakdown grid.
 - 2.104.0 Core & Cardio days: 200-300 reps each (5 x 40-60) of Weighted Decline Sit-Ups, Captain's Chair Leg Raises, Russian Twists + StairMaster; weekly goal fix for late-week changes.
 - 2.103.0 StairMaster on Core & Cardio days: 20 min Day 4, +2.5 per Core & Cardio day, 57.5 min Day 64 (read as every cardio day, not every day: every day would reach 177.5 min).
 - 2.102.0 cardio rows in a workout go to Cardio & Sports on finish and are left out of the workout's sets (setting cardioApart, on).
