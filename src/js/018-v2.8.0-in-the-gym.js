@@ -360,7 +360,7 @@
       const K = PT.kit, el = K.sheet("pt-fin", 70), u = app.wLabel();
       const sec = app.timerSeconds ? app.timerSeconds() : 0;
       const st = app.timerState ? app.timerState() : null;
-      const timeTxt = app._tm ? PT.fmtDur(sec) : (app._tmArmed ? "—" : PT.fmtDur(sec));
+      const timeTxt = app._tm ? PT.fmtDur(sec) : (app._tmArmed ? "–" : PT.fmtDur(sec));
       const timeNote = st === "pause" ? "Timer is paused" : st === "stop" ? "Timer is stopped" : "";
       let cmp = `<span class="text-zinc-400">${app.activeProgram.id === FREESTYLE_ID ? "Freestyle workout" : "First time on this day"}</span>`;
       if (info.last && info.last.vol > 0 && info.vol > 0) {

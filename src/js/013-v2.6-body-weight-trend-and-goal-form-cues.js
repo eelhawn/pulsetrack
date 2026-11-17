@@ -39,7 +39,7 @@
         const u = this.wLabel(), g = PT.goalBw();
         const tile = (k, v, unit, c = "text-white") => `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2.5 min-h-[3.6rem]"><span class="block text-[10px] text-zinc-500 uppercase font-bold">${k}</span><span class="block font-mono font-bold text-base leading-tight ${c}">${v}${unit ? `<span class="font-sans font-semibold text-[10px] text-zinc-400"> ${unit}</span>` : ""}</span></div>`;
         const trend = avg.length ? avg[avg.length - 1].y : null, pace = PT.bwPace(avg);
-        const paceTxt = pace == null ? "—" : (pace > 0 ? "+" : pace < 0 ? "−" : "") + num(Math.abs(pace), 1);
+        const paceTxt = pace == null ? "–" : (pace > 0 ? "+" : pace < 0 ? "−" : "") + num(Math.abs(pace), 1);
         const goalBtn = `<button type="button" id="pt-goal-btn" class="bg-zinc-950 border ${g ? "border-zinc-800" : "border-dashed border-emerald-700/70"} rounded-xl p-2.5 min-h-[3.6rem] text-left tap-active"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Goal <span class="normal-case">✎</span></span><span class="block font-mono font-bold text-base leading-tight ${g ? "text-amber-300" : "text-emerald-400"}">${g ? num(g, 1) + `<span class="font-sans font-semibold text-[10px] text-zinc-400"> ${u}</span>` : `<span class="font-sans text-sm">Set goal</span>`}</span></button>`;
         let msg = "";
         if (trend == null) msg = "Log your bodyweight a few times to see your trend.";
@@ -50,7 +50,7 @@
           else if (toward) { const wk = Math.abs(left / pace); msg = `${num(Math.abs(left), 1)} ${u} to go. At this pace that's about ${wk > 104 ? "2+ years" : wk < 1.5 ? "a week" : Math.round(wk) + " weeks"}.`; }
           else msg = `${num(Math.abs(left), 1)} ${u} to go, but your trend is moving the other way (or flat).`;
         } else msg = "The trend smooths out daily ups and downs from water and food, so it is a truer picture than any single weigh-in.";
-        return `<div class="grid grid-cols-3 gap-2">${tile("Trend", trend == null ? "—" : num(trend, 1), trend == null ? "" : u)}${tile("Pace", paceTxt, pace == null ? "" : u + "/wk", pace == null ? "text-white" : "text-emerald-300")}${goalBtn}</div>
+        return `<div class="grid grid-cols-3 gap-2">${tile("Trend", trend == null ? "–" : num(trend, 1), trend == null ? "" : u)}${tile("Pace", paceTxt, pace == null ? "" : u + "/wk", pace == null ? "text-white" : "text-emerald-300")}${goalBtn}</div>
           <p class="text-[11px] text-zinc-400 leading-relaxed">${esc(msg)}</p>`;
       };
       document.addEventListener("click", async e => {

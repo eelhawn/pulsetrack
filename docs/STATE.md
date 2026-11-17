@@ -1,6 +1,7 @@
 # Where we left off (2026-11-13)
 
 ## Released
+- 2.108.0 plainer design (module 126 + text edits): no glass, no left stripes, no eyebrow badge, Home quick actions as one bar, normal-case labels, contrast >= 4.5 (light z500 now 100 100 110), no em dashes, no heading emoji, no purple/teal gradients. `tests/plain.py` + `tests/fixtures/design_audit.js` guard it; keep new UI passing that audit.
 - 2.107.0 week strip dots centred again (`.pt-dot` is used by 019, 046, 009 and css/07: scope new dot styles to their container).
 - 2.106.0 speed-ups (memo of name-only exercise answers, cached accent colour, month names), openGym library loads when idle, removed no-op modules 096/112/113. Perf scripts used: a 4x CPU-throttled Playwright run with 300 seeded workouts.
 - 2.105.0 cleaner level card: frame grid (owned first, locked behind a toggle), shop Aurora renamed Borealis, XP breakdown grid.

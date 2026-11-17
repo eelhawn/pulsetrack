@@ -727,7 +727,7 @@
       exSheetExtrasHtml(name) {
         let html = `<button id="ex-howto" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 border border-zinc-700/60 tap-active">
             <svg class="w-4 h-4 text-rose-500" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg>
-            How to do it — form videos</button>`;
+            How to do it: form videos</button>`;
         if (PT.isBodyweightEx(name)) {
           html += `<p class="text-[11px] text-zinc-500 bg-zinc-950 border border-zinc-800 rounded-xl p-2.5">Charts and PRs for this exercise include your body weight (from Body &amp; Photos) plus any added weight, or minus assistance.</p>`;
         } else if (PT.dbCount(name) === 2) {
@@ -767,7 +767,7 @@
           return { kind: "up", text: next > 0 ? `▲ Less help: try ${PT.num(next, 2)} ${u} of assistance (you hit ${range.hi}+ reps last time)` : `▲ Try it with no assistance (you hit ${range.hi}+ reps last time)` };
         }
         if (reps.some(r => r < range.lo)) return { kind: "hold", text: `● Stay at ${PT.num(least, 2)} ${u} of assistance and build up to ${range.lo}+ reps` };
-        return { kind: "reps", text: `● Same assistance (${PT.num(least, 2)} ${u}) — add a rep or two, aim for ${range.hi}` };
+        return { kind: "reps", text: `● Same assistance (${PT.num(least, 2)} ${u}): add a rep or two, aim for ${range.hi}` };
       }
     });
   

@@ -69,7 +69,7 @@
     const row = (t, inner) => `<label class="block"><span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">${t}</span>${inner}</label>`;
     return `<button type="button" class="pt-gal-act tap-active" data-act="back" style="text-align:left">← Back</button>
       <p class="text-xs text-zinc-400">Switch looks by itself: a bright one for the day and a dark one for the evening. It changes at the times below, and you can still pick any theme in between.</p>
-      <button type="button" class="pt-gal-act tap-active" data-act="autotoggle" role="switch" aria-checked="${!!a.on}" style="width:100%">${a.on ? "Day & night is ON — tap to turn off" : "Day & night is OFF — tap to turn on"}</button>
+      <button type="button" class="pt-gal-act tap-active" data-act="autotoggle" role="switch" aria-checked="${!!a.on}" style="width:100%">${a.on ? "Day & night is on. Tap to turn it off" : "Day & night is off. Tap to turn on"}</button>
       ${row("Day look", `<select data-auto="day">${opts(a.day || "paper")}</select>`)}
       ${row("Starts at", `<input type="time" data-auto="dayAt" value="${esc(a.dayAt || "07:00")}">`)}
       ${row("Night look", `<select data-auto="night">${opts(a.night || "classic")}</select>`)}

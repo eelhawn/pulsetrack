@@ -294,7 +294,7 @@
       ];
       // Text colours (zinc 50-600) for each mode. Dark text on light pages, light text on dark pages.
       const DARK_TEXT = { 50: "250 250 250", 100: "244 244 245", 200: "228 228 231", 300: "212 212 216", 400: "161 161 170", 500: "138 138 148", 600: "82 82 91" };
-      const LIGHT_TEXT = { 50: "9 9 11", 100: "24 24 27", 200: "39 39 42", 300: "63 63 70", 400: "82 82 91", 500: "113 113 122", 600: "161 161 170" };
+      const LIGHT_TEXT = { 50: "9 9 11", 100: "24 24 27", 200: "39 39 42", 300: "63 63 70", 400: "82 82 91", 500: "100 100 110", 600: "161 161 170" };   // 2.108.0: 500 was 113 (4.4:1 on the light page), now 5.4:1
       const FX = [{ id: "solid", label: "Solid" }, { id: "glow", label: "Glow" }, { id: "fade", label: "Fade" }, { id: "aurora", label: "Aurora" }, { id: "gradient", label: "Gradient" }];
       /** background effects added by later modules (2.71.0): id -> (lt, t, c500, ac, bg, s) => css */
       const FX_EXT = {};

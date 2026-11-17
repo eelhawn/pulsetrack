@@ -304,7 +304,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         </button>
         <div class="flex flex-col truncate">
           <h1 id="header-title" class="text-base font-bold tracking-tight text-white truncate">PulseTrack</h1>
-          <span id="header-breadcrumb" class="text-xs text-zinc-400 truncate">Dashboard</span>
+          <span id="header-breadcrumb" class="text-xs text-zinc-400 truncate">Today</span>
         </div>
       </div>
       
@@ -435,7 +435,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.107.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.108.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -448,7 +448,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
       <div id="home-banners" class="space-y-2"></div>
       <div id="home-cardio" class="hidden"></div>
 
-      <div id="home-routine" class="bg-gradient-to-br from-zinc-900 to-zinc-950 border border-zinc-800 rounded-2xl p-4 space-y-3 shadow-xl">
+      <div id="home-routine" class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-3 shadow-xl">
         <div class="flex items-center justify-between">
           <span id="home-chip" class="px-2.5 py-0.5 rounded-full text-[10px] font-bold bg-emerald-950 text-emerald-400 border border-emerald-800/60">ACTIVE ROUTINE</span>
           <span id="home-active-day-badge" class="text-xs font-mono text-zinc-400">Day 1</span>
@@ -459,7 +459,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         </div>
         <div id="home-up-next" class="bg-zinc-950/70 border border-zinc-800 rounded-xl px-3 py-2.5 text-xs"></div>
         <button id="btn-home-resume" class="w-full py-4 bg-emerald-600 hover:bg-emerald-500 text-white font-extrabold rounded-xl tap-active text-sm flex items-center justify-center space-x-2 shadow-lg shadow-emerald-950/60">
-          <span>⚡</span><span id="home-resume-label">Start Workout</span>
+          <span id="home-resume-label">Start Workout</span>
         </button>
       </div>
 
@@ -661,7 +661,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
   <div id="finish-bar" class="hidden fixed left-0 right-0 z-40 px-4 py-3 bg-zinc-900/80 backdrop-blur-md border-t border-zinc-800/80" style="bottom: env(safe-area-inset-bottom, 0px);">
     <div class="max-w-xl mx-auto">
       <button id="btn-finish-workout" class="w-full py-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold rounded-2xl tap-active text-sm shadow-xl shadow-emerald-950/60 flex items-center justify-center space-x-2">
-        <span>🏆 Finish Workout</span>
+        <span>Finish Workout</span>
       </button>
     </div>
   </div>
@@ -2613,7 +2613,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         }
         const res = this.solvePlates(perSide);
         if (!res.plates.length) {
-          box.innerHTML = `<span class="text-xs text-zinc-500 italic">No plates needed (bar only)</span>`;
+          box.innerHTML = `<span class="text-xs text-zinc-400">No plates needed (bar only)</span>`;
         }
         res.plates.forEach(p => {
           const badge = document.createElement("span");
@@ -2731,21 +2731,21 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           this.dom.viewHome.classList.remove("hidden");
           this.dom.backBtn.classList.add("hidden");
           this.dom.headerTitle.innerText = "PulseTrack";
-          this.dom.headerBreadcrumb.innerText = "Dashboard";
+          this.dom.headerBreadcrumb.innerText = new Date().toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" });   // 2.108.0: the date, not "Dashboard"
           this.renderHomeView();
         } else if (viewName === "programs") {
           this.releaseWakeLock();
           this.dom.viewPrograms.classList.remove("hidden");
           this.dom.backBtn.classList.remove("hidden");
           this.dom.headerTitle.innerText = "Training Programs";
-          this.dom.headerBreadcrumb.innerText = "Catalog";
+          this.dom.headerBreadcrumb.innerText = "Pick or build a program";
           this.renderProgramsView();
         } else if (viewName === "days") {
           this.releaseWakeLock();
           this.dom.viewDays.classList.remove("hidden");
           this.dom.backBtn.classList.remove("hidden");
           this.dom.headerTitle.innerText = this.activeProgram ? this.activeProgram.title : "";
-          this.dom.headerBreadcrumb.innerText = "Select Workout Day";
+          this.dom.headerBreadcrumb.innerText = "Pick a day";
           this.renderDaysView();
         } else if (viewName === "library") {
           this.releaseWakeLock();
@@ -3226,10 +3226,10 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           row.innerHTML = `
             <div class="flex items-center justify-between text-xs">
               <span class="font-bold text-white">${l.key}</span>
-              <span class="font-mono ${best ? "text-emerald-400" : "text-zinc-500"}">${best ? best + " " + u : "—"} <span class="text-zinc-500">/ ${goal}</span></span>
+              <span class="font-mono ${best ? "text-emerald-400" : "text-zinc-500"}">${best ? best + " " + u : "–"} <span class="text-zinc-500">/ ${goal}</span></span>
             </div>
             <div class="h-2 rounded-full bg-zinc-800 overflow-hidden"><div class="h-2 rounded-full bg-emerald-500" style="width:${pct}%"></div></div>
-            <div class="text-[10px] text-zinc-500">${holder ? this.esc(holder) + " · est. 1RM · " + pct + "% of goal" : "No PR logged yet"}<br>Next milestone: ${next ? next + " " + u + " (" + plateTxt + "-plate)" : "—"}</div>`;
+            <div class="text-[10px] text-zinc-500">${holder ? this.esc(holder) + " · est. 1RM · " + pct + "% of goal" : "No PR logged yet"}<br>Next milestone: ${next ? next + " " + u + " (" + plateTxt + "-plate)" : "–"}</div>`;
           row.addEventListener("click", async () => {
             const v = parseFloat(await PT.prompt("Goal 1RM for " + l.key + " (" + this.wLabel() + ")?", goal));
             if (v > 0) {
@@ -3283,7 +3283,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
               <span class="block text-[10px] text-zinc-500 uppercase mt-0.5">${this.esc(e.category)} · ${topTxt}${e.same ? " · same as " + this.esc(e.same) : ""}</span>
             </div>
             <div class="text-right flex-shrink-0">
-              ${pr ? `<span class="block text-sm font-black font-mono text-amber-400">${pr} ${this.unit()}</span><span class="block text-[10px] text-zinc-500">est. 1RM</span>` : `<span class="text-xs text-zinc-600">—</span>`}
+              ${pr ? `<span class="block text-sm font-black font-mono text-amber-400">${pr} ${this.unit()}</span><span class="block text-[10px] text-zinc-500">est. 1RM</span>` : `<span class="text-xs text-zinc-600">–</span>`}
             </div>`;
           box.appendChild(card);
         });
@@ -3839,7 +3839,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.107.0";
+    const APP_VERSION = "2.108.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -4282,7 +4282,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
       showExtraView(name) {
         const titles = {
           history: ["Workout History", "Saved workouts"],
-          progress: ["Progress", "Analytics & PRs"],
+          progress: ["Progress", "Records and trends"],
           body: ["Body & Photos", "Bodyweight, measurements, photos"],
           cardio: ["Cardio & Sports", "Separate from your lifting"]
         };
@@ -4548,7 +4548,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         if (reps.some(r => r < range.lo)) {
           return { kind: "hold", text: `● Stay at ${PT.num(topW, 2)} ${u} and build up to ${range.lo}+ reps on every set` };
         }
-        return { kind: "reps", text: `● Same weight (${PT.num(topW, 2)} ${u}) — add a rep or two, aim for ${range.hi}` };
+        return { kind: "reps", text: `● Same weight (${PT.num(topW, 2)} ${u}): add a rep or two, aim for ${range.hi}` };
       },
       exerciseSeries(name) {
         const out = [];
@@ -4735,7 +4735,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         this.dom.summarySets.innerText = setsCount;
         this.dom.summaryPRs.innerText = prNames.length;
         const prList = document.getElementById("summary-pr-list");
-        prList.innerHTML = prNames.map(p => `<div>🏅 <b>${PT.esc(p.name)}</b> — new est. 1RM ${PT.num(p.value)} ${this.wLabel()}</div>`).join("");
+        prList.innerHTML = prNames.map(p => `<div>🏅 <b>${PT.esc(p.name)}</b>: new est. 1RM ${PT.num(p.value)} ${this.wLabel()}</div>`).join("");
         prList.classList.toggle("hidden", !prNames.length);
         const nextEl = document.getElementById("summary-next");
         if (session && this.activeDay && prog.id !== FREESTYLE_ID) {
@@ -5128,7 +5128,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
             <div class="grid grid-cols-3 gap-2">
               ${stat("Volume", Math.round(lifeVol).toLocaleString(), "text-emerald-400")}
               ${stat("Sets", lifeSets.toLocaleString())}
-              ${stat("Since", first ? PT.fmtDate(first, { month: "short", year: "numeric" }) : "—")}
+              ${stat("Since", first ? PT.fmtDate(first, { month: "short", year: "numeric" }) : "–")}
             </div>
           </div>`;
 
@@ -5170,10 +5170,10 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         const body = `${back ? `<button id="ex-back" class="text-xs font-bold text-emerald-400 tap-active">‹ Back to workout</button>` : ""}
           <div class="grid grid-cols-3 gap-2 text-center">
             ${isCardio
-              ? `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Longest</span><span class="font-mono font-black text-amber-400 text-sm">${series.length ? PT.num(Math.max(...series.map(p => p.mins)), 0) + " min" : "—"}</span></div>`
-              : `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Est. 1RM PR</span><span class="font-mono font-black text-amber-400 text-sm">${pr ? PT.num(pr) + " " + u : "—"}</span></div>`}
+              ? `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Longest</span><span class="font-mono font-black text-amber-400 text-sm">${series.length ? PT.num(Math.max(...series.map(p => p.mins)), 0) + " min" : "–"}</span></div>`
+              : `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Est. 1RM PR</span><span class="font-mono font-black text-amber-400 text-sm">${pr ? PT.num(pr) + " " + u : "–"}</span></div>`}
             <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Sessions</span><span class="font-mono font-bold text-white text-sm">${series.length}</span></div>
-            <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Last done</span><span class="font-mono font-bold text-white text-sm">${last ? PT.fmtDate(last.date, { month: "short", day: "numeric" }) : "—"}</span></div>
+            <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Last done</span><span class="font-mono font-bold text-white text-sm">${last ? PT.fmtDate(last.date, { month: "short", day: "numeric" }) : "–"}</span></div>
           </div>
           ${this.isStalled(name) ? `<div class="text-[11px] font-semibold border rounded-lg px-2.5 py-2 text-amber-300 bg-amber-950/30 border-amber-800/50">⚠ ${PT.esc(PT.plateauTip(name))}</div>` : ""}
           ${PT.cuesHtml(name)}
@@ -5300,7 +5300,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-2">
             <h3 class="text-xs font-bold text-white">Latest measurements</h3>
             <div class="grid grid-cols-3 gap-2 text-center">
-              ${[["bf", "Body fat", "%"], ...meas.map(([k, t]) => [k, t, L])].map(([k, t, un]) => { const v = latestOf(k); return `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">${t}</span><span class="font-mono font-bold text-white text-sm">${v ? PT.num(v) + " " + un : "—"}</span></div>`; }).join("")}
+              ${[["bf", "Body fat", "%"], ...meas.map(([k, t]) => [k, t, L])].map(([k, t, un]) => { const v = latestOf(k); return `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">${t}</span><span class="font-mono font-bold text-white text-sm">${v ? PT.num(v) + " " + un : "–"}</span></div>`; }).join("")}
             </div>
           </div>
 
@@ -5520,7 +5520,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         if (!(navigator.storage && navigator.storage.persist)) { if (userAsked) await PT.alert("This browser doesn't support protected storage. Regular backups are your safety net."); return false; }
         let ok = false;
         try { ok = (await navigator.storage.persisted()) || (await navigator.storage.persist()); } catch (e) { ok = false; }
-        if (userAsked) this.toast(ok ? "Storage protected ✓" : "The browser declined. Keep making backups — installing to the home screen helps.");
+        if (userAsked) this.toast(ok ? "Storage protected ✓" : "The browser declined. Keep making backups. Installing to the home screen helps.");
         this.renderSettingsExtras();
         return ok;
       },
@@ -5542,7 +5542,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         $("setting-toggle-largetext").checked = !!this.settings.largeText;
         $("setting-toggle-restnotify").checked = !!this.settings.restNotify && ("Notification" in window) && Notification.permission === "granted";
         const last = this.settings.lastBackupAt;
-        $("backup-status").innerText = last ? `Last backup: ${new Date(last).toLocaleDateString()} (${Math.floor((Date.now() - last) / 86400000)} days ago)` : "No backup yet — make one now.";
+        $("backup-status").innerText = last ? `Last backup: ${new Date(last).toLocaleDateString()} (${Math.floor((Date.now() - last) / 86400000)} days ago)` : "No backup yet. Make one now.";
         $("app-version").innerText = "v" + APP_VERSION;
         this.refreshInstallUI();
         let bytes = 0;
@@ -5649,7 +5649,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           try {
             if (navigator.share) { await navigator.share({ title: program.title, text: `PulseTrack program: ${program.title}`, url: link }); return; }
           } catch (err) { if (err && err.name === "AbortError") return; }
-          try { await navigator.clipboard.writeText(link); this.toast("Link copied — send it to anyone with PulseTrack"); return; } catch (err) {}
+          try { await navigator.clipboard.writeText(link); this.toast("Link copied. Send it to anyone with PulseTrack"); return; } catch (err) {}
           await PT.prompt("Share link", link, { readonly: true, copy: true, ok: "Copy link", cancel: "Close", title: "Share this program", body: "Copy this link and send it to anyone who has PulseTrack." });
           return;
         }
@@ -6985,7 +6985,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
       exSheetExtrasHtml(name) {
         let html = `<button id="ex-howto" class="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-bold bg-zinc-800 text-zinc-200 border border-zinc-700/60 tap-active">
             <svg class="w-4 h-4 text-rose-500" viewBox="0 0 24 24" fill="currentColor"><path d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.7 15.1V8.9l5.8 3.1-5.8 3.1z"/></svg>
-            How to do it — form videos</button>`;
+            How to do it: form videos</button>`;
         if (PT.isBodyweightEx(name)) {
           html += `<p class="text-[11px] text-zinc-500 bg-zinc-950 border border-zinc-800 rounded-xl p-2.5">Charts and PRs for this exercise include your body weight (from Body &amp; Photos) plus any added weight, or minus assistance.</p>`;
         } else if (PT.dbCount(name) === 2) {
@@ -7025,7 +7025,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           return { kind: "up", text: next > 0 ? `▲ Less help: try ${PT.num(next, 2)} ${u} of assistance (you hit ${range.hi}+ reps last time)` : `▲ Try it with no assistance (you hit ${range.hi}+ reps last time)` };
         }
         if (reps.some(r => r < range.lo)) return { kind: "hold", text: `● Stay at ${PT.num(least, 2)} ${u} of assistance and build up to ${range.lo}+ reps` };
-        return { kind: "reps", text: `● Same assistance (${PT.num(least, 2)} ${u}) — add a rep or two, aim for ${range.hi}` };
+        return { kind: "reps", text: `● Same assistance (${PT.num(least, 2)} ${u}): add a rep or two, aim for ${range.hi}` };
       }
     });
   </script>
@@ -7476,7 +7476,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
       ];
       // Text colours (zinc 50-600) for each mode. Dark text on light pages, light text on dark pages.
       const DARK_TEXT = { 50: "250 250 250", 100: "244 244 245", 200: "228 228 231", 300: "212 212 216", 400: "161 161 170", 500: "138 138 148", 600: "82 82 91" };
-      const LIGHT_TEXT = { 50: "9 9 11", 100: "24 24 27", 200: "39 39 42", 300: "63 63 70", 400: "82 82 91", 500: "113 113 122", 600: "161 161 170" };
+      const LIGHT_TEXT = { 50: "9 9 11", 100: "24 24 27", 200: "39 39 42", 300: "63 63 70", 400: "82 82 91", 500: "100 100 110", 600: "161 161 170" };   // 2.108.0: 500 was 113 (4.4:1 on the light page), now 5.4:1
       const FX = [{ id: "solid", label: "Solid" }, { id: "glow", label: "Glow" }, { id: "fade", label: "Fade" }, { id: "aurora", label: "Aurora" }, { id: "gradient", label: "Gradient" }];
       /** background effects added by later modules (2.71.0): id -> (lt, t, c500, ac, bg, s) => css */
       const FX_EXT = {};
@@ -9051,7 +9051,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         const u = this.wLabel(), g = PT.goalBw();
         const tile = (k, v, unit, c = "text-white") => `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2.5 min-h-[3.6rem]"><span class="block text-[10px] text-zinc-500 uppercase font-bold">${k}</span><span class="block font-mono font-bold text-base leading-tight ${c}">${v}${unit ? `<span class="font-sans font-semibold text-[10px] text-zinc-400"> ${unit}</span>` : ""}</span></div>`;
         const trend = avg.length ? avg[avg.length - 1].y : null, pace = PT.bwPace(avg);
-        const paceTxt = pace == null ? "—" : (pace > 0 ? "+" : pace < 0 ? "−" : "") + num(Math.abs(pace), 1);
+        const paceTxt = pace == null ? "–" : (pace > 0 ? "+" : pace < 0 ? "−" : "") + num(Math.abs(pace), 1);
         const goalBtn = `<button type="button" id="pt-goal-btn" class="bg-zinc-950 border ${g ? "border-zinc-800" : "border-dashed border-emerald-700/70"} rounded-xl p-2.5 min-h-[3.6rem] text-left tap-active"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Goal <span class="normal-case">✎</span></span><span class="block font-mono font-bold text-base leading-tight ${g ? "text-amber-300" : "text-emerald-400"}">${g ? num(g, 1) + `<span class="font-sans font-semibold text-[10px] text-zinc-400"> ${u}</span>` : `<span class="font-sans text-sm">Set goal</span>`}</span></button>`;
         let msg = "";
         if (trend == null) msg = "Log your bodyweight a few times to see your trend.";
@@ -9062,7 +9062,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           else if (toward) { const wk = Math.abs(left / pace); msg = `${num(Math.abs(left), 1)} ${u} to go. At this pace that's about ${wk > 104 ? "2+ years" : wk < 1.5 ? "a week" : Math.round(wk) + " weeks"}.`; }
           else msg = `${num(Math.abs(left), 1)} ${u} to go, but your trend is moving the other way (or flat).`;
         } else msg = "The trend smooths out daily ups and downs from water and food, so it is a truer picture than any single weigh-in.";
-        return `<div class="grid grid-cols-3 gap-2">${tile("Trend", trend == null ? "—" : num(trend, 1), trend == null ? "" : u)}${tile("Pace", paceTxt, pace == null ? "" : u + "/wk", pace == null ? "text-white" : "text-emerald-300")}${goalBtn}</div>
+        return `<div class="grid grid-cols-3 gap-2">${tile("Trend", trend == null ? "–" : num(trend, 1), trend == null ? "" : u)}${tile("Pace", paceTxt, pace == null ? "" : u + "/wk", pace == null ? "text-white" : "text-emerald-300")}${goalBtn}</div>
           <p class="text-[11px] text-zinc-400 leading-relaxed">${esc(msg)}</p>`;
       };
       document.addEventListener("click", async e => {
@@ -10637,7 +10637,7 @@ const PTSIM = (function () {
         const chip = (on, label, attr) => `<button type="button" ${attr} class="py-2.5 rounded-xl text-xs font-bold tap-active ${on ? "bg-emerald-600 text-white" : "bg-zinc-800 text-zinc-400"}">${label}</button>`;
         const paintChips = () => {
           $("#cl-eff").innerHTML = [1, 2, 3].map(i => chip(eff === i, EFFORT[i].label, `data-eff="${i}"`)).join("");
-          $("#cl-res").innerHTML = [["", "—"], ["W", "Win"], ["L", "Loss"], ["D", "Draw"]].map(([v, t]) => chip(res === v, t, `data-res="${v}"`)).join("");
+          $("#cl-res").innerHTML = [["", "–"], ["W", "Win"], ["L", "Loss"], ["D", "Draw"]].map(([v, t]) => chip(res === v, t, `data-res="${v}"`)).join("");
           $("#cl-shoes").innerHTML = [{ id: "", name: "None" }].concat(shoeChoices(shoe)).map(h => `<button type="button" data-shoe="${esc(h.id)}" class="px-3 py-2 rounded-xl text-xs font-bold tap-active ${shoe === h.id ? "bg-emerald-600 text-white" : "bg-zinc-800 text-zinc-400"}">${esc(h.name)}</button>`).join("");
         };
         const paintAct = () => {
@@ -10940,7 +10940,7 @@ const PTSIM = (function () {
           <div class="${CARD} space-y-3">
             <div class="flex items-center justify-between"><h3 class="text-xs font-bold text-white">This week</h3><span class="text-[10px] text-zinc-500">${esc(ws0.toLocaleDateString(undefined, { month: "short", day: "numeric" }))} – now</span></div>
             <div class="grid grid-cols-4 gap-2 text-center">
-              ${[["Sessions", wk.n], ["Time", wk.sec ? totalText(wk.sec) : "0"], ["Distance", wk.longM ? PT.num(wk.longM / lu.m, 1) + " " + lu.l : "—"], ["Calories", wk.kcal ? PT.num(wk.kcal, 0) : "—"]].map(([n, v]) => `<div class="bg-zinc-950 border border-zinc-800 rounded-xl py-2 px-1 min-w-0"><span class="block text-[9px] text-zinc-500 uppercase font-bold tracking-wider">${n}</span><span class="block font-mono font-bold text-white text-[13px] mt-0.5 truncate">${v}</span></div>`).join("")}
+              ${[["Sessions", wk.n], ["Time", wk.sec ? totalText(wk.sec) : "0"], ["Distance", wk.longM ? PT.num(wk.longM / lu.m, 1) + " " + lu.l : "–"], ["Calories", wk.kcal ? PT.num(wk.kcal, 0) : "–"]].map(([n, v]) => `<div class="bg-zinc-950 border border-zinc-800 rounded-xl py-2 px-1 min-w-0"><span class="block text-[9px] text-zinc-500 uppercase font-bold tracking-wider">${n}</span><span class="block font-mono font-bold text-white text-[13px] mt-0.5 truncate">${v}</span></div>`).join("")}
             </div>
             <div><div class="flex items-center justify-between text-[11px] mb-1"><span class="font-semibold text-zinc-300">${mins} of ${goal} min</span><span class="${pct >= 100 ? "text-emerald-400 font-bold" : "text-zinc-500"}">${pct >= 100 ? "Goal reached 🎉" : (goal - mins) + " to go"}</span></div>
               <div class="h-2 rounded-full bg-zinc-800 overflow-hidden"><div class="h-full rounded-full" style="width:${pct}%;background:${PT.accent()}"></div></div>
@@ -11420,7 +11420,7 @@ const PTSIM = (function () {
       const K = PT.kit, el = K.sheet("pt-fin", 70), u = app.wLabel();
       const sec = app.timerSeconds ? app.timerSeconds() : 0;
       const st = app.timerState ? app.timerState() : null;
-      const timeTxt = app._tm ? PT.fmtDur(sec) : (app._tmArmed ? "—" : PT.fmtDur(sec));
+      const timeTxt = app._tm ? PT.fmtDur(sec) : (app._tmArmed ? "–" : PT.fmtDur(sec));
       const timeNote = st === "pause" ? "Timer is paused" : st === "stop" ? "Timer is stopped" : "";
       let cmp = `<span class="text-zinc-400">${app.activeProgram.id === FREESTYLE_ID ? "Freestyle workout" : "First time on this day"}</span>`;
       if (info.last && info.last.vol > 0 && info.vol > 0) {
@@ -16712,7 +16712,7 @@ const PTSIM = (function () {
     { name: "Bronze", a: "#f0b27a", b: "#a0522d", glow: "rgb(205 127 50 / .55)" },
     { name: "Silver", a: "#f3f4f6", b: "#8b93a1", glow: "rgb(203 213 225 / .5)" },
     { name: "Gold", a: "#fde68a", b: "#d97706", glow: "rgb(251 191 36 / .6)" },
-    { name: "Platinum", a: "#a5f3fc", b: "#8b5cf6", glow: "rgb(167 139 250 / .65)" }
+    { name: "Platinum", a: "#f4f4f5", b: "#a1a1aa", glow: "rgb(228 228 231 / .55)" }
   ];
   const CATS = [["all", "All"], ["earned", "Earned"], ["training", "Training"], ["streak", "Streaks"], ["strength", "Strength"], ["volume", "Volume"], ["records", "Records"], ["habits", "Habits"], ["variety", "Variety"], ["milestones", "Milestones"], ["secret", "Secret"]];
   const vis = b => (b.secret && !b.got ? Object.assign({}, b, { name: "Secret badge", desc: "Keep training and you might find it.", icon: "❔", cur: 0 }) : b);
@@ -17445,7 +17445,7 @@ const PTSIM = (function () {
     { id: "ember", lvl: 5, name: "Ember", c: ["#fdba74", "#ea580c"] },
     { id: "aurora", lvl: 10, name: "Aurora", c: ["#5eead4", "#6366f1"] },
     { id: "gold", lvl: 15, name: "Gold", c: ["#fde68a", "#d97706"] },
-    { id: "platinum", lvl: 25, name: "Platinum", c: ["#a5f3fc", "#8b5cf6"] },
+    { id: "platinum", lvl: 25, name: "Platinum", c: ["#f4f4f5", "#a1a1aa"] },
     { id: "prism", lvl: 35, name: "Prism", c: ["#f472b6", "#facc15", "#22d3ee"] }
   ];
   const levelOf = xp => {
@@ -17685,14 +17685,14 @@ const PTSIM = (function () {
     return `<svg viewBox="0 0 100 100" width="${px}" height="${px}" role="img" aria-label="Level ${st.lv.L}"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">${f.c.map((x, i) => `<stop offset="${f.c.length === 1 ? 0 : i / (f.c.length - 1)}" stop-color="${x}"/>`).join("")}</linearGradient></defs>
       <circle cx="50" cy="50" r="44" fill="rgb(var(--z950))" stroke="rgb(var(--z800))" stroke-width="7"/>
       <circle cx="50" cy="50" r="44" fill="none" stroke="url(#${id})" stroke-width="7" stroke-linecap="round" stroke-dasharray="${(C * st.lv.pct).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 50 50)"/>
-      <text x="50" y="45" text-anchor="middle" font-size="11" font-weight="800" fill="rgb(var(--z400))" letter-spacing="1">LEVEL</text>
-      <text x="50" y="70" text-anchor="middle" font-size="30" font-weight="900" fill="#fff">${st.lv.L}</text></svg>`;
+      <text x="50" y="45" text-anchor="middle" font-size="12" font-weight="800" style="fill:rgb(var(--z400))">Level</text>
+      <text x="50" y="70" text-anchor="middle" font-size="30" font-weight="900" style="fill:rgb(var(--z100))">${st.lv.L}</text></svg>`;
   }
   function weekRing(k, goal, px) {
     const C = 2 * Math.PI * 44, hit = k >= goal, pct = Math.min(1, k / goal);
     return `<svg viewBox="0 0 100 100" width="${px}" height="${px}" role="img" aria-label="${k} of ${goal} days this week"><circle cx="50" cy="50" r="44" fill="none" stroke="rgb(var(--z800))" stroke-width="9"/>
       <circle cx="50" cy="50" r="44" fill="none" stroke="${hit ? "#fbbf24" : "rgb(var(--a500))"}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${(C * pct).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 50 50)"/>
-      <text x="50" y="${hit ? 60 : 58}" text-anchor="middle" font-size="${hit ? 34 : 30}" font-weight="900" fill="${hit ? "#fbbf24" : "#fff"}">${hit ? "✓" : k + "/" + goal}</text></svg>`;
+      <text x="50" y="${hit ? 60 : 58}" text-anchor="middle" font-size="${hit ? 34 : 30}" font-weight="900" style="fill:${hit ? "#fbbf24" : "rgb(var(--z100))"}">${hit ? "✓" : k + "/" + goal}</text></svg>`;
   }
   const bar = p => `<div class="pt-bar"><span style="width:${Math.round(Math.max(0, Math.min(1, p)) * 100)}%"></span></div>`;
 
@@ -17722,7 +17722,7 @@ const PTSIM = (function () {
     .pt-ftile s { text-decoration: none; font-size: .58rem; font-weight: 700; color: rgb(var(--z500)); line-height: 1; display: inline-flex; align-items: center; gap: .15rem; }
     .pt-ftile s .pt-dbi { width: .7rem; height: .7rem; }
     .pt-ftile[aria-pressed=true] { border-color: rgb(var(--a500)); background: rgb(var(--a500) / .1); }
-    .pt-ftile[aria-pressed=true] b { color: #fff; }
+    .pt-ftile[aria-pressed=true] b { color: rgb(var(--z100)); }
     .pt-ftile[aria-pressed=true] s { color: rgb(var(--a400)); }
     .pt-ftile.lock i { filter: grayscale(.6) brightness(.7); }
     .pt-ftile.lock b { color: rgb(var(--z500)); }
@@ -18664,7 +18664,7 @@ const PTSIM = (function () {
   function checkinHtml(a) {
     const n = dayStreak(a), st = dayStats(a), done = checkedToday(a) || S(a).some(s => s.date === PT.ds()), prot = !done && shieldSet(a).has(PT.ds());
     const cells = Array.from({ length: 14 }, (_, i) => { const d = new Date(); d.setHours(0, 0, 0, 0); d.setDate(d.getDate() - (13 - i)); const k = PT.ds(d), on = activeDays(a).has(k), sh = !on && shieldSet(a).has(k); return `<i class="pt-dot ${on ? "on" : sh ? "sh" : ""}" title="${esc(k)}${sh ? " · protected by a streak shield" : ""}"></i>`; }).join("");
-    return `<div class="flex items-center justify-between gap-2"><div><span class="block text-sm font-black text-white">🌱 ${n} day${n === 1 ? "" : "s"} in a row</span><span class="block text-[11px] text-zinc-400">Best ${st.best} · training or checking in both count</span></div>${done ? '<span class="text-xs font-bold text-emerald-400">Done today</span>' : prot ? '<span class="text-xs font-bold text-amber-300">🛡 Protected</span>' : '<button type="button" class="pt-b go" id="pt-checkin-go">✋ I\'m in today</button>'}</div><div class="pt-dots">${cells}</div>
+    return `<div class="flex items-center justify-between gap-2"><div><span class="block text-sm font-black text-white">${n} day${n === 1 ? "" : "s"} in a row</span><span class="block text-[11px] text-zinc-400">Best ${st.best} · training or checking in both count</span></div>${done ? '<span class="text-xs font-bold text-emerald-400">Done today</span>' : prot ? '<span class="text-xs font-bold text-amber-300">🛡 Protected</span>' : '<button type="button" class="pt-b go" id="pt-checkin-go">✋ I\'m in today</button>'}</div><div class="pt-dots">${cells}</div>
       <p class="text-[11px] text-zinc-400 leading-snug">Rest days count too. Tap "I'm in today" so the streak keeps going. Each check-in is worth 10 XP.</p>${PT.shieldHtml ? PT.shieldHtml(a) : ""}`;
   }
   let shopCat = "all";
@@ -22776,11 +22776,11 @@ const PTSIM = (function () {
 
   function html(h, a) {
     if (!h.big) {
-      return `<div class="pt-haul" id="pt-haul"><div class="pt-haul-h">🚚 What you've moved</div><p class="pt-haul-s">Log a few workouts and your lifting shows up here as things you haul on the job.</p></div>`;
+      return `<div class="pt-haul" id="pt-haul"><div class="pt-haul-h">What you've moved</div><p class="pt-haul-s">Log a few workouts and your lifting shows up here as things you haul on the job.</p></div>`;
     }
     const u = a.wLabel();
     return `<div class="pt-haul" id="pt-haul">
-      <div class="pt-haul-h">🚚 What you've moved</div>
+      <div class="pt-haul-h">What you've moved</div>
       <div class="pt-haul-big"><span class="pt-haul-i" aria-hidden="true">${h.big.it.ico}</span><span>About <b>${PT.esc(h.big.text)}</b></span></div>
       <p class="pt-haul-s">Your lifetime lifting volume, in things you load and unload for work.</p>
       ${h.rows.length ? `<div class="pt-haul-rows">${h.rows.map(r => `<div><span aria-hidden="true">${r.it.ico}</span><span>${PT.esc(r.text)}</span></div>`).join("")}</div>` : ""}
@@ -29568,7 +29568,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const row = (t, inner) => `<label class="block"><span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">${t}</span>${inner}</label>`;
     return `<button type="button" class="pt-gal-act tap-active" data-act="back" style="text-align:left">← Back</button>
       <p class="text-xs text-zinc-400">Switch looks by itself: a bright one for the day and a dark one for the evening. It changes at the times below, and you can still pick any theme in between.</p>
-      <button type="button" class="pt-gal-act tap-active" data-act="autotoggle" role="switch" aria-checked="${!!a.on}" style="width:100%">${a.on ? "Day & night is ON — tap to turn off" : "Day & night is OFF — tap to turn on"}</button>
+      <button type="button" class="pt-gal-act tap-active" data-act="autotoggle" role="switch" aria-checked="${!!a.on}" style="width:100%">${a.on ? "Day & night is on. Tap to turn it off" : "Day & night is off. Tap to turn on"}</button>
       ${row("Day look", `<select data-auto="day">${opts(a.day || "paper")}</select>`)}
       ${row("Starts at", `<input type="time" data-auto="dayAt" value="${esc(a.dayAt || "07:00")}">`)}
       ${row("Night look", `<select data-auto="night">${opts(a.night || "classic")}</select>`)}
@@ -31272,7 +31272,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   PT.shieldHtml = a => {
     const n = held(a), today = PT.ds(), act = PT.activeDaySet(a), can = n > 0 && !act.has(today) && !covered(a).includes(today), coins = PT.coins(a), full = n >= CAP;
     return `<div class="pt-shield">
-      <div class="flex items-center justify-between gap-2"><div class="min-w-0"><span class="block text-sm font-black text-white">🛡 Streak shields · ${n} of ${CAP}</span><span class="block text-[11px] text-zinc-400">Keep your days in a row on a day you miss</span></div>
+      <div class="flex items-center justify-between gap-2"><div class="min-w-0"><span class="block text-sm font-black text-white">Streak shields: ${n} of ${CAP}</span><span class="block text-[11px] text-zinc-400">Keep your days in a row on a day you miss</span></div>
         <button type="button" class="pt-b ${!full && coins >= PRICE ? "go" : ""}" id="pt-shield-buy" ${full ? "disabled" : ""}>${full ? "Full" : "Buy · " + PT.DBI + " " + PRICE}</button></div>
       ${can ? `<div><button type="button" class="pt-b" id="pt-shield-use">🤒 Sick day? Protect today</button></div>` : ""}
       <p class="text-[11px] text-zinc-400 leading-snug">After a missed day, the next time you open the app a shield is used on its own when your streak was ${MIN_STREAK} days or more (up to ${MAX_GAP} missed days in a row). If you show up on a protected day, the shield comes back. A shield keeps the streak going but never adds a day, so the 7, 30, 100 and 365 day badges still need real days.</p></div>`;
@@ -33997,6 +33997,92 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 
   // the answers that depend on the name only
   ["isBwMove", "isBodyweightEx", "equipKey", "category", "dbCount"].forEach(k => { if (typeof PT[k] === "function") PT[k] = PT.memoByName(PT[k]); });
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 2.108.0: a plainer, clearer design. The default look loses the stock "generated app" habits:
+ *  - No frosted glass: the header, tab bar, Finish bar and the picker's sticky headings are solid (the opt-in "Glass" card look keeps its blur).
+ *  - No coloured stripe down the left of cards (reminders, tips, AM/PM sessions, supersets, grouped exercises, picker rows): a plain full border
+ *    or a tint does the job, and the label already says what it is.
+ *  - No badge above the program name on Home ("ACTIVE ROUTINE"): the day count sits under the name instead.
+ *  - The three icon tiles on Home (Build a workout / Empty workout / Cardio & sports) are one plain bar of three buttons, and the program
+ *    tools on the Programs screen are plain labels, without emoji boxes.
+ *  - Small all-caps tracked labels ("THIS WEEK", "UP NEXT") are in normal case.
+ *  - More readable grey text in dark mode: the dimmest greys used for text are lifted to at least 4.5:1 against the background.
+ *  - No purple-to-blue gradients (AM/PM badges, the two-sessions note): plain tints.
+ *  - Home's cards are evenly spaced (an empty reminder slot no longer doubles the gap).
+ *  The headings lost their emojis and the em dashes in the app's text are gone (those were edited where the text lives).
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+
+  // the day count moves under the program name; the "ACTIVE ROUTINE" badge row goes
+  function homeCard() {
+    const t = document.getElementById("home-program-title"), b = document.getElementById("home-active-day-badge"), chip = document.getElementById("home-chip");
+    if (!t || !b || b.dataset.moved) return;
+    const row = b.parentElement;
+    b.dataset.moved = "1";
+    b.className = "block text-xs text-zinc-400 mt-1";
+    t.insertAdjacentElement("afterend", b);
+    if (chip) chip.hidden = true;
+    if (row && row !== t.parentElement && !row.querySelector(":scope > :not([hidden])")) row.hidden = true;
+  }
+  const oHome = proto.renderHomeView;
+  proto.renderHomeView = function () { const r = oHome.apply(this, arguments); try { homeCard(); } catch (e) { console.error("PulseTrack 2.108 home card", e); } return r; };
+
+  const css = document.createElement("style"); css.id = "pt-v2108-css";
+  css.textContent = `
+    /* no frosted glass (the opt-in Glass card look keeps it) */
+    html:not([data-card="glass"]) *, html:not([data-card="glass"]) *::before, html:not([data-card="glass"]) *::after { -webkit-backdrop-filter: none !important; backdrop-filter: none !important; }
+    html:not([data-card="glass"]) header.sticky, html:not([data-card="glass"]) #finish-bar, html:not([data-card="glass"]) #ex-list-container .sticky, html:not([data-card="glass"]) .pt-pin-h { background-color: rgb(var(--z900)) !important; }
+    html:not([data-card="glass"]) body.pt-tabs #pt-tabbar { background: rgb(var(--z900)) !important; }
+    html:not([data-card="glass"]) #days-week-row { background: rgb(var(--z950)) !important; }
+
+    /* no coloured stripe down the left of a card or row */
+    html[data-neat="1"] #home-banners [data-banner], #home-banners [data-banner] { box-shadow: none !important; border: 1px solid rgb(var(--a500) / .35) !important; }
+    .pt-tip-line, .pt-note-line { border-left: 0 !important; padding-left: 0 !important; }
+    #days-list-container > .pt-ses-card { border-left-width: 1px !important; border-left-color: rgb(var(--z800)) !important; }
+    [data-ex-card].pt-gfold-head { border-left-color: rgb(var(--z800)) !important; }
+    [data-ex-card].border-l-4 { border-left-width: 1px !important; border-left-color: rgb(var(--z800)) !important; }
+    #ex-list-container button.border-l-2, .sugg-item.border-l-2 { border-left-color: transparent !important; }
+
+    /* Home: one plain bar of three buttons instead of three icon tiles */
+    #view-home #pt-hg-quick { display: flex !important; gap: 0 !important; border: 1px solid rgb(var(--z800)); border-radius: 1rem; background: rgb(var(--z900)); overflow: hidden; }
+    #view-home #pt-hg-quick > button { flex: 1 1 0; min-width: 0; min-height: 3rem; margin: 0 !important; padding: .75rem .4rem !important; border: 0 !important; border-radius: 0 !important; background: transparent !important; box-shadow: none !important;
+      display: flex !important; flex-direction: row !important; align-items: center !important; justify-content: center !important; text-align: center !important; }
+    #view-home #pt-hg-quick > button + button { border-left: 1px solid rgb(var(--z800)) !important; }
+    #view-home #pt-hg-quick > button > span:first-child:not(:last-child) { display: none !important; }
+    #view-home #pt-hg-quick > button > span:last-child { font-size: .78rem; font-weight: 700; line-height: 1.2; color: rgb(var(--z100)); }
+    #view-home #pt-hg-quick > button:active { background: rgb(var(--z800)) !important; }
+    /* Programs: the tools are plain labels */
+    #view-programs #pt-prog-tools .pgx-ti { display: none !important; }
+
+    /* normal-case labels instead of small tracked capitals */
+    html body *:not(input):not(textarea) { text-transform: none !important; }
+    .uppercase, .tracking-wide, .tracking-wider, .tracking-widest, #home-streak-card #home-streak-title, #home-up-next .pt-un-top, #side-drawer .pt-dh, .pgx-h, .pgx-lab, .pt-bar-rh, .pt-bp-f span, .pt-bp-wt span, .pt-co-h4, .pt-eyebrow, .pt-f2h, .pt-g-fld > span, .pt-g-n, .pt-gb-fld > span, .pt-grp, .pt-haul-h, .pt-heat-tile span, .pt-lvup-h, .pt-m-tag, .pt-md-f > span, .pt-pickrow small, .pt-pin-h span:first-child, .pt-pl-lab, .pt-pl-sh, .pt-st-count, .pt-stl-h, .pt-tab-phase, .pt-tier, .pt-tile span, .pt-ulabel, .pt-wd .pt-wl { letter-spacing: 0 !important; }
+    .pt-eyebrow, .pt-haul-h { font-size: .75rem !important; font-weight: 700 !important; color: rgb(var(--z400)) !important; }
+
+    /* readable greys in dark mode (at least 4.5:1 for small text) */
+    .text-zinc-500, .text-zinc-600 { color: color-mix(in srgb, rgb(var(--z500)) 70%, rgb(var(--z400))) !important; }
+
+    /* one solid colour for the Finish button, like Start workout (it was an emerald-to-teal gradient) */
+    #finish-bar button.bg-gradient-to-r { background-image: none !important; background-color: rgb(var(--a600)) !important; }
+
+    /* plain tints instead of purple-to-blue gradients */
+    .pgx-ap { background: rgb(251 191 36 / .14) !important; }
+    html[data-mode="light"] .pgx-ap { background: rgb(251 191 36 / .22) !important; }
+    #pt-dbl-note { background: rgb(251 191 36 / .08) !important; }
+    html[data-mode="light"] .pgx-ap { color: rgb(146 64 14) !important; }
+    /* colours made for a dark page are darkened on the light one so they stay readable */
+    html[data-mode="light"] .pt-ltag { color: color-mix(in srgb, var(--tc) 50%, #000) !important; }
+    .ex-chip.bg-emerald-500 span { color: rgb(0 0 0 / .72) !important; }
+
+    /* even spacing on Home: an empty slot takes no room */
+    #view-home > :empty { display: none !important; }
+  `;
+  document.head.appendChild(css);
 })();
 </script>
   <script>

@@ -446,7 +446,7 @@
       showExtraView(name) {
         const titles = {
           history: ["Workout History", "Saved workouts"],
-          progress: ["Progress", "Analytics & PRs"],
+          progress: ["Progress", "Records and trends"],
           body: ["Body & Photos", "Bodyweight, measurements, photos"],
           cardio: ["Cardio & Sports", "Separate from your lifting"]
         };
@@ -712,7 +712,7 @@
         if (reps.some(r => r < range.lo)) {
           return { kind: "hold", text: `● Stay at ${PT.num(topW, 2)} ${u} and build up to ${range.lo}+ reps on every set` };
         }
-        return { kind: "reps", text: `● Same weight (${PT.num(topW, 2)} ${u}) — add a rep or two, aim for ${range.hi}` };
+        return { kind: "reps", text: `● Same weight (${PT.num(topW, 2)} ${u}): add a rep or two, aim for ${range.hi}` };
       },
       exerciseSeries(name) {
         const out = [];
@@ -899,7 +899,7 @@
         this.dom.summarySets.innerText = setsCount;
         this.dom.summaryPRs.innerText = prNames.length;
         const prList = document.getElementById("summary-pr-list");
-        prList.innerHTML = prNames.map(p => `<div>🏅 <b>${PT.esc(p.name)}</b> — new est. 1RM ${PT.num(p.value)} ${this.wLabel()}</div>`).join("");
+        prList.innerHTML = prNames.map(p => `<div>🏅 <b>${PT.esc(p.name)}</b>: new est. 1RM ${PT.num(p.value)} ${this.wLabel()}</div>`).join("");
         prList.classList.toggle("hidden", !prNames.length);
         const nextEl = document.getElementById("summary-next");
         if (session && this.activeDay && prog.id !== FREESTYLE_ID) {
@@ -1292,7 +1292,7 @@
             <div class="grid grid-cols-3 gap-2">
               ${stat("Volume", Math.round(lifeVol).toLocaleString(), "text-emerald-400")}
               ${stat("Sets", lifeSets.toLocaleString())}
-              ${stat("Since", first ? PT.fmtDate(first, { month: "short", year: "numeric" }) : "—")}
+              ${stat("Since", first ? PT.fmtDate(first, { month: "short", year: "numeric" }) : "–")}
             </div>
           </div>`;
 
@@ -1334,10 +1334,10 @@
         const body = `${back ? `<button id="ex-back" class="text-xs font-bold text-emerald-400 tap-active">‹ Back to workout</button>` : ""}
           <div class="grid grid-cols-3 gap-2 text-center">
             ${isCardio
-              ? `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Longest</span><span class="font-mono font-black text-amber-400 text-sm">${series.length ? PT.num(Math.max(...series.map(p => p.mins)), 0) + " min" : "—"}</span></div>`
-              : `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Est. 1RM PR</span><span class="font-mono font-black text-amber-400 text-sm">${pr ? PT.num(pr) + " " + u : "—"}</span></div>`}
+              ? `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Longest</span><span class="font-mono font-black text-amber-400 text-sm">${series.length ? PT.num(Math.max(...series.map(p => p.mins)), 0) + " min" : "–"}</span></div>`
+              : `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Est. 1RM PR</span><span class="font-mono font-black text-amber-400 text-sm">${pr ? PT.num(pr) + " " + u : "–"}</span></div>`}
             <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Sessions</span><span class="font-mono font-bold text-white text-sm">${series.length}</span></div>
-            <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Last done</span><span class="font-mono font-bold text-white text-sm">${last ? PT.fmtDate(last.date, { month: "short", day: "numeric" }) : "—"}</span></div>
+            <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">Last done</span><span class="font-mono font-bold text-white text-sm">${last ? PT.fmtDate(last.date, { month: "short", day: "numeric" }) : "–"}</span></div>
           </div>
           ${this.isStalled(name) ? `<div class="text-[11px] font-semibold border rounded-lg px-2.5 py-2 text-amber-300 bg-amber-950/30 border-amber-800/50">⚠ ${PT.esc(PT.plateauTip(name))}</div>` : ""}
           ${PT.cuesHtml(name)}
@@ -1464,7 +1464,7 @@
           <div class="bg-zinc-900 border border-zinc-800 rounded-2xl p-4 space-y-2">
             <h3 class="text-xs font-bold text-white">Latest measurements</h3>
             <div class="grid grid-cols-3 gap-2 text-center">
-              ${[["bf", "Body fat", "%"], ...meas.map(([k, t]) => [k, t, L])].map(([k, t, un]) => { const v = latestOf(k); return `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">${t}</span><span class="font-mono font-bold text-white text-sm">${v ? PT.num(v) + " " + un : "—"}</span></div>`; }).join("")}
+              ${[["bf", "Body fat", "%"], ...meas.map(([k, t]) => [k, t, L])].map(([k, t, un]) => { const v = latestOf(k); return `<div class="bg-zinc-950 border border-zinc-800 rounded-xl p-2"><span class="block text-[10px] text-zinc-500 uppercase font-bold">${t}</span><span class="font-mono font-bold text-white text-sm">${v ? PT.num(v) + " " + un : "–"}</span></div>`; }).join("")}
             </div>
           </div>
 
@@ -1684,7 +1684,7 @@
         if (!(navigator.storage && navigator.storage.persist)) { if (userAsked) await PT.alert("This browser doesn't support protected storage. Regular backups are your safety net."); return false; }
         let ok = false;
         try { ok = (await navigator.storage.persisted()) || (await navigator.storage.persist()); } catch (e) { ok = false; }
-        if (userAsked) this.toast(ok ? "Storage protected ✓" : "The browser declined. Keep making backups — installing to the home screen helps.");
+        if (userAsked) this.toast(ok ? "Storage protected ✓" : "The browser declined. Keep making backups. Installing to the home screen helps.");
         this.renderSettingsExtras();
         return ok;
       },
@@ -1706,7 +1706,7 @@
         $("setting-toggle-largetext").checked = !!this.settings.largeText;
         $("setting-toggle-restnotify").checked = !!this.settings.restNotify && ("Notification" in window) && Notification.permission === "granted";
         const last = this.settings.lastBackupAt;
-        $("backup-status").innerText = last ? `Last backup: ${new Date(last).toLocaleDateString()} (${Math.floor((Date.now() - last) / 86400000)} days ago)` : "No backup yet — make one now.";
+        $("backup-status").innerText = last ? `Last backup: ${new Date(last).toLocaleDateString()} (${Math.floor((Date.now() - last) / 86400000)} days ago)` : "No backup yet. Make one now.";
         $("app-version").innerText = "v" + APP_VERSION;
         this.refreshInstallUI();
         let bytes = 0;
@@ -1813,7 +1813,7 @@
           try {
             if (navigator.share) { await navigator.share({ title: program.title, text: `PulseTrack program: ${program.title}`, url: link }); return; }
           } catch (err) { if (err && err.name === "AbortError") return; }
-          try { await navigator.clipboard.writeText(link); this.toast("Link copied — send it to anyone with PulseTrack"); return; } catch (err) {}
+          try { await navigator.clipboard.writeText(link); this.toast("Link copied. Send it to anyone with PulseTrack"); return; } catch (err) {}
           await PT.prompt("Share link", link, { readonly: true, copy: true, ok: "Copy link", cancel: "Close", title: "Share this program", body: "Copy this link and send it to anyone who has PulseTrack." });
           return;
         }

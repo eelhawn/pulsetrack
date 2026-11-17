@@ -82,7 +82,7 @@
     { id: "ember", lvl: 5, name: "Ember", c: ["#fdba74", "#ea580c"] },
     { id: "aurora", lvl: 10, name: "Aurora", c: ["#5eead4", "#6366f1"] },
     { id: "gold", lvl: 15, name: "Gold", c: ["#fde68a", "#d97706"] },
-    { id: "platinum", lvl: 25, name: "Platinum", c: ["#a5f3fc", "#8b5cf6"] },
+    { id: "platinum", lvl: 25, name: "Platinum", c: ["#f4f4f5", "#a1a1aa"] },
     { id: "prism", lvl: 35, name: "Prism", c: ["#f472b6", "#facc15", "#22d3ee"] }
   ];
   const levelOf = xp => {
@@ -322,14 +322,14 @@
     return `<svg viewBox="0 0 100 100" width="${px}" height="${px}" role="img" aria-label="Level ${st.lv.L}"><defs><linearGradient id="${id}" x1="0" y1="0" x2="1" y2="1">${f.c.map((x, i) => `<stop offset="${f.c.length === 1 ? 0 : i / (f.c.length - 1)}" stop-color="${x}"/>`).join("")}</linearGradient></defs>
       <circle cx="50" cy="50" r="44" fill="rgb(var(--z950))" stroke="rgb(var(--z800))" stroke-width="7"/>
       <circle cx="50" cy="50" r="44" fill="none" stroke="url(#${id})" stroke-width="7" stroke-linecap="round" stroke-dasharray="${(C * st.lv.pct).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 50 50)"/>
-      <text x="50" y="45" text-anchor="middle" font-size="11" font-weight="800" fill="rgb(var(--z400))" letter-spacing="1">LEVEL</text>
-      <text x="50" y="70" text-anchor="middle" font-size="30" font-weight="900" fill="#fff">${st.lv.L}</text></svg>`;
+      <text x="50" y="45" text-anchor="middle" font-size="12" font-weight="800" style="fill:rgb(var(--z400))">Level</text>
+      <text x="50" y="70" text-anchor="middle" font-size="30" font-weight="900" style="fill:rgb(var(--z100))">${st.lv.L}</text></svg>`;
   }
   function weekRing(k, goal, px) {
     const C = 2 * Math.PI * 44, hit = k >= goal, pct = Math.min(1, k / goal);
     return `<svg viewBox="0 0 100 100" width="${px}" height="${px}" role="img" aria-label="${k} of ${goal} days this week"><circle cx="50" cy="50" r="44" fill="none" stroke="rgb(var(--z800))" stroke-width="9"/>
       <circle cx="50" cy="50" r="44" fill="none" stroke="${hit ? "#fbbf24" : "rgb(var(--a500))"}" stroke-width="9" stroke-linecap="round" stroke-dasharray="${(C * pct).toFixed(1)} ${C.toFixed(1)}" transform="rotate(-90 50 50)"/>
-      <text x="50" y="${hit ? 60 : 58}" text-anchor="middle" font-size="${hit ? 34 : 30}" font-weight="900" fill="${hit ? "#fbbf24" : "#fff"}">${hit ? "✓" : k + "/" + goal}</text></svg>`;
+      <text x="50" y="${hit ? 60 : 58}" text-anchor="middle" font-size="${hit ? 34 : 30}" font-weight="900" style="fill:${hit ? "#fbbf24" : "rgb(var(--z100))"}">${hit ? "✓" : k + "/" + goal}</text></svg>`;
   }
   const bar = p => `<div class="pt-bar"><span style="width:${Math.round(Math.max(0, Math.min(1, p)) * 100)}%"></span></div>`;
 
@@ -359,7 +359,7 @@
     .pt-ftile s { text-decoration: none; font-size: .58rem; font-weight: 700; color: rgb(var(--z500)); line-height: 1; display: inline-flex; align-items: center; gap: .15rem; }
     .pt-ftile s .pt-dbi { width: .7rem; height: .7rem; }
     .pt-ftile[aria-pressed=true] { border-color: rgb(var(--a500)); background: rgb(var(--a500) / .1); }
-    .pt-ftile[aria-pressed=true] b { color: #fff; }
+    .pt-ftile[aria-pressed=true] b { color: rgb(var(--z100)); }
     .pt-ftile[aria-pressed=true] s { color: rgb(var(--a400)); }
     .pt-ftile.lock i { filter: grayscale(.6) brightness(.7); }
     .pt-ftile.lock b { color: rgb(var(--z500)); }

@@ -42,11 +42,11 @@
 
   function html(h, a) {
     if (!h.big) {
-      return `<div class="pt-haul" id="pt-haul"><div class="pt-haul-h">🚚 What you've moved</div><p class="pt-haul-s">Log a few workouts and your lifting shows up here as things you haul on the job.</p></div>`;
+      return `<div class="pt-haul" id="pt-haul"><div class="pt-haul-h">What you've moved</div><p class="pt-haul-s">Log a few workouts and your lifting shows up here as things you haul on the job.</p></div>`;
     }
     const u = a.wLabel();
     return `<div class="pt-haul" id="pt-haul">
-      <div class="pt-haul-h">🚚 What you've moved</div>
+      <div class="pt-haul-h">What you've moved</div>
       <div class="pt-haul-big"><span class="pt-haul-i" aria-hidden="true">${h.big.it.ico}</span><span>About <b>${PT.esc(h.big.text)}</b></span></div>
       <p class="pt-haul-s">Your lifetime lifting volume, in things you load and unload for work.</p>
       ${h.rows.length ? `<div class="pt-haul-rows">${h.rows.map(r => `<div><span aria-hidden="true">${r.it.ico}</span><span>${PT.esc(r.text)}</span></div>`).join("")}</div>` : ""}

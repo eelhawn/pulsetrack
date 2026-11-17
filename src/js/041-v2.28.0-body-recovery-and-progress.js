@@ -248,7 +248,7 @@
     { name: "Bronze", a: "#f0b27a", b: "#a0522d", glow: "rgb(205 127 50 / .55)" },
     { name: "Silver", a: "#f3f4f6", b: "#8b93a1", glow: "rgb(203 213 225 / .5)" },
     { name: "Gold", a: "#fde68a", b: "#d97706", glow: "rgb(251 191 36 / .6)" },
-    { name: "Platinum", a: "#a5f3fc", b: "#8b5cf6", glow: "rgb(167 139 250 / .65)" }
+    { name: "Platinum", a: "#f4f4f5", b: "#a1a1aa", glow: "rgb(228 228 231 / .55)" }
   ];
   const CATS = [["all", "All"], ["earned", "Earned"], ["training", "Training"], ["streak", "Streaks"], ["strength", "Strength"], ["volume", "Volume"], ["records", "Records"], ["habits", "Habits"], ["variety", "Variety"], ["milestones", "Milestones"], ["secret", "Secret"]];
   const vis = b => (b.secret && !b.got ? Object.assign({}, b, { name: "Secret badge", desc: "Keep training and you might find it.", icon: "❔", cur: 0 }) : b);

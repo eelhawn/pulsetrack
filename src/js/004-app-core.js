@@ -1389,7 +1389,7 @@
         }
         const res = this.solvePlates(perSide);
         if (!res.plates.length) {
-          box.innerHTML = `<span class="text-xs text-zinc-500 italic">No plates needed (bar only)</span>`;
+          box.innerHTML = `<span class="text-xs text-zinc-400">No plates needed (bar only)</span>`;
         }
         res.plates.forEach(p => {
           const badge = document.createElement("span");
@@ -1507,21 +1507,21 @@
           this.dom.viewHome.classList.remove("hidden");
           this.dom.backBtn.classList.add("hidden");
           this.dom.headerTitle.innerText = "PulseTrack";
-          this.dom.headerBreadcrumb.innerText = "Dashboard";
+          this.dom.headerBreadcrumb.innerText = new Date().toLocaleDateString(undefined, { weekday: "long", month: "short", day: "numeric" });   // 2.108.0: the date, not "Dashboard"
           this.renderHomeView();
         } else if (viewName === "programs") {
           this.releaseWakeLock();
           this.dom.viewPrograms.classList.remove("hidden");
           this.dom.backBtn.classList.remove("hidden");
           this.dom.headerTitle.innerText = "Training Programs";
-          this.dom.headerBreadcrumb.innerText = "Catalog";
+          this.dom.headerBreadcrumb.innerText = "Pick or build a program";
           this.renderProgramsView();
         } else if (viewName === "days") {
           this.releaseWakeLock();
           this.dom.viewDays.classList.remove("hidden");
           this.dom.backBtn.classList.remove("hidden");
           this.dom.headerTitle.innerText = this.activeProgram ? this.activeProgram.title : "";
-          this.dom.headerBreadcrumb.innerText = "Select Workout Day";
+          this.dom.headerBreadcrumb.innerText = "Pick a day";
           this.renderDaysView();
         } else if (viewName === "library") {
           this.releaseWakeLock();
@@ -2002,10 +2002,10 @@
           row.innerHTML = `
             <div class="flex items-center justify-between text-xs">
               <span class="font-bold text-white">${l.key}</span>
-              <span class="font-mono ${best ? "text-emerald-400" : "text-zinc-500"}">${best ? best + " " + u : "—"} <span class="text-zinc-500">/ ${goal}</span></span>
+              <span class="font-mono ${best ? "text-emerald-400" : "text-zinc-500"}">${best ? best + " " + u : "–"} <span class="text-zinc-500">/ ${goal}</span></span>
             </div>
             <div class="h-2 rounded-full bg-zinc-800 overflow-hidden"><div class="h-2 rounded-full bg-emerald-500" style="width:${pct}%"></div></div>
-            <div class="text-[10px] text-zinc-500">${holder ? this.esc(holder) + " · est. 1RM · " + pct + "% of goal" : "No PR logged yet"}<br>Next milestone: ${next ? next + " " + u + " (" + plateTxt + "-plate)" : "—"}</div>`;
+            <div class="text-[10px] text-zinc-500">${holder ? this.esc(holder) + " · est. 1RM · " + pct + "% of goal" : "No PR logged yet"}<br>Next milestone: ${next ? next + " " + u + " (" + plateTxt + "-plate)" : "–"}</div>`;
           row.addEventListener("click", async () => {
             const v = parseFloat(await PT.prompt("Goal 1RM for " + l.key + " (" + this.wLabel() + ")?", goal));
             if (v > 0) {
@@ -2059,7 +2059,7 @@
               <span class="block text-[10px] text-zinc-500 uppercase mt-0.5">${this.esc(e.category)} · ${topTxt}${e.same ? " · same as " + this.esc(e.same) : ""}</span>
             </div>
             <div class="text-right flex-shrink-0">
-              ${pr ? `<span class="block text-sm font-black font-mono text-amber-400">${pr} ${this.unit()}</span><span class="block text-[10px] text-zinc-500">est. 1RM</span>` : `<span class="text-xs text-zinc-600">—</span>`}
+              ${pr ? `<span class="block text-sm font-black font-mono text-amber-400">${pr} ${this.unit()}</span><span class="block text-[10px] text-zinc-500">est. 1RM</span>` : `<span class="text-xs text-zinc-600">–</span>`}
             </div>`;
           box.appendChild(card);
         });

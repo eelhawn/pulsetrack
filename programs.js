@@ -11828,7 +11828,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "10",
       "restSeconds": 0,
       "type": "standard",
-      "notes": "Zero rest in Week 6—100 reps straight through."
+      "notes": "Zero rest in Week 6: 100 reps straight through."
      },
      {
       "id": "h1_w6_d1_e2",
@@ -27137,7 +27137,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w1sat_e2",
@@ -27147,7 +27147,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w1sat_e3",
@@ -27157,7 +27157,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w1sat_e4",
@@ -27167,7 +27167,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w1sat_e5",
@@ -27177,7 +27177,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w1sat_e6",
@@ -27556,7 +27556,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w2sat_e2",
@@ -27566,7 +27566,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w2sat_e3",
@@ -27576,7 +27576,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w2sat_e4",
@@ -27586,7 +27586,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w2sat_e5",
@@ -27596,7 +27596,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w2sat_e6",
@@ -27975,7 +27975,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w3sat_e2",
@@ -27985,7 +27985,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w3sat_e3",
@@ -27995,7 +27995,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w3sat_e4",
@@ -28005,7 +28005,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w3sat_e5",
@@ -28015,7 +28015,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w3sat_e6",
@@ -28394,7 +28394,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w4sat_e2",
@@ -28404,7 +28404,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w4sat_e3",
@@ -28414,7 +28414,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w4sat_e4",
@@ -28424,7 +28424,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w4sat_e5",
@@ -28434,7 +28434,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w4sat_e6",
@@ -28785,7 +28785,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w5sat_e2",
@@ -28795,7 +28795,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w5sat_e3",
@@ -28805,7 +28805,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w5sat_e4",
@@ -28815,7 +28815,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w5sat_e5",
@@ -28825,7 +28825,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      }
     ]
    },
@@ -29140,7 +29140,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w6sat_e2",
@@ -29150,7 +29150,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w6sat_e3",
@@ -29160,7 +29160,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w6sat_e4",
@@ -29170,7 +29170,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w6sat_e5",
@@ -29180,7 +29180,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      }
     ]
    },
@@ -29495,7 +29495,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w7sat_e2",
@@ -29505,7 +29505,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w7sat_e3",
@@ -29515,7 +29515,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w7sat_e4",
@@ -29525,7 +29525,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w7sat_e5",
@@ -29535,7 +29535,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      }
     ]
    },
@@ -29850,7 +29850,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w8sat_e2",
@@ -29860,7 +29860,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w8sat_e3",
@@ -29870,7 +29870,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w8sat_e4",
@@ -29880,7 +29880,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      },
      {
       "id": "ph12_w8sat_e5",
@@ -29890,7 +29890,7 @@ const BUILTIN_PROGRAMS = [
       "restSeconds": 105,
       "restAuto": true,
       "type": "cardio",
-      "notes": "Pick one or more of these cardio machines — 30–45 min in total"
+      "notes": "Pick one or more of these cardio machines: 30–45 min in total"
      }
     ]
    },
@@ -52240,7 +52240,7 @@ const BUILTIN_PROGRAMS = [
  {
   "id": "jay_cutler_12wk_plan",
   "title": "Jay Cutler 12-Week Training Program",
-  "description": "Inspired by Jay Cutler's training, with his three routines as three 4-week phases. Warm up up to 10 min (3–5 min light jog) and do one light set before each exercise. Rest about 60 s on moderate/isolation work and 2–4 min on heavy strength lifts. Weeks 1–4: muscle group split. Weeks 5–8: Cut Like Cutler — heavy weeks (5, 7) alternate with moderate weeks (6, 8). Weeks 9–12: his 2008 Olympia split.",
+  "description": "Inspired by Jay Cutler's training, with his three routines as three 4-week phases. Warm up up to 10 min (3–5 min light jog) and do one light set before each exercise. Rest about 60 s on moderate/isolation work and 2–4 min on heavy strength lifts. Weeks 1–4: muscle group split. Weeks 5–8: Cut Like Cutler: heavy weeks (5, 7) alternate with moderate weeks (6, 8). Weeks 9–12: his 2008 Olympia split.",
   "tags": [
    "Jay Cutler",
    "12 Weeks",

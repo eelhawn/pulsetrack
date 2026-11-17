@@ -14,7 +14,7 @@ VIEWS = ['home', 'programs', 'days', 'workout', 'library', 'history', 'progress'
 PROBE = r'''() => {
   const lum = ([r, g, b]) => { const f = v => { v /= 255; return v <= .03928 ? v / 12.92 : Math.pow((v + .055) / 1.055, 2.4); }; return .2126 * f(r) + .7152 * f(g) + .0722 * f(b); };
   const cr = (a, b) => { const x = lum(a), y = lum(b); return (Math.max(x, y) + .05) / (Math.min(x, y) + .05); };
-  const parse = s => { const m = (s.match(/[\d.]+/g) || []).map(Number); return { c: m.slice(0, 3), a: m.length > 3 ? m[3] : 1 }; };
+  const parse = s => { const m = (s.match(/[\d.]+/g) || []).map(Number), k = /^color\(srgb/.test(s) ? 255 : 1; return { c: m.slice(0, 3).map(v => v * k), a: m.length > 3 ? m[3] : 1 }; };  // color-mix() computes to color(srgb 0-1)
   const over = (top, base) => top.a >= 1 ? top.c : top.c.map((v, i) => v * top.a + base[i] * (1 - top.a));
   const main = document.querySelector('main');
   const host = document.createElement('div'); host.id = 'probe-host'; host.style.cssText = 'position:absolute;left:0;top:0;width:300px';

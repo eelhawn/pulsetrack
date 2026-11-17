@@ -350,7 +350,7 @@
         const chip = (on, label, attr) => `<button type="button" ${attr} class="py-2.5 rounded-xl text-xs font-bold tap-active ${on ? "bg-emerald-600 text-white" : "bg-zinc-800 text-zinc-400"}">${label}</button>`;
         const paintChips = () => {
           $("#cl-eff").innerHTML = [1, 2, 3].map(i => chip(eff === i, EFFORT[i].label, `data-eff="${i}"`)).join("");
-          $("#cl-res").innerHTML = [["", "—"], ["W", "Win"], ["L", "Loss"], ["D", "Draw"]].map(([v, t]) => chip(res === v, t, `data-res="${v}"`)).join("");
+          $("#cl-res").innerHTML = [["", "–"], ["W", "Win"], ["L", "Loss"], ["D", "Draw"]].map(([v, t]) => chip(res === v, t, `data-res="${v}"`)).join("");
           $("#cl-shoes").innerHTML = [{ id: "", name: "None" }].concat(shoeChoices(shoe)).map(h => `<button type="button" data-shoe="${esc(h.id)}" class="px-3 py-2 rounded-xl text-xs font-bold tap-active ${shoe === h.id ? "bg-emerald-600 text-white" : "bg-zinc-800 text-zinc-400"}">${esc(h.name)}</button>`).join("");
         };
         const paintAct = () => {
@@ -653,7 +653,7 @@
           <div class="${CARD} space-y-3">
             <div class="flex items-center justify-between"><h3 class="text-xs font-bold text-white">This week</h3><span class="text-[10px] text-zinc-500">${esc(ws0.toLocaleDateString(undefined, { month: "short", day: "numeric" }))} – now</span></div>
             <div class="grid grid-cols-4 gap-2 text-center">
-              ${[["Sessions", wk.n], ["Time", wk.sec ? totalText(wk.sec) : "0"], ["Distance", wk.longM ? PT.num(wk.longM / lu.m, 1) + " " + lu.l : "—"], ["Calories", wk.kcal ? PT.num(wk.kcal, 0) : "—"]].map(([n, v]) => `<div class="bg-zinc-950 border border-zinc-800 rounded-xl py-2 px-1 min-w-0"><span class="block text-[9px] text-zinc-500 uppercase font-bold tracking-wider">${n}</span><span class="block font-mono font-bold text-white text-[13px] mt-0.5 truncate">${v}</span></div>`).join("")}
+              ${[["Sessions", wk.n], ["Time", wk.sec ? totalText(wk.sec) : "0"], ["Distance", wk.longM ? PT.num(wk.longM / lu.m, 1) + " " + lu.l : "–"], ["Calories", wk.kcal ? PT.num(wk.kcal, 0) : "–"]].map(([n, v]) => `<div class="bg-zinc-950 border border-zinc-800 rounded-xl py-2 px-1 min-w-0"><span class="block text-[9px] text-zinc-500 uppercase font-bold tracking-wider">${n}</span><span class="block font-mono font-bold text-white text-[13px] mt-0.5 truncate">${v}</span></div>`).join("")}
             </div>
             <div><div class="flex items-center justify-between text-[11px] mb-1"><span class="font-semibold text-zinc-300">${mins} of ${goal} min</span><span class="${pct >= 100 ? "text-emerald-400 font-bold" : "text-zinc-500"}">${pct >= 100 ? "Goal reached 🎉" : (goal - mins) + " to go"}</span></div>
               <div class="h-2 rounded-full bg-zinc-800 overflow-hidden"><div class="h-full rounded-full" style="width:${pct}%;background:${PT.accent()}"></div></div>
