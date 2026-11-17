@@ -1,6 +1,7 @@
 # Where we left off (2026-11-13)
 
 ## Released
+- 2.107.0 week strip dots centred again (`.pt-dot` is used by 019, 046, 009 and css/07: scope new dot styles to their container).
 - 2.106.0 speed-ups (memo of name-only exercise answers, cached accent colour, month names), openGym library loads when idle, removed no-op modules 096/112/113. Perf scripts used: a 4x CPU-throttled Playwright run with 300 seeded workouts.
 - 2.105.0 cleaner level card: frame grid (owned first, locked behind a toggle), shop Aurora renamed Borealis, XP breakdown grid.
 - 2.104.0 Core & Cardio days: 200-300 reps each (5 x 40-60) of Weighted Decline Sit-Ups, Captain's Chair Leg Raises, Russian Twists + StairMaster; weekly goal fix for late-week changes.

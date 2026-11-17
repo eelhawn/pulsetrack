@@ -435,7 +435,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v2.106.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v2.107.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3839,7 +3839,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "2.106.0";
+    const APP_VERSION = "2.107.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -11678,10 +11678,12 @@ const PTSIM = (function () {
     .pt-wd.pt-today .pt-wl { color: rgb(var(--a400)); }
     .pt-wd.pt-future .pt-wn { color: rgb(var(--z600)); }
     .pt-wd.pt-off { background: rgba(217, 119, 6, .14); }
-    .pt-dots { display: flex; gap: .22rem; align-items: center; height: .55rem; }
-    .pt-dot { width: .5rem; height: .5rem; border-radius: 999px; border: 1.5px solid rgb(var(--z700)); box-sizing: border-box; }
-    .pt-dot.pt-lift.on { background: rgb(var(--a500)); border-color: rgb(var(--a500)); }
-    .pt-dot.pt-card.on { background: #38bdf8; border-color: #38bdf8; }
+    /* 2.107.0: scoped to the week strip; the habit strip (046) and colour swatches use .pt-dot too, and their size and flex:1 leaked in */
+    .pt-wd .pt-dots { display: flex; gap: .25rem; align-items: center; justify-content: center; height: .55rem; width: auto; }
+    .pt-wd .pt-dot { flex: none; width: .5rem; height: .5rem; margin: 0; border-radius: 999px; border: 1.5px solid rgb(var(--z700)); background: transparent; box-sizing: border-box; display: block; }
+    .pt-wd .pt-dot.pt-lift.on, .pt-dot.pt-lift.on { background: rgb(var(--a500)); border-color: rgb(var(--a500)); }
+    .pt-wd .pt-dot.pt-card.on, .pt-dot.pt-card.on { background: #38bdf8; border-color: #38bdf8; }
+    .pt-dot.pt-lift, .pt-dot.pt-card { flex: none; width: .5rem; height: .5rem; border-radius: 999px; border: 1.5px solid rgb(var(--z700)); box-sizing: border-box; display: inline-block; margin: 0; }
     .pt-offmark { font-size: .62rem; line-height: .55rem; }
     .pt-recap-row { display: flex; justify-content: space-between; gap: .75rem; font-size: .72rem; padding: .15rem 0; }
     .pt-recap-row span:first-child { color: rgb(var(--z300)); min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
