@@ -19,7 +19,7 @@ with page() as p:
 
     c.eq(attr(), '1', 'Neater look is on by default')
     c.eq(z900(), z850(), 'dark cards take the lighter shade')
-    p.evaluate('app.showView("programs")'); p.wait_for_selector('.pgx-pr')
+    p.evaluate('app.showView("programs")'); p.wait_for_selector('.pgx-gb:not([hidden]) .pgx-pr')
     c.eq(border('.pgx-pr'), 'rgba(0, 0, 0, 0)', 'a program row has no outline')
     c.ok(border('#pgx-q') != 'rgba(0, 0, 0, 0)', 'the search box keeps a soft outline')
     c.eq(p.evaluate('getComputedStyle(document.querySelector("#pt-prog-tools > #btn-import-program")).backgroundColor'), 'rgba(0, 0, 0, 0)', 'tool buttons are quiet')

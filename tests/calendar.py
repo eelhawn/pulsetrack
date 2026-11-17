@@ -85,7 +85,7 @@ with page() as p:
     c.ok('UID:pt-cal-xy-1@pulsetrack.local' in t, 'UID is made of safe characters')
 
     # ---- the sheet itself
-    p.evaluate('app.showView("programs")')
+    p.evaluate('app.showView("programs")'); p.evaluate('PT.progList.reveal("frank_zane_beginner_full_body")')   # 3.0.0: programs sit in groups
     p.wait_for_selector('.pgx-pr[data-pid="frank_zane_beginner_full_body"]')
     p.click('.pgx-pr[data-pid="frank_zane_beginner_full_body"] .pgx-more')
     p.wait_for_selector('[data-act="calendar"]')
@@ -125,6 +125,7 @@ with page() as p:
     saved = p.evaluate('app.settings.calendar')
     c.eq((saved['time'], saved['remind']), ('06:15', 60), 'time and reminder are remembered')
     # ---- an unnamed program shows the weekday buttons and the mismatch note
+    p.evaluate('PT.progList.reveal("kai_greene_beast_beach_6wk")')
     p.click('.pgx-pr[data-pid="kai_greene_beast_beach_6wk"] .pgx-more') if p.locator('.pgx-pr[data-pid="kai_greene_beast_beach_6wk"] .pgx-more').count() else p.evaluate('PT.calendar.open("kai_greene_beast_beach_6wk")')
     if p.locator('[data-act="calendar"]').count():
         p.click('[data-act="calendar"]')

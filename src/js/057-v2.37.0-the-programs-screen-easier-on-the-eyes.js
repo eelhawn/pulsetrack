@@ -11,6 +11,11 @@
  * 2.40.0: Two-a-day programs (AM + PM sessions) get a "Two-a-day" chip, a sunrise-to-night shelf of cards right under the
  *  current program, and a small AM+PM tag on their rows. Any program whose days are titled like "Mon AM: Chest" and
  *  "Mon PM: Arms" (or "Chest (AM) + Arms (PM)") counts, including your own.
+ * 3.0.0: the list is grouped, not one long column. "Group by" picks Days a week (default), Athlete or Goal. Each group is one
+ *  row (name, how many programs, days a week range) that opens to show its programs; the group with your current program starts
+ *  open, and searching or a filter opens every group so nothing is hidden. Each program row also shows its split ("Chest · Back ·
+ *  Legs") from its first week. PT.progList.reveal(id) opens the group a program is in (used by the tests); the choice of grouping
+ *  is kept per phone in localStorage "pgx-by".
  * ===================================================================== */
 (function () {
   "use strict";
@@ -23,7 +28,8 @@
   const GOALS = { mass: "Mass", cutting: "Cutting", strength: "Strength", balanced: "All-round" };
   const LEVELS = { beginner: "Beginner", intermediate: "Intermediate", advanced: "Advanced" };
   const FILTERS = [["all", "All"], ["pro", "Pro plans"], ["two", "Two-a-day"], ["mass", "Mass"], ["cutting", "Cutting"], ["strength", "Strength"], ["beginner", "Beginner"], ["mine", "Mine"]];
-  const ST = { q: "", f: "all" };
+  const ST = { q: "", f: "all", by: (() => { try { return localStorage.getItem("pgx-by") || "days"; } catch (e) { return "days"; } })(), open: null, curSeen: null };
+  const BY = [["days", "Days a week"], ["pro", "Athlete"], ["goal", "Goal"]];
   const APP_DEFAULTS = { kaged_massive_arms_6wk: { pro: "", goal: "mass", level: "intermediate", perWeek: 6 } };   // ships inside the app, not in programs.js
 
   /* ================================================================ facts about each program */
@@ -181,9 +187,15 @@
     const find = document.createElement("div"); find.id = "pgx-find";
     find.innerHTML = `<div class="relative">${SEARCH_SVG}<input id="pgx-q" type="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search programs" class="pt-sin" aria-label="Search programs"><button type="button" id="pgx-clear" class="pgx-clear hidden" aria-label="Clear search">✕</button></div>
       <div class="pgx-row"><div id="pgx-chips" class="pgx-chips" role="group" aria-label="Filter programs"></div></div>
-      <div class="pgx-count"></div>`;
+      <div class="pgx-count"><div class="pgx-by" id="pgx-by" role="group" aria-label="Group programs by"></div></div>`;
     list.insertAdjacentElement("beforebegin", find);
-    find.querySelector(".pgx-count").appendChild(lab);
+    find.querySelector(".pgx-count").insertBefore(lab, $("pgx-by"));
+    $("pgx-by").addEventListener("click", e => {
+      const b = e.target.closest("[data-by]"); if (!b || b.dataset.by === ST.by) return;
+      ST.by = b.dataset.by; ST.open = null;
+      try { localStorage.setItem("pgx-by", ST.by); } catch (er) { }
+      drawList();
+    });
     list.classList.add("pgx-list");
     const q = $("pgx-q");
     q.addEventListener("input", () => { ST.q = q.value; drawList(); });
@@ -193,6 +205,8 @@
     hero.addEventListener("click", () => { const id = hero.dataset.pid; if (id) openProgram(id); });
     hero.addEventListener("keydown", e => { if ((e.key === "Enter" || e.key === " ") && hero.dataset.pid) { e.preventDefault(); openProgram(hero.dataset.pid); } });
     list.addEventListener("click", e => {
+      const gh = e.target.closest(".pgx-g");
+      if (gh) { const k = gh.dataset.g; if (ST.open.has(k)) ST.open.delete(k); else ST.open.add(k); drawList(); const nb = list.querySelector('.pgx-g[data-g="' + CSS.escape(k) + '"]'); if (nb) nb.focus({ preventScroll: true }); return; }
       const more = e.target.closest(".pgx-more"), row = e.target.closest(".pgx-pr");
       if (more && row) { e.stopPropagation(); openOptions(row.dataset.pid); return; }
       if (row) openProgram(row.dataset.pid);
@@ -273,6 +287,52 @@
     el.hidden = false;
   }
 
+  /* ================================================================ 3.0.0: split preview and groups */
+  const WD = "(?:mon|tue|tues|wed|thu|thur|thurs|fri|sat|sun)(?:day|nesday|sday|urday)?";
+  function cleanDay(title) {
+    let t = stripWeek(title)
+      .replace(/^\s*phase\s+\d+\s*[-–:]\s*/i, "")
+      .replace(/^\s*W\d+(?:\s*[&,]\s*W?\d+)*\s*[-–:]\s*/i, "")
+      .replace(/^\s*week\s+\d+\s*,\s*workout\s+\d+\s*(?:\([^)]*\))?\s*[:\-–]\s*/i, "")
+      .replace(new RegExp("^\\s*(?:day\\s+\\d+|" + WD + ")(?:\\s+(?:AM|PM))?\\s*[:\\-–]\\s*", "i"), "");
+    const i = t.lastIndexOf(": "); if (i > 0 && i < t.length - 2) t = t.slice(i + 2);
+    return t.trim();
+  }
+  const splitCache = new Map();
+  function splitOf(p, m) {
+    const days = p.days || [], sig = days.length + "|" + (days[0] ? days[0].title : "");
+    const c = splitCache.get(p.id); if (c && c.sig === sig) return c.v;
+    const n = Math.min(7, m.perWeek || 7), out = [];   // the first week's training days, each name once
+    let seen = 0;
+    for (const d of days) {
+      if (seen >= n) break;
+      if (!(d.exercises || []).length) continue;
+      seen++;
+      const t = cleanDay(d.title); if (t && !/^rest\b/i.test(t) && !out.some(o => o.toLowerCase() === t.toLowerCase())) out.push(t);
+    }
+    const v = out.join(" · ");
+    splitCache.set(p.id, { sig, v });
+    return v;
+  }
+  function groupKey(r) {
+    if (r.m.mine) return "mine";
+    if (ST.by === "days") return r.m.perWeek ? "d" + r.m.perWeek : "d0";
+    if (ST.by === "goal") return "g" + (r.m.pro === "Pro Collection" ? "sig" : r.m.goal);
+    return r.m.pro && r.m.pro !== "Pro Collection" ? "p" + r.m.pro : "pmore";
+  }
+  function groupInfo(k, rows) {
+    const n = rows.length, pw = rows.map(r => r.m.perWeek).filter(Boolean), lo = Math.min(...pw), hi = Math.max(...pw);
+    const days = pw.length ? (lo === hi ? lo : lo + "–" + hi) + " days/wk" : "";
+    const count = n + (n === 1 ? " program" : " programs");
+    if (k === "mine") return { t: "Your programs", s: count, av: "✎", h: 200 };
+    if (k[0] === "d") { const d = +k.slice(1); return { t: d ? d + (d === 1 ? " day a week" : " days a week") : "Other schedules", s: count, av: d || "–", h: [0, 155, 182, 200, 232, 265, 335, 28][d] || 215 }; }
+    if (k[0] === "g") { const g = k.slice(1); return { t: g === "sig" ? "Signature workouts" : GOALS[g] || "Other", s: [count, days].filter(Boolean).join(" · "), av: { mass: "M", cutting: "C", strength: "S", balanced: "A", sig: "★" }[g] || "·", h: { mass: 155, cutting: 28, strength: 265, balanced: 200, sig: 46 }[g] || 215 }; }
+    if (k === "pmore") return { t: "More programs", s: [count, days].filter(Boolean).join(" · "), av: "◎", h: 215 };
+    const name = k.slice(1), w = name.split(/\s+/).filter(Boolean);
+    return { t: name, s: [count, days].filter(Boolean).join(" · "), av: (w[0][0] + (w.length > 1 ? w[w.length - 1][0] : "")).toUpperCase(), h: hueOf(name) };
+  }
+  const CHEV = '<svg class="pgx-chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg>';
+
   function drawList() {
     const a = A(), list = $("programs-list-container"); if (!a || !list || !$("pgx-find")) return;
     const all = (a.data.programs || []).filter(Boolean);
@@ -288,26 +348,53 @@
     const clr = $("pgx-clear"); if (clr) clr.classList.toggle("hidden", !ST.q);
     const curId = (PT.currentProgramId && PT.currentProgramId()) || null;
     const byTitle = (x, y) => String(x.p.title || "").localeCompare(String(y.p.title || ""), undefined, { sensitivity: "base", numeric: true });
-    const proKey = r => r.m.pro === "Pro Collection" ? "￿" : r.m.pro.toLowerCase();
-    const groups = [
-      ["Your programs", shown.filter(r => r.m.mine).sort(byTitle)],
-      ["Pro programs", shown.filter(r => !r.m.mine && r.m.pro).sort((x, y) => proKey(x).localeCompare(proKey(y)) || byTitle(x, y))],
-      ["More programs", shown.filter(r => !r.m.mine && !r.m.pro).sort(byTitle)],
-    ].filter(g => g[1].length);
+    const byBox = $("pgx-by");
+    if (byBox) byBox.innerHTML = BY.map(x => `<button type="button" data-by="${x[0]}" aria-pressed="${ST.by === x[0]}">${x[1]}</button>`).join("");
     if (!shown.length) {
       list.innerHTML = `<div class="pgx-empty"><p>${toks.length ? `No programs match “${esc(ST.q.trim())}”` : "No programs in this filter yet"}</p><button type="button" id="pgx-empty-clear">Show all programs</button></div>`;
       return;
     }
-    list.innerHTML = groups.map(g => `<p class="pgx-h">${g[0]}<span>${g[1].length}</span></p>` + g[1].map(r => {
-      const p = r.p, m = r.m, b = badge(p, m), cur = p.id === curId;
-      return `<div class="pgx-pr${cur ? " pgx-cur" : ""}" data-pid="${esc(p.id)}" role="button" tabindex="0" aria-label="${esc(p.title)}${cur ? ", current program" : ""}">
-        <span class="pgx-av" style="--h:${b.h}" aria-hidden="true">${esc(b.t)}</span>
-        <span class="pgx-main"><span class="pgx-t">${hl(p.title, toks)}</span><span class="pgx-s">${apTag(p)}${hl(facts(p, m, !!twoInfo(p)), toks)}</span></span>
-        ${cur ? '<span class="pgx-pill">✓ Current</span>' : ""}
-        <button type="button" class="pgx-more" aria-label="Options for ${esc(p.title)}">⋯</button>
-      </div>`;
-    }).join("")).join("");
+    const map = new Map();
+    shown.forEach(r => { const k = groupKey(r); if (!map.has(k)) map.set(k, []); map.get(k).push(r); });
+    const order = k => k === "mine" ? "0" : k === "pmore" || k === "gsig" || k === "d0" ? "9" : ST.by === "days" ? "1" + k.slice(1).padStart(2, "0") : ST.by === "goal" ? "1" + ({ gmass: 1, gstrength: 2, gcutting: 3, gbalanced: 4 }[k] || 5) : "1" + k.slice(1).toLowerCase();
+    const keys = [...map.keys()].sort((x, y) => order(x).localeCompare(order(y)));
+    keys.forEach(k => map.get(k).sort(byTitle));
+    const curRow = rows.find(r => r.p.id === curId);
+    if (!ST.open) { ST.open = new Set([curRow ? groupKey(curRow) : keys[0]]); ST.curSeen = curId; }   // first look: the current program's group, or else the first
+    else if (curId !== ST.curSeen) { ST.curSeen = curId; if (curRow) ST.open.add(groupKey(curRow)); }   // a new current program: open its group too
+    const all_open = !!toks.length || ST.f !== "all";
+    const inPro = ST.by === "pro";
+    list.innerHTML = keys.map(k => {
+      const g = map.get(k), gi = groupInfo(k, g), open = all_open || ST.open.has(k), hasCur = g.some(r => r.p.id === curId);
+      const id = "pgx-gb-" + k.replace(/[^a-z0-9]/gi, "");
+      return `<section class="pgx-grp${open ? " open" : ""}">
+        <button type="button" class="pgx-g" data-g="${esc(k)}" aria-expanded="${open}" aria-controls="${id}"${all_open ? " disabled" : ""}>
+          <span class="pgx-av" style="--h:${gi.h}" aria-hidden="true">${esc(String(gi.av))}</span>
+          <span class="pgx-main"><span class="pgx-t">${esc(gi.t)}</span><span class="pgx-s">${esc(gi.s)}${hasCur ? ' · <b class="pgx-gcur">Current</b>' : ""}</span></span>
+          ${all_open ? "" : CHEV}
+        </button>
+        <div class="pgx-gb" id="${id}"${open ? "" : " hidden"}>${g.map(r => {
+          const p = r.p, m = r.m, b = badge(p, m), cur = p.id === curId, sp = splitOf(p, m);
+          return `<div class="pgx-pr${cur ? " pgx-cur" : ""}${inPro && k !== "mine" ? " pgx-noav" : ""}" data-pid="${esc(p.id)}" role="button" tabindex="0" aria-label="${esc(p.title)}${cur ? ", current program" : ""}">
+            <span class="pgx-av" style="--h:${b.h}" aria-hidden="true">${esc(b.t)}</span>
+            <span class="pgx-main"><span class="pgx-t">${hl(p.title, toks)}</span><span class="pgx-s">${apTag(p)}${hl(facts(p, m, !!twoInfo(p)), toks)}</span>${sp ? `<span class="pgx-sp">${hl(sp, toks)}</span>` : ""}</span>
+            ${cur ? '<span class="pgx-pill">✓ Current</span>' : ""}
+            <button type="button" class="pgx-more" aria-label="Options for ${esc(p.title)}">⋯</button>
+          </div>`;
+        }).join("")}</div>
+      </section>`;
+    }).join("");
   }
+
+  /** open the group a program is in (and draw), so its row can be reached */
+  function reveal(id) {
+    const a = A(); if (!a) return;
+    const p = (a.data.programs || []).find(x => x && x.id === id); if (!p) return;
+    if (!ST.open) drawList();
+    ST.open.add(groupKey({ p, m: metaOf(p) }));
+    drawList();
+  }
+  PT.progList = { reveal, groupBy: by => { ST.by = by; ST.open = null; drawList(); }, state: ST };
 
   /* ================================================================ actions */
   function openProgram(id) {
@@ -397,6 +484,31 @@
     .pgx-main { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: .12rem; }
     .pgx-t { font-size: .88rem; font-weight: 700; line-height: 1.22; color: rgb(var(--z100)); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; overflow-wrap: anywhere; }
     .pgx-s { font-size: .7rem; font-weight: 500; color: rgb(var(--z400)); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+    /* 3.0.0: groups */
+    html[data-mode="light"] .pgx-pill { color: color-mix(in srgb, rgb(var(--a600)) 55%, #000); }
+    .pgx-count { display: flex; align-items: center; justify-content: space-between; gap: .5rem; flex-wrap: wrap; }
+    .pgx-by { display: inline-flex; padding: .15rem; gap: .1rem; border-radius: .7rem; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); }
+    .pgx-by button { padding: .32rem .6rem; border-radius: .55rem; font-size: .72rem; font-weight: 700; color: rgb(var(--z300)); }
+    .pgx-by button[aria-pressed="true"] { background: rgb(var(--z700)); color: rgb(var(--z100)); }
+    #programs-list-container.pgx-list > .pgx-grp + .pgx-grp { margin-top: .5rem !important; }
+    .pgx-grp { border-radius: 1rem; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); overflow: hidden; }
+    .pgx-g { width: 100%; display: flex; align-items: center; gap: .7rem; padding: .65rem .75rem .65rem .65rem; text-align: left; -webkit-tap-highlight-color: transparent; }
+    .pgx-g:disabled { cursor: default; opacity: 1; }
+    .pgx-g:not(:disabled):active { background: rgb(var(--z850)); }
+    .pgx-g:focus-visible { outline: 2px solid rgb(var(--a500)); outline-offset: -2px; }
+    .pgx-g .pgx-t { font-size: .92rem; }
+    .pgx-gcur { font-weight: 700; color: rgb(var(--a400)); }
+    html[data-mode="light"] .pgx-gcur { color: rgb(var(--a600)); }
+    .pgx-chev { flex: none; width: 1.05rem; height: 1.05rem; color: rgb(var(--z400)); transition: transform .15s; }
+    .pgx-grp.open .pgx-chev { transform: rotate(90deg); }
+    @media (prefers-reduced-motion: reduce) { .pgx-chev { transition: none; } }
+    .pgx-gb { display: flex; flex-direction: column; gap: .35rem; padding: 0 .45rem .5rem; }
+    .pgx-gb[hidden] { display: none; }
+    .pgx-gb .pgx-pr { background: rgb(var(--z950)); }
+    .pgx-pr.pgx-noav > .pgx-av { display: none; }
+    .pgx-pr.pgx-noav { padding-left: .8rem; }
+    .pgx-sp { font-size: .7rem; color: rgb(var(--z400)); line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
     .pgx-pill { flex: none; font-size: .62rem; font-weight: 800; letter-spacing: .03em; padding: .2rem .5rem; border-radius: 999px; background: rgb(var(--a600) / .16); color: rgb(var(--a400)); border: 1px solid rgb(var(--a600) / .5); white-space: nowrap; }
     .pgx-more { flex: none; width: 2.2rem; height: 2.2rem; border-radius: .7rem; font-size: 1.15rem; font-weight: 800; line-height: 1; color: rgb(var(--z400)); letter-spacing: .02em; }
     .pgx-more:active { background: rgb(var(--z800)); }

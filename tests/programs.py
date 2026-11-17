@@ -52,6 +52,7 @@ with page() as p:
     target = 'ronnie_coleman_highrep_6day'
     idx = ids.index(target)
     p.evaluate('app.showView("programs")')
+    p.evaluate('(id) => PT.progList.reveal(id)', target)   # 3.0.0: programs sit in groups
     sel = '.pgx-pr[data-pid="%s"] .pgx-more' % target
     p.wait_for_selector(sel)
     p.click(sel); p.wait_for_selector('[data-act="delete"]'); p.click('[data-act="delete"]')
