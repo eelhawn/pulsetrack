@@ -405,8 +405,9 @@
     const ix = index(), open = new Set();
     let q = initial != null ? initial : (Date.now() - lastAt < 10 * 60000 ? lastQ : ""), timer = null, res = [];
     const nEx = dbList().length + ix.extra.length, nSes = (a.sessions || []).length;
-    const card = K.openSheet(el, `${K.head("Search", "Exercises, programs, workouts, notes and cardio.")}
+    const card = K.openSheet(el, `${K.head("Search or ask", "Exercises, programs, workouts, notes and cardio, or a question.")}
       <div class="relative">${SEARCH_SVG.replace("<svg ", '<svg class="pt-sico" ')}<input id="pt-sq" type="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Try: bench, shoulder, march, sore knee" class="pt-sin" value="${esc(q)}" aria-label="Search"></div>
+      <div id="pt-gans" aria-live="polite"></div>
       <div id="pt-sout" class="space-y-4" aria-live="polite"></div>`);
     const inp = card.querySelector("#pt-sq"), box = card.querySelector("#pt-sout");
     const LIMIT = 5;
@@ -425,7 +426,7 @@
           ${g.items.length > LIMIT ? `<button type="button" data-more="${g.id}" class="w-full py-2 rounded-xl bg-zinc-800/70 text-zinc-300 text-[11px] font-bold tap-active">${open.has(g.id) ? "Show fewer" : `Show all ${g.total}${g.total > g.items.length ? "+" : ""}`}</button>` : ""}</section>`;
       }).join("");
     };
-    const go = () => { q = inp.value; lastQ = q; lastAt = Date.now(); res = runSearch(q, ix); open.clear(); render(); };
+    const go = () => { q = inp.value; lastQ = q; lastAt = Date.now(); res = runSearch(q, ix); open.clear(); render(); if (PT.guide) PT.guide.show(q, card); };   // 3.3.0: the guide answers above the results
     inp.addEventListener("input", () => { clearTimeout(timer); timer = setTimeout(go, 140); });
     inp.addEventListener("keydown", e => { if (e.key === "Enter") { e.preventDefault(); clearTimeout(timer); go(); inp.blur(); } });
     card.addEventListener("click", e => {
@@ -450,6 +451,7 @@
     });
     if (q.trim()) { res = runSearch(q, ix); }
     render();
+    if (PT.guide) PT.guide.show(q, card);
     setTimeout(() => { try { inp.focus(); inp.select(); } catch (e) { } }, 120);
   }
   PT.search = { open: openSearch, run: (q) => runSearch(q, index()) };
