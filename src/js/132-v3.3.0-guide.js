@@ -144,6 +144,8 @@
     ["mobility", "Mobility and stretching", "mobility, stretch, stretching, warm up routine, cool down, flexibility", "Programs > Guided mobility or Stretch routine.", "fn:mobility"],
     ["preworkout", "Pre-workout protocol", "pre workout, protocol, supplements timing, caffeine timing, meal timing", "Home > Pre-workout protocol times what you eat or take before training. It only uses the times you enter.", "view:home#pt-home-fuel"],
     ["search", "Search", "search, look up, find a workout", "Search looks through exercises, programs, workouts, notes and cardio. It is the bar on Home and in the side menu.", "fn:search"],
+    ["exsteps", "Step-by-step pictures", "step by step, exercise pictures, exercise photos, how to do it pictures, add my photo, add my own photo, add my own photo to an exercise, add photo to exercise, photo of an exercise, arrows, move arrows, exercise drawings", "Open an exercise (tap its name on a workout card, or in the Exercise Library): Step by step shows each step with a picture and arrows. Every step has Add my photo, and Move arrows fits the arrows to your photo.", "view:library"],
+    ["exmuscles", "Muscles an exercise works", "muscles worked, what muscles, which muscles, body figure, primary muscles, secondary muscles, equipment needed, what equipment do i need", "Open an exercise: Muscles worked shows them on the body figure (strong for the main ones, light for the helping ones), the equipment, and where the values come from.", "view:library"],
     ["guide", "This guide", "help, guide, ask, how does this work, what can you do", "Ask how to do an exercise, where a setting is, what's next in your workout, or about your history.", ""]
   ].map(r => ({ id: r[0], title: r[1], keys: r[2].split(",").map(s => s.trim()), text: r[3], nav: r[4] }));
   let helpTok = null;
@@ -246,8 +248,18 @@
   }
 
   function formAnswer(ex) {
-    const e = ex.e, tips = Array.isArray(e.tips) ? e.tips : [];
-    return { kind: "form", title: e.name, text: e.desc || (e.muscle ? `Mainly works the ${String(e.muscle).toLowerCase()}.` : ""), list: tips.slice(0, 8), avoid: e.avoid || "", note: SAFE, actions: [{ label: "Open " + e.name, nav: "ex:" + e.name }] };
+    const e = ex.e, g = PT.exGuide ? PT.exGuide(e.name) : null;
+    const steps = g && g.steps && g.steps.length ? g.steps.map(s => s.text) : (Array.isArray(e.tips) ? e.tips : []);
+    let text = e.desc || (e.muscle ? `Mainly works the ${String(e.muscle).toLowerCase()}.` : "");
+    // 3.5.0: with a guide, the muscles and the equipment from it
+    if (g && (g.muscles || []).length && PT.muscleLabel) {
+      const nm = m => PT.muscleLabel(m.muscle_id).toLowerCase() + (m.source === "estimate" ? " (estimate)" : "");
+      const P = g.muscles.filter(m => m.role === "primary").map(nm), S = g.muscles.filter(m => m.role !== "primary").map(nm);
+      text = `Works the ${P.join(" and ")}${S.length ? ", helped by the " + S.join(", ") : ""}.`;
+      const it = (g.equipment && g.equipment.items) || [];
+      if (it.length) text += /^body ?weight$/i.test(it[0]) && it.length === 1 ? " No equipment needed." : ` You need: ${it.join(", ")}.`;
+    }
+    return { kind: "form", title: e.name, text, list: steps.slice(0, 8), avoid: e.avoid || "", note: SAFE, actions: [{ label: g && g.steps && g.steps.length ? "See the steps with pictures" : "Open " + e.name, nav: "ex:" + e.name }] };
   }
   function helpAnswer(h, more) {
     const r = { kind: "help", title: h.title, text: h.text, actions: h.nav ? [{ label: "Take me there", nav: h.nav }] : [] };

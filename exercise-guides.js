@@ -14,6 +14,68 @@ const EXERCISE_GUIDES = {
    ],
    "setup": "lying on a flat bench"
   },
+  "steps": [
+   {
+    "text": "Lie with your eyes under the bar, feet flat, shoulder blades pinched together and down. Unrack and hold the bar over your shoulders with straight arms.",
+    "image": {
+     "src": "img/ex/bench-press-1.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Lying on the bench, bar held over the shoulders"
+    },
+    "arrows": []
+   },
+   {
+    "text": "Lower the bar to your mid-chest, elbows about 45 to 60 degrees from your sides.",
+    "image": {
+     "src": "img/ex/bench-press-2.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Bar lowered to the mid-chest"
+    },
+    "arrows": [
+     {
+      "from": [
+       0.47,
+       0.2
+      ],
+      "to": [
+       0.47,
+       0.42
+      ],
+      "label": "lower"
+     }
+    ]
+   },
+   {
+    "text": "Press the bar back up over your shoulders until your arms are straight.",
+    "image": {
+     "src": "img/ex/bench-press-1.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Bar pressed back over the shoulders"
+    },
+    "arrows": [
+     {
+      "from": [
+       0.47,
+       0.46
+      ],
+      "to": [
+       0.47,
+       0.24
+      ],
+      "label": "press"
+     }
+    ]
+   }
+  ],
   "muscles": [
    {
     "muscle_id": "chest",
@@ -54,6 +116,68 @@ const EXERCISE_GUIDES = {
    ],
    "setup": "standing, bar on the upper back"
   },
+  "steps": [
+   {
+    "text": "Stand with your feet about shoulder width, toes turned slightly out, the bar on your upper back. Brace your core.",
+    "image": {
+     "src": "img/ex/squat-1.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Standing tall with the bar on the upper back"
+    },
+    "arrows": []
+   },
+   {
+    "text": "Sit down and back with your chest up until your thighs are about parallel, knees tracking over your toes.",
+    "image": {
+     "src": "img/ex/squat-2.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Hips down and back, thighs about parallel"
+    },
+    "arrows": [
+     {
+      "from": [
+       0.4,
+       0.45
+      ],
+      "to": [
+       0.4,
+       0.68
+      ],
+      "label": "sit back"
+     }
+    ]
+   },
+   {
+    "text": "Drive up through your whole foot to stand tall.",
+    "image": {
+     "src": "img/ex/squat-1.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Standing back up"
+    },
+    "arrows": [
+     {
+      "from": [
+       0.43,
+       0.7
+      ],
+      "to": [
+       0.43,
+       0.46
+      ],
+      "label": "drive up"
+     }
+    ]
+   }
+  ],
   "muscles": [
    {
     "muscle_id": "quads",
@@ -105,6 +229,79 @@ const EXERCISE_GUIDES = {
    ],
    "setup": "standing"
   },
+  "steps": [
+   {
+    "text": "Stand tall holding the bar at your thighs, knees slightly bent.",
+    "image": {
+     "src": "img/ex/romanian-deadlift-1.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Standing with the bar at the thighs"
+    },
+    "arrows": []
+   },
+   {
+    "text": "Push your hips back and slide the bar down your legs until you feel a strong hamstring stretch. Keep your back flat.",
+    "image": {
+     "src": "img/ex/romanian-deadlift-2.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Hips pushed back, flat back, bar below the knees"
+    },
+    "arrows": [
+     {
+      "from": [
+       0.47,
+       0.4
+      ],
+      "to": [
+       0.33,
+       0.4
+      ],
+      "label": "hips back"
+     },
+     {
+      "from": [
+       0.72,
+       0.5
+      ],
+      "to": [
+       0.72,
+       0.74
+      ],
+      "label": "bar down"
+     }
+    ]
+   },
+   {
+    "text": "Drive your hips forward to stand tall, squeezing your glutes.",
+    "image": {
+     "src": "img/ex/romanian-deadlift-1.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Hips forward to stand tall"
+    },
+    "arrows": [
+     {
+      "from": [
+       0.38,
+       0.48
+      ],
+      "to": [
+       0.5,
+       0.48
+      ],
+      "label": "hips forward"
+     }
+    ]
+   }
+  ],
   "muscles": [
    {
     "muscle_id": "hamstrings",
@@ -147,6 +344,79 @@ const EXERCISE_GUIDES = {
    ],
    "setup": "seated, thighs under the pad"
   },
+  "steps": [
+   {
+    "text": "Sit with your thighs snug under the pad and grip the bar just outside your shoulders. Lean back slightly and lift your chest.",
+    "image": {
+     "src": "img/ex/lat-pulldown-1.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Seated under the pad, arms up on the bar"
+    },
+    "arrows": []
+   },
+   {
+    "text": "Pull the bar to your upper chest, driving your elbows down and back.",
+    "image": {
+     "src": "img/ex/lat-pulldown-2.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Bar pulled to the upper chest"
+    },
+    "arrows": [
+     {
+      "from": [
+       0.57,
+       0.14
+      ],
+      "to": [
+       0.57,
+       0.32
+      ],
+      "label": "pull down"
+     },
+     {
+      "from": [
+       0.37,
+       0.34
+      ],
+      "to": [
+       0.37,
+       0.5
+      ],
+      "label": "elbows down"
+     }
+    ]
+   },
+   {
+    "text": "Let the bar rise slowly until your arms are straight.",
+    "image": {
+     "src": "img/ex/lat-pulldown-1.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Bar back up, arms straight"
+    },
+    "arrows": [
+     {
+      "from": [
+       0.57,
+       0.32
+      ],
+      "to": [
+       0.57,
+       0.14
+      ],
+      "label": "slowly up"
+     }
+    ]
+   }
+  ],
   "muscles": [
    {
     "muscle_id": "lats",
@@ -189,6 +459,68 @@ const EXERCISE_GUIDES = {
    ],
    "setup": "seated, feet on the platform"
   },
+  "steps": [
+   {
+    "text": "Sit tall with your feet on the platform, knees slightly bent, chest up, arms reaching for the handle.",
+    "image": {
+     "src": "img/ex/seated-cable-row-1.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Sitting tall, arms reaching forward"
+    },
+    "arrows": []
+   },
+   {
+    "text": "Pull the handle to your lower ribs, driving your elbows back and squeezing your shoulder blades together.",
+    "image": {
+     "src": "img/ex/seated-cable-row-2.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Handle at the lower ribs, elbows back"
+    },
+    "arrows": [
+     {
+      "from": [
+       0.7,
+       0.44
+      ],
+      "to": [
+       0.56,
+       0.44
+      ],
+      "label": "pull to your ribs"
+     }
+    ]
+   },
+   {
+    "text": "Let the handle go back slowly until your arms are straight, without rounding your back.",
+    "image": {
+     "src": "img/ex/seated-cable-row-1.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Arms back out, chest still up"
+    },
+    "arrows": [
+     {
+      "from": [
+       0.56,
+       0.44
+      ],
+      "to": [
+       0.7,
+       0.44
+      ],
+      "label": "slowly out"
+     }
+    ]
+   }
+  ],
   "muscles": [
    {
     "muscle_id": "mid_back",
@@ -228,6 +560,68 @@ const EXERCISE_GUIDES = {
    ],
    "setup": "on the floor"
   },
+  "steps": [
+   {
+    "text": "Hands just wider than your shoulders, body in a straight line from head to heels. Brace your core and squeeze your glutes.",
+    "image": {
+     "src": "img/ex/push-ups-1.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "High plank, body straight"
+    },
+    "arrows": []
+   },
+   {
+    "text": "Lower your chest to about a fist from the floor, elbows about 45 degrees from your ribs.",
+    "image": {
+     "src": "img/ex/push-ups-2.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Lowered, chest near the floor"
+    },
+    "arrows": [
+     {
+      "from": [
+       0.84,
+       0.5
+      ],
+      "to": [
+       0.84,
+       0.72
+      ],
+      "label": "lower"
+     }
+    ]
+   },
+   {
+    "text": "Press the floor away until your arms are straight.",
+    "image": {
+     "src": "img/ex/push-ups-1.svg",
+     "license": "original",
+     "author": "PulseTrack",
+     "attribution": "Line drawing made for PulseTrack",
+     "url": "",
+     "alt": "Pressed back up to a plank"
+    },
+    "arrows": [
+     {
+      "from": [
+       0.86,
+       0.76
+      ],
+      "to": [
+       0.86,
+       0.54
+      ],
+      "label": "press up"
+     }
+    ]
+   }
+  ],
   "muscles": [
    {
     "muscle_id": "chest",
