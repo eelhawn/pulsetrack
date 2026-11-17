@@ -146,6 +146,7 @@
     ["search", "Search", "search, look up, find a workout", "Search looks through exercises, programs, workouts, notes and cardio. It is the bar on Home and in the side menu.", "fn:search"],
     ["exsteps", "Step-by-step pictures", "step by step, exercise pictures, exercise photos, how to do it pictures, add my photo, add my own photo, add my own photo to an exercise, add photo to exercise, photo of an exercise, arrows, move arrows, exercise drawings", "Open an exercise (tap its name on a workout card, or in the Exercise Library): Step by step shows each step with a picture and arrows. Every step has Add my photo, and Move arrows fits the arrows to your photo.", "view:library"],
     ["exmuscles", "Muscles an exercise works", "muscles worked, what muscles, which muscles, body figure, primary muscles, secondary muscles, equipment needed, what equipment do i need", "Open an exercise: Muscles worked shows them on the body figure (strong for the main ones, light for the helping ones), the equipment, and where the values come from.", "view:library"],
+    ["guidesrc", "Where the guide's answers come from", "guide answers, ai, ollama, local ai, local model, my computer, language model, llm, chatbot, where answers come from, use my computer for answers, guide settings", "Settings > Guide > Where answers come from. On this phone (the default) works answers out on the phone and sends nothing. My computer (Ollama) sends your question and the facts the guide found to Ollama on your own computer, which writes the answer; if it doesn't answer, the phone does.", "set:#pt-guide-box"],
     ["guide", "This guide", "help, guide, ask, how does this work, what can you do", "Ask how to do an exercise, where a setting is, what's next in your workout, or about your history.", ""]
   ].map(r => ({ id: r[0], title: r[1], keys: r[2].split(",").map(s => s.trim()), text: r[3], nav: r[4] }));
   let helpTok = null;
@@ -288,14 +289,16 @@
 
   /* ================================================================ one way in for every backend */
   const BACKENDS = { search: { label: "On this phone", ask: (q, c) => Promise.resolve(searchAnswer(q, c)) } };
-  async function answer(question, ctx) {
+  async function answer(question, ctx, opts) {
     const c = ctx || context();
     const a = A(), want = (a && a.settings && a.settings.guideBackend) || "search", b = BACKENDS[want];
-    if (b && want !== "search") {
-      try { const r = await b.ask(question, c); if (r && r.text) return Object.assign({ backend: want }, r); } catch (e) { console.warn("PulseTrack guide backend", want, e); }
+    let fell = "";
+    if (b && want !== "search" && !(opts && opts.local)) {
+      try { const r = await b.ask(question, c); if (r && r.text) return Object.assign({ backend: want }, r); fell = b.label; }
+      catch (e) { console.warn("PulseTrack guide backend", want, e); fell = b.label; }
     }
-    const r = searchAnswer(question, c);
-    return r ? Object.assign({ backend: "search" }, r) : null;
+    const r = searchAnswer(question, c);   // always there: no model, no network
+    return r ? Object.assign({ backend: "search" }, r, fell ? { fellBack: fell } : {}) : null;
   }
 
   /* ================================================================ Take me there */
@@ -350,7 +353,9 @@
   /* ================================================================ in the Search sheet */
   const EXAMPLES = ["How do I do a Romanian deadlift?", "Where do I change my rest timer?", "What's next in today's workout?", "When did I last bench?", "How do I back up my data?"];
   const QUESTION = /\?\s*$|^\s*(how|where|what|whats|what's|when|why|which|can|do|does|is|should|help)\b/i;
-  let last = null, seq = 0;
+  let last = null, seq = 0, submitted = false;
+  // Enter in the Search box (or a tapped example) counts as asking; the capture listener runs before Search's own handler
+  document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target && e.target.id === "pt-sq") submitted = true; }, true);
   function cardHtml(r) {
     if (!r) return "";
     const acts = (r.actions || []).map((x, i) => `<button type="button" class="pt-ga-go tap-active" data-gnav="${i}">${esc(x.label)}</button>`).join("");
@@ -361,7 +366,8 @@
       ${r.avoid ? `<p class="pt-ga-x"><b>Avoid:</b> ${esc(r.avoid)}</p>` : ""}
       ${r.note ? `<p class="pt-ga-n">${esc(r.note)}</p>` : ""}
       ${acts ? `<div class="pt-ga-acts">${acts}</div>` : ""}
-      ${also ? `<p class="pt-ga-k pt-ga-k2">Also</p><div class="pt-ga-alsos">${also}</div>` : ""}</div>`;
+      ${also ? `<p class="pt-ga-k pt-ga-k2">Also</p><div class="pt-ga-alsos">${also}</div>` : ""}
+      ${r.by ? `<p class="pt-ga-by">${esc(r.by)}</p>` : r.fellBack ? `<p class="pt-ga-by">${esc(r.fellBack)} didn't answer, so this answer is from the phone.</p>` : ""}</div>`;
   }
   async function show(q, card) {
     const box = card && card.querySelector("#pt-gans"); if (!box) return;
@@ -372,7 +378,11 @@
       box.innerHTML = `<div class="pt-ga-ex"><p class="pt-ga-k">Ask a question</p><div class="pt-ga-chips">${EXAMPLES.map(x => `<button type="button" class="pt-ga-chip tap-active" data-gex="${esc(x)}">${esc(x)}</button>`).join("")}</div></div>`;
       return;
     }
-    const r = await answer(q);
+    // a model is asked only when you press Enter or tap a question, never on every letter you type
+    const a = A(), viaModel = a && a.settings && a.settings.guideBackend && a.settings.guideBackend !== "search" && submitted && QUESTION.test(q);
+    submitted = false;
+    if (viaModel) { const b = BACKENDS[a.settings.guideBackend]; box.innerHTML = `<div class="pt-ga-card"><p class="pt-ga-k">Answer</p><p class="pt-ga-x">Asking ${esc(b ? b.label : "the guide")}…</p></div>`; }
+    const r = await answer(q, null, viaModel ? null : { local: true });
     if (my !== seq) return;
     const strong = r && r.kind !== "none" && !r.weak && (r.score >= 0.62 || r.kind === "next" || r.kind === "safety");
     if (!r || (!QUESTION.test(q) && !strong) || (r.kind === "form" && !QUESTION.test(q) && !RX.form.test(q))) { last = null; box.innerHTML = ""; return; }
@@ -421,6 +431,7 @@
     .pt-ga-also b { font-size: .78rem; color: rgb(var(--z100)); }
     .pt-ga-also span { font-size: .72rem; color: rgb(var(--z400)); line-height: 1.35; }
     .pt-ga-chips { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .pt-ga-by { font-size: .68rem; color: rgb(var(--z400)); margin: .1rem 0 0; }
     .pt-ga-chip { padding: .45rem .7rem; border-radius: 999px; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); color: rgb(var(--z200)); font-size: .75rem; font-weight: 600; text-align: left; }
     #pt-gans:not(:empty) { margin-bottom: .25rem; }
     #pt-gans:not(:empty) + #pt-sout > div.text-center { display: none; }   /* an answer is showing: no "Nothing found" under it */

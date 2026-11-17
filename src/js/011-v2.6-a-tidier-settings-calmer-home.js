@@ -17,6 +17,7 @@
         "Sound, Voice & Feel": { id: "sound", hint: "Sounds, voice coaching, vibration" },
         "Appearance": { id: "appearance", hint: "" },
         "Mods & Custom CSS": { id: "mods", hint: "Reskin the app with your own CSS" },
+        "Guide": { id: "guide", hint: "Where the guide's answers come from" },   // 3.6.0
         "Data & Backup": { id: "data", hint: "Back up, restore, export" },
         "App": { id: "app", hint: "Version, updates" },
         "Danger Zone": { id: "danger", hint: "Reset the app" }

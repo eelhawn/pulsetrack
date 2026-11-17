@@ -436,7 +436,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v3.5.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v3.6.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -1160,6 +1160,8 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
       <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Mods &amp; Custom CSS</span>
       <div id="pt-mods-box" class="bg-zinc-950 border border-zinc-800 rounded-xl divide-y divide-zinc-800 overflow-hidden"></div>
 
+      <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Guide</span>
+      <div id="pt-guide-box" class="space-y-2.5"></div>
       <span class="text-[10px] font-bold uppercase tracking-wider text-zinc-400 block pt-1">Data &amp; Backup</span>
       <div class="bg-zinc-950 border border-zinc-800 rounded-xl p-3.5 space-y-3">
         <p class="text-[11px] text-zinc-400 leading-relaxed">Everything is stored only on this phone. Export a backup regularly and save it to Files, iCloud Drive or Google Drive. The same file restores your data on a new phone.</p>
@@ -3842,7 +3844,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "3.5.0";
+    const APP_VERSION = "3.6.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -8593,6 +8595,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         "Sound, Voice & Feel": { id: "sound", hint: "Sounds, voice coaching, vibration" },
         "Appearance": { id: "appearance", hint: "" },
         "Mods & Custom CSS": { id: "mods", hint: "Reskin the app with your own CSS" },
+        "Guide": { id: "guide", hint: "Where the guide's answers come from" },   // 3.6.0
         "Data & Backup": { id: "data", hint: "Back up, restore, export" },
         "App": { id: "app", hint: "Version, updates" },
         "Danger Zone": { id: "danger", hint: "Reset the app" }
@@ -34262,7 +34265,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 <h3>16. Contact</h3>
 <p>Questions about these Terms can be raised at <a href="https://github.com/eelhawn/pulsetrack/issues" target="_blank" rel="noopener noreferrer">https://github.com/eelhawn/pulsetrack/issues</a>.</p></template>
   <template id="pt-legal-privacy"><h2>PulseTrack Privacy Policy</h2>
-<p><strong>Effective date: November 16, 2026</strong></p>
+<p><strong>Effective date: November 16, 2026. Updated November 17, 2026</strong> (added "Guide answers from your own computer").</p>
 <p>This policy explains how the PulseTrack web application published at <a href="https://eelhawn.github.io/pulsetrack" target="_blank" rel="noopener noreferrer">https://eelhawn.github.io/pulsetrack</a> (the "App") handles your information. "Developer", "we" and "us" mean the developer of PulseTrack.</p>
 <h3>In short</h3>
 <p><strong>The Developer collects no data about you.</strong> The App has no accounts, no sign-in, no analytics, no advertising, no tracking and no cookies. It has no server of its own. Nothing you enter in the App is ever sent to the Developer. The Developer cannot see what you log, when you train or how you use the App.</p>
@@ -34270,7 +34273,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 <p>Everything you enter is stored only on your own device, inside your browser. This includes workouts, sets, programs, body measurements, photos, notes, settings and backups. The App keeps this data in your browser's local storage and IndexedDB, and it keeps the App's own files in an offline cache so it works without a connection. This data stays on your device and is not uploaded anywhere. The Developer has no copy of it and cannot access, recover or delete it for you.</p>
 <h3>What leaves your device, and when</h3>
 <p>The App works offline. A few things can involve a network connection, and you should know about each one:</p>
-<ul><li><strong>Downloading and updating the App.</strong> The App is hosted on GitHub Pages. When your device downloads the App or checks for an update, GitHub receives the standard information any website receives, such as your IP address, browser type and the time of the request. GitHub's privacy statement governs that information. GitHub Pages does not give the Developer access to visitor logs.</li><li><strong>Group board (optional, off unless you turn it on).</strong> If you start or join a group board, the App sends small updates through ntfy.sh, a free public relay. An update holds the name you chose, your level, your streak, a summary of your last four weeks and your lift bests. Each update is encrypted on your device with a key made from your group code before it is sent. The relay sees only scrambled text, a mailbox name and your device's IP address, and it keeps messages for about 12 hours. Anyone who has your group code can read the updates. Choosing Leave stops it. The Developer does not run ntfy.sh and does not receive these messages.</li><li><strong>Sharing, exporting and backups.</strong> When you tap share, export or back up, the App gives the text or file to your device's share sheet or downloads it. Where it goes from there is your choice.</li><li><strong>Links to other sites.</strong> Buttons such as the form-video search open YouTube or other sites in your browser. Those sites have their own privacy policies.</li><li><strong>Your own add-ons.</strong> If you write custom styles (Mods) that load files from the internet, such as web fonts, your browser fetches them from the address you entered.</li></ul>
+<ul><li><strong>Downloading and updating the App.</strong> The App is hosted on GitHub Pages. When your device downloads the App or checks for an update, GitHub receives the standard information any website receives, such as your IP address, browser type and the time of the request. GitHub's privacy statement governs that information. GitHub Pages does not give the Developer access to visitor logs.</li><li><strong>Group board (optional, off unless you turn it on).</strong> If you start or join a group board, the App sends small updates through ntfy.sh, a free public relay. An update holds the name you chose, your level, your streak, a summary of your last four weeks and your lift bests. Each update is encrypted on your device with a key made from your group code before it is sent. The relay sees only scrambled text, a mailbox name and your device's IP address, and it keeps messages for about 12 hours. Anyone who has your group code can read the updates. Choosing Leave stops it. The Developer does not run ntfy.sh and does not receive these messages.</li><li><strong>Guide answers from your own computer (optional, off unless you turn it on).</strong> If you set Settings &gt; Guide to use Ollama on your own computer, each question you ask the guide is sent to the address you enter, which is your computer, not the Developer's, together with the facts the guide found for it: the guide's own answer (the matching screen, setting or exercise; for a question about an exercise you have done, that answer can include your last sets of it, the date, how many workouts you have done it in and your best estimated one-rep max), your current program and the workout in progress (exercise names, sets done and planned, target reps), your last five workouts (date, name, number of sets and up to six exercise names each, without weights), and whether you use kg or lb. Your notes, body measurements, photos, form clips and the rest of your history are not sent. Nothing is sent anywhere else. Questions about pain, injuries, medicine or doses are never sent.</li><li><strong>Sharing, exporting and backups.</strong> When you tap share, export or back up, the App gives the text or file to your device's share sheet or downloads it. Where it goes from there is your choice.</li><li><strong>Links to other sites.</strong> Buttons such as the form-video search open YouTube or other sites in your browser. Those sites have their own privacy policies.</li><li><strong>Your own add-ons.</strong> If you write custom styles (Mods) that load files from the internet, such as web fonts, your browser fetches them from the address you entered.</li></ul>
 <h3>Health information</h3>
 <p>Workout and body data can count as health information under laws such as Washington's My Health My Data Act. The Developer does not collect, receive, share or sell any of it. It stays on your device unless you choose to share it as described above.</p>
 <h3>Children</h3>
@@ -35187,6 +35190,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     ["search", "Search", "search, look up, find a workout", "Search looks through exercises, programs, workouts, notes and cardio. It is the bar on Home and in the side menu.", "fn:search"],
     ["exsteps", "Step-by-step pictures", "step by step, exercise pictures, exercise photos, how to do it pictures, add my photo, add my own photo, add my own photo to an exercise, add photo to exercise, photo of an exercise, arrows, move arrows, exercise drawings", "Open an exercise (tap its name on a workout card, or in the Exercise Library): Step by step shows each step with a picture and arrows. Every step has Add my photo, and Move arrows fits the arrows to your photo.", "view:library"],
     ["exmuscles", "Muscles an exercise works", "muscles worked, what muscles, which muscles, body figure, primary muscles, secondary muscles, equipment needed, what equipment do i need", "Open an exercise: Muscles worked shows them on the body figure (strong for the main ones, light for the helping ones), the equipment, and where the values come from.", "view:library"],
+    ["guidesrc", "Where the guide's answers come from", "guide answers, ai, ollama, local ai, local model, my computer, language model, llm, chatbot, where answers come from, use my computer for answers, guide settings", "Settings > Guide > Where answers come from. On this phone (the default) works answers out on the phone and sends nothing. My computer (Ollama) sends your question and the facts the guide found to Ollama on your own computer, which writes the answer; if it doesn't answer, the phone does.", "set:#pt-guide-box"],
     ["guide", "This guide", "help, guide, ask, how does this work, what can you do", "Ask how to do an exercise, where a setting is, what's next in your workout, or about your history.", ""]
   ].map(r => ({ id: r[0], title: r[1], keys: r[2].split(",").map(s => s.trim()), text: r[3], nav: r[4] }));
   let helpTok = null;
@@ -35329,14 +35333,16 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 
   /* ================================================================ one way in for every backend */
   const BACKENDS = { search: { label: "On this phone", ask: (q, c) => Promise.resolve(searchAnswer(q, c)) } };
-  async function answer(question, ctx) {
+  async function answer(question, ctx, opts) {
     const c = ctx || context();
     const a = A(), want = (a && a.settings && a.settings.guideBackend) || "search", b = BACKENDS[want];
-    if (b && want !== "search") {
-      try { const r = await b.ask(question, c); if (r && r.text) return Object.assign({ backend: want }, r); } catch (e) { console.warn("PulseTrack guide backend", want, e); }
+    let fell = "";
+    if (b && want !== "search" && !(opts && opts.local)) {
+      try { const r = await b.ask(question, c); if (r && r.text) return Object.assign({ backend: want }, r); fell = b.label; }
+      catch (e) { console.warn("PulseTrack guide backend", want, e); fell = b.label; }
     }
-    const r = searchAnswer(question, c);
-    return r ? Object.assign({ backend: "search" }, r) : null;
+    const r = searchAnswer(question, c);   // always there: no model, no network
+    return r ? Object.assign({ backend: "search" }, r, fell ? { fellBack: fell } : {}) : null;
   }
 
   /* ================================================================ Take me there */
@@ -35391,7 +35397,9 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   /* ================================================================ in the Search sheet */
   const EXAMPLES = ["How do I do a Romanian deadlift?", "Where do I change my rest timer?", "What's next in today's workout?", "When did I last bench?", "How do I back up my data?"];
   const QUESTION = /\?\s*$|^\s*(how|where|what|whats|what's|when|why|which|can|do|does|is|should|help)\b/i;
-  let last = null, seq = 0;
+  let last = null, seq = 0, submitted = false;
+  // Enter in the Search box (or a tapped example) counts as asking; the capture listener runs before Search's own handler
+  document.addEventListener("keydown", e => { if (e.key === "Enter" && e.target && e.target.id === "pt-sq") submitted = true; }, true);
   function cardHtml(r) {
     if (!r) return "";
     const acts = (r.actions || []).map((x, i) => `<button type="button" class="pt-ga-go tap-active" data-gnav="${i}">${esc(x.label)}</button>`).join("");
@@ -35402,7 +35410,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       ${r.avoid ? `<p class="pt-ga-x"><b>Avoid:</b> ${esc(r.avoid)}</p>` : ""}
       ${r.note ? `<p class="pt-ga-n">${esc(r.note)}</p>` : ""}
       ${acts ? `<div class="pt-ga-acts">${acts}</div>` : ""}
-      ${also ? `<p class="pt-ga-k pt-ga-k2">Also</p><div class="pt-ga-alsos">${also}</div>` : ""}</div>`;
+      ${also ? `<p class="pt-ga-k pt-ga-k2">Also</p><div class="pt-ga-alsos">${also}</div>` : ""}
+      ${r.by ? `<p class="pt-ga-by">${esc(r.by)}</p>` : r.fellBack ? `<p class="pt-ga-by">${esc(r.fellBack)} didn't answer, so this answer is from the phone.</p>` : ""}</div>`;
   }
   async function show(q, card) {
     const box = card && card.querySelector("#pt-gans"); if (!box) return;
@@ -35413,7 +35422,11 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       box.innerHTML = `<div class="pt-ga-ex"><p class="pt-ga-k">Ask a question</p><div class="pt-ga-chips">${EXAMPLES.map(x => `<button type="button" class="pt-ga-chip tap-active" data-gex="${esc(x)}">${esc(x)}</button>`).join("")}</div></div>`;
       return;
     }
-    const r = await answer(q);
+    // a model is asked only when you press Enter or tap a question, never on every letter you type
+    const a = A(), viaModel = a && a.settings && a.settings.guideBackend && a.settings.guideBackend !== "search" && submitted && QUESTION.test(q);
+    submitted = false;
+    if (viaModel) { const b = BACKENDS[a.settings.guideBackend]; box.innerHTML = `<div class="pt-ga-card"><p class="pt-ga-k">Answer</p><p class="pt-ga-x">Asking ${esc(b ? b.label : "the guide")}…</p></div>`; }
+    const r = await answer(q, null, viaModel ? null : { local: true });
     if (my !== seq) return;
     const strong = r && r.kind !== "none" && !r.weak && (r.score >= 0.62 || r.kind === "next" || r.kind === "safety");
     if (!r || (!QUESTION.test(q) && !strong) || (r.kind === "form" && !QUESTION.test(q) && !RX.form.test(q))) { last = null; box.innerHTML = ""; return; }
@@ -35462,6 +35475,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     .pt-ga-also b { font-size: .78rem; color: rgb(var(--z100)); }
     .pt-ga-also span { font-size: .72rem; color: rgb(var(--z400)); line-height: 1.35; }
     .pt-ga-chips { display: flex; flex-wrap: wrap; gap: .35rem; }
+    .pt-ga-by { font-size: .68rem; color: rgb(var(--z400)); margin: .1rem 0 0; }
     .pt-ga-chip { padding: .45rem .7rem; border-radius: 999px; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); color: rgb(var(--z200)); font-size: .75rem; font-weight: 600; text-align: left; }
     #pt-gans:not(:empty) { margin-bottom: .25rem; }
     #pt-gans:not(:empty) + #pt-sout > div.text-center { display: none; }   /* an answer is showing: no "Nothing found" under it */
@@ -35938,6 +35952,173 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     .pt-sv-dots { display: flex; gap: .3rem; }
     .pt-sv-dots i { width: .45rem; height: .45rem; border-radius: 999px; background: rgb(var(--z700)); }
     .pt-sv-dots i.on { background: rgb(var(--a500)); }
+  `;
+  document.head.appendChild(css);
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 3.6.0: the guide can ask Ollama on your own computer (optional, off by default).
+ *  Settings > Guide: "On this phone" (the default: search answers, no network) or "My computer (Ollama)" with the address you type
+ *  (for example http://192.168.1.20:11434) and a model. Find models lists what that Ollama has; Test connection says what is wrong.
+ *  How an answer is made: the on-phone search answer is worked out first, as always. Then, only when you press Enter or tap a
+ *  question, that answer's facts (the matching screen, setting or exercise; your workout in progress; your last 5 workouts) and your
+ *  question go to Ollama's /api/chat, which writes the reply. "Take me there" and the other buttons still come from the phone, so
+ *  the jump to a screen works the same. Questions about pain, injuries, medicine or doses are never sent: the phone answers them.
+ *  If Ollama doesn't answer within 25 seconds, isn't reachable, the browser blocks it, or the model is missing, the phone's answer is
+ *  shown with a line saying so. With no model at all the app works as before.
+ *  Browsers: Chrome asks "allow access to your local network" the first time. Safari on iPhone blocks plain http:// addresses from
+ *  an https app; an https address (for example from Tailscale) works there. Ollama must allow this app: OLLAMA_ORIGINS.
+ *  settings.guideBackend = "search" | "ollama"; settings.guideOllama = { url, model }.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.guide || !PT.guide.backends) return;
+  const A = () => window.app, esc = s => PT.esc(s), $ = id => document.getElementById(id);
+  const TIMEOUT = 25000, APP = (location.origin && location.origin !== "null") ? location.origin : "https://eelhawn.github.io";
+
+  const cfg = () => { const a = A(), o = (a && a.settings.guideOllama) || {}; return { url: String(o.url || "").trim().replace(/\/+$/, ""), model: String(o.model || "").trim() }; };
+  const isLocalHost = h => /^(localhost|127\.|\[?::1\]?$)/i.test(h);
+  const isPrivate = h => /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.|169\.254\.)/.test(h) || /\.local$/i.test(h);
+  function blockedHint(url) {
+    try {
+      const u = new URL(url);
+      if (location.protocol === "https:" && u.protocol === "http:" && !isLocalHost(u.hostname)) return " Your browser may block a plain http:// address from this app (Safari on iPhone does). Chrome asks to allow local network access: say yes. Or use an https:// address.";
+    } catch (e) { }
+    return "";
+  }
+  async function call(path, body, ms) {
+    const { url } = cfg(); if (!url) throw Object.assign(new Error("No address yet"), { why: "noaddr" });
+    let host = ""; try { host = new URL(url).hostname; } catch (e) { throw Object.assign(new Error("That address isn't valid"), { why: "badaddr" }); }
+    const ctl = new AbortController(), t = setTimeout(() => ctl.abort(), ms || TIMEOUT);
+    const opt = { method: body ? "POST" : "GET", signal: ctl.signal, cache: "no-store", credentials: "omit", mode: "cors" };
+    if (body) { opt.headers = { "Content-Type": "application/json" }; opt.body = JSON.stringify(body); }
+    if (isPrivate(host)) opt.targetAddressSpace = "local";   // Chrome's local network access: ask the person instead of blocking
+    try {
+      const res = await fetch(url + path, opt);
+      const txt = await res.text(); let js = null; try { js = JSON.parse(txt); } catch (e) { }
+      if (!res.ok) throw Object.assign(new Error((js && js.error) || ("HTTP " + res.status)), { why: res.status === 404 ? "nomodel" : res.status === 403 ? "origin" : "http", status: res.status });
+      return js;
+    } catch (e) {
+      if (e.why) throw e;
+      throw Object.assign(new Error(e.name === "AbortError" ? "No answer in time" : "Couldn't reach it"), { why: e.name === "AbortError" ? "timeout" : "unreachable" });
+    } finally { clearTimeout(t); }
+  }
+
+  /* ================================================================ the backend */
+  const SYSTEM = "You are the guide inside PulseTrack, a workout tracker app on the user's phone. Answer in at most 4 short sentences, in plain words, using only the App facts given. " +
+    "If the facts name a place in the app (like Settings > Workout > Rest Times), say it exactly. For exercise form give general cues only, and say that anyone with pain or an injury should see a doctor or a qualified trainer. " +
+    "Never give medical, injury, medication, supplement or dosing advice. If the facts don't answer the question, say you don't know and name a place in the app to look. Don't invent features, numbers or history.";
+  function facts(base, c) {
+    const L = [];
+    if (base && base.kind !== "none") {
+      L.push(`Best match in the app: ${base.title}. ${base.text || ""}`.trim());
+      if ((base.list || []).length) L.push("Details: " + base.list.join("; "));
+      if (base.avoid) L.push("Common mistake: " + base.avoid);
+      (base.also || []).forEach(x => L.push(`Related: ${x.label}. ${x.text}`));
+    }
+    if (c && c.program) L.push("Current program: " + c.program.title);
+    if (c && c.day) L.push(`Workout in progress: ${c.day.title}: ` + c.day.exercises.map(x => `${x.name} ${x.done}/${x.sets} sets done (${x.reps} reps)`).join(", "));
+    if (c && (c.recent || []).length) L.push("Last workouts: " + c.recent.map(r => `${r.date} ${r.title} (${r.sets} sets: ${r.ex.slice(0, 6).join(", ")})`).join("; "));
+    if (c && c.unit) L.push("Weights are in " + (c.unit === "kg" ? "kg" : "lb"));
+    return L.join("\n").slice(0, 3000);
+  }
+  const clean = t => String(t || "").replace(/\*\*(.+?)\*\*/g, "$1").replace(/^#+\s*/gm, "").replace(/\n{3,}/g, "\n\n").trim();
+  async function ask(q, c) {
+    const base = PT.guide.searchAnswer(q, c);
+    if (base && base.kind === "safety") return Object.assign({ backend: "search" }, base);   // never to a model
+    const { model } = cfg(); if (!model) throw Object.assign(new Error("No model picked"), { why: "nomodel" });
+    const r = await call("/api/chat", { model, stream: false, options: { temperature: .2, num_predict: 260 },
+      messages: [{ role: "system", content: SYSTEM }, { role: "user", content: "App facts:\n" + facts(base, c) + "\n\nQuestion: " + q }] });
+    const text = clean(r && r.message && r.message.content);
+    if (!text) throw Object.assign(new Error("Empty answer"), { why: "empty" });
+    const has = base && base.kind !== "none";
+    return { kind: has ? base.kind : "model", title: has ? base.title : "Answer", text, list: [], avoid: "", note: has && base.kind === "form" ? base.note : "",
+      actions: has ? base.actions || [] : [], also: has ? base.also : null, score: 1, by: `Written by ${model} on your computer (Ollama), from the app's facts.` };
+  }
+  PT.guide.backends.ollama = { label: "Ollama on your computer", ask };
+  PT.guideOllama = { call, ask, facts, cfg };
+
+  /* ================================================================ Settings > Guide */
+  const save = a => { try { WorkoutStorage.saveSettings(a.settings); } catch (e) { } };
+  function boxHtml(a) {
+    const on = a.settings.guideBackend === "ollama", c = cfg();
+    return `<div class="p-3.5 space-y-2 bg-zinc-950 border border-zinc-800 rounded-xl">
+        <span class="text-xs font-bold text-white block">Where answers come from</span>
+        <div class="flex flex-wrap gap-1.5" role="group" aria-label="Where the guide's answers come from">
+          <button type="button" class="pt-opt tap-active" data-gb="search" aria-pressed="${!on}">On this phone</button>
+          <button type="button" class="pt-opt tap-active" data-gb="ollama" aria-pressed="${on}">My computer (Ollama)</button>
+        </div>
+        <span class="text-[11px] text-zinc-400 block">${on ? "Your question and the facts the guide found go to your own computer, which writes the answer. If it doesn't answer, the phone does." : "Answers are worked out on this phone from the app's own data. Nothing is sent anywhere."}</span>
+      </div>
+      ${on ? `<div class="p-3.5 space-y-2.5 bg-zinc-950 border border-zinc-800 rounded-xl" id="pt-gol">
+        <label class="pt-gol-l">Address of Ollama<input id="pt-gol-url" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="http://192.168.1.20:11434" value="${esc(c.url)}"></label>
+        <label class="pt-gol-l">Model<input id="pt-gol-model" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="for example llama3.2" value="${esc(c.model)}" list="pt-gol-models"></label>
+        <datalist id="pt-gol-models"></datalist>
+        <div class="flex flex-wrap gap-1.5"><button type="button" class="pt-opt tap-active" data-gol="models">Find models</button><button type="button" class="pt-opt tap-active" data-gol="test">Test connection</button></div>
+        <p id="pt-gol-st" class="text-[11px] text-zinc-300" aria-live="polite"></p>
+        <details class="pt-gol-help"><summary>How to set it up</summary>
+          <ol>
+            <li>Install Ollama on your computer and pull a model, for example <b>ollama pull llama3.2</b>.</li>
+            <li>Let your phone and this app reach it: start Ollama with <b>OLLAMA_HOST=0.0.0.0</b> and <b>OLLAMA_ORIGINS=${esc(APP)}</b>, then restart it.</li>
+            <li>Phone and computer on the same Wi-Fi. Type the computer's address with port 11434 above.</li>
+            <li>Chrome asks to allow access to your local network: say yes. Safari on iPhone blocks plain http:// addresses from this app; give Ollama an https:// address (for example with Tailscale) instead.</li>
+          </ol>
+          <p>What is sent, only to the address above: your question and the facts the guide found for it. That is the guide's own answer (for an exercise you have done, it can include your last sets, how many workouts you have done it in and your best estimated 1RM), your program and workout in progress, your last 5 workouts (date, name, number of sets, exercise names; no weights) and kg or lb. Notes, body measurements, photos and form clips are not sent. Questions about pain, injuries, medicine or doses are never sent.</p>
+        </details>
+      </div>` : ""}`;
+  }
+  function draw() { const b = $("pt-guide-box"), a = A(); if (b && a) b.innerHTML = boxHtml(a); }
+  const proto = ApplicationUI.prototype, oOpen = proto.openSettings;
+  if (oOpen) proto.openSettings = function () { const r = oOpen.apply(this, arguments); try { draw(); } catch (e) { console.error("PulseTrack guide settings", e); } return r; };
+  const status = (t, bad) => { const s = $("pt-gol-st"); if (s) { s.textContent = t; s.className = "text-[11px] " + (bad ? "text-rose-300" : "text-zinc-300"); } };
+  function explain(e, url) {
+    return ({ noaddr: "Type the address of Ollama first.", badaddr: "That address isn't valid. It looks like http://192.168.1.20:11434.",
+      unreachable: `Couldn't reach ${url}. Check that Ollama is running, the address, that both are on the same Wi-Fi, and OLLAMA_HOST / OLLAMA_ORIGINS.` + blockedHint(url),
+      timeout: `${url} didn't answer in time.`, origin: `Ollama refused this app. Set OLLAMA_ORIGINS=${APP} and restart Ollama.`,
+      nomodel: "Ollama is there, but that model isn't. Tap Find models and pick one." }[e.why] || ("Something went wrong: " + e.message));
+  }
+  function keep(a) {
+    const u = $("pt-gol-url"), m = $("pt-gol-model"); if (!u || !m) return;
+    a.settings.guideOllama = { url: u.value.trim(), model: m.value.trim() }; save(a);
+  }
+  document.addEventListener("click", async e => {
+    const t = e.target; if (!t || !t.closest) return;
+    const a = A(); if (!a) return;
+    const gb = t.closest("#pt-guide-box [data-gb]");
+    if (gb) { keep(a); a.settings.guideBackend = gb.dataset.gb; save(a); draw(); return; }
+    const g = t.closest("#pt-guide-box [data-gol]"); if (!g) return;
+    keep(a);
+    const url = cfg().url;
+    if (g.dataset.gol === "models") {
+      status("Looking…");
+      try {
+        const r = await call("/api/tags", null, 8000), names = ((r && r.models) || []).map(m => m.name).filter(Boolean);
+        const dl = $("pt-gol-models"); if (dl) dl.innerHTML = names.map(n => `<option value="${esc(n)}">`).join("");
+        if (names.length && !cfg().model) { $("pt-gol-model").value = names[0]; keep(a); }
+        status(names.length ? `Found ${names.length} model${names.length === 1 ? "" : "s"}: ${names.join(", ")}` : "Ollama answered but has no models yet. Run ollama pull llama3.2 on the computer.", !names.length);
+      } catch (er) { status(explain(er, url), true); }
+    } else if (g.dataset.gol === "test") {
+      status("Testing…");
+      try {
+        const r = await call("/api/tags", null, 8000), names = ((r && r.models) || []).map(m => m.name);
+        const m = cfg().model;
+        if (!m) status("Connected. Now pick a model (Find models).", true);
+        else if (!names.some(n => n === m || n.split(":")[0] === m)) status(`Connected, but there's no model called ${m}. Tap Find models.`, true);
+        else status(`Connected to ${url}. ${m} is ready.`);
+      } catch (er) { status(explain(er, url), true); }
+    }
+  });
+  document.addEventListener("change", e => { if (e.target && (e.target.id === "pt-gol-url" || e.target.id === "pt-gol-model")) { const a = A(); if (a) keep(a); } });
+
+  const css = document.createElement("style"); css.id = "pt-v360-css";
+  css.textContent = `
+    .pt-gol-l { display: flex; flex-direction: column; gap: .3rem; font-size: .75rem; font-weight: 700; color: rgb(var(--z200)); }
+    .pt-gol-l input { width: 100%; min-width: 0; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); border-radius: .6rem; padding: .55rem .65rem; font-size: .85rem; font-weight: 500; color: rgb(var(--z100)); }
+    .pt-gol-l input:focus { outline: none; border-color: rgb(var(--a500)); }
+    .pt-gol-help > summary { font-size: .75rem; font-weight: 700; color: rgb(var(--z100)); cursor: pointer; }
+    .pt-gol-help ol { margin: .4rem 0; padding-left: 1.1rem; list-style: decimal; display: flex; flex-direction: column; gap: .3rem; }
+    .pt-gol-help li, .pt-gol-help p { font-size: .72rem; line-height: 1.45; color: rgb(var(--z300)); overflow-wrap: anywhere; }
+    .pt-gol-help b { color: rgb(var(--z100)); font-family: ui-monospace, monospace; font-weight: 600; }
   `;
   document.head.appendChild(css);
 })();
