@@ -384,6 +384,7 @@
     if (ws) {
       const t = (k, title, sub) => ROW(title, sub, SW(`data-opt="${k}"`, O(k)));
       ws.innerHTML = t("nextHint", "Suggested weight", "Shows what you did last time and what to try next, with a button that fills it in.")
+        + (PT.fillModeRow ? PT.fillModeRow(a) : "")   // 3.1.0: what Fill in puts in
         + t("autoPrefill", "Pre-fill the whole workout", "Off by default. When on, the first time you open a day each week every set gets the suggested weight and reps on its own. With it off, the \"Fill in suggested weights\" button at the top of the workout does it when you tap it. Nothing is checked off for you, and you can change any number.")
         + t("takenBtn", "Machine taken? button", "A small \"🔁 Taken?\" button on machines, cables and barbells swaps in the closest match in one tap. It goes back by itself the next day.")
         + t("autoFill", "Fill in the next set", "When you check off a set, the next empty set gets the same weight and reps.")

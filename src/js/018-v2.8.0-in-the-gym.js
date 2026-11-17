@@ -191,7 +191,7 @@
     if (allDone) return "";
     return `<div class="pt-next" data-k="${t.kind}" data-pt-next="${exIndex}">
       <div class="pt-next-t">Last time <b>${esc(t.last)}</b> → ${esc(t.tryTxt)}<span class="pt-next-why">${esc(t.why)}</span></div>
-      <button type="button" class="pt-next-use tap-active" data-exindex="${exIndex}" aria-label="Fill in the suggested weight and reps">Fill in</button></div>`;
+      <button type="button" class="pt-next-use tap-active" data-exindex="${exIndex}" aria-label="${esc(PT.fillWords ? PT.fillWords().button : "Fill in the suggested weight and reps")}">Fill in</button></div>`;
   }
   const oSug = proto.suggestionFor;
   proto.suggestionFor = function (ex) { return this._skipSug ? null : oSug.apply(this, arguments); };
@@ -206,7 +206,7 @@
   };
   function fillNext(app, exIndex) {
     const ex = app.activeDay && app.activeDay.exercises[exIndex];
-    const t = ex && nextTarget(app, ex);
+    const t = ex && (PT.fillTarget ? PT.fillTarget(ex) : nextTarget(app, ex));   // 3.1.0: suggested, last time, heaviest or most reps
     if (!t) return;
     const saved = [];
     let n = 0;

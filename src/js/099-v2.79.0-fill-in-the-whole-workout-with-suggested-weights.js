@@ -22,7 +22,7 @@
     const out = [], prog = app.activeProgram, day = app.activeDay;
     if (!prog || !day || isFree(prog)) return out;
     (day.exercises || []).forEach(ex => {
-      let t = null; try { t = PT.nextTarget(ex); } catch (e) { t = null; }
+      let t = null; try { t = PT.fillTarget ? PT.fillTarget(ex) : PT.nextTarget(ex); } catch (e) { t = null; }   // 3.1.0: the Fill in choice
       if (!t || !t.per || !t.per.length) return;
       for (let s = 0; s < Math.min(ex.sets || 0, t.cap || 99); s++) {
         const key = keyOf(app, ex, s), e = app.logs[key];
@@ -62,7 +62,7 @@
     const stamp = () => { app.settings.prefilled = Object.assign({}, app.settings.prefilled || {}); app.settings.prefilled[gk] = tk; try { WorkoutStorage.saveSettings(app.settings); } catch (e) { } };
     if (!items.length) { stamp(); return false; }                       // already typed or ticked: leave it
     fill(app, items); stamp();
-    if (visible()) setTimeout(() => { try { app.toast(`Filled in ${items.length} sets with the suggested weights`, "Undo", () => undo(app, items), 7000); } catch (e) { } }, 250);
+    if (visible()) setTimeout(() => { try { app.toast(`Filled in ${items.length} sets with ${PT.fillWords ? PT.fillWords().what : "the suggested weights"}`, "Undo", () => undo(app, items), 7000); } catch (e) { } }, 250);
     return true;
   }
 
@@ -73,7 +73,7 @@
     const items = plan(app); if (!items.length) return;
     const n = count(items), b = document.createElement("button");
     b.type = "button"; b.id = "pt-fillall"; b.className = "pt-fillall tap-active";
-    b.innerHTML = `⚡ Fill in suggested weights <span>${n} exercise${n === 1 ? "" : "s"}</span>`;
+    b.innerHTML = `${PT.fillWords ? PT.fillWords().button : "Fill in suggested weights"} <span>${n} exercise${n === 1 ? "" : "s"}</span>`;
     list.insertBefore(b, list.firstChild);
   }
 
@@ -91,7 +91,7 @@
     const a = A(); if (!a || !e.target.closest || !e.target.closest("#pt-fillall")) return;
     const items = plan(a); if (!items.length) { a.toast("Nothing left to fill in"); return; }
     fill(a, items); a.renderWorkoutView();
-    a.toast(`Filled in ${items.length} sets with the suggested weights`, "Undo", () => undo(a, items), 7000);
+    a.toast(`Filled in ${items.length} sets with ${PT.fillWords ? PT.fillWords().what : "the suggested weights"}`, "Undo", () => undo(a, items), 7000);
   });
   PT.fillAll = { plan: () => plan(A()), prefill: () => prefill(A()) };
 

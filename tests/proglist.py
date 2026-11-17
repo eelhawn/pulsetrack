@@ -7,7 +7,8 @@ from common import Checks, page
 
 c = Checks('proglist')
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-c.eq(open(os.path.join(ROOT, 'src', 'VERSION')).read().strip(), '3.0.0', 'the version is 3.0.0, not 2.110.0')
+VER = open(os.path.join(ROOT, 'src', 'VERSION')).read().strip()
+c.ok(re.fullmatch(r'([3-9]|[1-9]\d+)\.\d{1,2}\.\d+', VER), 'the version is 3.x or later with a middle number under 100, not 2.110.0 (%s)' % VER)
 
 STATE = '''() => {
   const gs = [...document.querySelectorAll("#programs-list-container .pgx-grp")];
