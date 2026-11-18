@@ -131,7 +131,7 @@
       case "barbell": case "smith":
         if (front) { const y = (g[1] + g2[1]) / 2, x1 = Math.min(g[0], g2[0]) - 34, x2 = Math.max(g[0], g2[0]) + 34; out.push(L([x1, y], [x2, y], C.plate, 4), Rc(x1 - 4, y - 16, 9, 32, 2), Rc(x2 - 5, y - 16, 9, 32, 2)); }
         else out.push(...plate(g, pat.plate || 15));
-        if (kind === "smith" && !front) out.unshift(L([g[0] + 1, FLOOR], [g[0] + 1, Math.min(g[1] - 40, 20)], C.kit, 4));
+        if (kind === "smith" && !front) out.unshift(Object.assign(L([g[0] + 1, FLOOR], [g[0] + 1, Math.min(g[1] - 40, 20)], C.kit, 4), { back: true }));
         break;
       case "dumbbell": out.push(...dumb(g)); if (front && pat.both !== false) out.push(...dumb(g2)); break;
       case "kettlebell": out.push(...bell(g)); if (front && pat.both !== false && !same(g, g2)) out.push(...bell(g2)); break;
@@ -146,7 +146,14 @@
         if (kind === "cable") out.push(Rc(g[0] - 5, g[1] - 5, 10, 10, 3));
         break;
       }
-      case "landmine": out.push(L(g, [g[0] - 110, FLOOR - 4], C.plate, 4), ...plate(g, 11)); break;
+      case "landmine":
+        if (front) out.push(L([(g[0] + g2[0]) / 2, (g[1] + g2[1]) / 2], [j.pel[0], FLOOR - 4], C.plate, 5));
+        else out.push(L(g, [g[0] - 110, FLOOR - 4], C.plate, 4), ...plate(g, 11));
+        break;
+      case "stick":
+        if (front) { const dx = g[0] - g2[0], dy = g[1] - g2[1], l = Math.hypot(dx, dy) || 1, e = 18; out.push(L([g2[0] - dx / l * e, g2[1] - dy / l * e], [g[0] + dx / l * e, g[1] + dy / l * e], C.plate, 4)); }
+        else out.push(O(g, 4, C.plate, C.plate, 0));
+        break;
       case "machine": out.push(Rc(g[0] - 5, g[1] - 5, 10, 10, 3)); break;
       default: break;
     }
@@ -473,9 +480,419 @@
       frames: [{ hip: [160, 110], t: 90, ankle: [186, 196], kb: 1, ankle2: [124, 196], kb2: -1, ua: 92, fa: 92, floor: true }] },
   };
 
+  /* ================================================================ 3.9.0: more movements, and better ones for PulseTrack's own exercises */
+  const BACKBAR = { handOn: ["shoulder", -3, 13], eb: -1 }, HANG = { handOn: null, hand: null, ua: -92, fa: -90 };
+  const wall = x => [L([x, FLOOR], [x, 8], C.kit, 6)];
+  const floorBench = (x1, x2, y) => PROPS.lowBench(null, { x1, x2, y });
+  Object.assign(PATTERNS, {
+    // ---- pushing
+    fly_lying: { label: "lying fly", kit: "dumbbell", go: "bring up", back: "open wide", joint: "grip", over: true, kits: ["dumbbell", "cable", "band", "kettlebell", "plate"],
+      start: "Lie on the bench, arms out wide with a soft bend in the elbows.", end: "Bring the weights up over your chest in a wide arc, then lower them out wide again.",
+      props: j => PROPS.bench(j, {}), cable: j => [j.shoulder[0] + 10, FLOOR - 8],
+      frames: [{ hip: [196, 138], t: 180, ankle: [234, 196], kb: 1, hand: [150, 152], eb: -1 }, { hip: [196, 138], t: 180, ankle: [234, 196], kb: 1, hand: [144, 80], eb: -1 }] },
+    fly_incline: { label: "incline fly", kit: "dumbbell", go: "bring up", back: "open wide", joint: "grip", over: true, kits: ["dumbbell", "cable", "band", "kettlebell"],
+      start: "Sit back on the incline bench, arms out wide with a soft bend in the elbows.", end: "Bring the weights up over your upper chest in an arc, then lower out wide.",
+      props: j => PROPS.angled(j, {}), cable: j => [j.shoulder[0] + 10, FLOOR - 8],
+      frames: [{ hip: [196, 150], t: 145, ankle: [238, 196], kb: 1, hand: [164, 140], eb: -1 }, { hip: [196, 150], t: 145, ankle: [238, 196], kb: 1, hand: [158, 62], eb: -1 }] },
+    floor_press: { label: "floor press", kit: "barbell", go: "lower", back: "press up", joint: "grip", over: true,
+      start: "Lie on the floor, knees bent, the weight over your chest on straight arms.", end: "Lower until your upper arms touch the floor, then press back up.",
+      frames: [{ hip: [190, 189], t: 180, ankle: [236, 196], kb: 1, hand: [140, 128], eb: -1 }, { hip: [190, 189], t: 180, ankle: [236, 196], kb: 1, hand: [152, 160], eb: -1 }] },
+    standing_press: { label: "standing press out", kit: "plate", go: "press out", back: "back in", joint: "grip", kits: ["plate", "cable", "band", "dumbbell", "ball", "kettlebell"],
+      start: "Stand tall, one foot a little ahead, hands at your chest.", end: "Press your hands straight out in front, squeeze, then bring them back.",
+      cable: j => [j.hip[0] - 110, j.shoulder[1] + 6],
+      frames: [S({ hip: [150, 108], ankle: [176, 196], ankle2: [128, 196], kb2: 1, ft2: -20, hand: [178, 72], eb: 1 }), S({ hip: [150, 108], ankle: [176, 196], ankle2: [128, 196], kb2: 1, ft2: -20, hand: [212, 66], eb: 1 })] },
+    pallof: { label: "Pallof press", view: "front", kit: "cable", go: "press out", back: "in", joint: "hand", kits: ["cable", "band"],
+      start: "Stand side-on to the cable, handle at the middle of your chest.", end: "Press it straight out in front without letting it turn you, then bring it back.",
+      props: () => [L([300, FLOOR], [300, 30], C.kit, 7)], cable: j => [300, j.haR[1]],
+      frames: [{ hand: [166, 80], handL: [156, 80], eb: -1, ebL: 1, floor: true }, { hand: [166, 86], handL: [156, 86], eb: -1, ebL: 1, uaS: 0.5, faS: 0.5, floor: true }] },
+    push_up_incline: { label: "incline push-up", kit: "none", kits: "none", go: "lower", back: "push up", joint: "shoulder",
+      start: "Hands on the bench edge, body straight from head to heels.", end: "Lower your chest to the bench, then push back up.",
+      props: () => floorBench(214, 290, 151),
+      frames: [{ hip: [186.8, 124.4], t: 44, th: 224, sh: 224, ft: -52, hand: [236, 146], eb: -1 }, { hip: [196.7, 136.7], t: 34, th: 214, sh: 214, ft: -52, hand: [236, 146], eb: -1 }] },
+    push_up_decline: { label: "decline push-up", kit: "none", kits: "none", go: "lower", back: "push up", joint: "shoulder",
+      start: "Feet up on the bench, hands under your shoulders, body straight.", end: "Lower your chest towards the floor, then push back up.",
+      props: () => floorBench(36, 112, 118),
+      frames: [{ hip: [175.8, 122], t: -15, th: 165, sh: 165, ft: -70, hand: [232, 196], eb: -1 }, { hip: [170.4, 136.9], t: -25, th: 155, sh: 155, ft: -70, hand: [232, 196], eb: -1 }] },
+    push_up_knee: { label: "knee push-up", kit: "none", kits: "none", go: "lower", back: "push up", joint: "shoulder",
+      start: "Knees on the floor, hands under your shoulders, straight line from knees to head.", end: "Lower your chest towards the floor, then push back up.",
+      frames: [{ hip: [183.2, 166.6], t: 32, th: 212, sh: 165, ft: 180, hand: [232, 196], eb: -1 }, { hip: [188.8, 179.9], t: 14, th: 194, sh: 165, ft: 180, hand: [232, 196], eb: -1 }] },
+    handstand_pushup: { label: "handstand push-up", kit: "none", kits: "none", go: "lower", back: "push up", joint: "head",
+      start: "Kick up into a handstand against the wall, hands a little wider than your shoulders.", end: "Lower your head towards the floor, then press back up.",
+      props: () => wall(214),
+      frames: [{ hip: [192, 82], t: -90, th: 86, sh: 86, ft: 0, hand: [190, 196], eb: 1 }, { hip: [196, 112], t: -86, th: 86, sh: 86, ft: 0, hand: [190, 196], eb: 1 }] },
+    pike_pushup: { label: "pike push-up", kit: "none", kits: "none", go: "lower", back: "push up", joint: "head",
+      start: "Hips high in an upside-down V, hands on the floor, head between your arms.", end: "Bend your elbows to bring your head towards the floor, then push back up.",
+      frames: [{ hip: [170, 112], t: -40, th: -118, sh: -118, ft: 0, hand: [230, 196], eb: 1 }, { hip: [172, 118], t: -56, th: -116, sh: -116, ft: 0, hand: [230, 196], eb: -1 }] },
+    // ---- squats and legs
+    air_squat: { label: "bodyweight squat", kit: "none", go: "sit down", back: "stand up", joint: "hip",
+      start: "Stand tall, feet about shoulder-width, arms by your sides.", end: "Sit down and back with your arms out in front, then stand up.",
+      frames: [S({ ua: -90, fa: -90 }), S({ hip: [134, 156], t: 62, ankle: [166, 196], ua: 0, fa: 0 })] },
+    squat_hold: { label: "deep squat hold", kit: "none", hold: true, joint: "hip",
+      start: "Sit as deep as you can, heels down, chest up, elbows inside your knees.", end: "Hold and breathe, letting your hips sink a little more each breath.",
+      frames: [S({ hip: [148, 172], t: 72, ankle: [168, 196], hand: [190, 130], eb: -1 })] },
+    wall_sit: { label: "wall sit", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Back flat on the wall, feet out in front.", end: "Slide down until your thighs are level and hold.",
+      props: () => wall(124),
+      frames: [{ hip: [134, 152], t: 92, th: 0, sh: -90, ua: -80, fa: -4, floor: true }] },
+    pistol: { label: "pistol squat", kit: "none", go: "sit down", back: "stand up", joint: "hip",
+      start: "Stand on one leg, the other leg straight out in front, arms forward.", end: "Squat all the way down on one leg, then stand back up.",
+      frames: [S({ th2: -60, sh2: -60, ua: 0, fa: 0 }), S({ hip: [128, 166], t: 58, ankle: [162, 196], th2: 6, sh2: 6, ft2: 60, ua: 6, fa: 6 })] },
+    sissy_squat: { label: "sissy squat", kit: "none", go: "lean back", back: "up", joint: "knee",
+      start: "Stand tall on your toes, holding on for balance.", end: "Push your knees forward and lean back in one straight line, then come back up.",
+      frames: [S({ ft: -30, ua: 0, fa: 0 }), S({ hip: [146, 136], t: 150, th: -30, sh: -123, ankle: null, ft: -40, ua: 10, fa: 10, on: ["toe"] })] },
+    lateral_lunge: { label: "side lunge", view: "front", kit: "none", go: "lunge to the side", back: "push back", joint: "pel",
+      start: "Stand with your feet wide, toes forward.", end: "Sit back over one leg, keeping the other straight, then push back to the middle.",
+      frames: [{ pel: [160, 108], ankle: [204, 196], ankleL: [116, 196], kb: 1, kbL: -1, hand: [166, 92], handL: [154, 92], eb: -1, ebL: 1, floor: true },
+        { pel: [180, 146], ankle: [214, 196], ankleL: [98, 196], kb: 1, kbL: -1, hand: [186, 120], handL: [174, 120], eb: -1, ebL: 1, floor: true }] },
+    single_leg_rdl: { label: "single-leg Romanian deadlift", kit: "dumbbell", go: "hinge", back: "stand up", joint: "shoulder",
+      start: "Stand on one leg, knee soft, the weight in the opposite hand.", end: "Hinge forward as the free leg goes back in a straight line, then stand up.",
+      frames: [S({ hip: [154, 108], ankle: [164, 196], th2: -100, sh2: -110 }), S({ hip: [150, 112], t: 10, ankle: [164, 196], th2: 188, sh2: 188, ft2: -80, ua: -90, fa: -90 })] },
+    standing_leg_curl: { label: "standing leg curl", kit: "machine", from: "ankle", go: "curl", back: "lower", joint: "ankle", kits: ["machine", "cable", "band", "none"],
+      start: "Stand tall holding on, the pad behind your ankle.", end: "Curl your heel up towards your glutes, then lower slowly.",
+      props: () => wall(204), dyn: j => [O([j.ankle[0] - 7, j.ankle[1] - 3], 7, C.kitFill, C.kit, 2)], cable: j => [j.ankle[0] + 70, FLOOR - 8],
+      frames: [S({ ankle2: [160, 196], ankle: null, th: -92, sh: -92, hand: [198, 92], eb: 1, on: ["ankle2"] }), S({ ankle2: [160, 196], ankle: null, th: -96, sh: 158, hand: [198, 92], eb: 1, on: ["ankle2"] })] },
+    nordic: { label: "Nordic curl", kit: "none", kits: "none", go: "lower", back: "pull up", joint: "shoulder",
+      start: "Kneel tall with your ankles held down, body straight from knees to head.", end: "Lower forward as slowly as you can, catch yourself with your hands, then pull back up.",
+      dyn: () => [], props: j => [O([j.ankle[0] + 2, j.ankle[1] - 11], 7, C.kitFill, C.kit, 2), Rc(j.knee[0] - 12, FLOOR - 7, 24, 7, 3)],
+      frames: [{ hip: [120, 144], t: 90, th: -90, sh: 180, ft: 180, handOn: ["shoulder", -18, -8], eb: -1, floor: true, on: ["knee"] },
+        { hip: [161.7, 170.6], t: 25, th: 205, sh: 180, ft: 180, ua: -60, fa: -50, floor: true, on: ["knee"] }] },
+    reverse_nordic: { label: "reverse Nordic", kit: "none", kits: "none", go: "lean back", back: "up", joint: "shoulder",
+      start: "Kneel tall, body straight from knees to head, arms out in front.", end: "Lean back as far as you control, keeping hips straight, then come back up.",
+      frames: [{ hip: [150, 144], t: 90, th: -90, sh: 180, ft: 180, ua: 0, fa: 0, floor: true, on: ["knee"] },
+        { hip: [120.4, 154.8], t: 130, th: -50, sh: 180, ft: 180, ua: 20, fa: 20, floor: true, on: ["knee"] }] },
+    seated_calf_raise: { label: "seated calf raise", kit: "machine", go: "rise", back: "lower", joint: "knee", kits: ["machine", "dumbbell", "barbell", "plate", "none"],
+      start: "Sit with the balls of your feet on the block and the pad on your knees.", end: "Push up onto your toes as high as you can, then lower your heels.",
+      props: j => PROPS.seat(j, {}).concat([Rc(j.toe[0] - 14, j.toe[1] + 4, 28, FLOOR - j.toe[1] - 4, 3)]),
+      dyn: j => [Rc(j.knee[0] - 14, j.knee[1] - 16, 28, 9, 3)],
+      frames: [{ hip: [140, 142], t: 92, ankle: [194, 178], kb: 1, ft: 18, hand: [180, 132], eb: 1 }, { hip: [140, 142], t: 92, ankle: [190, 162], kb: 1, ft: -40, hand: [178, 118], eb: 1 }] },
+    tibialis_raise: { label: "tibialis raise", kit: "none", kits: "none", go: "toes up", back: "lower", joint: "toe",
+      start: "Lean your back on the wall, heels out in front.", end: "Lift your toes as high as you can, then lower them.",
+      props: () => wall(132),
+      frames: [{ hip: [146, 108], t: 96, ankle: [184, 192], kb: 1, ft: 0, ua: -92, fa: -92 }, { hip: [146, 108], t: 96, ankle: [184, 192], kb: 1, ft: 38, ua: -92, fa: -92 }] },
+    glute_bridge_loaded: { label: "loaded glute bridge", kit: "barbell", go: "hips up", back: "lower", joint: "hip",
+      start: "Lie on your back, knees bent, the weight across your hips.", end: "Drive your hips up and squeeze, then lower.",
+      frames: [{ hip: [154, 188], t: 180, ankle: [212, 196], kb: 1, handOn: ["hip", 4, -14], eb: 1 }, { hip: [152, 170], t: 200, ankle: [212, 196], kb: 1, handOn: ["hip", 4, -14], eb: 1 }] },
+    supine_leg_curl: { label: "slider leg curl", kit: "none", kits: "none", go: "pull heels in", back: "slide out", joint: "ankle",
+      start: "On your back, hips up, heels on the sliders, legs straight.", end: "Pull your heels in towards your hips, keeping them up, then slide out.",
+      frames: [{ hip: [160, 172], t: 195, ankle: [250, 192], kb: 1, ft: 80, ua: 0, fa: 0 }, { hip: [168, 160], t: 205, ankle: [214, 192], kb: 1, ft: 80, ua: 0, fa: 0 }] },
+    ball_leg_curl: { label: "stability ball leg curl", kit: "none", kits: "none", go: "roll in", back: "roll out", joint: "ankle",
+      start: "On your back, heels on the ball, hips lifted.", end: "Roll the ball in with your heels, then roll it out.",
+      dyn: j => [O([j.ankle[0] + 2, j.ankle[1] + 14], 15, C.plateFill, C.plate, 2.5)],
+      frames: [{ hip: [158, 178], t: 196, ankle: [248, 168], kb: 1, ft: 70, ua: 0, fa: 0 }, { hip: [166, 164], t: 206, ankle: [216, 168], kb: 1, ft: 70, ua: 0, fa: 0 }] },
+    hip_adduction: { label: "standing hip adduction", view: "front", kit: "cable", from: "ankle", go: "leg across", back: "out", joint: "ankle",
+      start: "Stand side-on to the cable, the cuff on the inside ankle, that leg out to the side.", end: "Pull the leg across in front of the other, then let it go back out slowly.",
+      cable: j => [j.pel[0] + 116, FLOOR - 8],
+      frames: [{ th: -58, sh: -58, thL: -92, shL: -92, floor: true, on: ["anL"] }, { th: -104, sh: -104, thL: -92, shL: -92, floor: true, on: ["anL"] }] },
+    pull_through: { label: "cable pull-through", kit: "cable", go: "hips forward", back: "hips back", joint: "hip", kits: ["cable", "band"],
+      start: "Face away from the low cable, rope between your legs, hips back.", end: "Drive your hips forward to stand tall, then hinge back.",
+      cable: j => [j.hip[0] - 120, FLOOR - 8],
+      frames: [S({ hip: [126, 120], t: 30, ankle: [164, 196], hand: [150, 166], eb: 1 }), S({ hand: [164, 132], eb: 1 })] },
+    leg_swing: { label: "leg swing", kit: "none", kits: "none", go: "swing", back: "back", joint: "ankle",
+      start: "Stand side-on holding a wall, on one leg.", end: "Swing the free leg forward and back, a little higher each time.",
+      props: () => wall(218),
+      frames: [S({ ankle2: [160, 196], ankle: null, th: -40, sh: -40, ft: 30, hand: [214, 96], eb: 1, on: ["ankle2"] }), S({ ankle2: [160, 196], ankle: null, th: -132, sh: -132, ft: -60, hand: [214, 96], eb: 1, on: ["ankle2"] })] },
+    // ---- pulling
+    chest_supported_row: { label: "chest-supported row", kit: "dumbbell", go: "pull", back: "lower", joint: "grip",
+      start: "Lie chest-down on the incline bench, arms hanging straight.", end: "Pull your elbows back to bring the weight to your ribs, then lower.",
+      props: j => PROPS.angled(j, { flip: false, seat: false }).concat([L([j.hip[0] + 10, j.hip[1] + 6], [j.hip[0] + 10, FLOOR], C.kit, 6)]),
+      frames: [{ hip: [150, 124], t: 38, ankle: [96, 196], kb: 1, ua: -90, fa: -90 }, { hip: [150, 124], t: 38, ankle: [96, 196], kb: 1, ua: 170, fa: -74 }] },
+    one_arm_row: { label: "one-arm row", kit: "dumbbell", go: "pull", back: "lower", joint: "grip",
+      start: "One knee and hand on the bench, back flat, the weight hanging.", end: "Pull the weight to your hip, then lower it all the way.",
+      props: () => floorBench(96, 214, 168),
+      frames: [{ hip: [128, 124], t: 6, ankle: [154, 196], kb: 1, th2: -90, sh2: 180, ft2: 180, hand2: [194, 168], eb2: 1, ua: -90, fa: -90 },
+        { hip: [128, 124], t: 6, ankle: [154, 196], kb: 1, th2: -90, sh2: 180, ft2: 180, hand2: [194, 168], eb2: 1, ua: 160, fa: -74 }] },
+    renegade_row: { label: "renegade row", kit: "dumbbell", go: "row", back: "down", joint: "grip",
+      start: "High plank with your hands on the dumbbells, feet wide.", end: "Row one dumbbell to your ribs without twisting, put it down, switch sides.",
+      frames: [{ hip: [176, 152], t: 21, th: 200, sh: 200, ft: -75, hand: [232, 188], eb: 1, floor: true, on: ["hand", "toe"] },
+        { hip: [176, 152], t: 21, th: 200, sh: 200, ft: -75, hand2: [232, 188], eb2: 1, ua: 175, fa: -70, floor: true, on: ["hand2", "toe"] }] },
+    dead_hang: { label: "dead hang", kit: "none", kits: "none", hold: true, joint: "hip", floor: false,
+      start: "Grab the bar and hang with straight arms, shoulders active.", end: "Hold, breathing slowly.",
+      props: () => PROPS.bar(null, { at: [166, 26] }),
+      frames: [{ hip: [160, 148], t: 90, th: -96, sh: -124, hand: [166, 28], eb: 1 }] },
+    reverse_hyper: { label: "reverse hyperextension", kit: "none", kits: ["none", "machine", "band"], go: "legs up", back: "lower", joint: "ankle",
+      start: "Lie face down on the high bench, hips at the edge, legs hanging.", end: "Lift your straight legs up behind you to level, then lower.",
+      props: j => [Rc(j.hip[0] - 4, j.hip[1] + 8, 96, 9), L([j.hip[0] + 20, j.hip[1] + 16], [j.hip[0] + 20, FLOOR], C.kit, 6), L([j.hip[0] + 78, j.hip[1] + 16], [j.hip[0] + 78, FLOOR], C.kit, 6)],
+      frames: [{ hip: [140, 90], t: -2, th: -92, sh: -92, ft: 0, hand: [222, 108], eb: -1 }, { hip: [140, 90], t: -2, th: 178, sh: 176, ft: -90, hand: [222, 108], eb: -1 }] },
+    seated_back_extension: { label: "seated back extension", kit: "machine", kits: ["machine"], go: "push back", back: "forward", joint: "shoulder",
+      start: "Sit with the pad across your upper back, leaning forward, arms crossed.", end: "Push back against the pad until you are upright, then lean forward slowly.",
+      props: j => PROPS.seat(j, {}), dyn: j => [L([j.shoulder[0] - 14, j.shoulder[1] - 12], [j.shoulder[0] - 8, j.shoulder[1] + 18], C.kit, 10)],
+      frames: [{ hip: [140, 150], t: 52, ankle: [190, 196], kb: 1, handOn: ["shoulder", -16, -10], eb: -1 }, { hip: [140, 150], t: 98, ankle: [190, 196], kb: 1, handOn: ["shoulder", -16, -10], eb: -1 }] },
+    seated_good_morning: { label: "seated good morning", kit: "barbell", go: "lean forward", back: "sit up", joint: "shoulder",
+      start: "Sit tall on the bench with the bar on your upper back.", end: "Hinge forward from your hips with a flat back, then sit up.",
+      props: j => PROPS.seat(j, {}),
+      frames: [{ hip: [140, 150], t: 90, ankle: [196, 196], kb: 1, handOn: ["shoulder", -3, 13], eb: -1 }, { hip: [140, 150], t: 30, ankle: [196, 196], kb: 1, handOn: ["shoulder", -3, 13], eb: -1 }] },
+    arm_bike: { label: "arm bike", kit: "none", kits: "none", hold: true, joint: "hand",
+      start: "Sit tall with the handles at shoulder height.", end: "Turn the handles in steady circles, then switch direction.",
+      props: () => [L([120, FLOOR], [120, 152], C.kit, 6), L([104, 150], [138, 150], C.kit, 8), L([236, FLOOR], [236, 96], C.kit, 7), O([224, 98], 14, "none", C.kit, 3)],
+      frames: [{ hip: [120, 140], t: 92, ankle: [168, 196], kb: 1, hand: [214, 92], eb: 1 }] },
+    // ---- arms
+    incline_curl: { label: "incline curl", kit: "dumbbell", go: "curl up", back: "lower", joint: "grip",
+      start: "Sit back on an incline bench, arms hanging straight down.", end: "Curl the weights up without moving your elbows forward, then lower.",
+      props: j => PROPS.angled(j, {}),
+      frames: [{ hip: [176, 150], t: 128, ankle: [222, 196], kb: 1, ua: -96, fa: -94 }, { hip: [176, 150], t: 128, ankle: [222, 196], kb: 1, ua: -96, fa: 70 }] },
+    spider_curl: { label: "spider curl", kit: "barbell", go: "curl up", back: "lower", joint: "grip",
+      start: "Lie chest-down on an incline bench, arms hanging straight.", end: "Curl the weight up, squeeze, then lower slowly.",
+      props: j => PROPS.angled(j, { flip: false, seat: false }).concat([L([j.hip[0] + 10, j.hip[1] + 6], [j.hip[0] + 10, FLOOR], C.kit, 6)]),
+      frames: [{ hip: [150, 124], t: 38, ankle: [96, 196], kb: 1, ua: -90, fa: -90 }, { hip: [150, 124], t: 38, ankle: [96, 196], kb: 1, ua: -84, fa: 100 }] },
+    concentration_curl: { label: "concentration curl", kit: "dumbbell", go: "curl up", back: "lower", joint: "grip",
+      start: "Sit on a bench, lean forward, the back of your arm against your inner thigh.", end: "Curl the weight to your shoulder, then lower until the arm is straight.",
+      props: j => PROPS.seat(j, {}),
+      frames: [{ hip: [140, 150], t: 56, ankle: [196, 196], kb: 1, ua: -76, fa: -88 }, { hip: [140, 150], t: 56, ankle: [196, 196], kb: 1, ua: -76, fa: 110 }] },
+    curl_seated: { label: "seated curl", kit: "dumbbell", go: "curl up", back: "lower", joint: "grip",
+      start: "Sit tall on the bench, arms straight down, elbows at your sides.", end: "Curl the weight up to your shoulders, then lower.",
+      props: j => PROPS.seat(j, {}),
+      frames: [{ hip: [146, 150], t: 92, ankle: [194, 196], kb: 1, ua: -92, fa: -80 }, { hip: [146, 150], t: 92, ankle: [194, 196], kb: 1, ua: -86, fa: 88 }] },
+    high_cable_curl: { label: "high cable curl", view: "front", kit: "cable", go: "curl in", back: "straighten", joint: "hand", kits: ["cable", "band"],
+      start: "Stand between two high pulleys, arms straight out to the sides.", end: "Curl your hands towards your head, then straighten your arms.",
+      props: () => [L([302, FLOOR], [302, 30], C.kit, 7), L([18, FLOOR], [18, 30], C.kit, 7)], cable: j => [[300, j.shR[1]], [20, j.shL[1]]],
+      frames: [{ ua: 2, fa: 2, floor: true }, { ua: 2, fa: 128, floor: true }] },
+    external_rotation: { label: "external rotation", view: "front", kit: "dumbbell", go: "rotate up", back: "down", joint: "hand", both: false,
+      start: "Upper arm out to the side at shoulder height, elbow bent, forearm pointing forward.", end: "Rotate the forearm up until it points to the ceiling, then lower slowly.",
+      frames: [{ ua: 0, fa: -70, faS: 0.4, uaL: -96, faL: -96, floor: true }, { ua: 0, fa: 90, uaL: -96, faL: -96, floor: true }] },
+    // ---- shoulders and traps
+    y_raise: { label: "Y-raise", view: "front", kit: "dumbbell", go: "raise", back: "lower", joint: "hand",
+      start: "Arms in front of you, thumbs up (standing, leaning on a bench or face-down).", end: "Raise your arms up and out into a Y, then lower slowly.",
+      cable: j => [[j.pel[0] - 120, FLOOR - 8], [j.pel[0] + 120, FLOOR - 8]],
+      frames: [{ hand: [166, 116], eb: -1, floor: true }, { ua: 52, fa: 54, floor: true }] },
+    overhead_carry: { label: "overhead carry", kit: "dumbbell", go: "walk", back: "", joint: "hip",
+      start: "Press the weight overhead and lock your arm.", end: "Walk with short steps, the weight steady over your shoulder.",
+      frames: [{ hip: [150, 110], t: 90, ankle: [176, 196], kb: 1, ankle2: [126, 196], kb2: 1, ft2: -20, hand: [156, 0], eb: 1, floor: true },
+        { hip: [176, 110], t: 90, ankle: [210, 196], kb: 1, ankle2: [154, 196], kb2: 1, ft2: -20, hand: [182, 0], eb: 1, floor: true }] },
+    // ---- core
+    russian_twist: { label: "Russian twist", kit: "none", go: "twist to the side", back: "other side", joint: "grip",
+      start: "Sit leaning back, knees bent, feet down or lifted, hands together in front.", end: "Turn your shoulders to bring your hands beside one hip, then across to the other.",
+      frames: [{ hip: [150, 186], t: 124, th: 46, sh: -38, ft: 10, hand: [190, 136], eb: 1 }, { hip: [150, 186], t: 118, th: 46, sh: -38, ft: 10, hand: [170, 190], eb: 1 }] },
+    overhead_triceps_seated: { label: "seated overhead triceps extension", kit: "dumbbell", go: "straighten", back: "bend", joint: "grip",
+      start: "Sit tall against the pad, the weight overhead, then lower it behind your head with elbows up.", end: "Straighten your arms to lift it overhead, then lower it behind your head.",
+      props: j => PROPS.seat(j, { back: true, lean: 4 }),
+      frames: [{ hip: [150, 150], t: 92, ankle: [198, 196], kb: 1, ua: 96, fa: -118 }, { hip: [150, 150], t: 92, ankle: [198, 196], kb: 1, ua: 94, fa: 92 }] },
+    hollow_hold: { label: "hollow body hold", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Lie on your back, lower back pressed down, arms overhead.", end: "Lift your shoulders and straight legs off the floor and hold.",
+      frames: [{ hip: [170, 190], t: 166, th: 14, sh: 14, ft: 60, ua: 170, fa: 172, floor: true, on: ["hip"] }] },
+    reverse_plank: { label: "reverse plank", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Sit with your legs straight, hands on the floor just behind your hips.", end: "Lift your hips until your body is straight from heels to shoulders and hold.",
+      frames: [{ hip: [134, 160], t: 18, th: 198, sh: 198, ft: 100, nk: 20, hand: [180, 196], eb: 1, floor: true, on: ["hand", "ankle"] }] },
+    bear_crawl: { label: "bear crawl", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "On hands and feet, knees just off the floor under your hips, back flat.", end: "Crawl forward with small steps, opposite hand and foot together.",
+      frames: [{ hip: [140, 136], t: 4, ankle: [116, 194], kb: 1, ft: 0, hand: [196, 196], eb: 1, floor: true, on: ["hand", "ankle"] }] },
+    l_sit: { label: "L-sit", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Hands on the bars or the floor beside your hips, arms straight.", end: "Lift your straight legs out in front and hold.",
+      props: j => [L([j.hand[0] - 12, j.hand[1] + 5], [j.hand[0] + 12, j.hand[1] + 5], C.plate, 5), L([j.hand[0], j.hand[1] + 6], [j.hand[0], FLOOR], C.kit, 5)],
+      frames: [{ hip: [150, 160], t: 92, th: 2, sh: 2, ft: 80, hand: [152, 166], eb: 1 }] },
+    knee_tuck: { label: "seated knee tuck", kit: "none", kits: "none", go: "knees in", back: "legs out", joint: "knee",
+      start: "Sit leaning back on your hands, legs straight out just off the floor.", end: "Pull your knees in towards your chest, then push your legs back out.",
+      frames: [{ hip: [150, 186], t: 122, th: 12, sh: 12, ft: 40, hand: [118, 196], eb: 1 }, { hip: [150, 186], t: 112, th: 62, sh: -50, ft: 20, hand: [118, 196], eb: 1 }] },
+    standing_twist: { label: "standing twist", view: "front", kit: "stick", go: "turn", back: "other way", joint: "hand", kits: ["stick", "none", "barbell"],
+      start: "Stand tall, a stick across your shoulders, hands wide.", end: "Turn your shoulders to one side, then the other, hips facing forward.",
+      frames: [{ tl: -6, hand: [222, 56], handL: [100, 44], eb: 1, ebL: -1, floor: true }, { tl: 6, hand: [220, 44], handL: [98, 56], eb: 1, ebL: -1, floor: true }] },
+    landmine_twist: { label: "landmine twist", view: "front", kit: "landmine", go: "arc across", back: "back", joint: "hand", kits: ["landmine"],
+      start: "Hold the end of the bar at arm's length over your head, arms straight.", end: "Arc it down to one hip, back over the top and down to the other.",
+      frames: [{ tl: -8, hand: [214, 92], handL: [204, 84], eb: 1, ebL: 1, floor: true }, { tl: 8, hand: [116, 84], handL: [106, 92], eb: -1, ebL: -1, floor: true }] },
+    // ---- cardio and warm-ups
+    burpee: { label: "burpee", kit: "none", kits: "none", go: "jump up", back: "down", joint: "hip",
+      start: "Squat down, hands on the floor, jump your feet back to a plank.", end: "Jump your feet in and leap up with your arms overhead, then go again.",
+      frames: [{ hip: [176, 156], t: 21, th: 200, sh: 200, ft: -75, hand: [234, 196], eb: 1, floor: true, on: ["hand", "toe"] }, { hip: [162, 74], t: 90, th: -88, sh: -96, ft: -30, ua: 100, fa: 96 }] },
+    jumping_jack: { label: "jumping jack", view: "front", kit: "none", kits: "none", go: "jump out", back: "jump in", joint: "hand",
+      start: "Stand tall, feet together, arms by your sides.", end: "Jump your feet wide and your arms overhead, then jump back in.",
+      frames: [{ ua: -84, fa: -86, th: -89, sh: -89, floor: true }, { ua: 64, fa: 74, th: -66, sh: -66, floor: true }] },
+    child_pose: { label: "child's pose", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Kneel, sit back towards your heels and walk your hands forward.", end: "Rest your chest down, arms long, and breathe into your back.",
+      frames: [{ hip: [112, 165], t: -15, th: -35, sh: 180, ft: 180, ua: -4, fa: 0, floor: true, on: ["knee", "ankle"] }] },
+    cat_cow: { label: "cat-cow", kit: "none", kits: "none", go: "round up", back: "dip down", joint: "head",
+      start: "On hands and knees, hands under shoulders, knees under hips.", end: "Round your back up and tuck your head (cat), then let your belly drop and look up (cow).",
+      frames: [{ hip: [130, 140], t: 6, nk: -60, th: -90, sh: 180, ft: 180, ua: -90, fa: -90, floor: true, on: ["knee", "hand"] }, { hip: [130, 140], t: -3, nk: 40, th: -90, sh: 180, ft: 180, ua: -90, fa: -90, floor: true, on: ["knee", "hand"] }] },
+    toe_reach: { label: "seated toe reach", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Sit with your legs straight out in front.", end: "Hinge forward from your hips, reach for your toes and hold.",
+      frames: [{ hip: [130, 188], t: 36, th: 0, sh: 0, ft: 90, ua: -6, fa: -6, floor: true, on: ["hip", "ankle"] }] },
+    calf_stretch: { label: "calf stretch", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Hands on the wall, one foot forward, the back leg straight.", end: "Lean in with the back heel down until you feel your calf, and hold.",
+      props: () => wall(254),
+      frames: [{ hip: [170, 110], t: 66, ankle: [204, 196], kb: 1, ankle2: [100, 196], kb2: 1, ft2: 0, hand: [248, 72], eb: 1, floor: true }] },
+    hip_flexor_stretch: { label: "kneeling hip flexor stretch", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Kneel on one knee, the other foot flat in front.", end: "Squeeze the glute of the back leg and shift your hips forward until you feel the front of the hip, then hold.",
+      frames: [{ hip: [148, 152], t: 90, ankle: [204, 196], kb: 1, th2: -128, sh2: 180, ft2: 180, hand: [182, 152], eb: 1, floor: true, on: ["ankle", "knee2"] }] },
+    quad_stretch: { label: "standing quad stretch", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Stand tall on one leg, holding a wall if you need to.", end: "Pull the other heel to your glutes, knees together, and hold.",
+      frames: [{ ankle: [160, 196], th2: -100, sh2: 110, ft2: 170, hand2: [138, 112], eb2: 1, ua: -40, fa: -20, floor: true, on: ["ankle"] }] },
+    pigeon: { label: "pigeon stretch", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "From hands and knees, bring one knee forward and lay that shin across in front of you.", end: "Slide the other leg straight back, sink your hips and hold.",
+      frames: [{ hip: [150, 178], t: 82, th: -8, sh: 200, ft: 180, th2: 186, sh2: 180, ft2: 180, hand: [196, 196], eb: 1, floor: true, on: ["hip", "ankle2"] }] },
+    doorway_stretch: { label: "doorway chest stretch", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Forearm up on the door frame, elbow at shoulder height.", end: "Step through with the near foot until you feel your chest stretch, and hold.",
+      props: () => wall(130),
+      frames: [{ hip: [158, 108], t: 84, ankle: [190, 196], kb: 1, ankle2: [136, 196], kb2: 1, ft2: -20, ua: 178, fa: 92, floor: true }] },
+    cross_body_stretch: { label: "cross-body shoulder stretch", view: "front", kit: "none", kits: "none", hold: true, joint: "hand",
+      start: "Bring one straight arm across your chest.", end: "Hold it close with the other hand and hold the stretch.",
+      frames: [{ ua: 180, fa: 180, handL: [150, 60], ebL: 1, floor: true }] },
+    triceps_stretch: { label: "overhead triceps stretch", view: "front", kit: "none", kits: "none", hold: true, joint: "hand",
+      start: "Reach one arm up, bend the elbow and drop the hand behind your head.", end: "Gently push the elbow back with the other hand and hold.",
+      frames: [{ ua: 96, fa: -150, handL: [176, 10], ebL: 1, floor: true }] },
+    knee_to_chest: { label: "knee to chest", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Lie on your back, legs long.", end: "Pull one knee to your chest with both hands and hold.",
+      frames: [{ hip: [170, 190], t: 180, th: 112, sh: -14, ft: 70, th2: 2, sh2: 2, ft2: 80, hand: [150, 152], eb: -1, floor: true, on: ["hip"] }] },
+    lying_twist: { label: "lying twist (seen from above)", view: "front", kit: "none", kits: "none", hold: true, joint: "pel", floor: false,
+      start: "Lie on your back, arms out wide.", end: "Bring one knee across your body towards the floor, shoulders down, and hold.",
+      props: j => [Rc(j.pel[0] - 78, j.head[1] - 22, 156, j.anR[1] - j.head[1] + 34, 10)],
+      frames: [{ pel: [160, 130], ua: 2, fa: 2, th: -90, sh: -90, thL: -24, shL: -118 }] },
+    arm_circles: { label: "arm circles", view: "front", kit: "none", kits: "none", go: "circle", back: "circle", joint: "hand",
+      start: "Stand tall, arms straight out to the sides.", end: "Make small circles, slowly getting bigger, then reverse.",
+      frames: [{ ua: 14, fa: 14, floor: true }, { ua: -12, fa: -12, floor: true }] },
+    hip_circles: { label: "hip circles", view: "front", kit: "none", kits: "none", go: "circle", back: "circle", joint: "pel",
+      start: "Stand with your hands on your hips, feet hip-width.", end: "Draw slow circles with your hips, then go the other way.",
+      frames: [{ tl: -8, hand: [176, 100], handL: [150, 100], eb: 1, ebL: -1, floor: true }, { tl: 8, hand: [176, 100], handL: [150, 100], eb: 1, ebL: -1, floor: true }] },
+    ankle_rock: { label: "ankle rock", kit: "none", kits: "none", go: "knee forward", back: "back", joint: "knee",
+      start: "Half-kneel with the front foot flat.", end: "Push the front knee forward over the toes, heel down, then rock back.",
+      frames: [{ hip: [146, 152], t: 90, ankle: [196, 196], kb: 1, th2: -128, sh2: 180, ft2: 180, hand: [186, 150], eb: 1, floor: true, on: ["ankle", "knee2"] },
+        { hip: [160, 150], t: 84, ankle: [196, 196], kb: 1, th2: -118, sh2: 180, ft2: 180, hand: [200, 150], eb: 1, floor: true, on: ["ankle", "knee2"] }] },
+    dislocate: { label: "shoulder dislocate", view: "front", kit: "band", go: "over", back: "back", joint: "hand", kits: ["band", "stick"],
+      start: "Hold a band or stick wide, arms straight in front of your hips.", end: "Lift it over your head and behind you with straight arms, then back.",
+      frames: [{ ua: -48, fa: -48, floor: true }, { ua: 56, fa: 56, floor: true }] },
+    inchworm: { label: "inchworm", kit: "none", kits: "none", go: "walk out", back: "walk in", joint: "hand",
+      start: "Stand, fold forward and put your hands on the floor.", end: "Walk your hands out to a plank, then walk them back in.",
+      frames: [{ hip: [150, 104], t: -78, ankle: [154, 196], kb: 1, hand: [178, 196], eb: 1, floor: true, on: ["ankle", "hand"] }, { hip: [176, 156], t: 21, th: 200, sh: 200, ft: -75, hand: [234, 196], eb: 1, floor: true, on: ["hand", "toe"] }] },
+    worlds_greatest: { label: "world's greatest stretch", kit: "none", kits: "none", go: "reach up", back: "down", joint: "hand",
+      start: "Step into a long lunge, both hands on the floor inside the front foot.", end: "Turn and reach one arm to the ceiling, then bring it back down.",
+      frames: [{ hip: [146, 150], t: 34, ankle: [204, 196], kb: 1, ankle2: [70, 194], kb2: 1, ft2: -40, hand: [192, 196], eb: 1, floor: true, on: ["ankle", "toe2"] },
+        { hip: [146, 150], t: 40, ankle: [204, 196], kb: 1, ankle2: [70, 194], kb2: 1, ft2: -40, ua: 88, fa: 88, hand2: [192, 196], eb2: 1, floor: true, on: ["ankle", "toe2"] }] },
+    wall_slide: { label: "wall slide", view: "front", kit: "none", kits: "none", go: "slide up", back: "down", joint: "hand",
+      start: "Back, head and arms on the wall, elbows bent at shoulder height.", end: "Slide your arms up the wall as far as you can keep contact, then back down.",
+      frames: [{ ua: 6, fa: 90, floor: true }, { ua: 58, fa: 66, floor: true }] },
+    foam_roll_lower: { label: "foam rolling (legs)", kit: "none", kits: "none", go: "roll", back: "roll back", joint: "hip",
+      start: "Sit with the roller under your thighs, hands on the floor behind you.", end: "Roll slowly from hips to knees, pausing on tight spots.",
+      dyn: j => [O([j.knee[0] - 16, j.knee[1] + 14], 11, C.plateFill, C.plate, 2.5)],
+      frames: [{ hip: [150, 172], t: 118, th: -6, sh: -2, ft: 80, hand: [110, 196], eb: 1 }, { hip: [168, 172], t: 124, th: -6, sh: -2, ft: 80, hand: [118, 196], eb: 1 }] },
+    foam_roll_upper: { label: "foam rolling (upper back)", kit: "none", kits: "none", go: "roll", back: "roll back", joint: "shoulder",
+      start: "Lie with the roller under your upper back, knees bent, hands behind your head.", end: "Lift your hips a little and roll slowly up and down your upper back.",
+      dyn: j => [O([j.shoulder[0] + 14, j.shoulder[1] + 16], 11, C.plateFill, C.plate, 2.5)],
+      frames: [{ hip: [180, 170], t: 174, ankle: [236, 196], kb: 1, uaR: 30, faR: 172 }, { hip: [168, 170], t: 176, ankle: [236, 196], kb: 1, uaR: 30, faR: 172 }] },
+    thoracic_rotation: { label: "thoracic rotation", kit: "none", kits: "none", go: "open up", back: "back down", joint: "elbow",
+      start: "On hands and knees, one hand behind your head.", end: "Turn to point that elbow at the ceiling, then turn back down.",
+      frames: [{ hip: [130, 140], t: 2, th: -90, sh: 180, ft: 180, ua2: -90, fa2: -90, ua: -110, fa: 150, floor: true, on: ["knee", "hand2"] }, { hip: [130, 140], t: 2, th: -90, sh: 180, ft: 180, ua2: -90, fa2: -90, ua: 92, fa: 150, floor: true, on: ["knee", "hand2"] }] },
+    stairs: { label: "stair climber", kit: "none", kits: "none", go: "step up", back: "", joint: "hip",
+      start: "Stand tall on the steps, hands light on the rails.", end: "Step at a steady pace, pushing through the whole foot.",
+      props: () => [Rc(150, 166, 90, FLOOR - 166, 3), Rc(196, 132, 70, FLOOR - 132, 3)],
+      frames: [{ hip: [170, 80], t: 88, ankle: [212, 128], kb: 1, ft: 0, ankle2: [160, 162], kb2: 1, ft2: 0, ua: -60, fa: -20 }] },
+    run: { label: "running", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Run tall, landing under your hips, arms swinging.", end: "Keep a steady pace you can breathe through.",
+      frames: [{ hip: [160, 104], t: 82, th: -48, sh: -112, ft: -10, th2: -118, sh2: -168, ft2: -100, ua: -128, fa: -40, ua2: -56, fa2: 40, floor: true, on: ["toe"] }] },
+    walk: { label: "walking", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Walk tall at a pace you can keep.", end: "Swing your arms and keep your steps even.",
+      frames: [{ hip: [160, 108], t: 88, ankle: [186, 196], kb: 1, ankle2: [134, 196], kb2: 1, ft2: -24, ua: -112, fa: -94, ua2: -68, fa2: -60, floor: true }] },
+    cycle: { label: "cycling", kit: "none", kits: "none", hold: true, joint: "hip",
+      start: "Set the seat so your knee is only slightly bent at the bottom.", end: "Pedal at a steady pace, shoulders relaxed.",
+      props: () => [L([110, FLOOR - 2], [236, FLOOR - 2], C.kit, 6), L([144, FLOOR - 2], [138, 114], C.kit, 6), L([126, 112], [152, 112], C.kit, 8), L([224, FLOOR - 2], [210, 90], C.kit, 6), L([200, 88], [222, 88], C.kit, 7), O([196, 166], 22, "none", C.kit, 4), O([164, 172], 4, C.kit, C.kit, 0)],
+      frames: [{ hip: [138, 106], t: 58, ankle: [172, 186], kb: 1, ft: -10, ankle2: [158, 150], kb2: 1, ft2: 0, hand: [212, 90], eb: 1 }] },
+  });
+  // kit-specific poses and limits on the movements from 3.8.0
+  Object.assign(PATTERNS.squat, { kitPose: { dumbbell: [HANG, HANG], kettlebell: [HANG, HANG], band: [HANG, HANG] }, alt: { none: "air_squat" }, kits: ["barbell", "smith", "machine", "dumbbell", "kettlebell", "band", "none", "landmine"] });
+  Object.assign(PATTERNS.front_squat, { alt: { none: "air_squat" } });
+  Object.assign(PATTERNS.goblet_squat, { alt: { none: "air_squat" } });
+  Object.assign(PATTERNS.lunge, { kitPose: { barbell: BACKBAR, smith: BACKBAR } });
+  Object.assign(PATTERNS.split_squat_rear, { kitPose: { barbell: BACKBAR, smith: BACKBAR } });
+  Object.assign(PATTERNS.step_up, { kitPose: { barbell: BACKBAR } });
+  Object.assign(PATTERNS.calf_raise, { kitPose: { barbell: BACKBAR, smith: BACKBAR, machine: BACKBAR } });
+  Object.assign(PATTERNS.good_morning, { kits: ["barbell", "smith", "band", "none"] });
+  ["pushdown", "lat_pulldown", "seated_row", "face_pull", "straight_arm_pulldown", "cable_fly", "cable_crunch"].forEach(id => { PATTERNS[id].kits = ["cable", "band", "machine"]; });
+  PATTERNS.woodchop.kits = ["cable", "band", "ball", "plate", "machine"];
+  PATTERNS.hanging_leg_raise.kits = ["none", "dumbbell", "ball", "plate"];
+  PATTERNS.reverse_fly.cable = j => [[j.pel[0] - 130, 30], [j.pel[0] + 130, 30]];
+  PATTERNS.lateral_raise.cable = j => [j.pel[0] - 96, FLOOR - 8];
+  // 3.9.0 review of PulseTrack's own exercises: kit in the right place
+  PATTERNS.squat.dyn = (j, kit) => kit === "machine" ? PROPS.angled(j, { flip: true, seat: false }) : [];
+  PATTERNS.hip_extension.props = () => wall(200);
+  PATTERNS.upright_row.cable = j => [(j.haR[0] + j.haL[0]) / 2 + 2, FLOOR - 6];
+  PATTERNS.overhead_triceps.cable = j => [j.hip[0] - 84, FLOOR - 8];
+  PATTERNS.skull_crusher.cable = j => [j.head[0] - 46, FLOOR - 8];
+  PATTERNS.machine_chest_press.cable = j => [j.hip[0] - 70, j.shoulder[1] + 8];
+  PATTERNS.overhead_press.cable = j => [j.hip[0] - 50, FLOOR - 8];
+  PATTERNS.overhead_press_seated.cable = j => [j.hip[0] - 54, FLOOR - 8];
+  PATTERNS.dip.props = (j, kit) => kit === "trx" ? [] : PROPS.bars(null, { at: [170, 118] });
+  const ONCHEST = { handOn: ["shoulder", -14, -10], eb: 1, uaR: null, faR: null, ua: null, fa: null };
+  PATTERNS.crunch.kitPose = { plate: ONCHEST, dumbbell: ONCHEST, ball: ONCHEST, kettlebell: ONCHEST };
+  PATTERNS.sit_up.kitPose = { plate: ONCHEST, dumbbell: ONCHEST, ball: ONCHEST, kettlebell: ONCHEST };
+  PATTERNS.ab_wheel.dyn = (j, kit) => kit === "none" ? [O([j.hand[0], j.hand[1] + 6], 9, C.plateFill, C.plate, 3)] : [];
+  PATTERNS.leg_raise.kits = ["none", "dumbbell", "ball", "plate"];
+  PATTERNS.step_up.frames[1] = { hip: [182, 62], t: 90, ankle: [184, 146], kb: 1, ft: 0, ankle2: [164, 146], kb2: 1, ft2: 0 };
+
   /* ================================================================ which drawing an exercise gets (shared with tools/guides_data.py) */
   const RULES = /*RULES*/[
-    ["none", "neck (extension|flexion|raise|bridge|head|curl|harness|twist)|side neck|neck bridge|cervical|scapular (adduction|retraction|protraction)|gripper|grip squeeze|pinch|pronation|supination|swimming|shadow box|heavy bag|battle ?rope|battling rope(?!.*slam)|sled (push|pull)", ""],
+    ["none", "neck (extension|flexion|raise|bridge|head|curl|harness|twist|crunch)|side neck|neck bridge|cervical|scapular (adduction|retraction|protraction)|gripper|grip squeeze|pinch|pronation|supination|swimming|shadow box|heavy bag|battle ?rope|battling rope(?!.*slam)|sled (push|pull)|90/90", ""],
+    ["child_pose", "child'?s pose|kneeling lat stretch|prayer stretch", ""],
+    ["cat_cow", "cat[- ]?cow|cat camel", ""],
+    ["toe_reach", "toe reach|hamstring stretch|seated forward (bend|fold)|sit and reach", ""],
+    ["calf_stretch", "calf stretch|wall calf stretch", ""],
+    ["hip_flexor_stretch", "hip flexor stretch|low lunge|couch stretch|kneeling lunge stretch", ""],
+    ["quad_stretch", "quad(riceps)? stretch", ""],
+    ["pigeon", "pigeon", ""],
+    ["doorway_stretch", "doorway|chest stretch|pec stretch", ""],
+    ["cross_body_stretch", "cross[- ]body (shoulder |arm )?stretch|shoulder stretch", ""],
+    ["triceps_stretch", "triceps? stretch", ""],
+    ["knee_to_chest", "knee[- ]to[- ]chest|knees to chest stretch", ""],
+    ["lying_twist", "lying (crossover|hip twist|twist|spinal twist)|supine (twist|spinal)", ""],
+    ["arm_circles", "arm circles?", ""],
+    ["hip_circles", "hip circles?", ""],
+    ["ankle_rock", "ankle (mobility|rock|dorsiflexion)", ""],
+    ["dislocate", "dislocates?|shoulder pass[- ]throughs?|band pass[- ]throughs?|stick pass[- ]throughs?", ""],
+    ["inchworm", "inchworm|walk[- ]?outs?\\b", ""],
+    ["worlds_greatest", "world'?s greatest", ""],
+    ["wall_slide", "wall slides?(?!.*squat)|wall angels?", ""],
+    ["foam_roll_upper", "foam roll.*(upper|back|thoracic|lat|t[- ]spine)", ""],
+    ["foam_roll_lower", "foam roll", ""],
+    ["thoracic_rotation", "thoracic rotation|open book|t[- ]spine rotation", ""],
+    ["leg_swing", "^(?!.*bridge).*leg swings?", ""],
+    ["floor_press", "floor press", ""],
+    ["push_up_incline", "incline push[- ]?up|bench push[- ]?up|wall push[- ]?up|hands elevated push", ""],
+    ["push_up_decline", "decline push[- ]?up|feet elevated push", ""],
+    ["push_up_knee", "knee push[- ]?up|kneeling push[- ]?up", ""],
+    ["handstand_pushup", "handstand", ""],
+    ["pike_pushup", "pike push|pike press|dive bomber|hindu push", ""],
+    ["wall_sit", "wall sit|wall slide.*squat", ""],
+    ["squat_hold", "deep squat|squat hold|goblet hold", ""],
+    ["pistol", "pistol|single[- ]leg squat|one[- ]leg squat", ""],
+    ["sissy_squat", "sissy", ""],
+    ["lateral_lunge", "lateral lunge|side lunge|cossack|skater squat", ""],
+    ["single_leg_rdl", "single[- ]leg (romanian|rdl|deadlift|stiff)|one[- ]leg (romanian|rdl|deadlift)|kickstand", ""],
+    ["reverse_nordic", "reverse nordic", ""],
+    ["nordic", "nordic|glute[- ]ham raise|\\bghr\\b", ""],
+    ["standing_leg_curl", "standing (leg|hamstring) curl|kneeling (single[- ]leg )?(leg )?curl|cable (leg|hamstring) curl", ""],
+    ["seated_calf_raise", "seated calf|seated (dumbbell |barbell |machine )?calf", ""],
+    ["tibialis_raise", "^(?!.*stretch).*(tibialis|toe raise|tib raise)", ""],
+    ["floor_press", "bridge (bench |chest )?press|glute bridge chest press", ""],
+    ["glute_bridge_loaded", "(barbell|dumbbell|weighted|plate|smith|kettlebell) (glute |hip )?bridge", ""],
+    ["supine_leg_curl", "slider (leg |hamstring )?curl|towel (leg |hamstring )?curl", ""],
+    ["ball_leg_curl", "(stability|swiss|exercise|physio) ball (leg |hamstring )?curl|ball hamstring curl", ""],
+    ["hip_adduction", "(cable|band|standing).*adduct", ""],
+    ["pull_through", "pull[- ]through", ""],
+    ["chest_supported_row", "chest[- ]supported.*row|seal row|prone (dumbbell |incline )?row|incline (dumbbell |bench |reverse grip |)row|incline bench row|incline prone row|spider row", ""],
+    ["one_arm_row", "one[- ]arm (dumbbell |db |kettlebell )?row|single[- ]arm (dumbbell |db |kettlebell )?row|kroc|bench row", ""],
+    ["renegade_row", "renegade", ""],
+    ["dead_hang", "dead hang|towel hang|bar hang|passive hang|active hang|^hangs?$", ""],
+    ["reverse_hyper", "reverse hyper", ""],
+    ["seated_back_extension", "seated back extension|back extension machine|lower back machine", ""],
+    ["seated_good_morning", "seated good ?morning", ""],
+    ["incline_curl", "incline (dumbbell |hammer |db |bench )?curl", ""],
+    ["spider_curl", "spider curl", ""],
+    ["concentration_curl", "concentration", ""],
+    ["high_cable_curl", "high cable curl|overhead cable curl|double biceps cable", ""],
+    ["external_rotation", "^(?!.*face pull).*(external|internal) rotation", ""],
+    ["y_raise", "\\by[- ]raise|\\biyt\\b|\\bytw?\\b raise|prone trap|trap raise|incline y", ""],
+    ["overhead_carry", "overhead (carry|walk(?!ing lunge))|waiter'?s? (carry|walk)", ""],
+    ["hollow_hold", "hollow", ""],
+    ["reverse_plank", "reverse plank|crab hold|table ?top hold", ""],
+    ["bear_crawl", "bear crawl|bear plank|crab walk", ""],
+    ["l_sit", "^(?!.*(hanging|rope)).*\\bl[- ]sit|v[- ]sit hold", ""],
+    ["knee_tuck", "seated knee tucks?|bench knee tucks?|leg pull[- ]?ins?|seated in[- ]and[- ]out|^knee tucks?$|incline (leg )?pull[- ]?ins?|^pull[- ]?ins?$|sitting knee tuck", ""],
+    ["standing_twist", "broomstick|stick twist|bent[- ]over twist|standing (oblique )?twist", ""],
+    ["landmine_twist", "landmine (twist|rotation|rainbow|180)", ""],
+    ["pallof", "pallof", ""],
+    ["burpee", "burpee", ""],
+    ["jumping_jack", "jumping jack|star jump|seal jack", ""],
+    ["standing_press", "svend|plate (squeeze )?press|standing (cable )?chest press", ""],
+    ["arm_bike", "arm (bike|ergometer|cycle|crank)|upper body (ergometer|bike)|\\bube\\b", ""],
+    ["straight_arm_pulldown", "ski ?erg|ski machine", ""],
+    ["stairs", "stair|step ?mill|versaclimber|stepper", ""],
+    ["fly_incline", "incline (dumbbell |cable |db )?(fly|flye)", ""],
+    ["curl_seated", "seated (barbell |dumbbell |db |ez[- ]bar |alternating |hammer |)curl", ""],
     ["stretch", "stretch|mobility|foam roll|\\brolling\\b|yoga|cat[- ]?cow|child'?s pose|downward dog|leg swings?|arm swings?|arm circles?|hip circles?|dislocates?|90/90|inchworm|world'?s greatest|warm[- ]?up|wall slide|toe reach|scapula raise", ""],
     ["side_plank", "side plank|copenhagen|side bridge|side floor tap", ""],
     ["plank", "\\bplank\\b(?!.*(walk|up\\b|row|to push))|hollow (body )?hold|bear crawl|stir the pot", ""],
@@ -485,6 +902,7 @@
     ["bird_dog", "bird ?dog|quadruped", ""],
     ["superman", "superman|prone (back )?extension|swimmers?\\b|reverse snow angel", ""],
     ["mountain_climber", "ball pull[- ]?ins?|ball knee tuck|ball jack ?knife", ""],
+    ["hanging_leg_raise", "toes[- ]to[- ]bar", ""],
     ["v_up", "\\bv[- ]?up|jack ?knife|toe touch|toes to bar|toes-to-bar|pike up", ""],
     ["leg_raise", "lying (knee|leg) raise|lying.*knee raise", ""],
     ["hanging_leg_raise", "hanging (knee|leg)|captain'?s chair|knee raise|knees? to (chest|elbow)|leg raise.*(bar|hang)|\\bl[- ]sit|windshield|front lever|back lever", ""],
@@ -516,8 +934,9 @@
     ["jump_rope", "jump rope|skipping|double under|rope jump", ""],
     ["jump", "jump(?! rope)|hop\\b|hops\\b|burpee|bound|skater|plyo|tuck jump|plank jack|lateral speed|ladder drill", ""],
     ["goblet_squat", "goblet|kettlebell squat|dumbbell squat|cossack|sissy", ""],
-    ["carry", "carry|farmer|suitcase|yoke|waiter", ""],
+    ["carry", "carry|farmer|suitcase|yoke", ""],
     ["front_squat", "front squat|zercher|overhead squat", ""],
+    ["air_squat", "air squat|bodyweight squat|prisoner squat|body weight squat", ""],
     ["squat", "squat|hack|pistol|wall sit|belt squat|pendulum", ""],
     ["face_pull", "face pull", ""],
     ["pullover", "pullover|pull[- ]over", ""],
@@ -527,7 +946,7 @@
     ["inverted_row", "inverted row|ring row|trx row|suspension row|suspended row|australian|body ?weight row|table row", ""],
     ["seated_row", "seated (cable |machine |lever |)row|cable row|low row|machine row|lever row|rowing machine row|seated row|iso[- ]lateral row|high row|chest supported row", ""],
     ["upright_row", "upright row", ""],
-    ["bent_row", "\\brows?\\b|t[- ]bar|kroc|pendlay|yates|meadows|seal row", ""],
+    ["bent_row", "\\brows?\\b|\\bt[- ]bar|kroc|pendlay|yates|meadows|seal row", ""],
     ["shrug", "shrug", ""],
     ["reverse_fly", "rear[- ]delt|reverse fly|reverse flye|reverse pec|rear fly|bent[- ]over (lateral|raise|fly)|lateral bent[- ]over|\\b[ytw][- ]raise|prone (fly|raise)|trap raise|band pull[- ]apart|pull[- ]apart|\\biyt\\b|\\bytw?\\b raise", ""],
     ["lateral_raise", "lateral raise|side raise|lat raise|side lateral|lateral delt|lu raise|lateral rais|powell|side lying.*raise|cross raise|6 ways|backhand raise", ""],
@@ -538,6 +957,7 @@
     ["bench_dip", "bench dip|chair dip|dip.*(bench|between benches)|(bench|ball).*dip", ""],
     ["dip", "triceps press machine|seated (dip|triceps press)", ""],
     ["dip", "\\bdips?\\b(?!.*bench)|parallel bar|ring dip", ""],
+    ["overhead_triceps_seated", "seated (overhead |dumbbell |db |ez[- ]bar |)(triceps? |tricep )?(overhead )?extension|seated french press", ""],
     ["skull_crusher", "skull|lying (triceps?|tricep|alternate|single|elbow)? ?(extension|press)|lying extension|lying french press|tate press|jm (bench )?press|lying close|elbow press", ""],
     ["overhead_triceps", "overhead (triceps?|tricep|extension|ez|dumbbell)|triceps? extension|tricep extension|french curl|behind (the )?head|one arm extension|single extension|standing.*extension|seated.*extension|two[- ]?(arm|dumbbell) extension|overhead.*extension|french press", ""],
     ["pushdown", "pushdown|push[- ]down|press[- ]?down", ""],
@@ -574,6 +994,190 @@
   const KIT_EQ = { "barbell": "barbell", "ez barbell": "barbell", "olympic barbell": "barbell", "trap bar": "barbell", "dumbbell": "dumbbell", "cable": "cable", "leverage machine": "machine",
     "smith machine": "smith", "kettlebell": "kettlebell", "body weight": "none", "assisted": "machine", "suspension trainer": "trx", "band": "band", "medicine ball": "ball",
     "stability ball": "ball", "weight plate": "plate", "landmine": "landmine", "sled machine": "machine", "rope": "cable", "wheel roller": "none", "weighted": "" };
+  const EXACT = /*EXACT*/{
+    "90/90 Hip Switches": ["none", null],
+    "Ankle Mobility Rocks": ["ankle_rock", null],
+    "Arm Bike": ["arm_bike", null],
+    "Arm Circles": ["arm_circles", null],
+    "Band Shoulder Dislocates": ["dislocate", "band"],
+    "Barbell Glute Bridges": ["glute_bridge_loaded", "barbell"],
+    "Barbell Hack Squat": ["deadlift", "barbell"],
+    "Barbell High Pulls": ["upright_row", "barbell"],
+    "Bear Crawls": ["bear_crawl", null],
+    "Bent-Over Twists": ["standing_twist", "stick"],
+    "Bodyweight Triceps Extensions": ["push_up_incline", null],
+    "Bodyweight Warm-Up Exercises": ["jumping_jack", null],
+    "Broomstick Twists": ["standing_twist", "stick"],
+    "Burpees": ["burpee", null],
+    "Cable Chest Press": ["standing_press", "cable"],
+    "Cable Curls (Straight Bar)": ["curl", "cable"],
+    "Cable Hip Adduction": ["hip_adduction", "cable"],
+    "Cable Leg Curls": ["standing_leg_curl", "cable"],
+    "Cable Pull-Throughs": ["pull_through", "cable"],
+    "Cable Rear Delt Rows": ["face_pull", "cable"],
+    "Cable Scooped Chest Press": ["standing_press", "cable"],
+    "Cable Y-Raises": ["y_raise", "cable"],
+    "Calf Stretch": ["calf_stretch", null],
+    "Cat-Cow": ["cat_cow", null],
+    "Chest-Supported Row": ["chest_supported_row", "dumbbell"],
+    "Child's Pose": ["child_pose", null],
+    "Concentration Curls": ["concentration_curl", "dumbbell"],
+    "Cossack Squats": ["lateral_lunge", "none"],
+    "Cross-Body Shoulder Stretch": ["cross_body_stretch", null],
+    "Cross-Body Triceps Extension": ["skull_crusher", "dumbbell"],
+    "Crunch / Cable Woodchopper (Tabata)": ["crunch", "none"],
+    "Dead Hangs": ["dead_hang", null],
+    "Dead Landmines / Burpee (Tabata)": ["deadlift", "landmine"],
+    "Dead Landmines / Jumping Jacks (Tabata)": ["deadlift", "landmine"],
+    "Decline Cable Flyes": ["fly_lying", "cable"],
+    "Decline Push-Ups": ["push_up_decline", null],
+    "Deep Squat Hold": ["squat_hold", null],
+    "Dive Bomber Push-Ups": ["pike_pushup", null],
+    "Doorway Chest Stretch": ["doorway_stretch", null],
+    "Dumbbell Floor Press": ["floor_press", "dumbbell"],
+    "Dumbbell Glute Bridges": ["glute_bridge_loaded", "dumbbell"],
+    "Dumbbell Leg Curls": ["leg_curl", "none"],
+    "Dumbbell Lunge / Mountain Climbers (Tabata)": ["lunge", "dumbbell"],
+    "Dumbbell Row": ["one_arm_row", "dumbbell"],
+    "Dumbbell Squats": ["squat", "dumbbell"],
+    "Dumbbell Sumo Squats": ["squat", "dumbbell"],
+    "Elliptical": ["walk", null],
+    "Flat Cable Flyes (Bench)": ["fly_lying", "cable"],
+    "Floor Press": ["floor_press", "barbell"],
+    "Front and Lateral Leg Swings": ["leg_swing", null],
+    "Glute-Ham Raise (GHR)": ["nordic", null],
+    "Glute-Ham Raises": ["nordic", null],
+    "Gorilla Rows": ["bent_row", "kettlebell"],
+    "Hammer Strength D.Y. Row": ["seated_row", "machine"],
+    "Hammer Strength Flat Press": ["machine_chest_press", "machine"],
+    "Hammer Strength Row": ["seated_row", "machine"],
+    "Hamstring Stretch": ["toe_reach", null],
+    "Handstand Push-Ups": ["handstand_pushup", null],
+    "Heel Taps": ["crunch", "none"],
+    "High Cable Curls": ["high_cable_curl", "cable"],
+    "Hip Circles": ["hip_circles", null],
+    "Hip Flexor Stretch": ["hip_flexor_stretch", null],
+    "Hollow Body Hold (Time)": ["hollow_hold", null],
+    "Inchworms": ["inchworm", null],
+    "Incline Cable Flyes (Bench)": ["fly_incline", "cable"],
+    "Incline Close-Grip Push-Ups": ["push_up_incline", null],
+    "Incline Dumbbell Curls": ["incline_curl", "dumbbell"],
+    "Incline Dumbbell Flyes": ["fly_incline", "dumbbell"],
+    "Incline Dumbbell Row (Bilateral)": ["chest_supported_row", "dumbbell"],
+    "Incline Hammer Curls": ["incline_curl", "dumbbell"],
+    "Incline Leg Pull-Ins": ["knee_tuck", null],
+    "Incline Push-Ups": ["push_up_incline", null],
+    "Incline Treadmill Walk": ["walk", null],
+    "Incline Two-Dumbbell Extension": ["skull_crusher", "dumbbell"],
+    "Iso-Lateral Plate-Loaded Shoulder Press (Hammer Strength)": ["overhead_press_seated", "machine"],
+    "Iso-Lateral Plate-Loaded T-Bar Row": ["chest_supported_row", "machine"],
+    "Isometric Lateral Lunges": ["lateral_lunge", "none"],
+    "Jumping Jacks": ["jumping_jack", null],
+    "Kettlebell Swing / Smith Machine Hang Power Clean (Tabata)": ["swing", "kettlebell"],
+    "Knee Push-Ups": ["push_up_knee", null],
+    "Knee-to-Chest Stretch": ["knee_to_chest", null],
+    "Kneeling Lat Stretch": ["child_pose", null],
+    "Kneeling Single-Leg Curl Machine": ["standing_leg_curl", "machine"],
+    "Kroc Rows": ["one_arm_row", "dumbbell"],
+    "L-Sit Hold (Time)": ["l_sit", null],
+    "Landmine Twists": ["landmine_twist", "landmine"],
+    "Lateral Lunges": ["lateral_lunge", null],
+    "Leg Press Calf Raises": ["calf_raise", "none"],
+    "Leg Pull-Ins": ["knee_tuck", null],
+    "Low Lunge Hold": ["hip_flexor_stretch", null],
+    "Lower Body Foam Rolling": ["foam_roll_lower", null],
+    "Lying Crossover Stretch": ["lying_twist", null],
+    "Lying Hip Twist": ["lying_twist", null],
+    "Machine Ab Crunches (Selectorized)": ["crunch", "none"],
+    "Machine Incline Curl": ["preacher_curl", "machine"],
+    "Meadows Row": ["bent_row", "landmine"],
+    "Multi-Press Shoulder Machine": ["overhead_press_seated", "machine"],
+    "Neck Crunches": ["none", null],
+    "Neck Crunches with Plate": ["none", null],
+    "Nordic Hamstring Curls": ["nordic", null],
+    "Oblique Crunches": ["crunch", "none"],
+    "One-Arm Dumbbell Lateral External Rotation": ["external_rotation", "dumbbell"],
+    "One-Arm Dumbbell Upright External Rotation": ["external_rotation", "dumbbell"],
+    "Overhead Carry": ["overhead_carry", "dumbbell"],
+    "Overhead Triceps Stretch": ["triceps_stretch", null],
+    "Pallof Press": ["pallof", "cable"],
+    "Pigeon Stretch": ["pigeon", null],
+    "Pike Push-Ups": ["pike_pushup", null],
+    "Pistol Squats": ["pistol", null],
+    "Plate-Loaded Biceps Curl Machine": ["preacher_curl", "machine"],
+    "Prone Dumbbell Y-Raises": ["y_raise", "dumbbell"],
+    "Prone IYT Raises": ["y_raise", "dumbbell"],
+    "Prone Trap Raises": ["y_raise", "dumbbell"],
+    "Push Up / Jumping Jacks (Tabata)": ["push_up", null],
+    "Renegade Rows": ["renegade_row", "dumbbell"],
+    "Reverse Cable Crossovers": ["reverse_fly", "cable"],
+    "Reverse Crunch / Barbell Roll Out (Tabata)": ["leg_raise", "none"],
+    "Reverse Hyperextensions": ["reverse_hyper", null],
+    "Reverse Nordic Curls": ["reverse_nordic", null],
+    "Reverse Plank": ["reverse_plank", null],
+    "Ring Push-Ups": ["push_up", "none"],
+    "Rotary Torso Machine": ["russian_twist", "none"],
+    "Row Curls": ["curl", "barbell"],
+    "Sandbag Carry": ["carry", "ball"],
+    "Seal Rows (Cambered Bar/Bench)": ["chest_supported_row", "barbell"],
+    "Seated Back Extension Machine": ["seated_back_extension", "machine"],
+    "Seated Barbell Curls": ["curl_seated", "barbell"],
+    "Seated Barbell Overhead Press": ["overhead_press_seated", "barbell"],
+    "Seated Cable Shoulder Press": ["overhead_press_seated", "cable"],
+    "Seated Calf Raises": ["seated_calf_raise", "machine"],
+    "Seated Dumbbell Calf Raises": ["seated_calf_raise", "dumbbell"],
+    "Seated Dumbbell Curls": ["curl_seated", "dumbbell"],
+    "Seated Forward Toe Reach": ["toe_reach", null],
+    "Seated Good Mornings": ["seated_good_morning", "barbell"],
+    "Seated Knee Tucks": ["knee_tuck", null],
+    "Seated Overhead Dumbbell Extension": ["overhead_triceps_seated", "dumbbell"],
+    "Seated Reverse-Grip Barbell Press": ["overhead_press_seated", "barbell"],
+    "Selectorized Triceps Extension Machine": ["pushdown", "machine"],
+    "Single-Arm Cable Chest Press": ["standing_press", "cable"],
+    "Single-Leg Hip Thrusts": ["hip_thrust", "none"],
+    "Single-Leg RDL (Dumbbell/Kettlebell)": ["single_leg_rdl", "dumbbell"],
+    "Sissy Squat Machine": ["sissy_squat", null],
+    "Sissy Squats": ["sissy_squat", null],
+    "SkiErg": ["straight_arm_pulldown", "cable"],
+    "Slider Leg Curls": ["supine_leg_curl", null],
+    "Smith Machine Behind-The-Neck Press": ["overhead_press_seated", "smith"],
+    "Smith Machine Chest-Supported Row": ["chest_supported_row", "smith"],
+    "Smith Machine Crunches": ["crunch", "none"],
+    "Smith Machine Overhead Press": ["overhead_press_seated", "smith"],
+    "Smith Machine Row": ["bent_row", "smith"],
+    "Snatch-Grip Deadlift": ["deadlift", "barbell"],
+    "Spider Curls": ["spider_curl", "barbell"],
+    "Squat / Kettlebell Snatch (Tabata)": ["air_squat", "none"],
+    "Stability Ball Crunches": ["crunch", "none"],
+    "Stability Ball Leg Curls": ["ball_leg_curl", null],
+    "Stairmaster": ["stairs", null],
+    "Standing Hip Abductor Machine": ["hip_abduction", "machine"],
+    "Standing Leg Curls": ["standing_leg_curl", "machine"],
+    "Standing Quad Stretch": ["quad_stretch", null],
+    "Steady State Cardio + Twists": ["walk", null],
+    "Straight Bar Pushdown": ["pushdown", "cable"],
+    "Svend Press": ["standing_press", "plate"],
+    "T-Bar Machine Rows (Chest Supported)": ["chest_supported_row", "machine"],
+    "T-Bar Row": ["bent_row", "landmine"],
+    "Thoracic Rotations": ["thoracic_rotation", null],
+    "Tibialis Raises": ["tibialis_raise", null],
+    "Tire Flips": ["deadlift", "none"],
+    "Toes-to-Bar": ["hanging_leg_raise", "none"],
+    "Towel Hangs": ["dead_hang", null],
+    "Treadmill or Bike (Warm-Up)": ["walk", null],
+    "Upper Body Foam Rolling": ["foam_roll_upper", null],
+    "VersaClimber": ["stairs", null],
+    "Waiter Curls": ["curl", "dumbbell"],
+    "Wall Sit": ["wall_sit", null],
+    "Wall Slides": ["wall_slide", null],
+    "Weighted Crunches": ["crunch", "plate"],
+    "Weighted Decline Sit-Ups": ["sit_up", "plate"],
+    "Weighted Russian Twists": ["russian_twist", "plate"],
+    "Weighted Sit-Ups": ["sit_up", "plate"],
+    "World's Greatest Stretch": ["worlds_greatest", null],
+    "Z Press": ["overhead_press_seated", "barbell"]
+  }/*END EXACT*/;
+  const EXL = new Map(Object.entries(EXACT).map(([k, v]) => [k.toLowerCase(), v]));
   const RX = RULES.map(([id, rx, cat]) => [id, new RegExp(rx, "i"), cat ? new RegExp("^(" + cat + ")$", "i") : null]);
   const KX = KIT_WORDS.map(([k, rx]) => [k, new RegExp(rx, "i")]);
 
@@ -582,13 +1186,20 @@
     try { const n = String(name).toLowerCase(); return (window.EXERCISE_DATABASE || []).find(x => x.name.toLowerCase() === n) || (window.OPENGYM_EXERCISES || []).find(x => x.name.toLowerCase() === n) || null; } catch (er) { return null; }
   }
   const cache = new Map();
+  // 3.9.0: PulseTrack's own exercises are looked up by exact name first (EXACT: name -> [movement, kit or null]), then the rules
   function classify(name) {
     const key = String(name || ""); if (cache.has(key)) return cache.get(key);
     const found = entryOf(key), e = found || {}, cat = e.category || "", nm = key;
-    let id = null;
-    for (const [pid, rx, crx] of RX) { if (rx.test(nm) && (!crx || crx.test(cat))) { id = pid; break; } }
+    let id = null, forced = null;
+    const ex = EXL.get(nm.toLowerCase());
+    if (ex) { id = ex[0]; forced = ex[1] || null; }
+    else for (const [pid, rx, crx] of RX) { if (rx.test(nm) && (!crx || crx.test(cat))) { id = pid; break; } }
     if (id === "none") id = null;
-    const out = id && PATTERNS[id] ? { id, kit: kitOf(key, e, id) } : null;
+    let out = null;
+    if (id && PATTERNS[id]) {
+      const kit = forced || kitOf(key, e, id), alt = PATTERNS[id].alt;
+      out = { id, kit, draw: alt && alt[kit] && PATTERNS[alt[kit]] ? alt[kit] : id };
+    }
     if (found || !key) cache.set(key, out);   // an exercise not loaded yet (openGym loads after start-up) is asked again later
     return out;
   }
@@ -601,11 +1212,13 @@
     return pat.kit || "none";
   }
   // movements that can't hold some kit keep their own (a push-up named with "band" still shows the push-up)
-  const fits = (k, pat) => pat.kits === "none" ? "none" : k;
+  const fits = (k, pat) => pat.kits === "none" ? "none" : Array.isArray(pat.kits) && !pat.kits.includes(k) ? (pat.kit || "none") : k;
 
   /* ================================================================ rendering */
   function frameParts(id, f, kit) {
-    const pat = PATTERNS[id], fr = pat.frames[Math.min(f, pat.frames.length - 1)];
+    const pat = PATTERNS[id], kp = pat.kitPose && pat.kitPose[kit];
+    let fr = pat.frames[Math.min(f, pat.frames.length - 1)];
+    if (kp) fr = Object.assign({}, fr, Array.isArray(kp) ? kp[Math.min(f, kp.length - 1)] : kp);   // e.g. a barbell lunge carries the bar on the back
     const j = settle(pose(fr, pat.view), Object.assign({ floor: pat.floor !== false && fr.floor !== false && (fr.floor || pat.floor) }, fr));
     return { j, fr };
   }
@@ -626,7 +1239,7 @@
     const pat = PATTERNS[id], frames = pat.frames.map((_, f) => frameParts(id, f, kit));
     const props = pat.props ? pat.props(frames[0].j, kit) : [];
     const all = props.slice();
-    frames.forEach((fp, f) => { all.push(...person(fp.j), ...kitAt(kit, fp.j, pat, f), ...(pat.dyn ? pat.dyn(fp.j) : [])); });
+    frames.forEach((fp, f) => { all.push(...person(fp.j), ...kitAt(kit, fp.j, pat, f), ...(pat.dyn ? pat.dyn(fp.j, kit) : [])); });
     const floorOn = pat.floor !== false && pat.frames.some(fr => fr.floor !== false);
     const [x1, y1, x2, y2] = bbox(all.concat(floorOn ? [L([160, FLOOR], [160, FLOOR], C.floor, 3)] : []));
     const M = 14, s = Math.min(1, (W - 2 * M) / (x2 - x1), (H - 2 * M) / (y2 - y1));
@@ -646,13 +1259,13 @@
       return "";
     }).join("");
   }
-  const KIT_NAME = { barbell: "barbell", smith: "Smith machine", dumbbell: "dumbbells", kettlebell: "kettlebell", cable: "cable", band: "band", trx: "suspension straps", landmine: "landmine", ball: "ball", plate: "plate", machine: "machine", none: "" };
+  const KIT_NAME = { barbell: "barbell", smith: "Smith machine", dumbbell: "dumbbells", kettlebell: "kettlebell", cable: "cable", band: "band", trx: "suspension straps", landmine: "landmine", ball: "ball", plate: "plate", machine: "machine", stick: "stick", none: "" };
   function svg(id, f, kit) {
     const pat = PATTERNS[id]; if (!pat) return "";
     kit = kit || pat.kit || "none";
     const lay = layout(id, kit), fp = lay.frames[Math.min(f, lay.frames.length - 1)];
-    const behind = pat.behind ? kitAt(kit, fp.j, pat, f) : [], over = pat.behind ? [] : kitAt(kit, fp.j, pat, f);
-    const body = emit(lay.props) + emit(behind) + emit(person(fp.j)) + emit(over) + emit(pat.dyn ? pat.dyn(fp.j) : []);
+    const kp = kitAt(kit, fp.j, pat, f), behind = pat.behind ? kp : kp.filter(x => x.back), over = pat.behind ? [] : kp.filter(x => !x.back);
+    const body = emit(lay.props) + emit(behind) + emit(person(fp.j)) + emit(over) + emit(pat.dyn ? pat.dyn(fp.j, kit) : []);
     const floor = lay.floorOn ? `<line x1="16" y1="${n1(FLOOR * lay.s + lay.ty)}" x2="${W - 16}" y2="${n1(FLOOR * lay.s + lay.ty)}" stroke="${C.floor}" stroke-width="3" stroke-linecap="round"/>` : "";
     const title = `${cap(pat.label)}${KIT_NAME[kit] ? " with " + KIT_NAME[kit] : ""}: ${f ? "finish" : "start"}`;
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(title)}"><title>${esc(title)}. Drawing: PulseTrack, made by the app.</title><rect width="${W}" height="${H}" rx="14" fill="${C.bg}"/>${floor}<g transform="translate(${n1(lay.tx)} ${n1(lay.ty)}) scale(${Math.round(lay.s * 1000) / 1000})">${body}</g></svg>`;
@@ -680,14 +1293,19 @@
   // steps for an exercise without its own guide pictures: each step gets the start or finish drawing and the arrow
   function forSteps(name, steps) {
     const c = classify(name); if (!c) return null;
-    const pat = PATTERNS[c.id], two = pat.frames.length > 1 && !pat.hold;
+    const id = c.draw || c.id, pat = PATTERNS[id], two = pat.frames.length > 1 && !pat.hold;
     const list = steps && steps.length ? steps.slice() : [{ text: pat.start }, { text: pat.end }];
-    const pic = f => ({ src: dataUrl(svg(c.id, f, c.kit)), license: "original", author: "PulseTrack", generated: true, movement: pat.label,
+    const pic = f => ({ src: dataUrl(svg(id, f, c.kit)), license: "original", author: "PulseTrack", generated: true, movement: pat.label,
       attribution: "Drawn by the app for this kind of movement", alt: `${cap(pat.label)}: ${f ? "finish" : "start"}` });
     const pics = [pic(0), two ? pic(1) : null];
-    const go = two ? arrow(c.id, c.kit, 0, 1, pat.go) : null, back = two && pat.back ? arrow(c.id, c.kit, 1, 0, pat.back) : null;
+    const go = two ? arrow(id, c.kit, 0, 1, pat.go) : null, back = two && pat.back ? arrow(id, c.kit, 1, 0, pat.back) : null;
+    // 3.9.0: a step that starts with the movement's own word ("Lower" in a bench press) shows the finish; one that starts with the way
+    // back ("Lower" in a curl) shows the start; otherwise the BACK words decide
+    const word = t => (String(t || "").trim().toLowerCase().replace(/^(then|and|now|slowly|with control,?|under control,?)\s+/, "").match(/^[a-z]+/) || [""])[0];
+    const goW = word(pat.go), backW = word(pat.back);
     return list.map((st, i) => {
-      const f = !two || i === 0 || BACK.test(String(st.text || "").trim()) ? 0 : 1;
+      const w = word(st.text);
+      const f = !two || i === 0 ? 0 : w && w === goW ? 1 : w && w === backW ? 0 : BACK.test(String(st.text || "").trim()) ? 0 : 1;
       return Object.assign({}, st, { image: f ? pics[1] : pics[0], arrows: (f ? (back ? [back] : []) : (go ? [go] : [])) });
     });
   }

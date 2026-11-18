@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone (the optional live family board, off until you start or join one, sends only a small scrambled update).
 
-*Version 3.8.0*
+*Version 3.9.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -786,7 +786,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 3.8.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 3.9.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole (the openGym library, `opengym-exercises.js`, is saved too but never holds an update back), so you never end up with half of an update.
 
@@ -877,6 +877,43 @@ PulseTrack is free software under the **GNU Affero General Public License v3.0**
 Using the app published at https://eelhawn.github.io/pulsetrack is covered by the [Terms of Service](TERMS.md) and the [Privacy Policy](PRIVACY.md). In short: it is a tracking tool, not medical or training advice, you train at your own risk, and nothing you log is ever sent to the developer. The Terms do not limit anything the AGPL lets you do with the source code.
 
 ## Version history
+
+**3.9.0**
+- **More accurate drawings for PulseTrack's own exercises.** All 644 were checked one by one, and their drawings now show the actual exercise rather than a near match.
+  - **Looked up by exact name first:** 181 of them are now matched by exact name to the right movement and kit. The rest already matched correctly by their words.
+  - **Wrong movements fixed:**
+    - Cable Curls (Straight Bar) and Straight Bar Pushdown were drawn as T-bar rows ("Straigh**t Bar**").
+    - Wall Sit had a barbell on the back.
+    - Neck Crunches were ab crunches.
+    - Waiter Curls were a carry.
+    - Snatch-Grip Deadlift had the bar overhead.
+    - Toes-to-Bar held a barbell.
+    - SkiErg was a rowing machine.
+    - Stairmaster was running.
+  - **76 new movements**, so exercises stop borrowing a near match:
+    - **Calves and legs:** seated calf raise, tibialis raise, Nordic and reverse Nordic, standing leg curl, slider and ball leg curls, pistol, sissy squat, side lunge, single-leg RDL, wall sit, deep squat hold.
+    - **Push-up variations:** incline, decline and knee push-ups, handstand and pike push-ups, floor press.
+    - **Rows:** chest-supported row, one-arm bench row, renegade row.
+    - **Curls:** incline, spider, concentration and seated curls, high cable curl.
+    - **Core:** reverse hyper, hollow hold, reverse plank, L-sit, bear crawl, knee tucks, Pallof press, standing and landmine twists.
+    - **Shoulders and carries:** Y-raise, external rotation, overhead carry.
+    - **Hangs and cardio:** dead hang, burpee, jumping jack, stair climber, arm bike.
+    - **Stretches:** a real pose for each: child's pose, cat-cow, hamstring, calf, hip flexor, quad, pigeon, doorway chest, cross-body and triceps stretches, knee to chest, lying twist, world's greatest stretch, wall slides, foam rolling, thoracic rotations, leg swings, inchworms.
+    - **Better drawings for:** lying fly (from the side now), Russian twist (a V-sit from the side), running, walking and the exercise bike.
+  - **The right kit, held the right way:**
+    - A pushdown, pulldown, cable row, face pull or cable fly always shows the cable (the V-Bar Pushdown showed a barbell plate).
+    - Barbell and Smith lunges, split squats, step-ups and calf raises carry the bar on the back.
+    - Dumbbell squats hold the weights at the sides.
+    - A bodyweight squat reaches forward instead of holding an invisible bar.
+    - Hack and pendulum squats have the back pad.
+    - Weighted crunches hold the plate on the chest.
+    - Ring dips hang from the straps.
+    - Cable chest presses, overhead extensions and lying extensions pull from behind.
+    - The Smith machine rail is drawn behind the body.
+- **Step by step shows the finish picture at the right step.** In movements that go down first (bench press, push-ups, Nordic curls, handstand push-ups), a step starting with "Lower ..." showed the start picture again, so the finish was never shown. Now a step that starts with the movement's own word shows the finish, and one that starts with the way back ("Lower" in a curl) shows the start.
+- **openGym exercises benefit too:** the new movements also match their names (for example 22 single-leg squats now show a pistol squat, and 14 single-leg deadlifts a single-leg RDL), and a few rules were tightened ("t-bar" no longer matches inside "straight bar"). 3,091 of the 3,136 exercises have a picture (98.6%), drawn from 158 kinds of movement.
+- **No drawing on purpose (18 of PulseTrack's own):** grip, neck, battle ropes, sleds, boxing, swimming, 90/90 hip switches and a few unusual ones, where a generic figure would mislead. They keep "No picture yet" and Add my photo.
+- `tests/drawings.py` now has 31 checks, including 98 spot checks of movement and kit, a check that every exact name is one of PulseTrack's own exercises, and checks for the bar on the back, the weights at the sides, the rail behind the body and which picture a "Lower ..." step gets.
 
 **3.8.0**
 - **A drawing for almost every exercise.** Step by step now shows a picture for 3,094 of the 3,136 exercises in the app (98.7%), not just the 6 with hand-made guides. The app draws them itself: one line figure with the same proportions every time, posed for the kind of movement (82 kinds: flat, incline and decline presses, squats, deadlifts, rows, pulldowns, curls, raises, lunges, hip thrusts, planks, crunches, cardio machines and more) and holding the right kit (barbell, dumbbells, kettlebell, cable, machine, Smith machine, band, suspension straps, landmine, ball).

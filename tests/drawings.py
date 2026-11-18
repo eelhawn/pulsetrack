@@ -1,7 +1,10 @@
 """3.8.0 drawings for (nearly) every exercise, made by the app: one line figure posed for a kind of movement, holding the right kit,
 a start and a finish picture with the movement arrow. Exercises without guide pictures get them in Step by step (each step the start
 or the finish), with the credit "made by the app", Add my photo and Move arrows as before. The app's matching rules are the same
-ones tools/guides_data.py reads, so the app and the coverage report agree name by name. Nothing is downloaded."""
+ones tools/guides_data.py reads, so the app and the coverage report agree name by name. Nothing is downloaded.
+3.9.0: PulseTrack's own exercises are looked up by exact name first (EXACT), many more movements (seated calf raise, Nordic, wall sit,
+handstand push-up, stretches ...), kit limits per movement (a pushdown is always on a cable) and kit poses (a barbell lunge carries
+the bar on the back, a bodyweight squat reaches forward)."""
 import json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import Checks, page
@@ -31,9 +34,21 @@ WANT = [('Bench Press', 'bench_press', 'barbell'), ('Incline Dumbbell Press', 'i
         ('Hip Abductor Machine', 'hip_abduction_seated', 'machine'), ('Hip Adductor Machine', 'hip_adduction_seated', 'machine'), ('Glute Kickbacks', 'hip_extension', 'cable'),
         ('Standing Calf Raises', 'calf_raise', 'none'), ('Kettlebell Swing', 'swing', 'kettlebell'), ('Plank', 'plank', 'none'), ('Side Plank', 'side_plank', 'none'),
         ('Hanging Leg Raises', 'hanging_leg_raise', 'none'), ('Crunches', 'crunch', 'none'), ('Russian Twist', 'russian_twist', 'none'), ('Cable Crunches', 'cable_crunch', 'cable'),
-        ('Ab Wheel Rollouts', 'ab_wheel', 'none'), ('Jump Rope', 'jump_rope', 'none'), ('Cable Rope Hammer Curl', 'curl', 'cable'), ('Box Jumps', 'jump', 'none'), ('Leg Swings', 'stretch', 'none'),
+        ('Ab Wheel Rollouts', 'ab_wheel', 'none'), ('Jump Rope', 'jump_rope', 'none'), ('Cable Rope Hammer Curl', 'curl', 'cable'), ('Box Jumps', 'jump', 'none'), ('Leg Swings', 'leg_swing', 'none'),
         ('Medicine Ball Slams', 'slam', 'ball'), ('Dumbbell Pullover', 'pullover', 'dumbbell'), ('Landmine Press', 'overhead_press', 'landmine'),
-        ('Hand Gripper Squeezes', None, None), ('Lying Neck Extension', None, None), ('Battle Ropes', None, None)]
+        ('Hand Gripper Squeezes', None, None), ('Lying Neck Extension', None, None), ('Battle Ropes', None, None),
+        # 3.9.0: PulseTrack's own exercises, by exact name
+        ('Wall Sit', 'wall_sit', 'none'), ('Seated Calf Raises', 'seated_calf_raise', 'machine'), ('V-Bar Pushdown', 'pushdown', 'cable'),
+        ('Straight Bar Pushdown', 'pushdown', 'cable'), ('Cable Curls (Straight Bar)', 'curl', 'cable'), ('Nordic Hamstring Curls', 'nordic', 'none'),
+        ('Handstand Push-Ups', 'handstand_pushup', 'none'), ('Pike Push-Ups', 'pike_pushup', 'none'), ('Dead Hangs', 'dead_hang', 'none'), ('Floor Press', 'floor_press', 'barbell'),
+        ('Neck Crunches', None, None), ('Waiter Curls', 'curl', 'dumbbell'), ('Snatch-Grip Deadlift', 'deadlift', 'barbell'), ('Toes-to-Bar', 'hanging_leg_raise', 'none'),
+        ('Incline Push-Ups', 'push_up_incline', 'none'), ('Decline Push-Ups', 'push_up_decline', 'none'), ('Knee Push-Ups', 'push_up_knee', 'none'),
+        ('Concentration Curls', 'concentration_curl', 'dumbbell'), ('Incline Dumbbell Curls', 'incline_curl', 'dumbbell'), ('Chest-Supported Row', 'chest_supported_row', 'dumbbell'),
+        ('Dumbbell Row', 'one_arm_row', 'dumbbell'), ('Reverse Hyperextensions', 'reverse_hyper', 'none'), ('Slider Leg Curls', 'supine_leg_curl', 'none'),
+        ('Standing Leg Curls', 'standing_leg_curl', 'machine'), ('Cable Pull-Throughs', 'pull_through', 'cable'), ('Pallof Press', 'pallof', 'cable'),
+        ('Hollow Body Hold (Time)', 'hollow_hold', 'none'), ('Child\'s Pose', 'child_pose', 'none'), ('Hamstring Stretch', 'toe_reach', 'none'),
+        ('Standing Quad Stretch', 'quad_stretch', 'none'), ('Stairmaster', 'stairs', 'none'), ('SkiErg', 'straight_arm_pulldown', 'cable'), ('Jumping Jacks', 'jumping_jack', 'none'),
+        ('Neutral-Grip (V-Bar) Lat Pulldown', 'lat_pulldown', 'cable'), ('Seated Overhead Dumbbell Extension', 'overhead_triceps_seated', 'dumbbell')]
 
 with page(360, 780) as p:
     reqs = []
@@ -75,6 +90,24 @@ with page(360, 780) as p:
     wrong = [(w[0], tuple(g), w[1:]) for w, g in zip(WANT, got) if tuple(g) != tuple(w[1:])]
     c.eq(wrong, [], 'spot checks: %d exercises get the right movement and kit' % len(WANT))
     c.eq(p.evaluate('(() => { const r = PT.figure.classify("My Cable Curl"); return r && [r.id, r.kit]; })()'), ['curl', 'cable'], 'a name of your own gets a drawing from its words too')
+
+    # ---- 3.9.0: PulseTrack's own exercises
+    own = G.exercise_rows(); own_names = [n for n in own if n in set(names)]
+    ex = G.figure_exact()
+    import re as _re
+    pt_own = _re.findall(r'^\s*\{\s*name:\s*"((?:[^"\\]|\\.)*)"', open(os.path.join(ROOT, 'exercises.js'), encoding='utf-8').read(), _re.M)
+    c.eq(sorted(k for k in ex if k not in {n.lower() for n in pt_own}), [], 'every exact name is one of PulseTrack\'s own exercises')
+    drawn_own = p.evaluate('(n) => n.filter(x => PT.figure.classify(x)).length', pt_own)
+    c.ok(drawn_own >= len(pt_own) - 20, '%d of PulseTrack\'s %d own exercises have a drawing' % (drawn_own, len(pt_own)))
+    c.eq(p.evaluate('(() => { const r = PT.figure.classify("Squat (Bodyweight)"), b = PT.figure.classify("Bodyweight Squats"); return [r.id, r.kit, r.draw, b.draw]; })()'), ['squat', 'none', 'air_squat', 'air_squat'], 'a squat with no kit is drawn reaching forward, with no bar')
+    on_back = p.evaluate("""() => { const L = PT.figure.layout("lunge", "barbell"), j = L.frames[0].j; return Math.hypot(j.grip[0] - j.shoulder[0], j.grip[1] - j.shoulder[1]); }""")
+    c.ok(on_back < 20, 'a barbell lunge carries the bar on the back (%.0f px from the shoulder)' % on_back)
+    hang = p.evaluate("""() => { const L = PT.figure.layout("squat", "dumbbell"), j = L.frames[1].j; return j.grip[1] - j.shoulder[1]; }""")
+    c.ok(hang > 40, 'a dumbbell squat holds the weights at the sides (%.0f px below the shoulder)' % hang)
+    fr = p.evaluate("""() => ["Nordic Hamstring Curls", "Bench Press", "Barbell Curls"].map(n => { const st = PT.figure.forSteps(n, [{ text: "Set up." }, { text: "Lower slowly." }]); return st[0].image.src !== st[1].image.src; })""")
+    c.eq(fr, [True, True, False], 'a step starting "Lower" shows the finish when lowering is the movement (Nordic, bench press) and the start for a curl')
+    rail = p.evaluate("""() => { const s = PT.figure.svg("squat", 0, "smith"); return s.indexOf('stroke-width="4"') < s.indexOf('stroke-width="14"'); }""")
+    c.ok(rail, 'the Smith machine rail is drawn behind the body')
 
     # ---- Step by step with the drawings
     p.evaluate('() => app.openExerciseSheet("Incline Bench Press")'); p.wait_for_timeout(400)

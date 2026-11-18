@@ -1,6 +1,7 @@
 # Where we left off (2026-11-13)
 
 ## Released
+- 3.9.0 drawings checked for all 644 own exercises (owner: "make em more accurate, some js dont make sense"): 181 exact names, 76 new movements, kit limits and kit poses; 626 of 644 own exercises drawn, 18 none on purpose. Ideas: animate between the two frames; per-exercise variants (grip width, stance) if asked.
 - 3.8.0 drawings by code (module 137, owner picked "Drawn by code"): 82 movements, 3,094 of 3,136 exercises (98.7%) get a start/finish drawing with an arrow; 42 get none on purpose (grip, neck, battle ropes, sled, boxing, swimming). Ideas: animate between the two frames; more movements for the 42; per-exercise tweaks (grip width, stance) if the owner wants them.
 - 3.7.0 cloud guide (module 136): Anthropic / OpenAI / Google with the person's own key, behind a consent sheet showing the approved PRIVACY.md section (owner approved the text on Nov 17, 2026, "ship as drafted"). Defaults claude-haiku-5-5, gpt-5-mini, gemini-3.5-flash-lite. No Find models / Test connection (the text says requests only for questions). Then 3.8.0 (drawings).
 - 3.6.0 guide on your computer (module 135: Ollama backend, off by default; Settings > Guide; /api/tags for Find models, /api/chat non-streaming with the search answer's facts; 25 s timeout; private addresses get targetAddressSpace: "local" for Chrome's Local Network Access; Safari blocks http:// from the https app). PRIVACY.md has a paragraph on it ("Updated November 17, 2026"); TERMS_V not bumped (opt-in). The cloud draft was then shown and approved.

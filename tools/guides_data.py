@@ -123,8 +123,24 @@ def figure_ids():
     return set(re.findall(r'^    ([a-z_]+): \{', body, re.M))
 
 
+def figure_exact():
+    """3.9.0: PulseTrack's own exercises by exact name (lower case) -> [movement, kit or None]"""
+    s = open(FIGURE_JS, encoding='utf-8').read()
+    m = re.search(r'/\*EXACT\*/(.*?)/\*END EXACT\*/', s, re.S)
+    return {k.lower(): v for k, v in json.loads(m.group(1)).items()} if m else {}
+
+
+_EXACT = None
+
+
 def figure_of(name, category, rules=None):
-    """the movement drawing the app gives this exercise, or None ("none" in the rules means no drawing on purpose)"""
+    """the movement drawing the app gives this exercise, or None ("none" means no drawing on purpose)"""
+    global _EXACT
+    if _EXACT is None:
+        _EXACT = figure_exact()
+    ex = _EXACT.get(name.lower())
+    if ex:
+        return None if ex[0] == 'none' else ex[0]
     for pid, rx, crx in rules or figure_rules():
         if rx.search(name) and (not crx or crx.search(category or '')):
             return None if pid == 'none' else pid
