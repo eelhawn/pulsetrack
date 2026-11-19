@@ -237,7 +237,7 @@
     } catch (e) { }
   }
   window.addEventListener("load", () => setTimeout(prefetch, 4000));
-  PT.guideSteps = { stepsOf, prefetch, db: GDB };
+  PT.guideSteps = { stepsOf, prefetch, db: GDB, shrink };   // 3.10.0: shrink is used by the equipment photos (module 138)
 
   const css = document.createElement("style"); css.id = "pt-v350-css";
   css.textContent = `

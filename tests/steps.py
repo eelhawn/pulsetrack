@@ -87,6 +87,7 @@ with page(w=360, h=780) as p:
     c.ok(t['photo'] and t['arrows'] == 2 and 'Remove my photo' in t['text'] and 'Change my photo' in t['text'], 'a sample step shows my photo with its arrows over it, and Change / Remove')
     c.ok(p.evaluate('EXERCISE_GUIDES["Lat Pulldown"].steps[1].image.src') == 'img/ex/lat-pulldown-2.svg', 'the built-in data is not changed by my photo')
     p.click('#pt-sv [data-sv="edit"]'); p.wait_for_timeout(150)
+    p.evaluate('document.getElementById("pt-sv-box").scrollIntoView({ block: "center" })'); p.wait_for_timeout(100)   # 3.10.0: Equipment sits above Step by step
     c.eq(p.evaluate('document.querySelectorAll("#pt-sv .pt-sv-h").length'), 4, 'Move arrows shows a handle on each end')
     h = p.evaluate('() => { const r = document.querySelector(\'#pt-sv .pt-sv-h[data-a="0"][data-end="to"]\').getBoundingClientRect(); return [r.x + r.width / 2, r.y + r.height / 2]; }')
     box = p.evaluate('() => { const r = document.getElementById("pt-sv-box").getBoundingClientRect(); return [r.x, r.y, r.width, r.height]; }')
