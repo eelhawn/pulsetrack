@@ -46,6 +46,12 @@ def page(w=390, h=844, accept_downloads=True, terms=True):
         p.on('console', lambda m: p.errors.append('console.error: %s' % m.text) if m.type == 'error' else None)
         p.goto(url)
         p.wait_for_function('typeof PT !== "undefined" && window.app && window.app.data && window.app.data.programs && window.app.data.programs.length')
+        # 3.11.0: the one-time start-up clean-ups run on timers up to 210 ms after start (module 124 last, it always sets coreHighRep).
+        # On a busy machine a test could start before they ran and one would then undo the test's set-up (seen in nodips.py, split64.py).
+        try:
+            p.wait_for_function('() => !!(window.app && app.settings && app.settings.coreHighRep)', timeout=5000)
+        except Exception:
+            pass
         yield p
         b.close()
 

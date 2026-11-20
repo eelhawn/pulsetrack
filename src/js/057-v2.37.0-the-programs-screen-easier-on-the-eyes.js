@@ -16,6 +16,9 @@
  *  open, and searching or a filter opens every group so nothing is hidden. Each program row also shows its split ("Chest · Back ·
  *  Legs") from its first week. PT.progList.reveal(id) opens the group a program is in (used by the tests); the choice of grouping
  *  is kept per phone in localStorage "pgx-by".
+ * 3.11.0: star programs. Each row has a star; starred programs move to a "Starred" group at the top of the list (open from the start)
+ *  and a "Starred" filter chip shows only them. "Star it" / "Remove star" is in the row's ... sheet too. Kept in
+ *  settings.starredPrograms (program ids), so it is in backups. PT.progList.star(id) toggles it (used by the tests).
  * ===================================================================== */
 (function () {
   "use strict";
@@ -27,9 +30,22 @@
 
   const GOALS = { mass: "Mass", cutting: "Cutting", strength: "Strength", balanced: "All-round" };
   const LEVELS = { beginner: "Beginner", intermediate: "Intermediate", advanced: "Advanced" };
-  const FILTERS = [["all", "All"], ["pro", "Pro plans"], ["two", "Two-a-day"], ["mass", "Mass"], ["cutting", "Cutting"], ["strength", "Strength"], ["beginner", "Beginner"], ["mine", "Mine"]];
+  const FILTERS = [["all", "All"], ["star", "Starred"], ["pro", "Pro plans"], ["two", "Two-a-day"], ["mass", "Mass"], ["cutting", "Cutting"], ["strength", "Strength"], ["beginner", "Beginner"], ["mine", "Mine"]];
   const ST = { q: "", f: "all", by: (() => { try { return localStorage.getItem("pgx-by") || "days"; } catch (e) { return "days"; } })(), open: null, curSeen: null };
   const BY = [["days", "Days a week"], ["pro", "Athlete"], ["goal", "Goal"]];
+  /* 3.11.0: starred programs */
+  let STAR = new Set();
+  const readStars = () => { const a = A(), v = a && a.settings && a.settings.starredPrograms; STAR = new Set(Array.isArray(v) ? v : []); return STAR; };
+  function toggleStar(id) {
+    const a = A(); if (!a || !id) return false;
+    readStars(); const on = !STAR.has(id);
+    if (on) STAR.add(id); else STAR.delete(id);
+    a.settings.starredPrograms = [...STAR];
+    try { WorkoutStorage.saveSettings(a.settings); } catch (e) { }
+    if (on && ST.open) ST.open.add("star");
+    return on;
+  }
+  const STAR_SVG = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.65 5.45 5.95.82-4.33 4.12 1.06 5.92L12 16.9l-5.33 2.81 1.06-5.92L3.4 9.67l5.95-.82z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
   const APP_DEFAULTS = { kaged_massive_arms_6wk: { pro: "", goal: "mass", level: "intermediate", perWeek: 6 } };   // ships inside the app, not in programs.js
 
   /* ================================================================ facts about each program */
@@ -120,6 +136,7 @@
 
   function passes(p, m, f) {
     if (f === "all") return true;
+    if (f === "star") return STAR.has(p.id);
     if (f === "pro") return !!m.pro;
     if (f === "mine") return m.mine;
     if (f === "two") return !!twoInfo(p);
@@ -207,8 +224,14 @@
     list.addEventListener("click", e => {
       const gh = e.target.closest(".pgx-g");
       if (gh) { const k = gh.dataset.g; if (ST.open.has(k)) ST.open.delete(k); else ST.open.add(k); drawList(); const nb = list.querySelector('.pgx-g[data-g="' + CSS.escape(k) + '"]'); if (nb) nb.focus({ preventScroll: true }); return; }
-      const more = e.target.closest(".pgx-more"), row = e.target.closest(".pgx-pr");
+      const more = e.target.closest(".pgx-more"), row = e.target.closest(".pgx-pr"), sb = e.target.closest(".pgx-star");
       if (more && row) { e.stopPropagation(); openOptions(row.dataset.pid); return; }
+      if (sb && row) {
+        e.stopPropagation(); const id = row.dataset.pid, on = toggleStar(id); drawList();
+        const nb = list.querySelector('.pgx-pr[data-pid="' + CSS.escape(id) + '"] .pgx-star'); if (nb) nb.focus({ preventScroll: true });
+        const a = A(); if (a && a.toast) a.toast(on ? "Starred" : "Star removed");
+        return;
+      }
       if (row) openProgram(row.dataset.pid);
       const clr = e.target.closest("#pgx-empty-clear"); if (clr) { ST.q = ""; ST.f = "all"; q.value = ""; drawList(); }
     });
@@ -315,6 +338,7 @@
     return v;
   }
   function groupKey(r) {
+    if (STAR.has(r.p.id)) return "star";
     if (r.m.mine) return "mine";
     if (ST.by === "days") return r.m.perWeek ? "d" + r.m.perWeek : "d0";
     if (ST.by === "goal") return "g" + (r.m.pro === "Pro Collection" ? "sig" : r.m.goal);
@@ -324,6 +348,7 @@
     const n = rows.length, pw = rows.map(r => r.m.perWeek).filter(Boolean), lo = Math.min(...pw), hi = Math.max(...pw);
     const days = pw.length ? (lo === hi ? lo : lo + "–" + hi) + " days/wk" : "";
     const count = n + (n === 1 ? " program" : " programs");
+    if (k === "star") return { t: "Starred", s: count, av: "★", h: 46 };
     if (k === "mine") return { t: "Your programs", s: count, av: "✎", h: 200 };
     if (k[0] === "d") { const d = +k.slice(1); return { t: d ? d + (d === 1 ? " day a week" : " days a week") : "Other schedules", s: count, av: d || "–", h: [0, 155, 182, 200, 232, 265, 335, 28][d] || 215 }; }
     if (k[0] === "g") { const g = k.slice(1); return { t: g === "sig" ? "Signature workouts" : GOALS[g] || "Other", s: [count, days].filter(Boolean).join(" · "), av: { mass: "M", cutting: "C", strength: "S", balanced: "A", sig: "★" }[g] || "·", h: { mass: 155, cutting: 28, strength: 265, balanced: 200, sig: 46 }[g] || 215 }; }
@@ -336,6 +361,7 @@
   function drawList() {
     const a = A(), list = $("programs-list-container"); if (!a || !list || !$("pgx-find")) return;
     const all = (a.data.programs || []).filter(Boolean);
+    readStars();
     const toks = tokensOf(ST.q);
     const rows = all.map(p => ({ p, m: metaOf(p) }));
     const counts = {}; FILTERS.forEach(f => { if (f[0] !== "all") counts[f[0]] = rows.filter(r => passes(r.p, r.m, f[0])).length; });
@@ -351,16 +377,16 @@
     const byBox = $("pgx-by");
     if (byBox) byBox.innerHTML = BY.map(x => `<button type="button" data-by="${x[0]}" aria-pressed="${ST.by === x[0]}">${x[1]}</button>`).join("");
     if (!shown.length) {
-      list.innerHTML = `<div class="pgx-empty"><p>${toks.length ? `No programs match “${esc(ST.q.trim())}”` : "No programs in this filter yet"}</p><button type="button" id="pgx-empty-clear">Show all programs</button></div>`;
+      list.innerHTML = `<div class="pgx-empty"><p>${toks.length ? `No programs match “${esc(ST.q.trim())}”` : ST.f === "star" ? "No starred programs yet. Tap the star on a program to keep it at the top." : "No programs in this filter yet"}</p><button type="button" id="pgx-empty-clear">Show all programs</button></div>`;
       return;
     }
     const map = new Map();
     shown.forEach(r => { const k = groupKey(r); if (!map.has(k)) map.set(k, []); map.get(k).push(r); });
-    const order = k => k === "mine" ? "0" : k === "pmore" || k === "gsig" || k === "d0" ? "9" : ST.by === "days" ? "1" + k.slice(1).padStart(2, "0") : ST.by === "goal" ? "1" + ({ gmass: 1, gstrength: 2, gcutting: 3, gbalanced: 4 }[k] || 5) : "1" + k.slice(1).toLowerCase();
+    const order = k => k === "star" ? "0a" : k === "mine" ? "0b" : k === "pmore" || k === "gsig" || k === "d0" ? "9" : ST.by === "days" ? "1" + k.slice(1).padStart(2, "0") : ST.by === "goal" ? "1" + ({ gmass: 1, gstrength: 2, gcutting: 3, gbalanced: 4 }[k] || 5) : "1" + k.slice(1).toLowerCase();
     const keys = [...map.keys()].sort((x, y) => order(x).localeCompare(order(y)));
     keys.forEach(k => map.get(k).sort(byTitle));
     const curRow = rows.find(r => r.p.id === curId);
-    if (!ST.open) { ST.open = new Set([curRow ? groupKey(curRow) : keys[0]]); ST.curSeen = curId; }   // first look: the current program's group, or else the first
+    if (!ST.open) { ST.open = new Set([curRow ? groupKey(curRow) : keys[0], "star"]); ST.curSeen = curId; }   // first look: the current program's group, or else the first
     else if (curId !== ST.curSeen) { ST.curSeen = curId; if (curRow) ST.open.add(groupKey(curRow)); }   // a new current program: open its group too
     const all_open = !!toks.length || ST.f !== "all";
     const inPro = ST.by === "pro";
@@ -379,6 +405,7 @@
             <span class="pgx-av" style="--h:${b.h}" aria-hidden="true">${esc(b.t)}</span>
             <span class="pgx-main"><span class="pgx-t">${hl(p.title, toks)}</span><span class="pgx-s">${apTag(p)}${hl(facts(p, m, !!twoInfo(p)), toks)}</span>${sp ? `<span class="pgx-sp">${hl(sp, toks)}</span>` : ""}</span>
             ${cur ? '<span class="pgx-pill">✓ Current</span>' : ""}
+            <button type="button" class="pgx-star" aria-pressed="${STAR.has(p.id)}" aria-label="${STAR.has(p.id) ? "Remove star from" : "Star"} ${esc(p.title)}">${STAR_SVG}</button>
             <button type="button" class="pgx-more" aria-label="Options for ${esc(p.title)}">⋯</button>
           </div>`;
         }).join("")}</div>
@@ -394,7 +421,7 @@
     ST.open.add(groupKey({ p, m: metaOf(p) }));
     drawList();
   }
-  PT.progList = { reveal, groupBy: by => { ST.by = by; ST.open = null; drawList(); }, state: ST };
+  PT.progList = { reveal, groupBy: by => { ST.by = by; ST.open = null; drawList(); }, state: ST, star: id => { const on = toggleStar(id); drawList(); return on; } };
 
   /* ================================================================ actions */
   function openProgram(id) {
@@ -409,6 +436,7 @@
     const m = metaOf(p), cur = !!(PT.isCurrentProgram && PT.isCurrentProgram(p.id));
     const el = a.openSheet(p.title, facts(p, m), `<div class="space-y-2">
       <button type="button" class="pt-morerow" data-act="open"><span>▶</span><span>Open program</span></button>
+      <button type="button" class="pt-morerow" data-act="star"><span>${readStars().has(p.id) ? "★" : "☆"}</span><span>${STAR.has(p.id) ? "Remove star" : "Star it"}</span></button>
       <button type="button" class="pt-morerow" data-act="steal"><span>🧩</span><span>Steal a day from it</span></button>
       ${cur ? `<div class="pt-morerow" style="opacity:.75"><span>✓</span><span>This is your current program</span></div>` : `<button type="button" class="pt-morerow" data-act="select"><span>⭐</span><span>Make it my current program</span></button>`}
       <button type="button" class="pt-morerow" data-act="calendar"><span>📅</span><span>Add to my calendar</span></button>
@@ -419,6 +447,7 @@
       const act = b.dataset.act; a.closeSheet();
       setTimeout(() => {
         if (act === "open") openProgram(id);
+        else if (act === "star") { const on = toggleStar(id); drawList(); a.toast(on ? "Starred" : "Star removed"); }
         else if (act === "steal") { if (PT.steal) PT.steal.open({ program: p }); }
         else if (act === "select") a.selectProgram(p);
         else if (act === "calendar") { if (PT.calendar) PT.calendar.open(p); }
@@ -512,6 +541,13 @@
     .pgx-pill { flex: none; font-size: .62rem; font-weight: 800; letter-spacing: .03em; padding: .2rem .5rem; border-radius: 999px; background: rgb(var(--a600) / .16); color: rgb(var(--a400)); border: 1px solid rgb(var(--a600) / .5); white-space: nowrap; }
     .pgx-more { flex: none; width: 2.2rem; height: 2.2rem; border-radius: .7rem; font-size: 1.15rem; font-weight: 800; line-height: 1; color: rgb(var(--z400)); letter-spacing: .02em; }
     .pgx-more:active { background: rgb(var(--z800)); }
+    .pgx-star { flex: none; width: 2.2rem; height: 2.2rem; border-radius: .7rem; display: grid; place-items: center; color: rgb(var(--z400)); margin-right: -.35rem; }
+    .pgx-star svg { width: 1.2rem; height: 1.2rem; fill: none; }
+    .pgx-star[aria-pressed="true"] { color: #f5b301; }
+    .pgx-star[aria-pressed="true"] svg { fill: currentColor; }
+    html[data-mode="light"] .pgx-star[aria-pressed="true"] { color: #c47f00; }
+    .pgx-star:active { background: rgb(var(--z800)); }
+    .pgx-star:focus-visible { outline: 2px solid rgb(var(--a500)); outline-offset: 1px; }
     .pgx-ico { width: .8rem; height: .8rem; flex: none; }
     .pgx-ap { display: inline-flex; align-items: center; gap: .15rem; margin-right: .4rem; padding: .04rem .38rem; border-radius: 999px; font-size: .6rem; font-weight: 800; letter-spacing: .03em; vertical-align: .05em; color: rgb(251 191 36); background: linear-gradient(100deg, rgb(251 191 36 / .16), rgb(129 140 248 / .2)); border: 1px solid rgb(251 191 36 / .28); }
     .pgx-ap .pgx-ico { width: .62rem; height: .62rem; }

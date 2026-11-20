@@ -141,6 +141,7 @@
     ["empty", "Empty workout", "empty workout, freestyle, blank workout, start from scratch", "Home > Empty Workout, then add exercises as you go.", "view:home#tile-empty"],
     ["buildprogram", "Build a program", "build a program, create program, make a program, custom program, design program", "Programs > Build me a program, or Create your own.", "view:programs#pt-prog-build"],
     ["importprogram", "Import a program", "import program, paste program, share link, program file", "Programs has Paste a program, Import a file and Share link.", "view:programs"],
+    ["starprog", "Star a program", "star, starred, star a program, favorite program, favourite program, save a program, pin a program, keep a program at the top", "Programs: tap the star on a program. Starred programs sit together at the top of the list, and the Starred chip shows only them. Tap the star again to take it off.", "view:programs"],   // 3.11.0
     ["calendar", "Training calendar", "calendar, schedule, plan workouts, add to calendar, phone calendar", "Home > This week > Calendar.", "view:home#pt-week-cal"],
     ["mobility", "Mobility and stretching", "mobility, stretch, stretching, warm up routine, cool down, flexibility", "Programs > Guided mobility or Stretch routine.", "fn:mobility"],
     ["preworkout", "Pre-workout protocol", "pre workout, protocol, supplements timing, caffeine timing, meal timing", "Home > Pre-workout protocol times what you eat or take before training. It only uses the times you enter.", "view:home#pt-home-fuel"],
