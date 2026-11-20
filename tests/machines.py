@@ -56,6 +56,12 @@ with page(360, 780) as p:
     wrong = [(n, g, w) for (n, w), g in zip(WANT, got) if g != w]
     c.eq(wrong, [], '%d exercises show the right equipment' % len(WANT))
     c.eq(p.evaluate('PT.equip.of("My Hammer Strength Chest Press").items'), ['plate_chest_press'], 'a machine name of your own gets its equipment from its words')
+    # 3.10.1: Machine Bicep Curl is its own exercise (the seated bicep curl machine), found by "seated machine bicep curl"
+    mb = p.evaluate('''() => { const e = EXERCISE_DATABASE.find(x => x.name === "Machine Bicep Curl"), pr = EXERCISE_DATABASE.find(x => x.name === "Machine Preacher Curls");
+      const top = q => (EXERCISE_DATABASE.filter(x => PT.exMatch(x, q)).sort((a, b) => PT.exRank(a, q) - PT.exRank(b, q))[0] || {}).name;
+      return e && [e.category, e.tips.length, (PT.equip.of(e.name) || {}).items, PT.figure.classify(e.name).id, top("seated machine bicep curl"), top("bicep curl machine"), (pr.aka || []).some(a => /bicep/i.test(a) && !/insignia/i.test(a))]; }''')
+    c.eq(mb, ['Biceps', 4, ['biceps_curl_machine'], 'preacher_curl', 'Machine Bicep Curl', 'Machine Bicep Curl', False],
+         'Machine Bicep Curl is in the exercise list, with tips, the biceps curl machine and a seated drawing; searching "seated machine bicep curl" finds it first')
 
     # ---- the Equipment section in the exercise sheet
     p.evaluate('() => app.openExerciseSheet("Leg Press")'); p.wait_for_timeout(500)

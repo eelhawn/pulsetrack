@@ -1105,6 +1105,7 @@
     "Pike Push-Ups": ["pike_pushup", null],
     "Pistol Squats": ["pistol", null],
     "Plate-Loaded Biceps Curl Machine": ["preacher_curl", "machine"],
+    "Machine Bicep Curl": ["preacher_curl", "machine"],
     "Prone Dumbbell Y-Raises": ["y_raise", "dumbbell"],
     "Prone IYT Raises": ["y_raise", "dumbbell"],
     "Prone Trap Raises": ["y_raise", "dumbbell"],
