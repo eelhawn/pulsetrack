@@ -90,11 +90,11 @@ with page() as p:
         c.ok("I've checked these muscles" in s['text'], '%s: has "I\'ve checked these"' % n)
     c.ok(p.evaluate('document.documentElement.scrollWidth <= innerWidth'), 'no sideways scroll')
 
-    # ---- an exercise with no guide yet
+    # ---- an exercise with no guide: 3.12.0 shows the estimate from how the movement works (tests/allmuscles.py checks every exercise)
     p.evaluate('() => { app.closeSheet(); app.openExerciseSheet("Incline Bench Press"); }'); p.wait_for_timeout(250)
     t = p.evaluate('document.getElementById("ex-muscles").textContent')
-    c.ok('Not added yet' in t and "no muscle guide" in t and 'chest' in t.lower(), 'an exercise without a guide says so, with its main muscle')
-    c.ok(not p.evaluate('!!document.querySelector("#ex-muscles svg")'), 'and shows no made-up figure')
+    c.ok('Not added yet' not in t and 'Upper chest' in t and 'Estimated from how the movement works' in t, 'an exercise without a guide shows the estimated muscles and says they are an estimate')
+    c.ok(p.evaluate('!!document.querySelector("#ex-muscles svg")'), 'with the figure')
 
     # ---- checked on this phone, laid over the built-in data
     p.evaluate('() => { app.closeSheet(); app.openExerciseSheet("Bench Press"); }'); p.wait_for_timeout(250)

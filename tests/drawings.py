@@ -36,12 +36,12 @@ WANT = [('Bench Press', 'bench_press', 'barbell'), ('Incline Dumbbell Press', 'i
         ('Hanging Leg Raises', 'hanging_leg_raise', 'none'), ('Crunches', 'crunch', 'none'), ('Russian Twist', 'russian_twist', 'none'), ('Cable Crunches', 'cable_crunch', 'cable'),
         ('Ab Wheel Rollouts', 'ab_wheel', 'none'), ('Jump Rope', 'jump_rope', 'none'), ('Cable Rope Hammer Curl', 'curl', 'cable'), ('Box Jumps', 'jump', 'none'), ('Leg Swings', 'leg_swing', 'none'),
         ('Medicine Ball Slams', 'slam', 'ball'), ('Dumbbell Pullover', 'pullover', 'dumbbell'), ('Landmine Press', 'overhead_press', 'landmine'),
-        ('Hand Gripper Squeezes', None, None), ('Lying Neck Extension', None, None), ('Battle Ropes', None, None),
+        ('Hand Gripper Squeezes', 'grip', 'none'), ('Lying Neck Extension', 'neck_extension', 'none'), ('Battle Ropes', 'battle_ropes', 'none'),   # 3.12.0: drawn now
         # 3.9.0: PulseTrack's own exercises, by exact name
         ('Wall Sit', 'wall_sit', 'none'), ('Seated Calf Raises', 'seated_calf_raise', 'machine'), ('V-Bar Pushdown', 'pushdown', 'cable'),
         ('Straight Bar Pushdown', 'pushdown', 'cable'), ('Cable Curls (Straight Bar)', 'curl', 'cable'), ('Nordic Hamstring Curls', 'nordic', 'none'),
         ('Handstand Push-Ups', 'handstand_pushup', 'none'), ('Pike Push-Ups', 'pike_pushup', 'none'), ('Dead Hangs', 'dead_hang', 'none'), ('Floor Press', 'floor_press', 'barbell'),
-        ('Neck Crunches', None, None), ('Waiter Curls', 'curl', 'dumbbell'), ('Snatch-Grip Deadlift', 'deadlift', 'barbell'), ('Toes-to-Bar', 'hanging_leg_raise', 'none'),
+        ('Neck Crunches', 'neck_flexion', 'none'), ('Waiter Curls', 'curl', 'dumbbell'), ('Snatch-Grip Deadlift', 'deadlift', 'barbell'), ('Toes-to-Bar', 'hanging_leg_raise', 'none'),
         ('Incline Push-Ups', 'push_up_incline', 'none'), ('Decline Push-Ups', 'push_up_decline', 'none'), ('Knee Push-Ups', 'push_up_knee', 'none'),
         ('Concentration Curls', 'concentration_curl', 'dumbbell'), ('Incline Dumbbell Curls', 'incline_curl', 'dumbbell'), ('Chest-Supported Row', 'chest_supported_row', 'dumbbell'),
         ('Dumbbell Row', 'one_arm_row', 'dumbbell'), ('Reverse Hyperextensions', 'reverse_hyper', 'none'), ('Slider Leg Curls', 'supine_leg_curl', 'none'),
@@ -106,7 +106,7 @@ with page(360, 780) as p:
     c.ok(hang > 40, 'a dumbbell squat holds the weights at the sides (%.0f px below the shoulder)' % hang)
     fr = p.evaluate("""() => ["Nordic Hamstring Curls", "Bench Press", "Barbell Curls"].map(n => { const st = PT.figure.forSteps(n, [{ text: "Set up." }, { text: "Lower slowly." }]); return st[0].image.src !== st[1].image.src; })""")
     c.eq(fr, [True, True, False], 'a step starting "Lower" shows the finish when lowering is the movement (Nordic, bench press) and the start for a curl')
-    rail = p.evaluate("""() => { const s = PT.figure.svg("squat", 0, "smith"); return s.indexOf('stroke-width="4"') < s.indexOf('stroke-width="14"'); }""")
+    rail = p.evaluate("""() => { const s = PT.figure.svg("squat", 0, "smith"); return s.indexOf('stroke-width="4"') < s.indexOf('fill="#e4e4e7"'); }""")
     c.ok(rail, 'the Smith machine rail is drawn behind the body')
 
     # ---- Step by step with the drawings

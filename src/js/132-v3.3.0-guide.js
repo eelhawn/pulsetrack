@@ -255,11 +255,13 @@
     const steps = g && g.steps && g.steps.length ? g.steps.map(s => s.text) : (Array.isArray(e.tips) ? e.tips : []);
     let text = e.desc || (e.muscle ? `Mainly works the ${String(e.muscle).toLowerCase()}.` : "");
     // 3.5.0: with a guide, the muscles and the equipment from it
-    if (g && (g.muscles || []).length && PT.muscleLabel) {
+    const est = !(g && (g.muscles || []).length) && PT.musclesOf ? PT.musclesOf(e.name) : null;   // 3.12.0: every exercise has muscles
+    const gm = g && (g.muscles || []).length ? g.muscles : est && est.kind === "worked" ? est.muscles : null;
+    if (gm && PT.muscleLabel) {
       const nm = m => PT.muscleLabel(m.muscle_id).toLowerCase() + (m.source === "estimate" ? " (estimate)" : "");
-      const P = g.muscles.filter(m => m.role === "primary").map(nm), S = g.muscles.filter(m => m.role !== "primary").map(nm);
+      const P = gm.filter(m => m.role === "primary").map(nm), S = gm.filter(m => m.role !== "primary").map(nm);
       text = `Works the ${P.join(" and ")}${S.length ? ", helped by the " + S.join(", ") : ""}.`;
-      const it = (g.equipment && g.equipment.items) || [];
+      const it = (g && g.equipment && g.equipment.items) || [];
       if (it.length) text += /^body ?weight$/i.test(it[0]) && it.length === 1 ? " No equipment needed." : ` You need: ${it.join(", ")}.`;
     }
     return { kind: "form", title: e.name, text, list: steps.slice(0, 8), avoid: e.avoid || "", note: SAFE, actions: [{ label: (g && g.steps && g.steps.length) || (PT.figure && PT.figure.classify(e.name)) ? "See the steps with pictures" : "Open " + e.name, nav: "ex:" + e.name }] };

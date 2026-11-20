@@ -61,6 +61,8 @@ with page(w=360, h=780) as p:
 
     # ---- an exercise without a guide or a drawing: its tips as steps, a placeholder and Add my photo on every one
     NOPIC = "Hand Gripper Squeezes"
+    # 3.12.0: every exercise in the list has a drawing now; an exercise of your own that no drawing fits still works this way, so pretend this one has none
+    p.evaluate('(n) => { const f = PT.figure.forSteps; PT.figure.forSteps = (x, st) => x === n ? null : f(x, st); }', NOPIC)
     p.evaluate('(n) => { app.closeSheet(); app.openExerciseSheet(n); }', NOPIC); p.wait_for_timeout(300)
     tips = p.evaluate('(n) => PT.exCanon(n).tips', NOPIC)
     s = p.evaluate('() => { const s = document.getElementById("ex-steps"); return { open: s.open, sum: s.querySelector("summary").innerText }; }')

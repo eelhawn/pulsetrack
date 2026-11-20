@@ -436,7 +436,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v3.11.1</span></span>
+      <span>PulseTrack <span id="drawer-version">v3.12.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3844,7 +3844,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "3.11.1";
+    const APP_VERSION = "3.12.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -35335,11 +35335,13 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const steps = g && g.steps && g.steps.length ? g.steps.map(s => s.text) : (Array.isArray(e.tips) ? e.tips : []);
     let text = e.desc || (e.muscle ? `Mainly works the ${String(e.muscle).toLowerCase()}.` : "");
     // 3.5.0: with a guide, the muscles and the equipment from it
-    if (g && (g.muscles || []).length && PT.muscleLabel) {
+    const est = !(g && (g.muscles || []).length) && PT.musclesOf ? PT.musclesOf(e.name) : null;   // 3.12.0: every exercise has muscles
+    const gm = g && (g.muscles || []).length ? g.muscles : est && est.kind === "worked" ? est.muscles : null;
+    if (gm && PT.muscleLabel) {
       const nm = m => PT.muscleLabel(m.muscle_id).toLowerCase() + (m.source === "estimate" ? " (estimate)" : "");
-      const P = g.muscles.filter(m => m.role === "primary").map(nm), S = g.muscles.filter(m => m.role !== "primary").map(nm);
+      const P = gm.filter(m => m.role === "primary").map(nm), S = gm.filter(m => m.role !== "primary").map(nm);
       text = `Works the ${P.join(" and ")}${S.length ? ", helped by the " + S.join(", ") : ""}.`;
-      const it = (g.equipment && g.equipment.items) || [];
+      const it = (g && g.equipment && g.equipment.items) || [];
       if (it.length) text += /^body ?weight$/i.test(it[0]) && it.length === 1 ? " No equipment needed." : ` You need: ${it.join(", ")}.`;
     }
     return { kind: "form", title: e.name, text, list: steps.slice(0, 8), avoid: e.avoid || "", note: SAFE, actions: [{ label: (g && g.steps && g.steps.length) || (PT.figure && PT.figure.classify(e.name)) ? "See the steps with pictures" : "Open " + e.name, nav: "ex:" + e.name }] };
@@ -35627,6 +35629,14 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   };
 
   /* ================================================================ the "Muscles worked" section */
+  // 3.12.0: an exercise without a built-in guide gets the estimate from module 140 (PT.musclesOf): every exercise has muscles now
+  function musclesFor(name) {
+    const g = PT.exGuide(name);
+    if (g && (g.muscles || []).length) return { g, ms: g.muscles, est: null };
+    const r = PT.musclesOf ? PT.musclesOf(name) : null;
+    return { g, ms: r ? r.muscles : [], est: r };
+  }
+  const HEAD = { worked: "Muscles worked", stretched: "Muscles stretched", rolled: "Muscles it works on" };
   const capFirst = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
   function equipText(g) {
     const it = (g.equipment && g.equipment.items) || [];
@@ -35634,16 +35644,16 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     if (it.length === 1 && /^body ?weight$/i.test(it[0])) return "Bodyweight, no equipment needed";
     return capFirst(it.join(", ")) + (g.equipment.setup ? " · " + g.equipment.setup : "");
   }
-  function legendHtml() {
-    const bar = `linear-gradient(90deg, ${PT.muscleFill(10)}, ${PT.muscleFill(100)})`;
-    return `<div class="pt-mw-leg" aria-hidden="true"><span class="pt-mw-sw" style="background:${PT.muscleFill(0)}"></span><span>Not worked</span>
-      <span class="pt-mw-bar" style="background:${bar}"></span><span class="pt-mw-ends"><span>Helps</span><span>Works hardest</span></span></div>`;
+  function legendHtml(kind) {
+    const bar = `linear-gradient(90deg, ${PT.muscleFill(10)}, ${PT.muscleFill(100)})`, st = kind === "stretched";
+    return `<div class="pt-mw-leg" aria-hidden="true"><span class="pt-mw-sw" style="background:${PT.muscleFill(0)}"></span><span>${st ? "Not stretched" : "Not worked"}</span>
+      <span class="pt-mw-bar" style="background:${bar}"></span><span class="pt-mw-ends"><span>${st ? "A little" : "Helps"}</span><span>${st ? "Most" : "Works hardest"}</span></span></div>`;
   }
   function sectionHtml(a, name) {
-    const g = PT.exGuide(name);
+    const mf = musclesFor(name), g = mf.g || {}, est = mf.est, head = HEAD[(est && est.kind) || "worked"];
     let e = null; try { e = (PT.exCanon && PT.exCanon(name)) || (EXERCISE_DATABASE || []).find(x => x && x.name === name) || null; } catch (er) { e = null; }
     const main = e && e.muscle ? e.muscle : "";
-    const ms = (g && g.muscles) || [];
+    const ms = mf.ms;
     if (!ms.length) {
       return `<details id="ex-muscles" class="pt-mw"><summary><span class="pt-mw-h">Muscles worked</span><span class="pt-mw-s">Not added yet</span><span class="pt-chev">›</span></summary>
         <div class="pt-mw-b"><p class="pt-mw-x">There's no muscle guide for this exercise yet.${main ? ` Its main muscle is ${esc(main.toLowerCase())}.` : ""}</p>
@@ -35652,19 +35662,23 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const fine = Object.fromEntries(ms.map(m => [m.muscle_id, m.intensity]));
     const P = ms.filter(m => m.role === "primary"), S = ms.filter(m => m.role !== "primary");
     const chip = m => `<span class="pt-mw-c" data-mw="${esc(m.muscle_id)}"><i style="background:${PT.muscleFill(m.intensity)}"></i>${esc(PT.muscleLabel(m.muscle_id))}${m.source === "estimate" ? '<em title="estimate">est.</em>' : ""}</span>`;
-    const src = g.muscle_source || {}, est = ms.filter(m => m.source === "estimate").length;
+    const src = est ? { type: "rule", note: est.basis !== "main muscle"
+        ? "Worked out from how this kind of movement works (which joints move, against what), adjusted for words in the name like close-grip or incline, and checked against the exercise's main muscle."
+        : "Worked out from the exercise's main muscle and the muscles that usually help it.", refs: [] } : (g.muscle_source || {});
+    const nEst = ms.filter(m => m.source === "estimate").length;
     const srcLine = src.type === "study"
-      ? `From ${src.refs.length} EMG ${src.refs.length === 1 ? "study" : "studies"}${est ? `. ${est === ms.length ? "All" : est} muscle${est === 1 ? " is an estimate" : "s are estimates"} (marked est.)` : ""}.`
-      : "Estimate. These values aren't from a study yet.";
+      ? `From ${src.refs.length} EMG ${src.refs.length === 1 ? "study" : "studies"}${nEst ? `. ${nEst === ms.length ? "All" : nEst} muscle${nEst === 1 ? " is an estimate" : "s are estimates"} (marked est.)` : ""}.`
+      : src.type === "rule" ? "Estimated from how the movement works, not measured in a study." : "Estimate. These values aren't from a study yet.";
     const checked = !!g.reviewed;
-    return `<details id="ex-muscles" class="pt-mw" open><summary><span class="pt-mw-h">Muscles worked</span><span class="pt-mw-s">${esc(P.map(m => PT.muscleLabel(m.muscle_id)).join(", "))}</span><span class="pt-chev">›</span></summary>
+    const lab = est && est.kind !== "worked" ? { p: est.kind === "stretched" ? "Stretched most" : "Mostly", s: est.kind === "stretched" ? "Stretched a little" : "Also" } : { p: "Main muscles", s: "Helping muscles" };
+    return `<details id="ex-muscles" class="pt-mw" open><summary><span class="pt-mw-h">${head}</span><span class="pt-mw-s">${esc(P.map(m => PT.muscleLabel(m.muscle_id)).join(", "))}</span><span class="pt-chev">›</span></summary>
       <div class="pt-mw-b">
         ${equipText(g) ? `<p class="pt-mw-x"><b>Equipment:</b> ${esc(equipText(g))}</p>` : ""}
         <div class="pt-mw-fig">${a.muscleMapSvg({}, { fine, label: "Muscles " + name + " works" })}</div>
-        ${legendHtml()}
+        ${legendHtml(est && est.kind)}
         <p class="pt-mw-tap" id="pt-mw-tap" aria-live="polite">Tap a muscle to see its name.</p>
-        <div class="pt-mw-g"><span class="pt-mw-k">Main muscles</span><div class="pt-mw-cs">${P.map(chip).join("")}</div></div>
-        ${S.length ? `<div class="pt-mw-g"><span class="pt-mw-k">Helping muscles</span><div class="pt-mw-cs">${S.map(chip).join("")}</div></div>` : ""}
+        <div class="pt-mw-g"><span class="pt-mw-k">${lab.p}</span><div class="pt-mw-cs">${P.map(chip).join("")}</div></div>
+        ${S.length ? `<div class="pt-mw-g"><span class="pt-mw-k">${lab.s}</span><div class="pt-mw-cs">${S.map(chip).join("")}</div></div>` : ""}
         <details class="pt-mw-src"><summary>${esc(srcLine)} <span class="pt-mw-more">Sources</span></summary>
           ${src.note ? `<p class="pt-mw-x">${esc(src.note)}</p>` : ""}
           ${(src.refs || []).length ? `<ol class="pt-mw-refs">${src.refs.map(r => `<li>${esc(r)}</li>`).join("")}</ol>` : ""}
@@ -35690,7 +35704,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const sec = t.closest("#ex-muscles"); if (!sec) return;
     const sh = t.closest("[data-m]"), ch = t.closest("[data-mw]");
     const id = sh ? sh.dataset.m : ch ? ch.dataset.mw : null; if (!id) return;
-    const g = PT.exGuide(((sec.querySelector("#pt-mw-rev") || {}).dataset || {}).name || ""), m = g && (g.muscles || []).find(x => x.muscle_id === id);
+    const mf = musclesFor(((sec.querySelector("#pt-mw-rev") || {}).dataset || {}).name || ""), m = (mf.ms || []).find(x => x.muscle_id === id);
     const info = $("pt-mw-tap"); if (!info) return;
     info.innerHTML = m ? `<b>${esc(PT.muscleLabel(id))}</b>: ${m.role === "primary" ? "a main muscle" : "a helping muscle"}, ${m.intensity} of 100${m.source === "estimate" ? " (estimate)" : ""}` : `<b>${esc(PT.muscleLabel(id))}</b>: not really worked here`;
     sec.querySelectorAll(".mm-r").forEach(x => x.setAttribute("stroke", x.dataset.m === id ? "#ffffff" : "#09090b"));
@@ -36447,7 +36461,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   "use strict";
   if (typeof PT === "undefined") return;
   const W = 320, H = 240, FLOOR = 200, D2R = Math.PI / 180;
-  const LEN = { t: 54, neck: 24, ua: 31, fa: 29, th: 46, sh: 45, ft: 15, wr: 9 };
+  const LEN = { t: 54, neck: 24, ua: 34, fa: 29, th: 46, sh: 45, ft: 15, wr: 9 };   // 3.12.0: upper arm 31 -> 34, so a straight arm reaches mid-thigh
   const C = { body: "#e4e4e7", far: "#9b9ba5", kit: "#8f8f99", kitFill: "#3f3f46", plate: "#a1a1aa", plateFill: "#52525b", floor: "#3f3f46", bg: "#18181b", cable: "#a1a1aa" };
 
   /* ================================================================ geometry */
@@ -36474,7 +36488,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   // arms: ua/fa angles (uaR/faR: relative to the torso) or hand [x,y] + eb (elbow side); legs: th/sh or ankle [x,y] + kb; ft foot angle.
   // The far arm and leg (ua2 ..., hand2, ankle2) default to the near ones and are drawn in grey behind when they differ.
   function side(p) {
-    const t = p.t == null ? 90 : p.t, j = { view: "side", hip: p.hip ? p.hip.slice() : [160, 106] };
+    const t = p.t == null ? 90 : p.t, j = { view: "side", hip: p.hip ? p.hip.slice() : [160, 106], mirror: !!p.mirror };
     const rel = (k, kr, d) => p[k] != null ? p[k] : p[kr] != null ? t + p[kr] : d;
     j.shoulder = add(j.hip, t, LEN.t); j.head = add(j.shoulder, t + (p.nk || 0), LEN.neck);
     if (p.handOn) {
@@ -36497,8 +36511,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   // front view (also a lying figure seen from above). pel [x,y]; tl = lean; lift = shrug; arms of the figure's left side (viewer's
   // right) by ua/fa or hand [x,y], mirrored for the other arm unless uaL/faL/handL say otherwise; legs th/sh or ankle; uaS ... foreshorten.
   function front(p) {
-    const j = { view: "front" }, tl = p.tl || 0, pel = p.pel ? p.pel.slice() : [160, 106];
-    j.pel = pel; j.neck = add(pel, 90 - tl, LEN.t * (p.tS || 1)); j.head = add(j.neck, 90 - tl, LEN.neck - 2);
+    const j = { view: "front" }, tl = p.tl || 0, pel = p.pel ? p.pel.slice() : [160, 106], bow = p.bow || 0;   // 3.12.0: bow 0..1 = bent forward; hk = head tilt
+    j.pel = pel; j.neck = add(pel, 90 - tl, LEN.t * (p.tS || 1) * (1 - 0.5 * bow)); j.head = add(j.neck, 90 - tl + (p.hk || 0), (LEN.neck - 2) * (1 - 1.85 * bow));
     j.shR = add(j.neck, -tl, 17); j.shL = add(j.neck, 180 - tl, 17);
     if (p.lift) { j.shR[1] -= p.lift; j.shL[1] -= p.lift; }
     j.hipR = add(pel, -tl, 10); j.hipL = add(pel, 180 - tl, 10);
@@ -36533,29 +36547,145 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   const Rc = (x, y, w, h, rx) => ({ k: "r", x, y, w, h, rx: rx == null ? 3 : rx });
   const same = (a, b) => dist(a, b) < 1.5;
 
-  function person(j) {
-    const out = [];
-    if (j.view === "front") {
-      out.push(P([j.anL, j.knL, j.hipL], C.body, 11), L(j.anL, j.toL, C.body, 7), P([j.anR, j.knR, j.hipR], C.body, 11), L(j.anR, j.toR, C.body, 7));
-      out.push(L(j.hipL, j.hipR, C.body, 12), L(j.pel, j.neck, C.body, 16), L(j.shL, j.shR, C.body, 11));
-      out.push(O(j.head, 12, C.body, C.bg, 2.5));
-      out.push(P([j.shL, j.elL, j.haL], C.body, 9), P([j.shR, j.elR, j.haR], C.body, 9));
-      return out;
+  /* ================================================================ 3.12.0: the figure as a body
+   *  Tapered arms and legs, a torso with a chest and a back, a head with an eye and a nose (so you can see which way you face), hands
+   *  and shoes. Every part has a thin dark outline, so an arm in front of the body stays visible (a curl, a press). The far arm and
+   *  leg are a darker grey behind. hi = { region: 0..100 } fills the muscles the exercise works in the theme's colour: strong for the
+   *  main muscles, lighter for the helping ones (REGION_OF maps the 26 muscles to the parts of the figure). A pose can say mirror:
+   *  true when the figure lies face up with its head on the right (so the chest is on the other side). */
+  const BR = { ua: [7.4, 5.8], fa: [5.8, 4.5], th: [10.8, 7.4], sh: [7.4, 5.1], neck: [5.4, 5.4] };
+  const OUTLINE = C.bg, OW = 2.6;
+  const unit = (a, b) => { const dx = b[0] - a[0], dy = b[1] - a[1], l = Math.hypot(dx, dy) || 0.001; return [dx / l, dy / l, l]; };
+  const lerp = (a, b, t) => [a[0] + (b[0] - a[0]) * t, a[1] + (b[1] - a[1]) * t];
+  const offs = (p, n, d) => [p[0] + n[0] * d, p[1] + n[1] * d];
+  function capPts(a, b, ra, rb) {   // a capsule from a (radius ra) to b (radius rb), as a polygon
+    const [ux, uy] = unit(a, b), base = Math.atan2(ux, -uy), pts = [];   // base = the angle of the normal (-uy, ux)
+    for (let i = 0; i <= 8; i++) { const t = base - Math.PI * i / 8; pts.push([b[0] + Math.cos(t) * rb, b[1] + Math.sin(t) * rb]); }
+    for (let i = 0; i <= 8; i++) { const t = base + Math.PI - Math.PI * i / 8; pts.push([a[0] + Math.cos(t) * ra, a[1] + Math.sin(t) * ra]); }
+    return pts;
+  }
+  const G = (pts, fill, extra) => Object.assign({ k: "g", pts, fill, stroke: OUTLINE, sw: OW }, extra || {});   // an outlined body shape
+  const F = (pts, fill) => ({ k: "g", pts, fill, stroke: "none", sw: 0 });                                         // a fill inside one
+  const seg = (a, b, r, fill) => G(capPts(a, b, r[0], r[1]), fill);
+  // a muscle on one side of a limb (side +1 = the normal (-uy, ux) of a->b, -1 the other side, 0 the middle)
+  function belly(a, b, r, side, from = 0.16, to = 0.82) {
+    const [ux, uy] = unit(a, b), n = [-uy, ux], p = lerp(a, b, from), q = lerp(a, b, to);
+    const rp = r[0] + (r[1] - r[0]) * from, rq = r[0] + (r[1] - r[0]) * to;
+    const k = side ? 0.58 : 0.72, o = side ? 0.34 : 0;
+    return capPts(offs(p, n, side * rp * o), offs(q, n, side * rq * o), rp * k, rq * k);
+  }
+  // the muscle regions each of the 26 muscles lights up
+  const REGION_OF = { chest: "chest", upper_chest: "chest", serratus: "obliques", abs: "abs", obliques: "obliques", lats: "lats", mid_back: "upperBack",
+    traps: "traps", lower_back: "lowerBack", glutes: "glutes", glute_med: "glutes", hip_flexors: "hipFront", adductors: "inThigh", quads: "thighF",
+    hamstrings: "thighB", calves: "shinB", tibialis: "shinF", biceps: "armF", brachialis: "armF", triceps: "armB", forearm_flexors: "forearm",
+    forearm_extensors: "forearm", front_delts: "delts", side_delts: "delts", rear_delts: "delts", neck: "neck" };
+  let HI_STRONG = null;
+  function hiColor(v, far) {
+    if (!HI_STRONG) {
+      let s = [74, 222, 128];
+      try { const m = String(PT.muscleFill ? PT.muscleFill(100) : "").match(/\d+/g); if (m && m.length >= 3) s = m.slice(0, 3).map(Number); } catch (e) { }
+      HI_STRONG = s;
     }
-    if (!same(j.knee2, j.knee) || !same(j.ankle2, j.ankle)) out.push(P([j.ankle2, j.knee2, j.hip], C.far, 10), L(j.ankle2, j.toe2, C.far, 7));
-    if (!same(j.hand2, j.hand) || !same(j.elbow2, j.elbow)) out.push(P([j.shoulder, j.elbow2, j.hand2], C.far, 8));
-    out.push(P([j.ankle, j.knee, j.hip], C.body, 11), L(j.ankle, j.toe, C.body, 8), L(j.hip, j.shoulder, C.body, 14));
-    const arm = [P([j.shoulder, j.elbow, j.hand], C.body, 9)]; if (j.grip !== j.hand) arm.push(L(j.hand, j.grip, C.body, 7));
-    const head = O(j.head, 12, C.body, C.bg, 2.5);
-    // an arm raised past the face is drawn over the head
-    if (j.hand[1] < j.shoulder[1] - 8 && Math.abs(j.hand[0] - j.head[0]) < 26) out.push(head, ...arm); else out.push(...arm, head);
+    const base = far ? [155, 155, 165] : [228, 228, 231], t = Math.max(0.35, Math.min(1, v / 100)) * (far ? 0.75 : 1);
+    return "#" + HI_STRONG.map((c, i) => Math.round(base[i] + (c - base[i]) * t).toString(16).padStart(2, "0")).join("");
+  }
+  function smoothD(pts) {   // a closed Catmull-Rom curve through the points, as a path
+    const n = pts.length, f = v => n1(v);
+    let d = `M${f(pts[0][0])} ${f(pts[0][1])}`;
+    for (let i = 0; i < n; i++) {
+      const p0 = pts[(i - 1 + n) % n], p1 = pts[i], p2 = pts[(i + 1) % n], p3 = pts[(i + 2) % n];
+      const c1 = [p1[0] + (p2[0] - p0[0]) / 6, p1[1] + (p2[1] - p0[1]) / 6], c2 = [p2[0] - (p3[0] - p1[0]) / 6, p2[1] - (p3[1] - p1[1]) / 6];
+      d += `C${f(c1[0])} ${f(c1[1])} ${f(c2[0])} ${f(c2[1])} ${f(p2[0])} ${f(p2[1])}`;
+    }
+    return d + "Z";
+  }
+  const SM = (pts, fill, stroke, sw) => ({ k: "sm", pts, fill, stroke: stroke == null ? OUTLINE : stroke, sw: sw == null ? OW : sw });
+
+  function person(j, hi, plain) {
+    hi = hi || {};
+    const on = k => (hi[k] || 0) > 0, out = [];
+    const mark = (k, pts, far) => { if (on(k) && !plain) out.push(F(pts, hiColor(hi[k], far))); };
+    if (j.view === "front") return personFront(j, hi, plain);
+    const flip = j.mirror ? -1 : 1, body = C.body, far = C.far;
+    const [tux, tuy] = unit(j.hip, j.shoulder), tn = [-tuy * flip, tux * flip], tu = [tux, tuy];   // torso up, torso front
+    const limbSide = flip * -1;   // the front of an arm or leg is the -normal side for a figure facing right
+    const leg = (hip, knee, ankle, toe, fill, isFar) => {
+      out.push(seg(hip, knee, BR.th, fill)); mark("thighF", belly(hip, knee, BR.th, limbSide), isFar); mark("thighB", belly(hip, knee, BR.th, -limbSide), isFar);
+      if (on("inThigh") && !on("thighF") && !on("thighB")) mark("inThigh", belly(hip, knee, BR.th, 0), isFar);
+      out.push(seg(knee, ankle, BR.sh, fill)); mark("shinB", belly(knee, ankle, BR.sh, -limbSide, 0.1, 0.62), isFar); mark("shinF", belly(knee, ankle, BR.sh, limbSide, 0.1, 0.75), isFar);
+      const [fx, fy] = unit(ankle, toe); out.push(G(capPts([ankle[0] - fx * 3, ankle[1] - fy * 3], toe, 5.4, 4), fill));
+    };
+    const arm = (sh, el, ha, grip, fill, isFar) => {
+      out.push(seg(sh, el, BR.ua, fill)); mark("armF", belly(sh, el, BR.ua, limbSide), isFar); mark("armB", belly(sh, el, BR.ua, -limbSide), isFar);
+      out.push(seg(el, ha, BR.fa, fill)); mark("forearm", belly(el, ha, BR.fa, 0, 0.1, 0.7), isFar);
+      if (grip && !same(grip, ha)) out.push(G(capPts(ha, grip, 4.6, 4.2), fill)); else out.push(G(capPts(ha, ha, 4.8, 4.8), fill));
+    };
+    const farLeg = !same(j.knee2, j.knee) || !same(j.ankle2, j.ankle), farArm = !same(j.hand2, j.hand) || !same(j.elbow2, j.elbow);
+    if (farLeg) leg(j.hip, j.knee2, j.ankle2, j.toe2, far, true);
+    if (farArm) arm(j.shoulder, j.elbow2, j.hand2, null, far, true);
+    // the torso: a chest in front, a curved back behind, rounded over the shoulders and round the seat
+    const H = j.hip, S = j.shoulder, L = dist(H, S), at = (t, d) => offs(offs(H, tu, L * t), tn, d);
+    const FR = [[0, 9.5], [0.28, 10.5], [0.52, 11], [0.74, 14.5], [0.92, 12]], BK = [[0.95, -11], [0.72, -12.5], [0.42, -10], [0.18, -12.5], [0, -14]];
+    const tor = FR.map(([t, d]) => at(t, d)).concat([at(1.1, 2)], BK.map(([t, d]) => at(t, d)), [at(-0.16, -3)]);
+    out.push(SM(tor, body));
+    mark("chest", capPts(at(0.6, 7.5), at(0.86, 7.5), 6.8, 5.8)); mark("abs", capPts(at(0.14, 6), at(0.52, 6.5), 4.8, 4.8));
+    mark("obliques", capPts(at(0.16, 0), at(0.5, 1), 5, 5)); mark("lats", capPts(at(0.46, -7.5), at(0.8, -7.5), 5.2, 5.8));
+    mark("upperBack", capPts(at(0.58, -8), at(0.9, -7.5), 5.4, 5.4)); mark("lowerBack", capPts(at(0.14, -7.5), at(0.42, -6.5), 4.8, 4.6));
+    mark("traps", capPts(at(0.9, -5), at(1.08, -2), 4.2, 3.6)); mark("glutes", capPts(at(-0.06, -7.5), at(0.08, -8.5), 7, 6.4));
+    mark("hipFront", capPts(at(-0.02, 5.5), at(0.08, 5.5), 4.2, 4.2));
+    leg(j.hip, j.knee, j.ankle, j.toe, body, false);
+    // the head: neck, a nose and an eye on the side you face
+    const [hux, huy] = unit(S, j.head), hn = [-huy * flip, hux * flip], hu = [hux, huy];
+    out.push(G(capPts(S, j.head, BR.neck[0], BR.neck[1]), body)); mark("neck", capPts(lerp(S, j.head, 0.2), lerp(S, j.head, 0.62), 3.4, 3.4));
+    out.push(G(capPts(offs(offs(j.head, hn, 10.5), hu, -1.5), offs(offs(j.head, hn, 10.5), hu, -1.5), 3.2, 3.2), body));
+    out.push(O(j.head, 12, body, OUTLINE, OW));
+    out.push(O(offs(offs(j.head, hn, 5.5), hu, 2.6), 1.7, OUTLINE, OUTLINE, 0));
+    mark("delts", capPts(offs(S, tu, -2), offs(S, tu, -2), 7.2, 7.2));
+    arm(j.shoulder, j.elbow, j.hand, j.grip, body, false);
+    if (on("delts") && !plain) out.push(F(capPts(offs(S, tu, -1.5), offs(S, tu, -1.5), 6.4, 6.4), hiColor(hi.delts)));   // the shoulder cap shows over the arm
+    return out;
+  }
+  // front view (or seen from above when lying)
+  function personFront(j, hi, plain) {
+    const out = [], body = C.body, on = k => (hi[k] || 0) > 0, mark = (k, pts) => { if (on(k) && !plain) out.push(F(pts, hiColor(hi[k]))); };
+    const [ux, uy] = unit(j.pel, j.neck), up = [ux, uy], lat = [-uy, ux];   // lat points to the figure's left (viewer's right) for an upright figure
+    const leg = (hip, kn, an, side) => {
+      out.push(seg(hip, kn, BR.th, body)); mark("thighF", belly(hip, kn, BR.th, 0)); mark("inThigh", belly(hip, kn, BR.th, side * 0.9, 0.12, 0.7));
+      out.push(seg(kn, an, BR.sh, body)); mark("shinB", belly(kn, an, BR.sh, 0, 0.08, 0.6)); mark("shinF", belly(kn, an, BR.sh, 0, 0.1, 0.75));
+      out.push(G(capPts([an[0], an[1] + 1], [an[0] + (an[0] > j.pel[0] ? 5 : -5), an[1] + 3], 5.2, 4.4), body));
+    };
+    const inward = (a, b) => { const [x, y] = unit(a, b); return (-y * (j.pel[0] - a[0]) + x * (j.pel[1] - a[1])) > 0 ? 1 : -1; };   // the side of a thigh that faces the other leg
+    leg(j.hipL, j.knL, j.anL, inward(j.hipL, j.knL)); leg(j.hipR, j.knR, j.anR, inward(j.hipR, j.knR));
+    const at = (t, d) => offs(offs(j.pel, up, dist(j.pel, j.neck) * t), lat, d);
+    const half = [[-0.12, 12], [0.1, 14], [0.4, 12], [0.72, 15.5], [0.92, 19.5], [1.02, 12]];
+    const tor = half.map(([t, d]) => at(t, d)).concat([at(1.08, 0)], half.slice().reverse().map(([t, d]) => at(t, -d)), [at(-0.2, 0)]);
+    out.push(SM(tor, body));
+    mark("chest", capPts(at(0.7, 3.5), at(0.74, 11.5), 5.2, 5.2)); mark("chest", capPts(at(0.7, -3.5), at(0.74, -11.5), 5.2, 5.2));
+    mark("abs", capPts(at(0.08, 0), at(0.52, 0), 5, 5));
+    mark("obliques", capPts(at(0.1, 10), at(0.42, 10.5), 3.4, 3.4)); mark("obliques", capPts(at(0.1, -10), at(0.42, -10.5), 3.4, 3.4));
+    mark("lats", capPts(at(0.48, 12.5), at(0.78, 15), 3.2, 3.8)); mark("lats", capPts(at(0.48, -12.5), at(0.78, -15), 3.2, 3.8));
+    mark("upperBack", capPts(at(0.52, 12.5), at(0.8, 15), 3.2, 3.8)); mark("upperBack", capPts(at(0.52, -12.5), at(0.8, -15), 3.2, 3.8));
+    mark("glutes", capPts(at(-0.04, 12.5), at(0.06, 12.5), 3.6, 3.6)); mark("glutes", capPts(at(-0.04, -12.5), at(0.06, -12.5), 3.6, 3.6));
+    mark("hipFront", capPts(at(-0.02, 6), at(0.06, 7), 3.2, 3.2)); mark("hipFront", capPts(at(-0.02, -6), at(0.06, -7), 3.2, 3.2));
+    out.push(G(capPts(j.neck, j.head, BR.neck[0], BR.neck[1]), body)); mark("neck", capPts(lerp(j.neck, j.head, 0.15), lerp(j.neck, j.head, 0.55), 3.4, 3.4));
+    mark("traps", capPts(at(1.0, 4), at(0.98, 13), 3.4, 3)); mark("traps", capPts(at(1.0, -4), at(0.98, -13), 3.4, 3));
+    out.push(O(j.head, 12, body, OUTLINE, OW));
+    const [hx, hy] = unit(j.neck, j.head), hl = [-hy, hx];
+    out.push(O(offs(offs(j.head, hl, 4.4), [hx, hy], 1.5), 1.6, OUTLINE, OUTLINE, 0), O(offs(offs(j.head, hl, -4.4), [hx, hy], 1.5), 1.6, OUTLINE, OUTLINE, 0));
+    const arm = (sh, el, ha) => {
+      out.push(seg(sh, el, BR.ua, body)); mark("armF", belly(sh, el, BR.ua, 0)); if (!on("armF")) mark("armB", belly(sh, el, BR.ua, 0, 0.2, 0.75));
+      out.push(seg(el, ha, BR.fa, body)); mark("forearm", belly(el, ha, BR.fa, 0, 0.1, 0.7));
+      out.push(G(capPts(ha, ha, 4.8, 4.8), body));
+      mark("delts", capPts(sh, sh, 7, 7));
+    };
+    arm(j.shL, j.elL, j.haL); arm(j.shR, j.elR, j.haR);
     return out;
   }
 
   /* kit in the hands. side view: a barbell is seen end on (a plate), a dumbbell is a small one; front view: bars run across */
   function kitAt(kind, j, pat, f) {
     const g = pat.from === "ankle" ? (j.view === "front" ? j.anR : j.ankle) : j.grip, g2 = j.grip2 || j.hand2, out = [], front = j.view === "front";
-    const plate = (c, r) => [O(c, r, C.plateFill, C.plate, 3), O(c, 3, C.plate, C.plate, 0)];
+    const plate = (c, r) => [Object.assign(O(c, r, C.plateFill, C.plate, 3), { fo: 0.62 }), O(c, 3, C.plate, C.plate, 0)];   // 3.12.0: see-through, so the body behind shows
     const dumb = c => front ? [L([c[0] - 8, c[1]], [c[0] + 8, c[1]], C.plate, 3), Rc(c[0] - 13, c[1] - 7, 6, 14, 2), Rc(c[0] + 7, c[1] - 7, 6, 14, 2)] : [O(c, 8, C.plateFill, C.plate, 2.5)];
     const bell = c => [{ k: "path", d: `M${c[0] - 5} ${c[1] + 2} Q${c[0]} ${c[1] - 6} ${c[0] + 5} ${c[1] + 2}`, c: C.plate, w: 2.5 }, O([c[0], c[1] + 11], 9, C.plateFill, C.plate, 2.5)];
     switch (kind) {
@@ -36670,12 +36800,13 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       frames: [{ ua: -78, fa: -82, floor: true }, { ua: 2, fa: -6, floor: true }] },
     upright_row: { label: "upright row", view: "front", kit: "barbell", go: "pull up", back: "lower", joint: "hand",
       start: "Stand tall, the weight in front of your thighs, hands about shoulder-width.", end: "Pull it up along your body to chest height, elbows high, then lower.",
-      frames: [{ hand: [172, 116], eb: -1, floor: true }, { hand: [172, 66], eb: -1, uaS: 1, floor: true }] },
+      frames: [{ hand: [172, 118], eb: -1, floor: true }, { ua: 16, fa: 206, floor: true }] },
     shrug: { label: "shrug", view: "front", kit: "dumbbell", go: "shrug up", back: "lower", joint: "shoulder",
       start: "Stand tall with the weights hanging at your sides.", end: "Lift your shoulders straight up towards your ears, hold, then lower.",
       frames: [{ ua: -88, fa: -90, floor: true }, { ua: -88, fa: -90, lift: 9, floor: true }] },
     reverse_fly: { label: "reverse fly", view: "front", kit: "dumbbell", go: "open wide", back: "back in", joint: "hand",
       start: "Arms out in front of you, a soft bend in the elbows (bent over or on a machine).", end: "Open your arms out wide, squeezing your shoulder blades, then come back.",
+      kitPose: { dumbbell: [{ bow: 1, ua: -86, fa: -88, hand: null, uaS: 1, faS: 1 }, { bow: 1, ua: 2, fa: -8, hand: null }], none: [{ bow: 1, ua: -86, fa: -88, hand: null, uaS: 1, faS: 1 }, { bow: 1, ua: 2, fa: -8, hand: null }] },   // 3.12.0: bent over, seen from the front
       frames: [{ hand: [168, 110], eb: -1, uaS: 0.6, faS: 0.6, floor: true }, { ua: 0, fa: -4, floor: true }] },
     curl: { label: "curl", kit: "dumbbell", go: "curl up", back: "lower", joint: "grip",
       start: "Stand tall, arms straight down, elbows at your sides.", end: "Curl the weight up to your shoulders without moving your elbows, then lower.",
@@ -36735,7 +36866,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       frames: [S({ ua: 6, fa: 4 }), S({ ua: 174, fa: 24, eb: 1 })] },
     deadlift: { label: "deadlift", kit: "barbell", go: "stand up", back: "lower", joint: "hip", plate: 17,
       start: "Bar over your mid-foot, hips back, flat back, arms straight.", end: "Stand up tall with the bar, then lower it the same way.",
-      frames: [S({ hip: [126, 150], t: 36, ankle: [164, 196], hand: [172, 178], eb: 1 }), S({ hand: [170, 128], eb: 1 })] },
+      frames: [S({ hip: [128, 142], t: 32, ankle: [164, 196], hand: [173, 182], eb: 1 }), S({ hand: [170, 134], eb: 1 })] },
     rdl: { label: "Romanian deadlift", kit: "barbell", go: "hips back", back: "stand up", joint: "hip",
       start: "Stand tall with the weight at your thighs, knees soft.", end: "Push your hips back with a flat back until you feel your hamstrings, then stand up.",
       frames: [S({ hand: [170, 128], eb: 1 }), S({ hip: [126, 116], t: 22, ankle: [164, 196], hand: [180, 156], eb: 1 })] },
@@ -36801,7 +36932,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       frames: [S({ hip: [136, 122], t: 32, ankle: [164, 196], hand: [150, 160], eb: 1 }), S({ hand: [214, 62], eb: 1 })] },
     clean: { label: "clean", kit: "barbell", go: "pull and catch", back: "lower", joint: "grip",
       start: "Set up like a deadlift, bar over your mid-foot.", end: "Pull hard, catch the bar on the front of your shoulders, stand tall.",
-      frames: [S({ hip: [126, 150], t: 36, ankle: [164, 196], hand: [172, 178], eb: 1 }), S({ handOn: ['shoulder', 0, -15], eb: -1 })] },
+      frames: [S({ hip: [128, 146], t: 36, ankle: [164, 196], hand: [173, 180], eb: 1 }), S({ handOn: ['shoulder', 0, -15], eb: -1 })] },
     snatch: { label: "snatch", kit: "barbell", go: "pull overhead", back: "lower", joint: "grip",
       start: "Wide grip, set up like a deadlift.", end: "Pull the bar in one move to straight arms overhead, then stand tall.",
       frames: [S({ hip: [126, 150], t: 36, ankle: [164, 196], hand: [172, 178], eb: 1 }), S({ hand: [156, -6], eb: 1 })] },
@@ -36858,7 +36989,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       frames: [{ hip: [170, 190], t: 180, th: 90, sh: 0, ft: 90, ua: 90, fa: 90, floor: true, on: ["hip"] }, { hip: [170, 190], t: 180, th: 10, sh: 6, ft: 90, th2: 90, sh2: 0, ft2: 90, ua: 172, fa: 176, ua2: 90, fa2: 90, floor: true, on: ["hip"] }] },
     side_bend: { label: "side bend", view: "front", kit: "dumbbell", go: "bend", back: "up", joint: "hand", both: false,
       start: "Stand tall, a weight in one hand at your side.", end: "Bend sideways towards the weight, then come back up straight.",
-      frames: [{ ua: -86, fa: -88, handL: [138, 98], ebL: 1, floor: true }, { tl: 16, ua: -100, fa: -100, handL: [146, 96], ebL: 1, floor: true }] },
+      frames: [{ ua: -86, fa: -88, uaL: 236, faL: 318, floor: true }, { tl: 16, ua: -100, fa: -100, uaL: 236, faL: 318, floor: true }] },   // 3.12.0: the free hand on the hip
     woodchop: { label: "woodchop", view: "front", kit: "cable", go: "chop", back: "back up", joint: "hand",
       start: "Stand side-on to the cable, arms straight up to one side.", end: "Pull across your body down to the other hip, turning your shoulders.",
       props: () => [L([292, FLOOR], [292, 16], C.kit, 7)], cable: () => [290, 24],
@@ -37108,8 +37239,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       frames: [{ hip: [140, 136], t: 4, ankle: [116, 194], kb: 1, ft: 0, hand: [196, 196], eb: 1, floor: true, on: ["hand", "ankle"] }] },
     l_sit: { label: "L-sit", kit: "none", kits: "none", hold: true, joint: "hip",
       start: "Hands on the bars or the floor beside your hips, arms straight.", end: "Lift your straight legs out in front and hold.",
-      props: j => [L([j.hand[0] - 12, j.hand[1] + 5], [j.hand[0] + 12, j.hand[1] + 5], C.plate, 5), L([j.hand[0], j.hand[1] + 6], [j.hand[0], FLOOR], C.kit, 5)],
-      frames: [{ hip: [150, 160], t: 92, th: 2, sh: 2, ft: 80, hand: [152, 166], eb: 1 }] },
+      props: j => [L([j.hand[0] - 15, j.hand[1] + 5], [j.hand[0] + 15, j.hand[1] + 5], C.plate, 5), L([j.hand[0] - 11, j.hand[1] + 6], [j.hand[0] - 15, FLOOR], C.kit, 4), L([j.hand[0] + 11, j.hand[1] + 6], [j.hand[0] + 15, FLOOR], C.kit, 4)],   // 3.12.0: low parallettes
+      frames: [{ hip: [150, 164], t: 92, th: 2, sh: 2, ft: 80, hand: [152, 172], eb: 1 }] },
     knee_tuck: { label: "seated knee tuck", kit: "none", kits: "none", go: "knees in", back: "legs out", joint: "knee",
       start: "Sit leaning back on your hands, legs straight out just off the floor.", end: "Pull your knees in towards your chest, then push your legs back out.",
       frames: [{ hip: [150, 186], t: 122, th: 12, sh: 12, ft: 40, hand: [118, 196], eb: 1 }, { hip: [150, 186], t: 112, th: 62, sh: -50, ft: 20, hand: [118, 196], eb: 1 }] },
@@ -37138,13 +37269,13 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     calf_stretch: { label: "calf stretch", kit: "none", kits: "none", hold: true, joint: "hip",
       start: "Hands on the wall, one foot forward, the back leg straight.", end: "Lean in with the back heel down until you feel your calf, and hold.",
       props: () => wall(254),
-      frames: [{ hip: [170, 110], t: 66, ankle: [204, 196], kb: 1, ankle2: [100, 196], kb2: 1, ft2: 0, hand: [248, 72], eb: 1, floor: true }] },
+      frames: [{ hip: [170, 110], t: 66, ankle: [100, 196], kb: 1, ft: 0, ankle2: [204, 196], kb2: 1, hand: [248, 72], eb: 1, floor: true }] },   // 3.12.0: the stretched (back) leg is the near one
     hip_flexor_stretch: { label: "kneeling hip flexor stretch", kit: "none", kits: "none", hold: true, joint: "hip",
       start: "Kneel on one knee, the other foot flat in front.", end: "Squeeze the glute of the back leg and shift your hips forward until you feel the front of the hip, then hold.",
-      frames: [{ hip: [148, 152], t: 90, ankle: [204, 196], kb: 1, th2: -128, sh2: 180, ft2: 180, hand: [182, 152], eb: 1, floor: true, on: ["ankle", "knee2"] }] },
+      frames: [{ hip: [148, 152], t: 90, th: -128, sh: 180, ft: 180, ankle2: [204, 196], kb2: 1, hand: [182, 152], eb: 1, floor: true, on: ["ankle2", "knee"] }] },
     quad_stretch: { label: "standing quad stretch", kit: "none", kits: "none", hold: true, joint: "hip",
       start: "Stand tall on one leg, holding a wall if you need to.", end: "Pull the other heel to your glutes, knees together, and hold.",
-      frames: [{ ankle: [160, 196], th2: -100, sh2: 110, ft2: 170, hand2: [138, 112], eb2: 1, ua: -40, fa: -20, floor: true, on: ["ankle"] }] },
+      frames: [{ th: -100, sh: 110, ft: 170, hand: [138, 112], eb: 1, ankle2: [160, 196], ua2: -40, fa2: -20, floor: true, on: ["ankle2"] }] },
     pigeon: { label: "pigeon stretch", kit: "none", kits: "none", hold: true, joint: "hip",
       start: "From hands and knees, bring one knee forward and lay that shin across in front of you.", end: "Slide the other leg straight back, sink your hips and hold.",
       frames: [{ hip: [150, 178], t: 82, th: -8, sh: 200, ft: 180, th2: 186, sh2: 180, ft2: 180, hand: [196, 196], eb: 1, floor: true, on: ["hip", "ankle2"] }] },
@@ -37245,9 +37376,87 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   PATTERNS.leg_raise.kits = ["none", "dumbbell", "ball", "plate"];
   PATTERNS.step_up.frames[1] = { hip: [182, 62], t: 90, ankle: [184, 146], kb: 1, ft: 0, ankle2: [164, 146], kb2: 1, ft2: 0 };
 
+  /* ================================================================ 3.12.0: drawings for the last exercises (grip, neck, ropes, sled, swimming, boxing) */
+  const anchor = x => [Rc(x - 8, FLOOR - 14, 16, 14, 3)];
+  const ropes = (j, x) => { const h = j.grip, up = j.frame ? 1 : -1, a = [h[0] + (x - h[0]) * 0.33, h[1] + up * 16], b = [h[0] + (x - h[0]) * 0.66, FLOOR - 10 - up * 12];
+    return [{ k: "path", d: `M${n1(h[0])} ${n1(h[1])} C${n1(a[0])} ${n1(a[1])} ${n1(b[0])} ${n1(b[1])} ${x - 6} ${FLOOR - 8}`, c: "#a1a1aa", w: 5 }]; };
+  const sled = x => [L([x - 26, FLOOR - 4], [x + 26, FLOOR - 4], C.kit, 6), Rc(x - 22, FLOOR - 22, 44, 16, 3), O([x + 4, FLOOR - 30], 12, C.plateFill, C.plate, 3)];
+  Object.assign(PATTERNS, {
+    grip: { label: "grip squeeze", kit: "none", kits: "none", go: "squeeze", back: "open", joint: "grip",
+      start: "Hold the gripper (or a ball) in one hand, arm relaxed in front of you.", end: "Squeeze it shut as hard as you can, hold a moment, then open slowly.",
+      dyn: j => { const h = j.grip, o = j.frame ? 3 : 12; return [L([h[0] - 2, h[1] - 3], [h[0] - 4, h[1] + 20], C.plate, 4), L([h[0] + 2, h[1] - 3], [h[0] + o, h[1] + 19], C.plate, 4), O([h[0], h[1] - 5], 3.5, C.kitFill, C.plate, 2)]; },
+      frames: [S({ ua: -80, fa: 6 }), S({ ua: -80, fa: 6 })] },
+    neck_flexion: { label: "neck curl", kit: "none", kits: "none", go: "chin to chest", back: "lower", joint: "head", floor: false, off: 16,
+      start: "Lie on your back on a bench with your head past the end, head lowered back a little.", end: "Bring your chin towards your chest, then lower your head slowly.",
+      props: j => PROPS.bench(j, { headRoom: 2 }),
+      frames: [{ hip: [204, 138], t: 180, ankle: [242, 196], kb: 1, nk: 30, hand: [206, 132], eb: -1 }, { hip: [204, 138], t: 180, ankle: [242, 196], kb: 1, nk: -48, hand: [206, 132], eb: -1 }] },
+    neck_extension: { label: "neck extension", kit: "none", kits: "none", go: "head up", back: "lower", joint: "head", floor: false, off: 16,
+      start: "Lie face down on a bench with your head past the end, head lowered.", end: "Lift your head until you look straight ahead, then lower slowly.",
+      props: () => PROPS.lowBench(null, { x1: 44, x2: 184, y: 144 }),
+      frames: [{ hip: [126, 134], t: 0, th: 180, sh: 180, ft: -90, nk: -42, hand: [172, 182], eb: 1 }, { hip: [126, 134], t: 0, th: 180, sh: 180, ft: -90, nk: 24, hand: [172, 182], eb: 1 }] },
+    neck_side: { label: "side neck raise", view: "front", kit: "none", kits: "none", go: "tilt", back: "back", joint: "head",
+      start: "Stand or sit tall, one hand on the side of your head.", end: "Tilt your head towards your shoulder against your hand, then back up slowly.",
+      frames: [{ ua: -88, fa: -90, handL: [138, 32], ebL: 1, floor: true }, { hk: 24, ua: -88, fa: -90, handL: [138, 32], ebL: 1, floor: true }] },
+    battle_ropes: { label: "battle ropes", kit: "none", kits: "none", go: "whip down", back: "up", joint: "grip",
+      start: "Hold a rope end in each hand, knees bent, chest up.", end: "Whip the ropes up and down fast, one arm or both, and keep the waves going.",
+      props: () => anchor(296), dyn: j => ropes(j, 296),
+      frames: [S({ hip: [150, 128], t: 80, ankle: [174, 196], kb: 1, ankle2: [132, 196], kb2: 1, hand: [204, 98], eb: -1, floor: true }),
+        S({ hip: [150, 128], t: 80, ankle: [174, 196], kb: 1, ankle2: [132, 196], kb2: 1, hand: [204, 150], eb: -1, floor: true })] },
+    sled_push: { label: "sled push", kit: "none", kits: "none", go: "drive", back: "", joint: "hip", hold: true,
+      start: "Hands on the sled's poles, body leaning in at about 45 degrees.", end: "Drive with short, powerful steps, pushing the floor away behind you.",
+      props: () => sled(268).concat([L([254, FLOOR - 22], [236, 104], C.kit, 5)]),
+      frames: [S({ hip: [150, 134], t: 34, ankle: [102, 196], kb: 1, ft: -20, ankle2: [178, 196], kb2: 1, hand: [236, 108], eb: 1, floor: true })] },
+    sled_pull: { label: "sled pull", kit: "none", kits: "none", go: "pull", back: "reach", joint: "grip",
+      start: "Face the sled, rope in your hands, knees bent and arms reaching.", end: "Pull the rope in hand over hand, or walk back pulling, keeping your back flat.",
+      props: () => sled(290), dyn: j => [L(j.grip, [278, FLOOR - 16], C.cable, 3)],
+      frames: [S({ hip: [140, 126], t: 74, ankle: [164, 196], kb: 1, ankle2: [122, 196], kb2: 1, hand: [204, 122], eb: 1, floor: true }),
+        S({ hip: [134, 124], t: 84, ankle: [164, 196], kb: 1, ankle2: [122, 196], kb2: 1, hand: [150, 130], eb: -1, floor: true })] },
+    swim: { label: "swimming", kit: "none", kits: "none", go: "pull", back: "", joint: "hand", floor: false, hold: true,
+      start: "Float face down, long and straight, eyes to the bottom.", end: "Reach, pull the water back past your hip, and kick from the hips.",
+      props: () => [{ k: "path", d: "M24 112 Q44 104 64 112 T104 112 T144 112 T184 112 T224 112 T264 112 T304 112", c: "#3f3f46", w: 3 }, L([20, 112], [20, 112], C.floor, 1), L([306, 112], [306, 112], C.floor, 1)],
+      frames: [{ hip: [146, 128], t: 2, th: 184, sh: 176, ft: 182, th2: 176, sh2: 188, ft2: 178, ua: 2, fa: 0, ua2: 196, fa2: 186, nk: -6 }] },
+    boxing: { label: "boxing stance", kit: "none", kits: "none", go: "punch", back: "guard", joint: "hand",
+      start: "Stand side-on, feet apart, knees soft, hands up by your chin.", end: "Punch straight out, turning your hip in, then bring the hand straight back to your chin.",
+      frames: [S({ hip: [154, 110], t: 86, ankle: [184, 196], kb: 1, ankle2: [128, 196], kb2: 1, hand: [192, 60], eb: -1, hand2: [184, 56], eb2: -1, floor: true }),
+        S({ hip: [156, 110], t: 82, ankle: [184, 196], kb: 1, ankle2: [128, 196], kb2: 1, hand: [242, 58], eb: -1, hand2: [184, 56], eb2: -1, floor: true })] },
+    bag_work: { label: "heavy bag", kit: "none", kits: "none", go: "punch", back: "guard", joint: "hand",
+      start: "Stand side-on a step from the bag, hands up by your chin.", end: "Punch through the bag, turn your hip in, and bring the hand straight back.",
+      props: () => [L([262, 0], [262, 30], C.plate, 3), Rc(240, 30, 44, 120, 20)],
+      frames: [S({ hip: [154, 110], t: 86, ankle: [184, 196], kb: 1, ankle2: [128, 196], kb2: 1, hand: [192, 60], eb: -1, hand2: [184, 56], eb2: -1, floor: true }),
+        S({ hip: [156, 110], t: 82, ankle: [184, 196], kb: 1, ankle2: [128, 196], kb2: 1, hand: [238, 60], eb: -1, hand2: [184, 56], eb2: -1, floor: true })] },
+    crucifix: { label: "crucifix extension", view: "front", kit: "dumbbell", kits: ["dumbbell", "none", "cable", "band"], go: "bend", back: "straighten", joint: "hand",
+      start: "Arms straight out to the sides at shoulder height.", end: "Bend your elbows to bring the weights towards your head, then straighten your arms again.",
+      frames: [{ ua: 0, fa: 0, floor: true }, { ua: 0, fa: 118, floor: true }] }
+  });
+
   /* ================================================================ which drawing an exercise gets (shared with tools/guides_data.py) */
   const RULES = /*RULES*/[
-    ["none", "neck (extension|flexion|raise|bridge|head|curl|harness|twist|crunch)|side neck|neck bridge|cervical|scapular (adduction|retraction|protraction)|gripper|grip squeeze|pinch|pronation|supination|swimming|shadow box|heavy bag|battle ?rope|battling rope(?!.*slam)|sled (push|pull)|90/90", ""],
+    ["neck_side", "side neck|neck.*\\bside\\b|head twist|lateral neck", ""],
+    ["neck_extension", "neck (extension|bridge|harness)|cervical extension|neck bridge", ""],
+    ["neck_flexion", "neck (crunch|crunches|flexion|curl|raise|raises)", ""],
+    ["grip", "gripper|grip squeeze|fingers? press|\\bhand grip", ""],
+    ["carry", "plate pinch|\\bpinch(es)?\\b", ""],
+    ["wrist_curl", "pronation|supination", ""],
+    ["reverse_fly", "scapular (adduction|retraction)|behind back raise", ""],
+    ["swim", "swimming|\\bswim\\b", ""],
+    ["bag_work", "heavy bag|bag work|punching bag", ""],
+    ["boxing", "shadow ?box|boxing", ""],
+    ["russian_twist", "battling ropes? russian twist", ""],
+    ["battle_ropes", "battle ?ropes?|battling ropes?", ""],
+    ["sled_push", "sled push|prowler", ""],
+    ["sled_pull", "sled (pull|drag)", ""],
+    ["pigeon", "90/90", ""],
+    ["crucifix", "crucifix", ""],
+    ["knee_tuck", "ab coaster", ""],
+    ["leg_raise", "^bottoms up$", ""],
+    ["skull_crusher", "triceps rockers?|^rockers$", ""],
+    ["kickback", "kick ?outs?", ""],
+    ["superman", "prone around the world", ""],
+    ["overhead_press", "t spine press", ""],
+    ["walk", "step in place|marching", ""],
+    ["jumping_jack", "jack press", ""],
+    ["dead_bug", "lying ab press", ""],
+    ["reverse_nordic", "^body extension$", ""],
     ["child_pose", "child'?s pose|kneeling lat stretch|prayer stretch", ""],
     ["cat_cow", "cat[- ]?cow|cat camel", ""],
     ["toe_reach", "toe reach|hamstring stretch|seated forward (bend|fold)|sit and reach", ""],
@@ -37426,7 +37635,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     "smith machine": "smith", "kettlebell": "kettlebell", "body weight": "none", "assisted": "machine", "suspension trainer": "trx", "band": "band", "medicine ball": "ball",
     "stability ball": "ball", "weight plate": "plate", "landmine": "landmine", "sled machine": "machine", "rope": "cable", "wheel roller": "none", "weighted": "" };
   const EXACT = /*EXACT*/{
-    "90/90 Hip Switches": ["none", null],
+    "90/90 Hip Switches": ["pigeon", null],
     "Ankle Mobility Rocks": ["ankle_rock", null],
     "Arm Bike": ["arm_bike", null],
     "Arm Circles": ["arm_circles", null],
@@ -37523,8 +37732,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     "Machine Incline Curl": ["preacher_curl", "machine"],
     "Meadows Row": ["bent_row", "landmine"],
     "Multi-Press Shoulder Machine": ["overhead_press_seated", "machine"],
-    "Neck Crunches": ["none", null],
-    "Neck Crunches with Plate": ["none", null],
+    "Neck Crunches": ["neck_flexion", null],
+    "Neck Crunches with Plate": ["neck_flexion", null],
     "Nordic Hamstring Curls": ["nordic", null],
     "Oblique Crunches": ["crunch", "none"],
     "One-Arm Dumbbell Lateral External Rotation": ["external_rotation", "dumbbell"],
@@ -37651,7 +37860,9 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const pat = PATTERNS[id], kp = pat.kitPose && pat.kitPose[kit];
     let fr = pat.frames[Math.min(f, pat.frames.length - 1)];
     if (kp) fr = Object.assign({}, fr, Array.isArray(kp) ? kp[Math.min(f, kp.length - 1)] : kp);   // e.g. a barbell lunge carries the bar on the back
+    if (pat.mirror && fr.mirror == null) fr = Object.assign({}, fr, { mirror: true });
     const j = settle(pose(fr, pat.view), Object.assign({ floor: pat.floor !== false && fr.floor !== false && (fr.floor || pat.floor) }, fr));
+    j.frame = f;
     return { j, fr };
   }
   function bbox(parts) {
@@ -37662,6 +37873,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       else if (s.k === "p") s.pts.forEach(p => pt(p, s.w / 2));
       else if (s.k === "c") pt(s.at, s.r + (s.sw || 0) / 2);
       else if (s.k === "r") { pt([s.x, s.y], 1); pt([s.x + s.w, s.y + s.h], 1); }
+      else if (s.k === "g" || s.k === "sm") s.pts.forEach(p => pt(p, (s.sw || 0) / 2 + (s.k === "sm" ? 1.5 : 0)));
     });
     return [x1, y1, x2, y2];
   }
@@ -37685,22 +37897,42 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     return parts.map(s => {
       if (s.k === "l") return `<line x1="${n1(s.a[0])}" y1="${n1(s.a[1])}" x2="${n1(s.b[0])}" y2="${n1(s.b[1])}" stroke="${s.c}" stroke-width="${s.w}" stroke-linecap="round"/>`;
       if (s.k === "p") return `<polyline points="${s.pts.map(p => n1(p[0]) + "," + n1(p[1])).join(" ")}" fill="none" stroke="${s.c}" stroke-width="${s.w}" stroke-linecap="round" stroke-linejoin="round"/>`;
-      if (s.k === "c") return `<circle cx="${n1(s.at[0])}" cy="${n1(s.at[1])}" r="${s.r}" fill="${s.fill}" stroke="${s.stroke}" stroke-width="${s.sw}"/>`;
+      if (s.k === "c") return `<circle cx="${n1(s.at[0])}" cy="${n1(s.at[1])}" r="${s.r}" fill="${s.fill}"${s.fo ? ` fill-opacity="${s.fo}"` : ""} stroke="${s.stroke}" stroke-width="${s.sw}"/>`;
+      if (s.k === "g") return `<polygon points="${s.pts.map(p => n1(p[0]) + "," + n1(p[1])).join(" ")}" fill="${s.fill}"${s.sw ? ` stroke="${s.stroke}" stroke-width="${s.sw}" stroke-linejoin="round"` : ""}/>`;
+      if (s.k === "sm") return `<path d="${smoothD(s.pts)}" fill="${s.fill}" stroke="${s.stroke}" stroke-width="${s.sw}" stroke-linejoin="round"/>`;
       if (s.k === "r") return `<rect x="${n1(s.x)}" y="${n1(s.y)}" width="${n1(s.w)}" height="${n1(s.h)}" rx="${s.rx}" fill="${C.kitFill}" stroke="${C.kit}" stroke-width="2"/>`;
       if (s.k === "path") return `<path d="${s.d}" fill="none" stroke="${s.c}" stroke-width="${s.w}" stroke-linecap="round"/>`;
       return "";
     }).join("");
   }
   const KIT_NAME = { barbell: "barbell", smith: "Smith machine", dumbbell: "dumbbells", kettlebell: "kettlebell", cable: "cable", band: "band", trx: "suspension straps", landmine: "landmine", ball: "ball", plate: "plate", machine: "machine", stick: "stick", none: "" };
-  function svg(id, f, kit) {
+  // 3.12.0: opts.hi = { region: 0..100 } fills the worked muscles; a two-pose movement says "Start" on the first picture and "Halfway"
+  // on the second (where you turn round and come back), (opts.ghost: the start pose faint behind it); a held position says "Hold"
+  const MOVING = /running|walking|cycling|jump rope|stair|rowing|arm bike|march|swimming|sled/i;
+  function frameLabel(pat, f) {
+    if (pat.frames.length < 2 || pat.hold) return MOVING.test(pat.label) ? "" : "Hold";
+    return f ? (pat.f1 || "Halfway") : "Start";
+  }
+  function svg(id, f, kit, opts) {
     const pat = PATTERNS[id]; if (!pat) return "";
-    kit = kit || pat.kit || "none";
+    kit = kit || pat.kit || "none"; opts = opts || {};
     const lay = layout(id, kit), fp = lay.frames[Math.min(f, lay.frames.length - 1)];
     const kp = kitAt(kit, fp.j, pat, f), behind = pat.behind ? kp : kp.filter(x => x.back), over = pat.behind ? [] : kp.filter(x => !x.back);
-    const body = emit(lay.props) + emit(behind) + emit(person(fp.j)) + emit(over) + emit(pat.dyn ? pat.dyn(fp.j, kit) : []);
+    const ghost = f && pat.frames.length > 1 && !pat.hold && opts.ghost === true ? `<g opacity="0.2">${emit(person(lay.frames[0].j, null, true))}</g>` : "";
+    const body = emit(lay.props) + ghost + emit(behind) + emit(person(fp.j, opts.hi)) + emit(over) + emit(pat.dyn ? pat.dyn(fp.j, kit) : []);
     const floor = lay.floorOn ? `<line x1="16" y1="${n1(FLOOR * lay.s + lay.ty)}" x2="${W - 16}" y2="${n1(FLOOR * lay.s + lay.ty)}" stroke="${C.floor}" stroke-width="3" stroke-linecap="round"/>` : "";
+    const lab = opts.label === false ? "" : frameLabel(pat, f);
+    const tag = lab ? `<rect x="10" y="10" width="${Math.round(lab.length * 7.4 + 18)}" height="22" rx="11" fill="#27272a"/><text x="${Math.round(19)}" y="25" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12.5" font-weight="700" fill="#e4e4e7">${esc(lab)}</text>` : "";
     const title = `${cap(pat.label)}${KIT_NAME[kit] ? " with " + KIT_NAME[kit] : ""}: ${f ? "finish" : "start"}`;
-    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(title)}"><title>${esc(title)}. Drawing: PulseTrack, made by the app.</title><rect width="${W}" height="${H}" rx="14" fill="${C.bg}"/>${floor}<g transform="translate(${n1(lay.tx)} ${n1(lay.ty)}) scale(${Math.round(lay.s * 1000) / 1000})">${body}</g></svg>`;
+    return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(title)}"><title>${esc(title)}. Drawing: PulseTrack, made by the app.</title><rect width="${W}" height="${H}" rx="14" fill="${C.bg}"/>${floor}<g transform="translate(${n1(lay.tx)} ${n1(lay.ty)}) scale(${Math.round(lay.s * 1000) / 1000})">${body}</g>${tag}</svg>`;
+  }
+  // the regions to fill for an exercise: its main muscles strong, the helping ones lighter
+  function hiOf(name) {
+    let ms = null;
+    try { const g = PT.exGuide && PT.exGuide(name); ms = g && g.muscles && g.muscles.length ? g.muscles : PT.musclesOf ? (PT.musclesOf(name) || {}).muscles : null; } catch (e) { ms = null; }
+    const hi = {};
+    (ms || []).forEach(m => { const r = REGION_OF[m.muscle_id]; if (!r) return; const v = m.role === "primary" ? 100 : Math.min(55, m.intensity || 40); hi[r] = Math.max(hi[r] || 0, v); });
+    return hi;
   }
   const cap = s => s.charAt(0).toUpperCase() + s.slice(1);
   const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
@@ -37727,7 +37959,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const c = classify(name); if (!c) return null;
     const id = c.draw || c.id, pat = PATTERNS[id], two = pat.frames.length > 1 && !pat.hold;
     const list = steps && steps.length ? steps.slice() : [{ text: pat.start }, { text: pat.end }];
-    const pic = f => ({ src: dataUrl(svg(id, f, c.kit)), license: "original", author: "PulseTrack", generated: true, movement: pat.label,
+    const hi = hiOf(name);
+    const pic = f => ({ src: dataUrl(svg(id, f, c.kit, { hi })), license: "original", author: "PulseTrack", generated: true, movement: pat.label,
       attribution: "Drawn by the app for this kind of movement", alt: `${cap(pat.label)}: ${f ? "finish" : "start"}` });
     const pics = [pic(0), two ? pic(1) : null];
     const go = two ? arrow(id, c.kit, 0, 1, pat.go) : null, back = two && pat.back ? arrow(id, c.kit, 1, 0, pat.back) : null;
@@ -37742,7 +37975,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     });
   }
 
-  PT.figure = { classify, svg, forSteps, kitOf, arrow, PATTERNS, RULES, layout };
+  PT.figure = { classify, svg, forSteps, kitOf, arrow, PATTERNS, RULES, layout, hiOf, REGION_OF };
 })();
 </script>
   <script>/* =====================================================================
@@ -38293,6 +38526,281 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   const css = document.createElement("style"); css.id = "pt-v3111-css";
   css.textContent = `html.pt-ios body.pt-kb #finish-bar { display: none !important; }`;
   document.head.appendChild(css);
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 3.12.0: muscles worked for every exercise.
+ *  Only a few exercises have muscles from studies (exercise-guides.js). Every other one now gets an estimate worked out from the kind
+ *  of movement it is (PT.figure.classify, module 137: a flat press, a squat, a row ...), adjusted by words in its name ("close-grip",
+ *  "incline", "sumo", "hammer" ...) and checked against its main muscle in the exercise list (if that muscle isn't among the main
+ *  ones, it is added). An exercise no drawing fits gets the usual muscles for its main muscle. Stretches say which muscles they stretch,
+ *  foam rolling which ones it works on.
+ *  The values are "how much this muscle works, 0 to 100", main (primary) or helping (secondary), the same scale the study-based ones
+ *  use; they are approximations for a typical lifter, said so on the screen ("Estimated from how the movement works").
+ *  PT.musclesOf(name) -> { muscles: [{ muscle_id, role, intensity, source: "rule" }], kind: "worked" | "stretched" | "rolled",
+ *  basis: "movement" | "main muscle" } or null for an empty name. Module 133 shows it when there is no built-in guide; module 137
+ *  fills the same muscles on the drawings.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof PT === "undefined") return;
+
+  // "primary muscles | helping muscles", each muscle:how hard it works (0..100)
+  const MOVE = {
+    bench_press: "chest:100 | upper_chest:60 front_delts:55 triceps:55",
+    incline_press: "upper_chest:100 chest:75 | front_delts:65 triceps:50",
+    decline_press: "chest:100 | triceps:55 front_delts:35 upper_chest:30",
+    machine_chest_press: "chest:100 | front_delts:50 triceps:50 upper_chest:45",
+    fly_lying: "chest:100 | upper_chest:55 front_delts:45 biceps:15",
+    fly_incline: "upper_chest:100 chest:70 | front_delts:50 biceps:15",
+    cable_fly: "chest:100 | upper_chest:50 front_delts:45 biceps:15",
+    pec_deck: "chest:100 | upper_chest:50 front_delts:35",
+    push_up: "chest:100 | triceps:60 front_delts:55 abs:30 serratus:25",
+    push_up_incline: "chest:100 | triceps:55 front_delts:45 abs:20",
+    push_up_decline: "upper_chest:100 chest:80 | front_delts:65 triceps:55 abs:30",
+    push_up_knee: "chest:100 | triceps:55 front_delts:50 abs:15",
+    floor_press: "chest:100 triceps:75 | front_delts:45",
+    standing_press: "chest:100 | front_delts:50 triceps:40 abs:25",
+    dip: "chest:90 triceps:90 | front_delts:60 abs:15",
+    bench_dip: "triceps:100 | front_delts:45 chest:35",
+    overhead_press: "front_delts:100 | side_delts:60 triceps:60 upper_chest:30 traps:35 abs:30",
+    overhead_press_seated: "front_delts:100 | side_delts:60 triceps:60 upper_chest:25 traps:30",
+    pike_pushup: "front_delts:100 | triceps:60 side_delts:45 upper_chest:30 abs:25",
+    handstand_pushup: "front_delts:100 triceps:75 | side_delts:50 traps:45 abs:35",
+    front_raise: "front_delts:100 | side_delts:40 upper_chest:30 serratus:20",
+    lateral_raise: "side_delts:100 | front_delts:35 traps:35 rear_delts:20",
+    upright_row: "side_delts:100 traps:75 | front_delts:45 biceps:30",
+    shrug: "traps:100 | forearm_flexors:35 neck:20",
+    reverse_fly: "rear_delts:100 | mid_back:70 traps:40 side_delts:20",
+    face_pull: "rear_delts:100 | mid_back:65 traps:50 side_delts:30 biceps:25",
+    y_raise: "traps:85 rear_delts:80 | side_delts:55 mid_back:55",
+    external_rotation: "rear_delts:90 | side_delts:30 mid_back:30",
+    curl: "biceps:100 | brachialis:65 forearm_flexors:40 front_delts:15",
+    curl_seated: "biceps:100 | brachialis:65 forearm_flexors:40",
+    preacher_curl: "biceps:100 | brachialis:70 forearm_flexors:35",
+    concentration_curl: "biceps:100 | brachialis:60 forearm_flexors:30",
+    incline_curl: "biceps:100 | brachialis:55 forearm_flexors:35",
+    spider_curl: "biceps:100 | brachialis:60 forearm_flexors:30",
+    high_cable_curl: "biceps:100 | brachialis:50 front_delts:25",
+    wrist_curl: "forearm_flexors:100 | forearm_extensors:20",
+    pushdown: "triceps:100 | forearm_extensors:20 abs:15",
+    overhead_triceps: "triceps:100 | front_delts:20 abs:20",
+    overhead_triceps_seated: "triceps:100 | front_delts:20",
+    skull_crusher: "triceps:100 | forearm_extensors:20 lats:15",
+    kickback: "triceps:100 | rear_delts:30 mid_back:20",
+    pull_up: "lats:100 | mid_back:65 biceps:60 brachialis:45 rear_delts:35 forearm_flexors:40 abs:25",
+    lat_pulldown: "lats:100 | mid_back:60 biceps:55 brachialis:40 rear_delts:35",
+    straight_arm_pulldown: "lats:100 | triceps:35 rear_delts:30 abs:25",
+    pullover: "lats:85 chest:80 | triceps:40 serratus:40",
+    seated_row: "mid_back:100 lats:85 | biceps:55 rear_delts:50 traps:40 lower_back:25",
+    bent_row: "mid_back:100 lats:90 | rear_delts:55 biceps:55 lower_back:45 traps:40 hamstrings:30",
+    one_arm_row: "lats:100 mid_back:90 | rear_delts:50 biceps:55 obliques:25",
+    chest_supported_row: "mid_back:100 lats:85 | rear_delts:60 biceps:50 traps:45",
+    inverted_row: "mid_back:100 lats:85 | biceps:55 rear_delts:55 abs:30",
+    renegade_row: "lats:90 mid_back:80 abs:75 | obliques:55 triceps:30 chest:30",
+    dead_hang: "forearm_flexors:100 lats:60 | traps:30 abs:20",
+    deadlift: "glutes:100 hamstrings:90 lower_back:85 | quads:60 traps:50 forearm_flexors:50 mid_back:40 lats:35 abs:30",
+    rdl: "hamstrings:100 glutes:85 | lower_back:65 forearm_flexors:35 traps:25 mid_back:25",
+    single_leg_rdl: "hamstrings:100 glutes:95 | glute_med:55 lower_back:45 calves:25 obliques:20",
+    good_morning: "hamstrings:100 lower_back:85 | glutes:70",
+    seated_good_morning: "lower_back:100 | glutes:50 hamstrings:45",
+    back_extension: "lower_back:100 glutes:80 | hamstrings:65",
+    seated_back_extension: "lower_back:100 | glutes:45 hamstrings:30",
+    reverse_hyper: "glutes:100 | hamstrings:70 lower_back:60",
+    superman: "lower_back:100 | glutes:55 rear_delts:30 hamstrings:30 mid_back:30",
+    squat: "quads:100 glutes:85 | adductors:60 lower_back:40 hamstrings:35 abs:30 calves:20",
+    air_squat: "quads:100 glutes:75 | adductors:45 hamstrings:30 calves:20",
+    front_squat: "quads:100 | glutes:70 adductors:45 abs:45 mid_back:40 traps:25",
+    goblet_squat: "quads:100 | glutes:70 adductors:45 abs:35 front_delts:20",
+    squat_hold: "quads:100 | glutes:55 adductors:45 calves:30",
+    pistol: "quads:100 glutes:85 | glute_med:50 abs:35 hamstrings:30 calves:30 hip_flexors:30",
+    sissy_squat: "quads:100 | hip_flexors:35 abs:25",
+    wall_sit: "quads:100 | glutes:40 adductors:30 calves:20",
+    leg_press: "quads:100 | glutes:70 adductors:50 hamstrings:25 calves:20",
+    lunge: "quads:100 glutes:90 | adductors:45 glute_med:40 hamstrings:35 calves:25",
+    split_squat_rear: "quads:100 glutes:90 | adductors:40 glute_med:40 hamstrings:30 hip_flexors:25",
+    lateral_lunge: "adductors:90 glutes:90 quads:85 | glute_med:40 hamstrings:30",
+    step_up: "quads:100 glutes:95 | glute_med:40 hamstrings:35 calves:30",
+    leg_extension: "quads:100",
+    leg_curl: "hamstrings:100 | calves:35",
+    leg_curl_seated: "hamstrings:100 | calves:30",
+    standing_leg_curl: "hamstrings:100 | calves:30 glutes:15",
+    ball_leg_curl: "hamstrings:100 glutes:70 | calves:30 abs:25 lower_back:25",
+    supine_leg_curl: "hamstrings:100 glutes:70 | calves:30 abs:25 lower_back:25",
+    nordic: "hamstrings:100 | glutes:50 calves:35",
+    reverse_nordic: "quads:100 | hip_flexors:50 abs:25",
+    hip_thrust: "glutes:100 | hamstrings:50 quads:40 adductors:30 lower_back:20",
+    glute_bridge: "glutes:100 | hamstrings:55 lower_back:25 abs:20",
+    glute_bridge_loaded: "glutes:100 | hamstrings:50 quads:30 adductors:25",
+    hip_extension: "glutes:100 | hamstrings:55 lower_back:20",
+    pull_through: "glutes:100 hamstrings:80 | lower_back:40 forearm_flexors:25",
+    hip_abduction: "glute_med:100 | glutes:55",
+    hip_abduction_seated: "glute_med:100 | glutes:60",
+    hip_adduction: "adductors:100",
+    hip_adduction_seated: "adductors:100",
+    calf_raise: "calves:100",
+    seated_calf_raise: "calves:100",
+    tibialis_raise: "tibialis:100",
+    swing: "glutes:100 hamstrings:85 | lower_back:55 abs:40 forearm_flexors:35 front_delts:30 quads:30",
+    clean: "glutes:90 quads:85 hamstrings:80 traps:75 | lower_back:55 front_delts:50 calves:45 forearm_flexors:40 mid_back:35",
+    snatch: "glutes:90 quads:80 hamstrings:80 traps:70 front_delts:75 | lower_back:50 side_delts:45 triceps:40 calves:40 abs:35",
+    thruster: "quads:100 front_delts:90 glutes:80 | triceps:60 side_delts:45 abs:40 upper_chest:25",
+    carry: "forearm_flexors:100 traps:85 | abs:55 obliques:55 glutes:40 quads:35 calves:30",
+    overhead_carry: "front_delts:90 traps:85 abs:80 | side_delts:60 triceps:50 obliques:50",
+    burpee: "quads:85 chest:75 glutes:75 | triceps:50 front_delts:50 abs:45 calves:40 hamstrings:30",
+    jump: "quads:100 glutes:85 calves:80 | hamstrings:45 abs:25",
+    jump_rope: "calves:100 | quads:45 forearm_flexors:35 front_delts:30 abs:25",
+    jumping_jack: "calves:80 glute_med:75 | quads:50 side_delts:45 adductors:45 abs:25",
+    mountain_climber: "abs:100 hip_flexors:80 | front_delts:50 quads:45 obliques:40 chest:30",
+    bear_crawl: "abs:90 front_delts:85 quads:70 | triceps:45 glutes:40 hip_flexors:40 chest:35",
+    inchworm: "hamstrings:80 abs:80 front_delts:75 | chest:40 triceps:40 lower_back:30",
+    run: "quads:90 calves:90 glutes:80 hamstrings:75 | hip_flexors:60 abs:30 tibialis:30",
+    walk: "quads:70 glutes:70 calves:70 | hamstrings:55 hip_flexors:45 tibialis:30",
+    cycle: "quads:100 glutes:70 | hamstrings:55 calves:50 hip_flexors:40",
+    stairs: "quads:100 glutes:95 calves:70 | hamstrings:50",
+    rower: "lats:85 mid_back:80 quads:85 glutes:75 | hamstrings:60 biceps:50 rear_delts:45 lower_back:45 abs:30 calves:20",
+    arm_bike: "front_delts:85 triceps:70 biceps:70 | lats:50 mid_back:45 rear_delts:40 forearm_flexors:35",
+    slam: "lats:85 abs:85 | front_delts:60 triceps:45 glutes:45 obliques:40 quads:35",
+    crunch: "abs:100 | obliques:45",
+    cable_crunch: "abs:100 | obliques:50 lats:20",
+    sit_up: "abs:100 hip_flexors:70 | obliques:45",
+    v_up: "abs:100 hip_flexors:80 | obliques:40 quads:20",
+    leg_raise: "abs:100 hip_flexors:90 | obliques:40 quads:20",
+    hanging_leg_raise: "abs:100 hip_flexors:90 | obliques:50 forearm_flexors:50 lats:30",
+    knee_tuck: "abs:100 hip_flexors:70 | obliques:35",
+    plank: "abs:100 | obliques:60 front_delts:40 glutes:35 quads:30 serratus:30 lower_back:25",
+    side_plank: "obliques:100 | abs:55 glute_med:55 lower_back:30 side_delts:35 adductors:25",
+    reverse_plank: "glutes:85 lower_back:80 hamstrings:75 | rear_delts:50 triceps:40 abs:35",
+    hollow_hold: "abs:100 | hip_flexors:60 obliques:45 quads:20",
+    l_sit: "abs:100 hip_flexors:90 | triceps:55 quads:50 front_delts:30 lats:25",
+    dead_bug: "abs:100 | obliques:50 hip_flexors:40",
+    bird_dog: "lower_back:85 glutes:80 abs:70 | rear_delts:40 hamstrings:35 obliques:35",
+    ab_wheel: "abs:100 | lats:60 obliques:50 front_delts:40 serratus:35 triceps:30 hip_flexors:30",
+    russian_twist: "obliques:100 | abs:65 hip_flexors:35",
+    woodchop: "obliques:100 | abs:60 front_delts:35 lats:25 glutes:25",
+    pallof: "obliques:100 abs:80 | glute_med:30 front_delts:25",
+    side_bend: "obliques:100 | abs:35 lower_back:35 forearm_flexors:25",
+    standing_twist: "obliques:100 | abs:50 mid_back:30",
+    landmine_twist: "obliques:100 | abs:60 front_delts:50 glutes:30 triceps:20",
+    arm_circles: "side_delts:100 front_delts:80 rear_delts:80 | traps:30",
+    wall_slide: "traps:85 serratus:80 | rear_delts:60 mid_back:60",
+    hip_circles: "hip_flexors:85 glute_med:85 | glutes:60 adductors:55",
+    grip: "forearm_flexors:100 | forearm_extensors:40",
+    neck_flexion: "neck:100",
+    neck_extension: "neck:100 traps:60",
+    neck_side: "neck:100 | traps:40",
+    battle_ropes: "front_delts:90 side_delts:70 | forearm_flexors:60 abs:50 traps:40 biceps:40 triceps:40 quads:40 glutes:35",
+    sled_push: "quads:100 glutes:90 calves:80 | hamstrings:50 front_delts:45 triceps:45 abs:40 chest:35",
+    sled_pull: "glutes:90 hamstrings:85 quads:80 | mid_back:55 lats:50 forearm_flexors:50 calves:50 biceps:45",
+    swim: "lats:100 front_delts:80 | triceps:60 chest:55 mid_back:45 abs:45 glutes:45 hamstrings:40 quads:40 calves:30",
+    boxing: "front_delts:90 obliques:80 | triceps:60 chest:50 abs:50 calves:45 side_delts:40 serratus:40 glutes:30"
+  };
+  // stretches (the muscles they stretch) and foam rolling (the muscles it works on)
+  const STRETCH = {
+    stretch: "", lying_twist: "obliques:100 | lower_back:60 glutes:40", hip_flexor_stretch: "hip_flexors:100 | quads:60 abs:20",
+    toe_reach: "hamstrings:100 | lower_back:60 calves:40", calf_stretch: "calves:100 | hamstrings:20", doorway_stretch: "chest:100 | front_delts:70 biceps:30",
+    child_pose: "lats:90 lower_back:90 | glutes:40 mid_back:40", quad_stretch: "quads:100 | hip_flexors:60", leg_swing: "hamstrings:80 hip_flexors:80 | adductors:60 glutes:50",
+    cat_cow: "lower_back:100 mid_back:80 | abs:50", worlds_greatest: "hip_flexors:100 hamstrings:85 | adductors:60 mid_back:55 glutes:50 obliques:40",
+    dislocate: "chest:80 front_delts:80 | rear_delts:50 mid_back:45", thoracic_rotation: "mid_back:100 obliques:70 | lats:40",
+    pigeon: "glutes:100 glute_med:80 | hip_flexors:60 lower_back:30", ankle_rock: "calves:100 | tibialis:40", cross_body_stretch: "rear_delts:100 | mid_back:60 traps:30",
+    triceps_stretch: "triceps:100 | lats:60", knee_to_chest: "glutes:100 lower_back:80 | hamstrings:50"
+  };
+  const ROLL = { foam_roll_upper: "mid_back:100 | lats:60 traps:40", foam_roll_lower: "quads:100 hamstrings:90 calves:80 | glutes:60 adductors:50" };
+  // an exercise's main muscle (the exercise list) -> the usual muscles, and which muscles count as "that muscle"
+  const MAIN = {
+    "Chest": ["chest:100 | front_delts:50 triceps:45", "chest upper_chest"], "Lower Back": ["lower_back:100 | glutes:50 hamstrings:40", "lower_back"],
+    "Mid-Back": ["mid_back:100 lats:80 | rear_delts:50 biceps:40 traps:40", "mid_back lats traps rear_delts"], "Lats": ["lats:100 | mid_back:60 biceps:50 rear_delts:30", "lats mid_back"],
+    "Quads": ["quads:100 | glutes:60 adductors:35", "quads"], "Hamstrings": ["hamstrings:100 | glutes:55 calves:20", "hamstrings"],
+    "Glutes": ["glutes:100 | hamstrings:50 glute_med:40 quads:30", "glutes glute_med"], "Adductors": ["adductors:100", "adductors"],
+    "Lower Legs": ["calves:100 | tibialis:30", "calves tibialis"], "Front Delts": ["front_delts:100 | side_delts:45 triceps:40 upper_chest:25", "front_delts"],
+    "Side Delts": ["side_delts:100 | front_delts:40 traps:35", "side_delts"], "Rear Delts": ["rear_delts:100 | mid_back:55 traps:35", "rear_delts"],
+    "Biceps": ["biceps:100 | brachialis:60 forearm_flexors:35", "biceps brachialis"], "Triceps": ["triceps:100", "triceps"], "Traps": ["traps:100 | neck:30", "traps"],
+    "Grip & Carries": ["forearm_flexors:100 | forearm_extensors:40 traps:30", "forearm_flexors forearm_extensors traps"],
+    "Brachioradialis": ["forearm_extensors:100 brachialis:80 | biceps:50", "forearm_extensors brachialis"], "Forearms": ["forearm_flexors:100 | forearm_extensors:60", "forearm_flexors forearm_extensors"],
+    "Abs": ["abs:100 | obliques:50 hip_flexors:30", "abs obliques"], "Obliques": ["obliques:100 | abs:55", "obliques"],
+    "Core Stability": ["abs:100 obliques:70 | lower_back:45 glutes:30", "abs obliques lower_back"], "Neck": ["neck:100 | traps:40", "neck"],
+    "Cardio": ["quads:80 glutes:70 calves:60 | hamstrings:50 front_delts:30 abs:30", ""],
+    "Upper Body Mobility": ["front_delts:70 side_delts:70 rear_delts:70 mid_back:70 | traps:40 chest:40", "", "stretched"],
+    "Spine & Full Body": ["lower_back:80 mid_back:80 obliques:70 | glutes:50 hip_flexors:50", "", "stretched"],
+    "Hips & Legs Mobility": ["hip_flexors:85 glutes:80 hamstrings:80 adductors:70 | quads:40 calves:40", "", "stretched"]
+  };
+  const KNOWN = new Set((PT.MUSCLES || []).map(m => m[0]));
+  function parse(spec) {
+    const out = new Map(); if (!spec) return out;
+    const [p, s] = spec.split("|");
+    const add = (txt, role) => (txt || "").trim().split(/\s+/).filter(Boolean).forEach(t => { const [id, v] = t.split(":"); if (!KNOWN.size || KNOWN.has(id)) out.set(id, { role, v: +v }); });
+    add(p, "primary"); add(s, "secondary");
+    return out;
+  }
+  const set = (m, id, role, v) => { const c = m.get(id); m.set(id, { role: role === "keep" ? (c ? c.role : "secondary") : role, v: Math.max(v, c && role === "keep" ? c.v : 0) }); };
+  const PRESS = /^(bench_press|incline_press|decline_press|machine_chest_press|push_up\w*|floor_press|standing_press)$/, PULL = /^(pull_up|lat_pulldown|seated_row|bent_row|one_arm_row|chest_supported_row|inverted_row)$/;
+  const CURL = /curl$/;
+  // words in the name that change the muscles
+  function adjust(m, id, n) {
+    if (PRESS.test(id) && /close[- ]grip|narrow|diamond|triangle|jm press/.test(n)) { set(m, "triceps", "primary", 90); set(m, "chest", "primary", 85); }
+    if (PRESS.test(id) && /wide[- ]grip/.test(n)) { set(m, "chest", "primary", 100); set(m, "triceps", "secondary", 40); }
+    if (id === "dip" && /triceps|bench|straight[- ]bar|korean/.test(n)) { set(m, "triceps", "primary", 100); set(m, "chest", "secondary", 50); }
+    if (id === "dip" && /chest/.test(n)) { set(m, "chest", "primary", 100); set(m, "triceps", "primary", 80); }
+    if (PULL.test(id) && /chin[- ]?up|underhand|reverse[- ]grip|supinated/.test(n)) set(m, "biceps", id === "pull_up" || id === "lat_pulldown" ? "primary" : "secondary", 75);
+    if (PULL.test(id) && /wide/.test(n)) { set(m, "lats", "primary", 100); set(m, "rear_delts", "secondary", 45); }
+    if (PULL.test(id) && /close[- ]grip|v[- ]bar|neutral/.test(n)) set(m, "biceps", "keep", 65);
+    if (CURL.test(id) && id !== "wrist_curl" && /hammer|neutral|rope curl|cross[- ]body|pinwheel/.test(n)) { set(m, "brachialis", "primary", 90); set(m, "forearm_extensors", "secondary", 60); set(m, "biceps", "primary", 75); }
+    if (CURL.test(id) && id !== "wrist_curl" && /reverse|overhand|pronated|zottman/.test(n)) { set(m, "brachialis", "primary", 85); set(m, "forearm_extensors", "primary", 80); set(m, "biceps", "secondary", 55); }
+    if (id === "wrist_curl" && /reverse|extension|behind/.test(n) && /reverse|extension/.test(n)) { m.clear(); set(m, "forearm_extensors", "primary", 100); set(m, "forearm_flexors", "secondary", 20); }
+    if (/^(squat|deadlift|air_squat|goblet_squat|leg_press)$/.test(id) && /sumo|wide[- ]stance|plie|pli[eé]/.test(n)) { set(m, "adductors", "primary", 75); set(m, "glutes", "primary", 90); }
+    if (id === "deadlift" && /trap bar|hex bar/.test(n)) set(m, "quads", "primary", 85);
+    if (id === "deadlift" && /rack pull|block pull/.test(n)) { set(m, "traps", "primary", 75); set(m, "quads", "secondary", 30); }
+    if (/^(lunge|step_up|split_squat_rear)$/.test(id) && /curtsy|lateral|side|cossack/.test(n)) { set(m, "glute_med", "primary", 70); set(m, "adductors", "secondary", 60); }
+    if (/^(crunch|sit_up|v_up|leg_raise|hanging_leg_raise|knee_tuck|cable_crunch)$/.test(id) && /oblique|bicycle|twist|cross|side|windshield/.test(n)) set(m, "obliques", "primary", 90);
+    if (id === "plank" && /shoulder tap|up[- ]down|walk|reach/.test(n)) { set(m, "front_delts", "secondary", 60); set(m, "triceps", "secondary", 45); set(m, "obliques", "keep", 65); }
+    if (id === "carry" && /suitcase|one[- ]arm|single|unilateral/.test(n)) set(m, "obliques", "primary", 90);
+    if (/single[- ]arm|one[- ]arm|unilateral|alternating/.test(n) && /press|row|raise|carry|curl/.test(n)) set(m, "obliques", "keep", 25);
+    if (/single[- ]leg|one[- ]leg|pistol|skater/.test(n) && !/^(leg_curl\w*|leg_extension|calf_raise|seated_calf_raise|hip_\w+)$/.test(id)) set(m, "glute_med", "keep", 40);
+    if (/^(lateral_raise)$/.test(id) && /bent[- ]over|rear|reverse/.test(n)) { set(m, "rear_delts", "primary", 100); set(m, "side_delts", "secondary", 45); }
+    if (/^(calf_raise)$/.test(id) && /tibialis|toe raise/.test(n)) { m.clear(); set(m, "tibialis", "primary", 100); }
+  }
+  function toList(m, kind) {
+    const arr = [...m.entries()].map(([id, x]) => ({ muscle_id: id, role: x.role, intensity: Math.max(1, Math.min(100, Math.round(x.v))), source: "rule" }));
+    arr.sort((a, b) => (a.role === "primary" ? 0 : 1) - (b.role === "primary" ? 0 : 1) || b.intensity - a.intensity);
+    return { muscles: arr, kind };
+  }
+  function entryOf(name) {
+    try { const e = PT.exCanon && PT.exCanon(name); if (e) return e; } catch (er) { }
+    try { const l = String(name).toLowerCase(); return (typeof EXERCISE_DATABASE !== "undefined" ? EXERCISE_DATABASE : []).find(x => x && x.name.toLowerCase() === l) || null; } catch (er) { return null; }
+  }
+  // an exercise of your own that no drawing fits: the kind of movement from the words in its name
+  const WORDS = [[/incline.*(press|fly|flye)/, "incline_press"], [/decline.*press/, "decline_press"], [/chest press|bench press|\bbench\b/, "bench_press"], [/\bfly|flye|pec deck/, "pec_deck"],
+    [/shoulder press|overhead press|military press/, "overhead_press"], [/lateral raise|side raise/, "lateral_raise"], [/front raise/, "front_raise"], [/rear delt|reverse fly/, "reverse_fly"],
+    [/pull[- ]?down/, "lat_pulldown"], [/pull[- ]?up|chin[- ]?up/, "pull_up"], [/\brows?\b/, "seated_row"], [/leg curl|hamstring curl/, "leg_curl"], [/leg extension/, "leg_extension"],
+    [/leg press/, "leg_press"], [/squat|hack/, "squat"], [/\brdl\b|romanian|stiff/, "rdl"], [/deadlift/, "deadlift"], [/lunge|split squat/, "lunge"], [/calf/, "calf_raise"],
+    [/hip thrust|glute bridge/, "hip_thrust"], [/abduct/, "hip_abduction_seated"], [/adduct/, "hip_adduction_seated"], [/wrist/, "wrist_curl"], [/curl/, "curl"],
+    [/push ?down|tricep|skull/, "pushdown"], [/crunch|sit[- ]?up/, "crunch"], [/plank/, "plank"], [/shrug/, "shrug"], [/\bdips?\b/, "dip"], [/push[- ]?up/, "push_up"],
+    [/back extension|hyperextension/, "back_extension"], [/twist|woodchop/, "russian_twist"], [/leg raise|knee raise/, "hanging_leg_raise"]];
+  const memo = new Map();
+  PT.musclesOf = function (name) {
+    name = String(name || "").trim(); if (!name) return null;
+    if (memo.has(name)) return memo.get(name);
+    const e = entryOf(name) || {}, n = name.toLowerCase(), c = PT.figure ? PT.figure.classify(name) : null, id = c ? c.draw || c.id : null;
+    const main = MAIN[e.muscle] || null;
+    let m = null, kind = "worked", basis = "movement";
+    if (id && ROLL[id] != null) { m = parse(ROLL[id]); kind = "rolled"; }
+    else if (id && STRETCH[id] != null) { m = parse(STRETCH[id] || (main ? main[0] : "")); kind = "stretched"; }
+    else if (id && MOVE[id]) { m = parse(MOVE[id]); adjust(m, id, n); }
+    else if (!id && !e.muscle) { const w = WORDS.find(([rx]) => rx.test(n)); if (w) { m = parse(MOVE[w[1]]); adjust(m, w[1], n); basis = "name"; } }
+    if (!m || !m.size) {
+      m = parse(main ? main[0] : (e.category && /cardio/i.test(e.category) ? MAIN.Cardio[0] : ""));
+      basis = "main muscle"; if (main && main[2]) kind = main[2];
+      if (!m.size) { memo.set(name, null); return null; }
+    }
+    // the exercise list's main muscle must be one of the main ones
+    if (kind === "worked" && main && main[1]) {
+      const want = main[1].split(" "), P = [...m.entries()].filter(([, x]) => x.role === "primary").map(([k]) => k);
+      if (!want.some(w => P.includes(w))) set(m, want[0], "primary", 90);
+    }
+    const r = Object.assign(toList(m, kind), { basis });
+    memo.set(name, r); return r;
+  };
+  PT.musclesOf.MOVE = MOVE; PT.musclesOf.STRETCH = STRETCH; PT.musclesOf.ROLL = ROLL; PT.musclesOf.MAIN = MAIN;
 })();
 </script>
   <script>

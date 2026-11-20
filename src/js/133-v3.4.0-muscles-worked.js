@@ -93,6 +93,14 @@
   };
 
   /* ================================================================ the "Muscles worked" section */
+  // 3.12.0: an exercise without a built-in guide gets the estimate from module 140 (PT.musclesOf): every exercise has muscles now
+  function musclesFor(name) {
+    const g = PT.exGuide(name);
+    if (g && (g.muscles || []).length) return { g, ms: g.muscles, est: null };
+    const r = PT.musclesOf ? PT.musclesOf(name) : null;
+    return { g, ms: r ? r.muscles : [], est: r };
+  }
+  const HEAD = { worked: "Muscles worked", stretched: "Muscles stretched", rolled: "Muscles it works on" };
   const capFirst = s => s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
   function equipText(g) {
     const it = (g.equipment && g.equipment.items) || [];
@@ -100,16 +108,16 @@
     if (it.length === 1 && /^body ?weight$/i.test(it[0])) return "Bodyweight, no equipment needed";
     return capFirst(it.join(", ")) + (g.equipment.setup ? " · " + g.equipment.setup : "");
   }
-  function legendHtml() {
-    const bar = `linear-gradient(90deg, ${PT.muscleFill(10)}, ${PT.muscleFill(100)})`;
-    return `<div class="pt-mw-leg" aria-hidden="true"><span class="pt-mw-sw" style="background:${PT.muscleFill(0)}"></span><span>Not worked</span>
-      <span class="pt-mw-bar" style="background:${bar}"></span><span class="pt-mw-ends"><span>Helps</span><span>Works hardest</span></span></div>`;
+  function legendHtml(kind) {
+    const bar = `linear-gradient(90deg, ${PT.muscleFill(10)}, ${PT.muscleFill(100)})`, st = kind === "stretched";
+    return `<div class="pt-mw-leg" aria-hidden="true"><span class="pt-mw-sw" style="background:${PT.muscleFill(0)}"></span><span>${st ? "Not stretched" : "Not worked"}</span>
+      <span class="pt-mw-bar" style="background:${bar}"></span><span class="pt-mw-ends"><span>${st ? "A little" : "Helps"}</span><span>${st ? "Most" : "Works hardest"}</span></span></div>`;
   }
   function sectionHtml(a, name) {
-    const g = PT.exGuide(name);
+    const mf = musclesFor(name), g = mf.g || {}, est = mf.est, head = HEAD[(est && est.kind) || "worked"];
     let e = null; try { e = (PT.exCanon && PT.exCanon(name)) || (EXERCISE_DATABASE || []).find(x => x && x.name === name) || null; } catch (er) { e = null; }
     const main = e && e.muscle ? e.muscle : "";
-    const ms = (g && g.muscles) || [];
+    const ms = mf.ms;
     if (!ms.length) {
       return `<details id="ex-muscles" class="pt-mw"><summary><span class="pt-mw-h">Muscles worked</span><span class="pt-mw-s">Not added yet</span><span class="pt-chev">›</span></summary>
         <div class="pt-mw-b"><p class="pt-mw-x">There's no muscle guide for this exercise yet.${main ? ` Its main muscle is ${esc(main.toLowerCase())}.` : ""}</p>
@@ -118,19 +126,23 @@
     const fine = Object.fromEntries(ms.map(m => [m.muscle_id, m.intensity]));
     const P = ms.filter(m => m.role === "primary"), S = ms.filter(m => m.role !== "primary");
     const chip = m => `<span class="pt-mw-c" data-mw="${esc(m.muscle_id)}"><i style="background:${PT.muscleFill(m.intensity)}"></i>${esc(PT.muscleLabel(m.muscle_id))}${m.source === "estimate" ? '<em title="estimate">est.</em>' : ""}</span>`;
-    const src = g.muscle_source || {}, est = ms.filter(m => m.source === "estimate").length;
+    const src = est ? { type: "rule", note: est.basis !== "main muscle"
+        ? "Worked out from how this kind of movement works (which joints move, against what), adjusted for words in the name like close-grip or incline, and checked against the exercise's main muscle."
+        : "Worked out from the exercise's main muscle and the muscles that usually help it.", refs: [] } : (g.muscle_source || {});
+    const nEst = ms.filter(m => m.source === "estimate").length;
     const srcLine = src.type === "study"
-      ? `From ${src.refs.length} EMG ${src.refs.length === 1 ? "study" : "studies"}${est ? `. ${est === ms.length ? "All" : est} muscle${est === 1 ? " is an estimate" : "s are estimates"} (marked est.)` : ""}.`
-      : "Estimate. These values aren't from a study yet.";
+      ? `From ${src.refs.length} EMG ${src.refs.length === 1 ? "study" : "studies"}${nEst ? `. ${nEst === ms.length ? "All" : nEst} muscle${nEst === 1 ? " is an estimate" : "s are estimates"} (marked est.)` : ""}.`
+      : src.type === "rule" ? "Estimated from how the movement works, not measured in a study." : "Estimate. These values aren't from a study yet.";
     const checked = !!g.reviewed;
-    return `<details id="ex-muscles" class="pt-mw" open><summary><span class="pt-mw-h">Muscles worked</span><span class="pt-mw-s">${esc(P.map(m => PT.muscleLabel(m.muscle_id)).join(", "))}</span><span class="pt-chev">›</span></summary>
+    const lab = est && est.kind !== "worked" ? { p: est.kind === "stretched" ? "Stretched most" : "Mostly", s: est.kind === "stretched" ? "Stretched a little" : "Also" } : { p: "Main muscles", s: "Helping muscles" };
+    return `<details id="ex-muscles" class="pt-mw" open><summary><span class="pt-mw-h">${head}</span><span class="pt-mw-s">${esc(P.map(m => PT.muscleLabel(m.muscle_id)).join(", "))}</span><span class="pt-chev">›</span></summary>
       <div class="pt-mw-b">
         ${equipText(g) ? `<p class="pt-mw-x"><b>Equipment:</b> ${esc(equipText(g))}</p>` : ""}
         <div class="pt-mw-fig">${a.muscleMapSvg({}, { fine, label: "Muscles " + name + " works" })}</div>
-        ${legendHtml()}
+        ${legendHtml(est && est.kind)}
         <p class="pt-mw-tap" id="pt-mw-tap" aria-live="polite">Tap a muscle to see its name.</p>
-        <div class="pt-mw-g"><span class="pt-mw-k">Main muscles</span><div class="pt-mw-cs">${P.map(chip).join("")}</div></div>
-        ${S.length ? `<div class="pt-mw-g"><span class="pt-mw-k">Helping muscles</span><div class="pt-mw-cs">${S.map(chip).join("")}</div></div>` : ""}
+        <div class="pt-mw-g"><span class="pt-mw-k">${lab.p}</span><div class="pt-mw-cs">${P.map(chip).join("")}</div></div>
+        ${S.length ? `<div class="pt-mw-g"><span class="pt-mw-k">${lab.s}</span><div class="pt-mw-cs">${S.map(chip).join("")}</div></div>` : ""}
         <details class="pt-mw-src"><summary>${esc(srcLine)} <span class="pt-mw-more">Sources</span></summary>
           ${src.note ? `<p class="pt-mw-x">${esc(src.note)}</p>` : ""}
           ${(src.refs || []).length ? `<ol class="pt-mw-refs">${src.refs.map(r => `<li>${esc(r)}</li>`).join("")}</ol>` : ""}
@@ -156,7 +168,7 @@
     const sec = t.closest("#ex-muscles"); if (!sec) return;
     const sh = t.closest("[data-m]"), ch = t.closest("[data-mw]");
     const id = sh ? sh.dataset.m : ch ? ch.dataset.mw : null; if (!id) return;
-    const g = PT.exGuide(((sec.querySelector("#pt-mw-rev") || {}).dataset || {}).name || ""), m = g && (g.muscles || []).find(x => x.muscle_id === id);
+    const mf = musclesFor(((sec.querySelector("#pt-mw-rev") || {}).dataset || {}).name || ""), m = (mf.ms || []).find(x => x.muscle_id === id);
     const info = $("pt-mw-tap"); if (!info) return;
     info.innerHTML = m ? `<b>${esc(PT.muscleLabel(id))}</b>: ${m.role === "primary" ? "a main muscle" : "a helping muscle"}, ${m.intensity} of 100${m.source === "estimate" ? " (estimate)" : ""}` : `<b>${esc(PT.muscleLabel(id))}</b>: not really worked here`;
     sec.querySelectorAll(".mm-r").forEach(x => x.setAttribute("stroke", x.dataset.m === id ? "#ffffff" : "#09090b"));
