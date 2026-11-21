@@ -3,7 +3,8 @@
 
   python3 tools/make_logo.py
 
-Writes src/logo/png192.b64 and src/logo/png512.b64 (the PNG pictures as base64 text, 24 colours, about 2 KB and 7 KB).
+Writes src/logo/png96.b64, png192.b64 and png512.b64 (the PNG pictures as base64 text, 24 colours, about 1, 2 and 7 KB; 96 is for the
+long-press shortcuts, new in 3.16.0).
 Chrome on Android builds the installed app from PNG icons, so manifest.json uses these. They are kept SMALL on purpose: with 15 KB and 56 KB
 icons (2.86.0) Chrome only made a home-screen shortcut, and with 1 KB icons (2.85.2) it built the real app.
 icon.svg is the logo with a flat background and no glow (it compresses well); logo.svg is the same logo with the glow, used for the tab icon
@@ -21,7 +22,7 @@ svg = open(os.path.join(LOGO, 'icon.svg'), 'rb').read()
 uri = 'data:image/svg+xml;base64,' + base64.b64encode(svg).decode()
 with sync_playwright() as p:
     b = p.chromium.launch()
-    for size in (192, 512):
+    for size in (96, 192, 512):   # 96: the long-press shortcuts (3.16.0)
         pg = b.new_page(viewport={'width': size, 'height': size}, device_scale_factor=1)
         pg.set_content('<body style="margin:0"><img src="%s" width="%d" height="%d" style="display:block">' % (uri, size, size))
         pg.wait_for_timeout(300)

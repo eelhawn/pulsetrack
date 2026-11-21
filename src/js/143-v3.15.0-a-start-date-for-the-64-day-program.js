@@ -119,6 +119,8 @@
   };
 
   /* ================================================================ Home: "Day 5 of 64 · today" */
+  /** when a day is due: "Today", "Tomorrow", "Yesterday", "Mon, Nov 23" or "due Wed, Nov 18" (3.16.0's Today sheet uses it too) */
+  function due(a, p, dayNumber) { const ds = eligible(p) ? dateOf(a, p, dayNumber) : null; if (!ds) return ""; const d = between(PT.ds(), ds); return d < -1 ? "due " + fmt(ds) : cap(when(ds)); }
   const oHome = proto.renderHomeView;
   proto.renderHomeView = function () {
     const r = oHome.apply(this, arguments);
@@ -126,14 +128,14 @@
       const b = $("home-active-day-badge"), id = PT.currentProgramId ? PT.currentProgramId() : null;
       const p = id && (this.data.programs || []).find(x => x.id === id), m = b && /^Day (\d+) of \d+$/.exec(b.textContent.trim());
       if (eligible(p) && m) {
-        const ds = dateOf(this, p, parseInt(m[1], 10));
-        if (ds) { const d = between(PT.ds(), ds); b.textContent += " · " + (d < -1 ? "due " + fmt(ds) : cap(when(ds))); }
+        const t = due(this, p, parseInt(m[1], 10));
+        if (t) b.textContent += " · " + t;
       }
     } catch (e) { console.error("PulseTrack start date home", e); }
     return r;
   };
 
-  PT.startDate = { of: (p) => startOf(A(), p), set: (p, s) => setStart(A(), p, s), dateOf: (p, n) => dateOf(A(), p, n), status: p => status(A(), p), open: openStart, eligible };
+  PT.startDate = { of: (p) => startOf(A(), p), set: (p, s) => setStart(A(), p, s), dateOf: (p, n) => dateOf(A(), p, n), status: p => status(A(), p), due: (p, n) => due(A(), p, n), open: openStart, eligible };
 
   const css = document.createElement("style"); css.id = "pt-v3150-css";
   css.textContent = `

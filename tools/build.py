@@ -36,6 +36,10 @@ def manifest():
     """manifest.json with its icons set to the logo PNGs."""
     data = json.loads(read(os.path.join(ROOT, 'manifest.json')))
     data['icons'] = [{'src': logo_png(s), 'sizes': '%dx%d' % (s, s), 'type': 'image/png', 'purpose': 'any maskable'} for s in (192, 512)]
+    # 3.16.0: the long-press shortcuts show the logo too, as a 1 KB 96 px PNG so manifest.json stays small (big icons once stopped
+    # Chrome from building the installed app, see tests/install.py)
+    for sc in data.get('shortcuts', []):
+        sc['icons'] = [{'src': logo_png(96), 'sizes': '96x96', 'type': 'image/png'}]
     return json.dumps(data, indent=2) + '\n'
 
 
