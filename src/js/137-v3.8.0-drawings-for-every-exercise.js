@@ -1516,12 +1516,13 @@
     return j;
   }
   const MOTION = new Map();
-  function motion(name, n = 8) {
-    const key = String(name || ""); if (MOTION.has(key)) return MOTION.get(key);
+  // all: also for exercises with their own pictures (3.17.0's rep counter shows the move for those too)
+  function motion(name, n = 8, all = false) {
+    const key = String(name || "") + (all ? "\u0000all" : ""); if (MOTION.has(key)) return MOTION.get(key);
     let out = null;
-    const c = classify(key), id = c && (c.draw || c.id), pat = id && PATTERNS[id];
-    if (pat && pat.frames.length > 1 && !pat.hold && !(PT.exGuide && (PT.exGuide(key) || {}).steps)) {
-      const lay = layout(id, c.kit), a = lay.frames[0].j, b = lay.frames[1].j, hi = hiOf(key);
+    const c = classify(String(name || "")), id = c && (c.draw || c.id), pat = id && PATTERNS[id];
+    if (pat && pat.frames.length > 1 && !pat.hold && (all || !(PT.exGuide && (PT.exGuide(String(name || "")) || {}).steps))) {
+      const lay = layout(id, c.kit), a = lay.frames[0].j, b = lay.frames[1].j, hi = hiOf(String(name || ""));
       out = [];
       for (let i = 0; i <= n; i++) { const e = 0.5 - 0.5 * Math.cos(Math.PI * i / n); out.push(dataUrl(svg(id, 0, c.kit, { hi, j: tween(a, b, e), label: false }))); }
     }
