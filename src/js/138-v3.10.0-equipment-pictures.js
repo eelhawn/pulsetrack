@@ -225,8 +225,14 @@
     const l = n.toLowerCase();
     try { return (window.EXERCISE_DATABASE || []).find(x => x.name.toLowerCase() === l) || (window.OPENGYM_EXERCISES || []).find(x => x.name.toLowerCase() === l) || null; } catch (er) { return null; }
   }
+  const OF = new Map();   // 3.13.0: remembered (the exercise search asks for many at once)
   function of(name) {
     const n = String(name || ""); if (!n) return null;
+    if (OF.has(n)) return OF.get(n);
+    if (OF.size > 4000) OF.clear();
+    const r = of0(n); OF.set(n, r); return r;
+  }
+  function of0(n) {
     const c = PT.figure.classify(n), id = c ? c.draw || c.id : null, kit = c ? c.kit : "none", eq = String((entry(n) || {}).eq || "").toLowerCase();
     let list = pick(n, id, kit, eq) || [];
     list = list.filter((x, i) => EQUIP[x] && list.indexOf(x) === i);
@@ -425,11 +431,14 @@
     try { const g = (PT.gyms() || []).find(x => x.id === s.gymId); return g && /\bla ?fitness\b/i.test(g.name || "") ? "lafitness" : ""; } catch (e) { return ""; }
   }
   const photos = () => { const a = A(); return (a && a.settings.equipPhotos) || {}; };
+  // 3.13.0: the name printed on the machine at your gym (settings.equipNames[equipment id]); searching the exercise list for it finds the
+  // exercises on that machine
+  const names = () => { const a = A(); return (a && a.settings.equipNames) || {}; };
   let cur = null;   // { name, items, show: "photo" | "drawing", url }
   function sectionHtml(name) {
     const r = of(name); if (!r) return "";
     const e = EQUIP[r.items[0]];
-    return `<details id="ex-equip" class="pt-mw pt-eq" open><summary><span class="pt-mw-h">Equipment</span><span class="pt-mw-s">${esc(e.label)}</span><span class="pt-chev">›</span></summary>
+    return `<details id="ex-equip" class="pt-mw pt-eq" open><summary><span class="pt-mw-h">Equipment</span><span class="pt-mw-s">${esc(names()[r.items[0]] || e.label)}</span><span class="pt-chev">›</span></summary>
       <div class="pt-mw-b"><div id="pt-eq" data-name="${esc(name)}"></div></div></details>`;
   }
   async function draw() {
@@ -443,11 +452,17 @@
       ${ph ? `<div class="pt-eq-seg" role="group" aria-label="Show"><button type="button" class="pt-opt tap-active" data-eq="photo" aria-pressed="${!!cur.url}">My photo</button><button type="button" class="pt-opt tap-active" data-eq="drawing" aria-pressed="${!cur.url}">Drawing</button></div>` : ""}
       <p class="pt-eq-name"><b>${esc(e.label)}</b>${more.length ? ` <span>with ${esc(more.join(" and "))}</span>` : ""}</p>
       <p class="pt-eq-look">${esc(e.look)}</p>
+      ${cur.naming ? `<div class="pt-eq-nm"><label for="pt-eq-nm" class="pt-eq-nml">Name on the machine at your gym</label>
+          <input id="pt-eq-nm" type="text" maxlength="60" autocomplete="off" value="${esc(names()[id] || "")}" placeholder="For example: Hammer Strength Iso-Lateral Leg Press">
+          <div class="pt-eq-act"><button type="button" class="pt-opt tap-active" data-eq="namesave">Save</button><button type="button" class="pt-opt tap-active" data-eq="namecancel">Cancel</button>
+          ${names()[id] ? `<button type="button" class="pt-opt tap-active" data-eq="nameclear">Remove the name</button>` : ""}</div></div>`
+        : names()[id] ? `<p class="pt-eq-mine">On the machine: <b>${esc(names()[id])}</b> <button type="button" class="pt-eq-link tap-active" data-eq="name">Change</button></p>` : ""}
       ${gym === "lafitness" ? `<p class="pt-eq-laf"><b>At LA Fitness:</b> ${esc(lafNote(id))} Clubs differ, so yours may look a little different.</p>` : ""}
       <div class="pt-eq-act">
         <label for="pt-eq-file" class="pt-opt tap-active pt-eq-add">${ph ? "Change my photo" : "Add a photo of it at your gym"}</label>
         <input id="pt-eq-file" type="file" accept="image/*" capture="environment" class="hidden">
         ${ph ? `<button type="button" class="pt-opt tap-active" data-eq="rm">Remove my photo</button>` : ""}
+        ${!names()[id] && !cur.naming ? `<button type="button" class="pt-opt tap-active" data-eq="name">Add the name on the machine</button>` : ""}
       </div>
       <p class="pt-eq-cr">${cur.url ? `Your photo, kept on this phone. It shows for every exercise on this ${esc(e.label.toLowerCase())}.` : `Drawing: PulseTrack, original drawing made by the app (not a photo of a real machine).`}${gym === "lafitness" ? "" : ` Train at LA Fitness? Pick it in Settings > Gyms &amp; Equipment for notes on their machines.`}</p>`;
   }
@@ -468,6 +483,15 @@
     const b = e.target.closest && e.target.closest("#pt-eq [data-eq]"); if (!b || !cur) return;
     const a = A(), id = cur.items[0], k = b.dataset.eq;
     if (k === "photo" || k === "drawing") { cur.show = k; draw(); }
+    else if (k === "name") { cur.naming = true; await draw(); const i = $("pt-eq-nm"); if (i) i.focus(); }
+    else if (k === "namecancel") { cur.naming = false; draw(); }
+    else if (k === "namesave" || k === "nameclear") {
+      const v = k === "nameclear" ? "" : String(($("pt-eq-nm") || {}).value || "").replace(/\s+/g, " ").trim().slice(0, 60);
+      const nm = Object.assign({}, names()); if (v) nm[id] = v; else delete nm[id];
+      a.settings.equipNames = nm; save(a); cur.naming = false; await draw();
+      const s = document.querySelector("#ex-equip .pt-mw-s"); if (s) s.textContent = v || EQUIP[id].label;
+      a.toast(v ? "Name saved for every exercise on this machine" : "Name removed");
+    }
     else if (k === "rm") {
       const p = Object.assign({}, photos()), old = p[id]; delete p[id];
       a.settings.equipPhotos = p; save(a);
@@ -524,7 +548,24 @@
     .pt-eq-act { display: flex; flex-wrap: wrap; gap: .375rem; margin-top: .55rem; }
     .pt-eq-add { cursor: pointer; }
     .pt-eq-cr { margin: .45rem 0 0; font-size: .6875rem; line-height: 1.4; color: rgb(var(--z400)); }
+    .pt-eq-mine { margin: .35rem 0 0; font-size: .75rem; color: rgb(var(--z300)); }
+    .pt-eq-mine b { color: rgb(var(--z100)); }
+    .pt-eq-link { font-size: .75rem; font-weight: 600; color: rgb(var(--a400)); text-decoration: underline; padding: .35rem .25rem; }
+    .pt-eq-nm { margin-top: .55rem; }
+    .pt-eq-nml { display: block; font-size: .75rem; font-weight: 600; color: rgb(var(--z200)); margin-bottom: .3rem; }
+    #pt-eq-nm { width: 100%; font-size: 1rem; padding: .55rem .7rem; border-radius: .6rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z700)); color: rgb(var(--z100)); }
   `;
   document.head.appendChild(css);
+  document.addEventListener("keydown", e => { if (e.target && e.target.id === "pt-eq-nm" && e.key === "Enter") { e.preventDefault(); const b = document.querySelector('#pt-eq [data-eq="namesave"]'); if (b) b.click(); } });
+  // searching the exercise list for a machine's name finds the exercises on that machine
+  if (PT.exMatch) {
+    const oMatch = PT.exMatch;
+    PT.exMatch = function (e, q) {
+      if (oMatch.apply(this, arguments)) return true;
+      const t = String(q || "").trim().toLowerCase(); if (t.length < 3 || !e || !e.name) return false;
+      const ids = Object.entries(names()).filter(([, v]) => String(v).toLowerCase().includes(t)).map(([k]) => k); if (!ids.length) return false;
+      const r = of(e.name); return !!(r && ids.includes(r.items[0]));
+    };
+  }
   PT.equip = { of, svg, EQUIP, lafNote, chain, gymBox };
 })();

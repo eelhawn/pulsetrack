@@ -34,6 +34,21 @@ with server() as url, sync_playwright() as pw:
             c.ok(p.evaluate(BAR), '%s: other phones keep the bar while you type (their page gets shorter for the keyboard)' % dev)
         p.evaluate('document.activeElement.blur()'); p.wait_for_timeout(250)
         c.ok(p.evaluate(BAR) and not p.evaluate('document.body.classList.contains("pt-kb")'), '%s: when the keyboard closes the bar is back' % dev)
+        # 3.13.0: the rest timer while typing
+        p.evaluate('app.restTimer.start(90)'); p.wait_for_timeout(300)
+        p.focus('#view-workout [data-ex-card] input[type=number]'); p.wait_for_timeout(400)
+        st = p.evaluate('''() => { const t = document.getElementById("floating-rest-timer"), c = document.getElementById("pt-rest-inline");
+          return { float: getComputedStyle(t).display !== "none", chip: !!c, inCard: !!(c && c.closest("[data-ex-card]") && c.closest("[data-ex-card]").contains(document.activeElement)), text: c ? c.innerText : "" }; }''')
+        if ios:
+            c.ok(not st['float'] and st['chip'] and st['inCard'], '%s: while you type, the rest timer shows on the exercise card you type in, not floating' % dev)
+            c.ok('Rest' in st['text'] and any(ch.isdigit() for ch in st['text']), '%s: with the time left (%s)' % (dev, st['text'].replace(chr(10), ' ')))
+            t1 = p.evaluate('document.getElementById("pt-rest-inline").innerText'); p.wait_for_timeout(1300)
+            c.ok(p.evaluate('document.getElementById("pt-rest-inline").innerText') != t1, '%s: and it counts down' % dev)
+        else:
+            c.ok(st['float'] and not st['chip'], '%s: other phones keep the floating rest timer while you type' % dev)
+        p.evaluate('document.activeElement.blur()'); p.wait_for_timeout(300)
+        c.ok(not p.evaluate('!!document.getElementById("pt-rest-inline")') and p.evaluate('getComputedStyle(document.getElementById("floating-rest-timer")).display !== "none"'), '%s: when the keyboard closes the rest timer floats again' % dev)
+        p.evaluate('app.restTimer.stop ? app.restTimer.stop() : (app.restTimer.skip && app.restTimer.skip())')
         c.eq(errs, [], '%s: no errors' % dev)
         ctx.close()
     b.close()

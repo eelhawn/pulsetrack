@@ -33,6 +33,7 @@ for f in sorted(os.listdir(os.path.join(ROOT, 'img', 'ex'))):
 
 with page(w=360, h=780) as p:
     p.wait_for_function('typeof EXERCISE_GUIDES !== "undefined" && !!PT.guideSteps')
+    p.evaluate('PT.guideSteps.setPlay(false)')   # 3.13.0: these checks are about each step's own picture and arrows; tests/moving.py checks the moving drawing
     reqs = []
     p.on('request', lambda r: reqs.append(r.url))
     for n in SAMPLES:
@@ -100,6 +101,7 @@ with page(w=360, h=780) as p:
 
     # ---- after a reload (or an update): still there
     p.reload(); p.wait_for_function('typeof EXERCISE_GUIDES !== "undefined" && !!PT.guideSteps && window.app && app.data')
+    p.evaluate('PT.guideSteps.setPlay(false)')   # 3.13.0: these checks are about each step's own picture and arrows; tests/moving.py checks the moving drawing
     p.evaluate('() => app.openExerciseSheet("Lat Pulldown")'); p.wait_for_timeout(300)
     p.click('#pt-sv [data-sv="next"]'); p.wait_for_timeout(600)
     t = p.evaluate('() => { const s = document.getElementById("pt-sv"), a = s.querySelector(".pt-sv-a line:nth-of-type(2)"); return { photo: !!s.querySelector(".pt-sv-photo"), text: s.innerText, x2: s.querySelector(\'.pt-sv-a[data-a="0"] path\').getAttribute("d") }; }')

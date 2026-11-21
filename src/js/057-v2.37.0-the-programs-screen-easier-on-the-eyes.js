@@ -421,7 +421,8 @@
     ST.open.add(groupKey({ p, m: metaOf(p) }));
     drawList();
   }
-  PT.progList = { reveal, groupBy: by => { ST.by = by; ST.open = null; drawList(); }, state: ST, star: id => { const on = toggleStar(id); drawList(); return on; } };
+  PT.progList = { reveal, groupBy: by => { ST.by = by; ST.open = null; drawList(); }, state: ST, star: id => { const on = toggleStar(id); drawList(); return on; },
+    starred: id => readStars().has(id), open: openProgram };   // 3.13.0: used by the stars on the program screen and Home (module 141)
 
   /* ================================================================ actions */
   function openProgram(id) {

@@ -1471,7 +1471,8 @@
   function svg(id, f, kit, opts) {
     const pat = PATTERNS[id]; if (!pat) return "";
     kit = kit || pat.kit || "none"; opts = opts || {};
-    const lay = layout(id, kit), fp = lay.frames[Math.min(f, lay.frames.length - 1)];
+    const lay = layout(id, kit), fp = opts.j ? { j: opts.j } : lay.frames[Math.min(f, lay.frames.length - 1)];   // 3.13.0: opts.j = a pose in between (motion)
+    if (opts.j) f = opts.j.frame || 0;
     const kp = kitAt(kit, fp.j, pat, f), behind = pat.behind ? kp : kp.filter(x => x.back), over = pat.behind ? [] : kp.filter(x => !x.back);
     const ghost = f && pat.frames.length > 1 && !pat.hold && opts.ghost === true ? `<g opacity="0.2">${emit(person(lay.frames[0].j, null, true))}</g>` : "";
     const body = emit(lay.props) + ghost + emit(behind) + emit(person(fp.j, opts.hi)) + emit(over) + emit(pat.dyn ? pat.dyn(fp.j, kit) : []);
@@ -1480,6 +1481,52 @@
     const tag = lab ? `<rect x="10" y="10" width="${Math.round(lab.length * 7.4 + 18)}" height="22" rx="11" fill="#27272a"/><text x="${Math.round(19)}" y="25" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12.5" font-weight="700" fill="#e4e4e7">${esc(lab)}</text>` : "";
     const title = `${cap(pat.label)}${KIT_NAME[kit] ? " with " + KIT_NAME[kit] : ""}: ${f ? "finish" : "start"}`;
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(title)}"><title>${esc(title)}. Drawing: PulseTrack, made by the app.</title><rect width="${W}" height="${H}" rx="14" fill="${C.bg}"/>${floor}<g transform="translate(${n1(lay.tx)} ${n1(lay.ty)}) scale(${Math.round(lay.s * 1000) / 1000})">${body}</g>${tag}</svg>`;
+  }
+  /* ================================================================ 3.13.0: the move as a short loop
+   *  Poses in between Start and Halfway: the hip (or pelvis) slides, every bone turns about its joint and keeps its length, the
+   *  hands' grips and the toes follow their joint. motion(name) -> [data URLs from Start to Halfway, eased], or null for a held
+   *  position or a single picture. Module 134 plays them forwards and back in Step by step. */
+  const BONES = { side: [["shoulder", "hip"], ["head", "shoulder"], ["elbow", "shoulder"], ["hand", "elbow"], ["knee", "hip"], ["ankle", "knee"], ["toe", "ankle"],
+      ["elbow2", "shoulder"], ["hand2", "elbow2"], ["knee2", "hip"], ["ankle2", "knee2"], ["toe2", "ankle2"]],
+    front: [["neck", "pel"], ["head", "neck"], ["shL", "neck"], ["shR", "neck"], ["elL", "shL"], ["haL", "elL"], ["elR", "shR"], ["haR", "elR"],
+      ["hipL", "pel"], ["hipR", "pel"], ["knL", "hipL"], ["anL", "knL"], ["knR", "hipR"], ["anR", "knR"]] };
+  const ANCHOR = { grip: "hand", grip2: "hand2", toR: "anR", toL: "anL" };
+  function tween(a, b, t) {
+    const front = a.view === "front", root = front ? "pel" : "hip", j = {}, done = [root], pt2 = v => Array.isArray(v) && v.length === 2 && typeof v[0] === "number";
+    Object.keys(b).forEach(k => { if (!pt2(b[k])) j[k] = b[k]; });
+    j[root] = [a[root][0] + (b[root][0] - a[root][0]) * t, a[root][1] + (b[root][1] - a[root][1]) * t];
+    BONES[front ? "front" : "side"].forEach(([c, p]) => {
+      if (!pt2(a[c]) || !pt2(b[c]) || !j[p]) return;
+      const aa = Math.atan2(a[c][1] - a[p][1], a[c][0] - a[p][0]), ab = Math.atan2(b[c][1] - b[p][1], b[c][0] - b[p][0]);
+      let d = ab - aa; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI;
+      const la = dist(a[c], a[p]), lb = dist(b[c], b[p]), ang = aa + d * t, len = la + (lb - la) * t;
+      j[c] = [j[p][0] + Math.cos(ang) * len, j[p][1] + Math.sin(ang) * len]; done.push(c);
+    });
+    const follow = (k, by) => { const oa = [a[k][0] - a[by][0], a[k][1] - a[by][1]], ob = [b[k][0] - b[by][0], b[k][1] - b[by][1]];
+      j[k] = [j[by][0] + oa[0] + (ob[0] - oa[0]) * t, j[by][1] + oa[1] + (ob[1] - oa[1]) * t]; };
+    const rest = Object.keys(b).filter(k => pt2(b[k]) && pt2(a[k]) && !done.includes(k));
+    // names for the same point first (the front view also keeps hand, elbow, hip ... for the kit), then grips and toes
+    rest.forEach(k => { const same = done.find(d => dist(a[k], a[d]) < 0.5 && dist(b[k], b[d]) < 0.5); if (same) { j[k] = j[same].slice(); done.push(k); } });
+    rest.filter(k => !done.includes(k)).forEach(k => {
+      let by = ANCHOR[k] && j[ANCHOR[k]] ? ANCHOR[k] : null;
+      if (!by) { let bd = 1e9; done.forEach(d => { const v = dist(a[k], a[d]); if (v < bd) { bd = v; by = d; } }); }
+      follow(k, by);
+    });
+    j.frame = t < 0.5 ? 0 : 1;
+    return j;
+  }
+  const MOTION = new Map();
+  function motion(name, n = 8) {
+    const key = String(name || ""); if (MOTION.has(key)) return MOTION.get(key);
+    let out = null;
+    const c = classify(key), id = c && (c.draw || c.id), pat = id && PATTERNS[id];
+    if (pat && pat.frames.length > 1 && !pat.hold && !(PT.exGuide && (PT.exGuide(key) || {}).steps)) {
+      const lay = layout(id, c.kit), a = lay.frames[0].j, b = lay.frames[1].j, hi = hiOf(key);
+      out = [];
+      for (let i = 0; i <= n; i++) { const e = 0.5 - 0.5 * Math.cos(Math.PI * i / n); out.push(dataUrl(svg(id, 0, c.kit, { hi, j: tween(a, b, e), label: false }))); }
+    }
+    if (MOTION.size > 40) MOTION.clear();
+    MOTION.set(key, out); return out;
   }
   // the regions to fill for an exercise: its main muscles strong, the helping ones lighter
   function hiOf(name) {
@@ -1530,5 +1577,5 @@
     });
   }
 
-  PT.figure = { classify, svg, forSteps, kitOf, arrow, PATTERNS, RULES, layout, hiOf, REGION_OF };
+  PT.figure = { classify, svg, forSteps, kitOf, arrow, PATTERNS, RULES, layout, hiOf, REGION_OF, tween, motion };
 })();

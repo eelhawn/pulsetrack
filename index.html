@@ -436,7 +436,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v3.12.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v3.13.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3844,7 +3844,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "3.12.0";
+    const APP_VERSION = "3.13.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -22286,7 +22286,8 @@ const PTSIM = (function () {
     ST.open.add(groupKey({ p, m: metaOf(p) }));
     drawList();
   }
-  PT.progList = { reveal, groupBy: by => { ST.by = by; ST.open = null; drawList(); }, state: ST, star: id => { const on = toggleStar(id); drawList(); return on; } };
+  PT.progList = { reveal, groupBy: by => { ST.by = by; ST.open = null; drawList(); }, state: ST, star: id => { const on = toggleStar(id); drawList(); return on; },
+    starred: id => readStars().has(id), open: openProgram };   // 3.13.0: used by the stars on the program screen and Home (module 141)
 
   /* ================================================================ actions */
   function openProgram(id) {
@@ -35835,6 +35836,25 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 
   /* ================================================================ drawing one step */
   let V = null;   // the open viewer: { name, i, steps, edit, url }
+  // 3.13.0: a drawn exercise plays its move (Start to Halfway and back, module 137 motion()); Pause shows the step's picture with its
+  // arrows. Kept per phone (localStorage "pt-sv-play"); off to start with when the phone asks for less motion.
+  let PLAY = (() => { try { const v = localStorage.getItem("pt-sv-play"); if (v === "1" || v === "0") return v === "1"; } catch (e) { }
+    try { return !matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return true; } })();
+  let anim = 0;   // the running loop (a token: a new one stops the old)
+  const movesOf = st => st && st.image && st.image.generated && !st.photo && PT.figure && PT.figure.motion ? PT.figure.motion(V.name) : null;
+  function loop(frames) {
+    const me = ++anim, n = frames.length - 1, seq = [];
+    for (let i = 0; i <= n; i++) seq.push([i, i === 0 || i === n ? 520 : 70]);
+    for (let i = n - 1; i >= 1; i--) seq.push([i, 70]);
+    let k = 0;
+    const tick = () => {
+      if (me !== anim) return;
+      const im = $("pt-sv-anim"); if (!im) return;
+      const [f, ms] = seq[k % seq.length]; im.src = frames[f]; k++;
+      setTimeout(tick, ms);
+    };
+    tick();
+  }
   const pct = v => Math.round(v * 1000) / 1000;
   function arrowsSvg(arrows, edit) {
     const col = PT.muscleFill ? PT.muscleFill(100) : "rgb(52 211 153)";
@@ -35865,13 +35885,17 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     return `${im.author === "PulseTrack" ? "Drawing: PulseTrack" : "By " + im.author}, ${lic}${im.attribution && im.author !== "PulseTrack" ? " · " + im.attribution : ""}`;
   }
   function stepHtml() {
-    const st = V.steps[V.i], n = V.steps.length;
+    const st = V.steps[V.i], n = V.steps.length, moves = V.edit ? null : movesOf(st), playing = !!(moves && PLAY);
     let pic;
     if (st.photo && V.url) pic = `<img class="pt-sv-img pt-sv-photo" src="${V.url}" alt="Your photo of step ${V.i + 1}">`;
+    else if (playing) pic = `<img class="pt-sv-img" id="pt-sv-anim" src="${moves[0]}" alt="The whole move, playing: from the start to halfway and back">`;
     else if (st.image) pic = `<img class="pt-sv-img" src="${esc(st.image.src)}" alt="${esc(st.image.alt || "Step " + (V.i + 1))}" data-fallback="1">`;
     else pic = `<div class="pt-sv-ph"><span>No picture yet</span></div>`;
-    const showArrows = st.arrows.length && (st.image || st.photo);
-    return `<div class="pt-sv-box" id="pt-sv-box">${pic}${showArrows ? arrowsSvg(st.arrows, V.edit) : ""}</div>
+    const showArrows = !playing && st.arrows.length && (st.image || st.photo);
+    const playBtn = moves ? `<button type="button" class="pt-sv-play tap-active" data-sv="play" aria-pressed="${playing}" aria-label="${playing ? "Pause the move" : "Play the move"}">${playing
+      ? '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="3" width="3" height="10" rx="1"/><rect x="9.5" y="3" width="3" height="10" rx="1"/></svg>Pause'
+      : '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.8v10.4L13 8z"/></svg>Play the move'}</button>` : "";
+    return `<div class="pt-sv-box" id="pt-sv-box">${pic}${showArrows ? arrowsSvg(st.arrows, V.edit) : ""}${playBtn}</div>
       ${credit(st) ? `<p class="pt-sv-cr">${esc(credit(st))}</p>` : ""}
       <p class="pt-sv-n">Step ${V.i + 1} of ${n}</p>
       <p class="pt-sv-t">${esc(st.text)}</p>
@@ -35894,7 +35918,10 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     if (V.url) { URL.revokeObjectURL(V.url); V.url = null; }
     if (st && st.photo) { try { const r = await GDB.get(st.photo); if (r && r.blob) V.url = URL.createObjectURL(r.blob); } catch (e) { } }
     if (!$("pt-sv")) return;
+    anim++;
     box.innerHTML = stepHtml();
+    const moves = PLAY && !V.edit ? movesOf(st) : null;
+    if (moves && $("pt-sv-anim")) loop(moves);
     const im = box.querySelector("img[data-fallback]");
     if (im) im.addEventListener("error", () => { const b = $("pt-sv-box"); if (b) b.innerHTML = `<div class="pt-sv-ph"><span>Picture not saved on this phone yet. It shows next time you're online.</span></div>`; }, { once: true });
   }
@@ -35929,6 +35956,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     if (k === "prev" && V.i > 0) { V.i--; V.edit = false; draw(); }
     else if (k === "next" && V.i < V.steps.length - 1) { V.i++; V.edit = false; draw(); }
     else if (k === "edit") { V.edit = !V.edit; draw(); }
+    else if (k === "play") { PLAY = !PLAY; try { localStorage.setItem("pt-sv-play", PLAY ? "1" : "0"); } catch (er) { } await draw(); const nb = document.querySelector("#pt-sv [data-sv=play]"); if (nb) nb.focus({ preventScroll: true }); }
     else if (k === "resetarrows") {
       const ar = Object.assign({}, local(V.name).arrows || {}); delete ar[V.i];
       PT.exGuideLocal(V.name, { arrows: Object.keys(ar).length ? ar : null }); V.edit = false; draw(); if (a) a.toast("Arrows put back");
@@ -35992,13 +36020,17 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     } catch (e) { }
   }
   window.addEventListener("load", () => setTimeout(prefetch, 4000));
-  PT.guideSteps = { stepsOf, prefetch, db: GDB, shrink };   // 3.10.0: shrink is used by the equipment photos (module 138)
+  PT.guideSteps = { stepsOf, prefetch, db: GDB, shrink, playing: () => PLAY, setPlay: v => { PLAY = !!v; } };   // 3.10.0: shrink is used by the equipment photos (module 138)
 
   const css = document.createElement("style"); css.id = "pt-v350-css";
   css.textContent = `
     .pt-sv { display: flex; flex-direction: column; gap: .5rem; }
     .pt-sv-box { position: relative; width: 100%; aspect-ratio: 4 / 3; border-radius: .75rem; overflow: hidden; background: #18181b; touch-action: none; }
     .pt-sv-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pt-sv-play { position: absolute; top: .5rem; right: .5rem; z-index: 2; display: inline-flex; align-items: center; gap: .35rem; min-height: 2.25rem; padding: 0 .8rem .0 .65rem;
+      border-radius: 999px; background: rgb(24 24 27 / .88); border: 1px solid rgb(63 63 70); color: #f4f4f5; font-size: .75rem; font-weight: 700; }
+    .pt-sv-play svg { width: .85rem; height: .85rem; fill: currentColor; }
+    .pt-sv-play:focus-visible { outline: 2px solid rgb(var(--a500)); outline-offset: 2px; }
     .pt-sv-ov { position: absolute; inset: 0; width: 100%; height: 100%; }
     .pt-sv-h { fill: rgb(255 255 255 / .9); stroke: #09090b; stroke-width: 3; cursor: grab; }
     .pt-sv-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem; border: 2px dashed #3f3f46; border-radius: .75rem; color: #a1a1aa; font-size: .8rem; font-weight: 600; }
@@ -37916,7 +37948,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   function svg(id, f, kit, opts) {
     const pat = PATTERNS[id]; if (!pat) return "";
     kit = kit || pat.kit || "none"; opts = opts || {};
-    const lay = layout(id, kit), fp = lay.frames[Math.min(f, lay.frames.length - 1)];
+    const lay = layout(id, kit), fp = opts.j ? { j: opts.j } : lay.frames[Math.min(f, lay.frames.length - 1)];   // 3.13.0: opts.j = a pose in between (motion)
+    if (opts.j) f = opts.j.frame || 0;
     const kp = kitAt(kit, fp.j, pat, f), behind = pat.behind ? kp : kp.filter(x => x.back), over = pat.behind ? [] : kp.filter(x => !x.back);
     const ghost = f && pat.frames.length > 1 && !pat.hold && opts.ghost === true ? `<g opacity="0.2">${emit(person(lay.frames[0].j, null, true))}</g>` : "";
     const body = emit(lay.props) + ghost + emit(behind) + emit(person(fp.j, opts.hi)) + emit(over) + emit(pat.dyn ? pat.dyn(fp.j, kit) : []);
@@ -37925,6 +37958,52 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const tag = lab ? `<rect x="10" y="10" width="${Math.round(lab.length * 7.4 + 18)}" height="22" rx="11" fill="#27272a"/><text x="${Math.round(19)}" y="25" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12.5" font-weight="700" fill="#e4e4e7">${esc(lab)}</text>` : "";
     const title = `${cap(pat.label)}${KIT_NAME[kit] ? " with " + KIT_NAME[kit] : ""}: ${f ? "finish" : "start"}`;
     return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" role="img" aria-label="${esc(title)}"><title>${esc(title)}. Drawing: PulseTrack, made by the app.</title><rect width="${W}" height="${H}" rx="14" fill="${C.bg}"/>${floor}<g transform="translate(${n1(lay.tx)} ${n1(lay.ty)}) scale(${Math.round(lay.s * 1000) / 1000})">${body}</g>${tag}</svg>`;
+  }
+  /* ================================================================ 3.13.0: the move as a short loop
+   *  Poses in between Start and Halfway: the hip (or pelvis) slides, every bone turns about its joint and keeps its length, the
+   *  hands' grips and the toes follow their joint. motion(name) -> [data URLs from Start to Halfway, eased], or null for a held
+   *  position or a single picture. Module 134 plays them forwards and back in Step by step. */
+  const BONES = { side: [["shoulder", "hip"], ["head", "shoulder"], ["elbow", "shoulder"], ["hand", "elbow"], ["knee", "hip"], ["ankle", "knee"], ["toe", "ankle"],
+      ["elbow2", "shoulder"], ["hand2", "elbow2"], ["knee2", "hip"], ["ankle2", "knee2"], ["toe2", "ankle2"]],
+    front: [["neck", "pel"], ["head", "neck"], ["shL", "neck"], ["shR", "neck"], ["elL", "shL"], ["haL", "elL"], ["elR", "shR"], ["haR", "elR"],
+      ["hipL", "pel"], ["hipR", "pel"], ["knL", "hipL"], ["anL", "knL"], ["knR", "hipR"], ["anR", "knR"]] };
+  const ANCHOR = { grip: "hand", grip2: "hand2", toR: "anR", toL: "anL" };
+  function tween(a, b, t) {
+    const front = a.view === "front", root = front ? "pel" : "hip", j = {}, done = [root], pt2 = v => Array.isArray(v) && v.length === 2 && typeof v[0] === "number";
+    Object.keys(b).forEach(k => { if (!pt2(b[k])) j[k] = b[k]; });
+    j[root] = [a[root][0] + (b[root][0] - a[root][0]) * t, a[root][1] + (b[root][1] - a[root][1]) * t];
+    BONES[front ? "front" : "side"].forEach(([c, p]) => {
+      if (!pt2(a[c]) || !pt2(b[c]) || !j[p]) return;
+      const aa = Math.atan2(a[c][1] - a[p][1], a[c][0] - a[p][0]), ab = Math.atan2(b[c][1] - b[p][1], b[c][0] - b[p][0]);
+      let d = ab - aa; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI;
+      const la = dist(a[c], a[p]), lb = dist(b[c], b[p]), ang = aa + d * t, len = la + (lb - la) * t;
+      j[c] = [j[p][0] + Math.cos(ang) * len, j[p][1] + Math.sin(ang) * len]; done.push(c);
+    });
+    const follow = (k, by) => { const oa = [a[k][0] - a[by][0], a[k][1] - a[by][1]], ob = [b[k][0] - b[by][0], b[k][1] - b[by][1]];
+      j[k] = [j[by][0] + oa[0] + (ob[0] - oa[0]) * t, j[by][1] + oa[1] + (ob[1] - oa[1]) * t]; };
+    const rest = Object.keys(b).filter(k => pt2(b[k]) && pt2(a[k]) && !done.includes(k));
+    // names for the same point first (the front view also keeps hand, elbow, hip ... for the kit), then grips and toes
+    rest.forEach(k => { const same = done.find(d => dist(a[k], a[d]) < 0.5 && dist(b[k], b[d]) < 0.5); if (same) { j[k] = j[same].slice(); done.push(k); } });
+    rest.filter(k => !done.includes(k)).forEach(k => {
+      let by = ANCHOR[k] && j[ANCHOR[k]] ? ANCHOR[k] : null;
+      if (!by) { let bd = 1e9; done.forEach(d => { const v = dist(a[k], a[d]); if (v < bd) { bd = v; by = d; } }); }
+      follow(k, by);
+    });
+    j.frame = t < 0.5 ? 0 : 1;
+    return j;
+  }
+  const MOTION = new Map();
+  function motion(name, n = 8) {
+    const key = String(name || ""); if (MOTION.has(key)) return MOTION.get(key);
+    let out = null;
+    const c = classify(key), id = c && (c.draw || c.id), pat = id && PATTERNS[id];
+    if (pat && pat.frames.length > 1 && !pat.hold && !(PT.exGuide && (PT.exGuide(key) || {}).steps)) {
+      const lay = layout(id, c.kit), a = lay.frames[0].j, b = lay.frames[1].j, hi = hiOf(key);
+      out = [];
+      for (let i = 0; i <= n; i++) { const e = 0.5 - 0.5 * Math.cos(Math.PI * i / n); out.push(dataUrl(svg(id, 0, c.kit, { hi, j: tween(a, b, e), label: false }))); }
+    }
+    if (MOTION.size > 40) MOTION.clear();
+    MOTION.set(key, out); return out;
   }
   // the regions to fill for an exercise: its main muscles strong, the helping ones lighter
   function hiOf(name) {
@@ -37975,7 +38054,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     });
   }
 
-  PT.figure = { classify, svg, forSteps, kitOf, arrow, PATTERNS, RULES, layout, hiOf, REGION_OF };
+  PT.figure = { classify, svg, forSteps, kitOf, arrow, PATTERNS, RULES, layout, hiOf, REGION_OF, tween, motion };
 })();
 </script>
   <script>/* =====================================================================
@@ -38205,8 +38284,14 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const l = n.toLowerCase();
     try { return (window.EXERCISE_DATABASE || []).find(x => x.name.toLowerCase() === l) || (window.OPENGYM_EXERCISES || []).find(x => x.name.toLowerCase() === l) || null; } catch (er) { return null; }
   }
+  const OF = new Map();   // 3.13.0: remembered (the exercise search asks for many at once)
   function of(name) {
     const n = String(name || ""); if (!n) return null;
+    if (OF.has(n)) return OF.get(n);
+    if (OF.size > 4000) OF.clear();
+    const r = of0(n); OF.set(n, r); return r;
+  }
+  function of0(n) {
     const c = PT.figure.classify(n), id = c ? c.draw || c.id : null, kit = c ? c.kit : "none", eq = String((entry(n) || {}).eq || "").toLowerCase();
     let list = pick(n, id, kit, eq) || [];
     list = list.filter((x, i) => EQUIP[x] && list.indexOf(x) === i);
@@ -38405,11 +38490,14 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     try { const g = (PT.gyms() || []).find(x => x.id === s.gymId); return g && /\bla ?fitness\b/i.test(g.name || "") ? "lafitness" : ""; } catch (e) { return ""; }
   }
   const photos = () => { const a = A(); return (a && a.settings.equipPhotos) || {}; };
+  // 3.13.0: the name printed on the machine at your gym (settings.equipNames[equipment id]); searching the exercise list for it finds the
+  // exercises on that machine
+  const names = () => { const a = A(); return (a && a.settings.equipNames) || {}; };
   let cur = null;   // { name, items, show: "photo" | "drawing", url }
   function sectionHtml(name) {
     const r = of(name); if (!r) return "";
     const e = EQUIP[r.items[0]];
-    return `<details id="ex-equip" class="pt-mw pt-eq" open><summary><span class="pt-mw-h">Equipment</span><span class="pt-mw-s">${esc(e.label)}</span><span class="pt-chev">›</span></summary>
+    return `<details id="ex-equip" class="pt-mw pt-eq" open><summary><span class="pt-mw-h">Equipment</span><span class="pt-mw-s">${esc(names()[r.items[0]] || e.label)}</span><span class="pt-chev">›</span></summary>
       <div class="pt-mw-b"><div id="pt-eq" data-name="${esc(name)}"></div></div></details>`;
   }
   async function draw() {
@@ -38423,11 +38511,17 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       ${ph ? `<div class="pt-eq-seg" role="group" aria-label="Show"><button type="button" class="pt-opt tap-active" data-eq="photo" aria-pressed="${!!cur.url}">My photo</button><button type="button" class="pt-opt tap-active" data-eq="drawing" aria-pressed="${!cur.url}">Drawing</button></div>` : ""}
       <p class="pt-eq-name"><b>${esc(e.label)}</b>${more.length ? ` <span>with ${esc(more.join(" and "))}</span>` : ""}</p>
       <p class="pt-eq-look">${esc(e.look)}</p>
+      ${cur.naming ? `<div class="pt-eq-nm"><label for="pt-eq-nm" class="pt-eq-nml">Name on the machine at your gym</label>
+          <input id="pt-eq-nm" type="text" maxlength="60" autocomplete="off" value="${esc(names()[id] || "")}" placeholder="For example: Hammer Strength Iso-Lateral Leg Press">
+          <div class="pt-eq-act"><button type="button" class="pt-opt tap-active" data-eq="namesave">Save</button><button type="button" class="pt-opt tap-active" data-eq="namecancel">Cancel</button>
+          ${names()[id] ? `<button type="button" class="pt-opt tap-active" data-eq="nameclear">Remove the name</button>` : ""}</div></div>`
+        : names()[id] ? `<p class="pt-eq-mine">On the machine: <b>${esc(names()[id])}</b> <button type="button" class="pt-eq-link tap-active" data-eq="name">Change</button></p>` : ""}
       ${gym === "lafitness" ? `<p class="pt-eq-laf"><b>At LA Fitness:</b> ${esc(lafNote(id))} Clubs differ, so yours may look a little different.</p>` : ""}
       <div class="pt-eq-act">
         <label for="pt-eq-file" class="pt-opt tap-active pt-eq-add">${ph ? "Change my photo" : "Add a photo of it at your gym"}</label>
         <input id="pt-eq-file" type="file" accept="image/*" capture="environment" class="hidden">
         ${ph ? `<button type="button" class="pt-opt tap-active" data-eq="rm">Remove my photo</button>` : ""}
+        ${!names()[id] && !cur.naming ? `<button type="button" class="pt-opt tap-active" data-eq="name">Add the name on the machine</button>` : ""}
       </div>
       <p class="pt-eq-cr">${cur.url ? `Your photo, kept on this phone. It shows for every exercise on this ${esc(e.label.toLowerCase())}.` : `Drawing: PulseTrack, original drawing made by the app (not a photo of a real machine).`}${gym === "lafitness" ? "" : ` Train at LA Fitness? Pick it in Settings > Gyms &amp; Equipment for notes on their machines.`}</p>`;
   }
@@ -38448,6 +38542,15 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const b = e.target.closest && e.target.closest("#pt-eq [data-eq]"); if (!b || !cur) return;
     const a = A(), id = cur.items[0], k = b.dataset.eq;
     if (k === "photo" || k === "drawing") { cur.show = k; draw(); }
+    else if (k === "name") { cur.naming = true; await draw(); const i = $("pt-eq-nm"); if (i) i.focus(); }
+    else if (k === "namecancel") { cur.naming = false; draw(); }
+    else if (k === "namesave" || k === "nameclear") {
+      const v = k === "nameclear" ? "" : String(($("pt-eq-nm") || {}).value || "").replace(/\s+/g, " ").trim().slice(0, 60);
+      const nm = Object.assign({}, names()); if (v) nm[id] = v; else delete nm[id];
+      a.settings.equipNames = nm; save(a); cur.naming = false; await draw();
+      const s = document.querySelector("#ex-equip .pt-mw-s"); if (s) s.textContent = v || EQUIP[id].label;
+      a.toast(v ? "Name saved for every exercise on this machine" : "Name removed");
+    }
     else if (k === "rm") {
       const p = Object.assign({}, photos()), old = p[id]; delete p[id];
       a.settings.equipPhotos = p; save(a);
@@ -38504,8 +38607,25 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     .pt-eq-act { display: flex; flex-wrap: wrap; gap: .375rem; margin-top: .55rem; }
     .pt-eq-add { cursor: pointer; }
     .pt-eq-cr { margin: .45rem 0 0; font-size: .6875rem; line-height: 1.4; color: rgb(var(--z400)); }
+    .pt-eq-mine { margin: .35rem 0 0; font-size: .75rem; color: rgb(var(--z300)); }
+    .pt-eq-mine b { color: rgb(var(--z100)); }
+    .pt-eq-link { font-size: .75rem; font-weight: 600; color: rgb(var(--a400)); text-decoration: underline; padding: .35rem .25rem; }
+    .pt-eq-nm { margin-top: .55rem; }
+    .pt-eq-nml { display: block; font-size: .75rem; font-weight: 600; color: rgb(var(--z200)); margin-bottom: .3rem; }
+    #pt-eq-nm { width: 100%; font-size: 1rem; padding: .55rem .7rem; border-radius: .6rem; background: rgb(var(--z950)); border: 1px solid rgb(var(--z700)); color: rgb(var(--z100)); }
   `;
   document.head.appendChild(css);
+  document.addEventListener("keydown", e => { if (e.target && e.target.id === "pt-eq-nm" && e.key === "Enter") { e.preventDefault(); const b = document.querySelector('#pt-eq [data-eq="namesave"]'); if (b) b.click(); } });
+  // searching the exercise list for a machine's name finds the exercises on that machine
+  if (PT.exMatch) {
+    const oMatch = PT.exMatch;
+    PT.exMatch = function (e, q) {
+      if (oMatch.apply(this, arguments)) return true;
+      const t = String(q || "").trim().toLowerCase(); if (t.length < 3 || !e || !e.name) return false;
+      const ids = Object.entries(names()).filter(([, v]) => String(v).toLowerCase().includes(t)).map(([k]) => k); if (!ids.length) return false;
+      const r = of(e.name); return !!(r && ids.includes(r.items[0]));
+    };
+  }
   PT.equip = { of, svg, EQUIP, lafNote, chain, gymBox };
 })();
 </script>
@@ -38801,6 +38921,116 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     memo.set(name, r); return r;
   };
   PT.musclesOf.MOVE = MOVE; PT.musclesOf.STRETCH = STRETCH; PT.musclesOf.ROLL = ROLL; PT.musclesOf.MAIN = MAIN;
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 3.13.0: stars on the program screen and Home, and the rest timer on an iPhone.
+ *  - A program's own screen (its list of days) has a star next to Reset All Days, the same star as in the Programs list (057).
+ *  - Home shows "Starred plans" under the current program when you have starred any: tap one to open it.
+ *  - iPhone and iPad: while you type a set (the keyboard is up), the floating rest timer would slide up the screen like the Finish bar
+ *    did (3.11.1). It hides then, and the countdown shows on the exercise card you are typing in instead, which moves with the page.
+ *  (The moving drawings and machine names of 3.13.0 are in modules 134, 137 and 138.)
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.progList) return;
+  const proto = ApplicationUI.prototype, A = () => window.app, $ = id => document.getElementById(id), esc = s => PT.esc(s);
+  const STAR = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.4l2.65 5.45 5.95.82-4.33 4.12 1.06 5.92L12 16.9l-5.33 2.81 1.06-5.92L3.4 9.67l5.95-.82z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>';
+  const starred = () => { const a = A(), v = a && a.settings && a.settings.starredPrograms; return Array.isArray(v) ? v : []; };
+
+  /* ================================================================ the star on a program's screen */
+  function dayStar() {
+    const a = A(), p = a && a.activeProgram, reset = $("btn-reset-program"); if (!p || !reset) return;
+    let b = $("pt-days-star");
+    if (!b) {
+      const wrap = document.createElement("div"); wrap.className = "pt-days-acts";
+      reset.parentNode.insertBefore(wrap, reset);
+      b = document.createElement("button"); b.type = "button"; b.id = "pt-days-star"; b.className = "pgx-star pt-days-star tap-active";
+      wrap.appendChild(b); wrap.appendChild(reset);
+    }
+    const on = starred().includes(p.id);
+    b.dataset.pid = p.id; b.setAttribute("aria-pressed", String(on)); b.setAttribute("aria-label", (on ? "Remove star from " : "Star ") + p.title); b.innerHTML = STAR;
+  }
+  const oDays = proto.renderDaysView;
+  proto.renderDaysView = function () { const r = oDays.apply(this, arguments); try { dayStar(); } catch (e) { console.error("PulseTrack star", e); } return r; };
+
+  /* ================================================================ Home: starred plans */
+  function homeStars() {
+    const a = A(), host = $("home-routine"); if (!a || !host) return;
+    let box = $("pt-home-stars");
+    const ps = starred().map(id => (a.data.programs || []).find(p => p && p.id === id)).filter(Boolean);
+    if (!ps.length) { if (box) box.remove(); return; }
+    if (!box) { box = document.createElement("section"); box.id = "pt-home-stars"; box.className = "pt-hstars"; box.setAttribute("aria-label", "Starred plans"); host.insertAdjacentElement("afterend", box); }
+    try { box.style.order = host.style.order || getComputedStyle(host).order; } catch (e) { }   // Home lays its cards out by order (flex): right under the program
+    const sub = p => {
+      const cur = PT.isCurrentProgram && PT.isCurrentProgram(p.id), n = (p.days || []).length;
+      let next = null; try { next = cur && a.nextDayOf ? a.nextDayOf(p) : null; } catch (e) { }
+      return (cur ? "Current · " : "") + (next ? `Up next: Day ${next.dayNumber}` : `${n} day${n === 1 ? "" : "s"}`);
+    };
+    box.innerHTML = `<div class="pt-hstars-h"><span>Starred plans</span><button type="button" class="pt-hstars-all tap-active" data-hs-all="1">All programs</button></div>
+      <div class="pt-hstars-l">${ps.map(p => `<button type="button" class="pt-hstar tap-active" data-hs="${esc(p.id)}" aria-label="Open ${esc(p.title)}">
+        <span class="pt-hstar-ic">${STAR}</span><span class="pt-hstar-t"><b>${esc(p.title)}</b><span>${esc(sub(p))}</span></span><span class="pt-chev" aria-hidden="true">›</span></button>`).join("")}</div>`;
+  }
+  const oHome = proto.renderHomeView;
+  proto.renderHomeView = function () { const r = oHome.apply(this, arguments); try { homeStars(); } catch (e) { console.error("PulseTrack home stars", e); } return r; };
+
+  document.addEventListener("click", e => {
+    const t = e.target.closest && e.target.closest("#pt-days-star, #pt-home-stars [data-hs], #pt-home-stars [data-hs-all]"); if (!t) return;
+    const a = A(); if (!a) return;
+    if (t.id === "pt-days-star") {
+      const on = PT.progList.star(t.dataset.pid); dayStar(); a.toast(on ? "Starred" : "Star removed");
+      const nb = $("pt-days-star"); if (nb) nb.focus({ preventScroll: true });
+    } else if (t.dataset.hsAll) a.showView("programs");
+    else PT.progList.open(t.dataset.hs);
+  });
+
+  /* ================================================================ iPhone: the rest timer while you type */
+  const isIOS = () => document.documentElement.classList.contains("pt-ios");
+  const timerUp = () => { const t = $("floating-rest-timer"); return !!t && t.classList.contains("translate-y-0") && !t.classList.contains("opacity-0"); };
+  function restChip() {
+    const act = document.activeElement, card = act && act.closest ? act.closest("[data-ex-card]") : null;
+    let c = $("pt-rest-inline");
+    if (!(isIOS() && document.body.classList.contains("pt-kb") && timerUp() && card)) { if (c) c.remove(); return; }
+    if (!c || c.parentNode !== card) { if (c) c.remove(); c = document.createElement("div"); c.id = "pt-rest-inline"; c.className = "pt-rest-inline"; c.setAttribute("role", "timer"); c.setAttribute("aria-live", "off"); card.appendChild(c); }
+    const d = (($("rest-timer-display") || {}).textContent || "").trim(), sub = (($("rest-timer-subtext") || {}).textContent || "").trim();
+    c.innerHTML = `<span class="pt-ri-dot" aria-hidden="true"></span><span>Rest <b>${esc(d)}</b></span>${sub ? `<span class="pt-ri-sub">${esc(sub)}</span>` : ""}`;
+  }
+  let pend = 0;
+  const soon = () => { clearTimeout(pend); pend = setTimeout(restChip, 90); };   // after module 042 has set or cleared pt-kb
+  document.addEventListener("focusin", soon); document.addEventListener("focusout", soon);
+  function watch() {
+    const d = $("rest-timer-display"), t = $("floating-rest-timer");
+    if (d) new MutationObserver(() => { if ($("pt-rest-inline") || (isIOS() && document.body.classList.contains("pt-kb"))) restChip(); }).observe(d, { childList: true, characterData: true, subtree: true });
+    if (t) new MutationObserver(soon).observe(t, { attributes: true, attributeFilter: ["class"] });
+  }
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", watch); else watch();
+
+  const css = document.createElement("style"); css.id = "pt-v3130-css";
+  css.textContent = `
+    .pt-days-acts { display: flex; align-items: center; gap: .375rem; flex: none; }
+    .pt-days-star { width: 2.25rem; height: 2.25rem; margin-right: 0; }
+    .pt-hstars { background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); border-radius: 1rem; padding: .75rem .875rem; }
+    .pt-hstars-h { display: flex; align-items: center; justify-content: space-between; gap: .5rem; font-size: .8125rem; font-weight: 700; color: rgb(var(--z100)); }
+    .pt-hstars-all { font-size: .75rem; font-weight: 600; color: rgb(var(--z300)); padding: .5rem .25rem; min-height: 2.25rem; }
+    .pt-hstars-l { display: flex; flex-direction: column; margin-top: .25rem; }
+    .pt-hstar { display: flex; align-items: center; gap: .65rem; width: 100%; text-align: left; padding: .55rem 0; min-height: 2.75rem; border-top: 1px solid rgb(var(--z800)); }
+    .pt-hstar:first-child { border-top: 0; }
+    .pt-hstar-ic { flex: none; width: 1.1rem; height: 1.1rem; color: #f5b301; }
+    html[data-mode="light"] .pt-hstar-ic { color: #c47f00; }
+    .pt-hstar-ic svg { width: 100%; height: 100%; fill: currentColor; }
+    .pt-hstar-t { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+    .pt-hstar-t b { font-size: .8125rem; color: rgb(var(--z100)); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .pt-hstar-t span { font-size: .6875rem; color: rgb(var(--z400)); }
+    html.pt-ios body.pt-kb #floating-rest-timer { display: none !important; }
+    [data-ex-card] { position: relative; }
+    .pt-rest-inline { position: absolute; top: -.8rem; left: 50%; transform: translateX(-50%); z-index: 3; display: inline-flex; align-items: center; gap: .4rem; white-space: nowrap;
+      padding: .25rem .7rem; border-radius: 999px; background: rgb(var(--z900)); border: 1px solid rgb(var(--a600)); color: rgb(var(--z100)); font-size: .75rem; box-shadow: 0 2px 8px rgb(0 0 0 / .35); }
+    .pt-rest-inline b { font-variant-numeric: tabular-nums; }
+    .pt-ri-dot { width: .45rem; height: .45rem; border-radius: 999px; background: rgb(var(--a500)); }
+    .pt-ri-sub { color: rgb(var(--z400)); }
+  `;
+  document.head.appendChild(css);
+  PT.homeStars = homeStars;
 })();
 </script>
   <script>

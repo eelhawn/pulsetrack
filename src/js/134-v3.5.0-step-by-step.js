@@ -80,6 +80,25 @@
 
   /* ================================================================ drawing one step */
   let V = null;   // the open viewer: { name, i, steps, edit, url }
+  // 3.13.0: a drawn exercise plays its move (Start to Halfway and back, module 137 motion()); Pause shows the step's picture with its
+  // arrows. Kept per phone (localStorage "pt-sv-play"); off to start with when the phone asks for less motion.
+  let PLAY = (() => { try { const v = localStorage.getItem("pt-sv-play"); if (v === "1" || v === "0") return v === "1"; } catch (e) { }
+    try { return !matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return true; } })();
+  let anim = 0;   // the running loop (a token: a new one stops the old)
+  const movesOf = st => st && st.image && st.image.generated && !st.photo && PT.figure && PT.figure.motion ? PT.figure.motion(V.name) : null;
+  function loop(frames) {
+    const me = ++anim, n = frames.length - 1, seq = [];
+    for (let i = 0; i <= n; i++) seq.push([i, i === 0 || i === n ? 520 : 70]);
+    for (let i = n - 1; i >= 1; i--) seq.push([i, 70]);
+    let k = 0;
+    const tick = () => {
+      if (me !== anim) return;
+      const im = $("pt-sv-anim"); if (!im) return;
+      const [f, ms] = seq[k % seq.length]; im.src = frames[f]; k++;
+      setTimeout(tick, ms);
+    };
+    tick();
+  }
   const pct = v => Math.round(v * 1000) / 1000;
   function arrowsSvg(arrows, edit) {
     const col = PT.muscleFill ? PT.muscleFill(100) : "rgb(52 211 153)";
@@ -110,13 +129,17 @@
     return `${im.author === "PulseTrack" ? "Drawing: PulseTrack" : "By " + im.author}, ${lic}${im.attribution && im.author !== "PulseTrack" ? " · " + im.attribution : ""}`;
   }
   function stepHtml() {
-    const st = V.steps[V.i], n = V.steps.length;
+    const st = V.steps[V.i], n = V.steps.length, moves = V.edit ? null : movesOf(st), playing = !!(moves && PLAY);
     let pic;
     if (st.photo && V.url) pic = `<img class="pt-sv-img pt-sv-photo" src="${V.url}" alt="Your photo of step ${V.i + 1}">`;
+    else if (playing) pic = `<img class="pt-sv-img" id="pt-sv-anim" src="${moves[0]}" alt="The whole move, playing: from the start to halfway and back">`;
     else if (st.image) pic = `<img class="pt-sv-img" src="${esc(st.image.src)}" alt="${esc(st.image.alt || "Step " + (V.i + 1))}" data-fallback="1">`;
     else pic = `<div class="pt-sv-ph"><span>No picture yet</span></div>`;
-    const showArrows = st.arrows.length && (st.image || st.photo);
-    return `<div class="pt-sv-box" id="pt-sv-box">${pic}${showArrows ? arrowsSvg(st.arrows, V.edit) : ""}</div>
+    const showArrows = !playing && st.arrows.length && (st.image || st.photo);
+    const playBtn = moves ? `<button type="button" class="pt-sv-play tap-active" data-sv="play" aria-pressed="${playing}" aria-label="${playing ? "Pause the move" : "Play the move"}">${playing
+      ? '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="3" width="3" height="10" rx="1"/><rect x="9.5" y="3" width="3" height="10" rx="1"/></svg>Pause'
+      : '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.8v10.4L13 8z"/></svg>Play the move'}</button>` : "";
+    return `<div class="pt-sv-box" id="pt-sv-box">${pic}${showArrows ? arrowsSvg(st.arrows, V.edit) : ""}${playBtn}</div>
       ${credit(st) ? `<p class="pt-sv-cr">${esc(credit(st))}</p>` : ""}
       <p class="pt-sv-n">Step ${V.i + 1} of ${n}</p>
       <p class="pt-sv-t">${esc(st.text)}</p>
@@ -139,7 +162,10 @@
     if (V.url) { URL.revokeObjectURL(V.url); V.url = null; }
     if (st && st.photo) { try { const r = await GDB.get(st.photo); if (r && r.blob) V.url = URL.createObjectURL(r.blob); } catch (e) { } }
     if (!$("pt-sv")) return;
+    anim++;
     box.innerHTML = stepHtml();
+    const moves = PLAY && !V.edit ? movesOf(st) : null;
+    if (moves && $("pt-sv-anim")) loop(moves);
     const im = box.querySelector("img[data-fallback]");
     if (im) im.addEventListener("error", () => { const b = $("pt-sv-box"); if (b) b.innerHTML = `<div class="pt-sv-ph"><span>Picture not saved on this phone yet. It shows next time you're online.</span></div>`; }, { once: true });
   }
@@ -174,6 +200,7 @@
     if (k === "prev" && V.i > 0) { V.i--; V.edit = false; draw(); }
     else if (k === "next" && V.i < V.steps.length - 1) { V.i++; V.edit = false; draw(); }
     else if (k === "edit") { V.edit = !V.edit; draw(); }
+    else if (k === "play") { PLAY = !PLAY; try { localStorage.setItem("pt-sv-play", PLAY ? "1" : "0"); } catch (er) { } await draw(); const nb = document.querySelector("#pt-sv [data-sv=play]"); if (nb) nb.focus({ preventScroll: true }); }
     else if (k === "resetarrows") {
       const ar = Object.assign({}, local(V.name).arrows || {}); delete ar[V.i];
       PT.exGuideLocal(V.name, { arrows: Object.keys(ar).length ? ar : null }); V.edit = false; draw(); if (a) a.toast("Arrows put back");
@@ -237,13 +264,17 @@
     } catch (e) { }
   }
   window.addEventListener("load", () => setTimeout(prefetch, 4000));
-  PT.guideSteps = { stepsOf, prefetch, db: GDB, shrink };   // 3.10.0: shrink is used by the equipment photos (module 138)
+  PT.guideSteps = { stepsOf, prefetch, db: GDB, shrink, playing: () => PLAY, setPlay: v => { PLAY = !!v; } };   // 3.10.0: shrink is used by the equipment photos (module 138)
 
   const css = document.createElement("style"); css.id = "pt-v350-css";
   css.textContent = `
     .pt-sv { display: flex; flex-direction: column; gap: .5rem; }
     .pt-sv-box { position: relative; width: 100%; aspect-ratio: 4 / 3; border-radius: .75rem; overflow: hidden; background: #18181b; touch-action: none; }
     .pt-sv-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+    .pt-sv-play { position: absolute; top: .5rem; right: .5rem; z-index: 2; display: inline-flex; align-items: center; gap: .35rem; min-height: 2.25rem; padding: 0 .8rem .0 .65rem;
+      border-radius: 999px; background: rgb(24 24 27 / .88); border: 1px solid rgb(63 63 70); color: #f4f4f5; font-size: .75rem; font-weight: 700; }
+    .pt-sv-play svg { width: .85rem; height: .85rem; fill: currentColor; }
+    .pt-sv-play:focus-visible { outline: 2px solid rgb(var(--a500)); outline-offset: 2px; }
     .pt-sv-ov { position: absolute; inset: 0; width: 100%; height: 100%; }
     .pt-sv-h { fill: rgb(255 255 255 / .9); stroke: #09090b; stroke-width: 3; cursor: grab; }
     .pt-sv-ph { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; text-align: center; padding: 1rem; border: 2px dashed #3f3f46; border-radius: .75rem; color: #a1a1aa; font-size: .8rem; font-weight: 600; }

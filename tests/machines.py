@@ -111,6 +111,21 @@ with page(360, 780) as p:
     c.ok(p.evaluate('!(app.settings.equipPhotos || {}).leg_press_45 && !document.querySelector("#pt-eq .pt-eq-photo")'), 'Remove my photo takes it off')
     c.ok(p.evaluate('async (id) => !(await PT.guideSteps.db.get(id))', ph), 'and deletes it from the phone')
 
+    # ---- 3.13.0: the name on the machine at your gym
+    p.evaluate('() => { app.closeSheet(); app.openExerciseSheet("Leg Press"); }'); p.wait_for_timeout(400)
+    p.click('#pt-eq [data-eq=name]'); p.wait_for_timeout(200)
+    c.ok(p.evaluate('document.activeElement && document.activeElement.id === "pt-eq-nm" && parseFloat(getComputedStyle(document.activeElement).fontSize) >= 16'), 'Add the name on the machine opens a box (16px, so an iPhone does not zoom)')
+    p.fill('#pt-eq-nm', '  Hammer Strength   Iso-Lateral Leg Press '); p.press('#pt-eq-nm', 'Enter'); p.wait_for_timeout(300)
+    c.eq(p.evaluate('app.settings.equipNames'), {'leg_press_45': 'Hammer Strength Iso-Lateral Leg Press'}, 'Enter saves it, tidied, for that machine')
+    t = p.evaluate('document.getElementById("ex-equip").innerText')
+    c.ok('On the machine: Hammer Strength Iso-Lateral Leg Press' in t and p.evaluate('document.querySelector("#ex-equip .pt-mw-s").textContent') == 'Hammer Strength Iso-Lateral Leg Press', 'it shows under the drawing and in the section title')
+    p.evaluate('() => { app.closeSheet(); app.openExerciseSheet("Leg Press Calf Raise"); }'); p.wait_for_timeout(400)
+    c.ok('Hammer Strength Iso-Lateral Leg Press' in p.evaluate('document.getElementById("ex-equip").innerText'), 'every exercise on that machine shows it')
+    found = p.evaluate('() => EXERCISE_DATABASE.filter(e => PT.exMatch(e, "iso-lateral leg")).map(e => e.name)')
+    c.ok('Leg Press' in found and 'Leg Press Calf Raises' in found and 'Squat' not in found, 'searching for the name finds the exercises on that machine (%d)' % len(found))
+    p.click('#pt-eq [data-eq=name]'); p.wait_for_timeout(200); p.click('#pt-eq [data-eq=nameclear]'); p.wait_for_timeout(300)
+    c.ok(not p.evaluate('app.settings.equipNames.leg_press_45') and 'On the machine' not in p.evaluate('document.getElementById("ex-equip").innerText'), 'Remove the name takes it off')
+
     # ---- the guide knows, and it all fits a small phone
     c.ok(p.evaluate('PT.guide.help().some(h => (h.id || h[0]) === "equippics" || JSON.stringify(h).includes("equippics"))'), 'the guide has a help entry for machine pictures')
     p.evaluate('() => { app.closeSheet(); app.settings.gymChain = "lafitness"; app.openExerciseSheet("Hammer Strength Chest Press"); }'); p.wait_for_timeout(400)

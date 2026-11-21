@@ -54,6 +54,7 @@ with page(360, 780) as p:
     reqs = []
     p.on('request', lambda r: reqs.append(r.url))
     p.wait_for_function('() => EXERCISE_DATABASE.length > 3000 && typeof PT !== "undefined" && !!PT.figure', timeout=20000)
+    p.evaluate('PT.guideSteps.setPlay(false)')   # 3.13.0: these checks are about each step's own picture and arrows; tests/moving.py checks the moving drawing
     ids = p.evaluate('Object.keys(PT.figure.PATTERNS)')
     c.ok(len(ids) >= 80, '%d kinds of movement' % len(ids))
     c.eq(sorted(G.figure_ids() ^ set(ids)), [], 'Python reads the same movement list as the app')
