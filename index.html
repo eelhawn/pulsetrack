@@ -436,7 +436,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v3.17.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v3.18.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3844,7 +3844,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "3.17.0";
+    const APP_VERSION = "3.18.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -35220,7 +35220,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     ["startdate", "Start date for the 64 days", "start date, when did i start, date of each day, dates for the days, day 64, end date, when do i finish, behind schedule, on schedule, move the dates", "Open Ilhaan's 3 Day Split (its list of days) and tap Set a start date. Every day gets its date, the box says when Day 64 is and whether you are on your dates, and Move the dates lines them up with today.", "view:days#pt-startdate"],   // 3.15.0
     ["today", "Today", "today screen, today page, what did i do today, done today, this week so far, quick look at today", "Side menu > Today: what you did today, your next workout with Start and Log a set, and this week against your goal.", "click:#pt-drawer-today"],   // 3.16.0
     ["shortcuts", "Phone shortcuts", "shortcut, shortcuts, long press, long-press the icon, hold the app icon, home screen shortcut, quick start", "On Android, touch and hold PulseTrack's icon on your home screen: Start workout, Log a set and Today. iPhones don't offer these for web apps.", "click:#pt-drawer-today"],   // 3.16.0
-    ["repcounter", "Count reps (abs)", "count reps, rep counter, counting reps, lose count, sit ups count, count for me, pace me, count out loud, abs counter", "On an ab exercise in your workout, tap Count reps. Tap the big number for each rep, or Pace me counts them at a steady speed. Save set puts the count in the next set.", "view:workout"],   // 3.17.0
+    ["abtotal", "Total reps (abs)", "total reps, how many reps in total, reps so far, 200-300 reps, ab reps, count reps, rep counter, sit ups total", "An ab exercise in your workout shows Total: the reps you have logged so far against what its sets add up to (5 sets of 40-60 = 200-300). Guided mode shows it at the top.", "view:workout"],   // 3.18.0
     ["weekstart", "Week starts on", "week starts, start of week, monday, sunday, first day of week", "Settings > Workout > Week Starts On.", "set:#setting-week-start"],
     ["plates", "Bar and plates", "plates, bar weight, barbell weight, gym plates, my plates", "Settings > Workout > Gym Plates & Bar sets your bar and the plates you have.", "set:#btn-edit-gym-plates"],
     ["platecalc", "Plate calculator", "plate calculator, what plates, load the bar, plates per side", "Open the side menu and tap Plate Calculator.", "click:#btn-drawer-plate-calc"],
@@ -36549,6 +36549,26 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const k = Math.atan2(target[1] - mid[1], target[0] - mid[0]);
     return [mid, [mid[0] + b * Math.cos(k), mid[1] + b * Math.sin(k)]];
   }
+  /* 3.18.0: elbows and knees only bend the way they really bend (the owner: "the guys elbows are breaking"). In a side view the
+   * figure faces right (mirror: left), so an elbow bends with the forearm turning counter-clockwise from the upper arm (as the arm
+   * comes up in front) and a knee the other way. flexOf > 0: a normal bend; < 0: bent backwards. */
+  const angOf = (p, q) => Math.atan2(-(q[1] - p[1]), q[0] - p[0]) / D2R;
+  const wrapD = a => { while (a > 180) a -= 360; while (a <= -180) a += 360; return a; };
+  const flexOf = (root, mid, end, s) => s * wrapD(angOf(mid, end) - angOf(root, mid));
+  // A limb folded all the way (beyond 150 degrees, the top of a curl, hands behind the head, the elbows of a face pull) is kept as
+  // drawn: seen from the side, which side the forearm folds to hardly shows, and it often stands for an elbow out to the side.
+  const FOLD = 150;
+  /** a limb bent backwards: the other way round to the same hand or foot, or (when the pose gives angles) bent as much the right way */
+  function anatomic(root, pair, p, kT, kBend, la, lb, s, sa, sb) {
+    const [mid, end] = pair, f = flexOf(root, mid, end, s);
+    if (f >= -6 || f <= -FOLD + 0.5) return pair;
+    if (p[kT]) {
+      const other = ik(root, p[kT], la * (sa || 1), lb * (sb || 1), -(p[kBend] == null ? 1 : p[kBend]));
+      return flexOf(root, other[0], other[1], s) > f ? other : pair;
+    }
+    const a = angOf(root, mid), len = dist(mid, end);
+    return [mid, add(mid, a - f / s, len)];   // the same bend, the right way
+  }
   function limb(root, p, kA, kB, kT, kBend, la, lb, defA, sa, sb) {
     if (p[kT]) return ik(root, p[kT], la * (sa || 1), lb * (sb || 1), p[kBend] == null ? 1 : p[kBend]);
     const a = p[kA] == null ? defA : p[kA], b = p[kB] == null ? a : p[kB];
@@ -36567,14 +36587,15 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       p = Object.assign({}, p, { hand: [base[0] + u[0] * a + back[0] * b, base[1] + u[1] * a + back[1] * b] });
     }
     const ua = rel("ua", "uaR", -90), fa = rel("fa", "faR", ua);
-    [j.elbow, j.hand] = limb(j.shoulder, Object.assign({}, p, { ua, fa }), "ua", "fa", "hand", "eb", LEN.ua, LEN.fa, -90);
+    const sE = j.mirror ? -1 : 1, sK = -sE, p1 = Object.assign({}, p, { ua, fa });
+    [j.elbow, j.hand] = anatomic(j.shoulder, limb(j.shoulder, p1, "ua", "fa", "hand", "eb", LEN.ua, LEN.fa, -90), p1, "hand", "eb", LEN.ua, LEN.fa, sE);
     const p2 = { ua: rel("ua2", "ua2R", ua), fa: rel("fa2", "fa2R", fa), hand: p.hand2 || (p.ua2 == null && p.ua2R == null ? p.hand : null), eb: p.eb2 == null ? p.eb : p.eb2 };
-    [j.elbow2, j.hand2] = limb(j.shoulder, p2, "ua", "fa", "hand", "eb", LEN.ua, LEN.fa, -90);
-    [j.knee, j.ankle] = limb(j.hip, p, "th", "sh", "ankle", "kb", LEN.th, LEN.sh, -90);
+    [j.elbow2, j.hand2] = anatomic(j.shoulder, limb(j.shoulder, p2, "ua", "fa", "hand", "eb", LEN.ua, LEN.fa, -90), p2, "hand", "eb", LEN.ua, LEN.fa, sE);
+    [j.knee, j.ankle] = anatomic(j.hip, limb(j.hip, p, "th", "sh", "ankle", "kb", LEN.th, LEN.sh, -90), p, "ankle", "kb", LEN.th, LEN.sh, sK);
     j.toe = add(j.ankle, p.ft == null ? 0 : p.ft, LEN.ft);
     const q2 = { th: p.th2 == null ? p.th : p.th2, sh: p.sh2 == null ? (p.th2 == null ? p.sh : p.th2) : p.sh2, ankle: p.ankle2 || (p.th2 == null ? p.ankle : null), kb: p.kb2 == null ? p.kb : p.kb2 };
     if (p.sh2 != null) q2.sh = p.sh2;
-    [j.knee2, j.ankle2] = limb(j.hip, q2, "th", "sh", "ankle", "kb", LEN.th, LEN.sh, -90);
+    [j.knee2, j.ankle2] = anatomic(j.hip, limb(j.hip, q2, "th", "sh", "ankle", "kb", LEN.th, LEN.sh, -90), q2, "ankle", "kb", LEN.th, LEN.sh, sK);
     j.toe2 = add(j.ankle2, p.ft2 == null ? (p.ft == null ? 0 : p.ft) : p.ft2, LEN.ft);
     j.grip = p.wr == null ? j.hand : add(j.hand, p.wr, LEN.wr);
     return j;
@@ -36934,6 +36955,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     face_pull: { label: "face pull", kit: "cable", go: "pull", back: "reach", joint: "grip",
       start: "Stand facing the cable at face height, arms straight.", end: "Pull the rope to your face, elbows high and wide, then reach forward.",
       props: () => PROPS.tower(null, { x: 270 }), cable: () => [268, 50],
+      lin: true,   // 3.18.0: the arms turn out to the sides, which a side view shows as the elbow sliding back past the shoulder
       frames: [S({ ua: 6, fa: 4 }), S({ ua: 174, fa: 24, eb: 1 })] },
     deadlift: { label: "deadlift", kit: "barbell", go: "stand up", back: "lower", joint: "hip", plate: 17,
       start: "Bar over your mid-foot, hips back, flat back, arms straight.", end: "Stand up tall with the bar, then lower it the same way.",
@@ -38011,11 +38033,26 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const front = a.view === "front", root = front ? "pel" : "hip", j = {}, done = [root], pt2 = v => Array.isArray(v) && v.length === 2 && typeof v[0] === "number";
     Object.keys(b).forEach(k => { if (!pt2(b[k])) j[k] = b[k]; });
     j[root] = [a[root][0] + (b[root][0] - a[root][0]) * t, a[root][1] + (b[root][1] - a[root][1]) * t];
+    // 3.18.0: each bone turns relative to the bone it hangs from (the elbow bends from one pose to the other), so a joint that bends
+    // the right way in both poses bends the right way all the way between them; bones off the root turn on their own
+    const wrapR = x => { while (x > Math.PI) x -= 2 * Math.PI; while (x <= -Math.PI) x += 2 * Math.PI; return x; };
+    // Elbows and knees go through their real bend (a curl folds the forearm forward, never back through a kink): their angle is
+    // taken as a bend in [-150, 210] degrees and goes straight from one pose to the other.
+    const angA = {}, angB = {}, angJ = {}, sE = a.mirror ? -1 : 1, HINGE = front ? {} : { hand: sE, hand2: sE, ankle: -sE, ankle2: -sE };
+    const bendOf = (r, sg) => { let f = sg * r * 180 / Math.PI; if (f <= -FOLD + 0.5) f += 360; return f; };
     BONES[front ? "front" : "side"].forEach(([c, p]) => {
       if (!pt2(a[c]) || !pt2(b[c]) || !j[p]) return;
       const aa = Math.atan2(a[c][1] - a[p][1], a[c][0] - a[p][0]), ab = Math.atan2(b[c][1] - b[p][1], b[c][0] - b[p][0]);
-      let d = ab - aa; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI;
-      const la = dist(a[c], a[p]), lb = dist(b[c], b[p]), ang = aa + d * t, len = la + (lb - la) * t;
+      let ang;
+      if (angJ[p] != null && HINGE[c]) {
+        // screen angles run clockwise (y down), the bends counter-clockwise: hence the minus signs
+        const sg = HINGE[c], fa = bendOf(-wrapR(aa - angA[p]), sg), fb = bendOf(-wrapR(ab - angB[p]), sg);
+        ang = angJ[p] - (sg * (fa + (fb - fa) * t)) * Math.PI / 180;
+      }
+      else if (angJ[p] != null) { const ra = wrapR(aa - angA[p]), rb = wrapR(ab - angB[p]); ang = angJ[p] + ra + wrapR(rb - ra) * t; }
+      else ang = aa + wrapR(ab - aa) * t;
+      angA[c] = aa; angB[c] = ab; angJ[c] = ang;
+      const la = dist(a[c], a[p]), lb = dist(b[c], b[p]), len = la + (lb - la) * t;
       j[c] = [j[p][0] + Math.cos(ang) * len, j[p][1] + Math.sin(ang) * len]; done.push(c);
     });
     const follow = (k, by) => { const oa = [a[k][0] - a[by][0], a[k][1] - a[by][1]], ob = [b[k][0] - b[by][0], b[k][1] - b[by][1]];
@@ -38031,6 +38068,13 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     j.frame = t < 0.5 ? 0 : 1;
     return j;
   }
+  /** in-between poses for a movement out of the side view's plane (pattern lin: true): every point slides straight across */
+  function lerpJ(a, b, t) {
+    const j = {}, pt2 = v => Array.isArray(v) && v.length === 2 && typeof v[0] === "number";
+    Object.keys(b).forEach(k => { j[k] = pt2(b[k]) && pt2(a[k]) ? [a[k][0] + (b[k][0] - a[k][0]) * t, a[k][1] + (b[k][1] - a[k][1]) * t] : b[k]; });
+    j.frame = t < 0.5 ? 0 : 1;
+    return j;
+  }
   const MOTION = new Map();
   // all: also for exercises with their own pictures (3.17.0's rep counter shows the move for those too)
   function motion(name, n = 8, all = false) {
@@ -38040,7 +38084,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     if (pat && pat.frames.length > 1 && !pat.hold && (all || !(PT.exGuide && (PT.exGuide(String(name || "")) || {}).steps))) {
       const lay = layout(id, c.kit), a = lay.frames[0].j, b = lay.frames[1].j, hi = hiOf(String(name || ""));
       out = [];
-      for (let i = 0; i <= n; i++) { const e = 0.5 - 0.5 * Math.cos(Math.PI * i / n); out.push(dataUrl(svg(id, 0, c.kit, { hi, j: tween(a, b, e), label: false }))); }
+      const tw = pat.lin ? lerpJ : tween;
+      for (let i = 0; i <= n; i++) { const e = 0.5 - 0.5 * Math.cos(Math.PI * i / n); out.push(dataUrl(svg(id, 0, c.kit, { hi, j: tw(a, b, e), label: false }))); }
     }
     if (MOTION.size > 40) MOTION.clear();
     MOTION.set(key, out); return out;
@@ -38094,7 +38139,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     });
   }
 
-  PT.figure = { classify, svg, forSteps, kitOf, arrow, PATTERNS, RULES, layout, hiOf, REGION_OF, tween, motion };
+  PT.figure = { classify, svg, forSteps, kitOf, arrow, PATTERNS, RULES, layout, hiOf, REGION_OF, tween, lerpJ, motion };
 })();
 </script>
   <script>/* =====================================================================
@@ -39450,20 +39495,17 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 })();
 </script>
   <script>/* =====================================================================
- * PulseTrack 3.17.0: a rep counter for abs.
- *  Ab sets are long (the Core & Cardio days are 5 x 40-60), and it is easy to lose count. Every ab exercise in a workout (abs or obliques
- *  as a main muscle, done for reps, not a hold) gets "Count reps" next to Form tips. It opens a sheet with the moving drawing of the
- *  exercise and a big number:
- *   - tap the number for each rep (the drawing does one rep each tap), or
- *   - "Pace me": the drawing does the reps at a steady speed (slow 3 s, steady 2 s, quick 1.5 s) and counts them, out loud if you like;
- *  then "Save set" puts the count in the reps of the next set that is not ticked and ticks it (the rest timer starts as usual).
- *  settings.rcPace (ms a rep) and settings.rcVoice (say the count) are kept. The screen stays on while the sheet is open.
+ * PulseTrack 3.17.0 / 3.18.0: total reps for abs.
+ *  Ab sets on the Core & Cardio days are 5 x 40-60, "200-300 reps in all". Every ab exercise done for reps (abs or obliques as a main
+ *  muscle, not a hold, not timed, not cardio) shows the total of the reps you have logged so far, against the total the sets add up
+ *  to: "Total: 95 of 200-300 reps", with a bar. On its workout card (under the name and sets) and at the top of Guided mode.
+ *  3.17.0 had a counting sheet (tap or pace the reps); the owner did not want that ("I'll log the sets in guided mode, just put the
+ *  total reps"), so 3.18.0 took it out. settings.rcPace / rcVoice from 3.17.0 are left unused.
  * ===================================================================== */
 (function () {
   "use strict";
   if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
   const proto = ApplicationUI.prototype, A = () => window.app, $ = id => document.getElementById(id), esc = s => PT.esc(s);
-  const PACES = [[3000, "Slow", "3 s"], [2000, "Steady", "2 s"], [1500, "Quick", "1.5 s"]];
   const TIMED = /\b(s|sec|secs|second|seconds|min|mins|minute|minutes)\b|\d:\d\d|hold/i;
 
   /** an ab exercise done for reps (not a hold, not cardio) */
@@ -39483,168 +39525,77 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     const lo = parseInt(m[1], 10), hi = parseInt(m[2] || m[1], 10);
     return lo > 0 ? { lo: Math.min(lo, hi), hi: Math.max(lo, hi) } : null;
   }
-  const frames = name => { try { return PT.figure && PT.figure.motion ? PT.figure.motion(name, 8, true) : null; } catch (e) { return null; } };
-  const vibrate = p => { try { if (navigator.vibrate) navigator.vibrate(p); } catch (e) { } };
+  /** { done: reps logged (ticked sets), sets: ticked sets, of: sets, lo, hi (the sets' reps added up, or null) } */
+  function totalOf(a, ex) {
+    if (!a || !a.activeProgram || !a.activeDay || !ex) return null;
+    const n = ex.sets || 0, g = goalOf(ex.reps); let done = 0, sets = 0;
+    for (let s = 0; s < n; s++) {
+      const e = a.logs[a.getLogKey(a.activeProgram.id, a.activeDay.dayNumber, ex.id, s)];
+      if (e && e.completed) { sets++; done += Math.max(0, parseInt(e.reps, 10) || 0); }
+    }
+    return { done, sets, of: n, lo: g ? g.lo * n : null, hi: g ? g.hi * n : null };
+  }
+  const goalTxt = t => t.lo == null ? "" : t.lo === t.hi ? String(t.lo) : `${t.lo}-${t.hi}`;
+  function lineHtml(t, cls) {
+    const pc = t.hi ? Math.min(100, Math.round(t.done / t.hi * 100)) : 0, ok = t.lo != null && t.done >= t.lo;
+    return `<div class="pt-abt ${cls || ""}${ok ? " pt-abt-ok" : ""}" data-abt="${t.done}"><span class="pt-abt-t">Total: <b>${t.done}</b>${t.lo != null ? ` of ${goalTxt(t)}` : ""} reps${t.sets ? ` · ${t.sets} of ${t.of} sets` : ""}</span>
+      ${t.hi ? `<span class="pt-abt-bar" role="progressbar" aria-label="Reps done" aria-valuemin="0" aria-valuemax="${t.hi}" aria-valuenow="${t.done}"><span style="width:${pc}%"></span></span>` : ""}</div>`;
+  }
 
-  /* ================================================================ the "Count reps" buttons on the cards */
+  /* ================================================================ on the workout cards */
   function decorate(a) {
     const list = $("exercises-list") || (a.dom && a.dom.exercisesList); if (!list) return;
     list.querySelectorAll("[data-ex-card]").forEach(card => {
-      const old = card.querySelector(".pt-rc-btn"); if (old) old.remove();
+      const old = card.querySelector(".pt-abt"); if (old) old.remove();
       const i = parseInt(card.dataset.exCard, 10), ex = a.activeDay && (a.activeDay.exercises || [])[i];
       const chk = card.querySelector(".btn-check-set"), name = (chk && chk.dataset.exname) || (ex && ex.name);
-      if (!chk || !isAbs(name, ex)) return;
-      // its own full-width button under the exercise's name and sets line (beside Form tips it squeezed "5 Sets × 40-60")
+      if (!ex || !chk || !isAbs(name, ex)) return;
       const anchor = card.querySelector(".btn-cues") || card.querySelector(".btn-ex-info"), line = anchor && anchor.parentElement; if (!line) return;
-      const b = document.createElement("button"); b.type = "button"; b.className = "pt-rc-btn tap-active"; b.dataset.rcx = String(i);
-      b.setAttribute("aria-label", `Count reps of ${name}`); b.textContent = "Count reps";
-      line.insertAdjacentElement("afterend", b);
+      const t = totalOf(a, ex); if (!t) return;
+      line.insertAdjacentHTML("afterend", lineHtml(t, "pt-abt-card"));
     });
   }
   const oRW = proto.renderWorkoutView;
   proto.renderWorkoutView = function () {
     const r = oRW.apply(this, arguments);
-    try { decorate(this); } catch (e) { console.error("PulseTrack rep counter", e); }
+    try { decorate(this); } catch (e) { console.error("PulseTrack ab totals", e); }
     return r;
   };
-  document.addEventListener("click", e => {
-    const b = e.target.closest && e.target.closest(".pt-rc-btn"); if (!b) return;
-    e.preventDefault(); e.stopPropagation();
-    open(parseInt(b.dataset.rcx, 10));
-  }, true);
 
-  /* ================================================================ the counter */
-  let C = null;   // { i, name, el, n, goal, pace, voice, play (token), pacing, wl }
-  function nextSet(i) {
-    const card = document.querySelector(`#view-workout [data-ex-card="${i}"]`); if (!card) return null;
-    const all = [...card.querySelectorAll(".set-row")], row = all.find(r => { const b = r.querySelector(".btn-check-set"); return b && b.dataset.completed !== "1"; });
-    return row ? { row, k: all.indexOf(row), of: all.length } : { row: null, k: -1, of: all.length };
+  /* ================================================================ at the top of Guided mode (module 045 draws #pt-guided) */
+  function guided() {
+    const o = $("pt-guided"), a = A(); if (!o || !a || !a.activeDay) return;
+    const title = o.querySelector(".pt-g-title"), old = o.querySelector(".pt-abt");
+    const ex = title && (a.activeDay.exercises || []).find(x => x.name === title.textContent.trim());
+    const t = ex && isAbs(ex.name, ex) ? totalOf(a, ex) : null;
+    if (!t) { if (old) old.remove(); return; }
+    if (old && old.dataset.abt === String(t.done)) return;     // already right: do not touch the DOM (the observer would loop)
+    if (old) old.remove();
+    const sub = o.querySelector(".pt-g-sub") || title; sub.insertAdjacentHTML("afterend", lineHtml(t, "pt-abt-g"));
   }
-  function say(t) {
-    const a = A(); if (!C || !C.voice || !a || a.settings.voice === false || !("speechSynthesis" in window)) return;
-    try { speechSynthesis.cancel(); const u = new SpeechSynthesisUtterance(String(t)); u.rate = 1.15; speechSynthesis.speak(u); } catch (e) { }
+  let obs = null;
+  function watch() {
+    const o = $("pt-guided"); if (!o || o.__abt) return; o.__abt = true;
+    obs = new MutationObserver(() => { try { guided(); } catch (e) { } });
+    obs.observe(o, { childList: true, subtree: true });
+    guided();
   }
-  function show() {
-    if (!C) return;
-    const num = $("pt-rc-n"), bar = $("pt-rc-bar"), save = $("pt-rc-save"), sub = $("pt-rc-sub"); if (!num) return;
-    num.textContent = String(C.n);
-    const g = C.goal, at = g && C.n >= g.lo;
-    $("pt-rc-tap").classList.toggle("pt-rc-ok", !!at);
-    if (bar) bar.style.width = g ? Math.min(100, Math.round(C.n / g.hi * 100)) + "%" : "0%";
-    if (sub) sub.textContent = g ? (C.n >= g.hi ? `Goal done: ${g.lo === g.hi ? g.hi : g.lo + "-" + g.hi}` : at ? `In your goal (${g.lo}-${g.hi}). Keep going or save.` : `Goal ${g.lo === g.hi ? g.hi : g.lo + "-" + g.hi} · ${g.lo - C.n} to go`) : "Tap the number for each rep";
-    const s = nextSet(C.i);
-    if (save) {
-      save.disabled = !C.n || !s || !s.row;
-      save.textContent = !s || !s.row ? "Every set is ticked" : `Save set ${s.k + 1}: ${C.n} rep${C.n === 1 ? "" : "s"}`;
-    }
-    const pb = $("pt-rc-pace"); if (pb) { pb.textContent = C.pacing ? "Stop" : "Pace me"; pb.setAttribute("aria-pressed", C.pacing ? "true" : "false"); }
-  }
-  function count(by) {
-    if (!C) return;
-    const was = C.n; C.n = Math.max(0, C.n + by); show();
-    if (by > 0) {
-      const g = C.goal;
-      if (g && was < g.lo && C.n >= g.lo) { vibrate([70, 50, 70]); say(`${C.n}. Goal.`); }
-      else if (g && was < g.hi && C.n >= g.hi && g.hi !== g.lo) { vibrate([70, 50, 70, 50, 70]); say(`${C.n}. That's the top of your goal.`); }
-      else { vibrate(12); say(C.n); }
-    }
-  }
-  /** play one rep of the drawing over ms; calls done at the end */
-  function oneRep(ms, done) {
-    const fr = C && C.fr, im = $("pt-rc-img"); if (!fr || !im) { if (done) setTimeout(done, ms); return; }
-    const me = ++C.play, seq = []; for (let i = 0; i < fr.length; i++) seq.push(i); for (let i = fr.length - 2; i >= 0; i--) seq.push(i);
-    const step = ms / (seq.length - 1); let k = 0;
-    const tick = () => { if (!C || me !== C.play) return; const el = $("pt-rc-img"); if (!el) return; el.src = fr[seq[k]]; k++; if (k < seq.length) setTimeout(tick, step); else if (done) done(); };
-    tick();
-  }
-  function pace(on) {
-    if (!C) return;
-    C.pacing = on; show();
-    if (!on) { C.play++; return; }
-    say("Go");
-    const run = () => { if (!C || !C.pacing) return; oneRep(C.pace, () => { if (!C || !C.pacing) return; count(1); run(); }); };
-    setTimeout(run, 700);
-  }
-  async function wake(on) {
-    try {
-      if (on && "wakeLock" in navigator && C && !C.wl) C.wl = await navigator.wakeLock.request("screen");
-      else if (!on && C && C.wl) { const w = C.wl; C.wl = null; await w.release(); }
-    } catch (e) { }
-  }
-  function open(i) {
-    const a = A(), K = PT.kit; if (!a || !K) return;
-    const card = document.querySelector(`#view-workout [data-ex-card="${i}"]`), chk = card && card.querySelector(".btn-check-set"); if (!chk) return;
-    const ex = a.activeDay && (a.activeDay.exercises || [])[i], name = chk.dataset.exname || (ex && ex.name);
-    const reps = (card.querySelector('.input-set-field[data-field="reps"]') || {}).placeholder || (ex && ex.reps) || "";
-    const s = a.settings, pv = PACES.some(p => p[0] === s.rcPace) ? s.rcPace : 2000;
-    if (C) close();
-    const el = K.sheet("pt-rc-sheet", 58), fr = frames(name), st = nextSet(i);
-    C = { i, name, el, n: 0, goal: goalOf(reps), pace: pv, voice: s.rcVoice !== false, play: 0, pacing: false, wl: null, fr };
-    const c = K.openSheet(el, `${K.head("Count reps", `${name}${st && st.row ? ` · set ${st.k + 1} of ${st.of}` : ""}`)}
-      ${fr ? `<img id="pt-rc-img" class="pt-rc-img" src="${fr[0]}" alt="${esc(name)}, drawn">` : ""}
-      <button type="button" id="pt-rc-tap" class="pt-rc-tap tap-active" aria-label="Add a rep"><span id="pt-rc-n" class="pt-rc-n" aria-live="polite">0</span>
-        <span class="pt-rc-l">Tap here for each rep</span><span class="pt-rc-track"><span id="pt-rc-bar"></span></span><span id="pt-rc-sub" class="pt-rc-l"></span></button>
-      <div class="pt-rc-row"><button type="button" class="pt-rc-b tap-active" data-rc="minus" aria-label="One rep less">−1</button>
-        <button type="button" id="pt-rc-pace" class="pt-rc-b pt-rc-p tap-active" data-rc="pace" aria-pressed="false">Pace me</button>
-        <button type="button" class="pt-rc-b tap-active" data-rc="reset">Start over</button></div>
-      <div class="pt-rc-sp" role="group" aria-label="Pace">${PACES.map(([ms, l, t]) => `<button type="button" class="pt-rc-c tap-active" data-rcp="${ms}" aria-pressed="${ms === pv}">${l} <span>${t}</span></button>`).join("")}</div>
-      <label class="pt-rc-v"><input type="checkbox" id="pt-rc-voice" ${C.voice ? "checked" : ""}> Say the count out loud</label>
-      <div class="sticky bottom-[calc(-1.25rem-env(safe-area-inset-bottom,0px))] -mx-5 -mb-5 px-5 pt-3 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] bg-zinc-900 border-t border-zinc-800"><button type="button" id="pt-rc-save" class="w-full py-3 rounded-xl bg-emerald-600 text-white text-sm font-bold tap-active">Save set</button></div>`);
-    el.__onClose = () => { if (C && C.el === el) { C.pacing = false; C.play++; wake(false); try { speechSynthesis.cancel(); } catch (e) { } C = null; } };
-    wake(true); show();
-    c.addEventListener("click", e => {
-      if (!C) return;
-      if (e.target.closest("#pt-rc-tap")) { if (C.pacing) return; count(1); oneRep(650); return; }
-      const b = e.target.closest("[data-rc]"), p = e.target.closest("[data-rcp]");
-      if (p) {
-        C.pace = parseInt(p.dataset.rcp, 10); a.settings.rcPace = C.pace; try { WorkoutStorage.saveSettings(a.settings); } catch (er) { }
-        c.querySelectorAll("[data-rcp]").forEach(x => x.setAttribute("aria-pressed", x === p ? "true" : "false")); return;
-      }
-      if (!b) return;
-      if (b.dataset.rc === "minus") count(-1);
-      else if (b.dataset.rc === "reset") { pace(false); C.n = 0; show(); }
-      else if (b.dataset.rc === "pace") pace(!C.pacing);
-    });
-    c.querySelector("#pt-rc-voice").addEventListener("change", e => { C.voice = e.target.checked; a.settings.rcVoice = C.voice; try { WorkoutStorage.saveSettings(a.settings); } catch (er) { } });
-    c.querySelector("#pt-rc-save").addEventListener("click", () => saveSet());
-  }
-  function saveSet() {
-    if (!C || !C.n) return;
-    const s = nextSet(C.i); if (!s || !s.row) return;
-    const n = C.n, name = C.name, k = s.k, inp = s.row.querySelector('.input-set-field[data-field="reps"]'), btn = s.row.querySelector(".btn-check-set");
-    if (!inp || !btn) return;
-    inp.value = String(n); inp.dispatchEvent(new Event("input", { bubbles: true })); inp.dispatchEvent(new Event("change", { bubbles: true }));
-    const el = C.el; PT.kit.closeSheet(el);
-    btn.click();
-    const a = A(); if (a) a.toast(`Set ${k + 1} of ${name}: ${n} reps saved`);
-  }
-  function close() { if (C && C.el) PT.kit.closeSheet(C.el); }
+  new MutationObserver(() => { if ($("pt-guided")) watch(); }).observe(document.body, { childList: true });
+  if ($("pt-guided")) watch();
 
-  PT.repCounter = { isAbs, goalOf, open, close, state: () => C && { n: C.n, pacing: C.pacing, pace: C.pace, goal: C.goal, name: C.name } };
+  PT.abTotals = { isAbs, goalOf, totalOf };
 
   const css = document.createElement("style"); css.id = "pt-v3170-css";
   css.textContent = `
-    .pt-rc-btn { display: block; width: 100%; margin-top: .5rem; min-height: 2.5rem; border-radius: .75rem; font-size: .8125rem; font-weight: 700; color: rgb(52 211 153); background: rgb(16 185 129 / .1); border: 1px solid rgb(16 185 129 / .45); }
-    html[data-mode="light"] .pt-rc-btn { color: rgb(4 120 87); }
-    .pt-rc-img { display: block; width: 100%; max-height: 11.5rem; object-fit: contain; border-radius: .9rem; }
-    .pt-rc-tap { width: 100%; display: flex; flex-direction: column; align-items: center; gap: .35rem; padding: .9rem .9rem 1rem; border-radius: 1.1rem; background: rgb(var(--z800)); border: 2px solid rgb(var(--z700)); }
-    .pt-rc-tap.pt-rc-ok { border-color: rgb(16 185 129); }
-    .pt-rc-n { font-size: 4.25rem; line-height: 1; font-weight: 900; color: rgb(var(--z100)); font-variant-numeric: tabular-nums; }
-    .pt-rc-ok .pt-rc-n { color: rgb(52 211 153); }
-    html[data-mode="light"] .pt-rc-ok .pt-rc-n { color: rgb(4 120 87); }
-    .pt-rc-l { font-size: .75rem; color: rgb(var(--z300)); }
-    .pt-rc-track { width: 100%; height: .4rem; border-radius: 1rem; background: rgb(var(--z900)); overflow: hidden; }
-    .pt-rc-track span { display: block; height: 100%; width: 0; background: rgb(16 185 129); transition: width .2s; }
-    .pt-rc-row { display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: .5rem; }
-    .pt-rc-b { min-height: 2.75rem; border-radius: .8rem; background: rgb(var(--z800)); color: rgb(var(--z100)); font-size: .875rem; font-weight: 700; }
-    .pt-rc-p[aria-pressed="true"] { background: rgb(5 150 105); color: #fff; }
-    .pt-rc-sp { display: flex; gap: .4rem; }
-    .pt-rc-c { flex: 1; min-height: 2.5rem; border-radius: .7rem; background: rgb(var(--z900)); border: 1px solid rgb(var(--z700)); color: rgb(var(--z200)); font-size: .75rem; font-weight: 700; }
-    .pt-rc-c span { font-weight: 500; color: rgb(var(--z300)); }
-    .pt-rc-c[aria-pressed="true"] { border-color: rgb(16 185 129); color: rgb(var(--z100)); }
-    .pt-rc-v { display: flex; align-items: center; gap: .5rem; font-size: .8125rem; color: rgb(var(--z200)); min-height: 2.25rem; }
-    .pt-rc-v input { width: 1.1rem; height: 1.1rem; accent-color: rgb(16 185 129); }
-    @media (prefers-reduced-motion: reduce) { .pt-rc-track span { transition: none; } }
+    .pt-abt { display: flex; flex-direction: column; gap: .3rem; margin-top: .45rem; }
+    .pt-abt-t { font-size: .8125rem; color: rgb(var(--z300)); }
+    .pt-abt-t b { font-size: 1rem; color: rgb(var(--z100)); font-variant-numeric: tabular-nums; }
+    .pt-abt-ok .pt-abt-t b { color: rgb(52 211 153); }
+    html[data-mode="light"] .pt-abt-ok .pt-abt-t b { color: rgb(4 120 87); }
+    .pt-abt-bar { display: block; height: .375rem; border-radius: 1rem; background: rgb(var(--z800)); overflow: hidden; max-width: 16rem; }
+    .pt-abt-bar span { display: block; height: 100%; background: rgb(16 185 129); }
+    .pt-abt-g { align-items: center; margin: .35rem 0 .1rem; }
+    .pt-abt-g .pt-abt-bar { width: 100%; }
   `;
   document.head.appendChild(css);
 })();

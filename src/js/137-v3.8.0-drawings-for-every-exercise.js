@@ -33,6 +33,26 @@
     const k = Math.atan2(target[1] - mid[1], target[0] - mid[0]);
     return [mid, [mid[0] + b * Math.cos(k), mid[1] + b * Math.sin(k)]];
   }
+  /* 3.18.0: elbows and knees only bend the way they really bend (the owner: "the guys elbows are breaking"). In a side view the
+   * figure faces right (mirror: left), so an elbow bends with the forearm turning counter-clockwise from the upper arm (as the arm
+   * comes up in front) and a knee the other way. flexOf > 0: a normal bend; < 0: bent backwards. */
+  const angOf = (p, q) => Math.atan2(-(q[1] - p[1]), q[0] - p[0]) / D2R;
+  const wrapD = a => { while (a > 180) a -= 360; while (a <= -180) a += 360; return a; };
+  const flexOf = (root, mid, end, s) => s * wrapD(angOf(mid, end) - angOf(root, mid));
+  // A limb folded all the way (beyond 150 degrees, the top of a curl, hands behind the head, the elbows of a face pull) is kept as
+  // drawn: seen from the side, which side the forearm folds to hardly shows, and it often stands for an elbow out to the side.
+  const FOLD = 150;
+  /** a limb bent backwards: the other way round to the same hand or foot, or (when the pose gives angles) bent as much the right way */
+  function anatomic(root, pair, p, kT, kBend, la, lb, s, sa, sb) {
+    const [mid, end] = pair, f = flexOf(root, mid, end, s);
+    if (f >= -6 || f <= -FOLD + 0.5) return pair;
+    if (p[kT]) {
+      const other = ik(root, p[kT], la * (sa || 1), lb * (sb || 1), -(p[kBend] == null ? 1 : p[kBend]));
+      return flexOf(root, other[0], other[1], s) > f ? other : pair;
+    }
+    const a = angOf(root, mid), len = dist(mid, end);
+    return [mid, add(mid, a - f / s, len)];   // the same bend, the right way
+  }
   function limb(root, p, kA, kB, kT, kBend, la, lb, defA, sa, sb) {
     if (p[kT]) return ik(root, p[kT], la * (sa || 1), lb * (sb || 1), p[kBend] == null ? 1 : p[kBend]);
     const a = p[kA] == null ? defA : p[kA], b = p[kB] == null ? a : p[kB];
@@ -51,14 +71,15 @@
       p = Object.assign({}, p, { hand: [base[0] + u[0] * a + back[0] * b, base[1] + u[1] * a + back[1] * b] });
     }
     const ua = rel("ua", "uaR", -90), fa = rel("fa", "faR", ua);
-    [j.elbow, j.hand] = limb(j.shoulder, Object.assign({}, p, { ua, fa }), "ua", "fa", "hand", "eb", LEN.ua, LEN.fa, -90);
+    const sE = j.mirror ? -1 : 1, sK = -sE, p1 = Object.assign({}, p, { ua, fa });
+    [j.elbow, j.hand] = anatomic(j.shoulder, limb(j.shoulder, p1, "ua", "fa", "hand", "eb", LEN.ua, LEN.fa, -90), p1, "hand", "eb", LEN.ua, LEN.fa, sE);
     const p2 = { ua: rel("ua2", "ua2R", ua), fa: rel("fa2", "fa2R", fa), hand: p.hand2 || (p.ua2 == null && p.ua2R == null ? p.hand : null), eb: p.eb2 == null ? p.eb : p.eb2 };
-    [j.elbow2, j.hand2] = limb(j.shoulder, p2, "ua", "fa", "hand", "eb", LEN.ua, LEN.fa, -90);
-    [j.knee, j.ankle] = limb(j.hip, p, "th", "sh", "ankle", "kb", LEN.th, LEN.sh, -90);
+    [j.elbow2, j.hand2] = anatomic(j.shoulder, limb(j.shoulder, p2, "ua", "fa", "hand", "eb", LEN.ua, LEN.fa, -90), p2, "hand", "eb", LEN.ua, LEN.fa, sE);
+    [j.knee, j.ankle] = anatomic(j.hip, limb(j.hip, p, "th", "sh", "ankle", "kb", LEN.th, LEN.sh, -90), p, "ankle", "kb", LEN.th, LEN.sh, sK);
     j.toe = add(j.ankle, p.ft == null ? 0 : p.ft, LEN.ft);
     const q2 = { th: p.th2 == null ? p.th : p.th2, sh: p.sh2 == null ? (p.th2 == null ? p.sh : p.th2) : p.sh2, ankle: p.ankle2 || (p.th2 == null ? p.ankle : null), kb: p.kb2 == null ? p.kb : p.kb2 };
     if (p.sh2 != null) q2.sh = p.sh2;
-    [j.knee2, j.ankle2] = limb(j.hip, q2, "th", "sh", "ankle", "kb", LEN.th, LEN.sh, -90);
+    [j.knee2, j.ankle2] = anatomic(j.hip, limb(j.hip, q2, "th", "sh", "ankle", "kb", LEN.th, LEN.sh, -90), q2, "ankle", "kb", LEN.th, LEN.sh, sK);
     j.toe2 = add(j.ankle2, p.ft2 == null ? (p.ft == null ? 0 : p.ft) : p.ft2, LEN.ft);
     j.grip = p.wr == null ? j.hand : add(j.hand, p.wr, LEN.wr);
     return j;
@@ -418,6 +439,7 @@
     face_pull: { label: "face pull", kit: "cable", go: "pull", back: "reach", joint: "grip",
       start: "Stand facing the cable at face height, arms straight.", end: "Pull the rope to your face, elbows high and wide, then reach forward.",
       props: () => PROPS.tower(null, { x: 270 }), cable: () => [268, 50],
+      lin: true,   // 3.18.0: the arms turn out to the sides, which a side view shows as the elbow sliding back past the shoulder
       frames: [S({ ua: 6, fa: 4 }), S({ ua: 174, fa: 24, eb: 1 })] },
     deadlift: { label: "deadlift", kit: "barbell", go: "stand up", back: "lower", joint: "hip", plate: 17,
       start: "Bar over your mid-foot, hips back, flat back, arms straight.", end: "Stand up tall with the bar, then lower it the same way.",
@@ -1495,11 +1517,26 @@
     const front = a.view === "front", root = front ? "pel" : "hip", j = {}, done = [root], pt2 = v => Array.isArray(v) && v.length === 2 && typeof v[0] === "number";
     Object.keys(b).forEach(k => { if (!pt2(b[k])) j[k] = b[k]; });
     j[root] = [a[root][0] + (b[root][0] - a[root][0]) * t, a[root][1] + (b[root][1] - a[root][1]) * t];
+    // 3.18.0: each bone turns relative to the bone it hangs from (the elbow bends from one pose to the other), so a joint that bends
+    // the right way in both poses bends the right way all the way between them; bones off the root turn on their own
+    const wrapR = x => { while (x > Math.PI) x -= 2 * Math.PI; while (x <= -Math.PI) x += 2 * Math.PI; return x; };
+    // Elbows and knees go through their real bend (a curl folds the forearm forward, never back through a kink): their angle is
+    // taken as a bend in [-150, 210] degrees and goes straight from one pose to the other.
+    const angA = {}, angB = {}, angJ = {}, sE = a.mirror ? -1 : 1, HINGE = front ? {} : { hand: sE, hand2: sE, ankle: -sE, ankle2: -sE };
+    const bendOf = (r, sg) => { let f = sg * r * 180 / Math.PI; if (f <= -FOLD + 0.5) f += 360; return f; };
     BONES[front ? "front" : "side"].forEach(([c, p]) => {
       if (!pt2(a[c]) || !pt2(b[c]) || !j[p]) return;
       const aa = Math.atan2(a[c][1] - a[p][1], a[c][0] - a[p][0]), ab = Math.atan2(b[c][1] - b[p][1], b[c][0] - b[p][0]);
-      let d = ab - aa; while (d > Math.PI) d -= 2 * Math.PI; while (d < -Math.PI) d += 2 * Math.PI;
-      const la = dist(a[c], a[p]), lb = dist(b[c], b[p]), ang = aa + d * t, len = la + (lb - la) * t;
+      let ang;
+      if (angJ[p] != null && HINGE[c]) {
+        // screen angles run clockwise (y down), the bends counter-clockwise: hence the minus signs
+        const sg = HINGE[c], fa = bendOf(-wrapR(aa - angA[p]), sg), fb = bendOf(-wrapR(ab - angB[p]), sg);
+        ang = angJ[p] - (sg * (fa + (fb - fa) * t)) * Math.PI / 180;
+      }
+      else if (angJ[p] != null) { const ra = wrapR(aa - angA[p]), rb = wrapR(ab - angB[p]); ang = angJ[p] + ra + wrapR(rb - ra) * t; }
+      else ang = aa + wrapR(ab - aa) * t;
+      angA[c] = aa; angB[c] = ab; angJ[c] = ang;
+      const la = dist(a[c], a[p]), lb = dist(b[c], b[p]), len = la + (lb - la) * t;
       j[c] = [j[p][0] + Math.cos(ang) * len, j[p][1] + Math.sin(ang) * len]; done.push(c);
     });
     const follow = (k, by) => { const oa = [a[k][0] - a[by][0], a[k][1] - a[by][1]], ob = [b[k][0] - b[by][0], b[k][1] - b[by][1]];
@@ -1515,6 +1552,13 @@
     j.frame = t < 0.5 ? 0 : 1;
     return j;
   }
+  /** in-between poses for a movement out of the side view's plane (pattern lin: true): every point slides straight across */
+  function lerpJ(a, b, t) {
+    const j = {}, pt2 = v => Array.isArray(v) && v.length === 2 && typeof v[0] === "number";
+    Object.keys(b).forEach(k => { j[k] = pt2(b[k]) && pt2(a[k]) ? [a[k][0] + (b[k][0] - a[k][0]) * t, a[k][1] + (b[k][1] - a[k][1]) * t] : b[k]; });
+    j.frame = t < 0.5 ? 0 : 1;
+    return j;
+  }
   const MOTION = new Map();
   // all: also for exercises with their own pictures (3.17.0's rep counter shows the move for those too)
   function motion(name, n = 8, all = false) {
@@ -1524,7 +1568,8 @@
     if (pat && pat.frames.length > 1 && !pat.hold && (all || !(PT.exGuide && (PT.exGuide(String(name || "")) || {}).steps))) {
       const lay = layout(id, c.kit), a = lay.frames[0].j, b = lay.frames[1].j, hi = hiOf(String(name || ""));
       out = [];
-      for (let i = 0; i <= n; i++) { const e = 0.5 - 0.5 * Math.cos(Math.PI * i / n); out.push(dataUrl(svg(id, 0, c.kit, { hi, j: tween(a, b, e), label: false }))); }
+      const tw = pat.lin ? lerpJ : tween;
+      for (let i = 0; i <= n; i++) { const e = 0.5 - 0.5 * Math.cos(Math.PI * i / n); out.push(dataUrl(svg(id, 0, c.kit, { hi, j: tw(a, b, e), label: false }))); }
     }
     if (MOTION.size > 40) MOTION.clear();
     MOTION.set(key, out); return out;
@@ -1578,5 +1623,5 @@
     });
   }
 
-  PT.figure = { classify, svg, forSteps, kitOf, arrow, PATTERNS, RULES, layout, hiOf, REGION_OF, tween, motion };
+  PT.figure = { classify, svg, forSteps, kitOf, arrow, PATTERNS, RULES, layout, hiOf, REGION_OF, tween, lerpJ, motion };
 })();
