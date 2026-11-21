@@ -1592,21 +1592,29 @@
     return o;
   }
   /** a pose from a frame description that is not one of the pattern's own (the same steps as frameParts) */
-  function poseOf(id, fr, kit) {
+  function poseOf(id, fr, kit, f) {
     const pat = PATTERNS[id], kp = pat.kitPose && pat.kitPose[kit];
-    if (kp) fr = Object.assign({}, fr, Array.isArray(kp) ? kp[0] : kp);
+    if (kp) fr = Object.assign({}, fr, Array.isArray(kp) ? kp[Math.min(f || 0, kp.length - 1)] : kp);
     if (pat.mirror && fr.mirror == null) fr = Object.assign({}, fr, { mirror: true });
     const j = settle(pose(fr, pat.view), Object.assign({ floor: pat.floor !== false && fr.floor !== false && (fr.floor || pat.floor) }, fr));
-    j.frame = 0; return j;
+    j.frame = f || 0; return j;
   }
   const pingpong = (n, ms) => { const q = []; for (let i = 0; i < n; i++) q.push([i, ms]); for (let i = n - 2; i >= 1; i--) q.push([i, ms]); return q; };
   const DEMO = new Map();
   function demo(name) {
     const key = String(name || ""); if (DEMO.has(key)) return DEMO.get(key);
+    const out = demoWith(key, null);
+    if (DEMO.size > 30) DEMO.clear();
+    DEMO.set(key, out); return out;
+  }
+  /** demo() with your own picture for each pose: render(j, id, kit, hi) -> data URL (3.20.0: module 146 draws the machine), and the
+   *  poses changed by over (a frame patch, or one per frame: [start, finish]), e.g. feet on the floor at a chest-supported row */
+  function demoWith(key, render, over, as) {
     let out = null;
-    const c = classify(key), id = c && (c.draw || c.id), pat = id && PATTERNS[id];
+    const c = classify(key), id = c && (as && PATTERNS[as] ? as : (c.draw || c.id)), pat = id && PATTERNS[id];   // as: draw it with another movement
     if (pat) {
-      const kit = c.kit, hi = hiOf(key), url = j => dataUrl(svg(id, 0, kit, { hi, j, label: false })), cy = pat.cyc, fr0 = pat.frames[0];
+      const ov = i => (Array.isArray(over) ? over[Math.min(i, over.length - 1)] : over) || {};
+      const kit = c.kit, hi = hiOf(key), url = render ? (j => render(j, id, kit, hi)) : (j => dataUrl(svg(id, 0, kit, { hi, j, label: false }))), cy = pat.cyc, fr0 = Object.assign({}, pat.frames[0], ov(0));
       if (cy === "swap" || (cy && cy.hop)) {
         const root = pat.view === "front" ? "pel" : "hip", a = poseOf(id, fr0, kit);
         const b = cy === "swap" ? poseOf(id, swapped(fr0), kit) : poseOf(id, Object.assign({}, fr0, { [root]: [fr0[root][0], fr0[root][1] - cy.hop] }), kit);
@@ -1620,13 +1628,31 @@
         }
         out = { kind: "cycle", frames: fr, seq: fr.map((_, i) => [i, pat.cycMs || 90]) };
       } else if (pat.frames.length > 1 && !pat.hold) {
-        const fr = motion(key, 8, true);
-        if (fr) { const n = fr.length - 1, q = []; for (let i = 0; i <= n; i++) q.push([i, i === 0 || i === n ? 520 : 70]); for (let i = n - 1; i >= 1; i--) q.push([i, 70]); out = { kind: "move", frames: fr, seq: q }; }
+        const lay = layout(id, kit), tw = pat.lin ? lerpJ : tween, fr = [];
+        const a = over ? poseOf(id, fr0, kit, 0) : lay.frames[0].j, b = over ? poseOf(id, Object.assign({}, pat.frames[1], ov(1)), kit, 1) : lay.frames[1].j;
+        for (let i = 0; i <= 8; i++) fr.push(url(tw(a, b, 0.5 - 0.5 * Math.cos(Math.PI * i / 8))));
+        const n = fr.length - 1, q = []; for (let i = 0; i <= n; i++) q.push([i, i === 0 || i === n ? 520 : 70]); for (let i = n - 1; i >= 1; i--) q.push([i, 70]);
+        out = { kind: "move", frames: fr, seq: q };
       }
-      if (!out) out = { kind: "hold", frames: [url(layout(id, kit).frames[0].j)], seq: [[0, 1000]] };
+      if (!out) out = { kind: "hold", frames: [url(over ? poseOf(id, fr0, kit, 0) : layout(id, kit).frames[0].j)], seq: [[0, 1000]] };
     }
-    if (DEMO.size > 30) DEMO.clear();
-    DEMO.set(key, out); return out;
+    return out;
+  }
+  /** 3.20.0: where the figure's cable comes from (the first point if it has two), as kitAt draws it */
+  function cableOf(id, j, f) {
+    const pat = PATTERNS[id], g = j.grip || j.hand || [160, 100], front = j.view === "front";
+    const to = (pat.cable && pat.cable(j, f || 0)) || (front ? [j.pel[0] + 96, FLOOR - 8] : [Math.max(g[0], (j.toe || g)[0]) + 56, FLOOR - 8]);
+    return Array.isArray(to[0]) ? to[0] : to;
+  }
+  /** 3.20.0: the figure alone (no fixed kit, no background, not fitted), for module 146 to draw on a machine. noCable leaves out the
+   *  cable line and its pulley (the machine has its own); noBack leaves out kit drawn behind (the Smith machine's rail). */
+  function bare(id, kit, j, hi, o) {
+    const pat = PATTERNS[id]; kit = kit || pat.kit || "none"; o = o || {};
+    let kp = kitAt(kit, j, pat, j.frame || 0);
+    if (o.noCable) kp = kp.filter(x => !(x.k === "l" && x.c === C.cable) && !(x.k === "c" && x.r === 6 && x.stroke === C.kit));
+    if (o.noBack) kp = kp.filter(x => !x.back);
+    const behind = pat.behind ? kp : kp.filter(x => x.back), over = pat.behind ? [] : kp.filter(x => !x.back), dy = pat.dyn && !o.noDyn ? pat.dyn(j, kit) : [], body = person(j, hi);
+    return { svg: emit(behind) + emit(body) + emit(over) + emit(dy), box: bbox(behind.concat(body, over, dy)) };
   }
   // the regions to fill for an exercise: its main muscles strong, the helping ones lighter
   function hiOf(name) {
@@ -1677,5 +1703,5 @@
     });
   }
 
-  PT.figure = { classify, svg, forSteps, kitOf, arrow, PATTERNS, RULES, layout, hiOf, REGION_OF, tween, lerpJ, motion, demo, swapped };
+  PT.figure = { classify, svg, forSteps, kitOf, arrow, PATTERNS, RULES, layout, hiOf, REGION_OF, tween, lerpJ, motion, demo, demoWith, bare, cableOf, swapped, C, FLOOR };
 })();

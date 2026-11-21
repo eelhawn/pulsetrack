@@ -567,5 +567,5 @@
       const r = of(e.name); return !!(r && ids.includes(r.items[0]));
     };
   }
-  PT.equip = { of, svg, EQUIP, lafNote, chain, gymBox };
+  PT.equip = { of, svg, EQUIP, lafNote, chain, gymBox, emit, bbox, BG, F };   // 3.20.0: emit, bbox, BG and F (the floor) for module 146
 })();
