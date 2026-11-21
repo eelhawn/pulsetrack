@@ -31,7 +31,7 @@ WANT = [('Bench Press', 'bench_press', 'barbell'), ('Incline Dumbbell Press', 'i
         ('Glute Bridges', 'glute_bridge', 'none'), ('Squat', 'squat', 'barbell'), ('Goblet Squat', 'goblet_squat', 'kettlebell'), ('Dumbbell Goblet Squat', 'goblet_squat', 'dumbbell'), ('Front Squat', 'front_squat', 'barbell'),
         ('Smith Machine Squat', 'squat', 'smith'), ('Leg Press', 'leg_press', 'machine'), ('Leg Extension', 'leg_extension', 'machine'), ('Leg Curls', 'leg_curl', 'machine'),
         ('Seated Leg Curls', 'leg_curl_seated', 'machine'), ('Bulgarian Split Squats', 'split_squat_rear', 'dumbbell'), ('Walking Lunges', 'lunge', 'dumbbell'),
-        ('Hip Abductor Machine', 'hip_abduction_seated', 'machine'), ('Hip Adductor Machine', 'hip_adduction_seated', 'machine'), ('Glute Kickbacks', 'hip_extension', 'cable'),
+        ('Hip Abductor Machine', 'hip_abduction_seated', 'machine'), ('Hip Adductor Machine', 'hip_adduction_seated', 'machine'), ('Glute Kickbacks', 'hip_extension', 'machine'),
         ('Standing Calf Raises', 'calf_raise', 'none'), ('Kettlebell Swing', 'swing', 'kettlebell'), ('Plank', 'plank', 'none'), ('Side Plank', 'side_plank', 'none'),
         ('Hanging Leg Raises', 'hanging_leg_raise', 'none'), ('Crunches', 'crunch', 'none'), ('Russian Twist', 'russian_twist', 'none'), ('Cable Crunches', 'cable_crunch', 'cable'),
         ('Ab Wheel Rollouts', 'ab_wheel', 'none'), ('Jump Rope', 'jump_rope', 'none'), ('Cable Rope Hammer Curl', 'curl', 'cable'), ('Box Jumps', 'jump', 'none'), ('Leg Swings', 'leg_swing', 'none'),

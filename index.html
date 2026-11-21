@@ -436,7 +436,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v3.20.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v3.21.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3844,7 +3844,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "3.20.0";
+    const APP_VERSION = "3.21.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -36837,6 +36837,13 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
 
   /* ================================================================ the movements */
   // frames: [start, finish] poses; at: per-frame or shared settle; go/back: arrow labels; joint: which joint the arrow follows
+  // 3.21.0: a point on the front of the torso (fraction f from the hip to the shoulder, off px out in front of the chest)
+  const pAt = (j, f, off) => { const dx = j.shoulder[0] - j.hip[0], dy = j.shoulder[1] - j.hip[1], l = Math.hypot(dx, dy) || 1; return [j.hip[0] + dx * f - dy / l * off, j.hip[1] + dy * f + dx / l * off]; };
+  // 3.21.0: a lever from a pivot to a foot, with a foot plate across its end (the glute kickback machine)
+  function gluePedal(piv, ank) {
+    const dx = ank[0] - piv[0], dy = ank[1] - piv[1], l = Math.hypot(dx, dy) || 1, u = [dx / l, dy / l], q = [-u[1], u[0]], c = [ank[0] + u[0] * 7, ank[1] + u[1] * 7];
+    return [L(piv, c, C.kit, 6), L([c[0] - q[0] * 12, c[1] - q[1] * 12], [c[0] + q[0] * 12, c[1] + q[1] * 12], C.plate, 9), L([c[0] - q[0] * 11, c[1] - q[1] * 11], [c[0] + q[0] * 11, c[1] + q[1] * 11], C.kitFill, 5), O(piv, 4, C.body, C.body, 0)];
+  }
   const S = (o) => Object.assign({ hip: [160, 106], t: 90, ankle: [162, 196], kb: 1, floor: true }, o);
   const PATTERNS = {
     bench_press: { label: "flat press", kit: "barbell", go: "lower", back: "press up", joint: "grip", over: true,
@@ -36905,7 +36912,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     curl: { label: "curl", kit: "dumbbell", go: "curl up", back: "lower", joint: "grip",
       start: "Stand tall, arms straight down, elbows at your sides.", end: "Curl the weight up to your shoulders without moving your elbows, then lower.",
       frames: [S({ ua: -92, fa: -88 }), S({ ua: -84, fa: 88 })] },
-    preacher_curl: { label: "preacher curl", kit: "barbell", go: "curl up", back: "lower", joint: "grip",
+    preacher_curl: { label: "preacher curl", kit: "barbell", go: "curl up", back: "lower", joint: "grip", plate: 10,   // 3.21.0: small plates (a preloaded EZ bar), so they do not cover the face at the top
       start: "Sit with the backs of your arms flat on the pad, arms nearly straight.", end: "Curl the weight up, then lower it slowly until your arms are nearly straight.",
       props: j => PROPS.seat(j, {}).concat([L([j.shoulder[0] + 6, j.shoulder[1] + 16], [j.shoulder[0] + 34, j.shoulder[1] + 44], C.kit, 12), L([j.shoulder[0] + 18, j.shoulder[1] + 36], [j.shoulder[0] + 18, FLOOR], C.kit, 6)]),
       frames: [S({ hip: [138, 150], t: 80, ankle: [186, 196], ua: -46, fa: -36, floor: false }), S({ hip: [138, 150], t: 80, ankle: [186, 196], ua: -46, fa: 98, floor: false })] },
@@ -37096,6 +37103,17 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       start: "Stand tall holding on for balance, the cuff or pad at the working ankle.", end: "Push the leg straight back without arching your back, then bring it forward.",
       cable: j => [j.ankle[0] + 70, FLOOR - 8],
       frames: [S({ ankle2: [158, 196], hand: [196, 92], eb: 1 }), S({ th: -122, sh: -126, ankle: null, ankle2: [158, 196], hand: [196, 92], eb: 1, on: ["ankle2"] })] },
+    // 3.21.0: the glute kickback machine (the owner trains at LA Fitness): stand on the platform, chest and forearms on the pads, the
+    // working foot on a pedal at the end of a lever that turns about the hip. hip_extension with kit "machine" draws this (alt).
+    glute_machine: { label: "glute kickback machine", kit: "machine", kits: ["machine"], from: "ankle", go: "kick back", back: "forward", joint: "ankle",
+      start: "Stand on the platform, lean your chest and forearms on the pads and hold the handles; put your working foot on the foot plate, knee bent.",
+      end: "Push the plate back and up until your hip is straight, squeezing your glute, then let it come forward slowly.",
+      props: j => [Rc(j.ankle2[0] - 32, j.ankle2[1] + 4, 64, FLOOR - j.ankle2[1] - 4, 3), L([j.hand[0] + 16, FLOOR], [j.hand[0] + 16, j.shoulder[1] + 8], C.kit, 7),
+        L([j.elbow[0] - 6, j.elbow[1] + 9], [j.hand[0] + 6, j.hand[1] + 9], C.kit, 10), L([j.hand[0] + 6, j.hand[1] + 9], [j.hand[0] + 16, j.hand[1] + 9], C.kit, 5),
+        L(pAt(j, 0.6, 15), pAt(j, 0.88, 15), C.kit, 11), L(pAt(j, 0.88, 15), [j.hand[0] + 16, pAt(j, 0.88, 15)[1]], C.kit, 5)],
+      dyn: j => gluePedal([j.hip[0] - 18, j.hip[1] + 2], j.ankle),
+      frames: [{ hip: [150, 100], t: 40, nk: 16, ua: -90, fa: 0, th: -50, sh: -125, ft: -20, ankle2: [146, 182], kb2: 1, ft2: 0, floor: false },
+        { hip: [150, 100], t: 40, nk: 16, ua: -90, fa: 0, th: -150, sh: -160, ft: -80, ankle2: [146, 182], kb2: 1, ft2: 0, floor: false }] },
     hip_abduction: { label: "standing hip abduction", view: "front", kit: "cable", from: "ankle", go: "leg out", back: "back in", joint: "ankle",
       start: "Stand tall side-on to the cable, the cuff on the outside ankle.", end: "Lift the leg out to the side, then bring it back slowly.",
       cable: j => [j.pel[0] - 110, FLOOR - 8],
@@ -37443,6 +37461,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   // kit-specific poses and limits on the movements from 3.8.0
   Object.assign(PATTERNS.squat, { kitPose: { dumbbell: [HANG, HANG], kettlebell: [HANG, HANG], band: [HANG, HANG] }, alt: { none: "air_squat" }, kits: ["barbell", "smith", "machine", "dumbbell", "kettlebell", "band", "none", "landmine"] });
   Object.assign(PATTERNS.front_squat, { alt: { none: "air_squat" } });
+  Object.assign(PATTERNS.hip_extension, { alt: { machine: "glute_machine" } });   // 3.21.0
   Object.assign(PATTERNS.goblet_squat, { alt: { none: "air_squat" } });
   Object.assign(PATTERNS.lunge, { kitPose: { barbell: BACKBAR, smith: BACKBAR } });
   Object.assign(PATTERNS.split_squat_rear, { kitPose: { barbell: BACKBAR, smith: BACKBAR } });
@@ -37780,6 +37799,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     "Flat Cable Flyes (Bench)": ["fly_lying", "cable"],
     "Floor Press": ["floor_press", "barbell"],
     "Front and Lateral Leg Swings": ["leg_swing", null],
+    "Glute Kickbacks": ["hip_extension", "machine"],
     "Glute-Ham Raise (GHR)": ["nordic", null],
     "Glute-Ham Raises": ["nordic", null],
     "Gorilla Rows": ["bent_row", "kettlebell"],
@@ -38270,6 +38290,13 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   const seat = (x, y, w, post = true) => [rf(x, y, w, 10, 4)].concat(post ? [ln([x + w / 2, y + 10], [x + w / 2, F], 6), foot(x - 6, x + w + 6)] : []);
   const console_ = (at, ang = 20) => [ln(at, pt(at, ang + 90, 4), 1, K), pg([pt(at, ang, -12), pt(at, ang, 12), pt(pt(at, ang, 12), ang + 90, 9), pt(pt(at, ang, -12), ang + 90, 9)], "#27272a", PL, 1.5)];
   const wheel = (at, r) => [ci(at, r, "none", K, 4), ci(at, 3, K, K, 0)];
+  // 3.21.0: a roller pad seen end-on; a plate-loaded arm as a curve from its pivot (P) through Q to the handle (H), and a point along it
+  const roller = (at, r = 8) => ci(at, r, PADF, PADS, 2);
+  const arm = (P, Q, H) => ({ k: "path", d: `M${P[0]} ${P[1]} Q${Q[0]} ${Q[1]} ${H[0]} ${H[1]}`, c: K, w: 9 });
+  const qAt = (P, Q, H, u) => [(1 - u) * (1 - u) * P[0] + 2 * u * (1 - u) * Q[0] + u * u * H[0], (1 - u) * (1 - u) * P[1] + 2 * u * (1 - u) * Q[1] + u * u * H[1]];
+  const armWith = (P, Q, H, u, r) => [arm(P, Q, H), ci(P, 4, LITE, LITE, 0), ...plates(qAt(P, Q, H, u), r, 2)];
+  // 3.21.0: the 45-degree leg press rail: a point s along it and h out from it (towards you)
+  const lp45 = (s, h) => [120 + Math.SQRT1_2 * s - Math.SQRT1_2 * h, 200 - Math.SQRT1_2 * s - Math.SQRT1_2 * h];
 
   /* ================================================================ the equipment (side view, you face right; some from the front) */
   const SEL = "selectorized", PLT = "plate", FREE = "free", BENCH = "bench", RACK = "rack", CAB = "cable", CARD = "cardio", SMALL = "small";
@@ -38349,8 +38376,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       draw: () => [...stack(70, 26, 34), ln([130, F], [130, 22], 8), ln([66, 22], [134, 22], 6), rf(124, 112, 16, 22, 3, PADF, K, 2), pulley([146, 123]), cable([146, 123], [210, 152]), grip([206, 146], [218, 160]), cable([104, 30], [128, 30]), foot(56, 150)] },
     cable_crossover: { label: "Cable crossover", group: CAB, look: "Two tall towers joined at the top, each with a weight stack and pulleys high and low.", view: "front",
       draw: () => [...stack(28, 24, 30), ...stack(262, 24, 30), ln([24, 22], [296, 22], 7), pulley([70, 34]), pulley([250, 34]), pulley([70, 196]), pulley([250, 196]), cable([70, 34], [128, 104]), cable([250, 34], [192, 104]), grip([124, 98], [132, 112]), grip([188, 98], [196, 112]), foot(16, 304)] },
-    lat_pulldown_machine: { label: "Lat pulldown", group: CAB, look: "A seat with knee pads under a tall tower; a long bar hangs on a cable from the top.",
-      draw: () => [...stack(48, 22, 32), ln([44, 20], [196, 20], 7), pulley([190, 30]), cable([190, 30], [190, 74]), grip([156, 80], [226, 80]), ...seat(154, 156, 60), ...pad([170, 126], [214, 126], 12), ln([150, 126], [150, F], 5), ln([150, 126], [170, 126], 5), foot(40, 230)] },
+    lat_pulldown_machine: { label: "Lat pulldown", group: CAB, look: "A seat facing the weight stack, with roller pads over your thighs; a bar hangs on a cable from a pulley above you.",
+      draw: () => [...stack(236, 16, 32), ln([132, 16], [276, 16], 7), ln([136, 16], [136, 26], 5), pulley([150, 24]), ln([136, 24], [145, 24], 4), cable([150, 24], [150, 60]), grip([140, 62], [160, 62]), rf(112, 157, 56, 10, 4), ln([140, 167], [140, F], 6), ln([214, F], [214, 132], 6), ln([214, 134], [176, 134], 5), roller([176, 140]), foot(100, 284)] },
     seated_row_cable: { label: "Seated cable row", group: CAB, look: "A long low seat facing a foot plate, with a cable handle coming from a low pulley in front.",
       draw: () => [rf(50, 168, 150, 12, 4), ln([80, 180], [80, F], 6), ln([170, 180], [170, F], 6), pg([[226, 196], [240, 150], [250, 154], [238, 198]], PADF, PADS), ...stack(262, 30, 30), pulley([250, 172]), cable([250, 172], [214, 150]), grip([206, 142], [214, 158]), foot(40, 300)] },
     // ---- pin-loaded (selectorized) machines
@@ -38359,7 +38386,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     pec_deck: { label: "Pec deck (fly / rear delt machine)", group: SEL, look: "A seat with a tall back pad and two arms that swing together in front of your chest.", view: "front",
       draw: () => [...stack(26, 24, 30), ln([22, 22], [240, 22], 7), ...seat(130, 156, 60), ...pad([160, 150], [160, 66], 26), ln([160, 22], [160, 50], 6), pl([[160, 44], [96, 52], [90, 100]], 6), pl([[160, 44], [224, 52], [230, 100]], 6), grip([90, 84], [90, 116]), grip([230, 84], [230, 116]), foot(20, 240)] },
     shoulder_press_machine: { label: "Shoulder press machine", group: SEL, look: "A seat with a tall back pad and handles beside your shoulders that you press up.",
-      draw: () => [...stack(36, 20, 30), ...seat(110, 150, 54), ...pad([112, 146], [110, 60], 14), ln([70, 18], [176, 18], 7), ln([170, 18], [170, 58], 6), grip([160, 62], [182, 62]), foot(30, 220)] },
+      draw: () => [...stack(36, 20, 30), ...seat(110, 150, 54), ...pad([112, 146], [110, 60], 14), ln([70, 18], [176, 18], 7), ln([98, 18], [98, 34], 5), { k: "path", d: "M98 34 Q140 33 171 62", c: K, w: 6 }, ci([98, 34], 4, LITE, LITE, 0), grip([161, 62], [181, 62]), foot(30, 220)] },
     lateral_raise_machine: { label: "Lateral raise machine", group: SEL, look: "A seat with pads that sit against the outside of your elbows and swing up to the sides.", view: "front",
       draw: () => [...stack(270, 30, 28), ...seat(130, 158, 60), ...pad([160, 154], [160, 96], 22), ln([160, 92], [160, 70], 5), pl([[138, 70], [104, 64], [94, 106]], 6), pl([[182, 70], [216, 64], [226, 106]], 6), ...pad([94, 96], [94, 124], 12), ...pad([226, 96], [226, 124], 12), foot(110, 300)] },
     biceps_curl_machine: { label: "Biceps curl machine", group: SEL, look: "A seat facing a slanted arm pad, with handles on an arm that curls up.",
@@ -38372,45 +38399,50 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       draw: () => [...stack(30, 40, 30), ...seat(98, 140, 70), ...pad([100, 136], [92, 66], 14), ...pad([150, 118], [180, 118], 12), ln([168, 118], [168, 140], 5), ln([186, 140], [232, 136], 6), ci([238, 134], 9, PADF, PADS, 2), foot(24, 250)] },
     lying_leg_curl_machine: { label: "Lying leg curl machine", group: SEL, look: "A bench with a hump to lie face down on, handles at the front, and a padded bar behind your ankles.",
       draw: () => [pg([[60, 140], [150, 126], [180, 132], [260, 140], [260, 152], [60, 152]], PADF, PADS), ln([90, 152], [90, F], 6), ln([230, 152], [230, F], 6), grip([256, 166], [272, 166]), ln([258, 152], [262, 166], 4), ln([60, 146], [40, 128], 6), ci([36, 122], 9, PADF, PADS, 2), ...stack(292, 70, 28), ln([260, 146], [292, 146], 4, KD), foot(30, 330)] },
-    leg_press_seated: { label: "Seated leg press (pin-loaded)", group: SEL, look: "A reclined seat facing a big foot plate; you push the plate away.",
-      draw: () => [...stack(30, 40, 30), ...seat(98, 156, 60), ...pad([100, 152], [80, 86], 14), pg([[226, 90], [238, 90], [238, 186], [226, 186]], PADF, PADS), ln([238, 140], [262, 140], 6), ln([262, 60], [262, F], 7), ln([64, 38], [262, 60], 5, KD), foot(24, 280)] },
+    leg_press_seated: { label: "Seated leg press (pin-loaded)", group: SEL, look: "A reclined seat facing a big foot plate that slides away on a rail as you push.",
+      draw: () => [...stack(22, 50, 30), ln([18, 50], [58, 50], 6), ...pad([100, 152], [82, 100], 14), rf(84, 157, 50, 10, 4), ln([110, 167], [110, F], 6), grip([128, 168], [140, 168]), ln([134, 162], [134, 168], 4), ln([150, 192], [272, 192], 5, KD), ln([272, F], [272, 186], 7), ln([150, 192], [150, F], 5), rf(176, 98, 12, 84, 5, PADF, PADS, 2), rf(175, 180, 36, 10, 3, K, K, 0), ln([182, 182], [182, 176], 6), foot(14, 286)] },
     hip_machine: { label: "Hip abductor / adductor machine", group: SEL, look: "A seat with two leg pads that swing out (outer thigh) or in (inner thigh); one machine often does both.", view: "front",
       draw: () => [...stack(270, 30, 28), ...seat(116, 150, 88), ...pad([160, 146], [160, 70], 24), ...pad([112, 152], [96, 196], 12), ...pad([208, 152], [224, 196], 12), ln([104, 172], [216, 172], 4, KD), foot(100, 300)] },
     multi_hip: { label: "Glute / multi-hip machine", group: SEL, look: "You stand on a platform holding handles; a padded lever behind or beside your leg moves with it.",
       draw: () => [...stack(30, 30, 30), rf(110, F - 26, 110, 16, 3, K, K, 0), ln([210, F - 26], [210, 70], 7), grip([196, 70], [222, 70]), ln([140, 112], [160, 140], 6), ln([160, 140], [120, 180], 6), ci([116, 184], 10, PADF, PADS, 2), ln([64, 28], [150, 28], 5), ln([150, 28], [150, 112], 5), foot(24, 240)] },
+    // 3.21.0: the standing glute kickback machine (LA Fitness): platform, chest pad, forearm pads with handles, a foot plate on a lever
+    glute_machine: { label: "Glute kickback machine", group: SEL, look: "You stand on a platform and lean your chest and forearms on pads; your working foot pushes a foot plate on a lever back and up.",
+      draw: () => [...stack(244, 36, 30), rf(104, 197, 64, 13, 3, K, K, 0), ln([112, 197], [122, 112], 6, KD), ci([122, 112], 4, LITE, LITE, 0),
+        ...pad([176, 101], [189, 90], 12), ln([189, 90], [240, 90], 5), ...pad([174, 118], [218, 118], 10), ln([218, 118], [240, 118], 5), grip([213, 102], [213, 116]),
+        ln([122, 112], [145, 188], 6), ...pad([134, 192], [157, 184], 6), foot(96, 290)] },
     ab_crunch_machine: { label: "Ab crunch machine", group: SEL, look: "A seat with pads over your chest or handles by your head that you curl forward.",
       draw: () => [...stack(30, 30, 30), ...seat(100, 152, 60), ...pad([102, 148], [98, 74], 14), ln([64, 28], [146, 28], 6), pl([[146, 28], [146, 60], [126, 82]], 6), ...pad([126, 82], [150, 94], 12), grip([140, 60], [160, 60]), foot(24, 220)] },
     rotary_torso: { label: "Rotary torso machine", group: SEL, look: "A seat that turns (or a chest pad that turns) so you twist from your waist.",
       draw: () => [...stack(30, 30, 30), ...seat(110, 150, 60), ci([140, 156], 30, "none", KD, 3), ...pad([170, 140], [170, 80], 18), grip([180, 84], [200, 84]), ln([64, 28], [176, 28], 6), ln([170, 28], [170, 80], 5), ...pad([114, 186], [150, 186], 10), foot(24, 240)] },
     back_ext_machine: { label: "Back extension machine (seated)", group: SEL, look: "A seat with a foot plate and a pad high behind your upper back that you push back.",
       draw: () => [...stack(260, 40, 30), ...seat(96, 152, 64), ...pad([96, 60], [100, 110], 16), ln([100, 110], [130, 150], 5), pg([[180, 196], [196, 160], [206, 164], [192, 200]], PADF, PADS), grip([120, 138], [134, 138]), foot(80, 300)] },
-    standing_calf_machine: { label: "Standing calf raise machine", group: SEL, look: "Shoulder pads on a lever above a foot block; you stand on the block's edge and rise onto your toes.",
-      draw: () => [...stack(30, 30, 30), rf(120, F - 22, 70, 20, 3, K, K, 0), ln([64, 28], [176, 28], 6), ln([170, 28], [170, 68], 5), ...pad([140, 74], [184, 74], 14), grip([190, 64], [204, 64]), ln([210, F], [210, 40], 7), foot(24, 230)] },
+    standing_calf_machine: { label: "Standing calf raise machine", group: SEL, look: "A pad on a lever rests on your shoulders while the balls of your feet are on the edge of a block; you rise onto your toes.",
+      draw: () => [...stack(30, 30, 30), rf(167, F - 26, 64, 24, 3, K, K, 0), ln([64, 28], [100, 28], 6), ln([96, 28], [96, 52], 6), ln([96, 50], [160, 58], 6), ci([96, 50], 4, LITE, LITE, 0), ci([162, 58], 9, PADF, PADS, 2), ln([218, F], [218, 70], 7), ln([218, 72], [200, 72], 5), grip([196, 66], [196, 80]), foot(24, 240)] },
     seated_calf_machine: { label: "Seated calf raise machine", group: PLT, look: "A seat with a pad that sits on top of your knees, a foot block, and a horn for plates.",
       draw: () => [...seat(80, 150, 56), ...pad([130, 120], [176, 120], 14), ln([176, 120], [212, 132], 6), ...plates([214, 132], 20, 2), rf(160, F - 30, 40, 28, 3, K, K, 0), ln([150, 120], [150, F - 30], 5), foot(70, 250)] },
-    assisted_pullup: { label: "Assisted pull-up / dip machine", group: SEL, look: "A tall frame with handles high up and dip handles lower, and a knee pad that pushes you up.",
-      draw: () => [...stack(30, 20, 30), ln([100, F], [100, 18], 8), ln([64, 18], [220, 18], 7), grip([190, 30], [220, 30]), ln([210, 18], [210, 30], 5), ln([100, 110], [200, 110], 6), grip([186, 104], [208, 104]), ...pad([150, 158], [196, 158], 12), ln([100, 166], [150, 160], 5), rf(110, F - 30, 50, 10, 3), foot(24, 230)] },
+    assisted_pullup: { label: "Assisted pull-up / dip machine", group: SEL, look: "A tall frame with handles high up and dip handles lower, and a pad you kneel on that pushes you up.",
+      draw: () => [...stack(30, 20, 30), ln([100, F], [100, 18], 8), ln([64, 18], [220, 18], 7), grip([190, 30], [220, 30]), ln([210, 18], [210, 30], 5), ln([100, 110], [200, 110], 6), grip([186, 104], [208, 104]), ...pad([156, 188], [204, 188], 12), ln([100, 196], [156, 190], 5), rf(110, F - 12, 40, 10, 3), foot(24, 230)] },
     row_machine: { label: "Seated row machine", group: SEL, look: "A seat facing a chest pad, with handles out in front that you pull back.",
-      draw: () => [...stack(260, 30, 30), ...seat(70, 156, 60), ...pad([170, 150], [176, 80], 16), ln([176, 150], [182, F], 6), ln([200, 30], [200, 112], 6), grip([194, 116], [214, 116]), ln([200, 30], [264, 30], 6), foot(60, 300)] },
+      draw: () => [...stack(260, 30, 30), ...seat(70, 156, 60), ...pad([135, 124], [140, 100], 14), ln([141, 112], [256, 112], 5), ln([200, 112], [204, F], 6), ln([200, 30], [200, 112], 6), grip([194, 116], [214, 116]), ln([200, 30], [264, 30], 6), foot(60, 300)] },
     // ---- plate-loaded machines (the big arms with horns for plates)
-    plate_chest_press: { label: "Plate-loaded chest press", group: PLT, look: "A seat and back pad with two separate arms that curve forward to handles; plates go on the horns on each arm.",
-      draw: () => [...seat(100, 152, 56), ...pad([102, 148], [92, 70], 14), ln([60, F], [70, 40], 8), { k: "path", d: "M70 42 Q170 20 196 96", c: K, w: 9 }, ci([70, 42], 4, LITE, LITE, 0), ...plates([147.5, 44.5], 22, 2), grip([190, 96], [210, 104]), foot(40, 230)] },
-    plate_incline_press: { label: "Plate-loaded incline press", group: PLT, look: "A reclined back pad with arms that press up and forward at an angle; plates on the horns.",
-      draw: () => [...seat(104, 156, 56), ...pad([108, 152], [64, 84], 14), ln([40, F], [44, 60], 8), { k: "path", d: "M44 62 Q150 10 176 70", c: K, w: 9 }, ci([44, 62], 4, LITE, LITE, 0), ...plates([119.2, 37.9], 22, 2), grip([170, 70], [188, 62]), foot(30, 230)] },
-    plate_decline_press: { label: "Plate-loaded decline press", group: PLT, look: "An upright seat with arms that press forward and slightly down; plates on the horns.",
-      draw: () => [...seat(100, 152, 56), ...pad([102, 148], [96, 70], 14), ln([60, F], [70, 30], 8), { k: "path", d: "M70 32 Q180 30 200 112", c: K, w: 9 }, ci([70, 32], 4, LITE, LITE, 0), ...plates([146.8, 47.2], 22, 2), grip([194, 112], [212, 118]), foot(40, 230)] },
+    plate_chest_press: { label: "Plate-loaded chest press", group: PLT, look: "A seat and back pad; each arm turns on a pivot low behind the seat and comes forward to a handle by your chest; plates go on the horns behind the back pad.",
+      draw: () => [...seat(100, 152, 56), ...pad([102, 148], [92, 70], 14), ln([60, F], [64, 176], 8), ...armWith([64, 176], [70, 80], [136, 87], 0.3, 20), grip([127, 84], [145, 90]), foot(30, 230)] },
+    plate_incline_press: { label: "Plate-loaded incline press", group: PLT, look: "A reclined back pad with arms that press up and forward at an angle; each arm turns on a pivot low behind the seat; plates on the horns.",
+      draw: () => [...seat(104, 156, 56), ...pad([108, 152], [64, 84], 14), ln([36, F], [40, 170], 8), ...armWith([40, 170], [60, 80], [139, 58], 0.2, 22), grip([130, 62], [148, 54]), foot(24, 230)] },
+    plate_decline_press: { label: "Plate-loaded decline press", group: PLT, look: "An upright seat with arms that press forward and slightly down; each arm turns on a pivot low behind the seat; plates on the horns behind the back pad.",
+      draw: () => [...seat(100, 152, 56), ...pad([102, 148], [96, 70], 14), ln([60, F], [64, 176], 8), ...armWith([64, 176], [70, 84], [136, 107], 0.3, 20), grip([127, 104], [145, 110]), foot(30, 230)] },
     plate_shoulder_press: { label: "Plate-loaded shoulder press", group: PLT, look: "An upright seat and back pad with arms that press straight up; plates on the horns behind.",
-      draw: () => [...seat(110, 152, 56), ...pad([112, 148], [108, 60], 14), ln([60, F], [62, 120], 8), { k: "path", d: "M62 122 Q90 40 164 48", c: K, w: 9 }, ci([62, 122], 4, LITE, LITE, 0), ...plates([71, 93], 22, 2), grip([160, 48], [180, 48]), foot(40, 220)] },
+      draw: () => [...seat(110, 152, 56), ...pad([112, 148], [108, 60], 14), ln([56, F], [60, 150], 8), ...armWith([60, 150], [66, 50], [138, 82], 0.2, 20), grip([128, 82], [148, 82]), foot(40, 220)] },
     plate_high_row: { label: "Plate-loaded high row", group: PLT, look: "A seat with a thigh pad and handles high in front that you pull down and back; plates on the horns.",
       draw: () => [...seat(80, 156, 56), ...pad([126, 130], [160, 130], 12), ln([260, F], [252, 40], 8), { k: "path", d: "M252 42 Q190 30 172 60", c: K, w: 9 }, ci([252, 42], 4, LITE, LITE, 0), ...plates([210, 38.7], 22, 2), grip([168, 54], [176, 70]), foot(60, 280)] },
     plate_low_row: { label: "Plate-loaded low row", group: PLT, look: "A seat facing a chest pad, with low handles that you row back to your hips; plates on the horns.",
-      draw: () => [...seat(70, 156, 56), ...pad([158, 150], [162, 88], 16), ln([262, F], [254, 70], 8), { k: "path", d: "M254 72 Q210 120 188 140", c: K, w: 9 }, ci([254, 72], 4, LITE, LITE, 0), ...plates([225.6, 98.3], 22, 2), grip([180, 132], [196, 148]), foot(50, 280)] },
-    plate_pulldown: { label: "Plate-loaded pulldown", group: PLT, look: "A seat with thigh pads; two arms come over your head with handles you pull down; plates on the horns.",
-      draw: () => [...seat(110, 156, 56), ...pad([150, 130], [180, 130], 12), ln([80, F], [86, 40], 8), { k: "path", d: "M86 42 Q140 6 186 40", c: K, w: 9 }, ci([86, 42], 4, LITE, LITE, 0), ...plates([123.9, 24.4], 22, 2), grip([180, 40], [196, 50]), foot(60, 220)] },
+      draw: () => [...seat(70, 156, 56), ...pad([135, 124], [140, 100], 14), ln([141, 112], [200, 112], 5), ln([200, 112], [204, F], 6), ln([262, F], [254, 70], 8), { k: "path", d: "M254 72 Q210 120 188 140", c: K, w: 9 }, ci([254, 72], 4, LITE, LITE, 0), ...plates([225.6, 98.3], 22, 2), grip([180, 132], [196, 148]), foot(50, 280)] },
+    plate_pulldown: { label: "Plate-loaded pulldown", group: PLT, look: "A seat with roller pads over your thighs; arms reach over from the front of the machine with handles above you that you pull down; plates on the horns.",
+      draw: () => [rf(102, 157, 56, 10, 4), ln([130, 167], [130, F], 6), ln([204, F], [204, 132], 6), ln([204, 134], [166, 134], 5), roller([166, 140]), ln([226, F], [226, 22], 8), ln([226, 26], [214, 26], 6), { k: "path", d: "M214 26 Q176 4 148 36", c: K, w: 9 }, ci([214, 26], 4, LITE, LITE, 0), ...plates([196, 16], 18, 2), grip([142, 38], [154, 34]), foot(90, 240)] },
     plate_tbar_row: { label: "T-bar row machine (chest-supported)", group: PLT, look: "A slanted chest pad above a foot platform; the lever under you has handles and a horn for plates.",
       draw: () => [rf(60, F - 18, 110, 14, 3, K, K, 0), ...pad([150, 120], [206, 80], 16), ln([180, 100], [176, F], 7), ln([70, F - 18], [240, 150], 7), grip([206, 140], [214, 160]), ...plates([238, 151], 22, 2), foot(40, 290)] },
     leg_press_45: { label: "45° leg press (plate-loaded)", group: PLT, look: "A low reclined seat facing a sled on angled rails; you push the foot plate up the rails. Plates go on the sled's horns.",
-      draw: () => [ln([40, F - 8], [290, 60], 6, KD), ...pad([96, 176], [56, 126], 14), rf(80, 176, 60, 12, 4), ln([110, 188], [110, F], 6), pg([[176, 104], [234, 70], [246, 90], [190, 124]], PADF, PADS), ...plates([212, 98], 20, 2), ln([270, F], [270, 70], 7), foot(30, 290)] },
+      draw: () => [ln(lp45(-12, 0), lp45(168, 0), 6, KD), ln([242.8, F], [242.8, 77], 7), ln(lp45(110, -2), [242.8, 150], 5), ...pad([104, 178], [52, 126], 14), rf(84, 176, 46, 10, 4), ln([104, 186], [104, F], 6), ln([70, F], [88, 160], 5, KD), grip([90, 184], [102, 180]), pg([lp45(70.3, 4), lp45(117.3, 4), lp45(117.3, 26), lp45(70.3, 44)], PADF, PADS), ...plates(lp45(97.3, 22), 17, 2), ...pad(lp45(67.3, 8), lp45(67.3, 56), 8), foot(50, 258)] },
     plate_squat: { label: "Hack squat / squat machine", group: PLT, look: "A foot plate below an angled back pad with shoulder pads that slide on rails; plates on the horns.",
       draw: () => [ln([80, F - 8], [210, 30], 6, KD), pg([[116, 120], [176, 46], [192, 58], [132, 132]], PADF, PADS), ...pad([170, 54], [190, 70], 12), ...plates([150, 86], 20, 2), pg([[150, F - 10], [230, F - 30], [234, F - 18], [154, F]], PADF, PADS), foot(60, 260)] },
     // ---- cardio
@@ -38467,6 +38499,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   function pick(n, id, kit, eq) {
     const has = rx => rx.test(n);
     // cardio machines and small kit named in the exercise
+    if (has(/jacob'?s ladder/i)) return ["versaclimber"];   // 3.21.0: a climbing machine, not a treadmill
     if (has(/treadmill/i)) return ["treadmill"];
     if (has(/elliptical|arc trainer|cross ?trainer|adaptive motion/i)) return ["elliptical"];
     if (has(/recumbent/i)) return ["recumbent_bike"];
@@ -38536,6 +38569,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       case "leg_extension": return ["leg_extension_machine"];
       case "leg_curl_seated": return ["seated_leg_curl_machine"];
       case "leg_curl": case "supine_leg_curl": return [/seated/i.test(n) ? "seated_leg_curl_machine" : /standing|kneeling/i.test(n) ? "multi_hip" : "lying_leg_curl_machine"];
+      case "glute_machine": return ["glute_machine"];
       case "standing_leg_curl": case "hip_extension": case "hip_abduction": case "hip_adduction": case "leg_swing": return ["multi_hip"];
       case "hip_abduction_seated": case "hip_adduction_seated": return ["hip_machine"];
       case "leg_press": return [/seated|horizontal|selectorized|\bpin\b/i.test(n) ? "leg_press_seated" : "leg_press_45"];
@@ -38793,7 +38827,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       const r = of(e.name); return !!(r && ids.includes(r.items[0]));
     };
   }
-  PT.equip = { of, svg, EQUIP, lafNote, chain, gymBox, emit, bbox, BG, F };   // 3.20.0: emit, bbox, BG and F (the floor) for module 146
+  PT.equip = { of, svg, EQUIP, lafNote, chain, gymBox, emit, bbox, BG, F,   // 3.20.0: emit, bbox, BG and F (the floor) for module 146
+    kit: { ln, pl, rf, ci, pg, pt, pad, grip, plate, plates, pulley, cable, foot, stack, seat, wheel, C: { K, KD, PADF, PADS, LITE, PL, PLF, BG } } };   // 3.21.0: the drawing kit
 })();
 </script>
   <script>/* =====================================================================
@@ -38920,6 +38955,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     glute_bridge: "glutes:100 | hamstrings:55 lower_back:25 abs:20",
     glute_bridge_loaded: "glutes:100 | hamstrings:50 quads:30 adductors:25",
     hip_extension: "glutes:100 | hamstrings:55 lower_back:20",
+    glute_machine: "glutes:100 | hamstrings:55 lower_back:20",   // 3.21.0: hip_extension on the glute kickback machine
     pull_through: "glutes:100 hamstrings:80 | lower_back:40 forearm_flexors:25",
     hip_abduction: "glute_med:100 | glutes:55",
     hip_abduction_seated: "glute_med:100 | glutes:60",
@@ -39693,6 +39729,13 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
  *  lever { from: pivot, to: joint } follows the hands or feet; pulley: the cable runs from the machine's pulley to the hands. flip
  *  mirrors a drawing that faces the other way (the cable station). Everything is then fitted into the picture.
  *  Machines not in FIT keep the 3.19.0 demo.
+ *  3.21.0 (the owner: "lat pulldown and stuff, leg press and others just look weird, fix them up to match the machine"): the lat
+ *  pulldown faces its stack with roller pads on the thighs; the 45-degree leg press has a real 45-degree rail and a foot plate square
+ *  to it; the seated leg press plate slides on a rail; plate-loaded presses turn on a pivot low behind the seat (lever ctrl: a fixed
+ *  control point, so the plates stay behind the back pad, not on the head); chest-supported rows have the pad on the chest; the
+ *  assisted pull-up kneels on its pad; the calf machine keeps the balls of the feet on the block; noCable leaves out the figure's own
+ *  cable; the glute kickback machine (LA Fitness) is new (module 137 glute_machine draws the figure, its lever and foot plate).
+ *  PT.machineDemo.posesOf(name) gives the joints on the machine for each picture (tests/machinefit.py).
  * ===================================================================== */
 (function () {
   "use strict";
@@ -39705,19 +39748,19 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   // the front while their movements are drawn from the side, so they keep the 3.19.0 demo, as do machines not listed here.
   const FIT = {
     chest_press_machine: {"machine_chest_press": {"at": [124, 142], "k": 1.2, "drop": [[185, 25, 222, 100]], "lever": {"from": [200, 30], "to": "grip", "grip": [10, 0]}}},
-    plate_chest_press: {"machine_chest_press": {"at": [114, 144], "k": 1.2, "drop": [[64, 10, 215, 110]], "lever": {"from": [70, 42], "to": "grip", "curve": 30, "plates": 20, "at": 0.12, "w": 9, "grip": [9, 3]}}},
-    shoulder_press_machine: {"overhead_press_seated": {"at": [124, 142], "k": 1.15, "drop": [[155, 15, 190, 70]], "lever": {"from": [98, 34], "to": "grip", "curve": 16, "w": 7, "grip": [10, 0]}}},
-    plate_shoulder_press: {"overhead_press_seated": {"at": [124, 144], "k": 1.15, "drop": [[55, 18, 190, 128]], "lever": {"from": [62, 122], "to": "grip", "curve": 34, "plates": 20, "at": 0.3, "w": 9, "grip": [10, 0]}}, "overhead_press": {"at": [124, 144], "k": 1.15, "drop": [[55, 18, 190, 128]], "lever": {"from": [62, 122], "to": "grip", "curve": 34, "plates": 20, "at": 0.3, "w": 9, "grip": [10, 0]}, "as": "overhead_press_seated"}},
-    lat_pulldown_machine: {"lat_pulldown": {"at": [162, 148], "k": 1.15, "drop": [[150, 28, 232, 86, "l"]], "pulley": [190, 30], "lever": {"to": "grip", "grip": [32, 0]}}},
-    plate_pulldown: {"lat_pulldown": {"at": [126, 149], "k": 1.15, "drop": [[80, 0, 200, 52]], "lever": {"from": [86, 42], "to": "grip", "curve": 30, "plates": 20, "at": 0.1, "w": 9, "grip": [8, 5]}}},
+    plate_chest_press: {"machine_chest_press": {"at": [114, 144], "k": 1.2, "drop": [[30, 20, 230, 200, "a"], [100, 60, 160, 110, "l"], [40, 90, 100, 160, "c"]], "lever": {"from": [64, 176], "ctrl": [70, 80], "to": "grip", "plates": 20, "at": 0.3, "w": 9, "grip": [9, 3]}}},
+    shoulder_press_machine: {"overhead_press_seated": {"at": [124, 142], "k": 1.15, "drop": [[94, 20, 190, 70, "al"]], "lever": {"from": [98, 34], "to": "grip", "curve": 16, "w": 6, "grip": [10, 0]}}},
+    plate_shoulder_press: {"overhead_press_seated": {"at": [124, 144], "k": 1.15, "noCable": true, "drop": [[30, 20, 230, 200, "a"], [120, 70, 160, 95, "l"], [40, 80, 110, 140, "c"]], "lever": {"from": [60, 150], "ctrl": [66, 50], "to": "grip", "plates": 20, "at": 0.2, "w": 9, "grip": [10, 0]}}, "overhead_press": {"at": [124, 144], "k": 1.15, "noCable": true, "drop": [[30, 20, 230, 200, "a"], [120, 70, 160, 95, "l"], [40, 80, 110, 140, "c"]], "lever": {"from": [60, 150], "ctrl": [66, 50], "to": "grip", "plates": 20, "at": 0.2, "w": 9, "grip": [10, 0]}, "as": "overhead_press_seated"}},
+    lat_pulldown_machine: {"lat_pulldown": {"at": [140, 150], "k": 1.0, "over": [{ "t": 98 }, { "t": 104, "hand": [165, 100] }], "drop": [[138, 20, 165, 70, "l"]], "pulley": [150, 24], "lever": {"to": "grip", "grip": [9, 1]}}},
+    plate_pulldown: {"lat_pulldown": {"at": [130, 150], "k": 1.0, "over": [{ "t": 98 }, { "t": 104, "hand": [165, 100] }], "noCable": true, "drop": [[140, 0, 218, 60]], "lever": {"from": [214, 26], "to": "grip", "curve": -22, "plates": 18, "at": 0.25, "w": 9, "grip": [7, -3]}}},
     seated_row_cable: {"seated_row": {"at": [121, 164], "k": 1.0, "drop": [[200, 138, 256, 176, "l"]], "pulley": [250, 172]}},
     plate_low_row: {"seated_row": {"at": [112, 150], "k": 1.05, "over": [{"t": 76, "ankle": [178, 196], "kb": 1, "ft": 0, "hand": [214, 140]}, {"t": 80, "ankle": [178, 196], "kb": 1, "ft": 0, "hand": [166, 132]}], "drop": [[170, 60, 262, 150]], "lever": {"from": [254, 72], "to": "grip", "curve": -20, "plates": 20, "at": 0.35, "w": 9, "grip": [6, 8]}}},
-    row_machine: {"seated_row": {"at": [112, 150], "k": 1.05, "over": [{"t": 76, "ankle": [178, 196], "kb": 1, "ft": 0, "hand": [214, 136]}, {"t": 80, "ankle": [178, 196], "kb": 1, "ft": 0, "hand": [166, 128]}], "drop": [[190, 25, 220, 120, "lr"]], "lever": {"from": [200, 30], "to": "grip", "grip": [10, 0]}}},
+    row_machine: {"seated_row": {"at": [112, 150], "k": 1.05, "over": [{"t": 76, "ankle": [178, 196], "kb": 1, "ft": 0, "hand": [214, 140]}, {"t": 80, "ankle": [178, 196], "kb": 1, "ft": 0, "hand": [166, 132]}], "drop": [[190, 25, 220, 120, "lr"]], "lever": {"from": [200, 30], "to": "grip", "grip": [10, 0]}}},
     plate_high_row: {"seated_row": {"at": [116, 150], "k": 1.05, "over": [{"t": 90, "ankle": [190, 196], "kb": 1, "ft": 0, "hand": [196, 50]}, {"t": 94, "ankle": [190, 196], "kb": 1, "ft": 0, "hand": [164, 96]}], "drop": [[160, 20, 262, 75]], "lever": {"from": [252, 42], "to": "grip", "curve": 18, "plates": 20, "at": 0.4, "w": 9, "grip": [4, 8]}}},
     leg_extension_machine: {"leg_extension": {"at": [118, 132], "k": 1.2, "noDyn": true, "drop": [[165, 136, 198, 204]], "lever": {"from": [176, 140], "to": "ankle", "dx": 2, "dy": -6, "w": 6, "pad": 9}}},
     seated_leg_curl_machine: {"leg_curl_seated": {"at": [112, 132], "k": 1.2, "noDyn": true, "drop": [[182, 125, 250, 145]], "lever": {"from": [186, 140], "to": "ankle", "dy": 4, "w": 6, "pad": 9}}, "leg_curl": {"at": [112, 132], "k": 1.2, "noDyn": true, "drop": [[182, 125, 250, 145]], "lever": {"from": [186, 140], "to": "ankle", "dy": 4, "w": 6, "pad": 9}, "as": "leg_curl_seated"}},
     lying_leg_curl_machine: {"leg_curl": {"at": [150, 122], "k": 1.2, "noDyn": true, "drop": [[26, 112, 64, 150]], "lever": {"from": [60, 146], "to": "ankle", "dy": -8, "w": 6, "pad": 9}}},
-    leg_press_45: {"leg_press": {"at": [112, 168], "k": 1.3, "noDyn": true, "over": [{"ankle": [172, 106], "ft": 60}, {"ankle": [186, 92], "ft": 60}], "carry": [{"box": [170, 60, 250, 128], "to": "ankle", "axis": [250, -142]}]}},
+    leg_press_45: {"leg_press": {"at": [100, 168], "k": 1.0, "noDyn": true, "over": [{"t": 136, "ankle": [161.4, 115.1], "kb": 1, "ft": 135, "hand": [116, 162], "eb": 1}, {"t": 136, "ankle": [185.4, 91.1], "kb": 1, "ft": 135, "hand": [116, 162], "eb": 1}], "carry": [{"box": [140, 50, 230, 160], "to": "ankle", "axis": [1, -1]}]}},
     biceps_curl_machine: {"preacher_curl": {"at": [110, 132], "k": 1.15, "drop": [[180, 66, 232, 136]], "lever": {"from": [186, 132], "to": "grip", "grip": [8, 0]}}},
     preacher_bench: {"preacher_curl": {"at": [96, 142], "k": 1.15}},
     pec_deck: {"pec_deck": {"at": [160, 148], "k": 1.1, "drop": [[84, 40, 236, 120, "lp"]], "levers": [{"from": [160, 44], "to": "haL", "grip": [0, 14], "w": 6}, {"from": [160, 44], "to": "haR", "grip": [0, 14], "w": 6}]}},
@@ -39733,12 +39776,12 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     bench_station: {"bench_press": {"at": [206, 126], "k": 1.1, "drop": [[60, 56, 128, 120, "c"]]}},
     incline_station: {"incline_press": {"at": [200, 134], "k": 1.1, "over": {"t": 135}, "drop": [[74, 24, 136, 80, "c"]]}},
     decline_station: {"decline_press": {"at": [175, 123], "k": 1.1, "over": {"t": 195, "ankle": [252, 121], "kb": 1}, "drop": [[44, 76, 96, 128, "c"]]}},
-    plate_incline_press: {"incline_press": {"at": [116, 148], "k": 1.15, "over": {"t": 123}, "drop": [[38, 8, 196, 80]], "lever": {"from": [44, 62], "to": "grip", "curve": 30, "plates": 22, "at": 0.45, "w": 9, "grip": [9, -4]}}},
-    plate_decline_press: {"decline_press": {"as": "machine_chest_press", "at": [114, 145], "k": 1.2, "over": [{"hand": [146, 118], "eb": -1}, {"hand": [184, 134], "eb": 1}], "drop": [[64, 20, 220, 122]], "lever": {"from": [70, 32], "to": "grip", "curve": 30, "plates": 22, "at": 0.4, "w": 9, "grip": [9, 3]}}},
+    plate_incline_press: {"incline_press": {"at": [116, 148], "k": 1.15, "over": [{"t": 123, "hand": [216, 72], "eb": 1}, {"t": 123, "hand": [178, 100], "eb": -1}], "drop": [[0, 0, 320, 205, "a"], [120, 40, 160, 75, "l"], [20, 110, 80, 165, "c"]], "lever": {"from": [40, 170], "ctrl": [60, 80], "to": "grip", "plates": 22, "at": 0.2, "w": 9, "grip": [9, -4]}}},
+    plate_decline_press: {"decline_press": {"as": "machine_chest_press", "at": [114, 145], "k": 1.2, "over": [{"hand": [146, 118], "eb": -1}, {"hand": [184, 134], "eb": 1}], "drop": [[30, 20, 230, 200, "a"], [100, 80, 160, 130, "l"], [40, 90, 100, 160, "c"]], "lever": {"from": [64, 176], "ctrl": [70, 84], "to": "grip", "plates": 20, "at": 0.3, "w": 9, "grip": [9, 3]}}},
     cable_station: {"pushdown": {"station": {"x": 174, "y0": 123, "box": [166, 106, 200, 140]}, "flip": true, "k": 1.0, "drop": [[96, 118, 180, 166, "l"]], "at": [0, 0]}, "curl": {"station": {"x": 174, "y0": 123, "box": [166, 106, 200, 140]}, "flip": true, "k": 1.0, "drop": [[96, 118, 180, 166, "l"]], "at": [0, 0]}, "straight_arm_pulldown": {"station": {"x": 174, "y0": 123, "box": [166, 106, 200, 140]}, "flip": true, "k": 1.0, "drop": [[96, 118, 180, 166, "l"]], "at": [0, 0]}, "face_pull": {"station": {"x": 174, "y0": 123, "box": [166, 106, 200, 140]}, "flip": true, "k": 1.0, "drop": [[96, 118, 180, 166, "l"]], "at": [0, 0]}},
     stair_climber: {"stairs": {"at": [145, 84], "k": 1.0}},
-    pullup_bar: {"pull_up": {"joint": "hand", "at": [160, 34], "k": 0.88}, "hanging_leg_raise": {"joint": "hand", "at": [160, 34], "k": 0.88}},
-    assisted_pullup: {"pull_up": {"joint": "hand", "at": [205, 30], "k": 0.9, "carry": [{"box": [140, 140, 210, 172], "to": "knee"}]}},
+    pullup_bar: {"pull_up": {"joint": "hand", "at": [160, 34], "k": 0.88, "over": [{}, {"hip": [148, 96], "t": 88, "eb": 1}]}, "hanging_leg_raise": {"joint": "hand", "at": [160, 34], "k": 0.88}},
+    assisted_pullup: {"pull_up": {"joint": "hand", "at": [205, 30], "k": 0.9, "over": [{"th": -92, "sh": -178, "ft": -80}, {"hip": [148, 96], "t": 88, "th": -92, "sh": -178, "ft": -80, "eb": 1}], "drop": [[98, 186, 160, 200, "l"]], "lever": {"from": [100, 194], "to": "knee", "dx": -20, "dy": 13, "w": 5}, "carry": [{"box": [104, 180, 210, 200], "to": "knee", "axis": [0, 1]}]}},
     hyper_bench: {"back_extension": {"joint": "ankle", "at": [108, 176], "k": 1.3}},
     ab_bench: {"sit_up": {"at": [188, 112], "k": 1.1, "over": [{"t": 203, "ankle": [213, 181], "kb": 1, "floor": false, "on": null}, {"t": 120, "ankle": [213, 181], "kb": 1, "floor": false, "on": null}]}},
     ab_crunch_machine: {"crunch": {"at": [116, 145], "k": 1.15, "over": [{"hip": [140, 148], "t": 96, "th": 0, "sh": -90, "ankle": null, "floor": false, "on": null}, {"hip": [140, 148], "t": 66, "th": 0, "sh": -90, "ankle": null, "floor": false, "on": null}], "drop": [[118, 26, 170, 100, "lp"]], "lever": {"from": [146, 28], "to": "shoulder", "dx": 12, "dy": 6, "pad": 8, "w": 6}}},
@@ -39746,8 +39789,9 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     upright_bike: {"cycle": {"from": [164, 170], "at": [170, 168], "k": 1.0, "drop": [[166, 164, 188, 188, "l"]]}},
     rower: {"rower": {"joint": "ankle", "at": [210, 178], "k": 1.0, "noDyn": true, "pulley": [230, 160], "drop": [[180, 140, 232, 164, "l"]], "carry": [{"box": [66, 166, 114, 182, "r"], "to": "hip", "axis": [1, 0]}]}},
     arm_bike: {"arm_bike": {"from": [176, 98], "at": [190, 92], "k": 1.0, "drop": [[170, 70, 212, 116, "l"]]}},
-    leg_press_seated: {"leg_press": {"at": [108, 149], "k": 1.25, "noDyn": true, "over": [{"t": 107, "ankle": [172, 130], "ft": 90}, {"t": 107, "ankle": [202, 130], "ft": 90}], "drop": [[236, 136, 264, 144, "l"]], "carry": [{"box": [222, 86, 242, 190, "g"], "to": "ankle", "axis": [1, 0], "off": [-43, 0]}], "lever": {"from": [262, 140], "to": "ankle", "dx": 12, "w": 6}}},
-    standing_calf_machine: {"calf_raise": {"joint": "shoulder", "at": [162, 0], "k": 0.8, "stand": 188, "carry": [{"box": [134, 66, 190, 82], "to": "shoulder"}]}},
+    leg_press_seated: {"leg_press": {"at": [110, 150], "k": 1.0, "noDyn": true, "over": [{"t": 110, "ankle": [182, 130], "kb": 1, "ft": 90, "hand": [146, 166], "eb": 1}, {"t": 110, "ankle": [208, 130], "kb": 1, "ft": 90, "hand": [146, 166], "eb": 1}], "carry": [{"box": [170, 90, 216, 194], "to": "ankle", "axis": [1, 0]}]}},
+    standing_calf_machine: {"calf_raise": {"joint": "toe", "at": [176, 180], "k": 0.8, "over": [{}, {"hip": [158.8, 76.4], "ankle": [160.8, 166.4], "ft": -50}], "drop": [[92, 46, 172, 68]], "lever": {"from": [96, 50], "to": "shoulder", "dy": -8, "w": 6, "pad": 9}}},
+    glute_machine: {"glute_machine": {"at": [140, 110], "k": 1.0, "drop": [[118, 108, 160, 196, "l"]]}},
     decline_bench: {"decline_press": {"at": [158, 118], "k": 1.1, "over": {"t": 195, "ankle": [252, 121], "kb": 1}}},
   };
   PT.machineFit = FIT;
@@ -39780,6 +39824,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     else if (p.k === "path") { let i = 0; o.d = String(p.d).replace(/-?\d+(?:\.\d+)?/g, v => (parseFloat(v) + d[i++ % 2]).toFixed(1)); }
     return o;
   }
+  let LAST = null;   // the last placement draw() used (posesOf reads it)
   /* start: the demo's first pose (the figure is placed by it; carried parts move by how far a joint has moved from it) */
   function draw(fe, eq, id, kit, j, hi, fit, start) {
     const e = E.EQUIP[eq]; if (!e) return null;
@@ -39798,6 +39843,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       pul = [st.x, yp];
     } else { tx = fe.at[0] - an[0] * k; ty = fe.stand ? (typeof fe.stand === "number" ? fe.stand : E.F - 2) - k * feet : fe.at[1] - an[1] * k; }   // stand: feet on the floor (or on the surface at that y)
     const T = q => [q[0] * k + tx, q[1] * k + ty];
+    LAST = { k, tx, ty };
     // carry: the machine's own moving parts (a leg press sled, a Smith bar, a hack squat's pads) slide with a joint, along axis if given
     (fe.carry || []).forEach(cr => {
       const a = j[cr.to], b = j0[cr.to]; if (!a || !b) return;
@@ -39806,16 +39852,17 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       if (cr.off) d = [d[0] + cr.off[0], d[1] + cr.off[1]];   // where it sits at the start, if not where it is drawn
       parts = parts.map(p => (dropped(p, [cr.box]) ? shift(p, d) : p));
     });
-    const fig = F.bare(id, kit, j, hi, { noCable: !!(pul || fe.pulleys), noBack: !!fe.noBack, noDyn: !!fe.noDyn });
+    const fig = F.bare(id, kit, j, hi, { noCable: !!(pul || fe.pulleys || fe.noCable), noBack: !!fe.noBack, noDyn: !!fe.noDyn });
     const under = [], over = [];
     // a lever from its pivot to a joint (bent like the machine's arm by curve px, with plates on it), a handle across the hand, a pad
     (fe.levers || (fe.lever ? [fe.lever] : [])).forEach(L => {
       const at = j[L.to]; if (!at) return;
       const tip = T([at[0] + (L.dx || 0), at[1] + (L.dy || 0)]), w = L.w || 7, to = L.over ? over : under;
       if (L.out && j.pel) tip[0] += Math.sign(tip[0] - T(j.pel)[0]) * L.out;   // a pad on the outside (or, out < 0, the inside) of a knee or elbow
-      if (L.from && L.curve) {
+      if (L.from && (L.curve || L.ctrl)) {
+        // ctrl (3.21.0): a fixed control point, so a plate-loaded arm keeps its shape (and its plates stay behind the back pad) as it moves
         const a = L.from, mx = (a[0] + tip[0]) / 2, my = (a[1] + tip[1]) / 2, dx = tip[0] - a[0], dy = tip[1] - a[1], l = Math.hypot(dx, dy) || 1;
-        const cx = mx + dy / l * L.curve, cy = my - dx / l * L.curve;
+        const cx = L.ctrl ? L.ctrl[0] : mx + dy / l * L.curve, cy = L.ctrl ? L.ctrl[1] : my - dx / l * L.curve;
         to.push({ k: "path", d: `M${a[0].toFixed(1)} ${a[1].toFixed(1)} Q${cx.toFixed(1)} ${cy.toFixed(1)} ${tip[0].toFixed(1)} ${tip[1].toFixed(1)}`, c: KIT, w: w });
         if (L.plates) { const u = L.at == null ? 0.5 : L.at, px = (1 - u) * (1 - u) * a[0] + 2 * u * (1 - u) * cx + u * u * tip[0], py = (1 - u) * (1 - u) * a[1] + 2 * u * (1 - u) * cy + u * u * tip[1]; to.push({ k: "c", at: [px, py], r: L.plates, fill: "#52525b", stroke: PL, sw: 2.5 }, { k: "c", at: [px, py], r: 3, fill: PL, stroke: PL, sw: 0 }); }
         to.push({ k: "c", at: a, r: 4, fill: LITE, stroke: LITE, sw: 0 });
@@ -39866,7 +39913,18 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     if (CACHE.size > 30) CACHE.clear();
     CACHE.set(key, out); return out;
   };
-  PT.machineDemo = { fitFor, FIT, clear: () => CACHE.clear() };
+  /** 3.21.0: the joints of each picture of a machine demo, in the machine's own coordinates (for tests) */
+  function posesOf(name) {
+    const m = fitFor(name); if (!m) return null;
+    let start = null; const frames = [];
+    F.demoWith(String(name), (j, id, kit) => {
+      if (!start) start = j; draw(m.fe, m.eq, id, kit, j, null, null, start); const P = LAST, T = q => q && [q[0] * P.k + P.tx, q[1] * P.k + P.ty], o = {};
+      Object.keys(j).forEach(q => { if (Array.isArray(j[q]) && j[q].length === 2 && typeof j[q][0] === "number") o[q] = T(j[q]); });
+      frames.push(o); return "x";
+    }, m.fe.over, m.fe.as);
+    return { machine: m.eq, movement: m.mv, fe: m.fe, frames };
+  }
+  PT.machineDemo = { fitFor, FIT, posesOf, clear: () => CACHE.clear() };
 })();
 </script>
   <script>

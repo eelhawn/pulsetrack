@@ -319,6 +319,13 @@
 
   /* ================================================================ the movements */
   // frames: [start, finish] poses; at: per-frame or shared settle; go/back: arrow labels; joint: which joint the arrow follows
+  // 3.21.0: a point on the front of the torso (fraction f from the hip to the shoulder, off px out in front of the chest)
+  const pAt = (j, f, off) => { const dx = j.shoulder[0] - j.hip[0], dy = j.shoulder[1] - j.hip[1], l = Math.hypot(dx, dy) || 1; return [j.hip[0] + dx * f - dy / l * off, j.hip[1] + dy * f + dx / l * off]; };
+  // 3.21.0: a lever from a pivot to a foot, with a foot plate across its end (the glute kickback machine)
+  function gluePedal(piv, ank) {
+    const dx = ank[0] - piv[0], dy = ank[1] - piv[1], l = Math.hypot(dx, dy) || 1, u = [dx / l, dy / l], q = [-u[1], u[0]], c = [ank[0] + u[0] * 7, ank[1] + u[1] * 7];
+    return [L(piv, c, C.kit, 6), L([c[0] - q[0] * 12, c[1] - q[1] * 12], [c[0] + q[0] * 12, c[1] + q[1] * 12], C.plate, 9), L([c[0] - q[0] * 11, c[1] - q[1] * 11], [c[0] + q[0] * 11, c[1] + q[1] * 11], C.kitFill, 5), O(piv, 4, C.body, C.body, 0)];
+  }
   const S = (o) => Object.assign({ hip: [160, 106], t: 90, ankle: [162, 196], kb: 1, floor: true }, o);
   const PATTERNS = {
     bench_press: { label: "flat press", kit: "barbell", go: "lower", back: "press up", joint: "grip", over: true,
@@ -387,7 +394,7 @@
     curl: { label: "curl", kit: "dumbbell", go: "curl up", back: "lower", joint: "grip",
       start: "Stand tall, arms straight down, elbows at your sides.", end: "Curl the weight up to your shoulders without moving your elbows, then lower.",
       frames: [S({ ua: -92, fa: -88 }), S({ ua: -84, fa: 88 })] },
-    preacher_curl: { label: "preacher curl", kit: "barbell", go: "curl up", back: "lower", joint: "grip",
+    preacher_curl: { label: "preacher curl", kit: "barbell", go: "curl up", back: "lower", joint: "grip", plate: 10,   // 3.21.0: small plates (a preloaded EZ bar), so they do not cover the face at the top
       start: "Sit with the backs of your arms flat on the pad, arms nearly straight.", end: "Curl the weight up, then lower it slowly until your arms are nearly straight.",
       props: j => PROPS.seat(j, {}).concat([L([j.shoulder[0] + 6, j.shoulder[1] + 16], [j.shoulder[0] + 34, j.shoulder[1] + 44], C.kit, 12), L([j.shoulder[0] + 18, j.shoulder[1] + 36], [j.shoulder[0] + 18, FLOOR], C.kit, 6)]),
       frames: [S({ hip: [138, 150], t: 80, ankle: [186, 196], ua: -46, fa: -36, floor: false }), S({ hip: [138, 150], t: 80, ankle: [186, 196], ua: -46, fa: 98, floor: false })] },
@@ -578,6 +585,17 @@
       start: "Stand tall holding on for balance, the cuff or pad at the working ankle.", end: "Push the leg straight back without arching your back, then bring it forward.",
       cable: j => [j.ankle[0] + 70, FLOOR - 8],
       frames: [S({ ankle2: [158, 196], hand: [196, 92], eb: 1 }), S({ th: -122, sh: -126, ankle: null, ankle2: [158, 196], hand: [196, 92], eb: 1, on: ["ankle2"] })] },
+    // 3.21.0: the glute kickback machine (the owner trains at LA Fitness): stand on the platform, chest and forearms on the pads, the
+    // working foot on a pedal at the end of a lever that turns about the hip. hip_extension with kit "machine" draws this (alt).
+    glute_machine: { label: "glute kickback machine", kit: "machine", kits: ["machine"], from: "ankle", go: "kick back", back: "forward", joint: "ankle",
+      start: "Stand on the platform, lean your chest and forearms on the pads and hold the handles; put your working foot on the foot plate, knee bent.",
+      end: "Push the plate back and up until your hip is straight, squeezing your glute, then let it come forward slowly.",
+      props: j => [Rc(j.ankle2[0] - 32, j.ankle2[1] + 4, 64, FLOOR - j.ankle2[1] - 4, 3), L([j.hand[0] + 16, FLOOR], [j.hand[0] + 16, j.shoulder[1] + 8], C.kit, 7),
+        L([j.elbow[0] - 6, j.elbow[1] + 9], [j.hand[0] + 6, j.hand[1] + 9], C.kit, 10), L([j.hand[0] + 6, j.hand[1] + 9], [j.hand[0] + 16, j.hand[1] + 9], C.kit, 5),
+        L(pAt(j, 0.6, 15), pAt(j, 0.88, 15), C.kit, 11), L(pAt(j, 0.88, 15), [j.hand[0] + 16, pAt(j, 0.88, 15)[1]], C.kit, 5)],
+      dyn: j => gluePedal([j.hip[0] - 18, j.hip[1] + 2], j.ankle),
+      frames: [{ hip: [150, 100], t: 40, nk: 16, ua: -90, fa: 0, th: -50, sh: -125, ft: -20, ankle2: [146, 182], kb2: 1, ft2: 0, floor: false },
+        { hip: [150, 100], t: 40, nk: 16, ua: -90, fa: 0, th: -150, sh: -160, ft: -80, ankle2: [146, 182], kb2: 1, ft2: 0, floor: false }] },
     hip_abduction: { label: "standing hip abduction", view: "front", kit: "cable", from: "ankle", go: "leg out", back: "back in", joint: "ankle",
       start: "Stand tall side-on to the cable, the cuff on the outside ankle.", end: "Lift the leg out to the side, then bring it back slowly.",
       cable: j => [j.pel[0] - 110, FLOOR - 8],
@@ -925,6 +943,7 @@
   // kit-specific poses and limits on the movements from 3.8.0
   Object.assign(PATTERNS.squat, { kitPose: { dumbbell: [HANG, HANG], kettlebell: [HANG, HANG], band: [HANG, HANG] }, alt: { none: "air_squat" }, kits: ["barbell", "smith", "machine", "dumbbell", "kettlebell", "band", "none", "landmine"] });
   Object.assign(PATTERNS.front_squat, { alt: { none: "air_squat" } });
+  Object.assign(PATTERNS.hip_extension, { alt: { machine: "glute_machine" } });   // 3.21.0
   Object.assign(PATTERNS.goblet_squat, { alt: { none: "air_squat" } });
   Object.assign(PATTERNS.lunge, { kitPose: { barbell: BACKBAR, smith: BACKBAR } });
   Object.assign(PATTERNS.split_squat_rear, { kitPose: { barbell: BACKBAR, smith: BACKBAR } });
@@ -1262,6 +1281,7 @@
     "Flat Cable Flyes (Bench)": ["fly_lying", "cable"],
     "Floor Press": ["floor_press", "barbell"],
     "Front and Lateral Leg Swings": ["leg_swing", null],
+    "Glute Kickbacks": ["hip_extension", "machine"],
     "Glute-Ham Raise (GHR)": ["nordic", null],
     "Glute-Ham Raises": ["nordic", null],
     "Gorilla Rows": ["bent_row", "kettlebell"],

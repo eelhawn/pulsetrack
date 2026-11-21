@@ -103,6 +103,7 @@
     glute_bridge: "glutes:100 | hamstrings:55 lower_back:25 abs:20",
     glute_bridge_loaded: "glutes:100 | hamstrings:50 quads:30 adductors:25",
     hip_extension: "glutes:100 | hamstrings:55 lower_back:20",
+    glute_machine: "glutes:100 | hamstrings:55 lower_back:20",   // 3.21.0: hip_extension on the glute kickback machine
     pull_through: "glutes:100 hamstrings:80 | lower_back:40 forearm_flexors:25",
     hip_abduction: "glute_med:100 | glutes:55",
     hip_abduction_seated: "glute_med:100 | glutes:60",

@@ -44,6 +44,13 @@
   const seat = (x, y, w, post = true) => [rf(x, y, w, 10, 4)].concat(post ? [ln([x + w / 2, y + 10], [x + w / 2, F], 6), foot(x - 6, x + w + 6)] : []);
   const console_ = (at, ang = 20) => [ln(at, pt(at, ang + 90, 4), 1, K), pg([pt(at, ang, -12), pt(at, ang, 12), pt(pt(at, ang, 12), ang + 90, 9), pt(pt(at, ang, -12), ang + 90, 9)], "#27272a", PL, 1.5)];
   const wheel = (at, r) => [ci(at, r, "none", K, 4), ci(at, 3, K, K, 0)];
+  // 3.21.0: a roller pad seen end-on; a plate-loaded arm as a curve from its pivot (P) through Q to the handle (H), and a point along it
+  const roller = (at, r = 8) => ci(at, r, PADF, PADS, 2);
+  const arm = (P, Q, H) => ({ k: "path", d: `M${P[0]} ${P[1]} Q${Q[0]} ${Q[1]} ${H[0]} ${H[1]}`, c: K, w: 9 });
+  const qAt = (P, Q, H, u) => [(1 - u) * (1 - u) * P[0] + 2 * u * (1 - u) * Q[0] + u * u * H[0], (1 - u) * (1 - u) * P[1] + 2 * u * (1 - u) * Q[1] + u * u * H[1]];
+  const armWith = (P, Q, H, u, r) => [arm(P, Q, H), ci(P, 4, LITE, LITE, 0), ...plates(qAt(P, Q, H, u), r, 2)];
+  // 3.21.0: the 45-degree leg press rail: a point s along it and h out from it (towards you)
+  const lp45 = (s, h) => [120 + Math.SQRT1_2 * s - Math.SQRT1_2 * h, 200 - Math.SQRT1_2 * s - Math.SQRT1_2 * h];
 
   /* ================================================================ the equipment (side view, you face right; some from the front) */
   const SEL = "selectorized", PLT = "plate", FREE = "free", BENCH = "bench", RACK = "rack", CAB = "cable", CARD = "cardio", SMALL = "small";
@@ -123,8 +130,8 @@
       draw: () => [...stack(70, 26, 34), ln([130, F], [130, 22], 8), ln([66, 22], [134, 22], 6), rf(124, 112, 16, 22, 3, PADF, K, 2), pulley([146, 123]), cable([146, 123], [210, 152]), grip([206, 146], [218, 160]), cable([104, 30], [128, 30]), foot(56, 150)] },
     cable_crossover: { label: "Cable crossover", group: CAB, look: "Two tall towers joined at the top, each with a weight stack and pulleys high and low.", view: "front",
       draw: () => [...stack(28, 24, 30), ...stack(262, 24, 30), ln([24, 22], [296, 22], 7), pulley([70, 34]), pulley([250, 34]), pulley([70, 196]), pulley([250, 196]), cable([70, 34], [128, 104]), cable([250, 34], [192, 104]), grip([124, 98], [132, 112]), grip([188, 98], [196, 112]), foot(16, 304)] },
-    lat_pulldown_machine: { label: "Lat pulldown", group: CAB, look: "A seat with knee pads under a tall tower; a long bar hangs on a cable from the top.",
-      draw: () => [...stack(48, 22, 32), ln([44, 20], [196, 20], 7), pulley([190, 30]), cable([190, 30], [190, 74]), grip([156, 80], [226, 80]), ...seat(154, 156, 60), ...pad([170, 126], [214, 126], 12), ln([150, 126], [150, F], 5), ln([150, 126], [170, 126], 5), foot(40, 230)] },
+    lat_pulldown_machine: { label: "Lat pulldown", group: CAB, look: "A seat facing the weight stack, with roller pads over your thighs; a bar hangs on a cable from a pulley above you.",
+      draw: () => [...stack(236, 16, 32), ln([132, 16], [276, 16], 7), ln([136, 16], [136, 26], 5), pulley([150, 24]), ln([136, 24], [145, 24], 4), cable([150, 24], [150, 60]), grip([140, 62], [160, 62]), rf(112, 157, 56, 10, 4), ln([140, 167], [140, F], 6), ln([214, F], [214, 132], 6), ln([214, 134], [176, 134], 5), roller([176, 140]), foot(100, 284)] },
     seated_row_cable: { label: "Seated cable row", group: CAB, look: "A long low seat facing a foot plate, with a cable handle coming from a low pulley in front.",
       draw: () => [rf(50, 168, 150, 12, 4), ln([80, 180], [80, F], 6), ln([170, 180], [170, F], 6), pg([[226, 196], [240, 150], [250, 154], [238, 198]], PADF, PADS), ...stack(262, 30, 30), pulley([250, 172]), cable([250, 172], [214, 150]), grip([206, 142], [214, 158]), foot(40, 300)] },
     // ---- pin-loaded (selectorized) machines
@@ -133,7 +140,7 @@
     pec_deck: { label: "Pec deck (fly / rear delt machine)", group: SEL, look: "A seat with a tall back pad and two arms that swing together in front of your chest.", view: "front",
       draw: () => [...stack(26, 24, 30), ln([22, 22], [240, 22], 7), ...seat(130, 156, 60), ...pad([160, 150], [160, 66], 26), ln([160, 22], [160, 50], 6), pl([[160, 44], [96, 52], [90, 100]], 6), pl([[160, 44], [224, 52], [230, 100]], 6), grip([90, 84], [90, 116]), grip([230, 84], [230, 116]), foot(20, 240)] },
     shoulder_press_machine: { label: "Shoulder press machine", group: SEL, look: "A seat with a tall back pad and handles beside your shoulders that you press up.",
-      draw: () => [...stack(36, 20, 30), ...seat(110, 150, 54), ...pad([112, 146], [110, 60], 14), ln([70, 18], [176, 18], 7), ln([170, 18], [170, 58], 6), grip([160, 62], [182, 62]), foot(30, 220)] },
+      draw: () => [...stack(36, 20, 30), ...seat(110, 150, 54), ...pad([112, 146], [110, 60], 14), ln([70, 18], [176, 18], 7), ln([98, 18], [98, 34], 5), { k: "path", d: "M98 34 Q140 33 171 62", c: K, w: 6 }, ci([98, 34], 4, LITE, LITE, 0), grip([161, 62], [181, 62]), foot(30, 220)] },
     lateral_raise_machine: { label: "Lateral raise machine", group: SEL, look: "A seat with pads that sit against the outside of your elbows and swing up to the sides.", view: "front",
       draw: () => [...stack(270, 30, 28), ...seat(130, 158, 60), ...pad([160, 154], [160, 96], 22), ln([160, 92], [160, 70], 5), pl([[138, 70], [104, 64], [94, 106]], 6), pl([[182, 70], [216, 64], [226, 106]], 6), ...pad([94, 96], [94, 124], 12), ...pad([226, 96], [226, 124], 12), foot(110, 300)] },
     biceps_curl_machine: { label: "Biceps curl machine", group: SEL, look: "A seat facing a slanted arm pad, with handles on an arm that curls up.",
@@ -146,45 +153,50 @@
       draw: () => [...stack(30, 40, 30), ...seat(98, 140, 70), ...pad([100, 136], [92, 66], 14), ...pad([150, 118], [180, 118], 12), ln([168, 118], [168, 140], 5), ln([186, 140], [232, 136], 6), ci([238, 134], 9, PADF, PADS, 2), foot(24, 250)] },
     lying_leg_curl_machine: { label: "Lying leg curl machine", group: SEL, look: "A bench with a hump to lie face down on, handles at the front, and a padded bar behind your ankles.",
       draw: () => [pg([[60, 140], [150, 126], [180, 132], [260, 140], [260, 152], [60, 152]], PADF, PADS), ln([90, 152], [90, F], 6), ln([230, 152], [230, F], 6), grip([256, 166], [272, 166]), ln([258, 152], [262, 166], 4), ln([60, 146], [40, 128], 6), ci([36, 122], 9, PADF, PADS, 2), ...stack(292, 70, 28), ln([260, 146], [292, 146], 4, KD), foot(30, 330)] },
-    leg_press_seated: { label: "Seated leg press (pin-loaded)", group: SEL, look: "A reclined seat facing a big foot plate; you push the plate away.",
-      draw: () => [...stack(30, 40, 30), ...seat(98, 156, 60), ...pad([100, 152], [80, 86], 14), pg([[226, 90], [238, 90], [238, 186], [226, 186]], PADF, PADS), ln([238, 140], [262, 140], 6), ln([262, 60], [262, F], 7), ln([64, 38], [262, 60], 5, KD), foot(24, 280)] },
+    leg_press_seated: { label: "Seated leg press (pin-loaded)", group: SEL, look: "A reclined seat facing a big foot plate that slides away on a rail as you push.",
+      draw: () => [...stack(22, 50, 30), ln([18, 50], [58, 50], 6), ...pad([100, 152], [82, 100], 14), rf(84, 157, 50, 10, 4), ln([110, 167], [110, F], 6), grip([128, 168], [140, 168]), ln([134, 162], [134, 168], 4), ln([150, 192], [272, 192], 5, KD), ln([272, F], [272, 186], 7), ln([150, 192], [150, F], 5), rf(176, 98, 12, 84, 5, PADF, PADS, 2), rf(175, 180, 36, 10, 3, K, K, 0), ln([182, 182], [182, 176], 6), foot(14, 286)] },
     hip_machine: { label: "Hip abductor / adductor machine", group: SEL, look: "A seat with two leg pads that swing out (outer thigh) or in (inner thigh); one machine often does both.", view: "front",
       draw: () => [...stack(270, 30, 28), ...seat(116, 150, 88), ...pad([160, 146], [160, 70], 24), ...pad([112, 152], [96, 196], 12), ...pad([208, 152], [224, 196], 12), ln([104, 172], [216, 172], 4, KD), foot(100, 300)] },
     multi_hip: { label: "Glute / multi-hip machine", group: SEL, look: "You stand on a platform holding handles; a padded lever behind or beside your leg moves with it.",
       draw: () => [...stack(30, 30, 30), rf(110, F - 26, 110, 16, 3, K, K, 0), ln([210, F - 26], [210, 70], 7), grip([196, 70], [222, 70]), ln([140, 112], [160, 140], 6), ln([160, 140], [120, 180], 6), ci([116, 184], 10, PADF, PADS, 2), ln([64, 28], [150, 28], 5), ln([150, 28], [150, 112], 5), foot(24, 240)] },
+    // 3.21.0: the standing glute kickback machine (LA Fitness): platform, chest pad, forearm pads with handles, a foot plate on a lever
+    glute_machine: { label: "Glute kickback machine", group: SEL, look: "You stand on a platform and lean your chest and forearms on pads; your working foot pushes a foot plate on a lever back and up.",
+      draw: () => [...stack(244, 36, 30), rf(104, 197, 64, 13, 3, K, K, 0), ln([112, 197], [122, 112], 6, KD), ci([122, 112], 4, LITE, LITE, 0),
+        ...pad([176, 101], [189, 90], 12), ln([189, 90], [240, 90], 5), ...pad([174, 118], [218, 118], 10), ln([218, 118], [240, 118], 5), grip([213, 102], [213, 116]),
+        ln([122, 112], [145, 188], 6), ...pad([134, 192], [157, 184], 6), foot(96, 290)] },
     ab_crunch_machine: { label: "Ab crunch machine", group: SEL, look: "A seat with pads over your chest or handles by your head that you curl forward.",
       draw: () => [...stack(30, 30, 30), ...seat(100, 152, 60), ...pad([102, 148], [98, 74], 14), ln([64, 28], [146, 28], 6), pl([[146, 28], [146, 60], [126, 82]], 6), ...pad([126, 82], [150, 94], 12), grip([140, 60], [160, 60]), foot(24, 220)] },
     rotary_torso: { label: "Rotary torso machine", group: SEL, look: "A seat that turns (or a chest pad that turns) so you twist from your waist.",
       draw: () => [...stack(30, 30, 30), ...seat(110, 150, 60), ci([140, 156], 30, "none", KD, 3), ...pad([170, 140], [170, 80], 18), grip([180, 84], [200, 84]), ln([64, 28], [176, 28], 6), ln([170, 28], [170, 80], 5), ...pad([114, 186], [150, 186], 10), foot(24, 240)] },
     back_ext_machine: { label: "Back extension machine (seated)", group: SEL, look: "A seat with a foot plate and a pad high behind your upper back that you push back.",
       draw: () => [...stack(260, 40, 30), ...seat(96, 152, 64), ...pad([96, 60], [100, 110], 16), ln([100, 110], [130, 150], 5), pg([[180, 196], [196, 160], [206, 164], [192, 200]], PADF, PADS), grip([120, 138], [134, 138]), foot(80, 300)] },
-    standing_calf_machine: { label: "Standing calf raise machine", group: SEL, look: "Shoulder pads on a lever above a foot block; you stand on the block's edge and rise onto your toes.",
-      draw: () => [...stack(30, 30, 30), rf(120, F - 22, 70, 20, 3, K, K, 0), ln([64, 28], [176, 28], 6), ln([170, 28], [170, 68], 5), ...pad([140, 74], [184, 74], 14), grip([190, 64], [204, 64]), ln([210, F], [210, 40], 7), foot(24, 230)] },
+    standing_calf_machine: { label: "Standing calf raise machine", group: SEL, look: "A pad on a lever rests on your shoulders while the balls of your feet are on the edge of a block; you rise onto your toes.",
+      draw: () => [...stack(30, 30, 30), rf(167, F - 26, 64, 24, 3, K, K, 0), ln([64, 28], [100, 28], 6), ln([96, 28], [96, 52], 6), ln([96, 50], [160, 58], 6), ci([96, 50], 4, LITE, LITE, 0), ci([162, 58], 9, PADF, PADS, 2), ln([218, F], [218, 70], 7), ln([218, 72], [200, 72], 5), grip([196, 66], [196, 80]), foot(24, 240)] },
     seated_calf_machine: { label: "Seated calf raise machine", group: PLT, look: "A seat with a pad that sits on top of your knees, a foot block, and a horn for plates.",
       draw: () => [...seat(80, 150, 56), ...pad([130, 120], [176, 120], 14), ln([176, 120], [212, 132], 6), ...plates([214, 132], 20, 2), rf(160, F - 30, 40, 28, 3, K, K, 0), ln([150, 120], [150, F - 30], 5), foot(70, 250)] },
-    assisted_pullup: { label: "Assisted pull-up / dip machine", group: SEL, look: "A tall frame with handles high up and dip handles lower, and a knee pad that pushes you up.",
-      draw: () => [...stack(30, 20, 30), ln([100, F], [100, 18], 8), ln([64, 18], [220, 18], 7), grip([190, 30], [220, 30]), ln([210, 18], [210, 30], 5), ln([100, 110], [200, 110], 6), grip([186, 104], [208, 104]), ...pad([150, 158], [196, 158], 12), ln([100, 166], [150, 160], 5), rf(110, F - 30, 50, 10, 3), foot(24, 230)] },
+    assisted_pullup: { label: "Assisted pull-up / dip machine", group: SEL, look: "A tall frame with handles high up and dip handles lower, and a pad you kneel on that pushes you up.",
+      draw: () => [...stack(30, 20, 30), ln([100, F], [100, 18], 8), ln([64, 18], [220, 18], 7), grip([190, 30], [220, 30]), ln([210, 18], [210, 30], 5), ln([100, 110], [200, 110], 6), grip([186, 104], [208, 104]), ...pad([156, 188], [204, 188], 12), ln([100, 196], [156, 190], 5), rf(110, F - 12, 40, 10, 3), foot(24, 230)] },
     row_machine: { label: "Seated row machine", group: SEL, look: "A seat facing a chest pad, with handles out in front that you pull back.",
-      draw: () => [...stack(260, 30, 30), ...seat(70, 156, 60), ...pad([170, 150], [176, 80], 16), ln([176, 150], [182, F], 6), ln([200, 30], [200, 112], 6), grip([194, 116], [214, 116]), ln([200, 30], [264, 30], 6), foot(60, 300)] },
+      draw: () => [...stack(260, 30, 30), ...seat(70, 156, 60), ...pad([135, 124], [140, 100], 14), ln([141, 112], [256, 112], 5), ln([200, 112], [204, F], 6), ln([200, 30], [200, 112], 6), grip([194, 116], [214, 116]), ln([200, 30], [264, 30], 6), foot(60, 300)] },
     // ---- plate-loaded machines (the big arms with horns for plates)
-    plate_chest_press: { label: "Plate-loaded chest press", group: PLT, look: "A seat and back pad with two separate arms that curve forward to handles; plates go on the horns on each arm.",
-      draw: () => [...seat(100, 152, 56), ...pad([102, 148], [92, 70], 14), ln([60, F], [70, 40], 8), { k: "path", d: "M70 42 Q170 20 196 96", c: K, w: 9 }, ci([70, 42], 4, LITE, LITE, 0), ...plates([147.5, 44.5], 22, 2), grip([190, 96], [210, 104]), foot(40, 230)] },
-    plate_incline_press: { label: "Plate-loaded incline press", group: PLT, look: "A reclined back pad with arms that press up and forward at an angle; plates on the horns.",
-      draw: () => [...seat(104, 156, 56), ...pad([108, 152], [64, 84], 14), ln([40, F], [44, 60], 8), { k: "path", d: "M44 62 Q150 10 176 70", c: K, w: 9 }, ci([44, 62], 4, LITE, LITE, 0), ...plates([119.2, 37.9], 22, 2), grip([170, 70], [188, 62]), foot(30, 230)] },
-    plate_decline_press: { label: "Plate-loaded decline press", group: PLT, look: "An upright seat with arms that press forward and slightly down; plates on the horns.",
-      draw: () => [...seat(100, 152, 56), ...pad([102, 148], [96, 70], 14), ln([60, F], [70, 30], 8), { k: "path", d: "M70 32 Q180 30 200 112", c: K, w: 9 }, ci([70, 32], 4, LITE, LITE, 0), ...plates([146.8, 47.2], 22, 2), grip([194, 112], [212, 118]), foot(40, 230)] },
+    plate_chest_press: { label: "Plate-loaded chest press", group: PLT, look: "A seat and back pad; each arm turns on a pivot low behind the seat and comes forward to a handle by your chest; plates go on the horns behind the back pad.",
+      draw: () => [...seat(100, 152, 56), ...pad([102, 148], [92, 70], 14), ln([60, F], [64, 176], 8), ...armWith([64, 176], [70, 80], [136, 87], 0.3, 20), grip([127, 84], [145, 90]), foot(30, 230)] },
+    plate_incline_press: { label: "Plate-loaded incline press", group: PLT, look: "A reclined back pad with arms that press up and forward at an angle; each arm turns on a pivot low behind the seat; plates on the horns.",
+      draw: () => [...seat(104, 156, 56), ...pad([108, 152], [64, 84], 14), ln([36, F], [40, 170], 8), ...armWith([40, 170], [60, 80], [139, 58], 0.2, 22), grip([130, 62], [148, 54]), foot(24, 230)] },
+    plate_decline_press: { label: "Plate-loaded decline press", group: PLT, look: "An upright seat with arms that press forward and slightly down; each arm turns on a pivot low behind the seat; plates on the horns behind the back pad.",
+      draw: () => [...seat(100, 152, 56), ...pad([102, 148], [96, 70], 14), ln([60, F], [64, 176], 8), ...armWith([64, 176], [70, 84], [136, 107], 0.3, 20), grip([127, 104], [145, 110]), foot(30, 230)] },
     plate_shoulder_press: { label: "Plate-loaded shoulder press", group: PLT, look: "An upright seat and back pad with arms that press straight up; plates on the horns behind.",
-      draw: () => [...seat(110, 152, 56), ...pad([112, 148], [108, 60], 14), ln([60, F], [62, 120], 8), { k: "path", d: "M62 122 Q90 40 164 48", c: K, w: 9 }, ci([62, 122], 4, LITE, LITE, 0), ...plates([71, 93], 22, 2), grip([160, 48], [180, 48]), foot(40, 220)] },
+      draw: () => [...seat(110, 152, 56), ...pad([112, 148], [108, 60], 14), ln([56, F], [60, 150], 8), ...armWith([60, 150], [66, 50], [138, 82], 0.2, 20), grip([128, 82], [148, 82]), foot(40, 220)] },
     plate_high_row: { label: "Plate-loaded high row", group: PLT, look: "A seat with a thigh pad and handles high in front that you pull down and back; plates on the horns.",
       draw: () => [...seat(80, 156, 56), ...pad([126, 130], [160, 130], 12), ln([260, F], [252, 40], 8), { k: "path", d: "M252 42 Q190 30 172 60", c: K, w: 9 }, ci([252, 42], 4, LITE, LITE, 0), ...plates([210, 38.7], 22, 2), grip([168, 54], [176, 70]), foot(60, 280)] },
     plate_low_row: { label: "Plate-loaded low row", group: PLT, look: "A seat facing a chest pad, with low handles that you row back to your hips; plates on the horns.",
-      draw: () => [...seat(70, 156, 56), ...pad([158, 150], [162, 88], 16), ln([262, F], [254, 70], 8), { k: "path", d: "M254 72 Q210 120 188 140", c: K, w: 9 }, ci([254, 72], 4, LITE, LITE, 0), ...plates([225.6, 98.3], 22, 2), grip([180, 132], [196, 148]), foot(50, 280)] },
-    plate_pulldown: { label: "Plate-loaded pulldown", group: PLT, look: "A seat with thigh pads; two arms come over your head with handles you pull down; plates on the horns.",
-      draw: () => [...seat(110, 156, 56), ...pad([150, 130], [180, 130], 12), ln([80, F], [86, 40], 8), { k: "path", d: "M86 42 Q140 6 186 40", c: K, w: 9 }, ci([86, 42], 4, LITE, LITE, 0), ...plates([123.9, 24.4], 22, 2), grip([180, 40], [196, 50]), foot(60, 220)] },
+      draw: () => [...seat(70, 156, 56), ...pad([135, 124], [140, 100], 14), ln([141, 112], [200, 112], 5), ln([200, 112], [204, F], 6), ln([262, F], [254, 70], 8), { k: "path", d: "M254 72 Q210 120 188 140", c: K, w: 9 }, ci([254, 72], 4, LITE, LITE, 0), ...plates([225.6, 98.3], 22, 2), grip([180, 132], [196, 148]), foot(50, 280)] },
+    plate_pulldown: { label: "Plate-loaded pulldown", group: PLT, look: "A seat with roller pads over your thighs; arms reach over from the front of the machine with handles above you that you pull down; plates on the horns.",
+      draw: () => [rf(102, 157, 56, 10, 4), ln([130, 167], [130, F], 6), ln([204, F], [204, 132], 6), ln([204, 134], [166, 134], 5), roller([166, 140]), ln([226, F], [226, 22], 8), ln([226, 26], [214, 26], 6), { k: "path", d: "M214 26 Q176 4 148 36", c: K, w: 9 }, ci([214, 26], 4, LITE, LITE, 0), ...plates([196, 16], 18, 2), grip([142, 38], [154, 34]), foot(90, 240)] },
     plate_tbar_row: { label: "T-bar row machine (chest-supported)", group: PLT, look: "A slanted chest pad above a foot platform; the lever under you has handles and a horn for plates.",
       draw: () => [rf(60, F - 18, 110, 14, 3, K, K, 0), ...pad([150, 120], [206, 80], 16), ln([180, 100], [176, F], 7), ln([70, F - 18], [240, 150], 7), grip([206, 140], [214, 160]), ...plates([238, 151], 22, 2), foot(40, 290)] },
     leg_press_45: { label: "45° leg press (plate-loaded)", group: PLT, look: "A low reclined seat facing a sled on angled rails; you push the foot plate up the rails. Plates go on the sled's horns.",
-      draw: () => [ln([40, F - 8], [290, 60], 6, KD), ...pad([96, 176], [56, 126], 14), rf(80, 176, 60, 12, 4), ln([110, 188], [110, F], 6), pg([[176, 104], [234, 70], [246, 90], [190, 124]], PADF, PADS), ...plates([212, 98], 20, 2), ln([270, F], [270, 70], 7), foot(30, 290)] },
+      draw: () => [ln(lp45(-12, 0), lp45(168, 0), 6, KD), ln([242.8, F], [242.8, 77], 7), ln(lp45(110, -2), [242.8, 150], 5), ...pad([104, 178], [52, 126], 14), rf(84, 176, 46, 10, 4), ln([104, 186], [104, F], 6), ln([70, F], [88, 160], 5, KD), grip([90, 184], [102, 180]), pg([lp45(70.3, 4), lp45(117.3, 4), lp45(117.3, 26), lp45(70.3, 44)], PADF, PADS), ...plates(lp45(97.3, 22), 17, 2), ...pad(lp45(67.3, 8), lp45(67.3, 56), 8), foot(50, 258)] },
     plate_squat: { label: "Hack squat / squat machine", group: PLT, look: "A foot plate below an angled back pad with shoulder pads that slide on rails; plates on the horns.",
       draw: () => [ln([80, F - 8], [210, 30], 6, KD), pg([[116, 120], [176, 46], [192, 58], [132, 132]], PADF, PADS), ...pad([170, 54], [190, 70], 12), ...plates([150, 86], 20, 2), pg([[150, F - 10], [230, F - 30], [234, F - 18], [154, F]], PADF, PADS), foot(60, 260)] },
     // ---- cardio
@@ -241,6 +253,7 @@
   function pick(n, id, kit, eq) {
     const has = rx => rx.test(n);
     // cardio machines and small kit named in the exercise
+    if (has(/jacob'?s ladder/i)) return ["versaclimber"];   // 3.21.0: a climbing machine, not a treadmill
     if (has(/treadmill/i)) return ["treadmill"];
     if (has(/elliptical|arc trainer|cross ?trainer|adaptive motion/i)) return ["elliptical"];
     if (has(/recumbent/i)) return ["recumbent_bike"];
@@ -310,6 +323,7 @@
       case "leg_extension": return ["leg_extension_machine"];
       case "leg_curl_seated": return ["seated_leg_curl_machine"];
       case "leg_curl": case "supine_leg_curl": return [/seated/i.test(n) ? "seated_leg_curl_machine" : /standing|kneeling/i.test(n) ? "multi_hip" : "lying_leg_curl_machine"];
+      case "glute_machine": return ["glute_machine"];
       case "standing_leg_curl": case "hip_extension": case "hip_abduction": case "hip_adduction": case "leg_swing": return ["multi_hip"];
       case "hip_abduction_seated": case "hip_adduction_seated": return ["hip_machine"];
       case "leg_press": return [/seated|horizontal|selectorized|\bpin\b/i.test(n) ? "leg_press_seated" : "leg_press_45"];
@@ -567,5 +581,6 @@
       const r = of(e.name); return !!(r && ids.includes(r.items[0]));
     };
   }
-  PT.equip = { of, svg, EQUIP, lafNote, chain, gymBox, emit, bbox, BG, F };   // 3.20.0: emit, bbox, BG and F (the floor) for module 146
+  PT.equip = { of, svg, EQUIP, lafNote, chain, gymBox, emit, bbox, BG, F,   // 3.20.0: emit, bbox, BG and F (the floor) for module 146
+    kit: { ln, pl, rf, ci, pg, pt, pad, grip, plate, plates, pulley, cable, foot, stack, seat, wheel, C: { K, KD, PADF, PADS, LITE, PL, PLF, BG } } };   // 3.21.0: the drawing kit
 })();
