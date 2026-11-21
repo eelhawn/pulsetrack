@@ -111,8 +111,11 @@
       amethyst: { 300:"196 181 253", 400:"167 139 250", 500:"139 92 246", 600:"124 58 237", 800:"91 33 182",  950:"46 16 101" }
     };
     const BIG_LIFTS = [
-      { key: "Squat",          match: /squat/i,                          exclude: /split|goblet/i,         goal: 405 },
-      { key: "Bench Press",    match: /bench press|smith machine flat press/i,                   exclude: /dumbbell|incline/i,     goal: 315 },
+      // 3.22.1 (the owner: "for both bench and squats use whichever is stronger between normal and Smith machine"): the barbell back
+      // squat or the Smith machine squat, the flat barbell bench press or the Smith Machine Flat Press, and nothing else (no front or hack
+      // squats, no decline or close-grip bench). The same lifts the Strength level card counts (module 007 STRENGTH_LIFTS).
+      { key: "Squat",          match: /squat/i, exclude: /split|goblet|dumbbell|smith|hack|machine|front|sumo|zercher|box|pistol|jump|belt|sissy|bulgarian|overhead|safety|cyclist|heel|pendulum|v-squat|landmine|kettlebell|wall|plie|bodyweight|cossack|pause|jefferson|air squat/i, also: /^smith machine squats?$/i, goal: 405 },
+      { key: "Bench Press",    match: /bench press/i, exclude: /dumbbell|incline|decline|close|wide|reverse|smith|machine|floor|single|hammer|iso-lateral|board|pin|spoto|landmine/i, also: /^smith machine flat press$/i, goal: 315 },
       { key: "Deadlift",       match: /deadlift/i,                       exclude: /romanian|stiff|single/i, goal: 495 }
     ];
 
@@ -1989,7 +1992,7 @@
         BIG_LIFTS.forEach(l => {
           let best = 0, holder = "";
           names.forEach(n => {
-            if (l.match.test(n) && !(l.exclude && l.exclude.test(n)) && this.prs[n] > best) { best = this.prs[n]; holder = n; }
+            if (((l.match.test(n) && !(l.exclude && l.exclude.test(n))) || (l.also && l.also.test(n))) && this.prs[n] > best) { best = this.prs[n]; holder = n; }
           });
           const kg = this.unit() === "kg", u = kg ? "kg" : "lb";
           const goal = goals[l.key] || (kg ? Math.round((l.goal * KG_PER_LB) / 5) * 5 : l.goal);

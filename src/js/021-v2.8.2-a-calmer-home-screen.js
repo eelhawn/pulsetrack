@@ -53,7 +53,7 @@
   function bestFor(app, l) {
     let best = 0, holder = "";
     Object.keys(app.prs || {}).forEach(n => {
-      if (l.match.test(n) && !(l.exclude && l.exclude.test(n)) && app.prs[n] > best) { best = app.prs[n]; holder = n; }
+      if (((l.match.test(n) && !(l.exclude && l.exclude.test(n))) || (l.also && l.also.test(n))) && app.prs[n] > best) { best = app.prs[n]; holder = n; }   // 3.22.1: also = the Smith machine version
     });
     return { best, holder };
   }
