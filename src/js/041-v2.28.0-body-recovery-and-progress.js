@@ -425,32 +425,65 @@
     if (!out.done && slope > 0.05) { out.weeks = Math.ceil((target - cur) / slope); if (out.weeks <= 260) out.date = new Date(Date.now() + out.weeks * 7 * DAY); }
     return out;
   };
+  /* 3.14.0: a goal can be a weight for some reps ("225 lb for 1", "185 for 5"; target = its estimated 1RM) and have a date to make it
+   * by. With a date it says the pace you need (a week) against the pace you are on (last 12 weeks), and whether that is on track.
+   * liftGoals = [{ name, target (est. 1RM, your unit), w?, r?, by? (YYYY-MM-DD) }]; old goals ({ name, target }) still work. */
+  const fmtD = ds => PT.fmtDate(ds, { month: "short", day: "numeric", year: ds.slice(0, 4) === String(new Date().getFullYear()) ? undefined : "numeric" });
+  const plus = v => (v >= 0 ? "+" : "−") + (Math.abs(v) < 10 ? (Math.round(Math.abs(v) * 10) / 10).toLocaleString() : fmt(Math.abs(v)));
+  PT.goalStatus = function (a, g) {
+    const u = unitKg() ? "kg" : "lb", p = PT.goalProjection(a, g.name, g.target), pc = Math.max(0, Math.min(100, Math.round(p.cur / g.target * 100)));
+    const today = PT.ds(new Date()), left = g.by ? (PT.fromDs(g.by).getTime() - PT.fromDs(today).getTime()) / (7 * DAY) : null;
+    const need = left && left > 0 ? Math.max(0, (g.target - p.cur) / left) : null;
+    let state, text;
+    if (p.done) { state = "done"; text = "🎉 Reached!"; }
+    else if (g.by && left <= 0) { state = "late"; text = `The date (${fmtD(g.by)}) has passed. Change it, or keep going: ${p.date ? `on your pace, about ${fmtD(dsOf(p.date.getTime()))}` : "you are not adding weight yet"}.`; }
+    else if (g.by) {
+      const wk = Math.max(1, Math.round(left));
+      state = p.slope >= need - 0.01 && p.slope > 0.05 ? "on" : "behind";
+      text = `To make it by ${fmtD(g.by)} (${wk} week${wk === 1 ? "" : "s"}): ${plus(need)} ${u} a week. You are adding ${p.slope > 0.05 ? plus(p.slope) + " " + u + " a week" : "nothing yet"}: `
+        + (state === "on" ? "on track." : p.date ? `behind, about ${fmtD(dsOf(p.date.getTime()))} at this pace.` : "behind.");
+    } else { state = p.date ? "on" : "flat"; text = p.date ? `On your pace, about ${fmtD(dsOf(p.date.getTime()))} (${p.weeks} week${p.weeks === 1 ? "" : "s"})` : "Not trending up yet. Keep logging."; }
+    return { p, pc, u, state, text, need };
+  };
+  PT.goalLabel = (g, u) => g.w ? `${fmt(g.w)} ${u} × ${g.r || 1}` : `${fmt(g.target)} ${u} est. 1RM`;
   function goalsHtml(a) {
-    const gs = Array.isArray(a.settings.liftGoals) ? a.settings.liftGoals : [], u = unitKg() ? "kg" : "lb";
+    const gs = Array.isArray(a.settings.liftGoals) ? a.settings.liftGoals : [];
     const rows = gs.map((g, i) => {
-      const p = PT.goalProjection(a, g.name, g.target), pc = Math.max(0, Math.min(100, Math.round(p.cur / g.target * 100)));
-      const when = p.done ? "🎉 Reached!" : p.date ? `On track for about ${PT.fmtDate(dsOf(p.date.getTime()), { month: "short", day: "numeric", year: "numeric" })} (${p.weeks} week${p.weeks === 1 ? "" : "s"})` : "Not trending up yet. Keep logging.";
-      return `<div class="rounded-xl bg-zinc-950 border border-zinc-800 p-2.5 space-y-1.5"><div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-white min-w-0">${esc(g.name)}</span><button type="button" data-goal-del="${i}" class="text-[11px] text-zinc-500 tap-active" aria-label="Remove goal">✕</button></div>
-        <div class="pt-bar"><span style="width:${pc}%"></span></div><span class="block text-[11px] text-zinc-300">${fmt(p.cur)} of ${fmt(g.target)} ${u} est. 1RM · ${pc}%</span><span class="block text-[11px] ${p.done ? "text-emerald-400" : "text-zinc-400"}">${when}</span></div>`;
+      const st = PT.goalStatus(a, g), col = st.state === "done" || st.state === "on" ? "text-emerald-400" : st.state === "behind" || st.state === "late" ? "text-amber-300" : "text-zinc-400";
+      return `<div class="rounded-xl bg-zinc-950 border border-zinc-800 p-2.5 space-y-1.5" data-goal-row="${i}"><div class="flex items-start justify-between gap-2"><span class="min-w-0"><span class="block text-xs font-bold text-white">${esc(g.name)}</span><span class="block text-[11px] text-zinc-300">${esc(PT.goalLabel(g, st.u))}${g.by ? " by " + esc(fmtD(g.by)) : ""}</span></span>
+          <span class="flex gap-1 shrink-0"><button type="button" data-goal-edit="${i}" class="pt-gl-b tap-active" aria-label="Change the ${esc(g.name)} goal">Edit</button><button type="button" data-goal-del="${i}" class="pt-gl-b tap-active" aria-label="Remove the ${esc(g.name)} goal">Remove</button></span></div>
+        <div class="pt-bar"><span style="width:${st.pc}%"></span></div><span class="block text-[11px] text-zinc-300">${fmt(st.p.cur)} of ${fmt(g.target)} ${st.u} est. 1RM · ${st.pc}%</span><span class="block text-[11px] ${col}" data-goal-state="${st.state}">${esc(st.text)}</span></div>`;
     }).join("");
-    return `${rows || '<p class="text-xs text-zinc-400">Pick a lift and a target and see roughly when you will get there, based on your last 12 weeks.</p>'}<div><button type="button" class="pt-b go" id="pt-goal-add">＋ Add a goal</button></div>`;
+    return `${rows || '<p class="text-xs text-zinc-400">Pick a lift, a target and (if you like) a date, and see the pace you need and the pace you are on, from your last 12 weeks.</p>'}<div><button type="button" class="pt-b go" id="pt-goal-add">＋ Add a goal</button></div>`;
   }
-  function openGoal() {
-    const a = A(), K = PT.kit, el = K.sheet("pt-goal-sheet", 55);
-    const names = Object.keys(a.prs || {}).sort((x, y) => a.prs[y] - a.prs[x]).slice(0, 40);
+  function openGoal(idx, forName) {
+    const a = A(), K = PT.kit, el = K.sheet("pt-goal-sheet", 55), gs = Array.isArray(a.settings.liftGoals) ? a.settings.liftGoals : [], g = idx != null ? gs[idx] : null;
+    let names = Object.keys(a.prs || {}).sort((x, y) => a.prs[y] - a.prs[x]).slice(0, 40);
+    const want = (g && g.name) || forName;
+    if (want && !names.includes(want)) names = [want].concat(names);
     if (!names.length) { a.toast("Log a few workouts first, then set a goal"); return; }
-    const c = K.openSheet(el, `${K.head("Lift goal", "Estimated 1RM you want to reach.")}
-      <div>${lab("Lift")}<select id="pt-goal-name">${names.map(n => `<option value="${esc(n)}">${esc(n)} · now ${fmt(a.prs[n])}</option>`).join("")}</select></div>
-      <div>${lab("Target (" + (unitKg() ? "kg" : "lb") + ")")}<input id="pt-goal-target" type="number" inputmode="decimal"></div>
+    const u = unitKg() ? "kg" : "lb", now = n => a.prs && a.prs[n] ? ` · now ${fmt(a.prs[n])}` : "";
+    const c = K.openSheet(el, `${K.head(g ? "Change lift goal" : "Lift goal", "A weight you want to lift, and by when (optional).")}
+      <div>${lab("Lift")}<select id="pt-goal-name">${names.map(n => `<option value="${esc(n)}" ${n === want ? "selected" : ""}>${esc(n)}${now(n)}</option>`).join("")}</select></div>
+      <div class="grid grid-cols-2 gap-2"><div>${lab("Weight (" + u + ")")}<input id="pt-goal-w" type="number" inputmode="decimal" min="1"></div>
+        <div>${lab("For reps")}<input id="pt-goal-r" type="number" inputmode="numeric" min="1" max="20" value="${(g && g.r) || 1}"></div></div>
+      <div>${lab("By (optional)")}<input id="pt-goal-by" type="date" value="${esc((g && g.by) || "")}" min="${PT.ds(new Date())}"></div>
+      <p id="pt-goal-e1" class="text-[11px] text-zinc-400"></p>
       <div class="sticky bottom-[calc(-1.25rem-env(safe-area-inset-bottom,0px))] -mx-5 -mb-5 px-5 pt-3 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] bg-zinc-900 border-t border-zinc-800"><button type="button" id="pt-goal-save" class="w-full py-3 rounded-xl bg-emerald-600 text-white text-sm font-bold tap-active">Save goal</button></div>`);
-    const sel = c.querySelector("#pt-goal-name"), tg = c.querySelector("#pt-goal-target");
-    const def = () => { tg.value = String(Math.ceil(a.prs[sel.value] * 1.1 / 5) * 5); };
-    def(); sel.addEventListener("change", def);
+    const sel = c.querySelector("#pt-goal-name"), w = c.querySelector("#pt-goal-w"), r = c.querySelector("#pt-goal-r"), by = c.querySelector("#pt-goal-by"), e1 = c.querySelector("#pt-goal-e1");
+    const show = () => { const t = PT.e1rm(w.value, r.value); e1.textContent = t ? (parseInt(r.value, 10) > 1 ? `About ${fmt(t)} ${u} for 1 (estimated 1RM). That is what the bar counts.` : "") : ""; };
+    const def = () => { w.value = String(Math.ceil(((a.prs && a.prs[sel.value]) || 0) * 1.1 / 5) * 5 || ""); r.value = "1"; show(); };
+    if (g) { w.value = String(g.w || g.target); show(); } else def();
+    sel.addEventListener("change", def); w.addEventListener("input", show); r.addEventListener("input", show);
     c.querySelector("#pt-goal-save").addEventListener("click", () => {
-      const t = parseFloat(tg.value); if (!(t > 0)) return;
-      const l = Array.isArray(a.settings.liftGoals) ? a.settings.liftGoals : []; l.push({ name: sel.value, target: t }); a.settings.liftGoals = l; save(); K.closeSheet(el); a.renderProgressView();
+      const wv = parseFloat(w.value), rv = Math.max(1, Math.min(20, parseInt(r.value, 10) || 1)); if (!(wv > 0)) { w.focus(); return; }
+      const item = { name: sel.value, target: PT.e1rm(wv, rv), w: wv, r: rv }; if (by.value) item.by = by.value;
+      const l = gs.slice(); if (g) l[idx] = item; else { const k = l.findIndex(x => x.name === item.name); if (k >= 0) l[k] = item; else l.push(item); }
+      a.settings.liftGoals = l; save(); K.closeSheet(el); a.toast(g ? "Goal changed" : "Goal saved");
+      try { a.renderProgressView(); } catch (er) { } try { if (PT.goalRow) PT.goalRow(); } catch (er) { }
     });
   }
+  PT.openGoal = openGoal;
 
   /* ---- training year (2.35.0: big month calendars, or a scrollable year strip) */
   function heatData(a) {
@@ -629,6 +662,7 @@
     const bd = e.target.closest("[data-bid]"); if (bd) { openBadge(bd.dataset.bid); return; }
     if (t("pt-report-share")) { shareReport(); return; }
     if (t("pt-goal-add")) { openGoal(); return; }
+    const ge = e.target.closest("[data-goal-edit]"); if (ge) { openGoal(parseInt(ge.dataset.goalEdit, 10)); return; }
     const gd = e.target.closest("[data-goal-del]");
     if (gd) { a.settings.liftGoals.splice(parseInt(gd.dataset.goalDel, 10), 1); save(); a.renderProgressView(); return; }
     const hm = e.target.closest("[data-heatm]"); if (hm) { a.__heatMode = hm.dataset.heatm; OPEN.heat = true; a.renderProgressView(); return; }

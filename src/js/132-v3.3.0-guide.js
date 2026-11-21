@@ -101,6 +101,7 @@
     ["units", "Units (lb or kg)", "units, kg, kilograms, pounds, lb, metric, imperial, switch to kg", "Settings > Workout > Units switches between lb and kg.", "set:[data-unit=\"kg\"]"],
     ["increment", "Weight jump", "weight jump, increment, step up, how much to add, smallest plate, weight increase", "Settings > Workout > Weight Jump sets how much the suggestions add.", "set:#setting-increment"],
     ["goal", "Weekly goal", "weekly goal, days per week, goal, how many days, training days", "Settings > Workout > Weekly Goal. Your streak counts weeks you hit it.", "set:#setting-weekly-goal"],
+    ["liftgoal", "Lift goals", "lift goal, strength goal, goal for a lift, bench 225, target weight, by a date, pace, on track, set a goal", "Progress > Strength > Lift goals: pick a lift, a weight for some reps and (if you like) a date. It shows the pace you need and the pace you are on. An exercise's own screen shows its goal too.", "progress:strength"],   // 3.14.0
     ["weekstart", "Week starts on", "week starts, start of week, monday, sunday, first day of week", "Settings > Workout > Week Starts On.", "set:#setting-week-start"],
     ["plates", "Bar and plates", "plates, bar weight, barbell weight, gym plates, my plates", "Settings > Workout > Gym Plates & Bar sets your bar and the plates you have.", "set:#btn-edit-gym-plates"],
     ["platecalc", "Plate calculator", "plate calculator, what plates, load the bar, plates per side", "Open the side menu and tap Plate Calculator.", "click:#btn-drawer-plate-calc"],

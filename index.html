@@ -436,7 +436,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v3.13.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v3.14.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3844,7 +3844,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "3.13.0";
+    const APP_VERSION = "3.14.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -16907,32 +16907,65 @@ const PTSIM = (function () {
     if (!out.done && slope > 0.05) { out.weeks = Math.ceil((target - cur) / slope); if (out.weeks <= 260) out.date = new Date(Date.now() + out.weeks * 7 * DAY); }
     return out;
   };
+  /* 3.14.0: a goal can be a weight for some reps ("225 lb for 1", "185 for 5"; target = its estimated 1RM) and have a date to make it
+   * by. With a date it says the pace you need (a week) against the pace you are on (last 12 weeks), and whether that is on track.
+   * liftGoals = [{ name, target (est. 1RM, your unit), w?, r?, by? (YYYY-MM-DD) }]; old goals ({ name, target }) still work. */
+  const fmtD = ds => PT.fmtDate(ds, { month: "short", day: "numeric", year: ds.slice(0, 4) === String(new Date().getFullYear()) ? undefined : "numeric" });
+  const plus = v => (v >= 0 ? "+" : "−") + (Math.abs(v) < 10 ? (Math.round(Math.abs(v) * 10) / 10).toLocaleString() : fmt(Math.abs(v)));
+  PT.goalStatus = function (a, g) {
+    const u = unitKg() ? "kg" : "lb", p = PT.goalProjection(a, g.name, g.target), pc = Math.max(0, Math.min(100, Math.round(p.cur / g.target * 100)));
+    const today = PT.ds(new Date()), left = g.by ? (PT.fromDs(g.by).getTime() - PT.fromDs(today).getTime()) / (7 * DAY) : null;
+    const need = left && left > 0 ? Math.max(0, (g.target - p.cur) / left) : null;
+    let state, text;
+    if (p.done) { state = "done"; text = "🎉 Reached!"; }
+    else if (g.by && left <= 0) { state = "late"; text = `The date (${fmtD(g.by)}) has passed. Change it, or keep going: ${p.date ? `on your pace, about ${fmtD(dsOf(p.date.getTime()))}` : "you are not adding weight yet"}.`; }
+    else if (g.by) {
+      const wk = Math.max(1, Math.round(left));
+      state = p.slope >= need - 0.01 && p.slope > 0.05 ? "on" : "behind";
+      text = `To make it by ${fmtD(g.by)} (${wk} week${wk === 1 ? "" : "s"}): ${plus(need)} ${u} a week. You are adding ${p.slope > 0.05 ? plus(p.slope) + " " + u + " a week" : "nothing yet"}: `
+        + (state === "on" ? "on track." : p.date ? `behind, about ${fmtD(dsOf(p.date.getTime()))} at this pace.` : "behind.");
+    } else { state = p.date ? "on" : "flat"; text = p.date ? `On your pace, about ${fmtD(dsOf(p.date.getTime()))} (${p.weeks} week${p.weeks === 1 ? "" : "s"})` : "Not trending up yet. Keep logging."; }
+    return { p, pc, u, state, text, need };
+  };
+  PT.goalLabel = (g, u) => g.w ? `${fmt(g.w)} ${u} × ${g.r || 1}` : `${fmt(g.target)} ${u} est. 1RM`;
   function goalsHtml(a) {
-    const gs = Array.isArray(a.settings.liftGoals) ? a.settings.liftGoals : [], u = unitKg() ? "kg" : "lb";
+    const gs = Array.isArray(a.settings.liftGoals) ? a.settings.liftGoals : [];
     const rows = gs.map((g, i) => {
-      const p = PT.goalProjection(a, g.name, g.target), pc = Math.max(0, Math.min(100, Math.round(p.cur / g.target * 100)));
-      const when = p.done ? "🎉 Reached!" : p.date ? `On track for about ${PT.fmtDate(dsOf(p.date.getTime()), { month: "short", day: "numeric", year: "numeric" })} (${p.weeks} week${p.weeks === 1 ? "" : "s"})` : "Not trending up yet. Keep logging.";
-      return `<div class="rounded-xl bg-zinc-950 border border-zinc-800 p-2.5 space-y-1.5"><div class="flex items-center justify-between gap-2"><span class="text-xs font-bold text-white min-w-0">${esc(g.name)}</span><button type="button" data-goal-del="${i}" class="text-[11px] text-zinc-500 tap-active" aria-label="Remove goal">✕</button></div>
-        <div class="pt-bar"><span style="width:${pc}%"></span></div><span class="block text-[11px] text-zinc-300">${fmt(p.cur)} of ${fmt(g.target)} ${u} est. 1RM · ${pc}%</span><span class="block text-[11px] ${p.done ? "text-emerald-400" : "text-zinc-400"}">${when}</span></div>`;
+      const st = PT.goalStatus(a, g), col = st.state === "done" || st.state === "on" ? "text-emerald-400" : st.state === "behind" || st.state === "late" ? "text-amber-300" : "text-zinc-400";
+      return `<div class="rounded-xl bg-zinc-950 border border-zinc-800 p-2.5 space-y-1.5" data-goal-row="${i}"><div class="flex items-start justify-between gap-2"><span class="min-w-0"><span class="block text-xs font-bold text-white">${esc(g.name)}</span><span class="block text-[11px] text-zinc-300">${esc(PT.goalLabel(g, st.u))}${g.by ? " by " + esc(fmtD(g.by)) : ""}</span></span>
+          <span class="flex gap-1 shrink-0"><button type="button" data-goal-edit="${i}" class="pt-gl-b tap-active" aria-label="Change the ${esc(g.name)} goal">Edit</button><button type="button" data-goal-del="${i}" class="pt-gl-b tap-active" aria-label="Remove the ${esc(g.name)} goal">Remove</button></span></div>
+        <div class="pt-bar"><span style="width:${st.pc}%"></span></div><span class="block text-[11px] text-zinc-300">${fmt(st.p.cur)} of ${fmt(g.target)} ${st.u} est. 1RM · ${st.pc}%</span><span class="block text-[11px] ${col}" data-goal-state="${st.state}">${esc(st.text)}</span></div>`;
     }).join("");
-    return `${rows || '<p class="text-xs text-zinc-400">Pick a lift and a target and see roughly when you will get there, based on your last 12 weeks.</p>'}<div><button type="button" class="pt-b go" id="pt-goal-add">＋ Add a goal</button></div>`;
+    return `${rows || '<p class="text-xs text-zinc-400">Pick a lift, a target and (if you like) a date, and see the pace you need and the pace you are on, from your last 12 weeks.</p>'}<div><button type="button" class="pt-b go" id="pt-goal-add">＋ Add a goal</button></div>`;
   }
-  function openGoal() {
-    const a = A(), K = PT.kit, el = K.sheet("pt-goal-sheet", 55);
-    const names = Object.keys(a.prs || {}).sort((x, y) => a.prs[y] - a.prs[x]).slice(0, 40);
+  function openGoal(idx, forName) {
+    const a = A(), K = PT.kit, el = K.sheet("pt-goal-sheet", 55), gs = Array.isArray(a.settings.liftGoals) ? a.settings.liftGoals : [], g = idx != null ? gs[idx] : null;
+    let names = Object.keys(a.prs || {}).sort((x, y) => a.prs[y] - a.prs[x]).slice(0, 40);
+    const want = (g && g.name) || forName;
+    if (want && !names.includes(want)) names = [want].concat(names);
     if (!names.length) { a.toast("Log a few workouts first, then set a goal"); return; }
-    const c = K.openSheet(el, `${K.head("Lift goal", "Estimated 1RM you want to reach.")}
-      <div>${lab("Lift")}<select id="pt-goal-name">${names.map(n => `<option value="${esc(n)}">${esc(n)} · now ${fmt(a.prs[n])}</option>`).join("")}</select></div>
-      <div>${lab("Target (" + (unitKg() ? "kg" : "lb") + ")")}<input id="pt-goal-target" type="number" inputmode="decimal"></div>
+    const u = unitKg() ? "kg" : "lb", now = n => a.prs && a.prs[n] ? ` · now ${fmt(a.prs[n])}` : "";
+    const c = K.openSheet(el, `${K.head(g ? "Change lift goal" : "Lift goal", "A weight you want to lift, and by when (optional).")}
+      <div>${lab("Lift")}<select id="pt-goal-name">${names.map(n => `<option value="${esc(n)}" ${n === want ? "selected" : ""}>${esc(n)}${now(n)}</option>`).join("")}</select></div>
+      <div class="grid grid-cols-2 gap-2"><div>${lab("Weight (" + u + ")")}<input id="pt-goal-w" type="number" inputmode="decimal" min="1"></div>
+        <div>${lab("For reps")}<input id="pt-goal-r" type="number" inputmode="numeric" min="1" max="20" value="${(g && g.r) || 1}"></div></div>
+      <div>${lab("By (optional)")}<input id="pt-goal-by" type="date" value="${esc((g && g.by) || "")}" min="${PT.ds(new Date())}"></div>
+      <p id="pt-goal-e1" class="text-[11px] text-zinc-400"></p>
       <div class="sticky bottom-[calc(-1.25rem-env(safe-area-inset-bottom,0px))] -mx-5 -mb-5 px-5 pt-3 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] bg-zinc-900 border-t border-zinc-800"><button type="button" id="pt-goal-save" class="w-full py-3 rounded-xl bg-emerald-600 text-white text-sm font-bold tap-active">Save goal</button></div>`);
-    const sel = c.querySelector("#pt-goal-name"), tg = c.querySelector("#pt-goal-target");
-    const def = () => { tg.value = String(Math.ceil(a.prs[sel.value] * 1.1 / 5) * 5); };
-    def(); sel.addEventListener("change", def);
+    const sel = c.querySelector("#pt-goal-name"), w = c.querySelector("#pt-goal-w"), r = c.querySelector("#pt-goal-r"), by = c.querySelector("#pt-goal-by"), e1 = c.querySelector("#pt-goal-e1");
+    const show = () => { const t = PT.e1rm(w.value, r.value); e1.textContent = t ? (parseInt(r.value, 10) > 1 ? `About ${fmt(t)} ${u} for 1 (estimated 1RM). That is what the bar counts.` : "") : ""; };
+    const def = () => { w.value = String(Math.ceil(((a.prs && a.prs[sel.value]) || 0) * 1.1 / 5) * 5 || ""); r.value = "1"; show(); };
+    if (g) { w.value = String(g.w || g.target); show(); } else def();
+    sel.addEventListener("change", def); w.addEventListener("input", show); r.addEventListener("input", show);
     c.querySelector("#pt-goal-save").addEventListener("click", () => {
-      const t = parseFloat(tg.value); if (!(t > 0)) return;
-      const l = Array.isArray(a.settings.liftGoals) ? a.settings.liftGoals : []; l.push({ name: sel.value, target: t }); a.settings.liftGoals = l; save(); K.closeSheet(el); a.renderProgressView();
+      const wv = parseFloat(w.value), rv = Math.max(1, Math.min(20, parseInt(r.value, 10) || 1)); if (!(wv > 0)) { w.focus(); return; }
+      const item = { name: sel.value, target: PT.e1rm(wv, rv), w: wv, r: rv }; if (by.value) item.by = by.value;
+      const l = gs.slice(); if (g) l[idx] = item; else { const k = l.findIndex(x => x.name === item.name); if (k >= 0) l[k] = item; else l.push(item); }
+      a.settings.liftGoals = l; save(); K.closeSheet(el); a.toast(g ? "Goal changed" : "Goal saved");
+      try { a.renderProgressView(); } catch (er) { } try { if (PT.goalRow) PT.goalRow(); } catch (er) { }
     });
   }
+  PT.openGoal = openGoal;
 
   /* ---- training year (2.35.0: big month calendars, or a scrollable year strip) */
   function heatData(a) {
@@ -17111,6 +17144,7 @@ const PTSIM = (function () {
     const bd = e.target.closest("[data-bid]"); if (bd) { openBadge(bd.dataset.bid); return; }
     if (t("pt-report-share")) { shareReport(); return; }
     if (t("pt-goal-add")) { openGoal(); return; }
+    const ge = e.target.closest("[data-goal-edit]"); if (ge) { openGoal(parseInt(ge.dataset.goalEdit, 10)); return; }
     const gd = e.target.closest("[data-goal-del]");
     if (gd) { a.settings.liftGoals.splice(parseInt(gd.dataset.goalDel, 10), 1); save(); a.renderProgressView(); return; }
     const hm = e.target.closest("[data-heatm]"); if (hm) { a.__heatMode = hm.dataset.heatm; OPEN.heat = true; a.renderProgressView(); return; }
@@ -35182,6 +35216,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     ["units", "Units (lb or kg)", "units, kg, kilograms, pounds, lb, metric, imperial, switch to kg", "Settings > Workout > Units switches between lb and kg.", "set:[data-unit=\"kg\"]"],
     ["increment", "Weight jump", "weight jump, increment, step up, how much to add, smallest plate, weight increase", "Settings > Workout > Weight Jump sets how much the suggestions add.", "set:#setting-increment"],
     ["goal", "Weekly goal", "weekly goal, days per week, goal, how many days, training days", "Settings > Workout > Weekly Goal. Your streak counts weeks you hit it.", "set:#setting-weekly-goal"],
+    ["liftgoal", "Lift goals", "lift goal, strength goal, goal for a lift, bench 225, target weight, by a date, pace, on track, set a goal", "Progress > Strength > Lift goals: pick a lift, a weight for some reps and (if you like) a date. It shows the pace you need and the pace you are on. An exercise's own screen shows its goal too.", "progress:strength"],   // 3.14.0
     ["weekstart", "Week starts on", "week starts, start of week, monday, sunday, first day of week", "Settings > Workout > Week Starts On.", "set:#setting-week-start"],
     ["plates", "Bar and plates", "plates, bar weight, barbell weight, gym plates, my plates", "Settings > Workout > Gym Plates & Bar sets your bar and the plates you have.", "set:#btn-edit-gym-plates"],
     ["platecalc", "Plate calculator", "plate calculator, what plates, load the bar, plates per side", "Open the side menu and tap Plate Calculator.", "click:#btn-drawer-plate-calc"],
@@ -39031,6 +39066,75 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   `;
   document.head.appendChild(css);
   PT.homeStars = homeStars;
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 3.14.0: lift goals with a date.
+ *  The goals themselves (Progress > Strength > Lift goals) are in module 041: a weight for some reps, an optional date, the pace you need
+ *  against the pace you are on. This module puts an exercise's goal on its own sheet ("Goal: 225 lb × 1 by Mar 1 · 91% · on track",
+ *  or "Set a goal") and converts the goals when you switch between lb and kg (they were left as they were before).
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined" || !PT.goalStatus || !PT.openGoal) return;
+  const proto = ApplicationUI.prototype, A = () => window.app, $ = id => document.getElementById(id), esc = s => PT.esc(s);
+  const goals = () => { const a = A(); return Array.isArray(a && a.settings.liftGoals) ? a.settings.liftGoals : []; };
+
+  /* ================================================================ the goal on an exercise's sheet */
+  let curName = null;
+  function rowHtml(name) {
+    const a = A(), gs = goals(), i = gs.findIndex(g => g.name === name), has = a.prs && a.prs[name];
+    if (i < 0) return has ? `<div id="pt-exgoal" class="pt-exgoal"><span class="pt-exgoal-t">No goal for this lift yet.</span><button type="button" class="pt-opt tap-active" data-exgoal="add">Set a goal</button></div>` : "";
+    const g = gs[i], st = PT.goalStatus(a, g);
+    return `<div id="pt-exgoal" class="pt-exgoal" data-state="${st.state}"><div class="pt-exgoal-h"><span><b>Goal:</b> ${esc(PT.goalLabel(g, st.u))}${g.by ? " by " + esc(PT.fmtDate(g.by, { month: "short", day: "numeric" })) : ""}</span>
+        <button type="button" class="pt-exgoal-e tap-active" data-exgoal="edit" data-i="${i}">Edit</button></div>
+      <div class="pt-bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${st.pc}" aria-label="Goal progress"><span style="width:${st.pc}%"></span></div>
+      <span class="pt-exgoal-s">${st.pc}% · ${esc(st.text)}</span></div>`;
+  }
+  function goalRow() {
+    const old = $("pt-exgoal"); if (!curName || !$("sheet-body")) return;
+    const html = rowHtml(curName);
+    if (old) { if (html) old.outerHTML = html; else old.remove(); return; }
+    if (!html) return;
+    const anchor = $("ex-equip") || $("ex-steps") || $("ex-muscles");
+    if (anchor) anchor.insertAdjacentHTML("beforebegin", html);
+  }
+  const oEx = proto.openExerciseSheet;
+  proto.openExerciseSheet = function (name) {
+    const r = oEx.apply(this, arguments);
+    try { curName = name; if (!$("pt-exgoal")) goalRow(); } catch (e) { console.error("PulseTrack goal row", e); }
+    return r;
+  };
+  document.addEventListener("click", e => {
+    const b = e.target.closest && e.target.closest("#pt-exgoal [data-exgoal]"); if (!b || !curName) return;
+    if (b.dataset.exgoal === "edit") PT.openGoal(parseInt(b.dataset.i, 10)); else PT.openGoal(null, curName);
+  });
+  PT.goalRow = goalRow;
+
+  /* ================================================================ lb <-> kg */
+  const oConv = proto.convertAllWeights;
+  if (typeof oConv === "function") proto.convertAllWeights = function (f) {
+    const r = oConv.apply(this, arguments);
+    try {
+      const l = Array.isArray(this.settings.liftGoals) ? this.settings.liftGoals : [];
+      l.forEach(g => { if (g.target) g.target = Math.round(g.target * f); if (g.w) g.w = Math.round(g.w * f * 2) / 2; });
+    } catch (e) { }
+    return r;
+  };
+
+  const css = document.createElement("style"); css.id = "pt-v3140-css";
+  css.textContent = `
+    .pt-exgoal { display: flex; flex-direction: column; gap: .4rem; padding: .7rem .8rem; border-radius: .9rem; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); margin-bottom: .75rem; }
+    .pt-exgoal:has(.pt-exgoal-t) { flex-direction: row; align-items: center; justify-content: space-between; }
+    .pt-exgoal-t { font-size: .75rem; color: rgb(var(--z300)); }
+    .pt-exgoal-h { display: flex; align-items: center; justify-content: space-between; gap: .5rem; font-size: .8125rem; color: rgb(var(--z200)); }
+    .pt-exgoal-h b { color: rgb(var(--z100)); }
+    .pt-exgoal-e, .pt-gl-b { font-size: .75rem; font-weight: 600; color: rgb(var(--z300)); padding: .4rem .55rem; min-height: 2.25rem; border-radius: .6rem; background: rgb(var(--z800)); }
+    .pt-exgoal-s { font-size: .6875rem; line-height: 1.4; color: rgb(var(--z300)); }
+    .pt-exgoal[data-state="behind"] .pt-exgoal-s, .pt-exgoal[data-state="late"] .pt-exgoal-s { color: rgb(252 211 77); }
+    html[data-mode="light"] .pt-exgoal[data-state="behind"] .pt-exgoal-s, html[data-mode="light"] .pt-exgoal[data-state="late"] .pt-exgoal-s { color: rgb(146 64 14); }
+  `;
+  document.head.appendChild(css);
 })();
 </script>
   <script>
