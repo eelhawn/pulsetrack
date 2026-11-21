@@ -19,6 +19,7 @@ The owner uses it on a phone; keep the UI compact and phone-first (390px and 360
 6. Anything that changes a program already saved on a user's phone needs a one-time migration module, not just a `programs.js` edit.
 7. After a release, tell the user which files changed (no placeholder hashes) and to open the app online once, then fully close and reopen it (service worker update).
 8. New tests go in `tests/`; `run_all.py` auto-discovers them. Verify a new test fails without the fix.
+9. Ilhaan's 3 Day Split only uses exercises he already does. Never bring in a new exercise or a different variant of one he has (the owner, 3.22.0: "dont make new exercises like the neutral cable row, use the wide bar cable row that was already in exercises"). When his wording could match several exercises, pick the one already in the split; if none fits, ask.
 
 ## Commands
 - Build: `python3 tools/build.py` (`--check` verifies index.html matches src/)

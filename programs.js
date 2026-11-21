@@ -109676,8 +109676,8 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d13_neutral-grip-seated-cable-row",
-      "name": "Neutral-Grip Seated Cable Row",
+      "id": "my_6day_chest_back_legs_sharms_d13_cable-seated-rows-wide-bar",
+      "name": "Cable Seated Rows (Wide Bar)",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 75,
@@ -110815,8 +110815,8 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d29_neutral-grip-seated-cable-row",
-      "name": "Neutral-Grip Seated Cable Row",
+      "id": "my_6day_chest_back_legs_sharms_d29_cable-seated-rows-wide-bar",
+      "name": "Cable Seated Rows (Wide Bar)",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 75,
@@ -111954,8 +111954,8 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d45_neutral-grip-seated-cable-row",
-      "name": "Neutral-Grip Seated Cable Row",
+      "id": "my_6day_chest_back_legs_sharms_d45_cable-seated-rows-wide-bar",
+      "name": "Cable Seated Rows (Wide Bar)",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 75,
@@ -113093,8 +113093,8 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d61_neutral-grip-seated-cable-row",
-      "name": "Neutral-Grip Seated Cable Row",
+      "id": "my_6day_chest_back_legs_sharms_d61_cable-seated-rows-wide-bar",
+      "name": "Cable Seated Rows (Wide Bar)",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 75,
