@@ -43,10 +43,10 @@
     leg_press_45: {"leg_press": {"at": [100, 168], "k": 1.0, "noDyn": true, "over": [{"t": 136, "ankle": [161.4, 115.1], "kb": 1, "ft": 135, "hand": [116, 162], "eb": 1}, {"t": 136, "ankle": [185.4, 91.1], "kb": 1, "ft": 135, "hand": [116, 162], "eb": 1}], "carry": [{"box": [140, 50, 230, 160], "to": "ankle", "axis": [1, -1]}]}},
     biceps_curl_machine: {"preacher_curl": {"at": [110, 132], "k": 1.15, "drop": [[180, 66, 232, 136]], "lever": {"from": [186, 132], "to": "grip", "grip": [8, 0]}}},
     preacher_bench: {"preacher_curl": {"at": [96, 142], "k": 1.15}},
-    pec_deck: {"pec_deck": {"at": [160, 148], "k": 1.1, "drop": [[84, 40, 236, 120, "lp"]], "levers": [{"from": [160, 44], "to": "haL", "grip": [0, 14], "w": 6}, {"from": [160, 44], "to": "haR", "grip": [0, 14], "w": 6}]}},
+    pec_deck: {"pec_deck": {"at": [160, 148], "k": 1.1, "drop": [[84, 40, 236, 120, "lp"]], "levers": [{"from": [160, 44], "to": "haL", "grip": [0, 14], "w": 6}, {"from": [160, 44], "to": "haR", "grip": [0, 14], "w": 6}]}, "reverse_fly": {"at": [160, 148], "k": 1.1, "drop": [[84, 40, 236, 120, "lp"]], "levers": [{"from": [160, 44], "to": "haL", "grip": [0, 14], "w": 6}, {"from": [160, 44], "to": "haR", "grip": [0, 14], "w": 6}]}},
     lateral_raise_machine: {"lateral_raise": {"at": [160, 150], "k": 1.1, "drop": [[88, 60, 232, 130, "lp"]], "levers": [{"from": [138, 70], "to": "elL", "pad": 8, "out": 6, "w": 6}, {"from": [182, 70], "to": "elR", "pad": 8, "out": 6, "w": 6}], "over": {"pel": [160, 140], "thS": 0.45, "th": -60, "sh": -90, "floor": true}}},
     hip_machine: {"hip_abduction_seated": {"at": [160, 144], "k": 1.1, "drop": [[90, 148, 230, 200, "l"]], "levers": [{"from": [160, 178], "to": "knL", "pad": 9, "out": 10, "w": 6}, {"from": [160, 178], "to": "knR", "pad": 9, "out": 10, "w": 6}]}, "hip_adduction_seated": {"at": [160, 144], "k": 1.1, "drop": [[90, 148, 230, 200, "l"]], "levers": [{"from": [160, 178], "to": "knL", "pad": 9, "out": -10, "w": 6}, {"from": [160, 178], "to": "knR", "pad": 9, "out": -10, "w": 6}]}},
-    cable_crossover: {"cable_fly": {"at": [160, 0], "k": 0.85, "stand": true, "pulleys": [[70, 34], [250, 34]], "drop": [[66, 30, 254, 116, "l"]]}},
+    cable_crossover: {"cable_fly": {"at": [160, 0], "k": 0.85, "stand": true, "pulleys": [[70, 34], [250, 34]], "drop": [[66, 30, 254, 116, "l"]]}, "reverse_fly": {"at": [160, 0], "k": 0.85, "stand": true, "cross": true, "pulleys": [[70, 34], [250, 34]], "drop": [[66, 30, 254, 116, "l"]]}},
     triceps_machine: {"dip": {"at": [116, 145], "k": 1.15, "over": [{"hip": [140, 148], "t": 90, "th": 0, "sh": -90, "hand": [152, 122], "eb": 1}, {"hip": [140, 148], "t": 90, "th": 0, "sh": -90, "hand": [148, 154], "eb": 1}], "drop": [[164, 26, 196, 116, "l"]], "lever": {"from": [174, 28], "to": "grip", "grip": [11, 0], "w": 6}}},
     seated_calf_machine: {"seated_calf_raise": {"at": [104, 143], "k": 1.05, "carry": [{"box": [124, 110, 240, 156], "to": "knee"}]}, "calf_raise": {"at": [104, 143], "k": 1.05, "carry": [{"box": [124, 110, 240, 156], "to": "knee"}], "as": "seated_calf_raise"}},
     captains_chair: {"hanging_leg_raise": {"joint": "shoulder", "at": [129, 16], "k": 1.1, "over": {"hand": null, "ua": -90, "fa": 0, "eb": 1}}},
@@ -154,7 +154,8 @@
     if (pul) { const g = j.grip || j.hand; if (g) over.push(lineP(pul, T(g), 2, PL)); }
     if (fe.pulleys) {   // one cable from each pulley to the nearest hand
       const hands = [j.grip, j.grip2, j.hand2, j.haL, j.haR].filter(Boolean).map(T), used = new Set();
-      fe.pulleys.forEach(pp => { let bi = -1, bd = 1e9; hands.forEach((h, i) => { const d = Math.abs(h[0] - pp[0]); if (!used.has(i) && d < bd) { bd = d; bi = i; } }); if (bi >= 0) { used.add(bi); over.push(lineP(pp, hands[bi], 2, PL)); } });
+      // cross (3.21.1): each cable goes to the far hand (a rear delt fly holds the cables crossed)
+      fe.pulleys.forEach(pp => { let bi = -1, bd = 1e9; hands.forEach((h, i) => { const d = Math.abs(h[0] - pp[0]) * (fe.cross ? -1 : 1); if (!used.has(i) && d < bd) { bd = d; bi = i; } }); if (bi >= 0) { used.add(bi); over.push(lineP(pp, hands[bi], 2, PL)); } });
     }
     const [bx1, by1, bx2, by2] = E.bbox(parts.concat(under, over)), fb = fig.box;
     const box = [Math.min(bx1, fb[0] * k + tx), Math.min(by1, fb[1] * k + ty), Math.max(bx2, fb[2] * k + tx), Math.max(by2, fb[3] * k + ty, E.F)];

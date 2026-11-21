@@ -88,6 +88,7 @@
   // right) by ua/fa or hand [x,y], mirrored for the other arm unless uaL/faL/handL say otherwise; legs th/sh or ankle; uaS ... foreshorten.
   function front(p) {
     const j = { view: "front" }, tl = p.tl || 0, pel = p.pel ? p.pel.slice() : [160, 106], bow = p.bow || 0;   // 3.12.0: bow 0..1 = bent forward; hk = head tilt
+    if (p.noFace) j.noFace = true;   // 3.21.1: seen from the feet (lying flyes), the face looks up, away from you
     j.pel = pel; j.neck = add(pel, 90 - tl, LEN.t * (p.tS || 1) * (1 - 0.5 * bow)); j.head = add(j.neck, 90 - tl + (p.hk || 0), (LEN.neck - 2) * (1 - 1.85 * bow));
     j.shR = add(j.neck, -tl, 17); j.shL = add(j.neck, 180 - tl, 17);
     if (p.lift) { j.shR[1] -= p.lift; j.shL[1] -= p.lift; }
@@ -233,6 +234,9 @@
     const inward = (a, b) => { const [x, y] = unit(a, b); return (-y * (j.pel[0] - a[0]) + x * (j.pel[1] - a[1])) > 0 ? 1 : -1; };   // the side of a thigh that faces the other leg
     leg(j.hipL, j.knL, j.anL, inward(j.hipL, j.knL)); leg(j.hipR, j.knR, j.anR, inward(j.hipR, j.knR));
     const at = (t, d) => offs(offs(j.pel, up, dist(j.pel, j.neck) * t), lat, d);
+    // 3.21.1: seen from the feet (noFace), the head lies beyond the chest: drawn first, so the chest hides its lower half
+    const head = () => { out.push(G(capPts(j.neck, j.head, BR.neck[0], BR.neck[1]), body)); out.push(O(j.head, 12, body, OUTLINE, OW)); };
+    if (j.noFace) head();
     const half = [[-0.12, 12], [0.1, 14], [0.4, 12], [0.72, 15.5], [0.92, 19.5], [1.02, 12]];
     const tor = half.map(([t, d]) => at(t, d)).concat([at(1.08, 0)], half.slice().reverse().map(([t, d]) => at(t, -d)), [at(-0.2, 0)]);
     out.push(SM(tor, body));
@@ -243,11 +247,11 @@
     mark("upperBack", capPts(at(0.52, 12.5), at(0.8, 15), 3.2, 3.8)); mark("upperBack", capPts(at(0.52, -12.5), at(0.8, -15), 3.2, 3.8));
     mark("glutes", capPts(at(-0.04, 12.5), at(0.06, 12.5), 3.6, 3.6)); mark("glutes", capPts(at(-0.04, -12.5), at(0.06, -12.5), 3.6, 3.6));
     mark("hipFront", capPts(at(-0.02, 6), at(0.06, 7), 3.2, 3.2)); mark("hipFront", capPts(at(-0.02, -6), at(0.06, -7), 3.2, 3.2));
-    out.push(G(capPts(j.neck, j.head, BR.neck[0], BR.neck[1]), body)); mark("neck", capPts(lerp(j.neck, j.head, 0.15), lerp(j.neck, j.head, 0.55), 3.4, 3.4));
+    if (!j.noFace) { out.push(G(capPts(j.neck, j.head, BR.neck[0], BR.neck[1]), body)); mark("neck", capPts(lerp(j.neck, j.head, 0.15), lerp(j.neck, j.head, 0.55), 3.4, 3.4)); }
     mark("traps", capPts(at(1.0, 4), at(0.98, 13), 3.4, 3)); mark("traps", capPts(at(1.0, -4), at(0.98, -13), 3.4, 3));
-    out.push(O(j.head, 12, body, OUTLINE, OW));
+    if (!j.noFace) out.push(O(j.head, 12, body, OUTLINE, OW));
     const [hx, hy] = unit(j.neck, j.head), hl = [-hy, hx];
-    out.push(O(offs(offs(j.head, hl, 4.4), [hx, hy], 1.5), 1.6, OUTLINE, OUTLINE, 0), O(offs(offs(j.head, hl, -4.4), [hx, hy], 1.5), 1.6, OUTLINE, OUTLINE, 0));
+    if (!j.noFace) out.push(O(offs(offs(j.head, hl, 4.4), [hx, hy], 1.5), 1.6, OUTLINE, OUTLINE, 0), O(offs(offs(j.head, hl, -4.4), [hx, hy], 1.5), 1.6, OUTLINE, OUTLINE, 0));
     const arm = (sh, el, ha) => {
       out.push(seg(sh, el, BR.ua, body)); mark("armF", belly(sh, el, BR.ua, 0)); if (!on("armF")) mark("armB", belly(sh, el, BR.ua, 0, 0.2, 0.75));
       out.push(seg(el, ha, BR.fa, body)); mark("forearm", belly(el, ha, BR.fa, 0, 0.1, 0.7));
@@ -262,7 +266,7 @@
   function kitAt(kind, j, pat, f) {
     const g = pat.from === "ankle" ? (j.view === "front" ? j.anR : j.ankle) : j.grip, g2 = j.grip2 || j.hand2, out = [], front = j.view === "front";
     const plate = (c, r) => [Object.assign(O(c, r, C.plateFill, C.plate, 3), { fo: 0.62 }), O(c, 3, C.plate, C.plate, 0)];   // 3.12.0: see-through, so the body behind shows
-    const dumb = c => front ? [L([c[0] - 8, c[1]], [c[0] + 8, c[1]], C.plate, 3), Rc(c[0] - 13, c[1] - 7, 6, 14, 2), Rc(c[0] + 7, c[1] - 7, 6, 14, 2)] : [O(c, 8, C.plateFill, C.plate, 2.5)];
+    const dumb = c => front && !pat.endOn ? [L([c[0] - 8, c[1]], [c[0] + 8, c[1]], C.plate, 3), Rc(c[0] - 13, c[1] - 7, 6, 14, 2), Rc(c[0] + 7, c[1] - 7, 6, 14, 2)] : [O(c, 8, C.plateFill, C.plate, 2.5)];
     const bell = c => [{ k: "path", d: `M${c[0] - 5} ${c[1] + 2} Q${c[0]} ${c[1] - 6} ${c[0] + 5} ${c[1] + 2}`, c: C.plate, w: 2.5 }, O([c[0], c[1] + 11], 9, C.plateFill, C.plate, 2.5)];
     switch (kind) {
       case "barbell": case "smith":
@@ -319,6 +323,13 @@
 
   /* ================================================================ the movements */
   // frames: [start, finish] poses; at: per-frame or shared settle; go/back: arrow labels; joint: which joint the arrow follows
+  // 3.21.1: flyes seen from above, lying on the bench with the head on the left (front view turned a quarter); tS < 1 for an incline
+  // (the torso leans up towards you); thighs along the bench, shins down to the floor (short, seen from above)
+  const flyFrames = tS => { const leg = { th: -86, sh: -50, shS: 0.35, rot: -90, floor: false };
+    return [Object.assign({ pel: [196, 120], tS, ua: 0, fa: 6 }, leg), Object.assign({ pel: [196, 120], tS, hand: [166, 120 - 54 * tS + 18], eb: -1, uaS: 0.3, faS: 0.3 }, leg)]; };
+  const flyBench = j => { const x1 = j.head[0] - 20, x2 = j.pel[0] + 14; return [Rc(x1, j.pel[1] - 17, x2 - x1, 34, 6)]; };
+  // the low pulleys out to each side (a bench between two cable towers)
+  const flyCable = j => [j.shR, j.shL].map(q => [q[0], q[1] < j.pel[1] ? j.pel[1] - 96 : j.pel[1] + 96]);
   // 3.21.0: a point on the front of the torso (fraction f from the hip to the shoulder, off px out in front of the chest)
   const pAt = (j, f, off) => { const dx = j.shoulder[0] - j.hip[0], dy = j.shoulder[1] - j.hip[1], l = Math.hypot(dx, dy) || 1; return [j.hip[0] + dx * f - dy / l * off, j.hip[1] + dy * f + dx / l * off]; };
   // 3.21.0: a lever from a pivot to a foot, with a foot plate across its end (the glute kickback machine)
@@ -344,10 +355,6 @@
       start: "Sit tall with your back on the pad and the handles beside your chest.", end: "Press the handles straight out, then let them come back slowly.",
       props: j => PROPS.seat(j, { back: true, lean: 10 }), cable: null,
       frames: [S({ hip: [128, 150], t: 98, ankle: [176, 196], hand: [146, 102], eb: -1, floor: false }), S({ hip: [128, 150], t: 98, ankle: [176, 196], hand: [180, 100], eb: 1, floor: false })] },
-    fly_lying: { label: "lying fly (seen from above)", view: "front", kit: "dumbbell", go: "bring together", back: "open wide", joint: "hand", floor: false,
-      start: "Lie on the bench, arms out wide with a soft bend in the elbows.", end: "Bring the weights together over your chest in a wide arc, then open again.",
-      props: j => [Rc(j.pel[0] - 15, j.head[1] - 16, 30, j.pel[1] - j.head[1] + 30, 6)],
-      frames: [{ pel: [160, 146], ua: -6, fa: 0, th: -88 }, { pel: [160, 146], hand: [168, 100], eb: -1, uaS: 0.55, faS: 0.55, th: -88 }] },
     cable_fly: { label: "standing cable fly", view: "front", kit: "cable", go: "bring together", back: "open wide", joint: "hand",
       start: "Stand between the pulleys, arms out wide and a little up.", end: "Bring your hands together in front of you, then let them open slowly.",
       props: () => [L([292, FLOOR], [292, 16], C.kit, 7), L([28, FLOOR], [28, 16], C.kit, 7)], cable: () => [[290, 24], [30, 24]],
@@ -387,10 +394,13 @@
     shrug: { label: "shrug", view: "front", kit: "dumbbell", go: "shrug up", back: "lower", joint: "shoulder",
       start: "Stand tall with the weights hanging at your sides.", end: "Lift your shoulders straight up towards your ears, hold, then lower.",
       frames: [{ ua: -88, fa: -90, floor: true }, { ua: -88, fa: -90, lift: 9, floor: true }] },
-    reverse_fly: { label: "reverse fly", view: "front", kit: "dumbbell", go: "open wide", back: "back in", joint: "hand",
+    reverse_fly: { label: "reverse fly", view: "front", kit: "dumbbell", go: "open wide", back: "back in", joint: "hand", lin: ["cable", "machine", "trx", "band"],
       start: "Arms out in front of you, a soft bend in the elbows (bent over or on a machine).", end: "Open your arms out wide, squeezing your shoulder blades, then come back.",
-      kitPose: { dumbbell: [{ bow: 1, ua: -86, fa: -88, hand: null, uaS: 1, faS: 1 }, { bow: 1, ua: 2, fa: -8, hand: null }], none: [{ bow: 1, ua: -86, fa: -88, hand: null, uaS: 1, faS: 1 }, { bow: 1, ua: 2, fa: -8, hand: null }] },   // 3.12.0: bent over, seen from the front
-      frames: [{ hand: [168, 110], eb: -1, uaS: 0.6, faS: 0.6, floor: true }, { ua: 0, fa: -4, floor: true }] },
+      kitPose: { dumbbell: [{ bow: 1, ua: -86, fa: -88, hand: null, uaS: 1, faS: 1 }, { bow: 1, ua: 2, fa: -8, hand: null }], none: [{ bow: 1, ua: -86, fa: -88, hand: null, uaS: 1, faS: 1 }, { bow: 1, ua: 2, fa: -8, hand: null }],
+        machine: [{ pel: [160, 140], hand: [167, 90], thS: 0.45, th: -60, sh: -90 }, { pel: [160, 140], thS: 0.45, th: -60, sh: -90 }] },   // 3.12.0: bent over, seen from the front
+      props: (j, kit) => kit === "machine" ? [Rc(j.pel[0] - 20, j.pel[1] + 4, 40, 9), L([j.pel[0], j.pel[1] + 12], [j.pel[0], FLOOR], C.kit, 6)] : [],
+      // 3.21.1: standing (cables) or seated (reverse pec deck), the hands start crossed in front at shoulder height and open out wide
+      frames: [{ hand: [150, 56], eb: -1, uaS: 0.55, faS: 0.55, floor: true }, { ua: 0, fa: -2, floor: true }] },
     curl: { label: "curl", kit: "dumbbell", go: "curl up", back: "lower", joint: "grip",
       start: "Stand tall, arms straight down, elbows at your sides.", end: "Curl the weight up to your shoulders without moving your elbows, then lower.",
       frames: [S({ ua: -92, fa: -88 }), S({ ua: -84, fa: 88 })] },
@@ -643,14 +653,17 @@
   const floorBench = (x1, x2, y) => PROPS.lowBench(null, { x1, x2, y });
   Object.assign(PATTERNS, {
     // ---- pushing
-    fly_lying: { label: "lying fly", kit: "dumbbell", go: "bring up", back: "open wide", joint: "grip", over: true, kits: ["dumbbell", "cable", "band", "kettlebell", "plate"],
+    // 3.21.1 (the owner: "the motion for flyes is incorrect, show it from a different angle"): from the side a fly's arm swings out of
+    // the picture, so it looked like a pullover. Seen from above instead, lying on the bench (head on the left): arms open wide, then
+    // together over the chest (lin: the hands slide straight in as the arms rise towards you).
+    fly_lying: { label: "lying fly, seen from above", view: "front", kit: "dumbbell", go: "bring together", back: "open wide", joint: "hand", lin: true, floor: false,
+      kits: ["dumbbell", "cable", "band", "kettlebell", "plate"],
       start: "Lie on the bench, arms out wide with a soft bend in the elbows.", end: "Bring the weights up over your chest in a wide arc, then lower them out wide again.",
-      props: j => PROPS.bench(j, {}), cable: j => [j.shoulder[0] + 10, FLOOR - 8],
-      frames: [{ hip: [196, 138], t: 180, ankle: [234, 196], kb: 1, hand: [150, 152], eb: -1 }, { hip: [196, 138], t: 180, ankle: [234, 196], kb: 1, hand: [144, 80], eb: -1 }] },
-    fly_incline: { label: "incline fly", kit: "dumbbell", go: "bring up", back: "open wide", joint: "grip", over: true, kits: ["dumbbell", "cable", "band", "kettlebell"],
+      props: j => flyBench(j), cable: j => flyCable(j), frames: flyFrames(1) },
+    fly_incline: { label: "incline fly, seen from above", view: "front", kit: "dumbbell", go: "bring together", back: "open wide", joint: "hand", lin: true, floor: false,
+      kits: ["dumbbell", "cable", "band", "kettlebell"],
       start: "Sit back on the incline bench, arms out wide with a soft bend in the elbows.", end: "Bring the weights up over your upper chest in an arc, then lower out wide.",
-      props: j => PROPS.angled(j, {}), cable: j => [j.shoulder[0] + 10, FLOOR - 8],
-      frames: [{ hip: [196, 150], t: 145, ankle: [238, 196], kb: 1, hand: [164, 140], eb: -1 }, { hip: [196, 150], t: 145, ankle: [238, 196], kb: 1, hand: [158, 62], eb: -1 }] },
+      props: j => flyBench(j), cable: j => flyCable(j), frames: flyFrames(0.86) },
     floor_press: { label: "floor press", kit: "barbell", go: "lower", back: "press up", joint: "grip", over: true,
       start: "Lie on the floor, knees bent, the weight over your chest on straight arms.", end: "Lower until your upper arms touch the floor, then press back up.",
       frames: [{ hip: [190, 189], t: 180, ankle: [236, 196], kb: 1, hand: [140, 128], eb: -1 }, { hip: [190, 189], t: 180, ankle: [236, 196], kb: 1, hand: [152, 160], eb: -1 }] },
@@ -953,7 +966,7 @@
   ["pushdown", "lat_pulldown", "seated_row", "face_pull", "straight_arm_pulldown", "cable_fly", "cable_crunch"].forEach(id => { PATTERNS[id].kits = ["cable", "band", "machine"]; });
   PATTERNS.woodchop.kits = ["cable", "band", "ball", "plate", "machine"];
   PATTERNS.hanging_leg_raise.kits = ["none", "dumbbell", "ball", "plate"];
-  PATTERNS.reverse_fly.cable = j => [[j.pel[0] - 130, 30], [j.pel[0] + 130, 30]];
+  PATTERNS.reverse_fly.cable = j => [[j.pel[0] - 130, j.neck[1] - 8], [j.pel[0] + 130, j.neck[1] - 8]];   // 3.21.1: crossed, about shoulder height
   PATTERNS.lateral_raise.cable = j => [j.pel[0] - 96, FLOOR - 8];
   // 3.9.0 review of PulseTrack's own exercises: kit in the right place
   PATTERNS.squat.dyn = (j, kit) => kit === "machine" ? PROPS.angled(j, { flip: true, seat: false }) : [];
@@ -1572,6 +1585,8 @@
     j.frame = t < 0.5 ? 0 : 1;
     return j;
   }
+  // lin: true, or a list of kits (3.21.1: a reverse fly on cables or the machine slides straight out at shoulder height; bent over, it swings)
+  const linOf = (pat, kit) => pat.lin === true || (Array.isArray(pat.lin) && pat.lin.includes(kit));
   /** in-between poses for a movement out of the side view's plane (pattern lin: true): every point slides straight across */
   function lerpJ(a, b, t) {
     const j = {}, pt2 = v => Array.isArray(v) && v.length === 2 && typeof v[0] === "number";
@@ -1588,7 +1603,7 @@
     if (pat && pat.frames.length > 1 && !pat.hold && (all || !(PT.exGuide && (PT.exGuide(String(name || "")) || {}).steps))) {
       const lay = layout(id, c.kit), a = lay.frames[0].j, b = lay.frames[1].j, hi = hiOf(String(name || ""));
       out = [];
-      const tw = pat.lin ? lerpJ : tween;
+      const tw = linOf(pat, c.kit) ? lerpJ : tween;
       for (let i = 0; i <= n; i++) { const e = 0.5 - 0.5 * Math.cos(Math.PI * i / n); out.push(dataUrl(svg(id, 0, c.kit, { hi, j: tw(a, b, e), label: false }))); }
     }
     if (MOTION.size > 40) MOTION.clear();
@@ -1648,7 +1663,7 @@
         }
         out = { kind: "cycle", frames: fr, seq: fr.map((_, i) => [i, pat.cycMs || 90]) };
       } else if (pat.frames.length > 1 && !pat.hold) {
-        const lay = layout(id, kit), tw = pat.lin ? lerpJ : tween, fr = [];
+        const lay = layout(id, kit), tw = linOf(pat, kit) ? lerpJ : tween, fr = [];
         const a = over ? poseOf(id, fr0, kit, 0) : lay.frames[0].j, b = over ? poseOf(id, Object.assign({}, pat.frames[1], ov(1)), kit, 1) : lay.frames[1].j;
         for (let i = 0; i <= 8; i++) fr.push(url(tw(a, b, 0.5 - 0.5 * Math.cos(Math.PI * i / 8))));
         const n = fr.length - 1, q = []; for (let i = 0; i <= n; i++) q.push([i, i === 0 || i === n ? 520 : 70]); for (let i = n - 1; i >= 1; i--) q.push([i, 70]);
