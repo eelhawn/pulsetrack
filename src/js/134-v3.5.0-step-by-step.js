@@ -85,16 +85,17 @@
   let PLAY = (() => { try { const v = localStorage.getItem("pt-sv-play"); if (v === "1" || v === "0") return v === "1"; } catch (e) { }
     try { return !matchMedia("(prefers-reduced-motion: reduce)").matches; } catch (e) { return true; } })();
   let anim = 0;   // the running loop (a token: a new one stops the old)
-  const movesOf = st => st && st.image && st.image.generated && !st.photo && PT.figure && PT.figure.motion ? PT.figure.motion(V.name) : null;
-  function loop(frames) {
-    const me = ++anim, n = frames.length - 1, seq = [];
-    for (let i = 0; i <= n; i++) seq.push([i, i === 0 || i === n ? 520 : 70]);
-    for (let i = n - 1; i >= 1; i--) seq.push([i, 70]);
+  // 3.19.0: every exercise plays (PT.figure.demo): a move, a cycle (running, bikes ...), or a hold with its seconds counting; also the
+  // exercises with their own pictures (the drawn figure plays, Pause shows their pictures). Your own photo of a step never plays.
+  const movesOf = st => st && !st.photo && PT.figure && PT.figure.demo ? PT.figure.demo(V.name) : null;
+  function loop(d) {
+    const me = ++anim, frames = d.frames, seq = d.seq, t0 = Date.now();
     let k = 0;
     const tick = () => {
       if (me !== anim) return;
       const im = $("pt-sv-anim"); if (!im) return;
-      const [f, ms] = seq[k % seq.length]; im.src = frames[f]; k++;
+      const [f, ms] = seq[k % seq.length]; if (im.getAttribute("src") !== frames[f]) im.src = frames[f]; k++;
+      const h = $("pt-sv-hold"); if (h) { const s = Math.floor((Date.now() - t0) / 1000) % 31; h.textContent = `Hold · 0:${String(s).padStart(2, "0")}`; }
       setTimeout(tick, ms);
     };
     tick();
@@ -132,7 +133,7 @@
     const st = V.steps[V.i], n = V.steps.length, moves = V.edit ? null : movesOf(st), playing = !!(moves && PLAY);
     let pic;
     if (st.photo && V.url) pic = `<img class="pt-sv-img pt-sv-photo" src="${V.url}" alt="Your photo of step ${V.i + 1}">`;
-    else if (playing) pic = `<img class="pt-sv-img" id="pt-sv-anim" src="${moves[0]}" alt="The whole move, playing: from the start to halfway and back">`;
+    else if (playing) pic = `<img class="pt-sv-img" id="pt-sv-anim" src="${moves.frames[0]}" alt="${moves.kind === "hold" ? "The position to hold" : moves.kind === "cycle" ? "The movement, playing over and over" : "The whole move, playing: from the start to halfway and back"}">${moves.kind === "hold" ? '<span class="pt-sv-hold" id="pt-sv-hold" aria-hidden="true">Hold · 0:00</span>' : ""}`;
     else if (st.image) pic = `<img class="pt-sv-img" src="${esc(st.image.src)}" alt="${esc(st.image.alt || "Step " + (V.i + 1))}" data-fallback="1">`;
     else pic = `<div class="pt-sv-ph"><span>No picture yet</span></div>`;
     const showArrows = !playing && st.arrows.length && (st.image || st.photo);
@@ -140,7 +141,7 @@
       ? '<svg viewBox="0 0 16 16" aria-hidden="true"><rect x="3.5" y="3" width="3" height="10" rx="1"/><rect x="9.5" y="3" width="3" height="10" rx="1"/></svg>Pause'
       : '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4.5 2.8v10.4L13 8z"/></svg>Play the move'}</button>` : "";
     return `<div class="pt-sv-box" id="pt-sv-box">${pic}${showArrows ? arrowsSvg(st.arrows, V.edit) : ""}${playBtn}</div>
-      ${credit(st) ? `<p class="pt-sv-cr">${esc(credit(st))}</p>` : ""}
+      ${(() => { const cr = playing && st.image && !st.image.generated ? "Moving drawing: PulseTrack, made by the app for this kind of movement. Pause for the step's own picture." : credit(st); return cr ? `<p class="pt-sv-cr">${esc(cr)}</p>` : ""; })()}
       <p class="pt-sv-n">Step ${V.i + 1} of ${n}</p>
       <p class="pt-sv-t">${esc(st.text)}</p>
       <div class="pt-sv-row">
@@ -274,6 +275,7 @@
     .pt-sv-play { position: absolute; top: .5rem; right: .5rem; z-index: 2; display: inline-flex; align-items: center; gap: .35rem; min-height: 2.25rem; padding: 0 .8rem .0 .65rem;
       border-radius: 999px; background: rgb(24 24 27 / .88); border: 1px solid rgb(63 63 70); color: #f4f4f5; font-size: .75rem; font-weight: 700; }
     .pt-sv-play svg { width: .85rem; height: .85rem; fill: currentColor; }
+    .pt-sv-hold { position: absolute; left: .5rem; top: .5rem; z-index: 2; padding: .35rem .7rem; border-radius: 999px; background: rgb(24 24 27 / .88); border: 1px solid rgb(16 185 129 / .6); color: #f4f4f5; font-size: .8125rem; font-weight: 800; font-variant-numeric: tabular-nums; }
     .pt-sv-play:focus-visible { outline: 2px solid rgb(var(--a500)); outline-offset: 2px; }
     .pt-sv-ov { position: absolute; inset: 0; width: 100%; height: 100%; }
     .pt-sv-h { fill: rgb(255 255 255 / .9); stroke: #09090b; stroke-width: 3; cursor: grab; }

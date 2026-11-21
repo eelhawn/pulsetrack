@@ -47,7 +47,7 @@ with page(360, 780) as p:
     c.ok(not p.evaluate('!!document.getElementById("pt-sv-anim")') and p.evaluate('document.querySelectorAll("#pt-sv .pt-sv-h").length') >= 2, 'Move arrows stops it to show the arrows to drag')
     p.click('#pt-sv [data-sv=edit]'); p.wait_for_timeout(200)
     p.evaluate('() => { app.closeSheet(); app.openExerciseSheet("Bench Press"); }'); p.wait_for_timeout(400)
-    c.ok(not p.evaluate('!!document.querySelector("#pt-sv [data-sv=play]")'), 'an exercise with its own pictures has no Play button')
+    c.ok(p.evaluate('!!document.querySelector("#pt-sv [data-sv=play]")'), 'since 3.19.0 an exercise with its own pictures has a Play button too (tests/demos.py)')
 
     # ---- a phone that asks for less motion
     p.evaluate('() => { app.closeSheet(); localStorage.removeItem("pt-sv-play"); }')
