@@ -436,7 +436,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v3.22.1</span></span>
+      <span>PulseTrack <span id="drawer-version">v3.23.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3847,7 +3847,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "3.22.1";
+    const APP_VERSION = "3.23.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -18063,6 +18063,8 @@ const PTSIM = (function () {
  *  - Rest timer: bigger ring and a "Next: exercise, set, weight x reps" line.
  *  - Live session bar: sets done out of planned and a running XP count.
  *  - Guided mode: one exercise at a time, big steppers, one big Log set button.
+ *    3.23.0: the weight box shows a grey ghost (your last set today, or this set last time) instead of a filled-in number; typing
+ *    replaces it, −/+ start from it, Log uses it while the box is empty (One-tap log on), like the workout cards.
  * ===================================================================== */
 (function () {
   "use strict";
@@ -18282,7 +18284,10 @@ const PTSIM = (function () {
   function startVals(a, ex, s) {
     const k = keyOf(a, ex, s), e = a.logs[k] || {}, prev = (a.lastPerf[ex.name] || [])[s], lastDone = (() => { for (let j = s - 1; j >= 0; j--) { const x = a.logs[keyOf(a, ex, j)]; if (x && x.completed && num(x.weight) > 0) return x; } return null; })();
     const rr = a.parseRepRange ? a.parseRepRange(ex.reps) : null;
-    return { w: e.weight !== undefined && e.weight !== "" ? num(e.weight) : lastDone ? num(lastDone.weight) : prev ? num(prev.weight) : 0, r: e.reps !== undefined && e.reps !== "" ? num(e.reps) : lastDone ? num(lastDone.reps) : prev ? num(prev.reps) : rr ? (rr.lo || rr[0] || 8) : 8 };
+    // 3.23.0 (the owner: "make the weight a ghost value in guided mode"): the weight box starts empty with a grey number in it (your last
+    // set today, or this set last time), like the workout cards; typing replaces it, −/+ start from it, Log uses it if the box is still empty
+    const gw = lastDone ? num(lastDone.weight) : prev ? num(prev.weight) : 0;
+    return { w: e.weight !== undefined && e.weight !== "" ? num(e.weight) : "", wg: gw > 0 ? gw : "", r: e.reps !== undefined && e.reps !== "" ? num(e.reps) : lastDone ? num(lastDone.reps) : prev ? num(prev.reps) : rr ? (rr.lo || rr[0] || 8) : 8 };
   }
   function renderG() {
     const a = A(), o = $("pt-guided"); if (!G.open || !o || !a || !a.activeDay) return;
@@ -18297,7 +18302,7 @@ const PTSIM = (function () {
     const vv = G.vals[k] || (G.vals[k] = startVals(a, ex, s)), last = (a.lastWorkingSets ? a.lastWorkingSets(ex.name) : []).slice(0, 4);
     const xf = extraFrom(ex), isExtra = cur >= 0 && cur >= xf;
     const chips = Array.from({ length: n }, (_, i) => { const e = a.logs[keyOf(a, ex, i)] || {}, d = doneSet(a, ex, i); return `<span class="pt-g-chip ${d ? "done" : i === s ? "cur" : ""}${i >= xf ? " extra" : ""}">${d ? "✓ " + (num(e.weight) ? esc(String(e.weight)) + "×" : "") + esc(String(e.reps || "")) : "S" + (i + 1) + (i >= xf ? "+" : "")}</span>`; }).join("");
-    const stepper = (id, label, val, step) => `<div class="pt-g-fld"><span>${label}</span><div><button type="button" class="pt-g-st" data-gs="${id}" data-d="${-step}" aria-label="Less ${label}">−</button><input type="number" inputmode="decimal" id="pt-g-${id}" value="${val}" aria-label="${label}"><button type="button" class="pt-g-st" data-gs="${id}" data-d="${step}" aria-label="More ${label}">+</button></div></div>`;
+    const stepper = (id, label, val, step, ph) => `<div class="pt-g-fld"><span>${label}</span><div><button type="button" class="pt-g-st" data-gs="${id}" data-d="${-step}" aria-label="Less ${label}">−</button><input type="number" inputmode="decimal" id="pt-g-${id}" value="${val}"${ph !== undefined && ph !== "" ? ` placeholder="${ph}"` : ""} aria-label="${label}"><button type="button" class="pt-g-st" data-gs="${id}" data-d="${step}" aria-label="More ${label}">+</button></div></div>`;
     o.innerHTML = `<div class="pt-g-in">
       <div class="pt-g-top"><button type="button" class="pt-g-x" id="pt-g-close" aria-label="Close guided mode">✕</button><span class="pt-g-n">Exercise ${G.ei + 1} of ${list.length}</span><span class="pt-g-n">${pct}%</span></div>
       <div class="pt-g-bar"><span style="width:${pct}%"></span></div>
@@ -18308,7 +18313,7 @@ const PTSIM = (function () {
         ${last.length ? `<p class="pt-g-last">Last time: ${last.map(x => esc(String(x.weight)) + "×" + esc(String(x.reps))).join(", ")}</p>` : ""}
         <div class="pt-g-chips">${chips}</div>
         <div class="pt-g-setctl"><button type="button" id="pt-g-rmset" aria-label="Remove the last unlogged set">− Set</button><button type="button" id="pt-g-addset" aria-label="Add a set">＋ Set</button></div>
-        ${hasW ? `<div class="pt-g-flds">${stepper("w", "Weight (" + unitTxt() + ")" + (PT.sideTag ? PT.sideTag(ex) : ""), vv.w, stepW())}${stepper("r", "Reps", vv.r, 1)}</div><button type="button" class="pt-g-log" id="pt-g-log" data-k="${k}">${cur >= 0 ? "✔ Log set " + (s + 1) : "Next exercise ▶"}</button>` : `<p class="text-sm text-zinc-300 text-center">This one is timed or tracked differently. Log it in the normal view.</p><button type="button" class="pt-g-log" id="pt-g-normal">Open in normal view</button>`}
+        ${hasW ? `<div class="pt-g-flds">${stepper("w", "Weight (" + unitTxt() + ")" + (PT.sideTag ? PT.sideTag(ex) : ""), vv.w, stepW(), vv.wg)}${stepper("r", "Reps", vv.r, 1)}</div><button type="button" class="pt-g-log" id="pt-g-log" data-k="${k}">${cur >= 0 ? "✔ Log set " + (s + 1) : "Next exercise ▶"}</button>` : `<p class="text-sm text-zinc-300 text-center">This one is timed or tracked differently. Log it in the normal view.</p><button type="button" class="pt-g-log" id="pt-g-normal">Open in normal view</button>`}
       </div>
       <div class="pt-g-nav"><button type="button" id="pt-g-prev" ${G.ei === 0 ? "disabled" : ""}>◀ Prev</button><button type="button" id="pt-g-swap">🔄 Swap</button>${isExtra ? `<button type="button" id="pt-g-skipset" aria-label="Skip this extra set and remove it">✕ Skip set</button>` : `<button type="button" id="pt-g-next" ${G.ei >= list.length - 1 ? "disabled" : ""}>Skip ▶</button>`}</div></div>`;
   }
@@ -18321,7 +18326,7 @@ const PTSIM = (function () {
       const have = rows.filter(r => j < r.n), d = have.length > 0 && have.every(r => doneSet(a, r.ex, j)), x = have.length > 0 && have.every(r => j >= extraFrom(r.ex));
       return `<span class="pt-g-chip ${d ? "done" : j === r0 ? "cur" : ""}${x ? " extra" : ""}">${d ? "✓ " : ""}R${j + 1}${x ? "+" : ""}</span>`;
     }).join("");
-    const fld = (id, i, label, plain, val, step) => `<div class="pt-gb-fld"><span>${label}</span><div><button type="button" class="pt-gb-st" data-gs="${id}" data-ex="${i}" data-d="${-step}" aria-label="Less ${plain} for ${esc(list[i].name)}">−</button><input type="number" inputmode="decimal" id="pt-g-${id}-${i}" value="${val}" aria-label="${plain} for ${esc(list[i].name)}"><button type="button" class="pt-gb-st" data-gs="${id}" data-ex="${i}" data-d="${step}" aria-label="More ${plain} for ${esc(list[i].name)}">+</button></div></div>`;
+    const fld = (id, i, label, plain, val, step, ph) => `<div class="pt-gb-fld"><span>${label}</span><div><button type="button" class="pt-gb-st" data-gs="${id}" data-ex="${i}" data-d="${-step}" aria-label="Less ${plain} for ${esc(list[i].name)}">−</button><input type="number" inputmode="decimal" id="pt-g-${id}-${i}" value="${val}"${ph !== undefined && ph !== "" ? ` placeholder="${ph}"` : ""} aria-label="${plain} for ${esc(list[i].name)}"><button type="button" class="pt-gb-st" data-gs="${id}" data-ex="${i}" data-d="${step}" aria-label="More ${plain} for ${esc(list[i].name)}">+</button></div></div>`;
     const panels = rows.map(r => {
       const ex = r.ex, lb = labs[r.i] || "";
       if (parts.indexOf(r) < 0) {
@@ -18332,7 +18337,7 @@ const PTSIM = (function () {
       return `<section class="pt-gb-p" data-ex="${r.i}"><div class="pt-gb-h"><b class="pt-gb-l">${esc(lb)}</b><span class="pt-gb-n">${esc(ex.name)}</span><button type="button" class="pt-gb-sw" data-gx="swap" data-ex="${r.i}" aria-label="Swap ${esc(ex.name)}">🔄</button></div>
         <p class="pt-gb-sub">Set ${r.s + 1} of ${r.n}${ex.reps ? " · target " + esc(String(ex.reps)) : ""}${r.s >= extraFrom(ex) ? " · extra" : ""}</p>
         ${su ? `<p class="pt-gb-sub">⚙ ${esc(su)}</p>` : ""}${last.length ? `<p class="pt-gb-last">Last time: ${last.map(x => esc(String(x.weight)) + "×" + esc(String(x.reps))).join(", ")}</p>` : ""}
-        <div class="pt-gb-f">${fld("w", r.i, "Weight (" + unitTxt() + ")" + (PT.sideTag ? PT.sideTag(ex) : ""), "weight", vv.w, stepW())}${fld("r", r.i, "Reps", "reps", vv.r, 1)}</div></section>`;
+        <div class="pt-gb-f">${fld("w", r.i, "Weight (" + unitTxt() + ")" + (PT.sideTag ? PT.sideTag(ex) : ""), "weight", vv.w, stepW(), vv.wg)}${fld("r", r.i, "Reps", "reps", vv.r, 1)}</div></section>`;
     }).join("");
     const act = parts.length
       ? `<button type="button" class="pt-g-log pt-gb-log" id="pt-g-log">✔ Log round ${r0 + 1}</button>`
@@ -18352,6 +18357,8 @@ const PTSIM = (function () {
       </div>
       <div class="pt-g-nav"><button type="button" id="pt-g-prev" ${b0 === 0 ? "disabled" : ""}>◀ Prev</button>${isExtra ? `<button type="button" id="pt-g-skipset" aria-label="Skip this extra round and remove it">✕ Skip round</button>` : `<button type="button" id="pt-g-next" ${b1 >= list.length - 1 ? "disabled" : ""}>Skip ▶</button>`}</div></div>`;
   }
+  /** what a Guided weight box logs: what you typed, or the grey number while the box is empty (One-tap log on) */
+  const wOf = inp => !inp ? "" : inp.value !== "" ? inp.value : (PT.opt && PT.opt("oneTap") !== false && isFinite(num(inp.placeholder)) ? inp.placeholder : "");
   /** logs the round: set N of every exercise in the group that is on that round, in order, through the same check buttons as the normal view (so the rest timer, PRs and history all work the same) */
   function logBlock(a, list, b0, b1) {
     const info = roundInfo(a, list, b0, b1);
@@ -18359,7 +18366,7 @@ const PTSIM = (function () {
       if (info.rows.every(r => r.s < 0)) { if (b1 < list.length - 1) { G.ei = b1 + 1; renderG(); } return; }
       a.toast("Use the normal view for this one"); return;
     }
-    const vals = info.parts.map(p => { const w = $("pt-g-w-" + p.i), r = $("pt-g-r-" + p.i); return { k: p.k, w: w ? w.value : "", r: r ? r.value : "" }; });
+    const vals = info.parts.map(p => { const w = $("pt-g-w-" + p.i), r = $("pt-g-r-" + p.i); return { k: p.k, w: wOf(w), r: r ? r.value : "" }; });
     let missed = 0;
     vals.forEach(v => {
       const iw = qf(v.k, "weight"), ir = qf(v.k, "reps"), cb = document.querySelector(`.btn-check-set[data-key="${v.k}"]`);     // looked up each time: logging one set can redraw the others
@@ -18378,7 +18385,7 @@ const PTSIM = (function () {
     const a = A(), list = exs(a), ex = list[G.ei]; if (!ex) return;
     const bl = blockAt(list, G.ei); if (bl[1] > bl[0]) { logBlock(a, list, bl[0], bl[1]); return; }
     const s = firstOpen(a, ex); if (s < 0) { if (G.ei < list.length - 1) { G.ei++; renderG(); } return; }
-    const k = keyOf(a, ex, s), w = $("pt-g-w"), r = $("pt-g-r"); const vw = w ? w.value : "", vr = r ? r.value : "";
+    const k = keyOf(a, ex, s), w = $("pt-g-w"), r = $("pt-g-r"); const vw = wOf(w), vr = r ? r.value : "";
     const iw = document.querySelector(`input.input-set-field[data-key="${k}"][data-field="weight"]`), ir = document.querySelector(`input.input-set-field[data-key="${k}"][data-field="reps"]`), cb = document.querySelector(`.btn-check-set[data-key="${k}"]`);
     if (!iw || !ir || !cb) { a.toast("Use the normal view for this one"); return; }
     iw.value = vw; iw.dispatchEvent(new Event("input", { bubbles: true })); ir.value = vr; ir.dispatchEvent(new Event("input", { bubbles: true }));
@@ -18410,14 +18417,14 @@ const PTSIM = (function () {
     const st = e.target.closest("[data-gs]");
     if (st) {                                   // a stepper; inside a superset each exercise has its own (data-ex is its place in the day)
       const ix = st.dataset.ex !== undefined ? parseInt(st.dataset.ex, 10) : G.ei, inp = $("pt-g-" + st.dataset.gs + (st.dataset.ex !== undefined ? "-" + st.dataset.ex : "")), d = parseFloat(st.dataset.d) || 0;
-      if (inp) { const v = Math.max(0, Math.round((num(inp.value) + d) * 100) / 100); inp.value = v; const ex = exs(a)[ix], s = ex ? firstOpen(a, ex) : -1; if (ex && s >= 0) { const vv = G.vals[keyOf(a, ex, s)]; if (vv) vv[st.dataset.gs] = v; } }
+      if (inp) { const cur = inp.value !== "" ? num(inp.value) : isFinite(num(inp.placeholder)) ? num(inp.placeholder) : 0, v = Math.max(0, Math.round(((isFinite(cur) ? cur : 0) + d) * 100) / 100); inp.value = v; const ex = exs(a)[ix], s = ex ? firstOpen(a, ex) : -1; if (ex && s >= 0) { const vv = G.vals[keyOf(a, ex, s)]; if (vv) vv[st.dataset.gs] = v; } }
     }
   });
   document.addEventListener("input", e => {
     if (!G.open || !e.target.id || e.target.id.indexOf("pt-g-") !== 0) return;
     const m = /^pt-g-([wr])(?:-(\d+))?$/.exec(e.target.id); if (!m) return;      // pt-g-w / pt-g-r, or pt-g-w-3 (the weight of the 4th exercise in a superset)
     const a = A(), ex = exs(a)[m[2] !== undefined ? +m[2] : G.ei], s = ex ? firstOpen(a, ex) : -1; if (s < 0) return;
-    const vv = G.vals[keyOf(a, ex, s)]; if (vv) vv[m[1]] = num(e.target.value);
+    const vv = G.vals[keyOf(a, ex, s)]; if (vv) vv[m[1]] = e.target.value === "" ? "" : num(e.target.value);
   });
   PT.openGuided = openGuided; PT.closeGuided = closeGuided;
 
@@ -18485,6 +18492,7 @@ const PTSIM = (function () {
     .pt-g-fld > div { display: flex; align-items: center; gap: .5rem; }
     .pt-g-fld input { flex: 1 1 0; width: 0; min-width: 0; text-align: center; font-size: 2.2rem; font-weight: 900; color: rgb(var(--z50)); background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); border-radius: 1rem; padding: .5rem; font-variant-numeric: tabular-nums; }
     .pt-g-st { width: 4rem; height: 4rem; border-radius: 1rem; background: rgb(var(--z800)); color: rgb(var(--z50)); font-size: 1.8rem; font-weight: 800; }
+    .pt-g-fld input::placeholder, .pt-gb-fld input::placeholder { color: rgb(var(--z500)); opacity: 1; }
     .pt-g-log { width: 100%; padding: 1.1rem; border-radius: 1.1rem; background: rgb(var(--a600)); color: #fff; font-size: 1.1rem; font-weight: 900; margin-top: .4rem; }
     .pt-gb-p { display: flex; flex-direction: column; gap: .3rem; padding: .7rem .75rem .8rem; border-radius: 1rem; background: rgb(var(--z900)); border: 1px solid rgb(var(--z800)); border-left: 3px solid rgb(147 51 234); }
     .pt-gb-h, .pt-gb-o { display: flex; align-items: center; gap: .5rem; }
