@@ -31,7 +31,7 @@ with page() as p:
     open_day(p, 1)
     log = lambda day, name, s: p.evaluate(f'() => {{ const e = app.logs[{KEY(day, name, s)}]; return e ? [e.weight, e.reps, !!e.completed] : null; }}')
     c.eq(log(1, 'Lat Pulldown', 0), ['105', '8', False], 'first open: the lat pulldown is filled in (top of the range last time, so 5 more, back to 8 reps)')
-    c.eq(log(1, 'Lat Pulldown', 3), ['105', '8', False], 'all four sets')
+    c.eq([log(1, 'Lat Pulldown', 2), log(1, 'Lat Pulldown', 3)], [['105', '8', False], None], 'all three sets (3 sets since 3.25.0)')
     c.eq(log(1, 'Neutral-Grip (V-Bar) Lat Pulldown', 0), ['80', '11', False], 'same weight, one more rep when you were inside the range')
     c.eq(log(1, 'Incline Bench Press', 0), None, 'an exercise with no history is left empty')
     c.eq(p.evaluate('() => !!document.getElementById("pt-fillall")'), False, 'nothing left to fill: no button')

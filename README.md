@@ -3,7 +3,7 @@
 **A free workout tracker that lives on your phone and works with no internet.**
 Pick a program, log your sets, beat your records. No account, no ads, no sign-up. Your data stays on your phone (the optional live family board, off until you start or join one, sends only a small scrambled update).
 
-*Version 3.24.0*
+*Version 3.25.0*
 
 PulseTrack installs to your home screen like a normal app. It comes with **59 ready-made programs** (nearly all of them planned over several weeks, six of them two-a-day, with morning and evening sessions; 12-week plans from Arnold, Ronnie Coleman, Phil Heath and Kris Gethin, plus routines of pro bodybuilders like Mike Mentzer, Dorian Yates, Frank Zane, Chris Bumstead, Flex Wheeler, Lee Priest, Layne Norton, Reg Park, Dave Draper and Dexter Jackson) and **646 exercises**, and you can add your own of both. It has rest and interval timers, a separate **cardio and sports logger**, charts, personal records, a 1-rep-max calculator, body tracking, and a muscle map that shows what is recovered and what is behind. You can change how it looks (light or dark, 304 themes, any colour, 40 fonts).
 
@@ -786,7 +786,7 @@ App pop-ups (confirmations, text boxes, lists) match your theme in light or dark
 **Offline, in detail (new in 2.58.0).**
 - **A weak connection opens the saved app.** A phone with one bar of signal, a gym wifi that has not logged you in, or a dead mobile connection can leave a request hanging for a minute without ever failing, which is not the same as airplane mode. The app used to wait on it. Now, if the network has not answered within 4 seconds, it opens the saved copy and keeps trying in the background to refresh it.
 - **A wifi login page can no longer replace the app.** Hotel, gym and airport wifi often answer every address with a login page. The app now checks that what came back is really its own file, and otherwise acts as if it were offline.
-- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 3.24.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
+- **It tells you.** Settings → App says **Works offline ✓**, the Settings list shows "Version 3.25.0 · works offline ✓", and the side menu has a small "offline ✓" next to the version. When the saved copy is missing (the phone cleaned it up, or the first save never finished) it says **Not saved for offline yet** with a **Save now** button, and it saves the copy again by itself the next time you open the app or come back online.
 - **Home screen app:** it asks the phone to keep the saved copy and your data from being cleaned up automatically. Phones allow this for installed apps without asking.
 - Saving a new version is all or nothing: the app is only replaced once all three files (`index.html`, `exercises.js`, `programs.js`) came back whole (the openGym library, `opengym-exercises.js`, is saved too but never holds an update back), so you never end up with half of an update.
 
@@ -835,7 +835,7 @@ Upload these to your GitHub repo, all in the same folder:
 | `sw.js` | Makes it work offline and update |
 | `manifest.json` | Lets it install to your home screen. Its icons are the logo (written by `tools/build.py`) |
 | `README.md` | This file |
-| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 145 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
+| `src/` | The app's source: the page (`index.template.html`), its 14 style files (`css/`), its 146 scripts (`js/`), the logo (`logo/`, new in 2.86.0) and `VERSION` (new in 2.68.0) |
 | `tools/` | `build.py`, `new_module.py`, `bump.py` (new in 2.68.0), `neat_borders.py` (2.69.0), `make_fonts.py` (2.71.0) and `make_logo.py` (2.86.0), `opengym_import.py` (2.96.0), `guides_data.py` and `validate_guides.py` (3.4.0), `make_guide_drawings.py` (3.5.0) |
 | `tests/` | The test suite (new in 2.68.0) |
 
@@ -850,7 +850,7 @@ Upload these to your GitHub repo, all in the same folder:
 - **Build:** `python3 tools/build.py` writes `index.html`; `python3 tools/build.py --check` says whether `index.html` matches `src/` (the first test run checks it too). Never edit `index.html` by hand.
 - **New feature:** `python3 tools/new_module.py 2.71.0 "what it does"` makes the next `src/js` file and adds it to the page before the last script. For a change to something that already exists, edit its file.
 - **New release:** `python3 tools/bump.py 2.71.0` sets `src/VERSION`, adds one to the cache number in `sw.js` (so phones fetch the new files), changes the version lines at the top of this file, and rebuilds. Then add the version history entry here.
-- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `fill.py`, `backup.py`, `taken.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `importapps.py`, `smithback.py`, `corecardio.py`, `cardioapart.py`, `stairs.py`, `corerep.py`, `speed.py`, `weekdots.py`, `plain.py`, `legal.py`, `proglist.py`, `histedit.py`, `fillmode.py`, `morethemes.py`, `norewards.py`, `guide.py`, `muscles.py`, `steps.py`, `ollama.py`, `cloud.py`, `drawings.py`, `machines.py`, `starred.py`, `iphonebar.py`, `allmuscles.py`, `moving.py`, `goals.py`, `startdate.py`, `shortcuts.py`, `abtotal.py`, `joints.py`, `demos.py`, `machinedemo.py`, `machinefit.py`, `flyes.py`, `widerow.py`, `benchcount.py`, `ghostweight.py`, `sharmscurl.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
+- **Tests:** `python3 tests/run_all.py` runs them all (`smoke.py`, `calendar.py`, `programs.py`, `looks.py`, `themes.py`, `home.py`, `weeks.py`, `fill.py`, `backup.py`, `taken.py`, `ui.py`, `install.py`, `live.py`, `group.py`, `fast.py`, `wrapped.py`, `nofront.py`, `isodip.py`, `split64.py`, `daysdone.py`, `nodips.py`, `opengym.py`, `equipment.py`, `importapps.py`, `smithback.py`, `corecardio.py`, `cardioapart.py`, `stairs.py`, `corerep.py`, `speed.py`, `weekdots.py`, `plain.py`, `legal.py`, `proglist.py`, `histedit.py`, `fillmode.py`, `morethemes.py`, `norewards.py`, `guide.py`, `muscles.py`, `steps.py`, `ollama.py`, `cloud.py`, `drawings.py`, `machines.py`, `starred.py`, `iphonebar.py`, `allmuscles.py`, `moving.py`, `goals.py`, `startdate.py`, `shortcuts.py`, `abtotal.py`, `joints.py`, `demos.py`, `machinedemo.py`, `machinefit.py`, `flyes.py`, `widerow.py`, `benchcount.py`, `ghostweight.py`, `sharmscurl.py`, `threesets.py`) in a real Chromium at phone size; each file also runs on its own. They need Python with Playwright installed.
 - **The Neater look's outlines:** `src/css/11-pt-neat.css` is written by hand. `src/css/10-pt-neat-borders.css` is generated: after adding a feature that draws its own bordered cards, run `python3 tools/neat_borders.py` and it writes the matching quiet-outline rules. Dark themes give cards the lighter shade in `applyTheme` (`--z900`), which is what lifts them without an outline.
 - **Programs and exercises** are still edited in `programs.js` and `exercises.js` (see below). The build does not touch them.
 
@@ -877,6 +877,13 @@ PulseTrack is free software under the **GNU Affero General Public License v3.0**
 Using the app published at https://eelhawn.github.io/pulsetrack is covered by the [Terms of Service](TERMS.md) and the [Privacy Policy](PRIVACY.md). In short: it is a tracking tool, not medical or training advice, you train at your own risk, and nothing you log is ever sent to the developer. The Terms do not limit anything the AGPL lets you do with the source code.
 
 ## Version history
+
+**3.25.0**
+- **Cable Wrist Curls on the Shoulders & Arms days.** On Day 15, 31, 47 and 63, the last exercise (EZ-Bar Curls since 3.24.0) is now **Cable Wrist Curls**, 3 sets of 15-20 with 45 s rest. They're the same wrist curls as on Day 3, so last time's weights carry over.
+- **Preacher Curls (Dumbbell/Bar).** On the same days, Preacher Curls is now called **Preacher Curls (Dumbbell/Bar)**, so it's easy to tell apart from Machine Preacher Curls. The line under it is gone. It has its own name in the exercise list. Your past workouts of it from this split move to the new name, along with last time's weights, your note, PRs and rest time.
+- **Every lift in Ilhaan's 3 Day Split is 3 sets.** Everything that had 4 sets now has 3, including Lat Pulldown, Squat, Leg Press, Deadlift, the presses, shrugs and wrist curls. The ab exercises on the Core & Cardio days stay at 5 sets. Other programs are unchanged.
+- **The copy on your phone is changed once:** sets you already ticked move with the exercise. If you had swapped or removed it, your swap or removal stays (it now puts back the new exercise). A note you wrote yourself stays. 4 sets become 3 everywhere in the split, including on exercises you added yourself. A 4th set you already ticked stays logged. Workouts from other programs keep "Preacher Curls".
+- New test: `tests/threesets.py` (42 checks).
 
 **3.24.0**
 - **Shoulders & Arms curls (Day 15, 31, 47 and 63).** Preacher Curls now says **Dumbbell/bar.** under it instead of "Vertical pad." It's still the same exercise, so its history and last-time weights stay with it. **EZ-Bar Reverse Curls** is now **EZ-Bar Curls**, 3 sets instead of 4, with the same 15 reps and 45 s rest.

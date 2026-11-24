@@ -30,7 +30,7 @@ with page() as p:
     c.eq(bad, [], 'every exercise is spelled exactly like the exercise database (so last time\'s weight is found)')
     c.eq(p.evaluate(f'() => app.data.programs.filter(x => x.id !== "{ID}" && x.weekReset).length'), 0, 'no other program has the new-week reset')
     c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.length)'), [8, 10, 11, 0, 9, 10, 11, 0, 8, 10, 11, 0, 9, 10, 11, 0], 'exercises per day in list order: 3 on, rest, 3 on, rest (Week B as sent)')
-    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.reduce((n, e) => n + e.sets, 0))'), [26, 34, 37, 0, 29, 34, 36, 0, 27, 34, 37, 0, 31, 34, 36, 0], 'sets per day (3.24.0: Week B Shoulders & Arms 37 -> 36)')
+    c.eq(p.evaluate(f'() => {PROG}.days.map(d => d.exercises.reduce((n, e) => n + e.sets, 0))'), [24, 30, 33, 0, 27, 30, 33, 0, 24, 30, 33, 0, 27, 30, 33, 0], 'sets per day (3.25.0: every lift 3 sets)')
     c.eq(p.evaluate(f'() => new Set({PROG}.days.flatMap(d => d.exercises.map(e => e.id))).size'), 118, 'every exercise has its own id')
     # same machine / bar / bench: next to each other
     adj = lambda day, a, b: abs(p.evaluate(NAMES(day)).index(a) - p.evaluate(NAMES(day)).index(b)) == 1
@@ -43,9 +43,9 @@ with page() as p:
     c.ok(adj(8, 'Lat Pulldown', 'Reverse-Grip Lat Pulldown'), 'Week B day 1: lat pulldown and reverse-grip pulldown are together')
     c.ok(adj(11, 'Deadlift', 'Barbell Row') and adj(11, 'Incline Dumbbell Press', 'Dumbbell Bench Press'), 'Week B day 4: deadlift next to barbell row, the two dumbbell presses together')
     c.ok(adj(10, 'V-Bar Pushdown', 'Cable Overhead Extension') and adj(10, 'Cable Curls (EZ-Bar Attachment)', 'V-Bar Pushdown'), 'Week B day 3: the cable arm exercises are together')
-    c.ok(adj(13, 'Machine Preacher Curls', 'Preacher Curls') and adj(13, 'Close-Grip Bench Press', 'Skull Crushers'), 'Week B day 6: both preacher curls together, close-grip bench next to skull crushers')
+    c.ok(adj(13, 'Machine Preacher Curls', 'Preacher Curls (Dumbbell/Bar)') and adj(13, 'Close-Grip Bench Press', 'Skull Crushers'), 'Week B day 6: both preacher curls together, close-grip bench next to skull crushers')
     c.eq(p.evaluate(NAMES(11))[0], 'Lat Pulldown', 'Week B day 4 still opens with the lat pulldown')
-    c.eq(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 13).exercises.find(e => e.name === "Preacher Curls").notes'), 'Dumbbell/bar.', 'the preacher curl keeps its note (Dumbbell/bar. since 3.24.0)')
+    c.eq(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 13).exercises.find(e => e.name === "Preacher Curls (Dumbbell/Bar)").notes'), None, 'the preacher curls say Dumbbell/Bar in the name, no note (3.25.0)')
     c.eq(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 10).exercises.slice(-1)[0].notes'), 'Palms up (supinated) and palms down (pronated).', 'wrist curls keep supinated / pronated')
     p.evaluate(f'() => app.selectProgram({PROG}, null, true)')
 

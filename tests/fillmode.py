@@ -15,6 +15,7 @@ CLEAR = '() => { const ex = ' + DAY + '.exercises.find(e => e.name === "Lat Pull
 
 with page() as p:
     old8(p)
+    p.evaluate(f'() => {{ {DAY}.exercises.find(e => e.name === "Lat Pulldown").sets = 4; }}')   # a 4-set exercise (the split is all 3 sets since 3.25.0)
     p.evaluate(f'() => app.selectProgram({PROG}, null, true)')
     p.evaluate('() => PT.setOpt("autoPrefill", false)')
     p.evaluate(LAST)

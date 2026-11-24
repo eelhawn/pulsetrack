@@ -1,7 +1,9 @@
 """3.24.0 the Week B Shoulders & Arms curls in Ilhaan's 3 Day Split (the owner: "day 15 sharms: change the preacher curl vertical pad into
 a name like dumbbell/bar, and sub ez bar reverse curl for standard ez bar curl and make it 3 sets"). Day 15, 31, 47 and 63: Preacher Curls
 says "Dumbbell/bar." under it, and EZ-Bar Reverse Curls is EZ-Bar Curls for 3 sets, in the program and, once, in a copy already on a
-phone (ticked sets move with it, your swaps, removals, notes and set counts are kept)."""
+phone (ticked sets move with it, your swaps, removals, notes and set counts are kept). Since 3.25.0 the program has "Preacher Curls
+(Dumbbell/Bar)" with no line under it and Cable Wrist Curls in the last spot (tests/threesets.py); this file still checks module 148's
+change of an old copy."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import Checks, page
@@ -19,9 +21,8 @@ LOG = lambda dn, exid, s: f'{ID}_d{dn}_{exid}_s{s}'
 with page() as p:
     # ---- the program
     for dn in (15, 31, 47, 63):
-        r = p.evaluate(f'''() => {{ const d = {DAY(dn, BUILT)}, pc = d.exercises.find(e => e.name === "Preacher Curls"), i = d.exercises.findIndex(e => e.name === "{TO}"), e = d.exercises[i];
-          return [pc && pc.notes, i, e && e.id, e && e.sets, e && e.reps, e && e.restSeconds, d.exercises.some(x => x.name === "{FROM}")]; }}''')
-        c.eq(r, ['Dumbbell/bar.', 10, NEW(dn), 3, '15', 45, False], 'Day %d: Preacher Curls says Dumbbell/bar., EZ-Bar Curls 3 x 15 where the reverse curls were' % dn)
+        r = p.evaluate(f'() => {{ const d = {DAY(dn, BUILT)}; return [d.exercises[7].name, d.exercises.some(x => x.name === "{FROM}")]; }}')
+        c.eq(r, ['Preacher Curls (Dumbbell/Bar)', False], 'Day %d: Preacher Curls (Dumbbell/Bar), no reverse curls (3.25.0)' % dn)
     left = p.evaluate(f'() => {BUILT}.days.flatMap(d => d.exercises).filter(e => e.name === "{FROM}" || e.notes === "Vertical pad.").length')
     c.eq(left, 0, 'no EZ-Bar Reverse Curls or "Vertical pad." left in the split')
     c.ok(p.evaluate(f'() => EXERCISE_DATABASE.some(x => x.name === "{TO}")'), 'EZ-Bar Curls is an exercise from the exercise list')
@@ -30,9 +31,9 @@ with page() as p:
     # ---- a copy already on a phone (up to 3.23.0)
     p.evaluate(f'''() => {{
       const pr = {PROG};
-      const back = (dn) => {{ const d = pr.days.find(x => x.dayNumber === dn), i = d.exercises.findIndex(e => e.name === "{TO}");
+      const back = (dn) => {{ const d = pr.days.find(x => x.dayNumber === dn), i = 10;
         d.exercises[i] = {{ id: "{ID}_d" + dn + "_ez-bar-reverse-curls", name: "{FROM}", sets: 4, reps: "15", restSeconds: 45, type: "standard" }};
-        d.exercises.find(e => e.name === "Preacher Curls").notes = "Vertical pad."; return d; }};
+        d.exercises[7] = {{ id: "{ID}_d" + dn + "_preacher-curls", name: "Preacher Curls", sets: 3, reps: "10-12", restSeconds: 60, type: "standard", notes: "Vertical pad." }}; return d; }};
       back(15); back(31); back(47); back(63);
       const e31 = pr.days.find(x => x.dayNumber === 31).exercises.find(e => e.name === "{FROM}"); e31.origName = "{FROM}"; e31.name = "Cable Curls (EZ-Bar Attachment)";   // swapped by hand
       const d47 = pr.days.find(x => x.dayNumber === 47), i47 = d47.exercises.findIndex(e => e.name === "{FROM}");

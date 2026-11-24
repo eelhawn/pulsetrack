@@ -26,6 +26,7 @@ def check(p, s):
 for w in (390, 360):
     with page(w=w, h=800) as p:
         p.evaluate(f'''() => {{
+          {DAY1}.exercises.find(e => e.name === "{LP}").sets = 4;   // one set more than last time (the split is all 3 sets since 3.25.0)
           app.selectProgram({PROG}, null, true); PT.setOpt("autoPrefill", false); PT.setOpt("autoFill", false);
           app.lastPerf["{LP}"] = [{{ weight: "100", reps: "10" }}, {{ weight: "100", reps: "9" }}, {{ weight: "95", reps: "8" }}];
           app.lastPerf["Pull-ups"] = [{{ weight: "0", reps: "12", bz: 1 }}];
