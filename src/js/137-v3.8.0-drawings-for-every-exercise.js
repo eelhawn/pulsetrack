@@ -178,7 +178,7 @@
   }
   const SM = (pts, fill, stroke, sw) => ({ k: "sm", pts, fill, stroke: stroke == null ? OUTLINE : stroke, sw: sw == null ? OW : sw });
 
-  function person(j, hi, plain) {
+  function person(j, hi, plain, mid) {   // 3.26.0: mid = kit drawn over the torso but under the near arm (a pad between chest and arm)
     hi = hi || {};
     const on = k => (hi[k] || 0) > 0, out = [];
     const mark = (k, pts, far) => { if (on(k) && !plain) out.push(F(pts, hiColor(hi[k], far))); };
@@ -218,6 +218,7 @@
     out.push(O(j.head, 12, body, OUTLINE, OW));
     out.push(O(offs(offs(j.head, hn, 5.5), hu, 2.6), 1.7, OUTLINE, OUTLINE, 0));
     mark("delts", capPts(offs(S, tu, -2), offs(S, tu, -2), 7.2, 7.2));
+    if (mid && mid.length) out.push(...mid);
     arm(j.shoulder, j.elbow, j.hand, j.grip, body, false);
     if (on("delts") && !plain) out.push(F(capPts(offs(S, tu, -1.5), offs(S, tu, -1.5), 6.4, 6.4), hiColor(hi.delts)));   // the shoulder cap shows over the arm
     return out;
@@ -408,6 +409,15 @@
       start: "Sit with the backs of your arms flat on the pad, arms nearly straight.", end: "Curl the weight up, then lower it slowly until your arms are nearly straight.",
       props: j => PROPS.seat(j, {}).concat([L([j.shoulder[0] + 6, j.shoulder[1] + 16], [j.shoulder[0] + 34, j.shoulder[1] + 44], C.kit, 12), L([j.shoulder[0] + 18, j.shoulder[1] + 36], [j.shoulder[0] + 18, FLOOR], C.kit, 6)]),
       frames: [S({ hip: [138, 150], t: 80, ankle: [186, 196], ua: -46, fa: -36, floor: false }), S({ hip: [138, 150], t: 80, ankle: [186, 196], ua: -46, fa: 98, floor: false })] },
+    // 3.26.0: the vertical side of a preacher bench (the owner stands at it): chest on the slanted back of the pad, arms over the top and
+    // straight down its upright front, so the upper arms stay vertical and the forearms curl up in front of them
+    preacher_vertical: { label: "vertical preacher curl", kit: "barbell", kits: ["barbell", "dumbbell"], go: "curl up", back: "lower", joint: "grip", plate: 10,
+      start: "Stand behind the upright side of the preacher pad, chest on the pad, upper arms hanging straight down its front.", end: "Curl the weight up without lifting your upper arms off the pad, then lower until your arms are nearly straight.",
+      // the pad: an upright cushion on a post, its front against the backs of the upper arms from the armpits to below the elbows; drawn
+      // over the chest and under the near arm (mid), the post and its foot behind you (props)
+      mid: j => { const x = Math.min(j.shoulder[0], j.elbow[0]) - 14, y1 = j.shoulder[1] + 7, y2 = j.elbow[1] + 8; return [L([x, y1], [x, y2], C.kit, 17), L([x, y1], [x, y2], C.kitFill, 11)]; },
+      props: j => { const x = Math.min(j.shoulder[0], j.elbow[0]) - 15, y2 = j.elbow[1] + 8; return [L([x, y2], [x, FLOOR], C.kit, 6), L([x - 24, FLOOR], [x + 22, FLOOR], C.kit, 6)]; },
+      frames: [S({ hip: [128, 104], t: 48, ankle: [140, 196], ua: -88, fa: -84 }), S({ hip: [128, 104], t: 48, ankle: [140, 196], ua: -88, fa: 78 })] },
     pushdown: { label: "triceps pushdown", kit: "cable", go: "push down", back: "up", joint: "grip",
       start: "Stand close to the cable, elbows at your sides, forearms up.", end: "Push down until your arms are straight, then let your forearms come back up.",
       props: () => PROPS.tower(null, { x: 214 }), cable: () => [212, 18],
@@ -1216,6 +1226,7 @@
     ["hip_abduction", "abduct|fire hydrant|clam", ""],
     ["kickback", "kickback|kick[- ]back", ""],
     ["wrist_curl", "wrist|forearm curl|finger curl|wrist roller|reverse wrist", ""],
+    ["preacher_vertical", "vertical (pad )?preacher|preacher.*vertical", ""],
     ["preacher_curl", "preacher|scott curl|spider curl|concentration", ""],
     ["curl", "curl|\\b21s\\b", ""],
     ["push_up", "pike (push|press)|planche press", ""],
@@ -1398,6 +1409,8 @@
     "Smith Machine Row": ["bent_row", "smith"],
     "Snatch-Grip Deadlift": ["deadlift", "barbell"],
     "Spider Curls": ["spider_curl", "barbell"],
+    "Vertical Preacher Curls (Bar)": ["preacher_vertical", "barbell"],
+    "Vertical Preacher Curls (Dumbbell)": ["preacher_vertical", "dumbbell"],
     "Squat / Kettlebell Snatch (Tabata)": ["air_squat", "none"],
     "Stability Ball Crunches": ["crunch", "none"],
     "Stability Ball Leg Curls": ["ball_leg_curl", null],
@@ -1491,15 +1504,15 @@
   function layout(id, kit) {
     const key = id + "|" + kit; if (fitCache.has(key)) return fitCache.get(key);
     const pat = PATTERNS[id], frames = pat.frames.map((_, f) => frameParts(id, f, kit));
-    const props = pat.props ? pat.props(frames[0].j, kit) : [];
-    const all = props.slice();
+    const props = pat.props ? pat.props(frames[0].j, kit) : [], mid = pat.mid ? pat.mid(frames[0].j, kit) : [];
+    const all = props.concat(mid);
     frames.forEach((fp, f) => { all.push(...person(fp.j), ...kitAt(kit, fp.j, pat, f), ...(pat.dyn ? pat.dyn(fp.j, kit) : [])); });
     const floorOn = pat.floor !== false && pat.frames.some(fr => fr.floor !== false);
     const [x1, y1, x2, y2] = bbox(all.concat(floorOn ? [L([160, FLOOR], [160, FLOOR], C.floor, 3)] : []));
     const M = 14, s = Math.min(1, (W - 2 * M) / (x2 - x1), (H - 2 * M) / (y2 - y1));
     const tx = (W - (x2 - x1) * s) / 2 - x1 * s, ty = floorOn ? (H - M + 2) - FLOOR * s - Math.max(0, (y2 - FLOOR)) * s : (H - (y2 - y1) * s) / 2 - y1 * s;
     const ty2 = Math.max(M - y1 * s, Math.min(ty, H - M - y2 * s));
-    const out = { s, tx, ty: ty2, frames, props, floorOn };
+    const out = { s, tx, ty: ty2, frames, props, mid, floorOn };
     fitCache.set(key, out); return out;
   }
   const n1 = v => Math.round(v * 10) / 10;
@@ -1530,7 +1543,7 @@
     if (opts.j) f = opts.j.frame || 0;
     const kp = kitAt(kit, fp.j, pat, f), behind = pat.behind ? kp : kp.filter(x => x.back), over = pat.behind ? [] : kp.filter(x => !x.back);
     const ghost = f && pat.frames.length > 1 && !pat.hold && opts.ghost === true ? `<g opacity="0.2">${emit(person(lay.frames[0].j, null, true))}</g>` : "";
-    const body = emit(lay.props) + ghost + emit(behind) + emit(person(fp.j, opts.hi)) + emit(over) + emit(pat.dyn ? pat.dyn(fp.j, kit) : []);
+    const body = emit(lay.props) + ghost + emit(behind) + emit(person(fp.j, opts.hi, false, lay.mid)) + emit(over) + emit(pat.dyn ? pat.dyn(fp.j, kit) : []);
     const floor = lay.floorOn ? `<line x1="16" y1="${n1(FLOOR * lay.s + lay.ty)}" x2="${W - 16}" y2="${n1(FLOOR * lay.s + lay.ty)}" stroke="${C.floor}" stroke-width="3" stroke-linecap="round"/>` : "";
     const lab = opts.label === false ? "" : frameLabel(pat, f);
     const tag = lab ? `<rect x="10" y="10" width="${Math.round(lab.length * 7.4 + 18)}" height="22" rx="11" fill="#27272a"/><text x="${Math.round(19)}" y="25" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12.5" font-weight="700" fill="#e4e4e7">${esc(lab)}</text>` : "";

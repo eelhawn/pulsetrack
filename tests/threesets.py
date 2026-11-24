@@ -4,7 +4,8 @@ exercise, the 5-set ab exercises stay). Day 15, 31, 47 and 63 end with Cable Wri
 Curls, and no exercise in the split has 4 sets, in the program and, once, in a copy already on a phone (ticked sets move with the
 exercise, your swaps and removals are kept, exercises you added and the weekly-reset copy get 3 sets too). Then: "the vertical preacher
 thing put it in the exercise name and differ dumbbell/bar dont name it just preacher curl": Preacher Curls there is "Preacher Curls
-(Dumbbell/Bar)", its own name in the exercise list, with no line under it; its history from this split comes with it."""
+(Dumbbell/Bar)", its own name in the exercise list, with no line under it; its history from this split comes with it. Since 3.26.0 the
+program has Vertical Preacher Curls (Bar) there (tests/verticalpreacher.py); the second part still checks module 149 on its own."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from common import Checks, page
@@ -29,11 +30,10 @@ with page() as p:
         r = p.evaluate(f'() => {{ const d = {DAY(dn, BUILT)}, e = d.exercises[10]; return [e.name, e.id, e.sets, e.reps, e.restSeconds, d.exercises.filter(x => x.name === "{TO}").length, d.exercises.some(x => x.name === "{EZ}" || x.name === "{REV}")]; }}')
         c.eq(r, [TO, EXID(dn, 'cable-wrist-curls'), 3, '15-20', 45, 1, False], 'Day %d ends with Cable Wrist Curls 3 x 15-20 where the EZ-bar curls were' % dn)
         r = p.evaluate(f'() => {{ const e = {DAY(dn, BUILT)}.exercises[7]; return [e.name, e.id, e.sets, e.reps, e.restSeconds, e.notes === undefined]; }}')
-        c.eq(r, [PCN, EXID(dn, 'preacher-curls-dumbbell-bar'), 3, '10-12', 60, True], 'Day %d: Preacher Curls (Dumbbell/Bar), no line under it' % dn)
+        c.eq(r, ['Vertical Preacher Curls (Bar)', EXID(dn, 'vertical-preacher-curls-bar'), 3, '10-12', 60, True], 'Day %d: the preacher curls (Vertical Preacher Curls (Bar) since 3.26.0), no line under it' % dn)
     c.eq(p.evaluate(f'() => {BUILT}.days.flatMap(d => d.exercises).filter(e => e.name === "{PC}").length'), 0, 'no plain "Preacher Curls" left in the split')
     bad = p.evaluate(f'() => [...new Set({BUILT}.days.flatMap(d => d.exercises.map(e => e.name)))].filter(n => {{ const e = PT.exCanon(n); return !e || e.name !== n; }})')
-    c.eq(bad, [], 'every name in the split is an exercise-list name (Preacher Curls (Dumbbell/Bar) has its own entry)')
-    c.eq(p.evaluate(f'() => {{ const e = PT.exCanon("{PCN}"); return [e.category, e.tips[0]]; }}'), ['Biceps', 'Rest your upper arms on the pad and hold the bar or dumbbells'], 'its entry has the preacher curl tips')
+    c.eq(bad, [], 'every name in the split is an exercise-list name')
     c.eq(p.evaluate(f'() => ({SETS})({BUILT})'), {'1': 16, '3': 440, '5': 48}, 'the whole split: every lift 3 sets; only the 3 ab exercises on the 16 Core & Cardio days have 5, the Stairmaster 1')
     c.eq(p.evaluate(f'() => [...new Set({BUILT}.days.flatMap(d => d.exercises.filter(e => e.sets === 5).map(e => e.name)))]'), ABS, 'the 5-set exercises are the ab exercises')
     c.ok(p.evaluate(f'() => EXERCISE_DATABASE.some(x => x.name === "{TO}")'), 'Cable Wrist Curls is an exercise from the exercise list')

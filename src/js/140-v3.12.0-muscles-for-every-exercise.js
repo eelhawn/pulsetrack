@@ -48,6 +48,7 @@
     curl: "biceps:100 | brachialis:65 forearm_flexors:40 front_delts:15",
     curl_seated: "biceps:100 | brachialis:65 forearm_flexors:40",
     preacher_curl: "biceps:100 | brachialis:70 forearm_flexors:35",
+    preacher_vertical: "biceps:100 | brachialis:70 forearm_flexors:35",
     concentration_curl: "biceps:100 | brachialis:60 forearm_flexors:30",
     incline_curl: "biceps:100 | brachialis:55 forearm_flexors:35",
     spider_curl: "biceps:100 | brachialis:60 forearm_flexors:30",

@@ -2,7 +2,8 @@
 a name like dumbbell/bar, and sub ez bar reverse curl for standard ez bar curl and make it 3 sets"). Day 15, 31, 47 and 63: Preacher Curls
 says "Dumbbell/bar." under it, and EZ-Bar Reverse Curls is EZ-Bar Curls for 3 sets, in the program and, once, in a copy already on a
 phone (ticked sets move with it, your swaps, removals, notes and set counts are kept). Since 3.25.0 the program has "Preacher Curls
-(Dumbbell/Bar)" with no line under it and Cable Wrist Curls in the last spot (tests/threesets.py); this file still checks module 148's
+(Dumbbell/Bar)" with no line under it and Cable Wrist Curls in the last spot (tests/threesets.py), and since 3.26.0 "Vertical Preacher
+Curls (Bar)" (tests/verticalpreacher.py); this file still checks module 148's
 change of an old copy."""
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -22,7 +23,7 @@ with page() as p:
     # ---- the program
     for dn in (15, 31, 47, 63):
         r = p.evaluate(f'() => {{ const d = {DAY(dn, BUILT)}; return [d.exercises[7].name, d.exercises.some(x => x.name === "{FROM}")]; }}')
-        c.eq(r, ['Preacher Curls (Dumbbell/Bar)', False], 'Day %d: Preacher Curls (Dumbbell/Bar), no reverse curls (3.25.0)' % dn)
+        c.eq(r, ['Vertical Preacher Curls (Bar)', False], 'Day %d: Vertical Preacher Curls (Bar) (3.26.0), no reverse curls' % dn)
     left = p.evaluate(f'() => {BUILT}.days.flatMap(d => d.exercises).filter(e => e.name === "{FROM}" || e.notes === "Vertical pad.").length')
     c.eq(left, 0, 'no EZ-Bar Reverse Curls or "Vertical pad." left in the split')
     c.ok(p.evaluate(f'() => EXERCISE_DATABASE.some(x => x.name === "{TO}")'), 'EZ-Bar Curls is an exercise from the exercise list')

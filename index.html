@@ -436,7 +436,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v3.25.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v3.26.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3847,7 +3847,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "3.25.0";
+    const APP_VERSION = "3.26.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -36707,7 +36707,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   }
   const SM = (pts, fill, stroke, sw) => ({ k: "sm", pts, fill, stroke: stroke == null ? OUTLINE : stroke, sw: sw == null ? OW : sw });
 
-  function person(j, hi, plain) {
+  function person(j, hi, plain, mid) {   // 3.26.0: mid = kit drawn over the torso but under the near arm (a pad between chest and arm)
     hi = hi || {};
     const on = k => (hi[k] || 0) > 0, out = [];
     const mark = (k, pts, far) => { if (on(k) && !plain) out.push(F(pts, hiColor(hi[k], far))); };
@@ -36747,6 +36747,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     out.push(O(j.head, 12, body, OUTLINE, OW));
     out.push(O(offs(offs(j.head, hn, 5.5), hu, 2.6), 1.7, OUTLINE, OUTLINE, 0));
     mark("delts", capPts(offs(S, tu, -2), offs(S, tu, -2), 7.2, 7.2));
+    if (mid && mid.length) out.push(...mid);
     arm(j.shoulder, j.elbow, j.hand, j.grip, body, false);
     if (on("delts") && !plain) out.push(F(capPts(offs(S, tu, -1.5), offs(S, tu, -1.5), 6.4, 6.4), hiColor(hi.delts)));   // the shoulder cap shows over the arm
     return out;
@@ -36937,6 +36938,15 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       start: "Sit with the backs of your arms flat on the pad, arms nearly straight.", end: "Curl the weight up, then lower it slowly until your arms are nearly straight.",
       props: j => PROPS.seat(j, {}).concat([L([j.shoulder[0] + 6, j.shoulder[1] + 16], [j.shoulder[0] + 34, j.shoulder[1] + 44], C.kit, 12), L([j.shoulder[0] + 18, j.shoulder[1] + 36], [j.shoulder[0] + 18, FLOOR], C.kit, 6)]),
       frames: [S({ hip: [138, 150], t: 80, ankle: [186, 196], ua: -46, fa: -36, floor: false }), S({ hip: [138, 150], t: 80, ankle: [186, 196], ua: -46, fa: 98, floor: false })] },
+    // 3.26.0: the vertical side of a preacher bench (the owner stands at it): chest on the slanted back of the pad, arms over the top and
+    // straight down its upright front, so the upper arms stay vertical and the forearms curl up in front of them
+    preacher_vertical: { label: "vertical preacher curl", kit: "barbell", kits: ["barbell", "dumbbell"], go: "curl up", back: "lower", joint: "grip", plate: 10,
+      start: "Stand behind the upright side of the preacher pad, chest on the pad, upper arms hanging straight down its front.", end: "Curl the weight up without lifting your upper arms off the pad, then lower until your arms are nearly straight.",
+      // the pad: an upright cushion on a post, its front against the backs of the upper arms from the armpits to below the elbows; drawn
+      // over the chest and under the near arm (mid), the post and its foot behind you (props)
+      mid: j => { const x = Math.min(j.shoulder[0], j.elbow[0]) - 14, y1 = j.shoulder[1] + 7, y2 = j.elbow[1] + 8; return [L([x, y1], [x, y2], C.kit, 17), L([x, y1], [x, y2], C.kitFill, 11)]; },
+      props: j => { const x = Math.min(j.shoulder[0], j.elbow[0]) - 15, y2 = j.elbow[1] + 8; return [L([x, y2], [x, FLOOR], C.kit, 6), L([x - 24, FLOOR], [x + 22, FLOOR], C.kit, 6)]; },
+      frames: [S({ hip: [128, 104], t: 48, ankle: [140, 196], ua: -88, fa: -84 }), S({ hip: [128, 104], t: 48, ankle: [140, 196], ua: -88, fa: 78 })] },
     pushdown: { label: "triceps pushdown", kit: "cable", go: "push down", back: "up", joint: "grip",
       start: "Stand close to the cable, elbows at your sides, forearms up.", end: "Push down until your arms are straight, then let your forearms come back up.",
       props: () => PROPS.tower(null, { x: 214 }), cable: () => [212, 18],
@@ -37745,6 +37755,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     ["hip_abduction", "abduct|fire hydrant|clam", ""],
     ["kickback", "kickback|kick[- ]back", ""],
     ["wrist_curl", "wrist|forearm curl|finger curl|wrist roller|reverse wrist", ""],
+    ["preacher_vertical", "vertical (pad )?preacher|preacher.*vertical", ""],
     ["preacher_curl", "preacher|scott curl|spider curl|concentration", ""],
     ["curl", "curl|\\b21s\\b", ""],
     ["push_up", "pike (push|press)|planche press", ""],
@@ -37927,6 +37938,8 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     "Smith Machine Row": ["bent_row", "smith"],
     "Snatch-Grip Deadlift": ["deadlift", "barbell"],
     "Spider Curls": ["spider_curl", "barbell"],
+    "Vertical Preacher Curls (Bar)": ["preacher_vertical", "barbell"],
+    "Vertical Preacher Curls (Dumbbell)": ["preacher_vertical", "dumbbell"],
     "Squat / Kettlebell Snatch (Tabata)": ["air_squat", "none"],
     "Stability Ball Crunches": ["crunch", "none"],
     "Stability Ball Leg Curls": ["ball_leg_curl", null],
@@ -38020,15 +38033,15 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   function layout(id, kit) {
     const key = id + "|" + kit; if (fitCache.has(key)) return fitCache.get(key);
     const pat = PATTERNS[id], frames = pat.frames.map((_, f) => frameParts(id, f, kit));
-    const props = pat.props ? pat.props(frames[0].j, kit) : [];
-    const all = props.slice();
+    const props = pat.props ? pat.props(frames[0].j, kit) : [], mid = pat.mid ? pat.mid(frames[0].j, kit) : [];
+    const all = props.concat(mid);
     frames.forEach((fp, f) => { all.push(...person(fp.j), ...kitAt(kit, fp.j, pat, f), ...(pat.dyn ? pat.dyn(fp.j, kit) : [])); });
     const floorOn = pat.floor !== false && pat.frames.some(fr => fr.floor !== false);
     const [x1, y1, x2, y2] = bbox(all.concat(floorOn ? [L([160, FLOOR], [160, FLOOR], C.floor, 3)] : []));
     const M = 14, s = Math.min(1, (W - 2 * M) / (x2 - x1), (H - 2 * M) / (y2 - y1));
     const tx = (W - (x2 - x1) * s) / 2 - x1 * s, ty = floorOn ? (H - M + 2) - FLOOR * s - Math.max(0, (y2 - FLOOR)) * s : (H - (y2 - y1) * s) / 2 - y1 * s;
     const ty2 = Math.max(M - y1 * s, Math.min(ty, H - M - y2 * s));
-    const out = { s, tx, ty: ty2, frames, props, floorOn };
+    const out = { s, tx, ty: ty2, frames, props, mid, floorOn };
     fitCache.set(key, out); return out;
   }
   const n1 = v => Math.round(v * 10) / 10;
@@ -38059,7 +38072,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     if (opts.j) f = opts.j.frame || 0;
     const kp = kitAt(kit, fp.j, pat, f), behind = pat.behind ? kp : kp.filter(x => x.back), over = pat.behind ? [] : kp.filter(x => !x.back);
     const ghost = f && pat.frames.length > 1 && !pat.hold && opts.ghost === true ? `<g opacity="0.2">${emit(person(lay.frames[0].j, null, true))}</g>` : "";
-    const body = emit(lay.props) + ghost + emit(behind) + emit(person(fp.j, opts.hi)) + emit(over) + emit(pat.dyn ? pat.dyn(fp.j, kit) : []);
+    const body = emit(lay.props) + ghost + emit(behind) + emit(person(fp.j, opts.hi, false, lay.mid)) + emit(over) + emit(pat.dyn ? pat.dyn(fp.j, kit) : []);
     const floor = lay.floorOn ? `<line x1="16" y1="${n1(FLOOR * lay.s + lay.ty)}" x2="${W - 16}" y2="${n1(FLOOR * lay.s + lay.ty)}" stroke="${C.floor}" stroke-width="3" stroke-linecap="round"/>` : "";
     const lab = opts.label === false ? "" : frameLabel(pat, f);
     const tag = lab ? `<rect x="10" y="10" width="${Math.round(lab.length * 7.4 + 18)}" height="22" rx="11" fill="#27272a"/><text x="${Math.round(19)}" y="25" font-family="system-ui, -apple-system, Segoe UI, Roboto, sans-serif" font-size="12.5" font-weight="700" fill="#e4e4e7">${esc(lab)}</text>` : "";
@@ -38382,6 +38395,9 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       draw: () => [...pad([84, 160], [236, 120], 14), ln([222, 124], [222, F], 6), ln([110, 154], [110, F], 6), ci([262, 106], 8, PADF, PADS, 2), ln([240, 118], [262, 106], 5), ln([70, F], [70, 74], 8), pl([[62, 98], [70, 102], [70, 112]], 5), ...plates([70, 102], 22, 2), foot(50, 270)] },
     preacher_bench: { label: "Preacher curl bench", group: BENCH, look: "A seat facing a slanted arm pad, with a rack for the bar in front.",
       draw: () => [...seat(70, 150, 52), ln([96, F - 6], [172, F - 6], 6), ln([172, F], [172, 126], 7), ...pad([140, 104], [190, 138], 16), pl([[150, 120], [150, 130], [160, 130]], 4), ln([150, F], [196, F], 7)] },
+    // 3.26.0: the upright side of a preacher pad, used standing (the owner's vertical preacher curls)
+    preacher_vertical: { label: "Preacher pad, upright side", group: BENCH, look: "An upright arm pad on a post. You stand behind it, lean your chest on it and hang your upper arms straight down its front.",
+      draw: () => [ln([126, F], [206, F], 7), ln([166, F], [166, 132], 7), ...pad([166, 70], [166, 134], 18)] },
     ab_bench: { label: "Decline sit-up bench", group: BENCH, look: "A long sloped bench with foot rollers at the top end.",
       draw: () => [...pad([60, 180], [226, 110], 14), ln([214, 114], [214, F], 6), ci([240, 92], 8, PADF, PADS, 2), ci([252, 112], 8, PADF, PADS, 2), ln([226, 110], [248, 94], 5), foot(60, 260)] },
     hyper_bench: { label: "Back extension bench (45°)", group: BENCH, look: "A slanted frame with a hip pad near the top and a foot plate with ankle pads at the bottom.",
@@ -38551,6 +38567,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     if (has(/\b(front|back) lever\b/i)) return ["pullup_bar"];   // the gymnastics hold, not a machine
     if (has(/smith/i) || kit === "smith" || eq === "smith machine") return ["smith_machine"];
     if (has(/assist/i) && has(/pull|chin|dip/i) && !has(/band/i)) return ["assisted_pullup"];
+    if (has(/vertical (pad )?preacher|preacher.*vertical/i) && !MACH_RX.test(n)) return ["preacher_vertical", kit === "dumbbell" ? "dumbbells" : "ez_bar"];
     if (has(/preacher|scott curl/i) && !MACH_RX.test(n)) return ["preacher_bench", kit === "dumbbell" ? "dumbbells" : kit === "cable" ? "cable_station" : "ez_bar"];
     if (kit === "landmine" || eq === "landmine" || has(/landmine|meadows row/i) || id === "landmine_twist") return ["landmine", "barbell"];
     if (has(/chest[- ]supported t[- ]?bar/i)) return ["plate_tbar_row"];
@@ -38629,6 +38646,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
       case "fly_incline": case "incline_curl": case "chest_supported_row": case "spider_curl": case "overhead_press_seated": case "overhead_triceps_seated": return w("adjustable_bench");
       case "hip_thrust": case "bench_dip": case "push_up_incline": case "push_up_decline": return w("flat_bench");
       case "preacher_curl": return ["preacher_bench", kit === "dumbbell" ? "dumbbells" : "ez_bar"];
+      case "preacher_vertical": return ["preacher_vertical", kit === "dumbbell" ? "dumbbells" : "ez_bar"];
       case "squat": case "front_squat": case "overhead_press": case "good_morning": case "squat_hold": return kit === "barbell" ? ["squat_rack", "barbell"] : only();
       case "step_up": return w("box");
       case "jump": return /box/i.test(n) ? ["box"] : ["mat"];
@@ -38926,6 +38944,7 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     curl: "biceps:100 | brachialis:65 forearm_flexors:40 front_delts:15",
     curl_seated: "biceps:100 | brachialis:65 forearm_flexors:40",
     preacher_curl: "biceps:100 | brachialis:70 forearm_flexors:35",
+    preacher_vertical: "biceps:100 | brachialis:70 forearm_flexors:35",
     concentration_curl: "biceps:100 | brachialis:60 forearm_flexors:30",
     incline_curl: "biceps:100 | brachialis:55 forearm_flexors:35",
     spider_curl: "biceps:100 | brachialis:60 forearm_flexors:30",
@@ -40203,6 +40222,96 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
   proto.initExtras = function () {
     const r = oInit ? oInit.apply(this, arguments) : undefined;
     setTimeout(() => { try { run(this); } catch (e) { console.error("PulseTrack: Shoulders & Arms day / three sets change skipped", e); } }, 180);   // after 148 (170)
+    return r;
+  };
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 3.26.0: vertical preacher curls, bar and dumbbell apart, in Ilhaan's 3 Day Split (Day 15, 31, 47 and 63).
+ *  The owner, after 3.25.0: "for the preacher curls u added put dumbell and bar separate breh and add vertical in the name and do the
+ *  drawing correcrly"; asked, he wants the bar on the day with the dumbbells as a swap, and he does them standing at the pad.
+ *   - "Preacher Curls (Dumbbell/Bar)" is now "Vertical Preacher Curls (Bar)" on those days; "Vertical Preacher Curls (Dumbbell)" is its
+ *     own exercise in the list (exercises.js), the first swap offered for it, with its own history;
+ *   - the drawing (137 preacher_vertical, 138 preacher_vertical): standing, chest on an upright pad, upper arms straight down its front.
+ *  programs.js has the new days; a copy already on a phone is changed once here, the same way as 3.25.0 (module 149): sets you already
+ *  ticked move with it, your swaps and removals are kept (only what they swap back to changes), a note you wrote yourself is kept.
+ *  Its history moves too: workouts saved from this split (pid) with "Preacher Curls (Dumbbell/Bar)" (or "Preacher Curls") say
+ *  "Vertical Preacher Curls (Bar)", like 005 mergeExercise; last-time values follow and the note, PR base, rest time and favourite are
+ *  copied over. Runs once (settings.verticalPreacher), after 149. Only Ilhaan's 3 Day Split is changed.
+ * ===================================================================== */
+(function () {
+  "use strict";
+  if (typeof ApplicationUI === "undefined" || typeof PT === "undefined") return;
+  const proto = ApplicationUI.prototype;
+  const MINE = "my_6day_chest_back_legs_sharms", DAYS = [15, 31, 47, 63];
+  const OLD = ["Preacher Curls (Dumbbell/Bar)", "Preacher Curls"], TO = "Vertical Preacher Curls (Bar)", DB = "Vertical Preacher Curls (Dumbbell)";
+  const OLD_NOTES = ["Vertical pad.", "Dumbbell/bar."];
+  const idOf = dn => `${MINE}_d${dn}_vertical-preacher-curls-bar`, isOld = n => OLD.indexOf(n) >= 0;
+  const fix = e => { if (OLD_NOTES.indexOf(e.notes) >= 0) delete e.notes; };   // a note you wrote stays
+
+  function change(app) {
+    const p = app && app.data && Array.isArray(app.data.programs) ? app.data.programs.find(x => x && x.id === MINE) : null;
+    if (!p || !Array.isArray(p.days)) return 0;
+    const logs = app.logs || {};
+    let n = 0;
+    p.days.forEach(d => {
+      if (!d || !Array.isArray(d.exercises) || DAYS.indexOf(d.dayNumber) < 0) return;
+      const dn = d.dayNumber, pre = `${MINE}_d${dn}_`, id = idOf(dn);
+      // a ticked set is filed as program_dN_<exercise id>_s<set> (004 getLogKey)
+      const moveLogs = (oldId, newId) => {
+        if (!oldId || oldId === newId) return;
+        const from = pre + oldId + "_s", to = pre + newId + "_s";
+        Object.keys(logs).forEach(k => { if (k.startsWith(from)) { const t = to + k.slice(from.length); if (!(t in logs)) logs[t] = logs[k]; delete logs[k]; } });
+      };
+      const has = d.exercises.some(e => e && e.name === TO && !e.origName);
+      d.exercises = d.exercises.filter(e => {
+        if (!e) return true;
+        if (isOld(e.origName)) {   // swapped by you: keep the swap, change what it swaps back to
+          e.origName = TO; const old = e.id; e.id = id; moveLogs(old, id);
+          if (e.name === TO) delete e.origName;
+          n++; return true;
+        }
+        if (!isOld(e.name) || e.origName || e.added) return true;
+        if (has) { n++; return false; }
+        const old = e.id; e.name = TO; e.id = id; fix(e); moveLogs(old, id); n++;
+        return true;
+      });
+      (Array.isArray(d.removed) ? d.removed : []).forEach(r => { if (r && r.ex && isOld(r.ex.name) && !r.ex.origName && !r.ex.added) { r.ex.name = TO; r.ex.id = id; fix(r.ex); n++; } });
+      (Array.isArray(d.orig) ? d.orig : []).forEach(e => { if (e && isOld(e.name)) { e.name = TO; e.id = id; fix(e); n++; } });
+    });
+    return n;
+  }
+
+  // its history: like 005 mergeExercise, but only workouts saved from this split
+  function history(app) {
+    let hit = 0;
+    (app.sessions || []).forEach(s => { if (s && s.pid === MINE) (s.ex || []).forEach(e => { if (e && isOld(e.name)) { e.name = TO; hit++; } }); });
+    if (!hit) return 0;
+    const copy = (o, cb) => { if (!o || typeof o !== "object" || o[TO] !== undefined) return; const from = OLD.find(k => o[k] !== undefined); if (from) { o[TO] = o[from]; if (cb) cb(); } };
+    try { app.saveSessions(); } catch (e) { }
+    copy(app.exNotes, () => { try { PT.save(STORAGE_KEY_EXNOTES, app.exNotes); } catch (e) { } });
+    copy(app.prBase, () => { try { PT.save(STORAGE_KEY_PRBASE, app.prBase); } catch (e) { } });
+    ["restOverrides", "bwModes", "sideModes"].forEach(k => copy(app.settings[k]));
+    if (Array.isArray(app.settings.favEx) && OLD.some(k => app.settings.favEx.indexOf(k) >= 0) && app.settings.favEx.indexOf(TO) < 0) app.settings.favEx.push(TO);
+    try { app.recomputeSessionPRs && app.recomputeSessionPRs(); app.rebuildPRs && app.rebuildPRs(); app.rebuildLastPerfFor && app.rebuildLastPerfFor([TO]); } catch (e) { }
+    if (app.lastPerf) { copy(app.lastPerf); try { WorkoutStorage.saveLastPerf(app.lastPerf); } catch (e) { } }
+    return hit;
+  }
+
+  function run(app) {
+    if (!app || !app.settings || app.settings.verticalPreacher) return 0;
+    const n = change(app), h = n ? history(app) : 0;
+    app.settings.verticalPreacher = Date.now();
+    try { if (n) { WorkoutStorage.setData(app.data); WorkoutStorage.saveLogs(app.logs); } WorkoutStorage.saveSettings(app.settings); } catch (e) { }
+    try { if (n && app.activeProgram && app.activeProgram.id === MINE) { app.activeDay = (app.activeProgram.days || []).find(d => app.activeDay && d.dayNumber === app.activeDay.dayNumber) || app.activeDay; app.renderWorkoutView && app.renderWorkoutView(); } } catch (e) { }
+    return n + h;
+  }
+  PT.verticalPreacher = { run: () => run(window.app), TO, DB, DAYS };
+
+  const oInit = proto.initExtras;
+  proto.initExtras = function () {
+    const r = oInit ? oInit.apply(this, arguments) : undefined;
+    setTimeout(() => { try { run(this); } catch (e) { console.error("PulseTrack: vertical preacher curls change skipped", e); } }, 190);   // after 149 (180)
     return r;
   };
 })();

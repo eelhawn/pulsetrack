@@ -110,6 +110,9 @@
       draw: () => [...pad([84, 160], [236, 120], 14), ln([222, 124], [222, F], 6), ln([110, 154], [110, F], 6), ci([262, 106], 8, PADF, PADS, 2), ln([240, 118], [262, 106], 5), ln([70, F], [70, 74], 8), pl([[62, 98], [70, 102], [70, 112]], 5), ...plates([70, 102], 22, 2), foot(50, 270)] },
     preacher_bench: { label: "Preacher curl bench", group: BENCH, look: "A seat facing a slanted arm pad, with a rack for the bar in front.",
       draw: () => [...seat(70, 150, 52), ln([96, F - 6], [172, F - 6], 6), ln([172, F], [172, 126], 7), ...pad([140, 104], [190, 138], 16), pl([[150, 120], [150, 130], [160, 130]], 4), ln([150, F], [196, F], 7)] },
+    // 3.26.0: the upright side of a preacher pad, used standing (the owner's vertical preacher curls)
+    preacher_vertical: { label: "Preacher pad, upright side", group: BENCH, look: "An upright arm pad on a post. You stand behind it, lean your chest on it and hang your upper arms straight down its front.",
+      draw: () => [ln([126, F], [206, F], 7), ln([166, F], [166, 132], 7), ...pad([166, 70], [166, 134], 18)] },
     ab_bench: { label: "Decline sit-up bench", group: BENCH, look: "A long sloped bench with foot rollers at the top end.",
       draw: () => [...pad([60, 180], [226, 110], 14), ln([214, 114], [214, F], 6), ci([240, 92], 8, PADF, PADS, 2), ci([252, 112], 8, PADF, PADS, 2), ln([226, 110], [248, 94], 5), foot(60, 260)] },
     hyper_bench: { label: "Back extension bench (45°)", group: BENCH, look: "A slanted frame with a hip pad near the top and a foot plate with ankle pads at the bottom.",
@@ -279,6 +282,7 @@
     if (has(/\b(front|back) lever\b/i)) return ["pullup_bar"];   // the gymnastics hold, not a machine
     if (has(/smith/i) || kit === "smith" || eq === "smith machine") return ["smith_machine"];
     if (has(/assist/i) && has(/pull|chin|dip/i) && !has(/band/i)) return ["assisted_pullup"];
+    if (has(/vertical (pad )?preacher|preacher.*vertical/i) && !MACH_RX.test(n)) return ["preacher_vertical", kit === "dumbbell" ? "dumbbells" : "ez_bar"];
     if (has(/preacher|scott curl/i) && !MACH_RX.test(n)) return ["preacher_bench", kit === "dumbbell" ? "dumbbells" : kit === "cable" ? "cable_station" : "ez_bar"];
     if (kit === "landmine" || eq === "landmine" || has(/landmine|meadows row/i) || id === "landmine_twist") return ["landmine", "barbell"];
     if (has(/chest[- ]supported t[- ]?bar/i)) return ["plate_tbar_row"];
@@ -357,6 +361,7 @@
       case "fly_incline": case "incline_curl": case "chest_supported_row": case "spider_curl": case "overhead_press_seated": case "overhead_triceps_seated": return w("adjustable_bench");
       case "hip_thrust": case "bench_dip": case "push_up_incline": case "push_up_decline": return w("flat_bench");
       case "preacher_curl": return ["preacher_bench", kit === "dumbbell" ? "dumbbells" : "ez_bar"];
+      case "preacher_vertical": return ["preacher_vertical", kit === "dumbbell" ? "dumbbells" : "ez_bar"];
       case "squat": case "front_squat": case "overhead_press": case "good_morning": case "squat_hold": return kit === "barbell" ? ["squat_rack", "barbell"] : only();
       case "step_up": return w("box");
       case "jump": return /box/i.test(n) ? ["box"] : ["mat"];

@@ -43,9 +43,9 @@ with page() as p:
     c.ok(adj(8, 'Lat Pulldown', 'Reverse-Grip Lat Pulldown'), 'Week B day 1: lat pulldown and reverse-grip pulldown are together')
     c.ok(adj(11, 'Deadlift', 'Barbell Row') and adj(11, 'Incline Dumbbell Press', 'Dumbbell Bench Press'), 'Week B day 4: deadlift next to barbell row, the two dumbbell presses together')
     c.ok(adj(10, 'V-Bar Pushdown', 'Cable Overhead Extension') and adj(10, 'Cable Curls (EZ-Bar Attachment)', 'V-Bar Pushdown'), 'Week B day 3: the cable arm exercises are together')
-    c.ok(adj(13, 'Machine Preacher Curls', 'Preacher Curls (Dumbbell/Bar)') and adj(13, 'Close-Grip Bench Press', 'Skull Crushers'), 'Week B day 6: both preacher curls together, close-grip bench next to skull crushers')
+    c.ok(adj(13, 'Machine Preacher Curls', 'Vertical Preacher Curls (Bar)') and adj(13, 'Close-Grip Bench Press', 'Skull Crushers'), 'Week B day 6: both preacher curls together, close-grip bench next to skull crushers')
     c.eq(p.evaluate(NAMES(11))[0], 'Lat Pulldown', 'Week B day 4 still opens with the lat pulldown')
-    c.eq(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 13).exercises.find(e => e.name === "Preacher Curls (Dumbbell/Bar)").notes'), None, 'the preacher curls say Dumbbell/Bar in the name, no note (3.25.0)')
+    c.eq(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 13).exercises.find(e => e.name === "Vertical Preacher Curls (Bar)").notes'), None, 'the preacher curls are Vertical Preacher Curls (Bar), no note (3.26.0)')
     c.eq(p.evaluate(f'() => {PROG}.days.find(d => d.dayNumber === 10).exercises.slice(-1)[0].notes'), 'Palms up (supinated) and palms down (pronated).', 'wrist curls keep supinated / pronated')
     p.evaluate(f'() => app.selectProgram({PROG}, null, true)')
 

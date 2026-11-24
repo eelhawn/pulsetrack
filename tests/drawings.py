@@ -25,6 +25,7 @@ WANT = [('Bench Press', 'bench_press', 'barbell'), ('Incline Dumbbell Press', 'i
         ('Overhead Press', 'overhead_press', 'barbell'), ('Seated Dumbbell Press', 'overhead_press_seated', 'dumbbell'), ('Lateral Raises', 'lateral_raise', 'dumbbell'),
         ('Cable Lateral Raises', 'lateral_raise', 'cable'), ('Face Pulls', 'face_pull', 'cable'), ('Upright Rows', 'upright_row', 'barbell'),
         ('Barbell Curl', 'curl', 'barbell'), ('Hammer Curls', 'curl', 'dumbbell'), ('Preacher Curls (Dumbbell)', 'preacher_curl', 'dumbbell'),
+        ('Vertical Preacher Curls (Bar)', 'preacher_vertical', 'barbell'), ('Vertical Preacher Curls (Dumbbell)', 'preacher_vertical', 'dumbbell'),
         ('Rope Pushdown', 'pushdown', 'cable'), ('Overhead Triceps Extension', 'overhead_triceps', 'dumbbell'), ('Dumbbell Skull Crushers', 'skull_crusher', 'dumbbell'),
         ('Lat Pulldown', 'lat_pulldown', 'cable'), ('Pull-Ups', 'pull_up', 'none'), ('Seated Cable Row', 'seated_row', 'cable'), ('Inverted Rows', 'inverted_row', 'none'),
         ('Barbell Rows', 'bent_row', 'barbell'), ('Deadlift', 'deadlift', 'barbell'), ('Barbell Romanian Deadlift', 'rdl', 'barbell'), ('Hip Thrusts', 'hip_thrust', 'barbell'),

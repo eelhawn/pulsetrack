@@ -109834,8 +109834,8 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d15_preacher-curls-dumbbell-bar",
-      "name": "Preacher Curls (Dumbbell/Bar)",
+      "id": "my_6day_chest_back_legs_sharms_d15_vertical-preacher-curls-bar",
+      "name": "Vertical Preacher Curls (Bar)",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 60,
@@ -110972,8 +110972,8 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d31_preacher-curls-dumbbell-bar",
-      "name": "Preacher Curls (Dumbbell/Bar)",
+      "id": "my_6day_chest_back_legs_sharms_d31_vertical-preacher-curls-bar",
+      "name": "Vertical Preacher Curls (Bar)",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 60,
@@ -112110,8 +112110,8 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d47_preacher-curls-dumbbell-bar",
-      "name": "Preacher Curls (Dumbbell/Bar)",
+      "id": "my_6day_chest_back_legs_sharms_d47_vertical-preacher-curls-bar",
+      "name": "Vertical Preacher Curls (Bar)",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 60,
@@ -113248,8 +113248,8 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d63_preacher-curls-dumbbell-bar",
-      "name": "Preacher Curls (Dumbbell/Bar)",
+      "id": "my_6day_chest_back_legs_sharms_d63_vertical-preacher-curls-bar",
+      "name": "Vertical Preacher Curls (Bar)",
       "sets": 3,
       "reps": "10-12",
       "restSeconds": 60,
