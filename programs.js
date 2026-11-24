@@ -109840,7 +109840,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "10-12",
       "restSeconds": 60,
       "type": "standard",
-      "notes": "Vertical pad."
+      "notes": "Dumbbell/bar."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d15_rope-pushdown",
@@ -109859,9 +109859,9 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d15_ez-bar-reverse-curls",
-      "name": "EZ-Bar Reverse Curls",
-      "sets": 4,
+      "id": "my_6day_chest_back_legs_sharms_d15_ez-bar-curls",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
       "reps": "15",
       "restSeconds": 45,
       "type": "standard"
@@ -110979,7 +110979,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "10-12",
       "restSeconds": 60,
       "type": "standard",
-      "notes": "Vertical pad."
+      "notes": "Dumbbell/bar."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d31_rope-pushdown",
@@ -110998,9 +110998,9 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d31_ez-bar-reverse-curls",
-      "name": "EZ-Bar Reverse Curls",
-      "sets": 4,
+      "id": "my_6day_chest_back_legs_sharms_d31_ez-bar-curls",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
       "reps": "15",
       "restSeconds": 45,
       "type": "standard"
@@ -112118,7 +112118,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "10-12",
       "restSeconds": 60,
       "type": "standard",
-      "notes": "Vertical pad."
+      "notes": "Dumbbell/bar."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d47_rope-pushdown",
@@ -112137,9 +112137,9 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d47_ez-bar-reverse-curls",
-      "name": "EZ-Bar Reverse Curls",
-      "sets": 4,
+      "id": "my_6day_chest_back_legs_sharms_d47_ez-bar-curls",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
       "reps": "15",
       "restSeconds": 45,
       "type": "standard"
@@ -113257,7 +113257,7 @@ const BUILTIN_PROGRAMS = [
       "reps": "10-12",
       "restSeconds": 60,
       "type": "standard",
-      "notes": "Vertical pad."
+      "notes": "Dumbbell/bar."
      },
      {
       "id": "my_6day_chest_back_legs_sharms_d63_rope-pushdown",
@@ -113276,9 +113276,9 @@ const BUILTIN_PROGRAMS = [
       "type": "standard"
      },
      {
-      "id": "my_6day_chest_back_legs_sharms_d63_ez-bar-reverse-curls",
-      "name": "EZ-Bar Reverse Curls",
-      "sets": 4,
+      "id": "my_6day_chest_back_legs_sharms_d63_ez-bar-curls",
+      "name": "EZ-Bar Curls",
+      "sets": 3,
       "reps": "15",
       "restSeconds": 45,
       "type": "standard"

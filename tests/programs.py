@@ -36,7 +36,7 @@ with page() as p:
     c.eq({(e['sets'], e['reps']) for d in prog['days'] for e in d['exercises'] if 'Core & Cardio' in d['title'] and e['name'] != 'Stairmaster'}, {(5, '40-60')}, 'each of the three: 5 sets of 40-60 (200-300 reps)')
     c.ok(not any('Core' == p.evaluate('(n) => PT.category(n)', e['name']) for d in prog['days'] if 'Legs' in d['title'] for e in d['exercises']), 'no ab work left on the leg days')
     c.eq([len(d['exercises']) for d in prog['days']], [8, 8, 11, 4, 9, 8, 11, 4, 8, 8, 11, 4, 9, 8, 11, 4], 'exercises per day')
-    c.eq([sum(e['sets'] for e in d['exercises']) for d in prog['days']], [26, 28, 37, 16, 29, 28, 36, 16, 27, 28, 37, 16, 31, 28, 37, 16], 'sets per day')
+    c.eq([sum(e['sets'] for e in d['exercises']) for d in prog['days']], [26, 28, 37, 16, 29, 28, 36, 16, 27, 28, 37, 16, 31, 28, 36, 16], 'sets per day (3.24.0: Week B Shoulders & Arms 37 -> 36, EZ-Bar Curls 3 sets)')
     c.eq([[e['name'] for e in d['exercises']][i] for d, i in zip(W[:6], [0, 0, 0, 0, 0, 0])], ['Lat Pulldown', 'Seated Leg Curls', 'Dumbbell Shoulder Press', 'Lat Pulldown', 'Leg Extension', 'Smith Machine Overhead Press'], 'each day opens with the right lift')
     c.eq([[e['name'] for e in d['exercises']][-1] for d in W[:6]], ['Pec Deck', 'Seated Calf Raises', 'Cable Wrist Curls', 'Straight-Arm Pulldown', 'Seated Calf Raises', 'Behind-The-Back Barbell Wrist Curls'], 'each day ends with the right lift')
     c.eq(W[4]['exercises'][1]['reps'], '6-8', 'back squats are 6-8')
