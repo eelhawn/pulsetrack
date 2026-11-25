@@ -88,7 +88,7 @@
         sets: Math.max(1, Math.min(50, parseInt(e.sets, 10) || 3)),
         reps: clean(e.reps).slice(0, 40) || "10",
         restSeconds: Number.isFinite(parseInt(e.restSeconds, 10)) ? Math.max(0, Math.min(1800, parseInt(e.restSeconds, 10))) : 60,
-        type: clean(e.type).slice(0, 20) || "standard"
+        type: clean(e.type).replace(/[^\w-]/g, "").slice(0, 20) || "standard"
       };
       if (e.restAuto) ex.restAuto = true;
       if (e.notes) ex.notes = clean(e.notes).slice(0, 400);
@@ -99,7 +99,7 @@
     if (!exercises.length) return null;
     const p = obj.program || {};
     return {
-      from: { id: clean(p.id).slice(0, 80), title: clean(p.title).slice(0, 80) },
+      from: { id: clean(p.id).replace(/[^\w-]/g, "").slice(0, 80), title: clean(p.title).slice(0, 80) },
       dayNumber: parseInt(d.dayNumber, 10) || 0,
       title: clean(d.title).slice(0, 60) || "Shared workout",
       estimatedMinutes: Math.max(5, Math.min(240, parseInt(d.estimatedMinutes, 10) || Math.max(20, exercises.length * 9))),

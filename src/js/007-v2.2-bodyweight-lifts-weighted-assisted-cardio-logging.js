@@ -264,12 +264,12 @@
               <div class="flex items-center space-x-1.5 flex-grow justify-end pr-2">
                 <div class="flex items-center space-x-1">
                   <input type="number" inputmode="decimal" step="any" placeholder="${prev && prev.min ? v(prev.min) : "min"}" value="${v(entry.min)}"
-                    data-key="${key}" data-field="min" class="${cls}">
+                    data-key="${PT.esc(key)}" data-field="min" class="${cls}">
                   <span class="text-zinc-500 text-[10px]">min</span>
                 </div>
                 ${kind.cardio.dist ? `<div class="flex items-center space-x-1">
                   <input type="number" inputmode="decimal" step="any" placeholder="${prev && prev.dist ? v(prev.dist) : dl}" value="${v(entry.dist)}"
-                    data-key="${key}" data-field="dist" class="${cls}">
+                    data-key="${PT.esc(key)}" data-field="dist" class="${cls}">
                   <span class="text-zinc-500 text-[10px]">${dl}</span>
                 </div>` : ""}
               </div>`;

@@ -1835,6 +1835,8 @@
       },
       async importProgramObject(p) {
         const clean = t => String(t === undefined || t === null ? "" : t).replace(/[<>]/g, "").trim();
+        // 3.27.0: ids and types from a link only keep letters, digits, _ and - (they end up inside the page's attributes and log keys)
+        const cleanId = t => String(t === undefined || t === null ? "" : t).replace(/[^\w-]/g, "").slice(0, 80);
         if (!p || typeof p !== "object" || !Array.isArray(p.days) || !p.days.length) { await PT.alert("That doesn't look like a PulseTrack program."); return false; }
         const days = p.days.filter(d => d && Array.isArray(d.exercises)).map((d, di) => ({
           dayNumber: parseInt(d.dayNumber, 10) || di + 1,
@@ -1842,12 +1844,12 @@
           estimatedMinutes: parseInt(d.estimatedMinutes, 10) || 45,
           exercises: d.exercises.filter(e => e && e.name).map((e, ei) => {
             const ex = {
-              id: clean(e.id) || `imp_d${di + 1}_e${ei + 1}`,
+              id: cleanId(e.id) || `imp_d${di + 1}_e${ei + 1}`,
               name: clean(e.name),
               sets: Math.max(1, Math.min(50, parseInt(e.sets, 10) || 3)),
               reps: clean(e.reps) || "10",
               restSeconds: Number.isFinite(parseInt(e.restSeconds, 10)) ? Math.max(0, parseInt(e.restSeconds, 10)) : 60,
-              type: clean(e.type) || "standard"
+              type: cleanId(e.type).slice(0, 20) || "standard"
             };
             if (e.notes) ex.notes = clean(e.notes);
             if (e.link) ex.link = true;
@@ -1863,7 +1865,7 @@
         const title = clean(p.title) || "Shared Program";
         if (!await PT.confirm(`Add the program "${title}" (${days.length} days) to PulseTrack?`)) return false;
         if (!this.data || !Array.isArray(this.data.programs)) this.data = { programs: [] };
-        let id = clean(p.id) || ("shared_" + Date.now());
+        let id = cleanId(p.id) || ("shared_" + Date.now());
         if (this.data.programs.some(x => x.id === id)) id = id + "_" + Date.now().toString(36);
         this.data.programs.push({ id, title, description: clean(p.description) || "Shared program", tags: Array.isArray(p.tags) ? p.tags.map(clean).filter(Boolean).slice(0, 6) : ["Shared"], days });
         if (!WorkoutStorage.setData(this.data)) { this.data.programs.pop(); return false; }

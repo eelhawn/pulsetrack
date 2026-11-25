@@ -4,7 +4,31 @@ Run any test with:  python3 tests/<name>.py      or all of them:  python3 tests/
 Each test serves the repo folder on a free local port and drives the real page in Chromium.
 """
 import contextlib, functools, http.server, os, re, socketserver, sys, threading
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, Page, TimeoutError as PlaywrightTimeout
+
+
+# 3.27.0: the page has a Content-Security-Policy without 'unsafe-eval'. Playwright's own wait_for_function turns its text into code
+# inside the page (new Function), which the policy blocks, so tests whose condition is not true at once failed. page.evaluate is
+# compiled by the browser's debugger instead and is allowed, so wait_for_function polls with it (same arguments, every 50 ms).
+def _wait_for_function(self, expression, arg=None, timeout=None, polling=None, **_):
+    import time
+    js = '(arg) => { const v = (%s); return typeof v === "function" ? v(arg) : v; }' % expression.strip()
+    end = time.time() + (30000 if timeout is None else timeout) / 1000.0
+    step = polling if isinstance(polling, (int, float)) and polling > 0 else 50
+    last = None
+    while True:
+        try:
+            v = self.evaluate(js, arg)
+            if v:
+                return v
+        except Exception as e:   # the page is reloading, or the condition cannot be worked out yet
+            last = e
+        if time.time() > end:
+            raise PlaywrightTimeout('wait_for_function: %s not true after %d ms%s' % (expression[:120], timeout or 30000, ' (%s)' % last if last else ''))
+        self.wait_for_timeout(step)
+
+
+Page.wait_for_function = _wait_for_function
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

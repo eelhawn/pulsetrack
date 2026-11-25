@@ -9,6 +9,7 @@ The owner uses it on a phone; keep the UI compact and phone-first (390px and 360
 - `docs/RELEASE.md`: the release procedure you must follow every time.
 - `docs/STATE.md`: where work stopped, recent history, pending ideas.
 - `docs/PROGRAM-DATA.md`: how programs, week plans and logs work (easy to break).
+- `docs/SECURITY.md`: the page's Content-Security-Policy and what protects each way data comes in.
 
 ## Hard rules
 1. Never hand-edit `index.html` or `sw.js`. Edit `src/` and run `python3 tools/build.py`.
@@ -20,6 +21,7 @@ The owner uses it on a phone; keep the UI compact and phone-first (390px and 360
 7. After a release, tell the user which files changed (no placeholder hashes) and to open the app online once, then fully close and reopen it (service worker update).
 8. New tests go in `tests/`; `run_all.py` auto-discovers them. Verify a new test fails without the fix.
 9. Ilhaan's 3 Day Split only uses exercises he already does. Never bring in a new exercise or a different variant of one he has (the owner, 3.22.0: "dont make new exercises like the neutral cable row, use the wide bar cable row that was already in exercises"). When his wording could match several exercises, pick the one already in the split; if none fits, ask.
+10. The page has a Content-Security-Policy (3.27.0, docs/SECURITY.md): never add inline `on…="…"` attributes, `javascript:` links, `eval`/`new Function`, or scripts, pictures or style sheets from other sites, and put anything a person typed or sent into HTML through `esc`/`PT.esc`.
 
 ## Commands
 - Build: `python3 tools/build.py` (`--check` verifies index.html matches src/)

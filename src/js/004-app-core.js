@@ -2153,23 +2153,23 @@
 
             const inputsHtml = showLogger && kind.cardio ? this.cardioInputsHtml(key, logEntry, prevSet, kind, exercise) : showLogger ? `
               <div class="flex items-center space-x-1.5 flex-grow justify-end pr-2">
-                ${prevHint ? `<span class="text-[10px] text-zinc-500 font-mono hidden sm:inline">Prev: ${prevHint}</span>` : ''}
+                ${prevHint ? `<span class="text-[10px] text-zinc-500 font-mono hidden sm:inline">Prev: ${this.esc(prevHint)}</span>` : ''}
                 <div class="flex items-center space-x-1">
-                  <input type="number" inputmode="decimal" placeholder="${prevSet ? (prevSet.bz && !(parseFloat(prevSet.weight) > 0) ? "BW" : prevSet.weight) : (kind.bw ? "0" : "–")}" value="${logEntry.weight || ''}" 
-                    data-key="${key}" data-field="weight" 
+                  <input type="number" inputmode="decimal" placeholder="${this.esc(prevSet ? (prevSet.bz && !(parseFloat(prevSet.weight) > 0) ? "BW" : prevSet.weight) : (kind.bw ? "0" : "–"))}" value="${this.esc(logEntry.weight || '')}" 
+                    data-key="${this.esc(key)}" data-field="weight" 
                     class="input-set-field w-14 bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
                   <span class="text-zinc-500 text-[10px]">${wUnit}</span>
                 </div>
                 <div class="flex items-center space-x-1">
-                  <input type="number" inputmode="numeric" placeholder="${prevSet ? prevSet.reps : (exercise.reps || 'reps')}" value="${logEntry.reps || ''}" 
-                    data-key="${key}" data-field="reps" 
-                    class="input-set-field w-11 bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
+                  <input type="number" inputmode="numeric" placeholder="${this.esc(prevSet ? prevSet.reps : (exercise.reps || 'reps'))}" value="${this.esc(logEntry.reps || '')}" 
+                    data-key="${this.esc(key)}" data-field="reps" 
+                    class="input-set-field w-12 bg-zinc-950 border border-zinc-800 rounded px-1 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
                   <span class="text-zinc-500 text-[10px]">reps</span>
                 </div>
               </div>
             ` : `
               <div class="flex-grow text-right pr-4 text-zinc-400 font-mono text-xs">
-                ${exercise.reps ? `<span class="text-zinc-500">Target:</span> ${exercise.reps}` : ''}
+                ${exercise.reps ? `<span class="text-zinc-500">Target:</span> ${this.esc(exercise.reps)}` : ''}
               </div>
             `;
 
@@ -2178,19 +2178,19 @@
                 <div class="flex items-center justify-between py-1.5">
                 <div class="flex items-center space-x-1.5 flex-shrink-0">
                   <button class="btn-cycle-tag px-1.5 py-0.5 rounded border text-[10px] font-bold tap-active ${tagBadge}" 
-                    data-key="${key}" title="Tap to toggle Warm-up/Drop/Failure">
-                    ${currentTag}
+                    data-key="${this.esc(key)}" title="Tap to toggle Warm-up/Drop/Failure">
+                    ${this.esc(currentTag)}
                   </button>
                   <span class="font-bold ${isCompleted ? 'text-emerald-400' : 'text-zinc-400'}">S${s + 1}</span>
                   ${isPR ? `<span class="px-1 py-0.2 rounded bg-amber-950 text-amber-300 border border-amber-700/60 font-black text-[9px] pr-glow-badge">PR</span>` : ''}
                 </div>
                 ${inputsHtml}
                 <button aria-label="Mark set done" class="btn-check-set w-9 h-9 rounded-xl flex items-center justify-center border transition tap-active flex-shrink-0 ${isCompleted ? 'bg-emerald-600 border-emerald-500 text-white' : 'bg-zinc-800 border-zinc-700 text-zinc-500 hover:text-zinc-300'}" 
-                  data-key="${key}" data-rest="${restSec}" data-completed="${isCompleted ? '1' : '0'}" data-exname="${this.esc(exercise.name)}">
+                  data-key="${this.esc(key)}" data-rest="${restSec}" data-completed="${isCompleted ? '1' : '0'}" data-exname="${this.esc(exercise.name)}">
                   <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                 </button>
               </div>
-                <div class="plate-viz flex flex-wrap items-center gap-1 pb-1.5 pl-1" data-plates-for="${key}" data-bar="${isBar ? 1 : 0}">${isBar ? this.plateRowHtml(logEntry.weight) : ''}</div>
+                <div class="plate-viz flex flex-wrap items-center gap-1 pb-1.5 pl-1" data-plates-for="${this.esc(key)}" data-bar="${isBar ? 1 : 0}">${isBar ? this.plateRowHtml(logEntry.weight) : ''}</div>
               </div>
             `;
           }
@@ -2221,7 +2221,7 @@
                   <span class="text-base font-bold text-white">${this.esc(exercise.name)}</span>
                   <svg class="inline w-3.5 h-3.5 ml-0.5 -mt-0.5 text-zinc-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 19h16M7 15l3-4 3 2 4-6"/></svg>
                 </button>
-                <div class="flex items-center gap-2 mt-0.5"><p class="text-xs text-zinc-400 font-medium">${exercise.sets} ${parseInt(exercise.sets, 10) === 1 ? "Set" : "Sets"} × ${this.esc(exercise.reps || 'Intervals')}</p>${PT.cueLinkHtml ? PT.cueLinkHtml(exercise.name) : ""}</div>
+                <div class="flex flex-wrap items-center gap-2 mt-0.5"><p class="text-xs text-zinc-400 font-medium">${this.esc(exercise.sets)} ${parseInt(exercise.sets, 10) === 1 ? "Set" : "Sets"} × ${this.esc(exercise.reps || 'Intervals')}</p>${PT.cueLinkHtml ? PT.cueLinkHtml(exercise.name) : ""}</div>
               </div>
               <div class="flex items-center space-x-1 flex-shrink-0">
                 ${exIndex < exercisesList.length - 1 ? `<button class="btn-link-ex p-2 rounded-xl tap-active ${exercise.link ? "bg-purple-600 text-white" : "bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200"}" data-exindex="${exIndex}" title="${exercise.link ? "Unlink superset" : "Superset with next exercise"}" aria-label="Superset with next exercise">

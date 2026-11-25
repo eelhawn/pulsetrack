@@ -2,6 +2,10 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
+  <!-- 3.27.0: only the app's own scripts may run (each inline script is allowed by its SHA-256, filled in by tools/build.py), nothing
+       is loaded from other sites except Google Fonts for a Mod, and no plug-ins, <base> or form posts elsewhere. See docs/SECURITY.md. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'sha256-h4f+GUJNO38i94vbTJ1Ovg+5FnZR98YQrYNurIZobZA=' 'sha256-s5m3aUVjrD1OeN7RrqcHpP1aGRQVcRLGa+pwPzA4GzI=' 'sha256-lZ7lXTthLPS648pOvhqY09xQD9KVUQEw38563hcu7Q8=' 'sha256-mcoB7abaNAma4XDSXwYinIWEzembSJN1Jthz/edAfXU=' 'sha256-LmgKy1uB16WCEDZ4sep71RzrnvciYGaiIyzcFJZzQps=' 'sha256-QWs7WQ5O4QZH598Cw9jqzWvrt2OVZI0ehhisTGrDK5w=' 'sha256-uof6D6+vf6jCWwp70IESjVqfG/pksXiFWK7CYg5DSEk=' 'sha256-YKORjoL5TLAP63yBwOIQBKEml4i1X4mp7I7Vk9wPPxE=' 'sha256-ALO2fRWvE6FyGEg8kh8bchCoaSiNc6eBvHl/xOEd1TU=' 'sha256-gXm6QtkIqsCl+siFAhpM2JpAd562iI2ixOypxBJUAOc=' 'sha256-qEgftIh5HzZGtbZP5iC8a4ov2BfmRIlqNlcZqdwFUfU=' 'sha256-OPH2B61VmGFcF8W3IVQYje0+expawrY9HglOGfpo3JM=' 'sha256-GDuIayP/IG8U1NZ62llZ5st1YeX4Dk+f+KNWpi3sZpM=' 'sha256-XMFBlYPbGETYpwm4fCNCSUBUsg1I68qibfr4zYcdT6M=' 'sha256-wJvT+BEURt3pDH/NpEbNvpyyD3Vsw1613Q+/UVNUI0Y=' 'sha256-YQimXcTf0HWqnHtIleQXC6WKkh9Ip1Do3xILmKRZmLc=' 'sha256-5OskNL1yCAEuMDZP0a1otL9tCaLzTf6Vxx/uLwDD2GY=' 'sha256-G9htQtE2pcG2CaNdFwVWj6vfmyNod3O4caDoxtEGQEA=' 'sha256-nlH4lI1IGknT6W4MaQIfClTJtO5RNiXsxY+F410tTjg=' 'sha256-L5aquzyVccVBSr4jDrnGsfcv8VtxlaO+ojhgucFrk8U=' 'sha256-S0aJlaLBJnfT/oJgClhOfbhQOf9yrreoOUGcegtnw+k=' 'sha256-h0WM5y0jzqIUhru3QLFt/CqBUbZYMfeN0a45wMfWdoo=' 'sha256-6LTCmHfLoi3mlPlJSr7BhshhseRluhtrU9OdP/XQ5Kg=' 'sha256-j/nhmrJ9sw+F4TxAYB8A2WQpyVWfYwKWJvSzgA5LPU4=' 'sha256-saYmd4ZO86TmNOnMYX7UmrANQZJMVgTqwVnEohuA80s=' 'sha256-TmwMIDcpCYjtzdmBclSLKtjvVIulLbMR/FUlE39iZ3I=' 'sha256-H2oy3ct1SVz9IXouqembcBkUPetp9FwTx2mbQhply78=' 'sha256-J7T8PyExk35EjUmezBbGeeN2zfSsb2/gLGnSyEWO36I=' 'sha256-oWX8qRknZ3a3MWzJbMkxjMtfk+HnfBeFz86zZ0SenW8=' 'sha256-Ojlh7a8ObKyR/GRGzHVo0WSJBzK/A93ugf5QYe0Cp8s=' 'sha256-9UO4YOoj716MNca6A0iwG8tnKPcgJGYKD5wlVUTuoD0=' 'sha256-HF3ZgeOcb0V3N+NqnpEN3GR5dVZ3upSP8bflEoj0HMI=' 'sha256-/zqywAguEl7naw0dbBMAmcoEgUvWsyfzwLJ7IFYxodc=' 'sha256-Ftg269xd/RpU4YU5pVK9oWXCSbsSscVZzzhkV3VCe9Y=' 'sha256-wrqBHV7NgqV0CEyYYwbZY47RD/sqjKz2lRJ7TXRuEKk=' 'sha256-2tJTXEShTl0R3sEqs1yUs50QudA8YU61rr9fbhPhtkE=' 'sha256-zs+nZ1bNliNiqn0GBrucFwVBQA9cuOxW8+6vnDEEtrM=' 'sha256-q1960fC/4Ea2aD3f7we1qyAYTM+sf5szWMOHldJqsow=' 'sha256-S0du3H7Zv7nHfABdkEBBf65d4F8Cp3X5Sby4wQf3Uys=' 'sha256-OySL2ONOfl2OUfN5nU5m/Ad2pNh9Wr/xc9+ijAicGXc=' 'sha256-UC75vaPRLAxnUA3fkMl6kh3XIKVrF8dL42qNBlCMOnA=' 'sha256-M63nLBQwTLvBolFSrIuiscs7ignl4/1UlHmvLNuP9HU=' 'sha256-T+FcTd9XMtiWWUGAweTWQ7w+JS2JIrMeDBAUBj6PHOA=' 'sha256-WNJpU1UMZGxVuMem3fS9Md+3icJ/5pv/fYtk02tukGY=' 'sha256-/RwoZY/rFzf/pkd+uzvxSFNntVRqhIgPyzBQHI+BdWI=' 'sha256-lmAo9WcekBQxcow1KqUimJJlglm2dsKEeMzDuoeOu4g=' 'sha256-dlzRI4o9jRELWdPID5C7zZmoPiphUwdqTddVV0pFiXc=' 'sha256-5Lf/zlBpbbS8uHVtiJjB88Llt6bX92vSh2CBOuk6oks=' 'sha256-u9Y/fO0cvpR52seZc6S0MzSHo8aGYK2z/4eCHeMiYes=' 'sha256-XA6nhh7i7D9FDEdDRIHvMe/XVRmxc64qJH3GOtjrAp4=' 'sha256-PWQAZWNtbaUUh54fKRmHY/QZpFe3AR2702Q2SChJSJ4=' 'sha256-g8trpOugRvE8FrFlxnylNplXDlrbr1kUOsvKsnCNI7k=' 'sha256-l+hq22oOxhTdD5lIP06mGYjlidiYZvEY1e+EDdLStIg=' 'sha256-37fBG5lmA/SHSS6MEWeUi+511MyvEF7drmT/n/iiOqs=' 'sha256-/S7qtfDre3b5KnjfTBcDHwju7ld32b6Gyp9LNJETa/8=' 'sha256-W2P/i/NSWXcswh6nMVV80bGBNW0wacPzKGODkNbXas8=' 'sha256-EAyTOoS9UBS/JIfmkPlhEHB9sBiTqI+ARpambFW0L9Y=' 'sha256-GOhM3sNGne4QSIqOqjWTjXbNGwJ8OEJEBPi6IMghQO8=' 'sha256-d4I9JCUySVpTlsNsYbM9AmuYsicO+s4Zug8YWb/p/as=' 'sha256-vdmvMC9dLzmaI1KN4AcE6njrEm6LKBEqHwxIY5tlpaE=' 'sha256-MbsvtqDEA48OrOElf8QtkDgNQO4D4N9wD06LfR2LwnQ=' 'sha256-0hipy0dmyG9XFywQM5btF5K9YpiHpariy/pQ2Fi2qaM=' 'sha256-Pirxm3eSRESpkPLyIlxwg3p1tslM9BEEykjUv0X+D4o=' 'sha256-tmGqUPWSgM1oviij6U8T2dPeO5vWbICxQPulHcAeHh0=' 'sha256-HeUnDnJl6tzJrQAwcElTX4oa8V90Ty8EKlJx+40tZ/A=' 'sha256-CPP0CHwx7Tc+Ikx2lBrdk9bViTiTXGt5QKP/v6zOPDE=' 'sha256-JSzlw4drMiQ/e5y1kuX1qgmb9ZfFkoutGYU4o76banM=' 'sha256-DcYTBcGVbnpCh9p5MFzWTmdA5jfkRdKsGGymklrcPl8=' 'sha256-OKUAnEF2NB3ZXc8fSmiHwC8IpovFR/KLUkY8zMzo2Ko=' 'sha256-p4v3JkmS79o2o1pLaBWtoxSxLMNSBWfG/9VHnoNEYkU=' 'sha256-PD/9a6bKvn8qfzLoz6EMTPPXpPJncS016MsB8ZDkRcQ=' 'sha256-Z0aKRHZmH3UpsxqdaT7zmfEjdA/A0S52+xXoAb2h++8=' 'sha256-zWfGNGeb+4fPSGH+BpIAo+EHzbagl0azPi5sE8RUsWA=' 'sha256-Zd+c+Q89rThDGOGMZ/VT0fxU01XNWaVXpg4+EGocV/o=' 'sha256-gfCver34rkYH2jw732XV1lvsOl0z5htCzQh1wJMh3pI=' 'sha256-BvlRH4VRVLFT4G/yZwgQ9C0pCjSmxWCAV875E2gOLdI=' 'sha256-T+jwaDg9HAW3OZtS51qIziBl71xK/hseo+yh/u3UNKA=' 'sha256-qYMaXYAdjWVWE8P2fCAdLSIHagVs6A9SRQPBqspoMaE=' 'sha256-SBHiZypYcBzN2By1TXrOS7e3WVrZjVUueAADAFtB4to=' 'sha256-t7FXegFiCG2nMWVIBW2ND8i6wFxkDJM4Wd/IK/wQPRU=' 'sha256-JxDg1xuht/aqef4Vc2lrVJ72fsde9QbTCI+N1DF0TXw=' 'sha256-MSLhyhNE3pCmIw9o3tXA2Cwwc+/oK27FG9aqOPZ8kSk=' 'sha256-2ZdYuebev5sd2/gvsh9j5IcoP2Dt8gpWuszVLbhrcSI=' 'sha256-kqwxadvmsfPIQHaeXnJfs8GMJWshBD9vthMI2QUYOJk=' 'sha256-mpFaYkhtycGjQzV7TlntDHqtZ8jMNpZ/+HZCQgxGXfk=' 'sha256-Uk+0/nyINxe2EWNz1rP2bxYbLAlBnv1PW/Rn/v8bknk=' 'sha256-bZN2C7qOAvvjys4cxpKlgS5ESXACuI4vet/b4x4ci0E=' 'sha256-byA8COeXwXOV04DNyfrRS2BKBHrub8Ayo1UICBwgkqo=' 'sha256-g/1rzUHsrr0jfsEFDGwo7A4iWivtEIcrQQsxlBI14Hg=' 'sha256-Yd4F/dJKXB1egNIL7QaRxr6p5567QTkDYmw0aswF4Zg=' 'sha256-c9HvXoIwwDNv6wXgDVNkQOG9Nba80/i/a8mqnDMeQPY=' 'sha256-Eqv8NI7799oqM5El942yXet2sk2o+cUFt3jmj5aoSbE=' 'sha256-IwIjlZHYmp9RuBj7UUcBEI0Iwdy+fhnhVrc5UR26Pi0=' 'sha256-JVkk7iuAyhEK+q7kJmlq4NAPnB1g/EoDc5/3WJa1l/M=' 'sha256-oAYJTG3P06btb9DAe62x+lod77XTHcRZGD9ykc8tSmg=' 'sha256-3K2CgGBcX/jugGeFsg4Tam1BY5aiEh3AMqWLHQU7yIY=' 'sha256-BsHxxb2ksoGGbCSG0HjE4NTTz5O9MQt34oZVw8tReTI=' 'sha256-P5jq8K6soluRN5GkrLqtCeN4rrFDZSuQ1AcVMXnb3S4=' 'sha256-s2ZvL7nYvsGgeE7AilU5U0PQ4vFwlTDR+tavO6avNOI=' 'sha256-9RGBFfyJOjArfRqj0rVDrFT2byR74poTCxtU/5hIZtg=' 'sha256-Jlx48ZEEag26I01cOrsua4RUD6hbIsJqeF6MJ92LjDo=' 'sha256-drHH4g5IbCHIO8ngBHwfziVlveecWe13/jbyvMtb/fc=' 'sha256-k6YEY9v1TJVmfJoTz4cUuyYIhJ0n8pRAUcboUL3J1sU=' 'sha256-jdr/BvYeDD9m5t7yFUsSXnO5ecqT6hqQeoS0TKGc4LE=' 'sha256-AfXYgFZPC1cojtGMJmNMgmsUuEdmS39lPXuZesgxsos=' 'sha256-aie9KbmX3o5FLlzCHVtPN16hzzjbZwUfZ61vF4mmojU=' 'sha256-GoSiByjKVl7+1eSAwA/kbj45BqR9dg9y+dgKi1IUGjI=' 'sha256-RBpwh+Tqwfllepp1AkbDRLNE/SscM5dxX3P1NTg3slY=' 'sha256-RGpMLg3wAsIPCHguaEnDz81oMWU8hmuuxZYV2XLd39k=' 'sha256-5SO3/2kDptvQTglXHHkBTgAaACAmAOkMxMCWA/q/2GU=' 'sha256-OyVGv/AmATgI9OjXMi5Dcb8HkwPMtHmUF0yYq2Tm5Wk=' 'sha256-3ectk8ZshTrvBWMgDdi19u/cwF/A/0fGHPrh8GKbo9k=' 'sha256-sro42buzd4CjMMX9cEctWYtXl6Zp0vpn9BSwauOCoHg=' 'sha256-dnkBB6D3KnaGZG+xHbryx0s6VnR3+hm29FLANgDGie0=' 'sha256-Oz3YGLakYkz+G9dinI28U40hs4nFYHgW0cqPRYXvX4U=' 'sha256-WP68h6bKWve/VxJ1eMMqhXohQ8/6h8vauYk3d7SwMYk=' 'sha256-JveMh+l/DP8j1xdAKgEJyKfgnJWwF5YExVipXwhlSJg=' 'sha256-6HNS3R4lfiTY9zDa0a8Y3g/EBOFVrTRxhYFiPJ7Kh84=' 'sha256-xQ9IKMAc2+lNZibASIr/ecwTYXN7uamwkzITr4lRtIY=' 'sha256-wuBtdFtTfNzDXgK6ceGiBPdSbFUoyyu23zEkqdOU+Qg=' 'sha256-EkjmURZ20E1T4tg/OOaAqwGvYG59UGDLMxAYSuhhkrs=' 'sha256-ZmqG6ikWQMKadK01CDRx3r4CVF1S8Oug80s+COCVKd4=' 'sha256-WsCEhEhGhnRyzZXH7BRK32u76Ka17UONXpta0DBnOjk=' 'sha256-uyX9X1zFaZOGYoKK9qcvc/roxwKkURPyJzKFfvHXxQc=' 'sha256-3yjfDDQeE0pnBR+dHwIZN+jFlSRUGhKbxbXUvASnV7E=' 'sha256-RqoX+s92hpi/Td3OzuzjuoOuGiP/yDnZ/n0iKJ4ue4o=' 'sha256-gHGUpiMqhJ7ubFQxsibC5K/aPXoBX1gSzF5Q7Wvbzrw=' 'sha256-bBmo+LIX8q7O2LvQvC313pAAnefJ+e4o6eIr9WQl+04=' 'sha256-FEWgQ1+MSvU0Ra5nkNUPsPqstGLe2UVYph6iM1mPVJ0=' 'sha256-NJ8NxxVL4It9weIlgU21smePA20yUupcPxFr5cyAO14=' 'sha256-PJq+TDrEyWbuaMLslRnYAH1k8mBgkEJ0bir7IDfxHg0=' 'sha256-NLiVToTX5Bk+4kcFjNpPLpxf/1+R7QvLfDfF8l2lhnQ=' 'sha256-ZxCqM3m9PL1cGwkadhnVmbDIIMyEztBTD8E/FvYJzAE=' 'sha256-8Lo2HdR77U0uc49aC4XdDDwef24MD9YpsgPQfydm/74=' 'sha256-RBy+z8R+FNVOnIYRpqB6G0HSLNT4c4GjBWtYHekeUVM=' 'sha256-ucOicMN9PhJDt1J5gh/AE9Kku2DKDwOGjuqIdAgEq/w=' 'sha256-2kp8yf/3wFCV/glLjtB6MAkQORnz40u4Jy6Ua00X3Fk=' 'sha256-fCV6VhiY+Dqkvd8fCqPWNfDtMy8bydcvRbwiVEsQLl8=' 'sha256-BA9W+Vg7FNLstdvdiDu3OXT/Zcy9FAkORNdANPcfej4=' 'sha256-zc6V2r9gvJP1AEsKPDac4D3I/ZT3wPjm0OB7oze3I2A=' 'sha256-lQqAotM6k3+017YRjDZHXyA9Bc3WGtHTwOLg2K3fzP0=' 'sha256-ETRxP4UIr/KxT4o/5rkSk+jf0MrFTLjr1X9oDZP6K24=' 'sha256-mBLajRZswOqBViLuvkX1cD3LKG6uO+k5Xja8Fenr0jg=' 'sha256-6p+qZbepSOvtJGJlfVb1bu2FVm9t0TZWqvrcqcXRfgE=' 'sha256-6Eg8htzpcNQfv6LzvjD2d/1iKN0bwn9F6jy7graqUts=' 'sha256-/8YsmG9Jy4pFHzetDL71h+5LiZwHTK5e8X5I3EzoSVU=' 'sha256-6W0AvTVexH9Qfz7p3vuA3D0AQfEsqCIsBPGmzKnQEk0=' 'sha256-fH3cQ6CLlOW3fuZuTLCL3ThUSFfK6tfE+BTxMPpaods='; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; connect-src 'self' https: http: data: blob:; worker-src 'self'; manifest-src 'self'; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -436,7 +440,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
     <!-- Drawer Footer -->
     <div class="p-4 border-t border-zinc-800 bg-zinc-950/60 flex items-center justify-between text-[11px] text-zinc-500">
-      <span>PulseTrack <span id="drawer-version">v3.26.0</span></span>
+      <span>PulseTrack <span id="drawer-version">v3.27.0</span></span>
       <span id="cal-total-lifetime-badge">0 Lifetime Sessions</span>
     </div>
   </aside>
@@ -3382,23 +3386,23 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
 
             const inputsHtml = showLogger && kind.cardio ? this.cardioInputsHtml(key, logEntry, prevSet, kind, exercise) : showLogger ? `
               <div class="flex items-center space-x-1.5 flex-grow justify-end pr-2">
-                ${prevHint ? `<span class="text-[10px] text-zinc-500 font-mono hidden sm:inline">Prev: ${prevHint}</span>` : ''}
+                ${prevHint ? `<span class="text-[10px] text-zinc-500 font-mono hidden sm:inline">Prev: ${this.esc(prevHint)}</span>` : ''}
                 <div class="flex items-center space-x-1">
-                  <input type="number" inputmode="decimal" placeholder="${prevSet ? (prevSet.bz && !(parseFloat(prevSet.weight) > 0) ? "BW" : prevSet.weight) : (kind.bw ? "0" : "–")}" value="${logEntry.weight || ''}" 
-                    data-key="${key}" data-field="weight" 
+                  <input type="number" inputmode="decimal" placeholder="${this.esc(prevSet ? (prevSet.bz && !(parseFloat(prevSet.weight) > 0) ? "BW" : prevSet.weight) : (kind.bw ? "0" : "–"))}" value="${this.esc(logEntry.weight || '')}" 
+                    data-key="${this.esc(key)}" data-field="weight" 
                     class="input-set-field w-14 bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
                   <span class="text-zinc-500 text-[10px]">${wUnit}</span>
                 </div>
                 <div class="flex items-center space-x-1">
-                  <input type="number" inputmode="numeric" placeholder="${prevSet ? prevSet.reps : (exercise.reps || 'reps')}" value="${logEntry.reps || ''}" 
-                    data-key="${key}" data-field="reps" 
-                    class="input-set-field w-11 bg-zinc-950 border border-zinc-800 rounded px-1.5 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
+                  <input type="number" inputmode="numeric" placeholder="${this.esc(prevSet ? prevSet.reps : (exercise.reps || 'reps'))}" value="${this.esc(logEntry.reps || '')}" 
+                    data-key="${this.esc(key)}" data-field="reps" 
+                    class="input-set-field w-12 bg-zinc-950 border border-zinc-800 rounded px-1 py-1.5 text-right font-mono text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-emerald-500">
                   <span class="text-zinc-500 text-[10px]">reps</span>
                 </div>
               </div>
             ` : `
               <div class="flex-grow text-right pr-4 text-zinc-400 font-mono text-xs">
-                ${exercise.reps ? `<span class="text-zinc-500">Target:</span> ${exercise.reps}` : ''}
+                ${exercise.reps ? `<span class="text-zinc-500">Target:</span> ${this.esc(exercise.reps)}` : ''}
               </div>
             `;
 
@@ -3407,19 +3411,19 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
                 <div class="flex items-center justify-between py-1.5">
                 <div class="flex items-center space-x-1.5 flex-shrink-0">
                   <button class="btn-cycle-tag px-1.5 py-0.5 rounded border text-[10px] font-bold tap-active ${tagBadge}" 
-                    data-key="${key}" title="Tap to toggle Warm-up/Drop/Failure">
-                    ${currentTag}
+                    data-key="${this.esc(key)}" title="Tap to toggle Warm-up/Drop/Failure">
+                    ${this.esc(currentTag)}
                   </button>
                   <span class="font-bold ${isCompleted ? 'text-emerald-400' : 'text-zinc-400'}">S${s + 1}</span>
                   ${isPR ? `<span class="px-1 py-0.2 rounded bg-amber-950 text-amber-300 border border-amber-700/60 font-black text-[9px] pr-glow-badge">PR</span>` : ''}
                 </div>
                 ${inputsHtml}
                 <button aria-label="Mark set done" class="btn-check-set w-9 h-9 rounded-xl flex items-center justify-center border transition tap-active flex-shrink-0 ${isCompleted ? 'bg-emerald-600 border-emerald-500 text-white' : 'bg-zinc-800 border-zinc-700 text-zinc-500 hover:text-zinc-300'}" 
-                  data-key="${key}" data-rest="${restSec}" data-completed="${isCompleted ? '1' : '0'}" data-exname="${this.esc(exercise.name)}">
+                  data-key="${this.esc(key)}" data-rest="${restSec}" data-completed="${isCompleted ? '1' : '0'}" data-exname="${this.esc(exercise.name)}">
                   <svg class="w-5 h-5 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
                 </button>
               </div>
-                <div class="plate-viz flex flex-wrap items-center gap-1 pb-1.5 pl-1" data-plates-for="${key}" data-bar="${isBar ? 1 : 0}">${isBar ? this.plateRowHtml(logEntry.weight) : ''}</div>
+                <div class="plate-viz flex flex-wrap items-center gap-1 pb-1.5 pl-1" data-plates-for="${this.esc(key)}" data-bar="${isBar ? 1 : 0}">${isBar ? this.plateRowHtml(logEntry.weight) : ''}</div>
               </div>
             `;
           }
@@ -3450,7 +3454,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
                   <span class="text-base font-bold text-white">${this.esc(exercise.name)}</span>
                   <svg class="inline w-3.5 h-3.5 ml-0.5 -mt-0.5 text-zinc-500 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 19h16M7 15l3-4 3 2 4-6"/></svg>
                 </button>
-                <div class="flex items-center gap-2 mt-0.5"><p class="text-xs text-zinc-400 font-medium">${exercise.sets} ${parseInt(exercise.sets, 10) === 1 ? "Set" : "Sets"} × ${this.esc(exercise.reps || 'Intervals')}</p>${PT.cueLinkHtml ? PT.cueLinkHtml(exercise.name) : ""}</div>
+                <div class="flex flex-wrap items-center gap-2 mt-0.5"><p class="text-xs text-zinc-400 font-medium">${this.esc(exercise.sets)} ${parseInt(exercise.sets, 10) === 1 ? "Set" : "Sets"} × ${this.esc(exercise.reps || 'Intervals')}</p>${PT.cueLinkHtml ? PT.cueLinkHtml(exercise.name) : ""}</div>
               </div>
               <div class="flex items-center space-x-1 flex-shrink-0">
                 ${exIndex < exercisesList.length - 1 ? `<button class="btn-link-ex p-2 rounded-xl tap-active ${exercise.link ? "bg-purple-600 text-white" : "bg-zinc-800 hover:bg-zinc-700 text-zinc-400 hover:text-zinc-200"}" data-exindex="${exIndex}" title="${exercise.link ? "Unlink superset" : "Superset with next exercise"}" aria-label="Superset with next exercise">
@@ -3847,7 +3851,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
      * PulseTrack 2 — history, analytics, backup, body tracking, sharing.
      * Everything here extends ApplicationUI and stores data on this device only.
      * ===================================================================== */
-    const APP_VERSION = "3.26.0";
+    const APP_VERSION = "3.27.0";
     // the menu footer (bottom left of the side menu) shows the real version
     try { const dv = document.getElementById("drawer-version"); if (dv) dv.textContent = "v" + APP_VERSION; } catch (e) {}
     const BACKUP_SCHEMA = 2;
@@ -5679,6 +5683,8 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
       },
       async importProgramObject(p) {
         const clean = t => String(t === undefined || t === null ? "" : t).replace(/[<>]/g, "").trim();
+        // 3.27.0: ids and types from a link only keep letters, digits, _ and - (they end up inside the page's attributes and log keys)
+        const cleanId = t => String(t === undefined || t === null ? "" : t).replace(/[^\w-]/g, "").slice(0, 80);
         if (!p || typeof p !== "object" || !Array.isArray(p.days) || !p.days.length) { await PT.alert("That doesn't look like a PulseTrack program."); return false; }
         const days = p.days.filter(d => d && Array.isArray(d.exercises)).map((d, di) => ({
           dayNumber: parseInt(d.dayNumber, 10) || di + 1,
@@ -5686,12 +5692,12 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
           estimatedMinutes: parseInt(d.estimatedMinutes, 10) || 45,
           exercises: d.exercises.filter(e => e && e.name).map((e, ei) => {
             const ex = {
-              id: clean(e.id) || `imp_d${di + 1}_e${ei + 1}`,
+              id: cleanId(e.id) || `imp_d${di + 1}_e${ei + 1}`,
               name: clean(e.name),
               sets: Math.max(1, Math.min(50, parseInt(e.sets, 10) || 3)),
               reps: clean(e.reps) || "10",
               restSeconds: Number.isFinite(parseInt(e.restSeconds, 10)) ? Math.max(0, parseInt(e.restSeconds, 10)) : 60,
-              type: clean(e.type) || "standard"
+              type: cleanId(e.type).slice(0, 20) || "standard"
             };
             if (e.notes) ex.notes = clean(e.notes);
             if (e.link) ex.link = true;
@@ -5707,7 +5713,7 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
         const title = clean(p.title) || "Shared Program";
         if (!await PT.confirm(`Add the program "${title}" (${days.length} days) to PulseTrack?`)) return false;
         if (!this.data || !Array.isArray(this.data.programs)) this.data = { programs: [] };
-        let id = clean(p.id) || ("shared_" + Date.now());
+        let id = cleanId(p.id) || ("shared_" + Date.now());
         if (this.data.programs.some(x => x.id === id)) id = id + "_" + Date.now().toString(36);
         this.data.programs.push({ id, title, description: clean(p.description) || "Shared program", tags: Array.isArray(p.tags) ? p.tags.map(clean).filter(Boolean).slice(0, 6) : ["Shared"], days });
         if (!WorkoutStorage.setData(this.data)) { this.data.programs.pop(); return false; }
@@ -6530,12 +6536,12 @@ html[data-mode="light"] .pt-cd.sel{box-shadow:0 0 0 2px rgb(var(--z50))}</style>
               <div class="flex items-center space-x-1.5 flex-grow justify-end pr-2">
                 <div class="flex items-center space-x-1">
                   <input type="number" inputmode="decimal" step="any" placeholder="${prev && prev.min ? v(prev.min) : "min"}" value="${v(entry.min)}"
-                    data-key="${key}" data-field="min" class="${cls}">
+                    data-key="${PT.esc(key)}" data-field="min" class="${cls}">
                   <span class="text-zinc-500 text-[10px]">min</span>
                 </div>
                 ${kind.cardio.dist ? `<div class="flex items-center space-x-1">
                   <input type="number" inputmode="decimal" step="any" placeholder="${prev && prev.dist ? v(prev.dist) : dl}" value="${v(entry.dist)}"
-                    data-key="${key}" data-field="dist" class="${cls}">
+                    data-key="${PT.esc(key)}" data-field="dist" class="${cls}">
                   <span class="text-zinc-500 text-[10px]">${dl}</span>
                 </div>` : ""}
               </div>`;
@@ -13948,7 +13954,7 @@ const PTSIM = (function () {
         sets: Math.max(1, Math.min(50, parseInt(e.sets, 10) || 3)),
         reps: clean(e.reps).slice(0, 40) || "10",
         restSeconds: Number.isFinite(parseInt(e.restSeconds, 10)) ? Math.max(0, Math.min(1800, parseInt(e.restSeconds, 10))) : 60,
-        type: clean(e.type).slice(0, 20) || "standard"
+        type: clean(e.type).replace(/[^\w-]/g, "").slice(0, 20) || "standard"
       };
       if (e.restAuto) ex.restAuto = true;
       if (e.notes) ex.notes = clean(e.notes).slice(0, 400);
@@ -13959,7 +13965,7 @@ const PTSIM = (function () {
     if (!exercises.length) return null;
     const p = obj.program || {};
     return {
-      from: { id: clean(p.id).slice(0, 80), title: clean(p.title).slice(0, 80) },
+      from: { id: clean(p.id).replace(/[^\w-]/g, "").slice(0, 80), title: clean(p.title).slice(0, 80) },
       dayNumber: parseInt(d.dayNumber, 10) || 0,
       title: clean(d.title).slice(0, 60) || "Shared workout",
       estimatedMinutes: Math.max(5, Math.min(240, parseInt(d.estimatedMinutes, 10) || Math.max(20, exercises.length * 9))),
@@ -18302,7 +18308,7 @@ const PTSIM = (function () {
     const vv = G.vals[k] || (G.vals[k] = startVals(a, ex, s)), last = (a.lastWorkingSets ? a.lastWorkingSets(ex.name) : []).slice(0, 4);
     const xf = extraFrom(ex), isExtra = cur >= 0 && cur >= xf;
     const chips = Array.from({ length: n }, (_, i) => { const e = a.logs[keyOf(a, ex, i)] || {}, d = doneSet(a, ex, i); return `<span class="pt-g-chip ${d ? "done" : i === s ? "cur" : ""}${i >= xf ? " extra" : ""}">${d ? "✓ " + (num(e.weight) ? esc(String(e.weight)) + "×" : "") + esc(String(e.reps || "")) : "S" + (i + 1) + (i >= xf ? "+" : "")}</span>`; }).join("");
-    const stepper = (id, label, val, step, ph) => `<div class="pt-g-fld"><span>${label}</span><div><button type="button" class="pt-g-st" data-gs="${id}" data-d="${-step}" aria-label="Less ${label}">−</button><input type="number" inputmode="decimal" id="pt-g-${id}" value="${val}"${ph !== undefined && ph !== "" ? ` placeholder="${ph}"` : ""} aria-label="${label}"><button type="button" class="pt-g-st" data-gs="${id}" data-d="${step}" aria-label="More ${label}">+</button></div></div>`;
+    const stepper = (id, label, val, step, ph) => `<div class="pt-g-fld"><span>${label}</span><div><button type="button" class="pt-g-st" data-gs="${id}" data-d="${-step}" aria-label="Less ${label}">−</button><input type="number" inputmode="decimal" id="pt-g-${id}" value="${esc(val)}"${ph !== undefined && ph !== "" ? ` placeholder="${esc(ph)}"` : ""} aria-label="${label}"><button type="button" class="pt-g-st" data-gs="${id}" data-d="${step}" aria-label="More ${label}">+</button></div></div>`;
     o.innerHTML = `<div class="pt-g-in">
       <div class="pt-g-top"><button type="button" class="pt-g-x" id="pt-g-close" aria-label="Close guided mode">✕</button><span class="pt-g-n">Exercise ${G.ei + 1} of ${list.length}</span><span class="pt-g-n">${pct}%</span></div>
       <div class="pt-g-bar"><span style="width:${pct}%"></span></div>
@@ -18326,7 +18332,7 @@ const PTSIM = (function () {
       const have = rows.filter(r => j < r.n), d = have.length > 0 && have.every(r => doneSet(a, r.ex, j)), x = have.length > 0 && have.every(r => j >= extraFrom(r.ex));
       return `<span class="pt-g-chip ${d ? "done" : j === r0 ? "cur" : ""}${x ? " extra" : ""}">${d ? "✓ " : ""}R${j + 1}${x ? "+" : ""}</span>`;
     }).join("");
-    const fld = (id, i, label, plain, val, step, ph) => `<div class="pt-gb-fld"><span>${label}</span><div><button type="button" class="pt-gb-st" data-gs="${id}" data-ex="${i}" data-d="${-step}" aria-label="Less ${plain} for ${esc(list[i].name)}">−</button><input type="number" inputmode="decimal" id="pt-g-${id}-${i}" value="${val}"${ph !== undefined && ph !== "" ? ` placeholder="${ph}"` : ""} aria-label="${plain} for ${esc(list[i].name)}"><button type="button" class="pt-gb-st" data-gs="${id}" data-ex="${i}" data-d="${step}" aria-label="More ${plain} for ${esc(list[i].name)}">+</button></div></div>`;
+    const fld = (id, i, label, plain, val, step, ph) => `<div class="pt-gb-fld"><span>${label}</span><div><button type="button" class="pt-gb-st" data-gs="${id}" data-ex="${i}" data-d="${-step}" aria-label="Less ${plain} for ${esc(list[i].name)}">−</button><input type="number" inputmode="decimal" id="pt-g-${id}-${i}" value="${esc(val)}"${ph !== undefined && ph !== "" ? ` placeholder="${esc(ph)}"` : ""} aria-label="${plain} for ${esc(list[i].name)}"><button type="button" class="pt-gb-st" data-gs="${id}" data-ex="${i}" data-d="${step}" aria-label="More ${plain} for ${esc(list[i].name)}">+</button></div></div>`;
     const panels = rows.map(r => {
       const ex = r.ex, lb = labs[r.i] || "";
       if (parts.indexOf(r) < 0) {
@@ -19030,7 +19036,7 @@ const PTSIM = (function () {
     const c = K.openSheet(el, `${K.head("Goal physique", "Used for calorie and protein targets.")}
       <div><span class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Goal</span><div class="flex flex-wrap gap-1.5" id="pt-pg-goal">${Object.keys(PHYS_GOALS).map(k => chip(`data-pgoal="${k}"`, PHYS_GOALS[k].label, p.goal === k)).join("")}</div></div>
       <div><span class="block text-[11px] font-bold text-zinc-400 uppercase tracking-wider mb-1.5">Sex (for the calorie formula)</span><div class="flex gap-1.5" id="pt-pg-sex">${chip('data-psex="m"', "Male", p.sex !== "f")}${chip('data-psex="f"', "Female", p.sex === "f")}</div></div>
-      <div class="grid grid-cols-2 gap-2"><label class="block"><span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">Age</span><input id="pt-pg-age" type="number" inputmode="numeric" value="${p.age || ""}"></label><label class="block"><span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">Height (${kg ? "cm" : "in"})</span><input id="pt-pg-h" type="number" inputmode="decimal" value="${hv}"></label></div>
+      <div class="grid grid-cols-2 gap-2"><label class="block"><span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">Age</span><input id="pt-pg-age" type="number" inputmode="numeric" value="${PT.esc(p.age || "")}" class="w-full min-w-0 bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500"></label><label class="block"><span class="text-[11px] font-bold text-zinc-400 uppercase tracking-wider block mb-1.5">Height (${kg ? "cm" : "in"})</span><input id="pt-pg-h" type="number" inputmode="decimal" value="${PT.esc(hv)}" class="w-full min-w-0 bg-zinc-950 border border-zinc-800 rounded-xl px-3 py-2.5 text-sm text-white focus:outline-none focus:border-emerald-500"></label></div>
       <div class="sticky bottom-[calc(-1.25rem-env(safe-area-inset-bottom,0px))] -mx-5 -mb-5 px-5 pt-3 pb-[calc(1rem+env(safe-area-inset-bottom,0px))] bg-zinc-900 border-t border-zinc-800"><button type="button" id="pt-pg-save" class="w-full py-3 rounded-xl bg-emerald-600 text-white font-bold text-sm">Save</button></div>`);
     const st = { goal: p.goal, sex: p.sex === "f" ? "f" : "m" };
     c.addEventListener("click", e => {
@@ -40314,6 +40320,82 @@ if (typeof module !== "undefined" && module.exports) module.exports = PTBarCore;
     setTimeout(() => { try { run(this); } catch (e) { console.error("PulseTrack: vertical preacher curls change skipped", e); } }, 190);   // after 149 (180)
     return r;
   };
+})();
+</script>
+  <script>/* =====================================================================
+ * PulseTrack 3.27.0: security, and fixes from going through the whole app.
+ *  The owner: "add stuff so i cant get hacked like protection and stuff". What 3.27.0 adds (docs/SECURITY.md has the whole list):
+ *   - a Content-Security-Policy in the page (tools/build.py): only the app's own scripts run, so text that sneaks into the page from a
+ *     shared link, a backup file or a friend's code can never run as a program;
+ *   - text from those places is escaped in the workout cards (004, 007), ids from shared links keep only letters, digits, _ and - (005,
+ *     030);
+ *   - here (1): PulseTrack refuses to run inside another website's frame. A site that put the app in an invisible frame over its own page
+ *     could trick taps into it (clickjacking). The policy that would block that (frame-ancestors) only works as a server header and
+ *     GitHub Pages cannot send one, so the page checks for itself: inside a frame from another site it hides itself and shows a link
+ *     that opens PulseTrack on its own. A frame from PulseTrack's own address (none today) is allowed.
+ *   - here (2): a very long word no longer pushes the workout and day screens sideways.
+ *   - here (3): the workout screen with no program or day picked goes to the program (or day) list instead of a blank screen, and the
+ *     exercise picker with no day open says so instead of an error.
+ *  Other fixes from the run-through are in place: the "3 Sets × 6-8" line wraps its links instead of squeezing (004), and the reps box
+ *  is wide enough for "10-12" (004).
+ * ===================================================================== */
+(function () {
+  "use strict";
+  let framed = false, foreign = false;
+  try { framed = window.top !== window.self; } catch (e) { framed = true; }
+  if (framed) { try { foreign = window.top.location.origin !== location.origin; } catch (e) { foreign = true; } }   // reading another site's address throws
+  if (foreign) {
+    document.documentElement.style.visibility = "hidden";   // nothing to tap while the page is still loading
+    const show = () => {
+      const url = location.origin + location.pathname;
+      document.body.innerHTML = "";
+      const box = document.createElement("div");
+      box.setAttribute("style", "font:16px/1.5 system-ui,sans-serif;color:#e4e4e7;background:#09090b;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:24px;text-align:center");
+      const p = document.createElement("p"); p.textContent = "PulseTrack only runs on its own page, not inside another website.";
+      const a = document.createElement("a"); a.href = url; a.target = "_blank"; a.rel = "noopener noreferrer"; a.textContent = "Open PulseTrack";
+      a.setAttribute("style", "color:#09090b;background:#34d399;padding:10px 18px;border-radius:12px;font-weight:700;text-decoration:none");
+      box.append(p, a); document.body.appendChild(box);
+      document.documentElement.style.visibility = "visible";
+    };
+    if (document.body && document.readyState !== "loading") show(); else document.addEventListener("DOMContentLoaded", show);
+  }
+  if (typeof PT !== "undefined") PT.security = { framed, foreign };
+
+  // Fix: a very long word with no spaces (an exercise or day name typed that way or from a link) pushed the workout and day screens
+  // sideways (280 px at 360 px wide). It now breaks onto the next line; normal names are not affected (they only break where they
+  // would have stuck out).
+  const css = document.createElement("style"); css.id = "pt-fix-css";
+  css.textContent = "#view-workout, #view-days { overflow-wrap: anywhere; }";
+  document.head.appendChild(css);
+
+  // Fix: opening the workout screen with no program or no day picked (a fresh app, or a coach nudge's Start button, 049) threw an error
+  // half way and left a blank screen. It now goes to the program list (or the day list) and says what to pick.
+  if (typeof ApplicationUI !== "undefined") {
+    const proto = ApplicationUI.prototype, oShow = proto.showView, oRender = proto.renderWorkoutView;
+    if (oShow) proto.showView = function (v) {
+      if (v === "workout" && !(this.activeProgram && this.activeDay && Array.isArray(this.activeDay.exercises))) {
+        const to = this.activeProgram ? "days" : "programs";
+        try { this.toast(to === "days" ? "Pick a day first." : "Pick a program first."); } catch (e) { }
+        return oShow.call(this, to);
+      }
+      return oShow.apply(this, arguments);
+    };
+    // the exercise picker adds to (or swaps on) the open day; with no day open (it was closed meanwhile) it says so instead of an error
+    const oPick = proto.handleExerciseSelection;
+    if (oPick) proto.handleExerciseSelection = function () {
+      const t = this.exerciseModalTarget || {};
+      if ((t.action === "add" || t.action === "swap") && !(this.activeDay && Array.isArray(this.activeDay.exercises))) {   // "builder" and "hist" need no day
+        try { document.getElementById("modal-ex-selector").classList.add("hidden"); } catch (e) { }
+        try { this.toast("Open a workout day first."); } catch (e) { }
+        return;
+      }
+      return oPick.apply(this, arguments);
+    };
+    if (oRender) proto.renderWorkoutView = function () {
+      if (!(this.activeProgram && this.activeDay && Array.isArray(this.activeDay.exercises))) return;   // nothing to draw yet (timers call this too)
+      return oRender.apply(this, arguments);
+    };
+  }
 })();
 </script>
   <script>

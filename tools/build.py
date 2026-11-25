@@ -12,7 +12,7 @@ legal text lives in one place and the app shows exactly what the repo shows).
 The logo lives in src/logo/ (logo.svg, plus png192.b64 and png512.b64 made by tools/make_logo.py). {{logo_svg}} and {{logo_png192}} in the
 template become data addresses of it, and the icons in manifest.json are set from it too, so the logo is in one place.
 """
-import base64, json, os, re, sys
+import base64, hashlib, json, os, re, sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SRC = os.path.join(ROOT, 'src')
@@ -94,6 +94,28 @@ def md_html(text):
     return '\n'.join(blocks(text.splitlines()))
 
 
+# 3.27.0: the Content-Security-Policy for the page (a <meta> in the template, {{csp}}). script-src lists the SHA-256 of every inline
+# <script> as built, so injected markup (an onerror=, a javascript: link, a <script> put in by innerHTML) can never run, and nothing
+# else is allowed either. connect-src stays open (https: and http:) because the guide talks to Ollama on your own computer or network
+# at an address you type and to the cloud AI you pick. GitHub Pages cannot send headers, so frame-ancestors (which only works as a
+# header) is done in module 151 instead. docs/SECURITY.md explains each line.
+CSP = ("default-src 'self'; script-src 'self' {hashes}; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+       "font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob:; media-src 'self' data: blob:; "
+       "connect-src 'self' https: http: data: blob:; worker-src 'self'; manifest-src 'self'; frame-src 'none'; "
+       "object-src 'none'; base-uri 'none'; form-action 'none'")
+INLINE_SCRIPT = re.compile(r'<script(?![^>]*\bsrc=)[^>]*>(.*?)</script>', re.S | re.I)
+
+
+def script_hashes(html):
+    """'sha256-...' for each inline <script> body exactly as it is in the page (UTF-8), in page order, no repeats."""
+    out = []
+    for m in INLINE_SCRIPT.finditer(html):
+        h = "'sha256-%s'" % base64.b64encode(hashlib.sha256(m.group(1).encode('utf-8')).digest()).decode('ascii')
+        if h not in out:
+            out.append(h)
+    return out
+
+
 def build():
     version = read(os.path.join(SRC, 'VERSION')).strip()
     tpl = read(os.path.join(SRC, 'index.template.html'))
@@ -112,6 +134,9 @@ def build():
     html = re.sub(r'\{\{file:([^}]+)\}\}', put, tpl)
     html = html.replace('{{VERSION}}', version)
     html = html.replace('{{logo_svg}}', logo_svg()).replace('{{logo_png192}}', logo_png(192))
+    if html.count('{{csp}}') != 1:
+        sys.exit('error: the template needs exactly one {{csp}} (the Content-Security-Policy meta)')
+    html = html.replace('{{csp}}', CSP.format(hashes=' '.join(script_hashes(html))))
     # every file under src/js and src/css must be used exactly once
     for d in ('js', 'css'):
         for name in sorted(os.listdir(os.path.join(SRC, d))):

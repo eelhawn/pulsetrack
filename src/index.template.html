@@ -2,6 +2,10 @@
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
+  <!-- 3.27.0: only the app's own scripts may run (each inline script is allowed by its SHA-256, filled in by tools/build.py), nothing
+       is loaded from other sites except Google Fonts for a Mod, and no plug-ins, <base> or form posts elsewhere. See docs/SECURITY.md. -->
+  <meta http-equiv="Content-Security-Policy" content="{{csp}}">
+  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1034,6 +1038,7 @@
   <script>{{file:js/148-v3.24.0-sharms-curls.js}}</script>
   <script>{{file:js/149-v3.25.0-sharms-day-and-three-sets.js}}</script>
   <script>{{file:js/150-v3.26.0-vertical-preacher-curls.js}}</script>
+  <script>{{file:js/151-v3.27.0-security-and-fixes.js}}</script>
   <script>{{file:js/999-v2.34.0-progress-page-organised.js}}</script>
 <style id="pt-neat-borders">{{file:css/10-pt-neat-borders.css}}</style>
   <style id="pt-neat">{{file:css/11-pt-neat.css}}</style>
